@@ -11,13 +11,13 @@ const pictures = new Map(), keys = new Set(), pressed = new Set();
 const acts = [
   {id:'bront',name:'Fat Head Dave',tag:'The Breakwater',hp:146,color:'#ff855e',moves:['quake','slabs','eruption','rush','drop']},
   {id:'zephyr',name:'Halloween 2008',tag:'The Lantern King',hp:167,color:'#ffbf5b',moves:['rain','ricochet','eruption','sweep','drop']},
-  {id:'bigswole',name:'Big Swole',tag:'The Walking Wall',hp:189,color:'#87d7ff',moves:['rush','drop','crossfire','eruption','quake']},
+  {id:'bigswole',name:'Big Swole',tag:'The Walking Wall',hp:185,color:'#87d7ff',moves:['rush','drop','crossfire','eruption','quake']},
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:203,color:'#efa7ff',moves:['fan','rift','crossfire','ricochet','drop']}
 ];
 const moves = {
   quake:{name:'Floor shock',tip:'Jump',tell:28,active:38,rest:31},
   slabs:{name:'High and low',tip:'Duck, then jump',tell:34,active:57,rest:26},
-  rush:{name:'Shoulder charge',tip:'Dash through',tell:37,active:29,rest:33},
+  rush:{name:'Shoulder charge',tip:'Dash left to get clear',tell:37,active:29,rest:33},
   rain:{name:'Lantern drop',tip:'Leave the marked lanes',tell:38,active:52,rest:29},
   ricochet:{name:'Wild bounce',tip:'Watch the arcs',tell:26,active:49,rest:28},
   sweep:{name:'Low sweep',tip:'Jump the wave',tell:31,active:44,rest:27},
@@ -28,6 +28,7 @@ const moves = {
   rift:{name:'Rift pillars',tip:'Find clear floor',tell:42,active:36,rest:26}
 };
 const MAX_HP=5;
+const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MISSILE_COOLDOWN=120, BOMB_COOLDOWN=180;
 const boxes = {
   spark:{w:23,h:8,color:'#ffde65'},
@@ -41,7 +42,7 @@ const boxes = {
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const active = (...codes) => codes.some(code => keys.has(code));
 const tapped = (...codes) => codes.some(code => pressed.has(code));
-const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
+const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, hazards, camera, scene, time, banner, audio, act, transition, shake, cameraGoal;
 
 function picture(path) {
@@ -101,7 +102,8 @@ function sprite(id, frame, x, y, facing, scale = 1) {
 function walk(id, distance) {
   const art = ART.sprites[id];
   const loop = art.walk.length ? art.walk : [art.poses[2],art.poses[3],art.poses[4],art.poses[5]];
-  return loop[Math.floor(distance / 12) % loop.length];
+  const step=Math.floor(distance/12);
+  return loop[((step%loop.length)+loop.length)%loop.length];
 }
 
 function sound(freq, end, length, volume = .04) {
@@ -141,11 +143,11 @@ function begin(index = 0, nextAct = false) {
   scene = Math.floor(camera/STRIDE);
   shake = 0;
   transition = 0;
-  player = {x:260,y:FLOOR,vx:0,vy:0,face:1,hp:MAX_HP,inv:0,
+  player = {x:260,y:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,missileWait:0,bombWait:0};
   const kit = acts[act];
-  boss = {...kit,x:988,y:FLOOR,face:-1,hp:kit.hp,max:kit.hp,scale:kit.id==='sprotosales'?3.7:3.28,
-    phase:1,step:0,age:0,move:null,flash:0,lanes:[],rushX:988,rushDir:-1,distance:0};
+  boss = {...kit,x:BOSS_HOME,y:FLOOR,hp:kit.hp,max:kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
+    phase:1,step:0,age:0,move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   bullets = [];
   sparks = [];
   hazards = [];
@@ -184,8 +186,8 @@ function puff(x,y,color,count=9) {
   }
 }
 
-function hurt() {
-  if (player.inv || player.dash || !player.hp) return;
+function hurt(contact = false) {
+  if (player.inv || (!contact && player.dash) || !player.hp) return;
   player.hp--;
   player.inv=71;
   shake=12;
@@ -207,10 +209,6 @@ function movePlayer() {
   if (p.jumpBuffer) p.jumpBuffer--;
   if (tapped('Space','ArrowUp','KeyW')) p.jumpBuffer=7;
   const dx=Number(active('ArrowRight','KeyD'))-Number(active('ArrowLeft','KeyA'));
-  if (!p.dash) {
-    if (active('KeyX') && boss.hp) p.face=boss.x>=p.x?1:-1;
-    else if (dx) p.face=dx;
-  }
   p.crouch=active('ArrowDown','KeyS') && p.grounded && !p.dash;
   if (p.jumpBuffer && p.grounded && !p.dash) {
     p.jumpBuffer=0;
@@ -222,7 +220,7 @@ function movePlayer() {
   }
   if (!p.dashWait && (p.grounded || p.airDash) && tapped('ShiftLeft','ShiftRight')) {
     p.dash=11;
-    p.dashDir=dx || p.face;
+    p.dashDir=dx || 1;
     p.dashWait=24;
     p.airDash=false;
     p.crouch=false;
@@ -232,7 +230,7 @@ function movePlayer() {
   p.vx += (target-p.vx)*(dx?.63:.76);
   const prevX=p.x;
   p.x=clamp(p.x+(p.dash?p.dashDir*25:p.vx),58,W-58);
-  p.distance+=Math.abs(prevX-p.x);
+  p.distance+=p.x-prevX;
   if (p.dash) {
     if (time%2===0) puff(p.x,p.y-52,'#f6c774',4);
   } else if (!p.grounded) {
@@ -250,17 +248,17 @@ function movePlayer() {
   p.shot=(p.shot+1)%9;
   if (p.shot===1) {
     const y=p.y-(p.crouch?74:109);
-    fire(p.x+p.face*44,y,p.face*25,0,'spark',true);
+    fire(p.x+44,y,25,0,'spark',true);
     if (time%18<9) sound(500,250,.047,.019);
   }
   if (boss.hp && !p.missileWait && tapped('KeyC')) {
     p.missileWait=MISSILE_COOLDOWN;
-    fire(p.x+p.face*30,p.y-88,p.face*12,-5,'missile',true);
+    fire(p.x+30,p.y-88,12,-5,'missile',true);
     sound(590,860,.075,.025);
   }
   if (boss.hp && !p.bombWait && tapped('KeyV')) {
     p.bombWait=BOMB_COOLDOWN;
-    fire(p.x,p.y-103,p.face*5,-14,'bomb',true,.46);
+    fire(p.x,p.y-103,5,-14,'bomb',true,.46);
     sound(260,430,.10,.035);
   }
 }
@@ -271,23 +269,21 @@ function startMove() {
   b.move=order[b.step++%order.length];
   if (b.phase===3 && b.step%3===0) b.move=act===3?'rift':order[2];
   b.age=0;
-  b.face=player.x<b.x?-1:1;
-  b.rushX=b.x;
-  b.rushDir=b.face;
+  b.startX=b.x;
   const center=clamp(player.x+player.vx*6,110,W-110);
-  b.lanes=b.move==='rain' ? [center,clamp(center+180*b.face,85,W-85),clamp(center-180*b.face,85,W-85)] :
-    b.move==='rift' ? [center,clamp(center+242*b.face,90,W-90)] :
-    b.move==='eruption' ? [center,clamp(center+175*b.face,85,W-85)] :
-    b.move==='drop' ? [clamp(center,185,W-185)] : [];
-  if ((b.move==='rift' || b.move==='eruption') && b.phase>=2) b.lanes.push(clamp(center-235*b.face,90,W-90));
+  b.lanes=b.move==='rain' ? [center,clamp(center-180,85,W-85),clamp(center+180,85,W-85)] :
+    b.move==='rift' ? [center,clamp(center-242,90,W-90)] :
+    b.move==='eruption' ? [center,clamp(center-175,85,W-85)] :
+    b.move==='drop' ? [clamp(center+125,BOSS_MIN,BOSS_MAX)] : [];
+  if ((b.move==='rift' || b.move==='eruption') && b.phase>=2) b.lanes.push(clamp(center+235,90,W-90));
   b.lanes=b.lanes.filter((lane,i,lanes)=>!lanes.slice(0,i).some(other=>Math.abs(other-lane)<73));
   sound(196,125,.14,.045);
 }
 
 function attackBoss(t) {
-  const b=boss, side=b.face, x=b.x+side*104, hard=b.phase>=2;
+  const b=boss, x=b.x-146, hard=b.phase>=2;
   const speedFactor=1+act*.08;
-  const shot=(y,speed,shape,vy=0,gravity=0,bounces=0)=>fire(x,y,speed*speedFactor*side,vy,shape,false,gravity,bounces);
+  const shot=(y,speed,shape,vy=0,gravity=0,bounces=0)=>fire(x,y,-speed*speedFactor,vy,shape,false,gravity,bounces);
   switch (b.move) {
     case 'quake':
     case 'sweep':
@@ -303,15 +299,13 @@ function attackBoss(t) {
       if (t===19 || (hard && t===44)) shot(FLOOR-25,14.6,'boulder');
       break;
     case 'rush': {
-      const nextX=clamp(b.rushX+b.rushDir*(t+1)*(hard?28:23),176,W-170);
-      b.distance+=Math.abs(nextX-b.x);
-      b.x=nextX;
+      b.x=Math.max(BOSS_MIN,b.startX-(t+1)*(hard?15:12));
       if (t%4===0) puff(b.x,FLOOR-30,b.color,4);
       break;
     }
     case 'drop': {
       const f=Math.min(1,(t+1)/32);
-      b.x=b.rushX+(b.lanes[0]-b.rushX)*f;
+      b.x=b.startX+(b.lanes[0]-b.startX)*f;
       b.y=FLOOR-Math.sin(Math.PI*f)*187;
       if (t===31) {
         for (const dir of [-1,1]) fire(b.x,FLOOR-21,dir*(12+act),0,'boulder',false);
@@ -340,7 +334,7 @@ function attackBoss(t) {
       break;
     case 'fan':
       if (t===0 || (hard && t===27) || (b.phase===3 && t===47)) {
-        const aim=Math.atan2(player.y-60-(FLOOR-184),player.x-x);
+        const aim=Math.atan2(player.y-60-(FLOOR-184),Math.min(-90,player.x-x));
         const angles=t===0 ? [-.48,-.24,.24,.48] : b.phase===3 ? [-.55,-.27,0,.27,.55] : [-.34,0,.34];
         for (const delta of angles) fire(x,FLOOR-184,Math.cos(aim+delta)*10.7,Math.sin(aim+delta)*10.7,'orb',false);
       }
@@ -377,11 +371,24 @@ function updateBoss() {
   }
   const m=moves[b.move], t=b.age-m.tell;
   if (t>=0 && t<m.active) attackBoss(t);
-  const charging=b.move==='rush' && t>=0 && t<m.active;
-  const dropping=b.move==='drop' && t>=26 && t<=33;
-  if (Math.abs(player.x-b.x)<(charging || dropping ? 104 : 61) &&
-    player.y-playerHeight()<b.y && player.y>b.y-280) hurt();
+  if (t>=m.active) {
+    b.x+=clamp(BOSS_HOME-b.x,-8,8);
+  }
   if (++b.age >= m.tell+m.active+Math.max(9,m.rest-(b.phase-1)*7-act*4)) startMove();
+}
+
+function keepPlayerLeft() {
+  const p=player, front=boss.x-BOSS_FRONT;
+  if (p.x<front) return;
+  if (boss.hp && p.y-playerHeight()<boss.y && p.y>boss.y-110*boss.scale) {
+    hurt(true);
+    p.x=front-32;
+    p.vx=-7;
+    p.dash=0;
+  } else {
+    p.x=front;
+    p.vx=Math.min(0,p.vx);
+  }
 }
 
 function defeatBoss() {
@@ -432,7 +439,7 @@ function updateBullets() {
       if (shot.y>=FLOOR-12) {
         shot.y=FLOOR-12;
         boxBlast(shot);
-        if (b.hp && Math.abs(shot.x-b.x)<164 && b.y>=FLOOR-92) hitBoss(shot,4);
+        if (b.hp && Math.abs(shot.x-b.x)<198 && b.y>=FLOOR-92) hitBoss(shot,4);
         if (!b.hp && transition===108) break;
       }
       continue;
@@ -451,7 +458,7 @@ function updateBullets() {
       }
       continue;
     }
-    if (!b.hp || Math.abs(shot.x-b.x)>97 || shot.y<b.y-116*b.scale || shot.y>b.y-12) continue;
+    if (!b.hp || Math.abs(shot.x-b.x)>147 || shot.y<b.y-116*b.scale || shot.y>b.y-12) continue;
     const m=b.move && moves[b.move];
     const exposed=m && b.age>m.tell+m.active;
     const weak=exposed && Math.abs(shot.y-(FLOOR-222))<34;
@@ -487,6 +494,7 @@ function update() {
   time++;
   movePlayer();
   if (transition) {
+    keepPlayerLeft();
     updateBullets();
     if (--transition===0) {
       if (act+1===acts.length) {
@@ -496,7 +504,11 @@ function update() {
       }
     }
   } else {
+    const previousX=boss.x;
     updateBoss();
+    boss.moving=Math.abs(boss.x-previousX)>.5;
+    boss.distance+=boss.x-previousX;
+    keepPlayerLeft();
     if (mode==='play') updateBullets();
   }
   updateHazards();
@@ -549,7 +561,10 @@ function renderBoss() {
     }
     if (b.move==='quake' || b.move==='sweep') lane(0,W,FLOOR-45,45,b.color,pulse*.72);
     if (b.move==='slabs') lane(0,W,FLOOR-113,28,b.color,pulse*.70);
-    if (b.move==='rush') lane(0,W,FLOOR-12,12,b.color,pulse*.80);
+    if (b.move==='rush') {
+      const danger=BOSS_MIN-BOSS_FRONT;
+      lane(danger,W-danger,FLOOR-12,12,b.color,pulse*.80);
+    }
   }
   for (const h of hazards) {
     if (h.blast) {
@@ -575,11 +590,12 @@ function renderBoss() {
     else if (frames.ranged.length) pose=frames.ranged[Math.min(frames.ranged.length-1,Math.floor((b.age-m.tell)/4))];
     else pose=art[30];
   } else if (b.flash) pose=art[24];
+  else if (b.moving) pose=walk(b.id,b.distance);
   shadow(b.x,FLOOR,120);
   ctx.save();
   if (!b.hp) ctx.globalAlpha=clamp((transition-12)/25,0,1);
   if (b.flash && b.hp) ctx.filter='brightness(1.38)';
-  sprite(b.id,pose,b.x,b.y,b.face,b.scale);
+  sprite(b.id,pose,b.x,b.y,-1,b.scale);
   ctx.restore();
   if (exposed && b.hp) {
     ctx.strokeStyle='#ffe5a1';
@@ -600,7 +616,7 @@ function render() {
   const cast=art.cast[p.shot<2?2:3];
   const pose=p.dash?art.poses[6]:p.crouch?art.poses[10]:
     p.shot<3?cast:!p.grounded?art.poses[p.vy<0?8:9]:Math.abs(p.vx)>1?walk('rivet',p.distance):art.poses[time%46<23?0:1];
-  if (!p.inv || time%8<5) sprite('rivet',pose,p.x,p.y,p.face,1.20);
+  if (!p.inv || time%8<5) sprite('rivet',pose,p.x,p.y,1,1.20);
   for (const shot of bullets) {
     ctx.save();
     ctx.translate(shot.x,shot.y);

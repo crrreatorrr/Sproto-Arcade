@@ -3,12 +3,14 @@ SPROTO ARCADE • BOX BARRAGE
 Extract the whole folder and open index.html in a desktop browser.
 The game runs offline.
 
-Left / Right (or A / D)   Move
+Left / Right (or A / D)   Backpedal / Advance
 Space (or Up / W)         Jump. Hold for more height.
 Down (or S)               Crouch
 Shift                     Dash through danger, on the ground or in the air
-Hold X                    Face the boss while moving in either direction
 Escape                    Pause
+
+Golden Sproto always faces right, even while retreating. The boss stays
+on the right. Getting into its space deals contact damage.
 
 Weapons
 - Gold: automatic horizontal fire. Jump to hit exposed weak spots.
