@@ -1,7 +1,7 @@
 # Sproto Arcade · The Long Way Home
 
-Open `index.html` in a desktop browser. This is a single offline campaign that starts at Tidebreak Marina and continues across 103 connected backdrops. Follow the route into four boss fights, ending with Bot Sales. Losing a fight lets you rematch that boss.
+Open `index.html` in a desktop browser to play offline. Choose a starting level, then advance through ten scrolling stages and four boss fights. Each stage uses a continuous Higgsfield panorama in the theme of the original Sproto Fighter zone. The art reflects at its edges to repeat without crossfades.
 
-Golden Sproto always faces right and fires horizontally. Move with the arrow keys, jump with Space, crouch with Down, and dash with Shift. In boss fights, press C for a tracking missile and V for a tracking bomb. Both show their own cooldown.
+Golden Sproto always faces right and fires automatically. Use the arrow keys to move, Space to jump, Down to crouch, Shift to dash, C for a tracking missile, and V for a tracking bomb. See `PLAY.txt` for controls and checkpoint rules.
 
-See `PLAY.txt` for controls. Fighter sprites and scenery come from [Sproto Fighter](https://github.com/crrreatorrr/Sproto-Fighter). Higgsfield pixel art covers player and boss projectiles, Crossfire’s high laser bolt, bomb impacts, and the warning, rise, and retraction of floor hazards.
+Fighter sprites come from [Sproto Fighter](https://github.com/crrreatorrr/Sproto-Fighter). Higgsfield pixel art covers player and boss projectiles, Crossfire’s high laser bolt, bomb impacts, and the warning, rise, and retraction of floor hazards.
