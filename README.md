@@ -1,7 +1,11 @@
 # Sproto Arcade · The Long Way Home
 
-Open `index.html` in a desktop browser to play offline. Choose a starting level, then advance through ten scrolling stages and four boss fights. Each stage uses a continuous Higgsfield panorama in the theme of the original Sproto Fighter zone. The art reflects at its edges to repeat without crossfades.
+Open `index.html` in a desktop browser to play offline. Pick one of 14 Sprotos and choose a starting level.
 
-Golden Sproto always faces right and fires automatically. Use the arrow keys to move, Space to jump, Down to crouch, Shift to dash, C for a tracking missile, and V for a tracking bomb. See `PLAY.txt` for controls and checkpoint rules.
+The campaign has ten two-phase boss fights and a rooftop chase. Each fight starts in a scrolling panorama. When the first health bar empties, a boss-specific super effect plays, followed by a short blackout and a new arena. Phase 2 has its own scenery, hazards and attack rotation. Each boss health bar is divided into four sections that change the attack patterns.
 
-Fighter sprites come from [Sproto Fighter](https://github.com/crrreatorrr/Sproto-Fighter). Higgsfield pixel art covers player and boss projectiles, Crossfire’s high laser bolt, bomb impacts, and the warning, rise, and retraction of floor hazards.
+Mudline Trenches is a flying fight. The pilot sits inside a shared silver saucer with automatic green fire, a red beam on a retractable arm, a rear beach-ball launcher, and a three-second shield.
+
+Rooftop Breakaway is an auto-running platforming chase against Goldie. Jump and dash across rooftops while dodging his jetpack attacks. The skyline loops every two minutes, and the chase has an exit after one pass.
+
+See [PLAY.txt](PLAY.txt) for controls. The fighter sprites come from [Sproto Fighter](https://github.com/crrreatorrr/Sproto-Fighter). Higgsfield art covers arenas, attack effects, transitions and animated scenery.
