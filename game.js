@@ -1,11 +1,19 @@
 'use strict';
 
-const W = 1280, H = 720, FLOOR = 604, BLEND = 176, STRIDE = W - BLEND;
-const route = ART.route;
+const W = 1280, H = 720, FLOOR = 604, PANORAMA_WIDTH = 2176;
+const COURSE_LENGTH = PANORAMA_WIDTH * 2 + 280;
+const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
+const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel));
+const bossLevels = new Map([[0,0],[3,1],[6,2],[9,3]]);
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d', { alpha: false });
 const ui = Object.fromEntries(['hearts','count','location','boss','cue','dash','missile-status','bomb-status','notice','eyebrow','title','description','start'].map(id => [id, document.getElementById(id)]));
 const hud = document.querySelector('.hud'), overlay = document.querySelector('.overlay');
+const levelSelect = document.getElementById('level-select');
+for (const [index,level] of LEVELS.entries()) {
+  levelSelect.add(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
+}
+levelSelect.value = String(firstLevel);
 const pictures = new Map(), keys = new Set(), pressed = new Set();
 const acts = [
   {id:'bront',name:'Fat Head Dave',tag:'The Breakwater',hp:146,color:'#ff855e',moves:['quake','slabs','eruption','rush','drop']},
@@ -13,11 +21,6 @@ const acts = [
   {id:'bigswole',name:'Big Swole',tag:'The Walking Wall',hp:185,color:'#87d7ff',moves:['rush','drop','crossfire','eruption','quake']},
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:203,color:'#efa7ff',moves:['fan','rift','crossfire','ricochet','drop']}
 ];
-const chapters = acts.map((_,i) => {
-  const start=Math.floor((route.length-1)*i/acts.length);
-  const end=Math.floor((route.length-1)*(i+1)/acts.length);
-  return {start:start*STRIDE, gate:(start+(i===0?5:2))*STRIDE, end:end*STRIDE};
-});
 const moves = {
   quake:{name:'Floor shock',tip:'Jump',tell:28,active:38,rest:31},
   slabs:{name:'High and low',tip:'Duck, then jump',tell:34,active:57,rest:26},
@@ -47,7 +50,7 @@ const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const active = (...codes) => codes.some(code => keys.has(code));
 const tapped = (...codes) => codes.some(code => pressed.has(code));
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
-let mode = 'loading', player, boss, bullets, sparks, hazards, camera, scene, time, banner, audio, act, transition, shake, cameraGoal;
+let mode = 'loading', player, boss, bullets, sparks, hazards, camera, time, banner, audio, act, transition, shake, levelIndex, foes, panoramaTiles;
 
 function picture(path) {
   if (!pictures.has(path)) {
@@ -58,32 +61,21 @@ function picture(path) {
   return pictures.get(path);
 }
 
-const ranch = document.createElement('canvas');
-ranch.width = W;
-ranch.height = H;
-drawRanch(ranch.getContext('2d'), 0);
-
-function background(index) {
-  const path = route[index][1];
-  return path ? picture(path) : ranch;
-}
-
 function drawBackground() {
-  ctx.fillStyle = '#241b2b';
-  ctx.fillRect(0, 0, W, H);
-  const first = Math.max(0, Math.floor((camera - W) / STRIDE) + 1);
-  const last = Math.min(route.length - 1, Math.floor((camera + W) / STRIDE));
-  for (let i = first; i <= last; i++) {
-    const image = background(i), x = Math.round(i * STRIDE - camera);
-    if (image !== ranch && !image.naturalWidth) continue;
-    ctx.drawImage(image, BLEND, 0, image.width - BLEND, image.height, x + BLEND, 0, STRIDE, H);
-    if (i === first) ctx.drawImage(image, 0, 0, BLEND, image.height, x, 0, BLEND, H);
-    else for (let stripe = 0; stripe < BLEND; stripe += 8) {
-      ctx.globalAlpha = (stripe + 8) / BLEND;
-      ctx.drawImage(image, stripe, 0, 8, image.height, x + stripe, 0, 8, H);
-    }
-    ctx.globalAlpha = 1;
+  const tile = panoramaTiles[levelIndex];
+  const first = Math.floor(camera/PANORAMA_WIDTH);
+  const last = Math.floor((camera+W)/PANORAMA_WIDTH);
+  for (let i=first;i<=last;i++) {
+    const reversed = i%2!==0;
+    ctx.save();
+    ctx.translate(i*PANORAMA_WIDTH-Math.round(camera)+(reversed?PANORAMA_WIDTH:0),0);
+    ctx.scale(reversed?-1:1,1);
+    ctx.imageSmoothingEnabled=false;
+    ctx.drawImage(tile,0,0);
+    ctx.restore();
   }
+}
+function drawShade() {
   const shade = ctx.createLinearGradient(0, H - 108, 0, H);
   shade.addColorStop(0, '#100b1600');
   shade.addColorStop(1, '#100b16aa');
@@ -132,6 +124,7 @@ function announce(message, frames = 110) {
 function setOverlay(next, label, title, description, button) {
   mode = next;
   overlay.hidden = next === 'play';
+  levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   ui.eyebrow.textContent = label;
   ui.title.textContent = title;
   ui.description.textContent = description;
@@ -139,66 +132,69 @@ function setOverlay(next, label, title, description, button) {
   if (!overlay.hidden) ui.start.focus();
 }
 
-function newPlayer() {
-  return {x:260,y:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
+function begin(index = firstLevel, retryBoss = false) {
+  levelIndex = index;
+  levelSelect.value = String(index);
+  document.title = LEVELS[index].title + ' • Sproto Arcade';
+  act = bossLevels.get(index);
+  time = 0;
+  camera = retryBoss ? COURSE_LENGTH : 0;
+  shake = 0;
+  transition = 0;
+  player = {x:260,y:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,missileWait:0,bombWait:0};
-}
-
-function begin() {
-  time=0;
-  player=newPlayer();
-  hud.hidden=false;
+  boss = null;
+  foes = Array.from({length:9},(_,i)=>({
+    id:i%3===2?'rune':i%2?'mox':'zephyr',x:630+i*480,y:i%3===2?FLOOR-132:FLOOR,
+    hp:i%3===2?2:3,flash:0,distance:0,cooldown:55+i%3*19
+  }));
+  bullets = [];
+  sparks = [];
+  hazards = [];
+  hud.hidden = false;
   setOverlay('play','','','','');
-  approach(0);
+  if (retryBoss) startBoss();
+  else announce(LEVELS[index].title,100);
   refreshHud();
 }
 
-function approach(index) {
-  act=index;
-  camera=cameraGoal=chapters[act].start;
-  scene=Math.floor(camera/STRIDE);
-  boss=null;
-  transition=shake=0;
-  bullets=[];
-  sparks=[];
-  hazards=[];
-  player.hp=MAX_HP;
-  announce(index===0?'Tidebreak Marina  •  Head right →':'Checkpoint clear  •  Head right →',100);
-}
-
-function enterFight() {
-  const kit=acts[act];
-  boss={...kit,x:BOSS_HOME,y:FLOOR,hp:kit.hp,max:kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
+function startBoss() {
+  const kit = acts[act];
+  boss = {...kit,x:BOSS_HOME,y:FLOOR,hp:kit.hp,max:kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,step:0,age:0,move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
+  player.hp=MAX_HP;
+  player.inv=35;
+  bullets=[];
+  hazards=[];
+  sparks=[];
+  foes=[];
   announce(kit.name + '  •  ' + kit.tag,100);
 }
 
-function rematch() {
-  player=newPlayer();
-  camera=cameraGoal=chapters[act].gate;
-  transition=shake=0;
-  bullets=[];
-  sparks=[];
-  hazards=[];
-  setOverlay('play','','','','');
-  enterFight();
+function clearLevel() {
+  if (levelIndex+1===LEVELS.length) {
+    levelSelect.value=String(firstLevel);
+    setOverlay('won','Campaign clear','That’s all, Sproto!','The last giant is down.','Play again');
+  } else {
+    setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[levelIndex+1].title,'Next level');
+  }
 }
 
 function refreshHud() {
   ui.hearts.textContent = '♥'.repeat(player.hp) + '♡'.repeat(MAX_HP-player.hp);
-  ui.count.textContent = (boss?'BOSS ':'LEG ') + (act+1) + ' / ' + acts.length + '  ·  ' + (scene+1) + ' / ' + route.length;
-  ui.location.textContent = route[scene][0];
+  ui.count.textContent = 'LEVEL ' + (levelIndex+1) + ' / ' + LEVELS.length;
+  ui.location.textContent = LEVELS[levelIndex].title;
   ui.boss.hidden = !boss;
   if (boss) {
-    ui.boss.firstElementChild.textContent=boss.name+'  ·  PHASE '+boss.phase+' / 3';
-    ui.boss.querySelector('progress').value=boss.hp/boss.max;
+    ui.boss.firstElementChild.textContent = boss.name + '  ·  PHASE ' + boss.phase + ' / 3';
+    ui.boss.querySelector('progress').value = boss.hp/boss.max;
   }
   ui.dash.textContent=player.dashWait?'DASH RECHARGING':'DASH READY';
   ui.dash.classList.toggle('ready',!player.dashWait);
   showCooldown(ui['missile-status'],player.missileWait);
   showCooldown(ui['bomb-status'],player.bombWait);
   const m = boss?.move && moves[boss.move];
-  const message = !boss ? 'Follow the route →' : !boss.hp || !m ? '' : boss.age <= m.tell ? m.name + '  ·  ' + m.tip :
+  const message = !boss?.hp || !m ? (!boss ? Math.min(100,Math.floor(camera/COURSE_LENGTH*100))+'% explored  ·  Keep moving →' : '') : boss.age <= m.tell ? m.name + '  ·  ' + m.tip :
     boss.age > m.tell+m.active ? 'EXPOSED  ·  Jump to hit the weak spot' : '';
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
 }
@@ -222,7 +218,7 @@ function hurt(contact = false) {
   shake=12;
   puff(player.x,player.y-58,'#fff0cc',15);
   sound(135,47,.21,.11);
-  if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', 'Rematch boss');
+  if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss ? boss.name + ' wins this round.' : 'Try the stage again.', boss ? 'Rematch boss' : 'Retry level');
 }
 
 function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0) {
@@ -260,6 +256,12 @@ function movePlayer() {
   const prevX=p.x;
   p.x=clamp(p.x+(p.dash?p.dashDir*25:p.vx),58,W-58);
   p.distance+=p.x-prevX;
+  if (!boss) {
+    const scroll = Math.max(0,p.x-455);
+    p.x-=scroll;
+    camera+=scroll;
+    for (const object of [...bullets,...sparks,...hazards]) object.x-=scroll;
+  }
   if (p.dash) {
     if (time%2===0) puff(p.x,p.y-52,'#f6c774',4);
   } else if (!p.grounded) {
@@ -280,12 +282,12 @@ function movePlayer() {
     fire(p.x+44,y,25,0,'spark',true);
     if (time%18<9) sound(500,250,.047,.019);
   }
-  if (boss?.hp && !p.missileWait && tapped('KeyC')) {
+  if ((!boss || boss.hp) && !p.missileWait && tapped('KeyC')) {
     p.missileWait=MISSILE_COOLDOWN;
     fire(p.x+30,p.y-88,12,-5,'missile',true);
     sound(590,860,.075,.025);
   }
-  if (boss?.hp && !p.bombWait && tapped('KeyV')) {
+  if ((!boss || boss.hp) && !p.bombWait && tapped('KeyV')) {
     p.bombWait=BOMB_COOLDOWN;
     fire(p.x,p.y-103,5,-14,'bomb',true,.46);
     sound(260,430,.10,.035);
@@ -438,15 +440,42 @@ function boxBlast(shot) {
 }
 
 function steer(shot) {
-  if (!boss?.hp) return;
-  const dx=boss.x-shot.x;
+  const target = boss?.hp ? boss : !boss ? foes.find(e=>e.hp && e.x-camera>20 && e.x-camera<W+140) : null;
+  if (!target) return;
+  const dx=target.x-(boss?0:camera)-shot.x;
   if (shot.shape==='missile') {
-    const dy=boss.y-175-shot.y, length=Math.hypot(dx,dy)||1;
+    const dy=target.y-(boss?175:70)-shot.y, length=Math.hypot(dx,dy)||1;
     shot.vx+=(dx/length*18-shot.vx)*.15;
     shot.vy+=(dy/length*18-shot.vy)*.15;
   } else if (shot.shape==='bomb') {
     shot.vx+=(clamp(dx*.09,-16,16)-shot.vx)*.16;
   }
+}
+
+function updateFoes() {
+  for (const e of foes) {
+    const x=e.x-camera;
+    if (!e.hp || x<-80 || x>W+80) continue;
+    if (e.flash) e.flash--;
+    const direction = x > player.x ? -1 : 1;
+    if (e.id==='rune') e.y=FLOOR-125+Math.sin(time*.065+e.x)*32;
+    else {
+      e.x+=direction*1.55;
+      e.distance+=1.55;
+    }
+    if (--e.cooldown<=0) {
+      e.cooldown=108;
+      const dy=player.y-75-(e.y-70);
+      fire(x,e.y-70,direction*8,clamp(dy/85,-4,4),'orb',false);
+    }
+    if (Math.abs(x-player.x)<32 && player.y>e.y-93 && player.y-playerHeight()<e.y) hurt();
+  }
+}
+
+function hitFoe(foe,damage,shot) {
+  foe.hp=Math.max(0,foe.hp-damage);
+  foe.flash=5;
+  puff(foe.x-camera,shot.y,boxes[shot.shape].color,foe.hp?5:12);
 }
 
 function updateBullets() {
@@ -462,14 +491,17 @@ function updateBullets() {
       shot.y=FLOOR-13;
       shot.vy=-Math.max(6.5,Math.abs(shot.vy)*.72);
       shot.bounces--;
-      puff(shot.x,FLOOR,b.color,5);
+      puff(shot.x,FLOOR,b?.color ?? boxes[shot.shape].color,5);
     }
     if (shot.shape==='bomb' && shot.own) {
       if (shot.y>=FLOOR-12) {
         shot.y=FLOOR-12;
         boxBlast(shot);
+        if (!b) for (const foe of foes) {
+          if (foe.hp && Math.abs(shot.x-(foe.x-camera))<130 && foe.y>=FLOOR-94) hitFoe(foe,4,shot);
+        }
         if (b?.hp && Math.abs(shot.x-b.x)<198 && b.y>=FLOOR-92) hitBoss(shot,4);
-        if (!b?.hp && transition===108) break;
+        if (b && !b.hp && transition===108) break;
       }
       continue;
     }
@@ -487,7 +519,15 @@ function updateBullets() {
       }
       continue;
     }
-    if (!b?.hp || Math.abs(shot.x-b.x)>147 || shot.y<b.y-116*b.scale || shot.y>b.y-12) continue;
+    if (!b) {
+      const foe=foes.find(e=>e.hp && Math.abs(e.x-camera-shot.x)<41 && shot.y>e.y-132 && shot.y<e.y+6);
+      if (foe) {
+        shot.dead=true;
+        hitFoe(foe,shot.shape==='missile'?2:1,shot);
+      }
+      continue;
+    }
+    if (!b.hp || Math.abs(shot.x-b.x)>147 || shot.y<b.y-116*b.scale || shot.y>b.y-12) continue;
     const m=b.move && moves[b.move];
     const exposed=m && b.age>m.tell+m.active;
     const weak=exposed && Math.abs(shot.y-(FLOOR-222))<34;
@@ -519,32 +559,20 @@ function updateHazards() {
   hazards=hazards.filter(h=>h.age<(h.blast?13:35));
 }
 
-function advanceApproach() {
-  const shift=clamp(player.x-430,0,chapters[act].gate-camera);
-  camera+=shift;
-  cameraGoal=camera;
-  player.x-=shift;
-  for (const shot of bullets) shot.x-=shift;
-  for (const spark of sparks) spark.x-=shift;
-  if (camera>=chapters[act].gate) enterFight();
-  updateBullets();
-}
-
 function update() {
   time++;
   movePlayer();
   if (!boss) {
-    advanceApproach();
+    updateFoes();
+    if (mode==='play') updateBullets();
+    if (mode==='play' && camera>=COURSE_LENGTH) {
+      if (act===undefined) clearLevel();
+      else startBoss();
+    }
   } else if (transition) {
     keepPlayerLeft();
     updateBullets();
-    if (--transition===0) {
-      if (act+1===acts.length) {
-        setOverlay('won','Four giants down','That’s all, Sproto!','The Long Way Home is complete.','Play again');
-      } else {
-        approach(act+1);
-      }
-    }
+    if (--transition===0) clearLevel();
   } else {
     const previousX=boss.x;
     updateBoss();
@@ -562,16 +590,12 @@ function update() {
     s.life--;
   }
   sparks=sparks.filter(s=>s.life>0);
+  if (boss) {
+    const target=COURSE_LENGTH+PANORAMA_WIDTH*(1-boss.hp/boss.max);
+    camera+=(Math.max(camera,target)-camera)*.032;
+  }
   if (banner && --banner===0) ui.notice.hidden=true;
   if (shake) shake--;
-  if (boss) {
-    const {gate,end}=chapters[act];
-    cameraGoal=Math.max(cameraGoal,end-(end-gate)*boss.hp/boss.max);
-    camera+=(cameraGoal-camera)*(transition?.095:.032);
-    if (cameraGoal-camera<.5 || (transition===1 && act+1===acts.length)) camera=cameraGoal;
-  }
-  scene=clamp(Math.floor((camera+W*.5)/STRIDE),0,route.length-1);
-  for (let i=scene; i<=Math.min(scene+4,route.length-1); i++) background(i);
   refreshHud();
 }
 
@@ -620,7 +644,7 @@ function renderBoss() {
       lane(left,h.w,FLOOR-height,4,'#ffcad9',1);
     }
   }
-  if (!b?.hp && transition<12) return;
+  if (!b.hp && transition<12) return;
   const frames=ART.sprites[b.id], art=frames.poses;
   const strike=m && b.age>=m.tell && b.age<m.tell+m.active;
   const exposed=m && b.age>=m.tell+m.active;
@@ -652,9 +676,17 @@ function renderBoss() {
 
 function render() {
   drawBackground();
+  drawShade();
   ctx.save();
   if (shake) ctx.translate(Math.sin(time*1.8)*shake*.28,Math.cos(time*2)*shake*.25);
   if (boss) renderBoss();
+  else for (const e of foes) {
+    const x=e.x-camera;
+    if (!e.hp || x<-150 || x>W+150) continue;
+    const poses=ART.sprites[e.id].poses;
+    shadow(x,FLOOR,34);
+    sprite(e.id,e.flash?poses[24]:e.id==='rune'?poses[8]:walk(e.id,e.distance),x,e.y,x>player.x?-1:1,1.06);
+  }
   const p=player, art=ART.sprites.rivet;
   shadow(p.x,FLOOR,36);
   const cast=art.cast[p.shot<2?2:3];
@@ -705,8 +737,9 @@ ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
   if (mode==='paused') setOverlay('play','','','','');
-  else if (mode==='lost') rematch();
-  else begin();
+  else if (mode==='clear') begin(levelIndex+1);
+  else if (mode==='lost') begin(levelIndex,Boolean(boss));
+  else begin(Number(levelSelect.value));
 });
 
 let last=0,carry=0;
@@ -728,17 +761,35 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 
-const initial=[background(0),background(1),background(2)];
-for (const id of ['rivet',...acts.map(a=>a.id)]) {
+const panoramas=LEVELS.map(level=>picture(level.art));
+const initial=[...panoramas];
+for (const id of Object.keys(ART.sprites)) {
   const art=ART.sprites[id];
   for (const frame of [...Object.values(art.poses),...art.walk,...(art.cast??[]),...(art.entrance??[]),...(art.death??[]),...(art.ranged??[])]) initial.push(picture(frame[0]));
 }
 Promise.all(initial.map(img=>img.decode())).then(()=>{
+  panoramaTiles=panoramas.map((image,index)=>{
+    const tile=document.createElement('canvas');
+    tile.width=PANORAMA_WIDTH;
+    tile.height=H;
+    const art=tile.getContext('2d');
+    const foot=Math.round(image.height*LEVELS[index].foot);
+    art.drawImage(image,0,0,image.width,foot,0,0,PANORAMA_WIDTH,FLOOR);
+    art.drawImage(image,0,foot,image.width,image.height-foot,0,FLOOR,PANORAMA_WIDTH,H-FLOOR);
+    return tile;
+  });
   camera=0;
+  levelIndex=firstLevel;
   drawBackground();
+  ui.title.textContent=LEVELS[firstLevel].title;
   mode='title';
+  levelSelect.addEventListener('change',()=>{
+    levelIndex=Number(levelSelect.value);
+    ui.title.textContent=LEVELS[levelIndex].title;
+    drawBackground();
+  });
   ui.start.disabled=false;
-  ui.start.textContent='Start campaign';
+  ui.start.textContent='Start level';
   requestAnimationFrame(loop);
 }).catch(()=>{
   ui.start.textContent='Art could not load';

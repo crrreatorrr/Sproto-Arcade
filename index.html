@@ -26,17 +26,17 @@ button:hover{background:#fff0bc}button:focus-visible{outline:3px solid white;out
 kbd{color:var(--gold)}
 </style>
 <main>
-<header><span class="badge">✦ Sproto Arcade</span><span>One continuous campaign</span></header>
+<header><span class="badge">✦ Sproto Arcade</span><span>10 levels • 4 bosses</span></header>
 <div class="screen">
 <canvas width="1280" height="720" aria-label="Sproto Arcade campaign"></canvas>
 <div class="hud" hidden><div><b>HP</b> <span id="hearts"></span><span id="dash" class="ready">DASH READY</span></div><div id="scene"><span id="count"></span><span id="location"></span></div></div>
 <div id="boss" hidden><span></span><progress aria-label="Boss health" max="1" value="1"></progress></div>
 <div id="cue" aria-hidden="true"></div>
 <div id="notice" hidden></div>
-<div class="overlay"><div class="card"><div class="eyebrow" id="eyebrow">Golden Sproto in</div><h1 id="title">The Long<br>Way Home</h1><p id="description">Start at Tidebreak Marina and fight your way home through four colossal bosses.</p><button id="start" disabled>Loading art…</button></div></div>
+<div class="overlay"><div class="card"><div class="eyebrow" id="eyebrow">Golden Sproto in</div><h1 id="title">The Long<br>Way Home</h1><p id="description">Ten panoramic levels. Three weapons. Four colossal bosses.</p><label for="level-select" style="display:block;margin:0 0 12px">Start at <select id="level-select" aria-label="Starting level"></select></label><button id="start" disabled>Loading art…</button></div></div>
 </div>
 <footer><span><kbd>← →</kbd> Backpedal / Advance</span><span><kbd>Space</kbd> Jump</span><span><kbd>↓</kbd> Crouch</span><span><kbd>Shift</kbd> Dash</span><span><kbd>Esc</kbd> Pause</span></footer>
 <div class="weapons" aria-label="Weapons"><span><b>■</b> Horizontal • Auto</span><span><b>C</b> Tracking missile · <output id="missile-status">Ready</output></span><span><b>V</b> Tracking bomb · <output id="bomb-status">Ready</output></span></div>
 </main>
-<script src="original-art.js"></script><script src="assets.js"></script><script src="game.js"></script>
+<script src="original-art.js"></script><script src="assets.js"></script><script src="levels.js"></script><script src="game.js"></script>
 </html>
