@@ -35,13 +35,13 @@ const MAX_HP=5;
 const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MISSILE_COOLDOWN=120, BOMB_COOLDOWN=180;
 const boxes = {
-  spark:{w:23,h:8,color:'#ffde65'},
-  missile:{w:27,h:13,color:'#6aebff'},
-  bomb:{w:23,h:23,color:'#99fb92'},
-  boulder:{w:33,h:30,color:'#ff9356'},
-  prism:{w:35,h:13,color:'#ff6884'},
-  pumpkin:{w:25,h:25,color:'#ffba58'},
-  orb:{w:19,h:19,color:'#f3a1ff'}
+  spark:{w:23,h:8,color:'#ffde65',art:'player/spit'},
+  missile:{w:27,h:13,color:'#6aebff',art:'player/missile'},
+  bomb:{w:23,h:23,color:'#99fb92',art:'player/bomb'},
+  boulder:{w:33,h:30,color:'#ff9356',art:'boss/ground-shot'},
+  prism:{w:35,h:13,color:'#ff6884',art:'boss/high-shot'},
+  pumpkin:{w:25,h:25,color:'#ffba58',art:'boss/bounce-shot'},
+  orb:{w:19,h:19,color:'#f3a1ff',art:'boss/spread-shot'}
 };
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const active = (...codes) => codes.some(code => keys.has(code));
@@ -225,8 +225,8 @@ function hurt(contact = false) {
   if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', 'Rematch boss');
 }
 
-function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0) {
-  bullets.push({x,y,vx,vy,shape,own,gravity,bounces,age:0});
+function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0,laser=false) {
+  bullets.push({x,y,vx,vy,shape,own,gravity,bounces,laser,age:0});
 }
 
 function movePlayer() {
@@ -349,7 +349,7 @@ function attackBoss(t) {
         const right=t%24===0;
         const low=t%24===0 || (b.phase===3 && t===36);
         const y=FLOOR-(low?23:99);
-        fire(right?W-4:4,y,(right?-1:1)*(12+act),0,low?'boulder':'prism',false);
+        fire(right?W-4:4,y,(right?-1:1)*(12+act),0,low?'boulder':'prism',false,0,0,!low);
       }
       break;
     case 'rain':
@@ -589,6 +589,36 @@ function lane(x,width,y,height,color,alpha) {
   ctx.globalAlpha=1;
 }
 
+function attackArt(name) {
+  return picture(`art/attacks/${name}.png`);
+}
+
+function attackFrame(folder, index) {
+  return attackArt(`${folder}/0${index+1}`);
+}
+
+function drawColumn(h) {
+  const height=Math.ceil(floorHeight(h)), x=Math.round(h.x-h.w/2);
+  const y=FLOOR-height, folder=`hazards/${h.w}px`;
+  const top=attackArt(`${folder}/column-top`);
+  const middle=attackArt(`${folder}/column-middle`);
+  const base=attackArt(`${folder}/column-base`);
+  const capHeight=Math.min(top.height,height);
+  ctx.drawImage(top,0,0,h.w,capHeight,x,y,h.w,capHeight);
+  const baseHeight=Math.min(base.height,height-capHeight);
+  for (let offset=capHeight; offset<height-baseHeight; offset+=middle.height) {
+    const part=Math.min(middle.height,height-baseHeight-offset);
+    ctx.drawImage(middle,0,0,h.w,part,x,y+offset,h.w,part);
+  }
+  if (baseHeight) {
+    ctx.drawImage(base,0,0,h.w,baseHeight,x,FLOOR-baseHeight,h.w,baseHeight);
+  }
+  if (h.age>=27) {
+    const frame=attackFrame(`${folder}/retract`,Math.floor((h.age-27)/2));
+    ctx.drawImage(frame,x,FLOOR-frame.height);
+  }
+}
+
 function renderBoss() {
   const b=boss,m=b.move && moves[b.move];
   const telling=m && b.age<m.tell && b.hp;
@@ -597,8 +627,9 @@ function renderBoss() {
     const fromFloor=b.move==='rift'||b.move==='eruption';
     for (const x of b.lanes) {
       if (fromFloor) {
-        lane(x-42,84,FLOOR-19,19,'#f45283',pulse+.19);
-        lane(x-42,84,FLOOR-23,4,'#ffcad9',pulse+.22);
+        const width=b.move==='rift'?84:65;
+        const frame=attackFrame(`hazards/${width}px/warning`,Math.floor(b.age*3/m.tell));
+        ctx.drawImage(frame,Math.round(x-width/2),FLOOR-frame.height);
       } else {
         lane(x-43,86,180,FLOOR-180,b.color,pulse*.68);
       }
@@ -612,12 +643,11 @@ function renderBoss() {
   }
   for (const h of hazards) {
     if (h.blast) {
-      const w=h.w*(.45+h.age*.05);
-      lane(h.x-w/2,h.y-w,w,w,boxes.bomb.color,(13-h.age)*.035);
+      const frame=attackFrame('player/explosion',Math.floor(h.age*5/13));
+      const height=Math.round(h.w*frame.height/frame.width);
+      ctx.drawImage(frame,Math.round(h.x-h.w/2),FLOOR-height,h.w,height);
     } else {
-      const height=floorHeight(h), left=h.x-h.w/2;
-      lane(left,h.w,FLOOR-height,height,'#f45283',.86);
-      lane(left,h.w,FLOOR-height,4,'#ffcad9',1);
+      drawColumn(h);
     }
   }
   if (!b?.hp && transition<12) return;
@@ -654,6 +684,7 @@ function render() {
   drawBackground();
   ctx.save();
   if (shake) ctx.translate(Math.sin(time*1.8)*shake*.28,Math.cos(time*2)*shake*.25);
+  ctx.imageSmoothingEnabled=false;
   if (boss) renderBoss();
   const p=player, art=ART.sprites.rivet;
   shadow(p.x,FLOOR,36);
@@ -663,14 +694,18 @@ function render() {
   if (!p.inv || time%8<5) sprite('rivet',pose,p.x,p.y,1,1.20);
   for (const shot of bullets) {
     ctx.save();
-    ctx.translate(shot.x,shot.y);
-    ctx.rotate(Math.atan2(shot.vy,shot.vx));
+    ctx.translate(Math.round(shot.x),Math.round(shot.y));
+    ctx.imageSmoothingEnabled=false;
+    if (shot.shape==='missile') ctx.rotate(Math.atan2(shot.vy,shot.vx));
+    else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism')) ctx.scale(-1,1);
     const box=boxes[shot.shape];
-    ctx.fillStyle=box.color;
-    ctx.fillRect(-box.w/2,-box.h/2,box.w,box.h);
-    ctx.strokeStyle=shot.own?'#effff7':'#40172e';
-    ctx.lineWidth=2;
-    ctx.strokeRect(-box.w/2,-box.h/2,box.w,box.h);
+    if (shot.laser) {
+      ctx.drawImage(attackArt('player/laser/muzzle'),-17,-6,10,13);
+      ctx.drawImage(attackArt('player/laser/middle'),-7,-6,15,13);
+      ctx.drawImage(attackArt('player/laser/tip'),8,-6,10,13);
+    } else {
+      ctx.drawImage(attackArt(box.art),-Math.floor(box.w/2),-Math.floor(box.h/2));
+    }
     ctx.restore();
   }
   for (const s of sparks) {
@@ -732,6 +767,15 @@ const initial=[background(0),background(1),background(2)];
 for (const id of ['rivet',...acts.map(a=>a.id)]) {
   const art=ART.sprites[id];
   for (const frame of [...Object.values(art.poses),...art.walk,...(art.cast??[]),...(art.entrance??[]),...(art.death??[]),...(art.ranged??[])]) initial.push(picture(frame[0]));
+}
+for (const box of Object.values(boxes)) initial.push(attackArt(box.art));
+for (const part of ['muzzle','middle','tip']) initial.push(attackArt(`player/laser/${part}`));
+for (let i=0; i<5; i++) initial.push(attackFrame('player/explosion',i));
+for (const width of [65,84]) {
+  const folder=`hazards/${width}px`;
+  for (const part of ['top','middle','base']) initial.push(attackArt(`${folder}/column-${part}`));
+  for (let i=0; i<3; i++) initial.push(attackFrame(`${folder}/warning`,i));
+  for (let i=0; i<4; i++) initial.push(attackFrame(`${folder}/retract`,i));
 }
 Promise.all(initial.map(img=>img.decode())).then(()=>{
   camera=0;
