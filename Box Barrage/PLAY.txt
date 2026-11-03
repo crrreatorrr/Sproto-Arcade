@@ -1,0 +1,25 @@
+SPROTO ARCADE • BOX BARRAGE
+
+Extract the whole folder and open index.html in a desktop browser.
+The game runs offline.
+
+Left / Right (or A / D)   Move
+Space (or Up / W)         Jump. Hold for more height.
+Down (or S)               Crouch
+Shift                     Dash through danger, on the ground or in the air
+Hold X                    Face the boss while moving in either direction
+Escape                    Pause
+
+Weapons
+- Gold: automatic horizontal fire. Jump to hit exposed weak spots.
+- Cyan: press C for a tracking missile. Recharges in 2 seconds.
+- Green: press V for a tracking bomb. Recharges in 3 seconds.
+  The bomb arcs toward the boss and explodes on the floor.
+
+Boss projectiles and hazards are placeholder boxes. Pink floor markers
+warn where columns will rise. Clear the marked lanes before they erupt.
+Defeat each giant to refill your hearts and advance. A rematch starts at the
+current boss. Bot Sales is the final fight.
+
+The original Sproto fighter animations play at giant scale. All 99
+backdrops scroll continuously as you damage the bosses.

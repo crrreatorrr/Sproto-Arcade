@@ -1,0 +1,15 @@
+SPROTO ARCADE • TIDEBREAK MARINA LOOP TEST
+
+Extract the whole folder and open index.html in a desktop browser.
+The game runs offline. This test contains one standalone level.
+
+Left / Right (or A / D)   Move
+Space (or Up / W)         Jump
+Down (or S)               Crouch
+Z                         Spit (hold to repeat)
+Shift                     Dash
+Escape                    Pause
+
+Run right from the yacht pier to the cargo pier, then continue along the
+return route. The scenery wraps without resetting the camera or your movement.
+Each completed lap restores health and becomes the retry checkpoint.

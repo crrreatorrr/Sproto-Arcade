@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sproto • The Long Way Home</title>
+<style>
+:root{color-scheme:dark;--cream:#fff0c9;--gold:#ffcc59;--ink:#181218}
+*{box-sizing:border-box}body{margin:0;background:#17121a;color:var(--cream);font:14px system-ui,sans-serif;min-height:100svh;display:grid;place-items:center}
+main{width:min(1280px,100%);padding:clamp(8px,2vw,28px)}header,footer,.hud,.label{display:flex;align-items:center;justify-content:space-between;gap:12px}
+header,footer{font-weight:750;text-transform:uppercase;letter-spacing:.14em;font-size:clamp(9px,1.2vw,12px)}header{padding:0 2px 10px}footer{padding:12px 2px 0;color:#ded0b2;flex-wrap:wrap}
+.badge{color:var(--gold)}.screen{position:relative;aspect-ratio:16/9;border:2px solid #b88a53;overflow:hidden;background:#2a192a;box-shadow:0 10px 50px #000a}
+canvas{display:block;width:100%;height:100%}.hud{position:absolute;top:0;left:0;right:0;padding:clamp(5px,1.8vw,20px);font-size:clamp(8px,1.25vw,14px);background:linear-gradient(#100b16d9,transparent);align-items:start;text-shadow:0 2px 3px #000}
+#hearts{color:var(--gold);font-size:1.6em;letter-spacing:.12em}#scene{text-align:right;font-weight:900}#count{display:block;color:var(--gold);letter-spacing:.15em;font-size:.8em}
+#boss{position:absolute;left:30%;right:30%;top:12%;text-align:center;font-size:clamp(8px,1.1vw,14px);font-weight:900;text-shadow:0 1px 4px black}
+progress{display:block;width:100%;height:9px;accent-color:#ef7c57}
+.overlay{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse,#211122e8 0%,#160c1bd0 45%,#170a1c35 100%);text-align:center;padding:12px}
+[hidden]{display:none!important}.card{max-width:80%;padding:clamp(8px,2vw,30px);text-shadow:0 3px 0 #261426}.eyebrow{font-size:clamp(8px,1.35vw,15px);font-weight:850;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+h1{font:900 italic clamp(28px,7.5vw,104px)/.83 Georgia,serif;letter-spacing:-.065em;margin:.15em 0 .25em;text-wrap:balance}p{margin:.5em 0 1em;font-size:clamp(9px,1.4vw,16px);font-weight:650}
+button{font:900 clamp(10px,1.3vw,15px) system-ui;letter-spacing:.1em;text-transform:uppercase;border:1px solid #fff1bd;background:var(--gold);color:#21131d;padding:.65em 1.5em;border-radius:3px;cursor:pointer;box-shadow:0 4px 0 #8a4e34}
+button:hover{background:#fff0bc}button:focus-visible{outline:3px solid white;outline-offset:4px}
+#notice{position:absolute;left:0;right:0;top:22%;text-align:center;pointer-events:none;font:900 italic clamp(14px,3vw,38px) Georgia,serif;text-shadow:0 3px #201125,0 0 12px #000}
+kbd{color:var(--gold)}
+</style>
+<main>
+<a href="../index.html" style="display:inline-block;margin:0 0 10px;color:#ffcd62;font:700 13px system-ui;text-decoration:none">← Sproto Arcade</a>
+<header><span class="badge">✦ Sproto Arcade</span><span>Level 01 • Loop test</span></header>
+<div class="screen">
+<canvas width="1280" height="720" aria-label="Sproto side-scrolling game"></canvas>
+<div class="hud" hidden><div><b>HP</b> <span id="hearts"></span></div><div id="scene"><span id="count"></span><span id="location"></span></div></div>
+
+<div id="notice" hidden></div>
+<div class="overlay"><div class="card"><div class="eyebrow" id="eyebrow">Golden Sproto in</div><h1 id="title">Tidebreak<br>Marina</h1><p id="description">Level 01 • Tidebreak Marina</p><button id="start" disabled>Loading art…</button></div></div>
+</div>
+<footer><span><kbd>← →</kbd> Move</span><span><kbd>Space</kbd> Jump</span><span><kbd>Z</kbd> Spit</span><span><kbd>↓</kbd> Crouch</span><span><kbd>Shift</kbd> Dash</span><span><kbd>Esc</kbd> Pause</span></footer>
+</main>
+<script src="original-art.js"></script><script src="assets.js"></script><script src="game.js"></script>
+</html>

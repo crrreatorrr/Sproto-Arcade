@@ -1,0 +1,20 @@
+SPROTO ARCADE • THE LONG WAY HOME
+
+Extract the whole folder and open index.html in a desktop browser.
+The game runs offline.
+
+Left / Right (or A / D)   Move
+Space (or Up / W)         Jump
+Down (or S)               Crouch
+Z                         Spit (hold to repeat)
+Shift                     Dash
+Escape                    Pause
+
+Move right through the 99 connected backdrops. Checkpoints refill your four
+hearts. Defeat each boss to reopen the route. Spit always travels horizontally
+from Sproto's current height, so jump or crouch to change the firing lane.
+
+Art comes from Sproto Fighter's directional-spit build, merged stage catalog,
+and both 24-stage backdrop packs. Some backdrop images were resized and
+compressed for the offline download. The original fighter PNGs are included
+at their authored resolution.
