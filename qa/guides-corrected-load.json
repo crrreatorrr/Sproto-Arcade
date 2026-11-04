@@ -1,0 +1,375 @@
+{
+  "build": "4887031bbc4fedf29bccb25c5bfa017c3ab91cce",
+  "workingTree": "",
+  "kind": "offline-reference-review",
+  "status": "passed",
+  "packs": [
+    {
+      "id": "weapons/prism-rail",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/prism-rail/reference.svg"
+    },
+    {
+      "id": "weapons/ricochet-mine",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/ricochet-mine/reference.svg"
+    },
+    {
+      "id": "weapons/echo-decoy",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/echo-decoy/reference.svg"
+    },
+    {
+      "id": "bosses/01-marina",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/01-marina/reference.svg",
+      "gameplayReview": "art/rework/bosses/01-marina/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/02-last-light",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/02-last-light/reference.svg",
+      "gameplayReview": "art/rework/bosses/02-last-light/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/03-mudline",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/03-mudline/reference.svg",
+      "gameplayReview": "art/rework/bosses/03-mudline/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/04-ranch",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/04-ranch/reference.svg",
+      "gameplayReview": "art/rework/bosses/04-ranch/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/05-neon",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/05-neon/reference.svg",
+      "gameplayReview": "art/rework/bosses/05-neon/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/06-circuit",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/06-circuit/reference.svg",
+      "gameplayReview": "art/rework/bosses/06-circuit/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/07-moonkeep",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/07-moonkeep/reference.svg",
+      "gameplayReview": "art/rework/bosses/07-moonkeep/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/08-crown",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/08-crown/reference.svg",
+      "gameplayReview": "art/rework/bosses/08-crown/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/09-hatchery",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/09-hatchery/reference.svg",
+      "gameplayReview": "art/rework/bosses/09-hatchery/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/10-verse",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/10-verse/reference.svg",
+      "gameplayReview": "art/rework/bosses/10-verse/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/11-rooftop",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/11-rooftop/reference.svg",
+      "gameplayReview": "art/rework/bosses/11-rooftop/gameplay-scale.svg"
+    },
+    {
+      "id": "bosses/12-codebreak",
+      "status": "inventory-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/12-codebreak/reference.svg",
+      "gameplayReview": "art/rework/bosses/12-codebreak/gameplay-scale.svg"
+    }
+  ],
+  "pages": [
+    {
+      "file": "index.html",
+      "images": [],
+      "errors": []
+    },
+    {
+      "file": "art-review.html",
+      "images": [
+        {
+          "src": "art/rework/bosses/01-marina/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/01-marina/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/bosses/07-moonkeep/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/07-moonkeep/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/bosses/11-rooftop/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/11-rooftop/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/weapons/prism-rail/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "art/rework/weapons/ricochet-mine/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "art/rework/weapons/echo-decoy/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "guideImages": [
+    {
+      "src": "art/rework/weapons/prism-rail/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "art/rework/weapons/ricochet-mine/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "art/rework/weapons/echo-decoy/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "art/rework/bosses/01-marina/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "src": "art/rework/bosses/01-marina/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1440
+    },
+    {
+      "src": "art/rework/bosses/02-last-light/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/02-last-light/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/03-mudline/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/03-mudline/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/04-ranch/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/04-ranch/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/05-neon/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/05-neon/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/06-circuit/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/06-circuit/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/07-moonkeep/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "src": "art/rework/bosses/07-moonkeep/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1440
+    },
+    {
+      "src": "art/rework/bosses/08-crown/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/08-crown/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/09-hatchery/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/09-hatchery/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/10-verse/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/10-verse/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    },
+    {
+      "src": "art/rework/bosses/11-rooftop/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "src": "art/rework/bosses/11-rooftop/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1440
+    },
+    {
+      "src": "art/rework/bosses/12-codebreak/reference.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 1420
+    },
+    {
+      "src": "art/rework/bosses/12-codebreak/gameplay-scale.svg",
+      "complete": true,
+      "width": 1280,
+      "height": 2320
+    }
+  ],
+  "limitations": [
+    "Reference SVG guides are not production animations.",
+    "No human timing, pose or hit-area signoff is asserted."
+  ]
+}
