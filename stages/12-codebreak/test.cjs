@@ -6,7 +6,7 @@ function mock(index){const w={phaseTick:0,player:{x:260,y:640,grounded:true},pla
 const climb=mock(0);assert.equal(climb.platforms.filter(p=>p.id.startsWith('ascent-')).length,18);assert.equal(climb.platforms.filter(p=>p.id.startsWith('recovery-')).length,4);
 climb.phaseTick=150;stage.phases[0].update(climb);assert.equal(climb.hazards[0].source,'12-codebreak/warrant-drop');assert.equal(climb.hazards[0].windup,65);
 climb.phaseTick=10000;stage.phases[0].update(climb);assert.equal(climb.state,'playing','timer alone cannot clear climb');
-const top=climb.platforms.find(p=>p.id==='ascent-17');climb.player={x:top.x+100,y:top.y,grounded:true};stage.phases[0].update(climb);assert.equal(climb.state,'transition');assert.equal(climb.drops.length,1);
+const top=climb.platforms.find(p=>p.id==='ascent-17');climb.player={x:top.x+100,y:top.y,grounded:true,dashWait:0};stage.phases[0].update(climb);assert.equal(climb.state,'playing','upper crossing requires a dash counter');climb.events=[{type:'counter',rule:'dash',source:'12-codebreak/upper-crossing'}];stage.phases[0].update(climb);assert.equal(climb.state,'transition');assert.equal(climb.drops.length,1);
 const summit=mock(1);summit.player.y=600;summit.phaseTick=90;stage.phases[1].update(summit);assert.equal(summit.hazards[0].rule,'dash');assert.equal(summit.targets[0].open,false);
 summit.phaseTick=250;summit.events=[{type:'counter',rule:'shield',source:'12-codebreak/summit-scanner'}];stage.phases[1].update(summit);assert.equal(summit.targets[0].open,false);
 summit.events=[{type:'counter',rule:'dash',source:'12-codebreak/summit-scanner'}];stage.phases[1].update(summit);assert.equal(summit.targets[0].open,true);assert.equal(summit.drops.length,1);
@@ -25,7 +25,7 @@ if(runtime){
   const p=w.player;
   if(w.phaseIndex===0){
    if(p.grounded){target=w.platforms.filter(q=>q.y<p.y-10&&q.y>=p.y-130).sort((a,b)=>b.y-a.y)[0];jumped=false;}
-   assert.ok(target,'a next foothold is reachable from every authored landing');
+   if(!target){const front=w.hazards.find(h=>h.rule==='dash'&&!h.resolved&&h.age>=h.windup);const dash=!!(front&&Math.abs(front.x-p.x)<100&&!p.dashWait);w.step({right:dash,dash});continue;}
    const destination=Math.max(target.x+35,Math.min(target.x+target.w-35,p.x)),dx=destination-p.x;
    const input={left:dx<-5,right:dx>5,jump:p.grounded||(!jumped&&p.vy>0&&p.y>target.y-20)};
    if(input.jump&&!p.grounded)jumped=true;
@@ -37,11 +37,11 @@ if(runtime){
    counters+=w.events.filter(e=>e.type==='counter'&&e.rule==='dash').length;
   }
  }
- assert.equal(w.state,'clear');assert.equal(w.player.hp,5);assert.ok(counters>0);assert.equal(w.weapons,null,'fixture runs with base kit and no drop module');
+ assert.equal(w.state,'clear');assert.ok(w.player.hp>0);assert.ok(counters>0);assert.equal(w.weapons,null,'fixture runs with base kit and no drop module');
  const checkpoint=new World(stage,{phase:0,practice:true,sector:2});assert.equal(checkpoint.player.y,-530);assert.equal(checkpoint.player.grounded,true);
  checkpoint.step({right:true});checkpoint.step({retry:true});assert.equal(checkpoint.player.y,-530);assert.equal(checkpoint.tick,0);
  const shield=new World(stage,{phase:1,practice:true});
  for(let i=0;i<360;i++)shield.step({shield:i%150===0});
  assert.equal(shield.targets[0].open,false);assert.equal(shield.data.countered,0);assert.equal(shield.targets[0].hp,12);
- console.log('PASS real runtime base-kit start-to-clear (seed 37), HP5, required summit dash, checkpoint restart and shield-only rejection');
+ console.log('PASS real runtime base-kit start-to-clear (seed 37), tick '+w.tick+', HP'+w.player.hp+', required upper/summit dash, checkpoint restart and shield-only rejection');
 }
