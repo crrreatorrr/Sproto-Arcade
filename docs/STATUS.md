@@ -1,6 +1,6 @@
 # Sproto Arcade execution checkpoint
 
-Local branch: **arcade/integration**. Gameplay code is verified at **e1c9dbc** and unchanged in later documentation/reference commits. Original main remains clean at a25acb1; the older detached f60fd6d worktree is preserved. No push, publication or final animation generation occurred.
+Integration branch: **arcade/integration**. Gameplay code is verified at **e1c9dbc** and unchanged in later documentation/reference commits. The starting local-main baseline was a25acb1; the older detached f60fd6d worktree is preserved. The user now requires completed, verified work to be integrated into local main as it is finished; see AGENTS.md. This means local integration, with no remote push or publication. No final animation generation has occurred.
 
 | Milestone | Exact status | Evidence |
 |---|---|---|
