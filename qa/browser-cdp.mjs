@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawn} from 'node:child_process';
 export const wait=ms=>new Promise(r=>setTimeout(r,ms));
-export async function openBrowser(url){
+export async function openBrowser(url,{initScripts=[]}={}){
  const profile=fs.mkdtempSync(path.join(os.tmpdir(),'arcade-qa-cdp-'));
  const chrome=process.env.CHROME_BIN||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
  const child=spawn(chrome,['--headless=new','--no-first-run','--no-default-browser-check','--disable-gpu','--allow-file-access-from-files','--remote-debugging-port=0','--user-data-dir='+profile,'about:blank'],{stdio:'ignore'});
@@ -20,7 +20,7 @@ export async function openBrowser(url){
   socket.addEventListener('message',event=>{const m=JSON.parse(event.data);if(m.id){const p=pending.get(m.id);if(p){pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result);}}else events.push(m);});
   const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++seq;pending.set(id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});
   const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;};
-  await send('Runtime.enable');await send('Log.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1150,deviceScaleFactor:1,mobile:false});await send('Page.navigate',{url});
+  await send('Runtime.enable');await send('Log.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1150,deviceScaleFactor:1,mobile:false});for(const source of initScripts)await send('Page.addScriptToEvaluateOnNewDocument',{source});await send('Page.navigate',{url});
   return {send,evaluate,events,async close(){socket.close();child.kill('SIGTERM');await wait(300);fs.rmSync(profile,{recursive:true,force:true});}};
  }catch(e){socket?.close();child.kill('SIGTERM');await wait(300);fs.rmSync(profile,{recursive:true,force:true});throw e;}
 }
