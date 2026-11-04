@@ -1,0 +1,405 @@
+{
+  "build": "7c625248e7f46f763341a5da9f590e6d354ed686",
+  "workingTree": "",
+  "status": "passed",
+  "kind": "actual-browser-raf-refresh-fixture",
+  "exactSnapshots": true,
+  "rows": [
+    {
+      "hz": 30,
+      "frames": 72,
+      "durationMs": 2400.001,
+      "snapshot": {
+        "tick": 144,
+        "phase": 0,
+        "state": "playing",
+        "player": {
+          "x": 950,
+          "y": 600,
+          "vx": 5,
+          "vy": 0,
+          "hp": 4,
+          "dash": 0
+        },
+        "targets": [
+          {
+            "id": "marina-vent",
+            "hp": 18,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "marina-wake-0-0",
+            "x": 804,
+            "y": 568,
+            "age": 24,
+            "resolved": true
+          }
+        ],
+        "shots": [
+          {
+            "x": 2440,
+            "y": 574,
+            "ttl": 17
+          },
+          {
+            "x": 2308,
+            "y": 574,
+            "ttl": 29
+          },
+          {
+            "x": 2176,
+            "y": 574,
+            "ttl": 41
+          },
+          {
+            "x": 2044,
+            "y": 574,
+            "ttl": 53
+          },
+          {
+            "x": 1912,
+            "y": 574,
+            "ttl": 65
+          },
+          {
+            "x": 1780,
+            "y": 574,
+            "ttl": 77
+          },
+          {
+            "x": 1648,
+            "y": 574,
+            "ttl": 89
+          },
+          {
+            "x": 1516,
+            "y": 574,
+            "ttl": 101
+          },
+          {
+            "x": 1384,
+            "y": 574,
+            "ttl": 113
+          },
+          {
+            "x": 1252,
+            "y": 574,
+            "ttl": 125
+          },
+          {
+            "x": 1120,
+            "y": 574,
+            "ttl": 137
+          },
+          {
+            "x": 988,
+            "y": 574,
+            "ttl": 149
+          }
+        ],
+        "failure": "marina.breakwater-slam.wake"
+      },
+      "errors": []
+    },
+    {
+      "hz": 60,
+      "frames": 144,
+      "durationMs": 2400.001,
+      "snapshot": {
+        "tick": 144,
+        "phase": 0,
+        "state": "playing",
+        "player": {
+          "x": 950,
+          "y": 600,
+          "vx": 5,
+          "vy": 0,
+          "hp": 4,
+          "dash": 0
+        },
+        "targets": [
+          {
+            "id": "marina-vent",
+            "hp": 18,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "marina-wake-0-0",
+            "x": 804,
+            "y": 568,
+            "age": 24,
+            "resolved": true
+          }
+        ],
+        "shots": [
+          {
+            "x": 2440,
+            "y": 574,
+            "ttl": 17
+          },
+          {
+            "x": 2308,
+            "y": 574,
+            "ttl": 29
+          },
+          {
+            "x": 2176,
+            "y": 574,
+            "ttl": 41
+          },
+          {
+            "x": 2044,
+            "y": 574,
+            "ttl": 53
+          },
+          {
+            "x": 1912,
+            "y": 574,
+            "ttl": 65
+          },
+          {
+            "x": 1780,
+            "y": 574,
+            "ttl": 77
+          },
+          {
+            "x": 1648,
+            "y": 574,
+            "ttl": 89
+          },
+          {
+            "x": 1516,
+            "y": 574,
+            "ttl": 101
+          },
+          {
+            "x": 1384,
+            "y": 574,
+            "ttl": 113
+          },
+          {
+            "x": 1252,
+            "y": 574,
+            "ttl": 125
+          },
+          {
+            "x": 1120,
+            "y": 574,
+            "ttl": 137
+          },
+          {
+            "x": 988,
+            "y": 574,
+            "ttl": 149
+          }
+        ],
+        "failure": "marina.breakwater-slam.wake"
+      },
+      "errors": []
+    },
+    {
+      "hz": 120,
+      "frames": 288,
+      "durationMs": 2400.001,
+      "snapshot": {
+        "tick": 144,
+        "phase": 0,
+        "state": "playing",
+        "player": {
+          "x": 950,
+          "y": 600,
+          "vx": 5,
+          "vy": 0,
+          "hp": 4,
+          "dash": 0
+        },
+        "targets": [
+          {
+            "id": "marina-vent",
+            "hp": 18,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "marina-wake-0-0",
+            "x": 804,
+            "y": 568,
+            "age": 24,
+            "resolved": true
+          }
+        ],
+        "shots": [
+          {
+            "x": 2440,
+            "y": 574,
+            "ttl": 17
+          },
+          {
+            "x": 2308,
+            "y": 574,
+            "ttl": 29
+          },
+          {
+            "x": 2176,
+            "y": 574,
+            "ttl": 41
+          },
+          {
+            "x": 2044,
+            "y": 574,
+            "ttl": 53
+          },
+          {
+            "x": 1912,
+            "y": 574,
+            "ttl": 65
+          },
+          {
+            "x": 1780,
+            "y": 574,
+            "ttl": 77
+          },
+          {
+            "x": 1648,
+            "y": 574,
+            "ttl": 89
+          },
+          {
+            "x": 1516,
+            "y": 574,
+            "ttl": 101
+          },
+          {
+            "x": 1384,
+            "y": 574,
+            "ttl": 113
+          },
+          {
+            "x": 1252,
+            "y": 574,
+            "ttl": 125
+          },
+          {
+            "x": 1120,
+            "y": 574,
+            "ttl": 137
+          },
+          {
+            "x": 988,
+            "y": 574,
+            "ttl": 149
+          }
+        ],
+        "failure": "marina.breakwater-slam.wake"
+      },
+      "errors": []
+    },
+    {
+      "hz": 144,
+      "frames": 346,
+      "durationMs": 2400.001,
+      "snapshot": {
+        "tick": 144,
+        "phase": 0,
+        "state": "playing",
+        "player": {
+          "x": 950,
+          "y": 600,
+          "vx": 5,
+          "vy": 0,
+          "hp": 4,
+          "dash": 0
+        },
+        "targets": [
+          {
+            "id": "marina-vent",
+            "hp": 18,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "marina-wake-0-0",
+            "x": 804,
+            "y": 568,
+            "age": 24,
+            "resolved": true
+          }
+        ],
+        "shots": [
+          {
+            "x": 2440,
+            "y": 574,
+            "ttl": 17
+          },
+          {
+            "x": 2308,
+            "y": 574,
+            "ttl": 29
+          },
+          {
+            "x": 2176,
+            "y": 574,
+            "ttl": 41
+          },
+          {
+            "x": 2044,
+            "y": 574,
+            "ttl": 53
+          },
+          {
+            "x": 1912,
+            "y": 574,
+            "ttl": 65
+          },
+          {
+            "x": 1780,
+            "y": 574,
+            "ttl": 77
+          },
+          {
+            "x": 1648,
+            "y": 574,
+            "ttl": 89
+          },
+          {
+            "x": 1516,
+            "y": 574,
+            "ttl": 101
+          },
+          {
+            "x": 1384,
+            "y": 574,
+            "ttl": 113
+          },
+          {
+            "x": 1252,
+            "y": 574,
+            "ttl": 125
+          },
+          {
+            "x": 1120,
+            "y": 574,
+            "ttl": 137
+          },
+          {
+            "x": 988,
+            "y": 574,
+            "ttl": 149
+          }
+        ],
+        "failure": "marina.breakwater-slam.wake"
+      },
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Controlled RAF timestamps exercise the actual adapter; this does not measure physical monitor behavior or dropped-frame performance.",
+    "Uses legal held-right input on Marina, seed777, no world-state mutation."
+  ]
+}

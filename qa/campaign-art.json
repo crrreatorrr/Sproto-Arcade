@@ -1,0 +1,127 @@
+{
+  "build": "7c625248e7f46f763341a5da9f590e6d354ed686",
+  "workingTree": "",
+  "kind": "offline-reference-review",
+  "status": "passed",
+  "packs": [
+    {
+      "id": "bosses/01-marina",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/01-marina/reference.svg"
+    },
+    {
+      "id": "bosses/07-moonkeep",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/07-moonkeep/reference.svg"
+    },
+    {
+      "id": "bosses/11-rooftop",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/bosses/11-rooftop/reference.svg"
+    },
+    {
+      "id": "weapons/prism-rail",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/prism-rail/reference.svg"
+    },
+    {
+      "id": "weapons/ricochet-mine",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/ricochet-mine/reference.svg"
+    },
+    {
+      "id": "weapons/echo-decoy",
+      "status": "reference-only",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0,
+      "reference": "art/rework/weapons/echo-decoy/reference.svg"
+    }
+  ],
+  "pages": [
+    {
+      "file": "index.html",
+      "images": [],
+      "errors": []
+    },
+    {
+      "file": "art-review.html",
+      "images": [
+        {
+          "src": "art/rework/bosses/01-marina/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/01-marina/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/bosses/07-moonkeep/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/07-moonkeep/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/bosses/11-rooftop/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "art/rework/bosses/11-rooftop/gameplay-scale.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "src": "art/rework/weapons/prism-rail/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "art/rework/weapons/ricochet-mine/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "art/rework/weapons/echo-decoy/reference.svg",
+          "complete": true,
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Reference SVG guides are not production animations.",
+    "No human timing, pose or hit-area signoff is asserted."
+  ]
+}

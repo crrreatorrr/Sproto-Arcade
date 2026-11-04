@@ -1,0 +1,786 @@
+{
+  "build": "7c625248e7f46f763341a5da9f590e6d354ed686",
+  "workingTree": "",
+  "kind": "offline-menu-and-keyboard-smoke",
+  "status": "passed",
+  "registered": 12,
+  "rows": [
+    {
+      "stage": "01-marina",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 9,
+        "objective": "Jump the low wake. Steam reveals the vent after the slam.",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Dash the marked pressure front, shoot the release valve, punish the vent.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "01-marina",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Read the three pipes; dash through the marked pressure front.",
+        "mode": "fixed",
+        "targets": 2,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "02-last-light",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Move left of the booth before the iris locks its lane.",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Stand behind the low mirror to bait a return into the rear housing.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "02-last-light",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Bait the locked beam from left of the low mirror.",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "03-mudline",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Read the filling glass belly",
+        "mode": "flight",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Release a shutter, dash the marked front, then hit the glass vent.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "03-mudline",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)",
+        "mode": "flight",
+        "targets": 3,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "04-ranch",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "APPROACH · advance and jump the rolling cutters",
+        "mode": "horizontal",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Cross the uncoupled cars, break the engine linkage",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "04-ranch",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "UNCOUPLE · air dash across the marked gap",
+        "mode": "horizontal",
+        "targets": 1,
+        "platforms": 2,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "05-neon",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "SALVAGE · choose a route and break the claw drive",
+        "mode": "horizontal",
+        "targets": 1,
+        "platforms": 4,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Climb the moving signs and align shots with the drive",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "05-neon",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "WINCH RESET · find a sign at drive height",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 4,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "06-circuit",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Break both relays: the upper relay needs elevated footing.",
+        "mode": "fixed",
+        "targets": 3,
+        "platforms": 2,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Dash the firewall, break the live relay before transfer resets; complete two nodes.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "06-circuit",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Dash the marked firewall to expose a live relay (0/2).",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "07-moonkeep",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Ride the lift · jaw locks before the bite",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 4,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Air dash across the upper break, then attack the joint",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "07-moonkeep",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 6,
+        "objective": "» AIR DASH from the upper launch to the far landing",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 5,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "08-crown",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Shield matching reels to expose the knight core.",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Dash the marked lance, then shield the returning reel pulse. Punish each opening.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "08-crown",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Dash the lance to expose the near core (two-core objective).",
+        "mode": "fixed",
+        "targets": 2,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "09-hatchery",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Pods hatch in order · keep footing or break a shell",
+        "mode": "fixed",
+        "targets": 4,
+        "platforms": 7,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Break moving shells to fire through the lower lane",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "09-hatchery",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Shell in the lane · break it before shooting the hatch",
+        "mode": "fixed",
+        "targets": 2,
+        "platforms": 2,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "10-verse",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 6,
+        "objective": "RIFT 1/3 — choose lane, then dash the marked front",
+        "mode": "flight",
+        "targets": 0,
+        "platforms": 0,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Read the hinged module, match its exposed side, then fire; use the brief center lane.",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "10-verse",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "HINGE LEFT — move to that side for the opening",
+        "mode": "orbit",
+        "targets": 1,
+        "platforms": 0,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "11-rooftop",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 7,
+        "objective": "ROUTE · 1% · marked dash crossing ahead",
+        "mode": "horizontal",
+        "targets": 0,
+        "platforms": 6,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "ESCAPE · reach the marked extraction exit",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "11-rooftop",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "ESCAPE · 1% · marked dash crossing ahead",
+        "mode": "horizontal",
+        "targets": 0,
+        "platforms": 3,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "12-codebreak",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Climb to the summit · sector 1/3",
+        "mode": "vertical",
+        "targets": 0,
+        "platforms": 23,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": {
+        "phase": 1,
+        "state": "playing",
+        "staleHazards": false,
+        "objective": "Dash through the scanner, then shoot the vent",
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "12-codebreak",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 7,
+        "objective": "Dash through the scanner to unlock the vent",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "dashObserved": true,
+      "shieldObserved": true,
+      "transition": null,
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    }
+  ],
+  "paused": true,
+  "resumed": true,
+  "exceptions": [],
+  "errors": [],
+  "limitations": [
+    "Phase transitions and losses invoked explicitly; no earned completion tested.",
+    "Registration count may be partial during integration.",
+    "No human comprehension or visual balance validation."
+  ]
+}

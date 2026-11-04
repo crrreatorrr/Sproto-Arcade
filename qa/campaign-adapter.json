@@ -1,0 +1,116 @@
+{
+  "build": "7c625248e7f46f763341a5da9f590e6d354ed686",
+  "workingTree": "",
+  "status": "passed",
+  "kind": "offline-adapter-regression",
+  "checks": [
+    {
+      "name": "reserved action cannot replace dash; chosen key replaces Shift",
+      "status": "passed",
+      "detail": {
+        "reserved": true,
+        "remapped": true,
+        "oldDisabled": true
+      }
+    },
+    {
+      "name": "Escape repeat does not toggle pause twice",
+      "status": "passed",
+      "detail": {
+        "paused": true,
+        "resumed": true
+      }
+    },
+    {
+      "name": "transformation can pause; dispatched blur pauses it and clears movement",
+      "status": "passed",
+      "detail": {
+        "before": {
+          "paused": true,
+          "state": "transition",
+          "tick": 2,
+          "transition": 0
+        },
+        "fixed": true,
+        "blur": {
+          "paused": true,
+          "state": "transition",
+          "tick": 4
+        },
+        "blurFrozen": true,
+        "final": {
+          "state": "playing",
+          "phase": 1,
+          "x": 260,
+          "spawn": 260
+        }
+      }
+    },
+    {
+      "name": "full, phase practice and sector records use independent keys",
+      "status": "passed",
+      "detail": {
+        "records": [
+          {
+            "entry": "0",
+            "phase": 0,
+            "sector": 0,
+            "practice": false
+          },
+          {
+            "entry": "1",
+            "phase": 1,
+            "sector": 0,
+            "practice": true
+          },
+          {
+            "entry": "sector-2",
+            "phase": 0,
+            "sector": 2,
+            "practice": true
+          },
+          {
+            "entry": "sector-3",
+            "phase": 0,
+            "sector": 3,
+            "practice": true
+          }
+        ],
+        "stored": {
+          "11-rooftop:full": 240,
+          "11-rooftop:practice:phase1:sector0": 120,
+          "11-rooftop:practice:phase0:sector2": 180,
+          "11-rooftop:practice:phase0:sector3": 360
+        },
+        "forcedClear": true
+      }
+    },
+    {
+      "name": "practice clear keeps next encounter hidden",
+      "status": "passed",
+      "detail": {
+        "hidden": true,
+        "forcedClear": true
+      }
+    },
+    {
+      "name": "next encounter appears after full clear and advances selector",
+      "status": "passed",
+      "detail": {
+        "visible": true,
+        "world": {
+          "id": "02-last-light",
+          "state": "playing",
+          "practice": false
+        },
+        "selector": "02-last-light",
+        "forcedClear": true
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Transition and clear are invoked explicitly to test adapter routing, not gameplay completion.",
+    "Blur is a dispatched browser event; no operating-system focus-switch claim."
+  ]
+}

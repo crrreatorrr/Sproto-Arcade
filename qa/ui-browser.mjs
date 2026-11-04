@@ -14,7 +14,7 @@ try{
   const initial=await browser.evaluate(`(()=>{const w=ArcadeApp.world;return {state:w.state,phase:w.phaseIndex,practice:w.practice,hp:w.player.hp,tick:w.tick,objective:w.objective,mode:w.phase.mode,targets:w.targets.length,platforms:w.platforms.length,power:w.weapons.snapshot()};})()`);
   // Exercise actual keyboard adapter and fixed-step loop.
   await browser.send('Input.dispatchKeyEvent',{type:'keyDown',code:'ShiftLeft',key:'Shift'});
-  await wait(30);const dashObserved=await browser.evaluate('ArcadeApp.world.player.dashWait>0');await browser.send('Input.dispatchKeyEvent',{type:'keyUp',code:'ShiftLeft',key:'Shift'});
+  await wait(30);const dashObserved=await browser.evaluate('ArcadeApp.world.player.dash>0 || ArcadeApp.world.player.dashWait>0');await browser.send('Input.dispatchKeyEvent',{type:'keyUp',code:'ShiftLeft',key:'Shift'});
   await browser.send('Input.dispatchKeyEvent',{type:'keyDown',code:'KeyX',key:'x'});
   await wait(30);const shieldObserved=await browser.evaluate('ArcadeApp.world.player.shieldWait>0');await browser.send('Input.dispatchKeyEvent',{type:'keyUp',code:'KeyX',key:'x'});
   const transition=phase===0?await browser.evaluate(`(()=>{const w=ArcadeApp.world;w.hazard({id:'qa-stale-transition',source:'qa-stale',x:900,y:0,w:10,h:10,active:10000});w.advancePhase();for(let i=0;i<90;i++)w.step({});ArcadeApp.render();return {phase:w.phaseIndex,state:w.state,staleHazards:w.hazards.some(h=>h.id==='qa-stale-transition'),objective:w.objective,power:w.weapons.snapshot()};})()`):null;

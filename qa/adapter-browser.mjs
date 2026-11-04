@@ -39,6 +39,9 @@ try{
   for(const [k,v]of Object.entries(expected))if(stored[k]!==v)throw Error(JSON.stringify({expected,stored}));
   return {records,stored,forcedClear:true};
  });
+ await check('practice clear keeps next encounter hidden',async()=>{
+  await start('11-rooftop','1');await b.evaluate('ArcadeApp.world.clear()');await wait(55);const hidden=await b.evaluate("document.getElementById('next').hidden");if(!hidden)throw Error('Practice clear exposed campaign continuation');return {hidden,forcedClear:true};
+ });
  await check('next encounter appears after full clear and advances selector',async()=>{
   await start('01-marina');await b.evaluate('ArcadeApp.world.clear()');await wait(55);const visible=await b.evaluate("!document.getElementById('next').hidden");await b.evaluate("document.getElementById('next').click()");await wait(50);
   const world=await b.evaluate('({id:ArcadeApp.world.stage.id,state:ArcadeApp.world.state,practice:ArcadeApp.world.practice})');
