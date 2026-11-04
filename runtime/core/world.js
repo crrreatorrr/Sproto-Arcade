@@ -75,7 +75,7 @@
       const elapsed=this.phaseTick-start-Math.max(0,Math.floor(spec.offset??0));
       if(elapsed<0||elapsed%period!==0||this.pressureTicks.get(spec.id)===this.phaseTick)return null;
       this.pressureTicks.set(spec.id,this.phaseTick);
-      const maxAlive=Math.max(0,Math.min(4,Math.floor(spec.maxAlive??2)));
+      const maxAlive=Math.max(0,Math.min(2,Math.floor(spec.maxAlive??2)));
       if(this.hazards.filter(h=>h.pressure&&!h.removed).length>=maxAlive)return null;
       const cycle=Math.floor(elapsed/period),allowed=['bolt','orb','seed','diamond','roller'];
       const styles=(spec.styles||['orb','seed']).filter(s=>allowed.includes(s));

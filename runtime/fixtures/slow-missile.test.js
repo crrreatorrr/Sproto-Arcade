@@ -28,7 +28,7 @@ check('missile prioritizes oldest background pressure and never removes base att
  const base=w.hazard({id:'base',x:0,y:0,w:10,h:10,active:999}),old=w.pressure({id:'old'}),fresh=w.pressure({id:'fresh'});old.age=100;
  const m=emit(w);assert.ok(m);assert.ok(w.hazards.includes(base));assert.ok(w.hazards.includes(fresh));assert.ok(!w.hazards.includes(old));
  assert.equal(w.hazards.filter(h=>h.pressure).length,2);assert.equal(w.slowMissile({id:'second'}),null);
- w.phaseTick=840;assert.equal(w.pressure({id:'third'}),null);
+ w.phaseTick=840;assert.equal(w.pressure({id:'third',maxAlive:99}),null);
  w.pressure({id:'ordinary',enabled:false});assert.ok(w.hazards.includes(m));assert.ok(!w.hazards.includes(fresh));
  w.slowMissile({id:'m',enabled:false});assert.equal(w.hazards.length,1);assert.equal(w.hazards[0],base);
 });
