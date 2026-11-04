@@ -27,7 +27,7 @@
     if(w.redirectVolley) volley=w.redirectVolley(volley);
     const tx=volley.targetX===undefined?p.x:volley.targetX,ty=volley.targetY===undefined?p.y-26:volley.targetY;
     const dx=tx-origin.x,dy=ty-origin.y,len=Math.hypot(dx,dy)||1;
-    w.hazard({id:source+'.'+w.phaseTick,source,rule:'ordinary',x:origin.x,y:origin.y,w:28,h:20,vx:dx/len*8,vy:dy/len*8,windup:48,active:130,recovery:10,cue:fromRight?'Goldie banks back — intercept from ahead':'Goldie aims his arm — burst from behind'});
+    w.hazard({id:source+'.'+w.phaseTick,source,rule:'ordinary',x:origin.x,y:origin.y,w:28,h:20,vx:dx/len*8,vy:dy/len*8,windup:75,active:130,recovery:10,cue:fromRight?'Goldie banks back — intercept from ahead':'Goldie aims his arm — burst from behind'});
   }
   function machine(ctx,w,glider){
     const p=w.player,x=p.x+(glider?440:-260),y=300+Math.sin(w.phaseTick/45)*22;
@@ -72,6 +72,8 @@
     // First extraction crossing teaches the glider without a simultaneous burst.
     if(phase && p.x>5500 && !d.finalCue){d.finalCue=true;w.cue('Goldie banks across the exit. Jump from the chevrons; Shift through the intercept.',200);}
     if(phase && w.phaseTick>600 && p.x>1700 && p.x<5400 && w.phaseTick%540===0) aimedBurst(w,false,'goldie.afterburner.returning-burst');
+    // Clear pressure during every jump, the upper-roof fork, and the final approach.
+    if(phase) w.pressure?.({id:'goldie.extraction-pressure',start:660,period:90,styles:['orb','diamond'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:p.grounded&&p.x>1750&&p.x<5300&&(p.x<2400||p.x>4050)});
     w.progress=A.clamp(p.x/end,0,1);
     w.objective=(phase?'ESCAPE':'ROUTE')+' · '+Math.floor(w.progress*100)+'%'+(!d.crossing?' · marked dash crossing ahead':' · dash crossing passed');
     if(p.x>=end && d.crossing && p.grounded && Math.abs(p.y-GROUND)<5) phase?w.clear():w.advancePhase();

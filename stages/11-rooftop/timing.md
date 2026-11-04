@@ -40,3 +40,11 @@ Root entry may enumerate `stage.practiceSectors`: first jump, required dash gap,
 ## Pilot identity correction
 
 Phase pilot anchors now resolve dynamically to the moving Goldie cockpit: player.x−260 (Pursuit) or player.x+440 (Extraction), y281+sin(tick/45)×22. Root overlays the existing Goldie sprite at those anchors. The machine canvas remains a placeholder; it no longer suppresses the identity sprite.
+
+## Gameplay tuning — 2026-11-04
+
+Production animations/Higgsfield work is stopped. All Goldie aimed shots now warn75ticks (was48); shared runtime d3e3b95 reduces8px/tick to5.977px/tick with174 active ticks (was130), preserving1040px travel. This applies equally to both phases and returning bursts. Stage movement and480px gap geometry are unchanged.
+
+Phase2 adds low orb/diamond shots at2.5px/tick,90warning,90tick opportunity cadence after660, cap2, from the visible far side. Each update explicitly clears pressure unless grounded in x1750..2400 or4050..5300. Thus the upper-platform fork/landing zone x2400..4050, every jump, the final-bank prompt and the final mandatory launch/landing are pressure-free. Unresolved dash fronts suppress pressure too. Both-side authored aimed bursts remain intact; added pressure increases variety without increasing base attack speed.
+
+Against core d3e3b95: legal base-kit route transition1937ticksHP5 and extraction clear1597ticksHP5, unchanged. Extraction emits orb840 and diamond930 compared with zero background pressure before. Controlled safe-combat probe verifies both styles, cap2,2.5speed,90warning, >=360px spawn separation/visible Y, and immediate nonscheduled clearing on approach to the final crossing. Required-gap regression remains0/990 no-dash landings;23 legal dash ages15..28 and37..45 succeed. Both-side ordinary fire, upper cache and all four practice snapshots pass. Controlled probes manipulate authoring state and are separate from legal-input clear evidence. Human playtesting and offline browser readability remain integration checks.
