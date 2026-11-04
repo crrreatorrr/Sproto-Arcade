@@ -4,6 +4,17 @@ Open **index.html** directly in a desktop browser. It runs offline with classic 
 
 This is the implementation branch for the Bot-ero handoff, starting from main `a25acb1`. It is separate from Sproto Fighter. Existing art and original encounters have been retained. The new encounter machines and effects currently use placeholder canvas art with the existing Sproto sprites.
 
+## Hub, Relic, Tickets and saved progress (story mode)
+
+The metaverse hub's Bar cabinet now offers **Sproto Arcade** or **Sproto Fighter**. Picking Sproto Arcade opens `/play/sproto-arcade/#t=<ticket>`. `index.html` forwards a ticket to story mode (`legacy.html`), where `hub-link.js` redeems it with the vendored SDK (`vendor/hub-sdk/hub-sdk.iife.js`, see its VENDOR.md). That redemption is the login. Opened directly or from `file://`, the game stays offline and fully playable.
+
+- **Breakwater Coin:** beating the first story boss (Fat Head Dave, Tidebreak Marina) reports `arcade.boss_defeated`, and the server grants the Coin once. God-mode wins count. In the other games it repeats Cone's Tip's award, and in NOBU it unlocks Wizard Hat II. Its hub look is Cone's Tip's gem as a placeholder.
+- **Tickets:** each level clear made without god mode earns 20 Tickets (`arcade_clear`), within the hub's session and daily caps. The hub bar under the game shows the balance.
+- **Progress and unlocked Sprotos:** `story-progress.js` keeps cleared levels and unlocked Sprotos in localStorage. During a hub session the same save syncs with the hub's cloud save, merging as a union, so neither copy loses progress. Ten Sprotos are open from the start. Morelight, The Villain, Jessica and Goldie open by clearing Last Light Bar, Circuit Gate, The Hatchery and Rooftop Breakaway, or by owning a Relic from another hub game. `?unlockAll=1` opens every Sproto for reviews and QA. Levels all stay selectable.
+- **Deploy config:** set `window.SPROTO_ARCADE_HUB = { serverUrl, serverKey, hubUrl }` before `hub-link.js` if the page is not served same-origin with the hub. The defaults are same-origin `/v2`, the dev key and `/hub/`.
+
+Checks: `runtime/fixtures/story-progress.test.js` runs in `node qa/run-all.mjs .`. In the browser, run `node qa/hub-link-browser.mjs` (offline, a stubbed hub session, ticket forwarding), `node qa/lazy-load-browser.mjs` (per-level loading) and `node qa/replay-browser.mjs` (determinism). The plan, its critique and the co-op design are in `docs/HUB-COOP-PLAN.md` and `docs/COOP-DESIGN.md`.
+
 ## Controls
 
 - Arrow keys / WASD: move; all four directions in flight.

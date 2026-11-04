@@ -76,6 +76,16 @@ const playable = [
   {id:'sproto2884',name:'Sprite'}
 ];
 let selectedSproto=playable[0];
+// Locks come from story-progress.js through hub-link.js. Without them (older pages) every Sproto is open.
+const sprotoUnlocked=id=>window.ArcadeHub?.isUnlocked(id)??true;
+function paintSprotoLocks() {
+  for (const button of portraits.querySelectorAll('button[data-fighter]')) {
+    const id=button.dataset.fighter, open=sprotoUnlocked(id);
+    button.disabled=!open;
+    button.classList.toggle('locked',!open);
+    button.title=open?'':(window.ArcadeHub?.lockReason(id)??'');
+  }
+}
 for (const fighter of playable) {
   const button=document.createElement('button');
   button.type='button';
@@ -88,6 +98,7 @@ for (const fighter of playable) {
   label.textContent=fighter.name;
   button.append(img,label);
   button.addEventListener('click',()=>{
+    if (!sprotoUnlocked(fighter.id)) return;
     portraits.querySelector('[aria-pressed="true"]').setAttribute('aria-pressed','false');
     button.setAttribute('aria-pressed','true');
     selectedSproto=fighter;
@@ -95,6 +106,7 @@ for (const fighter of playable) {
   });
   portraits.append(button);
 }
+paintSprotoLocks();
 for (const [index,level] of LEVELS.entries()) {
   levelSelect.add(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
 }
@@ -261,6 +273,8 @@ function seededRandom(seed) {
 }
 let cosmeticRandom=seededRandom(1);
 let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infinity;
+// True when god mode was on at any point in the current level. Such clears earn no Tickets.
+let godUsed=false;
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
 const tileCache=new Map();
@@ -416,6 +430,7 @@ function showLevelControls() {
 function begin(index = firstLevel, carryShield = false) {
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
+  godUsed=godMode;
   cosmeticRandom=seededRandom(0x5eed+index);
   inputFrame=NO_INPUT;
   showLevelControls();
@@ -455,12 +470,16 @@ function startBoss() {
 }
 
 function clearLevel() {
+  // Hub link: progress, the first-boss Relic and Tickets. A no-op offline.
+  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed)??[];
+  if (opened.length) paintSprotoLocks();
   if (levelIndex+1===LEVELS.length) {
     levelSelect.value=String(firstLevel);
     setOverlay('won','Campaign clear','That’s all, Sproto!',isChase()?'You escaped across the rooftops.':'The last giant is down.','Play again');
   } else {
     setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[levelIndex+1].title,'Next level');
   }
+  if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
 }
 
 function refreshHud() {
@@ -1969,6 +1988,7 @@ window.addEventListener('keydown',e=>{
     if (e.timeStamp-lastNine<=750) {
       godMode=!godMode;
       if (godMode) godHits=0;
+      if (godMode) godUsed=true;
       godFire=true;
       godDamageBoost=false;
       lastNine=-Infinity;

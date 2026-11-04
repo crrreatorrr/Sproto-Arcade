@@ -43,7 +43,8 @@ async function openPage(browser,origin,query=''){
   page.on('console',m=>{if(m.type()==='error')stats.errors.push(m.text())});
   await page.addInitScript(RECORD);
   const t0=Date.now();
-  await page.goto(origin+'/legacy.html'+query);
+  // unlockAll: this check picks every Sproto, including the four that story progress locks.
+  await page.goto(origin+'/legacy.html'+(query?query+'&':'?')+'unlockAll=1');
   await page.waitForFunction(()=>{const s=document.getElementById('start');return s&&!s.disabled&&s.textContent!=='Loading…'},null,{timeout:180000});
   stats.readyMs=Date.now()-t0;
   return {page,stats};
