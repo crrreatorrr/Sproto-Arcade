@@ -35,7 +35,7 @@
       const hp=carry?this.player.hp:5;
       this.phaseIndex=index;this.phase=this.stage.phases[index];this.phaseTick=0;this.state='playing';this.transitionTick=0;
       this.platforms=[];this.targets=[];this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.events=[];this.data={};this.input={};
-      this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;this.pressureTicks=new Map();
+      this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;this.pressureTicks=new Map();this.missileNextTick=180;
       const spawn=(this.practice&&this.phase.practiceSpawn)||this.phase.spawn||{x:120,y:600};
       this.player={...spawn,prevX:spawn.x,prevY:spawn.y,vx:0,vy:0,hp,grounded:false,airJump:true,airDash:true,dash:0,dashX:1,dashY:0,dashWait:0,shield:0,shieldWait:0,beamWait:0,bombWait:0,facing:1,inv:0,grace:0,jumpBuffer:0};
       if(carry&&this.weapons)this.weapons.phase(this.phase.mode);
@@ -68,7 +68,8 @@
     }
     pressure(spec={}){
       const clear=()=>{this.hazards=this.hazards.filter(h=>!h.pressure);return null;};
-      if(spec.enabled===false||this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule)))return clear();
+      if(this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule)))return clear();
+      if(spec.enabled===false){this.hazards=this.hazards.filter(h=>!h.pressure||h.missile);return null;}
       if(this.state!=='playing'||this.phaseIndex!==1||!spec.id)return null;
       const start=Math.max(600,Math.ceil(spec.start??660)),period=Math.max(1,Math.ceil(spec.period??180));
       const elapsed=this.phaseTick-start-Math.max(0,Math.floor(spec.offset??0));
@@ -92,6 +93,31 @@
       const vx=dx/length*speed,vy=dy/length*speed;
       return this.hazard({id:spec.id+':'+this.phaseTick,source:spec.id,rule:'ordinary',pressure:true,sprite,lane,
         x,y,w,h,vx,vy,windup:Math.max(75,Math.ceil(spec.windup??75)),active:Math.min(900,Math.ceil(1500/speed)),recovery:0});
+    }
+    slowMissile(spec={}){
+      const blocked=this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule));
+      if(blocked){this.hazards=this.hazards.filter(h=>!h.pressure);return null;}
+      if(spec.enabled===false){this.hazards=this.hazards.filter(h=>!h.missile);return null;}
+      if(this.state!=='playing'||this.phaseIndex!==1||!spec.id)return null;
+      if(this.phaseTick<Math.max(180,Math.ceil(spec.start??180),this.missileNextTick))return null;
+      const pressure=this.hazards.filter(h=>h.pressure&&!h.removed);
+      if(pressure.some(h=>h.missile))return null;
+      const p=this.player,c=this.camera,w=44,h=18,right=p.x<c.x+640;
+      const x=c.x+(right?1260-w:20),y=clamp(p.y-26-h/2,c.y+240,c.y+680-h);
+      if(Math.abs(x+w/2-p.x)<360)return null;
+      // Aim once at emission. The warning and active projectile share this committed line.
+      const dx=p.x-(x+w/2),dy=p.y-26-(y+h/2),length=Math.hypot(dx,dy)||1;
+      const speed=clamp(Number(spec.speed)||1.1,.5,1.2);
+      if(pressure.length>=2){
+        const oldest=pressure.filter(v=>!v.missile).sort((a,b)=>b.age-a.age)[0];
+        if(!oldest||pressure.length>2)return null;
+        this.hazards=this.hazards.filter(v=>v!==oldest);
+      }
+      const missile=this.hazard({id:spec.id+':'+this.phaseTick,source:spec.id,rule:'ordinary',pressure:true,missile:true,sprite:'missile',
+        x,y,w,h,vx:dx/length*speed,vy:dy/length*speed,windup:Math.max(90,Math.ceil(spec.windup??90)),active:Math.ceil(1600/speed),recovery:0});
+      // Only actual emissions consume cooldown; protected intervals retry immediately when safe.
+      this.missileNextTick=this.phaseTick+Math.max(480,Math.ceil(spec.period??480));
+      return missile;
     }
     drop(id,x,y){if(!this.weapons)return null;const p=this.weapons.opportunity(id,{x,y,guaranteed:true});if(p)this.pickups.push(p);return p;}
     redirectVolley(volley){return this.weapons?this.weapons.redirect(volley):volley;}
@@ -219,6 +245,7 @@
         if(h.removed)continue;
         const old={x:h.x,y:h.y,w:h.w,h:h.h};const active=h.age>=h.windup&&h.age<h.windup+h.active;
         if(active){h.x+=h.vx;h.y+=h.vy;
+          if(h.missile&&(h.x+h.w<this.camera.x-160||h.x>this.camera.x+1440||h.y+h.h<this.camera.y-160||h.y>this.camera.y+880)){h.removed=true;continue;}
           if(!h.resolved&&swept(p0,p1,old,h)){h.resolved=true;this.hit(h);}
         }
         h.age++;if(h.age>=h.windup+h.active+h.recovery)h.removed=true;
