@@ -15,3 +15,25 @@ Boss animation production and Higgsfield boss-animation generation are STOPPED a
 ## Art generation
 
 Follow `docs/higgsfield-workflow-guide.md`. This repo uses the **sprite sheet** workflow. If the owner says to skip approvals, follow that section of the guide. The stop on boss animation production above still applies.
+
+## Checks
+
+```bash
+node qa/run-all.mjs .
+```
+
+Browser checks are separate. See `qa/`.
+
+## Working with other agents
+
+Claude Code, Codex and Cursor all work on this repo.
+
+- Start each task on its own branch from the latest `main`, named `<agent>/<slug>`.
+- On the owner's machine, `agent-task new Sproto-Arcade <slug> --agent <name>` creates that branch in
+  its own worktree.
+- Integrate finished work using the rules at the top of this file. Unlike the other game repos,
+  completed and verified work here may go straight to GitHub `main`, never with a force push.
+- Don't edit files that another active task is changing.
+- Run the checks before integrating, and report any you could not run.
+- A different agent reviews the work: `agent-task review <path>`, or `/codex:adversarial-review` in
+  Claude Code.
