@@ -17,7 +17,7 @@ For an alternative video-to-atlas pipeline, the catalog recommended `seedance_2_
 - Every encounter's simulation source and cue timeline: stages/<stage-id>/stage.js and timing.md.
 - Required per-boss motion IDs, purpose and phase: art/rework/bosses/<stage-id>/manifest.js `plannedClips`.
 - Initial visual reference boards: bosses/01-marina,07-moonkeep,11-rooftop/reference.svg and gameplay-scale.svg, linked from art-review.html.
-- Nine remaining bosses require visual reference/critical-pose development before their final clips. An inventory-only pack is not an approved reference image.
+- The other nine bosses now have both-phase gameplay reference guides with pilot/target overlays in their pack folders. They still require concept/look development and critical-pose approval before final clips; a gameplay guide is not final character artwork.
 - Existing identity sprites: assets.js resolves each stage.operatorSprite; runtime/sprite-bounds.js records visible alpha bounds. Preserve those identities and the machine component specified in the handoff.
 - Highest-priority Codebreak36clip list: stages/12-codebreak/timing.md. Current placeholder articulation is smooth but is not production sprite footage.
 

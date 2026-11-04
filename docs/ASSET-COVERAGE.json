@@ -1,0 +1,419 @@
+{
+  "kind": "preproduction-coverage",
+  "productionRequirementMet": false,
+  "plannedDistinctClips": 388,
+  "actualVerifiedClips": 0,
+  "jobsSubmittedThisTask": 0,
+  "creditsSpentThisTask": 0,
+  "humanTimingAndPoseApproval": "pending",
+  "bosses": [
+    {
+      "stage": "01-marina",
+      "operator": "Fat Head Dave",
+      "machines": [
+        "Breakwater Tug",
+        "Dry Dock Press"
+      ],
+      "manifest": "art/rework/bosses/01-marina/manifest.js",
+      "reference": "art/rework/bosses/01-marina/reference.svg",
+      "gameplayReview": "art/rework/bosses/01-marina/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "procedural-study-awaiting-human-review",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "01-marina.engine-final-seize",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "02-last-light",
+      "operator": "Morelight",
+      "machines": [
+        "Prism Projector",
+        "Mirror Gantry"
+      ],
+      "manifest": "art/rework/bosses/02-last-light/manifest.js",
+      "reference": "art/rework/bosses/02-last-light/reference.svg",
+      "gameplayReview": "art/rework/bosses/02-last-light/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "02-last-light.prism-final-fracture",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "03-mudline",
+      "operator": "Crapto",
+      "machines": [
+        "Sludge Dredger",
+        "Floodgate Pump"
+      ],
+      "manifest": "art/rework/bosses/03-mudline/manifest.js",
+      "reference": "art/rework/bosses/03-mudline/reference.svg",
+      "gameplayReview": "art/rework/bosses/03-mudline/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "03-mudline.glass-pump-final-crack",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "04-ranch",
+      "operator": "Halloween 2008",
+      "machines": [
+        "Lantern Harvester",
+        "Harvest Express"
+      ],
+      "manifest": "art/rework/bosses/04-ranch/manifest.js",
+      "reference": "art/rework/bosses/04-ranch/reference.svg",
+      "gameplayReview": "art/rework/bosses/04-ranch/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "04-ranch.engine-linkage-fail",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "05-neon",
+      "operator": "Collector",
+      "machines": [
+        "Salvage Strider",
+        "Billboard Rig"
+      ],
+      "manifest": "art/rework/bosses/05-neon/manifest.js",
+      "reference": "art/rework/bosses/05-neon/reference.svg",
+      "gameplayReview": "art/rework/bosses/05-neon/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "05-neon.winch-final-break",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "06-circuit",
+      "operator": "Bongraker",
+      "machines": [
+        "Relay Walker",
+        "Gate Spider"
+      ],
+      "manifest": "art/rework/bosses/06-circuit/manifest.js",
+      "reference": "art/rework/bosses/06-circuit/reference.svg",
+      "gameplayReview": "art/rework/bosses/06-circuit/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "06-circuit.gate-core-final-short",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "07-moonkeep",
+      "operator": "Big Swole",
+      "machines": [
+        "Siege Dragon",
+        "Rampart Dragon"
+      ],
+      "manifest": "art/rework/bosses/07-moonkeep/manifest.js",
+      "reference": "art/rework/bosses/07-moonkeep/reference.svg",
+      "gameplayReview": "art/rework/bosses/07-moonkeep/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "procedural-study-awaiting-human-review",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "07-moonkeep.neck-final-separation",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "08-crown",
+      "operator": "Alpha 777",
+      "machines": [
+        "Jackpot Knight",
+        "Crown Joust Rig"
+      ],
+      "manifest": "art/rework/bosses/08-crown/manifest.js",
+      "reference": "art/rework/bosses/08-crown/reference.svg",
+      "gameplayReview": "art/rework/bosses/08-crown/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "08-crown.dual-core-final-break",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "09-hatchery",
+      "operator": "High Sproto",
+      "machines": [
+        "Incubator Crane",
+        "Brood Crawler"
+      ],
+      "manifest": "art/rework/bosses/09-hatchery/manifest.js",
+      "reference": "art/rework/bosses/09-hatchery/reference.svg",
+      "gameplayReview": "art/rework/bosses/09-hatchery/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "09-hatchery.crawler-core-final-rupture",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "10-verse",
+      "operator": "Bot Sales",
+      "machines": [
+        "Sales Carrier",
+        "Orbital Showroom"
+      ],
+      "manifest": "art/rework/bosses/10-verse/manifest.js",
+      "reference": "art/rework/bosses/10-verse/reference.svg",
+      "gameplayReview": "art/rework/bosses/10-verse/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "10-verse.showroom-core-final-fail",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "11-rooftop",
+      "operator": "Goldie",
+      "machines": [
+        "Pursuit Jetpack",
+        "Intercept Glider"
+      ],
+      "manifest": "art/rework/bosses/11-rooftop/manifest.js",
+      "reference": "art/rework/bosses/11-rooftop/reference.svg",
+      "gameplayReview": "art/rework/bosses/11-rooftop/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 32,
+      "actualVerified": 0,
+      "referenceStatus": "procedural-study-awaiting-human-review",
+      "phaseCoverage": {
+        "1": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 12,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "escape",
+      "terminalClipId": "11-rooftop.glider-departure",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "12-codebreak",
+      "operator": "Bitcoin Sheriff",
+      "machines": [
+        "Warrant Rig",
+        "Summit Lockdown"
+      ],
+      "manifest": "art/rework/bosses/12-codebreak/manifest.js",
+      "reference": "art/rework/bosses/12-codebreak/reference.svg",
+      "gameplayReview": "art/rework/bosses/12-codebreak/gameplay-scale.svg",
+      "minimumDistinctClips": 30,
+      "planned": 36,
+      "actualVerified": 0,
+      "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
+      "phaseCoverage": {
+        "1": {
+          "planned": 17,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        },
+        "2": {
+          "planned": 13,
+          "actualVerified": 0,
+          "timingReview": "pending",
+          "criticalPoseReview": "pending",
+          "bothRequiredBeforeGeneration": true
+        }
+      },
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "12-codebreak.rig-defeat-shutdown",
+      "actualTerminalVerified": false
+    }
+  ]
+}
