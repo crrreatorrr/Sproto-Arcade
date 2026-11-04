@@ -73,6 +73,7 @@
     if(phase && p.x>5500 && !d.finalCue){d.finalCue=true;w.cue('Goldie banks across the exit. Jump from the chevrons; Shift through the intercept.',200);}
     if(phase && w.phaseTick>600 && p.x>1700 && p.x<5400 && w.phaseTick%540===0) aimedBurst(w,false,'goldie.afterburner.returning-burst');
     // Clear pressure during every jump, the upper-roof fork, and the final approach.
+    if(phase) w.slowMissile?.({id:'goldie.extraction-slow-missile',start:180,period:480,speed:1.1,windup:90,enabled:p.grounded&&p.x>1750&&p.x<5300&&(p.x<2400||p.x>4050)});
     if(phase) w.pressure?.({id:'goldie.extraction-pressure',start:660,period:90,styles:['orb','diamond'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:p.grounded&&p.x>1750&&p.x<5300&&(p.x<2400||p.x>4050)});
     w.progress=A.clamp(p.x/end,0,1);
     w.objective=(phase?'ESCAPE':'ROUTE')+' · '+Math.floor(w.progress*100)+'%'+(!d.crossing?' · marked dash crossing ahead':' · dash crossing passed');

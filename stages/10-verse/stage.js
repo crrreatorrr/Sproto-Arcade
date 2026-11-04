@@ -54,6 +54,7 @@
    // Bring back the Phase1 rift only once the orbit has been taught in isolation.
    if(w.phaseTick>=600&&w.phaseTick%600===60){w.player.dashWait=0;w.hazard({id:'showroom-rift-'+w.phaseTick,source:'showroom-demo-rift',rule:'dash',x:1220,y:0,w:28,h:720,vx:-9,windup:90,active:145,cue:'≫ RETURNING DEMO RIFT · SHIFT ≫'});}
    // Keep the brief center shortcut and mandatory returning rift free of background pressure.
+   w.slowMissile?.({id:'verse-slow-missile',start:180,period:480,speed:1.1,windup:90,enabled:!d.centerWindow&&!inCabin});
    w.pressure?.({id:'verse-exhibits',start:660,period:150,styles:['diamond','orb'],speed:2.5,windup:90,lane:'high',side:'far',maxAlive:2,enabled:!d.centerWindow});
    w.objective=d.centerWindow?'CENTER LANE OPEN — short route through cabin':t&&t.open?'MODULE EXPOSED — punish from the matching side':'HINGE '+['LEFT','TOP','RIGHT','BOTTOM'][o.side]+' — move to that side for the opening';
   },

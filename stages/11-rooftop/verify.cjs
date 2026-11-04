@@ -12,7 +12,7 @@ assert.equal(nondash,0,'480px mandatory gap must fail strongest sampled no-dash 
 const successes=[];for(let dashDelay=15;dashDelay<=45;dashDelay++)if(jumpTrial(3760,34,dashDelay)){dash++;successes.push(dashDelay);}
 assert.ok(dash>=6,'dash has forgiving sampled launch window');
 function route(phase){const w=new A.World(stage,{phase,seed:13});let jumpedTeach=false,jumpedDash=false,dashAge=-1;const directions=new Set();for(let t=0;t<5000&&w.state==='playing';t++){const p=w.player,gap=phase?6650:3800,input={right:true};if(!phase&&!jumpedTeach&&p.x>=1080){input.jump=true;jumpedTeach=true;}if(!jumpedDash&&p.x>=gap-40){input.jump=true;jumpedDash=true;dashAge=0;}else if(dashAge>=0)dashAge++;if(dashAge===30)input.jump=true;if(dashAge===41)input.dash=true;if(w.hazards.some(h=>!h.resolved&&h.rule==='ordinary'&&Math.abs(h.x-p.x)<180))input.shield=true;w.step(input);for(const h of w.hazards)if(h.rule==='ordinary')directions.add(Math.sign(h.vx));}w.testDirections=directions;return w;}
-for(const phase of [0,1]){const w=route(phase);assert.equal(w.state,phase?'clear':'transition',`phase ${phase+1} route completion, x=${w.player.x}, failure=${w.failure}`);assert.equal(w.data.crossing,true);assert.ok(w.player.hp>0);if(phase)assert.equal(w.testDirections.size,2,'extraction projectiles arrive from both sides');if(phase)assert.equal(new Set((w.pressureEvidence||[]).map(h=>h.sprite)).size,2,'legal route sees two pressure styles');if(phase)console.log('Rooftop legal-route pressure emissions:',JSON.stringify(w.pressureEvidence||[]));console.log(`phase ${phase+1}: ${w.state}, ${w.tick} ticks, ${w.player.hp} HP; base kit no power use`);}
+for(const phase of [0,1]){const w=route(phase);assert.equal(w.state,phase?'clear':'transition',`phase ${phase+1} route completion, x=${w.player.x}, failure=${w.failure}`);assert.equal(w.data.crossing,true);assert.ok(w.player.hp>0);if(phase)assert.equal(w.testDirections.size,2,'extraction projectiles arrive from both sides');if(phase)assert.equal(new Set((w.pressureEvidence||[]).map(h=>h.sprite)).size,2,'legal route sees distinct pressure including missile');if(phase)console.log('Rooftop legal-route pressure emissions:',JSON.stringify(w.pressureEvidence||[]));console.log(`phase ${phase+1}: ${w.state}, ${w.tick} ticks, ${w.player.hp} HP; base kit no power use`);}
 // Stationary player never wins and retry erases route state.
 const idle=new A.World(stage,{seed:13});for(let i=0;i<4200;i++)idle.step({});assert.equal(idle.state,'playing');idle.data.crossing=true;idle.step({retry:true});assert.equal(idle.data.crossing,false);
 console.log(`gap: ${nondash} no-dash landings across 990 samples; dash succeeds ages ${successes.join(',')}`);
@@ -24,14 +24,14 @@ for(const cp of stage.practiceSectors){const w=new A.World(stage,{phase:cp.phase
 
 // Controlled authoring probe: pressure scheduling/clearance, separate from legal-input clears above.
 {
- const q=new A.World(stage,{phase:1,seed:17});assert.equal(typeof q.pressure,'function','new shared runtime required');
+ const q=new A.World(stage,{phase:1,seed:17});q.slowMissile=()=>null;assert.equal(typeof q.pressure,'function','new shared runtime required');
  Object.assign(q.player,{x:4500,y:600,grounded:true});
- q.phaseTick=599;q.phase.update(q);assert.equal(q.hazards.filter(h=>h.pressure).length,0,'isolated first600ticks');
+ q.phaseTick=599;q.phase.update(q);assert.equal(q.hazards.filter(h=>h.pressure&&!h.missile).length,0,'isolated first600ticks');
  const emitted=[];
- for(const tick of [660,750,840]){q.phaseTick=tick;q.phase.update(q);for(const h of q.hazards.filter(h=>h.pressure))if(!emitted.includes(h))emitted.push(h);assert.ok(q.hazards.filter(h=>h.pressure).length<=2);}
+ for(const tick of [660,750,840]){q.phaseTick=tick;q.phase.update(q);for(const h of q.hazards.filter(h=>h.pressure&&!h.missile))if(!emitted.includes(h))emitted.push(h);assert.ok(q.hazards.filter(h=>h.pressure&&!h.missile).length<=2);}
  assert.equal(emitted.length,2,'two bounded pressure additions');assert.equal(new Set(emitted.map(h=>h.sprite)).size,2,'distinct slow projectile styles');
  for(const h of emitted){assert.equal(h.source,'goldie.extraction-pressure');assert.ok(Math.hypot(h.vx,h.vy)>=2&&Math.hypot(h.vx,h.vy)<=3);assert.ok(h.windup>=75);assert.ok(Math.abs(h.x+h.w/2-q.player.x)>=360);assert.ok(h.y>=q.camera.y+240);}
  q.player.x=6300;
- q.phaseTick=901;q.phase.update(q);assert.equal(q.hazards.filter(h=>h.pressure).length,0,'protected route clears existing pressure on nonscheduled ticks');
+ q.phaseTick=901;q.phase.update(q);assert.equal(q.hazards.filter(h=>h.pressure&&!h.missile).length,0,'protected route clears existing pressure on nonscheduled ticks');
  console.log('Phase2 pressure: 2 distinct styles, speed2.5, cap2, >=90tick warning; protected route removes existing pressure.');
 }

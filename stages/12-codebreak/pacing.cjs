@@ -15,13 +15,14 @@ const poses={
 };
 for(const [id,setup] of Object.entries(poses)){
  const stage=A.stages.get(id),w=new A.World(stage,{phase:1,seed:37});setup(w);
- w.player.hp=100000;for(const t of w.targets)t.hp=t.maxHp=100000;
+ // Audit ordinary style alternation separately from the missile-priority shared pool.
+ w.slowMissile=()=>null;w.player.hp=100000;for(const t of w.targets)t.hp=t.maxHp=100000;
  const emitted=[],authored=[],hazard=w.hazard.bind(w);let peak=0,activePeak=0;const activeStyles=new Set();
- w.hazard=spec=>{const h=hazard(spec);if(spec.pressure){
+ w.hazard=spec=>{const h=hazard(spec);if(spec.pressure&&!spec.missile){
   assert.ok(w.phaseTick>=600);assert.ok(h.windup>=75);assert.ok(Math.hypot(h.vx,h.vy)>=2&&Math.hypot(h.vx,h.vy)<=3);
   assert.ok(Math.abs(h.x+h.w/2-w.player.x)>=360);emitted.push({tick:w.phaseTick,sprite:h.sprite});
  }else authored.push({source:h.source,speed:Math.hypot(h.vx,h.vy),authored:h.authoredSpeed,windup:h.windup,active:h.active});return h;};
- for(let i=0;i<3000;i++){w.step({});assert.equal(w.state,'playing');peak=Math.max(peak,w.hazards.filter(h=>h.pressure&&!h.removed).length);const active=w.hazards.filter(h=>h.pressure&&!h.removed&&h.age>=h.windup);activePeak=Math.max(activePeak,active.length);for(const h of active)activeStyles.add(h.sprite);assert.ok(peak<=2);}
+ for(let i=0;i<3000;i++){w.step({});assert.equal(w.state,'playing');peak=Math.max(peak,w.hazards.filter(h=>h.pressure&&!h.removed).length);const active=w.hazards.filter(h=>h.pressure&&!h.missile&&!h.removed&&h.age>=h.windup);activePeak=Math.max(activePeak,active.length);for(const h of active)activeStyles.add(h.sprite);assert.ok(peak<=2);}
  assert.ok(emitted.length>=2,id+' must produce real pressure');const styles=[...new Set(emitted.map(h=>h.sprite))];assert.ok(styles.length>=2,id+' must emit both distinct styles');assert.equal(activeStyles.size,2,id+' both styles must survive the warning and actually travel');assert.ok(activePeak>0);
  // Exercise a protected state with a pre-existing projectile: it must disappear
  // on that update, rather than only suppressing the next scheduled emission.
@@ -31,7 +32,7 @@ for(const [id,setup] of Object.entries(poses)){
  if(id==='09-hatchery')Object.assign(w.player,{y:510,support:'conveyor-first-foot'});
  if(id==='10-verse')w.phaseTick=900; // center lane
  if(id==='12-codebreak')w.data.openUntil=w.phaseTick+210;
- stage.phases[1].update(w);assert.equal(w.hazards.some(h=>h.pressure),false,id+' clears pressure during its protected setup');
+ stage.phases[1].update(w);assert.equal(w.hazards.some(h=>h.pressure&&!h.missile),false,id+' clears pressure during its protected setup');
  results.push({id,emitted:emitted.length,styles,peak,activePeak,first:emitted[0].tick,authored});
 }
 // Actual capped scanner active interval and the procedural pose share a deadline.

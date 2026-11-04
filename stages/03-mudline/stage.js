@@ -98,6 +98,8 @@
       if(w.phaseTick>=600&&w.phaseTick%360===70){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: reposition while working the shutter',75);}
       if(w.phaseTick>=600&&w.phaseTick%360===145)aimedBelch(w,'pump-sludge-belch-'+w.phaseTick);
       // Keep both high-C and low-V shutter setups, fronts and vent punish isolated.
+      // Central flight remains open; isolate both shutter lanes and the first vent punish.
+      w.slowMissile?.({id:'mudline-slow-missile',start:180,period:480,speed:1.1,windup:90,enabled:d.introduced&&w.player.x<600&&w.player.y>=350&&w.player.y<=430&&(!d.gateUnlocked||(d.countered&&w.phaseTick-d.unlockTick>=60))});
       w.pressure?.({id:'mudline-silt',start:660,period:150,styles:['orb','diamond'],speed:2.4,windup:90,lane:'high',side:'far',maxAlive:2,enabled:d.introduced&&!d.gateUnlocked&&w.player.x<600&&w.player.y>=350&&w.player.y<=430});
       w.objective=!d.gateUnlocked?'Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)':!d.countered?(!d.introduced?'Pressure unstable — repeat the shutter without taking a hit':'Dash through the marked pressure front — shield cannot counter it'):core&&core.open?'Pump vent OPEN — standard fire deals damage':'Pressure rebuilding — next shutter cycle';
     },

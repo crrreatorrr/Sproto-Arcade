@@ -111,6 +111,8 @@
       w.objective=t<w.data.openUntil?'Vent open · shoot the right side':'Dash through the scanner to unlock the vent';
       // Reintroduce the climbing reticle only after the isolated scanner lesson.
       if(t>=690&&(t-690)%360===0)markDrop(w,'summit-'+Math.floor(t/360));
+      // Preserve the first counter and sixty ticks of committed vent punishment.
+      w.slowMissile?.({id:'codebreak-slow-missile',start:180,period:480,speed:1.1,windup:90,enabled:w.data.countered>0&&t-w.data.ventOpenedAt>=60&&w.player.grounded});
       w.pressure?.({id:'codebreak-warrants',start:780,period:120,styles:['roller','diamond'],speed:2.4,windup:90,lane:'high',side:'far',maxAlive:2,enabled:!core?.open});
     },
     draw(ctx,w){
