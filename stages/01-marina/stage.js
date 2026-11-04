@@ -81,6 +81,8 @@
       if(vent){vent.open=w.phaseTick<w.data.ventUntil;w.progress=1-Math.max(0,vent.hp)/20;}
       // Once the new rule has been introduced alone, reprise the compatible low wake.
       if(w.phaseTick>=600&&t===270)wake(w,cycle);
+      // Protect the dash, valve shot and first second of the vent opening.
+      w.pressure?.({id:'marina-dock-spray',start:660,period:60,styles:['seed','roller'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:t>=180&&!valve?.open&&(!vent?.open||w.data.ventUntil-w.phaseTick<=150)});
       w.objective=vent&&vent.open?'Pressure released: shoot the steaming vent.':w.data.unlocked?'Shoot the release valve (left of the vent).':'Read the three pipes; dash through the marked pressure front.';
     },draw(ctx,w){machine(ctx,w,true);}
   };

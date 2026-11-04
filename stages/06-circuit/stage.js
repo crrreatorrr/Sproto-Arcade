@@ -14,6 +14,8 @@ for(const e of w.events)if(e.type==='counter'&&e.source==='circuit.firewall-tran
 const r=w.targets.find(t=>t.id==='relay-active');if(r)r.open=w.data.countered&&w.phaseTick<w.data.openUntil;
 const c=w.targets.find(t=>t.id==='circuit-core');c.open=w.data.nodes>=2;w.progress=(w.data.nodes+(1-c.hp/18))/3;
 if(w.phaseTick>=600&&t===330)arc(w,cycle);
+// Protect the firewall and first second of the live relay opening; final core has no timed lock.
+w.pressure?.({id:'circuit-capacitors',start:660,period:60,styles:['bolt','orb'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:w.data.nodes>=2||(t>=180&&(!r?.open||w.data.openUntil-w.phaseTick<=130))});
 w.objective=w.data.nodes>=2?'Transfers disabled: shoot the exposed gate core.':r?.open?'Live relay vulnerable: break it before the transfer resets.':'Dash the marked firewall to expose a live relay ('+w.data.nodes+'/2).';
 },draw(c,w){draw(c,w,true);}}
 ]});})(Arcade);

@@ -9,3 +9,16 @@ Phase2 Gate Spider / Firewall Transfer: every480 ticks, cycle30 spawns full-heig
 Two independent core/relay stages retain clear weak-point geometry; no hidden HP stall. Prism Rail pierces aligned targets and mines have a floor/platform bounce surface. Echo Decoy excluded because charge routes are fixed rather than eligible aimed volleys.
 
 Fixture uses actual movement/jump/dash/shield inputs only, no HP/target/phase edits. It verifies full and practice clears, seed reproduction, inaccessible upper relay under stationary autofire, and shield-only firewall rejection with zero completed nodes. Browser readability, formative playtests and full weapon-mode matrix remain unverified.
+
+
+## Gameplay pacing revision — animation production stopped
+
+This section supersedes earlier prototype timing and animation production notes. Verified against the shared gameplay-tuning World runtime. All timings are60Hz.
+
+Both phases share corrected discharge8→6px/tick (active150→200) and firewall12→8 (110→165), preserving travel. Discharge60tick and firewall90tick warnings remain. No phase2 acceleration. The standard-kit controller additionally shields actual ordinary hazards approaching its collision lane within25ticks; this corrects the timing of the slower discharge during upper-relay traversal and uses legal shield inputs.
+
+Phase2 capacitors use bolt and orb,2.5px/tick,90tick warning, cap2, first possible660. The mandatory firewall clears pressure; the first60ticks of the190tick live-node opening stay clean. Later transfer recovery permits warnings. Once both transfer nodes break, sustained core combat admits pressure without an artificial timed lock. Every phase2 update calls the guard.
+
+Real-runtime seed17 full2378/practice1926ticks, HP5/nohits,4dash+3ordinary counters each;6actualcapacitors each across orb+bolt. Legal idle loses1503, emits4capacitors across both styles,300ticks active pressure, max2alive,602protected ticks. Upper-relay idle rejection and shield-only failure to open dash-gated nodes remain passing.
+
+Run `node stages/06-circuit/pressure.cjs [runtime-root]` for prolonged legal-idle coverage; `basekit.cjs` verifies full/practice clears and meaningful negative checks. Marina basekit accepts a world.js file path; the other basekit scripts accept a runtime repository root. Pressure audits observe hazards and wrap recording methods without mutating HP, targets or phase state. These deterministic checks establish technical clearability, not human readability, controller accessibility or final balance. No production animations/assets or Higgsfield jobs were generated.

@@ -25,3 +25,16 @@ These are mocked contract checks. Actual runtime base-kit completion, shield-onl
 ## Actual runtime simulation check
 
 `node stages/01-marina/basekit.cjs [optional/path/to/runtime/core/world.js]` uses only held movement and pressed jump/dash inputs, leaves HP/targets/phases untouched, and never uses powers or C/V specials. Against Packet A commit a891cc0 (integration180ac5c), full run clears at1900 ticks, HP5, three pressure counters, zero hits. Phase2 practice clears at1198 ticks, HP5, three pressure counters, zero hits. Repeated seed17 yields identical summary. This is a scripted simulation and does not validate human cue comprehension, art readability, or production balance. Re-run against pinned integrated runtime before accepting the slice gate.
+
+
+## Gameplay pacing revision — animation production stopped
+
+This section supersedes earlier prototype timing and animation production notes. Verified against the shared gameplay-tuning World runtime. All timings are60Hz.
+
+Shared runtime keeps both phases at the same corrected speed: wake9→6px/tick (active126→189, unchanged travel), dash front12→8 (110→165). The piston still hangs60ticks before its wake; pipe/front warning remains90ticks. No phase2 acceleration. The base-kit controller now jumps within110px rather than175: its old jump was early against the slower wake. Inputs remain legal movement/jump/dash only.
+
+Phase2 dock spray uses seed and roller,2.5px/tick,90tick warning, population cap2, first possible660. Mandatory front always clears pressure. Valve aiming stays protected; the first60ticks of the210tick vent opening stay protected, then a far-side warning may coexist. This gives the initial punish a clean second while retaining later density. Authored low wake remains a separate reprise. Every phase2 update calls the guard, including disabled ticks.
+
+Real-runtime seed17 full1913/practice1222ticks, HP5/nohits,3dash counters each;1actual spray each (roller). Legal idle loses at1234 (intentional negative play), but emits4sprays across seed+roller with155ticks containing active pressure, max2alive,539protected ticks. Authoring lifecycle/counter fixture also passes.
+
+Run `node stages/01-marina/pressure.cjs [runtime-root]` for prolonged legal-idle coverage; `basekit.cjs` verifies full/practice clears and meaningful negative checks. Marina basekit accepts a world.js file path; the other basekit scripts accept a runtime repository root. Pressure audits observe hazards and wrap recording methods without mutating HP, targets or phase state. These deterministic checks establish technical clearability, not human readability, controller accessibility or final balance. No production animations/assets or Higgsfield jobs were generated.

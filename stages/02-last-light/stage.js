@@ -22,7 +22,9 @@ function attack(w,reflect){const t=w.phaseTick%C,cycle=Math.floor(w.phaseTick/C)
   if(returned){w.data.returns++;w.data.reflectedUntil=w.phaseTick+24;w.events.push({type:reflect?'reflection':'coverReturn',source:reflect?'light.house-of-mirrors.mirror':'light.iris-shot.booth',x:reflect?675:530,y,cycle});w.cue(reflect?'MIRROR RETURN: shoot the exposed rear housing.':'COVER RETURN: shoot the opened iris.',180);if(w.data.returns===1)w.drop('light-first-return',w.player.x+55,574);}
  }
  const iris=w.targets.find(t=>t.id==='light-iris');if(iris){iris.open=w.phaseTick<w.data.openUntil;w.progress=1-iris.hp/iris.maxHp;}
- if(reflect&&w.phaseTick>=600&&t===340)w.hazard({id:'light-reprise-'+cycle,source:'light.iris-shot.reprise',rule:'ordinary',x:1180,y:568,w:40,h:32,vx:-7,windup:30,active:180,recovery:0,cue:'LOW PROJECTOR SHOT — JUMP OR SHIELD'});
+ if(reflect&&w.phaseTick>=600&&t===340)w.hazard({id:'light-reprise-'+cycle,source:'light.iris-shot.reprise',rule:'ordinary',x:1180,y:568,w:40,h:32,vx:-7,windup:75,active:180,recovery:0,cue:'LOW PROJECTOR SHOT — JUMP OR SHIELD'});
+ // Keep mirror bait, committed beam and first second of the return free of background shots.
+ if(reflect)w.pressure?.({id:'light-prism-motes',start:660,period:60,styles:['orb','diamond'],speed:2.25,windup:90,maxAlive:2,lane:'low',side:'far',enabled:t>=180});
  w.objective=iris?.open?'Housing exposed: land baseline shots.':reflect?'Bait the locked beam from left of the low mirror.':'Move left of the booth before the iris locks its lane.';
 }
 A.registerStage({id:'02-last-light',number:2,title:'Last Light Bar',operator:'Morelight',operatorSprite:'vela',color:'#bba6ed',eligibleWeapons:['prism-rail','echo-decoy'],phases:[

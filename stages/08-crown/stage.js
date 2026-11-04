@@ -9,9 +9,11 @@ else for(const [rule,x] of [['dash',880],['shield',1100]])w.target({id:'crown-'+
 }
 function update(w,joust){const length=joust?600:420,t=w.phaseTick%length,cycle=Math.floor(w.phaseTick/length),rule=joust&&(cycle%2===0)?'dash':'shield';
 if(t===30){w.data.rule=rule;w.cue(rule==='dash'?'SLED RECOILS — LANCE ≫ CALLS FOR SHIFT':'REELS STOP 1…2…3. MATCHED X SYMBOLS CALL FOR SHIELD',100);}
-if(t===90)w.hazard({id:'crown-pulse-'+w.phaseIndex+'-'+cycle,source:rule==='dash'?'crown.royal-joust.front':'crown.jackpot-pulse.shield',rule,x:1200,y:0,w:32,h:720,vx:-14,windup:30,active:100,recovery:15,cue:rule==='dash'?'≫ DASH THROUGH THE LANCE FRONT ≫':'MATCHED REELS — X SHIELD ON CONTACT'});
+if(t===90)w.hazard({id:'crown-pulse-'+w.phaseIndex+'-'+cycle,source:rule==='dash'?'crown.royal-joust.front':'crown.jackpot-pulse.shield',rule,x:1200,y:0,w:32,h:720,vx:-14,windup:60,active:100,recovery:15,cue:rule==='dash'?'≫ DASH THROUGH THE LANCE FRONT ≫':'MATCHED REELS — X SHIELD ON CONTACT'});
 for(const e of w.events)if(e.type==='counter'&&(e.source==='crown.royal-joust.front'||e.source==='crown.jackpot-pulse.shield')){w.data.openUntil=w.phaseTick+210;if(e.rule==='dash')w.data.dashCounters++;else w.data.shieldCounters++;w.data.openRule=e.rule;w.cue(e.rule==='dash'?'LANCE PASSED: PUNISH THE NEAR SIDE CORE':'TIMED BLOCK: SHOOT THE FAR REEL CORE',170);if(w.data.dashCounters+w.data.shieldCounters===1)w.drop('crown-first-counter',w.player.x+45,575);}
 for(const core of w.targets)core.open=w.phaseTick<w.data.openUntil&&(!joust||core.id==='crown-'+w.data.openRule+'-core');w.progress=1-w.targets.reduce((n,c)=>n+c.hp,0)/(joust?36:20);
+// Protect the reel/lance warning, mandatory front and first second of the counter opening.
+if(joust)w.pressure?.({id:'crown-reel-spill',start:660,period:60,styles:['diamond','roller'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:t>=180&&(w.phaseTick>=w.data.openUntil||w.data.openUntil-w.phaseTick<=150)});
 w.objective=w.phaseTick<w.data.openUntil?'Counter opening: shoot the '+(w.data.openRule==='dash'?'near lance':'far reel')+' core.':rule==='dash'?'Dash the lance to expose the near core (two-core objective).':(joust?'Shield the matching reel pulse to expose the far core (two-core objective).':'Shield matching reels to expose the knight core.');
 }
 A.registerStage({id:'08-crown',number:8,title:'Crown Relay Chamber',operator:'Alpha 777',operatorSprite:'alpha777',color:'#f4e595',eligibleWeapons:['prism-rail'],phases:[
