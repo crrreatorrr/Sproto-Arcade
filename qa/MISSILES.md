@@ -10,4 +10,13 @@ Verified clean gameplay candidate `05b08ea2ce2306bf37e8131e7910e7c772c72fd4`.
 
 Reproduce from the QA directory with `node run-all.mjs <repo>`, `node missile-campaign.mjs <repo>`, `node ui-browser.mjs <repo>`, and `QA_CAPTURE=<capture-prefix> node missile-browser.mjs <repo> http://127.0.0.1:5202/index.html`. Browser checks require local Chrome. The observer preload changes no HP, collision, input, stage data or target damage; it adds observation fields and wraps calls only.
 
-Limits: no human playtests; automated routes do not establish comfort or comprehension. The isolated grounded escape uses a forward jump across the committed line; stationary jump or walking alone is not claimed as universally safe. Final generated PNG has not arrived, so PNG image/crop/scale verification remains pending; placeholder delivery is permitted. Boss animation production remains stopped. No pull, push, generation credits or production code changes were performed by QA.
+Limits: no human playtests; automated routes do not establish comfort or comprehension. The isolated grounded escape uses a forward jump across the committed line; stationary jump or walking alone is not claimed as universally safe. The original evidence above used the placeholder; the supplied-art verification below supersedes its asset limitation. Boss animation production remains stopped. No pull, push, generation credits or production code changes were performed by QA.
+
+
+## Supplied static missile art
+
+The runtime now uses the provided Higgsfield PNG, Library `libfile_459770306434819188170ed598504973`. The source SHA, verified crop and export dimensions are recorded in `art/gameplay/projectiles/missile-asset.json`. `tools/prepare-missile-art.py <source.png>` reproduces the keyed master and nearest-neighbor runtime export with Pillow. Only exterior-connected magenta is removed, so interior painted details remain intact. The 1549×423 tight master becomes a 44×12 body with transparent padding inside the existing44×18 hitbox. Projectile speed, warning duration and encounter rules are unchanged.
+
+- `missile-art-browser.json` and `missile-art-render-*.png`: actual Chrome file/HTTP rendering of left/right facings, warning and active states. Both use the176×72 RGBA PNG at44×18 with smoothing disabled, exact collision outlines and dashed warnings; zero console errors/exceptions. Screenshots were visually inspected. These are synthetic paused arrangements, not earned clears.
+- `node qa/missile-art.mjs .`: validates PNG dimensions, RGBA/binary transparency, transparent padding, no hidden background RGB, nearest-neighbor pixel blocks and runtime/provenance mapping. Registered in the31-command regression runner, all passing.
+- The supplied static asset required no additional generation or credits in this integration. Boss animation production remains stopped. Human readability playtesting remains outstanding.

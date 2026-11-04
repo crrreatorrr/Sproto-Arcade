@@ -41,7 +41,7 @@ for(const h of w.hazards){
  ctx.save();ctx.globalAlpha=warning ? (h.missile ? 0.65 : 0.35) : 0.95;
  if(style&&h.rule==='ordinary'){
   const asset=Arcade.projectileAssets?.[style],picture=img(asset?.path||'art/gameplay/projectiles/'+style+'.svg');
-  if(picture){ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);if(asset?.crop)ctx.drawImage(picture,...asset.crop,-h.w/2,-h.h/2,h.w,h.h);else ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}
+  if(picture){if(asset?.pixelArt)ctx.imageSmoothingEnabled=false;ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);if(asset?.crop)ctx.drawImage(picture,...asset.crop,-h.w/2,-h.h/2,h.w,h.h);else ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}
   else{ctx.fillStyle=h.pressure?'#a3e8d6':'#ffb482';ctx.fillRect(h.x,h.y,h.w,h.h);}
  }else{ctx.fillStyle=h.rule==='dash'?'#d488fe':h.rule==='shield'?'#79e4e2':'#ff977a';ctx.fillRect(h.x,h.y,h.w,h.h);}
  ctx.restore();ctx.strokeStyle=warning?'#f6ddb5':h.pressure?'#b9f3df':'#fff0d5';ctx.lineWidth=warning?2:1;ctx.setLineDash(warning?[7,7]:[]);ctx.strokeRect(h.x,h.y,h.w,h.h);ctx.setLineDash([]);

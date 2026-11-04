@@ -20,7 +20,7 @@ const commands=tests.map(file=>{
  }
  return {file,relative,args};
 });
-for(const file of ['static-checks.mjs','shared-rules.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
 // Animation inventory is archived pre-production evidence; current user stopped production.
 if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.join(qaDir,'pacing-checks.mjs'),relative:'qa/pacing-checks.mjs',args:[root]});
 if(fs.existsSync(path.join(qaDir,'missile-checks.mjs')))commands.push({file:path.join(qaDir,'missile-checks.mjs'),relative:'qa/missile-checks.mjs',args:[root]});

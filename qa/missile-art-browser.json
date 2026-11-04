@@ -1,0 +1,163 @@
+{
+  "build": "74d18ee9225f0fc8dddd0c3e00112608b854471d",
+  "workingTree": "M art/gameplay/projectiles/missile-asset.json\n M art/gameplay/projectiles/projectile-assets.js\n M qa/MISSILES.md\n M qa/missile-browser.mjs\n M qa/run-all.mjs\n M review-start.html\n M rework.js\n?? art/gameplay/projectiles/missile-master.png\n?? art/gameplay/projectiles/missile.png\n?? qa/missile-art-browser.json\n?? qa/missile-art-render-file-active.png\n?? qa/missile-art-render-file.png\n?? qa/missile-art-render-http-active.png\n?? qa/missile-art-render-http.png\n?? qa/missile-art.mjs\n?? tools/",
+  "kind": "actual-browser-synthetic-missile-rendering",
+  "status": "passed",
+  "rows": [
+    {
+      "url": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-missile-art/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "missile",
+          "loaded": true,
+          "width": 176
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-missile-art/art/gameplay/projectiles/missile.png",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ],
+          "smoothing": false,
+          "facing": -1,
+          "pixels": [
+            176,
+            72
+          ]
+        },
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-missile-art/art/gameplay/projectiles/missile.png",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ],
+          "smoothing": false,
+          "facing": 1,
+          "pixels": [
+            176,
+            72
+          ]
+        }
+      ],
+      "correctDrawSize44x18": true,
+      "bothFacings": true,
+      "crispPng": true,
+      "warningCollisionOutlines": 2,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 7,
+      "hazards": [
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            300,
+            420,
+            44,
+            18
+          ]
+        },
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            460,
+            420,
+            44,
+            18
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    },
+    {
+      "url": "http://127.0.0.1:5202/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "missile",
+          "loaded": true,
+          "width": 176
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/missile.png",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ],
+          "smoothing": false,
+          "facing": -1,
+          "pixels": [
+            176,
+            72
+          ]
+        },
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/missile.png",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ],
+          "smoothing": false,
+          "facing": 1,
+          "pixels": [
+            176,
+            72
+          ]
+        }
+      ],
+      "correctDrawSize44x18": true,
+      "bothFacings": true,
+      "crispPng": true,
+      "warningCollisionOutlines": 2,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 7,
+      "hazards": [
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            300,
+            420,
+            44,
+            18
+          ]
+        },
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            460,
+            420,
+            44,
+            18
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Synthetic hazard arrangement checks actual renderer/image loading; it is not a played encounter or clear.",
+    "Canvas traces establish draw calls and collision-outline coordinates, not human comprehension.",
+    "Campaign legal-input controllers and human playtesting remain separate."
+  ]
+}
