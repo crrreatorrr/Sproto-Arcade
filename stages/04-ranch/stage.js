@@ -14,6 +14,7 @@ if(!d.crossed&&p.x<start-30&&p.grounded)p.dashWait=0;
 target.open=d.crossed;
 if(d.crossed&&!d.reward){d.reward=true;w.drop('ranch.first-coupling',p.x+80,FLOOR-26);}
 if(w.phaseTick>600&&d.crossed&&w.phaseTick%270===0)roller(w,'ranch.harvest-roll.return');
+w.slowMissile?.({id:'ranch-slow-missile',start:180,period:480,speed:1.1,windup:90,enabled:d.crossed&&p.grounded&&p.x>end+180});
 w.pressure?.({id:'ranch.engine-pressure',start:660,period:60,styles:['roller','seed'],speed:2.5,windup:90,maxAlive:2,lane:'low',side:'far',enabled:d.crossed&&p.grounded&&p.x>end+180});
 w.progress=d.crossed?.5+.5*(1-target.hp/target.maxHp):A.clamp((p.x-d.offset)/2800,0,.5);w.objective=d.crossed?'LINKAGE · shoot the exposed engine':'UNCOUPLE · air dash across the marked gap';}
 A.registerStage({id:'04-ranch',number:4,title:'Sproto Ranch',operator:'Halloween 2008',operatorSprite:'zephyr',color:'#eab95e',eligibleWeapons:['prism-rail','ricochet-mine'],phases:[
