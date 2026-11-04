@@ -13,7 +13,7 @@
     ctx.strokeStyle='#ffe29b';ctx.beginPath();ctx.moveTo(55,-10);ctx.lineTo(110,-35+Math.sin(tick/20)*8);ctx.stroke();
     if(anchored){for(const x of [-60,60]){ctx.beginPath();ctx.moveTo(x,30);ctx.lineTo(x*1.5,120);ctx.stroke();}}
     else {ctx.fillStyle='#85c7ff';ctx.fillRect(-62,46,25,22+Math.sin(tick/7)*8);ctx.fillRect(37,46,25,22+Math.sin(tick/7)*8);}
-    ctx.fillStyle='#fff2c2';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.fillText('BITCOIN SHERIFF',0,-85);ctx.restore();
+    ctx.fillStyle='#fff2c2';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.restore();
   }
   const smooth=n=>{n=A.clamp(n,0,1);return n*n*(3-2*n);};
   // Pose is a pure fixed-tick sample. Draws and display refresh never advance it.
@@ -38,7 +38,7 @@
     ctx.fillStyle='#252e43';ctx.fillRect(1038,478,129,124);ctx.strokeStyle='#d5af69';ctx.lineWidth=5;ctx.strokeRect(1050,490,105,100);
     ctx.fillStyle=w.phaseTick<w.data.openUntil?'#ffdc83':'#59636f';ctx.fillRect(1053,493,99,94);
     for(let i=0;i<5;i++){const y=500+i*17;ctx.fillStyle='#303a4e';ctx.fillRect(1055+(p.open*43),y,95*(1-p.open),7);}
-    ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle='#323a52';ctx.strokeStyle='#e4bc61';ctx.lineWidth=5;ctx.fillRect(-80,-68,160,110);ctx.strokeRect(-80,-68,160,110);ctx.fillStyle='#a8e5ff';ctx.fillRect(-40,-52,80,54);ctx.fillStyle='#304761';ctx.fillRect(-37,-49,74,48);ctx.fillStyle='#fff2c2';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.fillText('BITCOIN SHERIFF',0,-85);ctx.restore();
+    ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle='#323a52';ctx.strokeStyle='#e4bc61';ctx.lineWidth=5;ctx.fillRect(-80,-68,160,110);ctx.strokeRect(-80,-68,160,110);ctx.fillStyle='#a8e5ff';ctx.fillRect(-40,-52,80,54);ctx.fillStyle='#304761';ctx.fillRect(-37,-49,74,48);ctx.fillStyle='#fff2c2';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.restore();
     const shoulder={x:p.x+57,y:p.y-15},elbow={x:p.elbowX,y:p.elbowY},emitter={x:p.emitterX,y:p.emitterY};segment(ctx,shoulder,elbow,15,'#706c78');segment(ctx,elbow,emitter,10,'#d5af69');
     ctx.fillStyle='#d5af69';for(const joint of [shoulder,elbow]){ctx.beginPath();ctx.arc(joint.x,joint.y,10,0,Math.PI*2);ctx.fill();}
     ctx.save();ctx.translate(emitter.x,emitter.y);ctx.rotate(-p.unfold*Math.PI/2);ctx.fillStyle='#506277';ctx.fillRect(-19,-25,38,50);ctx.strokeStyle=p.scannerState==='release'?'#fff1ac':'#b7e7ff';ctx.lineWidth=5;ctx.strokeRect(-15,-22,30,44);ctx.restore();
