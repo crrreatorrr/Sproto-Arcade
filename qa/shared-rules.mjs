@@ -15,7 +15,7 @@ let passed=0;function test(name,fn){try{fn();passed++;console.log('PASS '+name);
 const front=(w,rule='dash')=>w.hazard({id:'front',source:'qa-front',rule,x:250,y:0,w:12,h:720,vx:-250,active:2});
 test('shield cannot substitute for marked dash',()=>{const w=create();front(w);w.step({shield:true});assert.equal(w.player.hp,4);assert(w.events.some(e=>e.type==='hit'&&e.source==='qa-front'));});
 test('active dash counters swept front',()=>{const w=create();front(w);w.step({dash:true});assert.equal(w.player.hp,5);assert(w.events.some(e=>e.type==='counter'&&e.rule==='dash'));});
-test('last active dash tick counters front',()=>{const w=create();w.player.dash=1;w.player.dashWait=20;w.player.dashDir=1;front(w);w.step({});assert.equal(w.player.hp,5);assert(w.events.some(e=>e.type==='counter'));});
+test('last active dash tick counters front',()=>{const w=create();w.step({dash:true});for(let i=0;i<9;i++)w.step({});assert.equal(w.player.dash,1);w.hazard({id:'last-frame',source:'last-frame',rule:'dash',x:w.player.x+80,y:0,w:12,h:720,vx:-150,active:2});w.step({});assert.equal(w.player.hp,5);assert(w.events.some(e=>e.type==='counter'));});
 test('early dash expires before front',()=>{const w=create();w.step({dash:true});for(let i=0;i<12;i++)w.step({});w.hazard({id:'front',source:'early',rule:'dash',x:w.player.x-4,y:0,w:8,h:720,active:2});w.step({});assert.equal(w.player.hp,4);});
 test('late dash does not undo prior hit',()=>{const w=create();front(w);w.step({});w.step({dash:true});assert.equal(w.player.hp,4);});
 test('shield-only pulse rejects dash',()=>{const w=create();front(w,'shield');w.step({dash:true});assert.equal(w.player.hp,4);});

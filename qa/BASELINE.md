@@ -44,3 +44,7 @@ Run `node qa/baseline-browser.mjs [root]` for preserved baseline. Chrome needs p
 Run `node qa/shared-rules.mjs [root]` only after runtime and weapon packets are integrated. Its independently authored contract fixtures cover early/active/late/final-tick dash, shield-only separation, swept fronts, reset, phase clearing, practice spawn, and RNG independence. These fixtures are pending, not yet reported passed.
 
 Pending: normal-input base-kit clears, strongest non-dash gap attempts, successful dash launch windows, varied display refresh rendering checks, all power/mode combinations, human cue comprehension, production art readability and offline manifest QA.
+
+## Shared-mechanics interim check
+
+On integrated `5b31a6c` (root UI still uncommitted), eleven independent shared-rule fixtures passed. The final-dash-tick fixture now drives an actual dash through ten steps, rather than relying on a private direction field. This verifies active final tick, not an artificially initialized player. Actual `file://index.html` menu and keyboard smoke passed both phases of Marina and Mudline, R restart, Escape pause and resume with no uncaught exceptions. This is a partial two-stage integration observation, not the four-stage gate. `integration-smoke-partial.json` records the working-tree state and limitations. Use `node qa/ui-browser.mjs [root]` against the final pinned slice again.

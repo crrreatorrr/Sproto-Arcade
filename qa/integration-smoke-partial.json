@@ -1,0 +1,122 @@
+{
+  "build": "5b31a6c222bad08e3b3ba4e88ddc11a2110bc6ac",
+  "workingTree": "M index.html\n?? docs/GATES.md\n?? rework.js",
+  "kind": "offline-menu-and-keyboard-smoke",
+  "status": "passed",
+  "registered": 2,
+  "rows": [
+    {
+      "stage": "01-marina",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 10,
+        "objective": "Jump the low wake. Steam reveals the vent after the slam.",
+        "mode": "fixed",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "01-marina",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Read the three pipes; dash through the marked pressure front.",
+        "mode": "fixed",
+        "targets": 2,
+        "platforms": 1,
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "03-mudline",
+      "entry": "full-run",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 0,
+        "practice": false,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Read the filling glass belly",
+        "mode": "flight",
+        "targets": 1,
+        "platforms": 1,
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 0,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    },
+    {
+      "stage": "03-mudline",
+      "entry": "phase2-practice",
+      "seed": 777,
+      "initial": {
+        "state": "playing",
+        "phase": 1,
+        "practice": true,
+        "hp": 5,
+        "tick": 6,
+        "objective": "Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)",
+        "mode": "flight",
+        "targets": 3,
+        "platforms": 1,
+        "power": null
+      },
+      "retry": {
+        "state": "playing",
+        "phase": 1,
+        "hp": 5,
+        "failure": "",
+        "overlay": false,
+        "power": null
+      },
+      "result": "passed"
+    }
+  ],
+  "paused": true,
+  "resumed": true,
+  "exceptions": [],
+  "errors": [],
+  "limitations": [
+    "Forced loss only; no earned completion tested.",
+    "Registration count may be partial during integration.",
+    "No human comprehension or visual balance validation."
+  ]
+}
