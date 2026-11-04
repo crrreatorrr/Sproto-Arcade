@@ -20,8 +20,10 @@ Practice and full-run records are separate; practice records are also separated 
 
 ## Verification and art gate
 
-`docs/GATES.md` records integration commits, observed evidence and limitations. `qa/SLICE.md` documents the first four-stage slice. Run `node qa/run-all.mjs .` for dependency-free simulation fixtures; `node qa/ui-browser.mjs .` exercises the actual offline entry using local Chrome. Browser checks intentionally distinguish forced lifecycle routing from earned victories. The original offline entry has its own twelve-stage routing matrix.
+`docs/STATUS.md` gives the exact milestone checkpoint and remaining approval. `docs/GATES.md` records integration commits, observed evidence and limitations. `qa/SLICE.md` documents the first four-stage slice. Run `node qa/run-all.mjs .` for dependency-free simulation fixtures; `node qa/ui-browser.mjs .` exercises the actual offline entry using local Chrome. Browser checks intentionally distinguish forced lifecycle routing from earned victories. The original offline entry has its own twelve-stage routing matrix.
 
 Open **art-review.html** for every boss’s two-phase reference guides, the initial Dave/Big Swole/Goldie silhouette studies, weapon boards, and per-boss clip inventories. The linked contact sheet reviews all24phases. These are procedural guides with source records and classic-script manifests. The user requires30 or more distinct animations per boss; planned clip inventories and delivered clip counts remain separate. Frames and duplicate motion do not increase distinct animation coverage. No production Higgsfield animations have been generated. See `docs/ANIMATION-PRODUCTION.md`. Encounter timing, critical poses and hit-area approval are required before generation. Human comprehension tests, final balance, production-art readability and final atlas verification are not implied by simulation passes.
 
 Developer interface: `docs/INTERFACE.md`. Each specialist worked in a separate branch/worktree with exclusive paths; integration was serial. Nothing has been pushed or published from this implementation branch.
+
+Human validation: open **qa/playtest.html** and follow **qa/PLAYTEST.md** for the eight-person formative session. The form starts empty; no human playtest results have been recorded.

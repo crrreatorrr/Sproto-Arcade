@@ -88,3 +88,11 @@ All12bosses /24phases also have actual offline visual sampling:96exact-tick rend
 
 
 All-boss guide prep completed after the production checkpoint: `39374e0` adds18self-containedSVGguides for the remaining9bosses, using unchanged clean-e1game captures with pilot/target overlays. Existing3style studies are retained. All12reference packs remain candidates, with human timing/critical-pose/hit-area review pending. This is permitted pre-production work, not final clip delivery.
+
+
+Human playtest preparation is implemented in qa/playtest.html and qa/PLAYTEST.md (packet d9c46aa): blank P01–P08 records, first-dash attempt/understanding, phase2 comprehension, named causes, restart observations and all12follow-up notes. Storage/export behavior was checked with deleted synthetic data; actual human participants0. The six-of-eight-by-attempt3 target remains unvalidated.
+
+
+Final guide correction: source images and overlay coordinates are now captured/exported atomically from the same canvas render, with explicit tracked-keyframe metadata and strict PNG SHA/native-size/projection assertions. Updated review captures at `7aff115`/`843b74a`; synchronized guides at `4887031`. QA clean4887031 confirms27SVGs/15packs load offline and six Crown/Verse/Codebreak guide panels have matching pilot/target overlays. Earlier normal-camera/diagnostic-camera pairing failure is documented and resolved in qa/GUIDES.md. No timing/pose approval is inferred from that technical correction.
+
+Gameplay source (index/rework/runtime/stages and preserved legacy entry scripts) is byte-for-byte unchanged from verified clean `e1c9dbc`. Later commits add reference guides, review evidence and playtest preparation. Original main and pre-existing worktrees remain untouched; packet branches are retained.
