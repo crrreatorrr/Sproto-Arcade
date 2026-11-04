@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');const vm=require('node:vm');
+let stage;const context={Arcade:{registerStage:s=>stage=s}};
+vm.runInNewContext(fs.readFileSync(__dirname+'/stage.js','utf8'),context);
+function world(n){const w={phaseIndex:n,phaseTick:0,data:{},player:{x:230,y:600},targets:[],platforms:[],hazards:[],events:[],drops:[],state:'playing',target(s){this.targets=this.targets.filter(x=>x.id!==s.id);this.targets.push(s);return s;},platform(s){this.platforms.push(s);},hazard(s){this.hazards.push(s);},cue(){},drop(...args){this.drops.push(args);},advancePhase(){this.state='transition';},clear(){this.state='clear';}};stage.phases[n].enter(w);return w;}
+const p1=world(0);assert.equal(p1.platforms.length,1);assert.equal(p1.targets[0].open,false);
+p1.phaseTick=120;stage.phases[0].update(p1);assert.equal(p1.hazards[0].rule,'ordinary');
+p1.phaseTick=180;stage.phases[0].update(p1);assert.equal(p1.targets[0].open,true);
+p1.targets[0].hp--;stage.phases[0].update(p1);stage.phases[0].update(p1);assert.equal(p1.drops.length,1);
+p1.targets[0].onDefeat(p1);assert.equal(p1.state,'transition');
+const p2=world(1);p2.phaseTick=30;stage.phases[1].update(p2);assert.equal(p2.hazards[0].rule,'dash');assert.equal(p2.hazards[0].h,720);
+let valve=p2.targets.find(x=>x.id==='marina-valve');assert.equal(valve.open,false);
+p2.events=[{type:'hit',source:'marina.pressure-lock.front'}];p2.phaseTick=200;stage.phases[1].update(p2);assert.equal(valve.open,false);
+p2.events=[{type:'counter',source:'marina.pressure-lock.front'}];stage.phases[1].update(p2);assert.equal(valve.open,true);
+valve.onDefeat(p2);p2.events=[];stage.phases[1].update(p2);assert.equal(p2.targets.find(x=>x.id==='marina-vent').open,true);
+p2.phaseTick=410;stage.phases[1].update(p2);assert.equal(p2.targets.find(x=>x.id==='marina-vent').open,false);
+p2.phaseTick=690;stage.phases[1].update(p2);assert.equal(p2.hazards.filter(x=>x.rule==='ordinary').length,1);
+p2.targets.find(x=>x.id==='marina-vent').onDefeat(p2);assert.equal(p2.state,'clear');
+const retry=world(1);assert.equal(retry.data.unlocked,false);assert.equal(retry.data.ventUntil,0);
+console.log('Marina authoring fixtures passed (rule scheduling, objectives, reward, lifecycle).');

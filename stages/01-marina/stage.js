@@ -1,0 +1,88 @@
+/* Packet C: Tidebreak Marina prototype. Classic script, no external assets. */
+(function (A) {
+  'use strict';
+  const FLOOR=600, CYCLE=420;
+  const VENT={x:1040,y:490,w:110,h:110};
+  function floor(w){w.platform({id:'marina-dock',x:0,y:FLOOR,w:1280,h:80});}
+  function wake(w,cycle,delay=0){
+    w.hazard({id:'marina-wake-'+w.phaseIndex+'-'+cycle,source:'marina.breakwater-slam.wake',rule:'ordinary',x:1020,y:568,w:76,h:32,vx:-9,vy:0,windup:delay,active:126,recovery:12,cue:'BOW PISTON — JUMP THE LOW WAKE'});
+  }
+  function label(ctx,text,x,y,color='#fff0c9') {ctx.fillStyle=color;ctx.font='bold 18px system-ui';ctx.fillText(text,x,y);}
+  function machine(ctx,w,press){
+    const t=w.phaseTick%CYCLE;
+    ctx.fillStyle=press?'#324d60':'#375c66';ctx.fillRect(970,340,260,260);
+    ctx.fillStyle='#102b39';ctx.fillRect(995,370,115,82);
+    ctx.strokeStyle='#faad62';ctx.lineWidth=10;ctx.strokeRect(995,370,115,82);
+    ctx.fillStyle='#dfb67e';ctx.fillRect(1150,460,28,t>=60&&t<120?80:120);
+    ctx.fillStyle='#b6d4d1';ctx.fillRect(1130,press?324:528,76,20);
+    const vent=w.targets.find(x=>x.id==='marina-vent');
+    ctx.fillStyle=vent&&vent.open?'#f4ffb3':'#172835';ctx.fillRect(1040,490,110,110);
+    for(let n=0;n<4;n++){ctx.fillStyle='#628a8d';ctx.fillRect(1044,505+n*22,102,6);}
+    if(vent&&vent.open){ctx.strokeStyle='#edf9ff';ctx.lineWidth=4;for(let n=0;n<3;n++){ctx.beginPath();ctx.moveTo(1050+n*32,478);ctx.quadraticCurveTo(1028+n*32,450,1054+n*32,430);ctx.stroke();}}
+    if(press){
+      ctx.strokeStyle='#648a9b';ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(1185,340);ctx.lineTo(1185,230);ctx.lineTo(350,230);ctx.lineTo(350,490);ctx.stroke();
+      for(let n=0;n<3;n++){ctx.fillStyle=t>=30+n*22&&t<190?'#ffe785':'#456372';ctx.fillRect(540+n*190,216,52,28);label(ctx,String(n+1),554+n*190,236,'#192d37');}
+      const valve=w.targets.find(x=>x.id==='marina-valve');
+      ctx.strokeStyle=valve&&valve.open?'#a9ffce':'#7a8b96';ctx.lineWidth=7;ctx.beginPath();ctx.arc(872,548,30,0,Math.PI*2);ctx.moveTo(850,526);ctx.lineTo(894,570);ctx.moveTo(894,526);ctx.lineTo(850,570);ctx.stroke();
+      label(ctx,'RELEASE VALVE',790,485,valve&&valve.open?'#a9ffce':'#9aa5ab');
+      label(ctx,'≫  SHIFT THROUGH PRESSURE  ≫',270,310,'#ffdb92');
+    }
+    label(ctx,press?'DRY DOCK PRESS':'BREAKWATER TUG',950,315);
+    label(ctx,vent&&vent.open?'STEAM: VENT OPEN':'VENT ARMORED',985,635,vent&&vent.open?'#eaffad':'#afb3b7');
+  }
+  const phase1={
+    name:'Breakwater Slam',machine:'Breakwater Tug',mode:'fixed',camera:'fixed',
+    objective:'Jump the low wake; fire into the steaming vent.',hudLabel:'VENT INTEGRITY',
+    spawn:{x:230,y:FLOOR},practiceSpawn:{x:230,y:FLOOR},pilot:{x:1048,y:440},attackIds:['marina.breakwater-slam.wake'],
+    enter(w){
+      floor(w);w.data.rewarded=false;w.progress=0;
+      w.target({id:'marina-vent',...VENT,hp:18,maxHp:18,open:false,label:'Steam vent',onDefeat(world){world.cue('Tug docks: wheelhouse and piston connect to pressure pipes.',90);world.advancePhase();}});
+      w.cue('Dave raises the piston. Jump the wake, then shoot the steaming vent.',180);
+    },
+    update(w){
+      const t=w.phaseTick%CYCLE,cycle=Math.floor(w.phaseTick/CYCLE),vent=w.targets.find(x=>x.id==='marina-vent');
+      if(t===60)w.cue('PISTON HANGS — LOW WAKE IN 60 TICKS: JUMP',100);
+      if(t===120)wake(w,cycle);
+      if(vent){vent.open=t>=180&&t<390;w.progress=1-Math.max(0,vent.hp)/18;
+        if(t===180)w.cue('STEAM OPENING — FIRE AT THE VENT',160);
+        if(!w.data.rewarded&&vent.hp<18){w.data.rewarded=true;w.drop('marina-first-vent-punish',w.player.x+55,FLOOR-24);}
+      }
+      w.objective=vent&&vent.open?'Vent open: land your baseline shots.':'Jump the low wake. Steam reveals the vent after the slam.';
+    },draw(ctx,w){machine(ctx,w,false);}
+  };
+  function makeValve(w,cycle){
+    w.target({id:'marina-valve',x:838,y:500,w:68,h:100,hp:3,maxHp:3,open:false,label:'Release valve',onDefeat(world){
+      world.data.ventUntil=world.phaseTick+210;world.data.valveBroken=true;
+      world.cue('PRESSURE RELEASED — VENT OPEN FOR 3.5 SECONDS',180);
+    }});w.data.valveCycle=cycle;
+  }
+  const phase2={
+    name:'Pressure Lock',machine:'Dry Dock Press',mode:'fixed',camera:'fixed',
+    objective:'Dash the marked pressure front, shoot the release valve, punish the vent.',hudLabel:'PRESSURE / VENT',
+    spawn:{x:260,y:FLOOR},practiceSpawn:{x:260,y:FLOOR},pilot:{x:1048,y:440},attackIds:['marina.pressure-lock.front','marina.breakwater-slam.wake'],
+    enter(w){
+      floor(w);Object.assign(w.data,{unlocked:false,ventUntil:0,valveBroken:false,valveCycle:0});w.progress=0;
+      w.target({id:'marina-vent',...VENT,hp:20,maxHp:20,open:false,label:'Pressure vent',onDefeat(world){world.clear();}});
+      makeValve(w,0);w.cue('NEW TASK: dash through ≫ pressure, then shoot the valve to vent the press.',240);
+    },
+    update(w){
+      const t=w.phaseTick%CYCLE,cycle=Math.floor(w.phaseTick/CYCLE);
+      const vent=w.targets.find(x=>x.id==='marina-vent');
+      if(t===30){
+        w.data.unlocked=false;w.data.valveBroken=false;makeValve(w,cycle);
+        w.cue('PIPES 1 → 2 → 3. PRESSURE FRONT: SHIFT ≫',120);
+        w.hazard({id:'marina-pressure-'+cycle,source:'marina.pressure-lock.front',rule:'dash',x:1210,y:0,w:30,h:720,vx:-12,vy:0,windup:90,active:110,recovery:10,cue:'≫ DASH THROUGH THE FULL-HEIGHT FRONT ≫'});
+      }
+      for(const event of w.events){if(event.type==='counter'&&event.source==='marina.pressure-lock.front'){
+        w.data.unlocked=true;w.cue('DASH COUNTER! SHOOT THE RELEASE VALVE',180);
+      }}
+      const valve=w.targets.find(x=>x.id==='marina-valve');
+      if(valve)valve.open=w.data.unlocked&&!w.data.valveBroken;
+      if(vent){vent.open=w.phaseTick<w.data.ventUntil;w.progress=1-Math.max(0,vent.hp)/20;}
+      // Once the new rule has been introduced alone, reprise the compatible low wake.
+      if(w.phaseTick>=600&&t===270)wake(w,cycle);
+      w.objective=vent&&vent.open?'Pressure released: shoot the steaming vent.':w.data.unlocked?'Shoot the release valve (left of the vent).':'Read the three pipes; dash through the marked pressure front.';
+    },draw(ctx,w){machine(ctx,w,true);}
+  };
+  A.registerStage({id:'01-marina',number:1,title:'Tidebreak Marina',operator:'Fat Head Dave',operatorSprite:'bront',color:'#efad76',eligibleWeapons:['prism-rail','ricochet-mine','echo-decoy'],phases:[phase1,phase2]});
+})(Arcade);
