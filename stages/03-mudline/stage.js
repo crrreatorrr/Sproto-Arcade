@@ -67,10 +67,10 @@
         world.player.dashWait=0;
         world.cue('BROKEN CHEVRONS: flight dash through the pressure front (Shift)',180);
         world.hazard({id:'backflush-'+d.round,source:'backflush-front',rule:'dash',x:1190,y:70,w:28,h:570,vx:-10,windup:90,active:130,recovery:10,cue:'≫  SHIFT THROUGH  ≫'});
-      }else{d.countered=true;world.cue('Shutter released. Try a clean cycle to learn the marked front.',150);}
+      }else{d.countered=false;world.cue('Pressure unstable: avoid damage and release one clean shutter cycle.',150);}
     };
     w.target({id:'latch-'+d.round,x:890,y:150,w:105,h:85,hp:4,maxHp:4,open:true,label:'UPPER LATCH · C BEAM',onDefeat:unlock});
-    w.target({id:'intake-'+d.round,x:890,y:515,w:105,h:85,hp:4,maxHp:4,open:false,label:'LOW INTAKE · V BOUNCE',onDefeat:unlock});
+    w.target({id:'intake-'+d.round,x:890,y:550,w:105,h:75,hp:4,maxHp:4,open:false,label:'LOW INTAKE · V BOUNCE',onDefeat:unlock});
     w.cue('SHUTTERS: fly high to beam the latch, or low to bounce into the intake',180);
   }
   const phase2={
@@ -79,7 +79,7 @@
     spawn:{x:220,y:345},practiceSpawn:{x:220,y:345},pilot:{x:1050,y:270},
     enter(w){
       Object.assign(w.data,{round:0,introduced:false,gateUnlocked:false,aimY:350,rewarded:false});
-      w.platform({id:'bounce-shelf',x:690,y:625,w:520,h:30});
+      w.platform({id:'bounce-shelf',x:0,y:625,w:1210,h:30});
       w.target({id:'pump-vent',x:985,y:330,w:120,h:140,hp:24,maxHp:24,open:false,label:'GLASS PUMP VENT',onDefeat(){w.clear();}});
       shutters(w);
     },
@@ -92,11 +92,12 @@
         core.open=d.gateUnlocked&&d.countered&&w.phaseTick-d.unlockTick<180&&(d.openingHp-core.hp<8);
         w.progress=1-core.hp/24;
       }
+      if(d.gateUnlocked&&!d.introduced&&!d.countered&&w.phaseTick-d.unlockTick>=90)shutters(w);
       if(d.gateUnlocked&&((d.countered&&w.phaseTick-d.unlockTick>=200)||(!d.countered&&w.phaseTick-d.unlockTick>=280)))shutters(w);
       // First 600 ticks isolate the new shutter/front rule before the familiar belch returns.
       if(w.phaseTick>=600&&w.phaseTick%360===90){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: reposition while working the shutter',55);}
       if(w.phaseTick>=600&&w.phaseTick%360===145)aimedBelch(w,'pump-sludge-belch-'+w.phaseTick);
-      w.objective=!d.gateUnlocked?'Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)':!d.countered?'Dash through the marked pressure front — shield cannot counter it':core&&core.open?'Pump vent OPEN — standard fire deals damage':'Pressure rebuilding — next shutter cycle';
+      w.objective=!d.gateUnlocked?'Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)':!d.countered?(!d.introduced?'Pressure unstable — repeat the shutter without taking a hit':'Dash through the marked pressure front — shield cannot counter it'):core&&core.open?'Pump vent OPEN — standard fire deals damage':'Pressure rebuilding — next shutter cycle';
     },
     draw(ctx,w){machine(ctx,w,true);}
   };
