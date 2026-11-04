@@ -23,3 +23,7 @@ Placeholder geometry only. Pilot/silhouette/attack timing require signoff before
 `node stages/10-verse/playthrough.cjs ../arcade-integration` loads real integrated runtime/weapons and drives normal inputs atseed41. Full start→phase transition→clear:1495ticks,zero hits,four dashfront counters (all3 route gates plus the returning orbital front),damage on allfour module sides,no pickup equipped or power used. Repeated inputs/seed produce identical results. A1000tick shield-only forward flight remains before rift1 with no counters and cannot advance. Phase2 practice starts with base kit and one-input restart returns to playing atphaseTick0.
 
 No browser/human playtest, refresh-rate distribution, perceptual comprehension, critical-pose/art validation, or balance claim is made by these fixtures. Integration QA must cover offline rendering and both phase entry points.
+
+### Offline browser visibility correction
+
+Top orbital module moved to center(640,260), target y220–300, label y195, and phase flight bounds keep player feet at260 or lower. Top exposure still requires feet<290, leaving a visible 30px decision band. Top controller now aims atfeet280. The other three module sides remain unchanged. This addresses QA screenshot occlusion under HUD/cue; browser recapture is required after integration.

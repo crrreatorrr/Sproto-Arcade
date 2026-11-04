@@ -12,7 +12,7 @@ function run(){const w=new ctx.Arcade.World(stage,{seed:41}),log={ticks:0,riftCo
    const front=w.hazards.find(h=>h.rule==='dash'&&!h.resolved&&h.age>=h.windup&&h.x-p.x<190&&h.x>=p.x);
    if(front&&!p.dashWait){input.dash=true;input.up=false;input.down=false;}
   }else{
-   const side=Math.floor((w.phaseTick%480)/120),g=[[220,350],[640,160],[1020,350],[640,570]][side];gx=g[0];gy=g[1];
+   const side=Math.floor((w.phaseTick%480)/120),g=[[220,350],[640,280],[1020,350],[640,570]][side];gx=g[0];gy=g[1];
    if(p.x<gx-8)input.right=true;if(p.x>gx+8)input.left=true;
    const front=w.hazards.find(h=>h.rule==='dash'&&!h.resolved&&h.age>=h.windup&&h.x-p.x<200&&h.x>p.x-20);
    if(front&&!p.dashWait){input.dash=true;input.right=true;input.left=false;gy=p.y;}

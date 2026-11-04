@@ -30,8 +30,8 @@
    ctx.fillStyle='#433052';ctx.fillRect(4520,200,330,320);ctx.strokeStyle='#c7a1e3';ctx.strokeRect(4520,200,330,320);ctx.fillStyle='#161a2c';ctx.fillRect(4650,230,100,80);label(ctx,'SALES CARRIER',4540,560);label(ctx,'EXIT TO SHOWROOM',4250,120);
   }
  };
- function orbit(w){const c=w.phaseTick%480,side=Math.floor(c/120),angle=[Math.PI,Math.PI*1.5,0,Math.PI*.5][side];return{c,side,angle,x:640+Math.cos(angle)*250,y:350+Math.sin(angle)*210};}
- const p2={drawsTargetLabels:true,name:'Limited-Time Offer',machine:'Orbital Showroom',mode:'orbit',camera:'fixed',hudLabel:'CABIN CORE',objective:'Read the hinged module, match its exposed side, then fire; use the brief center lane.',spawn:{x:220,y:350},practiceSpawn:{x:220,y:350},pilot:{x:640,y:310},
+ function orbit(w){const c=w.phaseTick%480,side=Math.floor(c/120),angle=[Math.PI,Math.PI*1.5,0,Math.PI*.5][side];return{c,side,angle,x:640+Math.cos(angle)*250,y:[350,260,350,560][side]};}
+ const p2={drawsTargetLabels:true,name:'Limited-Time Offer',machine:'Orbital Showroom',mode:'orbit',camera:'fixed',flightBounds:{top:260,bottom:665},hudLabel:'CABIN CORE',objective:'Read the hinged module, match its exposed side, then fire; use the brief center lane.',spawn:{x:220,y:350},practiceSpawn:{x:220,y:350},pilot:{x:640,y:310},
   enter(w){Object.assign(w.data,{lastSide:-1,centerWindow:false});
    w.target({id:'showroom-core',x:350,y:310,w:80,h:80,hp:54,maxHp:54,open:false,label:'HINGED MODULE',onDefeat(){w.clear();}});
    w.cue('ORBITAL DUEL: module hinges in order LEFT → TOP → RIGHT → BOTTOM. Match its side.',240);
@@ -58,7 +58,7 @@
   draw(ctx,w){const o=orbit(w);ctx.save();
    ctx.strokeStyle='#ad8bc9';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(640,350,250,210,0,0,Math.PI*2);ctx.stroke();
    ctx.fillStyle=w.data.centerWindow?'#3d6b65':'#513956';ctx.fillRect(565,245,150,200);ctx.strokeStyle='#eed4fc';ctx.strokeRect(565,245,150,200);ctx.fillStyle='#161a2c';ctx.fillRect(600,255,80,70);
-   for(let i=0;i<4;i++){const a=[Math.PI,Math.PI*1.5,0,Math.PI*.5][i],x=640+Math.cos(a)*250,y=350+Math.sin(a)*210;ctx.fillStyle=i===o.side?'#f8d486':'#5c4c70';ctx.fillRect(x-50,y-50,100,100);label(ctx,['LEFT','TOP','RIGHT','BOTTOM'][i],x-35,y-65);}
+   for(let i=0;i<4;i++){const a=[Math.PI,Math.PI*1.5,0,Math.PI*.5][i],x=640+Math.cos(a)*250,y=[350,260,350,560][i];ctx.fillStyle=i===o.side?'#f8d486':'#5c4c70';ctx.fillRect(x-50,y-50,100,100);label(ctx,['LEFT','TOP','RIGHT','BOTTOM'][i],x-35,y-65);}
    label(ctx,w.data.centerWindow?'CENTER LANE OPEN':'CENTRAL CABIN — ORBIT AROUND',440,640);label(ctx,'BOT SALES · LIMITED-TIME OFFER',420,85);ctx.restore();
   }
  };
