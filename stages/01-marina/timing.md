@@ -21,3 +21,7 @@ Art poses: same wheelhouse sits in a service cradle with pipes; retained piston 
 `node stages/01-marina/fixture.cjs` passes authoring fixtures for low-wake scheduling, vent opening, one reward event, phase advance, front rule/height, hit-vs-counter gating, valve-to-vent objective, window close, phase1 reprise after introduction, clear, and fresh practice state.
 
 These are mocked contract checks. Actual runtime base-kit completion, shield-only front rejection, launch-window measurements and offline browser readability require integrated build verification. No human playtest or final balance claim.
+
+## Actual runtime simulation check
+
+`node stages/01-marina/basekit.cjs [optional/path/to/runtime/core/world.js]` uses only held movement and pressed jump/dash inputs, leaves HP/targets/phases untouched, and never uses powers or C/V specials. Against the current Packet A implementation, full run clears at1900 ticks, HP5, three pressure counters, zero hits. Phase2 practice clears at1194 ticks, HP5, three pressure counters, zero hits. Repeated seed17 yields identical summary. This is a scripted simulation and does not validate human cue comprehension, art readability, or production balance. Re-run against pinned integrated runtime before accepting the slice gate.
