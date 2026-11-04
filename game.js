@@ -5,10 +5,16 @@ const ENEMY_ATTACK_RATE = .9;
 const PLAYER_SHOT_RATE = .75;
 const GROUND_WARNING_FRAMES = 30;
 const SCROLL_STEP = 6.86;
-const CHASE_START_Y=528, CHASE_SCROLL=5.4;
+const CHASE_START_Y=552, CHASE_SCROLL=5.4;
+const CHASE_ROOF_DROP=24, CHASE_GAP_REDUCTION=16;
+const GOLDIE_SCALE=.49, GOLDIE_START_X=90, GOLDIE_MAX_X=104;
+const GOLDIE_CATCH_REACH=85*GOLDIE_SCALE;
+// Position of the main roof within each building sprite, measured from the top.
+const CHASE_BUILDING_ROOFS=[.071,.413,.626,.427,.497,.373,.239,.404,.337,.296];
 const CHASE_LOOP_DISTANCE=38880, CHASE_FINISH=CHASE_LOOP_DISTANCE+160;
-const GOLDIE_EXHAUST=[[[-109,46],[-70,52]],[[-127,16],[-99,29]],[[-124,59],[-89,63]],[[-94,82],[-64,73]]];
-const GOLDIE_CHARGE_MUZZLE=[136,-25], GOLDIE_FIRE_MUZZLE=[102,-35];
+const GOLDIE_EXHAUST=[[-124,59],[-89,63]];
+const GOLDIE_MUZZLE=[140,-25];
+const GOLDIE_HOVER_FRAMES=24, GOLDIE_FRAME_SIZE=336;
 const CHASE_ATTACKS=[
   {name:'JETPACK BOLTS',shots:[[45,0,15,0,'prism'],[56,18,15,0,'prism']]},
   {name:'ARC BOMBS',shots:[[45,-12,12,-7,'pumpkin',.27],[64,10,11,-5,'pumpkin',.26]]},
@@ -21,13 +27,13 @@ const CHASE_LAYOUT=[
   [132,221,421],[160,293,492],[135,202,462],[146,240,516],
   [143,193,449],[150,225,486],[138,360,524]
 ];
-const chasePlatforms=[{x:0,width:CHASE_LAYOUT[0][1],y:CHASE_START_Y}];
+const chasePlatforms=[{x:0,width:CHASE_LAYOUT[0][1],y:CHASE_START_Y,building:0}];
 let chaseDistance=CHASE_LAYOUT[0][1];
 for (let i=0;chaseDistance<CHASE_FINISH;i++) {
   const [gap,width,y]=CHASE_LAYOUT[1+i%(CHASE_LAYOUT.length-1)];
-  const x=chaseDistance+gap;
+  const x=chaseDistance+gap-CHASE_GAP_REDUCTION;
   const span=x+width<CHASE_FINISH-240?width:Math.max(width,CHASE_FINISH+160-x);
-  chasePlatforms.push({x,width:span,y});
+  chasePlatforms.push({x,width:span,y:y+CHASE_ROOF_DROP,building:(i+1)%CHASE_BUILDING_ROOFS.length});
   chaseDistance=x+span;
 }
 const PLAYER_WALK_CYCLE_DISTANCE = 240;
@@ -372,9 +378,12 @@ function setOverlay(next, label, title, description, button) {
 }
 
 function showLevelControls() {
-  for (const element of document.querySelectorAll('[data-flight-only]')) element.hidden=!isFlying();
-  for (const element of document.querySelectorAll('[data-ground-only]')) element.hidden=isFlying();
-  document.querySelector('.weapons').hidden=isChase();
+  const flying=isFlying(), chase=isChase();
+  for (const element of document.querySelectorAll('[data-flight-only], [data-ground-only], [data-boss-only]')) {
+    element.hidden=(chase && element.hasAttribute('data-boss-only')) ||
+      (!flying && element.hasAttribute('data-flight-only')) ||
+      (flying && element.hasAttribute('data-ground-only'));
+  }
 }
 
 function begin(index = firstLevel, carryShield = false) {
@@ -390,7 +399,7 @@ function begin(index = firstLevel, carryShield = false) {
   phaseShift = 0;
   gameScreen.classList.remove('stage-blackout');
   vaultBeam = null;
-  player = {id:selectedSproto.id,x:isChase()?160:260,y:isChase()?CHASE_START_Y:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
+  player = {id:selectedSproto.id,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
   hud.hidden = false;
   setOverlay('play','','','','');
@@ -429,6 +438,8 @@ function refreshHud() {
   ui.count.textContent = 'LEVEL ' + (levelIndex+1) + ' / ' + LEVELS.length;
   ui.location.textContent = LEVELS[levelIndex].title;
   ui.boss.hidden = !boss;
+  if (player.shield) ui['shield-status'].textContent='Active';
+  else showCooldown(ui['shield-status'],player.shieldWait);
   if (isChase()) {
     ui.boss.firstElementChild.textContent='GOLDIE · ROOFTOP CHASE';
     ui.boss.querySelector('progress').value=clamp((camera+player.x)/CHASE_FINISH,0,1);
@@ -445,8 +456,6 @@ function refreshHud() {
   ui.dash.classList.toggle('ready',!player.dashWait);
   showCooldown(ui['missile-status'],player.missileWait);
   showCooldown(ui['bomb-status'],player.bombWait);
-  if (player.shield) ui['shield-status'].textContent='Active';
-  else showCooldown(ui['shield-status'],player.shieldWait);
   const m = boss?.move && moves[boss.move];
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
@@ -488,19 +497,23 @@ function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0,laser=false) {
   bullets.push({x,y,vx,vy,shape,own,gravity,bounces,laser,rate,age:0});
 }
 
+function updateShield(p, canActivate) {
+  if (p.shield) p.shield--;
+  if (p.shieldWait) p.shieldWait--;
+  if (canActivate && !p.shieldWait && tapped('KeyX')) {
+    p.shield=shieldDuration();
+    p.shieldWait=SHIELD_COOLDOWN;
+    sound(480,850,.16,.042);
+  }
+}
+
 function movePlayer() {
   const p=player;
   if (p.inv) p.inv--;
   if (p.dashWait) p.dashWait--;
   if (p.missileWait) p.missileWait--;
   if (p.bombWait) p.bombWait--;
-  if (p.shield) p.shield--;
-  if (p.shieldWait) p.shieldWait--;
-  if (boss.hp && !p.shieldWait && tapped('KeyX')) {
-    p.shield=shieldDuration();
-    p.shieldWait=SHIELD_COOLDOWN;
-    sound(480,850,.16,.042);
-  }
+  updateShield(p, boss.hp>0);
   const dx=Number(active('ArrowRight','KeyD'))-Number(active('ArrowLeft','KeyA'));
   if (isFlying()) moveSaucer(p,dx);
   else moveGround(p,dx);
@@ -1122,7 +1135,7 @@ function updateHazards() {
 }
 
 function startChase() {
-  boss={name:'Goldie',x:-98,y:390,attackIndex:0,attackAge:0,aimY:430};
+  boss={name:'Goldie',x:GOLDIE_START_X,y:390,attackIndex:0,attackAge:0,aimY:430};
   bullets=[];
   hazards=[];
   sparks=[];
@@ -1136,10 +1149,10 @@ function updateChaseAttacks() {
     if (b.attackAge===0) b.aimY=player.y-70;
     for (const [frame,offset,vx,vy,shape,gravity] of CHASE_ATTACKS[b.attackIndex].shots) {
       if (b.attackAge!==frame) continue;
-      const [muzzleX,muzzleY]=GOLDIE_FIRE_MUZZLE;
-      const y=b.y+muzzleY;
+      const [muzzleX,muzzleY]=goldieAttachment(...GOLDIE_MUZZLE,goldiePose());
+      const y=b.y+muzzleY*GOLDIE_SCALE;
       const aim=clamp((b.aimY+offset-y)/70,-3.7,3.7);
-      fire(b.x+muzzleX,y,vx,vy+aim,shape,false,gravity);
+      fire(b.x+muzzleX*GOLDIE_SCALE,y,vx,vy+aim,shape,false,gravity);
       sound(340,110,.16,.05);
     }
     if (++b.attackAge===172) {
@@ -1166,19 +1179,20 @@ function updateChase() {
   const p=player;
   if (p.dashWait) p.dashWait--;
   if (p.inv) p.inv--;
+  updateShield(p, true);
   const dx=Number(active('ArrowRight','KeyD'))-Number(active('ArrowLeft','KeyA'));
   moveGround(p,dx || CHASE_SCROLL/8.2);
   camera+=CHASE_SCROLL;
   p.x-=CHASE_SCROLL;
   const lead=p.x-boss.x;
   const pace=4.25+1.12*clamp(camera/CHASE_FINISH,0,1)+clamp((lead-305)*.035,0,6);
-  boss.x=Math.max(-98,boss.x+pace-CHASE_SCROLL);
-  boss.y=378+Math.sin(time*.047)*48+Math.sin(time*.021)*20;
+  boss.x=clamp(boss.x+pace-CHASE_SCROLL,GOLDIE_START_X,GOLDIE_MAX_X);
+  boss.y=390+Math.sin(time*.035)*24+Math.sin(time*.019)*9;
   updateChaseAttacks();
   if (mode!=='play') return;
   if (p.dash) p.dash--;
   if (banner && --banner===0) ui.notice.hidden=true;
-  if (p.y>H+60 || boss.x+85>=p.x || p.x<55) {
+  if (p.y>H+60 || boss.x+GOLDIE_CATCH_REACH>=p.x || p.x<55) {
     p.hp=0;
     const reason=p.y>H+60?'You fell between the rooftops.':'Goldie caught you.';
     setOverlay('lost','Chase failed','Down for the count!',reason,'Retry chase');
@@ -1709,31 +1723,80 @@ function drawPlayerShield(folder,x,y,scale=1) {
   ctx.drawImage(ring,Math.round(x-w/2),Math.round(y-h/2),w,h);
 }
 
-function goldieJetFrame(kind,frame) {
-  return attackFrame('boss/higgsfield/goldie-jetpack/'+kind,frame);
+const goldieArt=kind=>attackArt('boss/higgsfield/goldie-jetpack/'+kind);
+const goldieHoverAngle=frame=>.032*Math.sin(frame*2*Math.PI/GOLDIE_HOVER_FRAMES);
+let goldieHoverSheet;
+
+function makeGoldieHoverSheet() {
+  const sheet=document.createElement('canvas');
+  const size=GOLDIE_FRAME_SIZE;
+  sheet.width=6*size;
+  sheet.height=4*size;
+  const ink=sheet.getContext('2d');
+  ink.imageSmoothingEnabled=false;
+  const sprite=goldieArt('poses/03');
+  for (let frame=0;frame<GOLDIE_HOVER_FRAMES;frame++) {
+    ink.save();
+    ink.translate((frame%6+.5)*size,(Math.floor(frame/6)+.5)*size);
+    ink.rotate(goldieHoverAngle(frame));
+    ink.drawImage(sprite,-155,-153,310,306);
+    ink.restore();
+  }
+  return sheet;
+}
+
+function goldiePose() {
+  const frame=Math.floor(time/3)%GOLDIE_HOVER_FRAMES;
+  const age=boss.attackAge;
+  const lean=time>=100?Math.min(clamp((age-21)/24,0,1),clamp((88-age)/22,0,1)):0;
+  const easedLean=lean*lean*(3-2*lean);
+  let recoil=0;
+  if (time>=100) {
+    for (const [shotAge] of CHASE_ATTACKS[boss.attackIndex].shots) {
+      const progress=clamp((age-shotAge)/16,0,1);
+      recoil+=Math.sin(Math.PI*progress)**2*(1-progress);
+    }
+  }
+  return {frame,tilt:.055*easedLean-.11*recoil,shift:6*easedLean-16*recoil};
+}
+
+function goldieAttachment(x,y,pose) {
+  const angle=goldieHoverAngle(pose.frame)+pose.tilt;
+  const cos=Math.cos(angle), sin=Math.sin(angle);
+  return [x*cos-y*sin+pose.shift,x*sin+y*cos];
 }
 
 function drawGoldieJetpack() {
-  const b=boss;
-  const firing=b.attackAge>=45 && b.attackAge<70;
-  const charging=time>=100 && b.attackAge>=23 && b.attackAge<45;
-  const frame=firing?3:charging?2:Math.floor(time/12)%2;
-  const pack=goldieJetFrame('poses',frame);
-  const x=Math.round(b.x), y=Math.round(b.y);
-  for (const [i,[nozzleX,nozzleY]] of GOLDIE_EXHAUST[frame].entries()) {
-    const exhaust=goldieJetFrame('thrusters',(Math.floor(time/3)+i*2)%4);
-    const length=72+Math.round(24*Math.sin(time*.65+i));
-    ctx.drawImage(exhaust,x+nozzleX-15,y+nozzleY-3,30,length);
+  const pose=goldiePose();
+  const size=GOLDIE_FRAME_SIZE;
+  ctx.save();
+  ctx.translate(boss.x,boss.y);
+  ctx.scale(GOLDIE_SCALE,GOLDIE_SCALE);
+  const exhaust=goldieArt('thrusters/02');
+  for (const [i,[nozzleX,nozzleY]] of GOLDIE_EXHAUST.entries()) {
+    const [x,y]=goldieAttachment(nozzleX,nozzleY,pose);
+    const length=65+9*Math.sin(time*.27+i);
+    ctx.drawImage(exhaust,x-15,y-3,30,length);
   }
-  ctx.drawImage(pack,x-155,y-153,310,306);
-  if (charging) {
+  ctx.save();
+  ctx.translate(pose.shift,0);
+  ctx.rotate(pose.tilt);
+  ctx.drawImage(goldieHoverSheet,pose.frame%6*size,Math.floor(pose.frame/6)*size,size,size,-size/2,-size/2,size,size);
+  ctx.restore();
+  const chargeAge=boss.attackAge-21;
+  const charge=time>=100 && chargeAge>0 && chargeAge<25?Math.sin(Math.PI*chargeAge/25):0;
+  if (charge>0) {
     const glow=attackArt('player/higgsfield/saucer/muzzle');
-    const size=22+(b.attackAge-23)*1.5;
-    ctx.save();
-    ctx.globalAlpha=.72;
-    ctx.drawImage(glow,x+GOLDIE_CHARGE_MUZZLE[0]-size/2,y+GOLDIE_CHARGE_MUZZLE[1]-size/2,size,size);
-    ctx.restore();
+    const [x,y]=goldieAttachment(...GOLDIE_MUZZLE,pose);
+    const width=22+34*charge;
+    ctx.globalAlpha=.72*charge;
+    ctx.drawImage(glow,x-width/2,y-width/2,width,width);
   }
+  ctx.restore();
+}
+
+function chaseBuildingImage(index) {
+  return picture('art/rooftop-chase/buildings/'+(index+1)+'.webp');
 }
 
 function drawChase() {
@@ -1741,27 +1804,23 @@ function drawChase() {
   for (const block of chasePlatforms) {
     const x=Math.round(block.x-camera);
     if (x+block.width<0 || x>W) continue;
-    ctx.fillStyle='#10182a';
-    ctx.fillRect(x,block.y,block.width,H-block.y);
-    ctx.fillStyle='#293451';
-    ctx.fillRect(x+3,block.y+10,block.width-6,H-block.y-10);
-    ctx.fillStyle='#151c35';
-    for (let row=block.y+35;row<H;row+=36) ctx.fillRect(x+3,row,block.width-6,4);
-    for (let post=14;post<block.width-21;post+=31) {
-      for (let row=block.y+18;row<H;row+=36) {
-        const lit=(post*3+row+block.x)%7>2;
-        ctx.fillStyle=lit?'#ffc774':'#202f53';
-        ctx.fillRect(x+post,row,15,12);
-        if (lit) {
-          ctx.fillStyle='#fff0a7';
-          ctx.fillRect(x+post,row,15,3);
-        }
-      }
-    }
-    ctx.fillStyle='#8da4d5';
-    ctx.fillRect(x,block.y,block.width,4);
-    ctx.fillStyle='#46577b';
-    ctx.fillRect(x,block.y+4,block.width,7);
+    const building=chaseBuildingImage(block.building);
+    const roof=CHASE_BUILDING_ROOFS[block.building];
+    const facadeHeight=H-block.y+16;
+    const roofHeight=Math.min(62,facadeHeight*roof/(1-roof));
+    const roofPixel=Math.round(roof*building.height);
+    ctx.imageSmoothingEnabled=true;
+    ctx.drawImage(building,0,0,building.width,roofPixel,x,block.y-roofHeight,block.width,roofHeight);
+    ctx.drawImage(building,0,roofPixel,building.width,building.height-roofPixel,x,block.y,block.width,facadeHeight);
+    ctx.imageSmoothingEnabled=false;
+
+    // The top edge of the coping is also the landing surface.
+    ctx.fillStyle='#251c31';
+    ctx.fillRect(x,block.y,block.width,12);
+    ctx.fillStyle='#d9be91';
+    ctx.fillRect(x,block.y,block.width,3);
+    ctx.fillStyle='#766783';
+    ctx.fillRect(x+3,block.y+4,block.width-6,4);
   }
   const exit=Math.round(CHASE_FINISH-camera);
   if (exit>0 && exit<W) {
@@ -1957,7 +2016,7 @@ for (let i=0;i<4;i++) {
   for (const kind of ['lava','candle','smoke']) initial.push(forgeMotionFrame(kind,i));
   for (const kind of ['specimen','bubble']) initial.push(hatcheryFrame(kind,i));
   for (const kind of ['crystal','portal']) initial.push(verseMotionFrame(kind,i));
-  initial.push(marinaWaterFrame(i),goldieJetFrame('poses',i),goldieJetFrame('thrusters',i));
+  initial.push(marinaWaterFrame(i));
   for (let level=0;level<acts.length;level++) {
     initial.push(stageEffectFrame(level,i));
     if (level<3) initial.push(backdropFrame(level,i));
@@ -1992,7 +2051,10 @@ for (const width of [65,84]) {
   for (let i=0; i<3; i++) initial.push(attackFrame(`${folder}/warning`,i));
   for (let i=0; i<4; i++) initial.push(attackFrame(`${folder}/retract`,i));
 }
+for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) initial.push(chaseBuildingImage(i));
+initial.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
 Promise.all(initial.map(img=>img.decode())).then(()=>{
+  goldieHoverSheet=makeGoldieHoverSheet();
   camera=0;
   levelIndex=firstLevel;
   showLevelControls();
