@@ -1,0 +1,95 @@
+{
+  "build": "05b08ea2ce2306bf37e8131e7910e7c772c72fd4",
+  "workingTree": "",
+  "kind": "actual-browser-synthetic-missile-rendering",
+  "status": "passed",
+  "rows": [
+    {
+      "url": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-missiles/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "missile",
+          "loaded": true,
+          "width": 300
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-missiles/art/gameplay/projectiles/missile.svg",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ]
+        }
+      ],
+      "correctDrawSize44x18": true,
+      "warningCollisionOutlines": 1,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 4,
+      "hazards": [
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            300,
+            420,
+            44,
+            18
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    },
+    {
+      "url": "http://127.0.0.1:5202/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "missile",
+          "loaded": true,
+          "width": 300
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/missile.svg",
+          "box": [
+            -22,
+            -9,
+            44,
+            18
+          ]
+        }
+      ],
+      "correctDrawSize44x18": true,
+      "warningCollisionOutlines": 1,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 4,
+      "hazards": [
+        {
+          "sprite": "missile",
+          "speed": 1.1,
+          "windup": 90,
+          "box": [
+            300,
+            420,
+            44,
+            18
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Synthetic hazard arrangement checks actual renderer/image loading; it is not a played encounter or clear.",
+    "Canvas traces establish draw calls and collision-outline coordinates, not human comprehension.",
+    "Campaign legal-input controllers and human playtesting remain separate."
+  ]
+}

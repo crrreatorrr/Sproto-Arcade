@@ -1,0 +1,331 @@
+{
+  "build": "05b08ea2ce2306bf37e8131e7910e7c772c72fd4",
+  "workingTree": "",
+  "kind": "deterministic-regression",
+  "status": "passed",
+  "commands": 30,
+  "failed": 0,
+  "results": [
+    {
+      "file": "runtime/fixtures/pacing.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS both campaign phases share caps and preserve direction and exact travel\nPASS slow and stationary geometry stay authored and unnumbered fixtures bypass caps\nPASS phase two pressure starts after introduction and respects cadence without replacing cue\nPASS pressure is slow, visible, committed and leaves low/high defensive routes\nPASS population cap is global and expiry allows later emissions\nPASS protected intervals and unresolved critical fronts clear all pressure immediately\nPASS pressure style cycling and dedup consume no combat RNG and restart cleanly\nPASS near-side spawn defers and scrolling cameras retain visible warning bounds\n8 pacing fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/fixtures/slow-missile.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS phase two introduction, global cooldown and same-tick dedup use actual emissions\nPASS warning, speed, far visible spawn, committed aim and bounded whole-screen lifetime\nPASS missile prioritizes oldest background pressure and never removes base attacks\nPASS mandatory fronts clear and block pressure without consuming missile cooldown\nPASS camera culls active missiles, warning persists, expiry is bounded and phase/retry reset\nPASS ordinary missile has legal basic-movement escape and shield/dash counters\nPASS missile emission is replay deterministic and consumes no attack random numbers\n7 slow missile fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/fixtures/weapons-integration.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Prism Rail pierces two real runtime targets and consumes one charge\nPASS Ricochet Mine explodes on real target and destroys ordinary hazards only\nPASS Mine visibly skips off supplied floor then expires\nPASS Decoy redirects only the next eligible ordinary volley to deployment point\nPASS World clock expires decoy in 240 ticks\nPASS Phase retains charges and clears decoy; retry removes slot\nPASS Occupied slot requires deliberate replacement\nPASS Drop draws never advance runtime attack stream\nPASS C beam pierces and V ball bounce are base kit without pickups\n9 weapon/runtime integration fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/fixtures/world.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS moving narrow front sweeps past stationary player\nPASS shield cannot substitute for dash\nPASS active dash counters swept front exactly once\nPASS last active dash frame remains protected\nPASS too early dash fails after dash expires\nPASS too late dash cannot undo previous contact\nPASS shield pulse ignores dash but shield counters it\nPASS ordinary damage is blocked by either defensive action\nPASS ledge grace preserves the air jump\nPASS dash duration and distance are fixed\nPASS retry resets temporary state and attack RNG\nPASS phase transition clears stale state and waits exactly 90 ticks\nPASS practice phase restarts from base kit checkpoint\nPASS autofire target defeat called only once\nPASS closed armor blocks normal and piercing damage\nPASS fall cause bypasses defense and records loss\nPASS hazard windup does not contact before active tick\nPASS same seed and input reproduce snapshot\nPASS moving lift carries a grounded player horizontally and vertically\nPASS flight stays visible below HUD under held Up and upward dash\nPASS horizontal flight preserves route x and clamps all y motion\nPASS phase flightBounds override defaults for orbit and practice spawn\n22 runtime fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/weapons/test.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS seeded bag has no repeats before refill and duplicate opportunities consume nothing\nPASS stage compatibility filters IDs and guarantees eligible teaching reward\nPASS occupied slot replacement is deliberate and snapshots cannot mutate state\nPASS prism committed horizontal shots pierce and consume exactly two charges\nPASS flight prism aims at nearest open target or explicit normalized aim\nPASS mine launch requires supported flight bounce geometry, leaves charges on failure\nPASS decoy ignores fixed, shield and dash volleys and redirects only one eligible volley\nPASS decoy expires on exact ttl and phase clears temporary redirect but preserves charges\nPASS reset clears slot, dedup and seed state; attack stream stays independent\nPASS rejected emission, malformed state and dead player consume no charge\n10 weapon checks passed",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/basekit.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"full\": {\n    \"ticks\": 1913,\n    \"hp\": 5,\n    \"dashCounters\": 3,\n    \"hits\": 0,\n    \"pressure\": 3,\n    \"pressureStyles\": [\n      \"missile\",\n      \"roller\"\n    ]\n  },\n  \"practice\": {\n    \"ticks\": 1222,\n    \"hp\": 5,\n    \"dashCounters\": 3,\n    \"hits\": 0,\n    \"pressure\": 3,\n    \"pressureStyles\": [\n      \"missile\",\n      \"roller\"\n    ]\n  },\n  \"reproducible\": true,\n  \"inputs\": \"movement/jump/dash only; autofire baseline\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/fixture.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Marina authoring fixtures passed (rule scheduling, objectives, reward, lifecycle).",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/missile.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"diagnostic\": true,\n  \"earnedClear\": false,\n  \"results\": [\n    {\n      \"stage\": \"01-marina\",\n      \"emitted\": 400,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    },\n    {\n      \"stage\": \"02-last-light\",\n      \"emitted\": 180,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    },\n    {\n      \"stage\": \"04-ranch\",\n      \"emitted\": 200,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    },\n    {\n      \"stage\": \"05-neon\",\n      \"emitted\": 180,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    },\n    {\n      \"stage\": \"06-circuit\",\n      \"emitted\": 240,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    },\n    {\n      \"stage\": \"08-crown\",\n      \"emitted\": 300,\n      \"activeTravelTicks\": 150,\n      \"protectedCleanup\": true,\n      \"lockedAimEscape\": true\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/pressure.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"01-marina\",\n  \"legalIdleTicks\": 1234,\n  \"state\": \"lost\",\n  \"emitted\": 4,\n  \"styles\": [\n    \"seed\",\n    \"roller\"\n  ],\n  \"activePressureTicks\": 155,\n  \"maxAlive\": 2,\n  \"protectedTicks\": 539,\n  \"first\": {\n    \"tick\": 660,\n    \"style\": \"seed\",\n    \"speed\": 2.5,\n    \"windup\": 90\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/02-last-light/basekit.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"02-last-light\",\n  \"full\": {\n    \"state\": \"clear\",\n    \"ticks\": 1307,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {},\n    \"returns\": 2,\n    \"reflections\": 2,\n    \"pressure\": 1,\n    \"pressureStyles\": [\n      \"missile\"\n    ]\n  },\n  \"practice\": {\n    \"state\": \"clear\",\n    \"ticks\": 622,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {},\n    \"returns\": 2,\n    \"reflections\": 2,\n    \"pressure\": 1,\n    \"pressureStyles\": [\n      \"missile\"\n    ]\n  },\n  \"reproducible\": true,\n  \"inputs\": \"movement/jump/dash/shield and baseline autofire only\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/02-last-light/pressure.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"02-last-light\",\n  \"legalIdleTicks\": 1308,\n  \"state\": \"lost\",\n  \"emitted\": 4,\n  \"styles\": [\n    \"orb\",\n    \"diamond\"\n  ],\n  \"activePressureTicks\": 240,\n  \"maxAlive\": 2,\n  \"protectedTicks\": 587,\n  \"first\": {\n    \"tick\": 660,\n    \"style\": \"orb\",\n    \"speed\": 2.25,\n    \"windup\": 90\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/03-mudline/fixture.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Mudline authored fixture passed: telegraph, windows, route selection, drop dedup, clean introduction, dash gate, missed-front recovery, phase/clear callbacks. Collision and browser play not covered.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/03-mudline/playthrough.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "[\n  {\n    \"route\": \"upper\",\n    \"phase1\": true,\n    \"fronts\": 2,\n    \"upper\": 3,\n    \"lower\": 0,\n    \"damage\": 0,\n    \"beamHits\": 3,\n    \"ballHits\": 0,\n    \"ticks\": 1627,\n    \"phase2Ticks\": 955\n  },\n  {\n    \"route\": \"lower\",\n    \"phase1\": true,\n    \"fronts\": 2,\n    \"upper\": 0,\n    \"lower\": 3,\n    \"damage\": 0,\n    \"beamHits\": 0,\n    \"ballHits\": 3,\n    \"ticks\": 1902,\n    \"phase2Ticks\": 1230,\n    \"bouncedBallHits\": 3\n  }\n]",
+      "stderr": ""
+    },
+    {
+      "file": "stages/04-ranch/verify.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Ranch phase1: transition, 698 ticks, HP5, base kit.\nRanch legal-route pressure emissions: [{\"tick\":638,\"sprite\":\"missile\"},{\"tick\":660,\"sprite\":\"roller\"}] active missile ticks: 15\nRanch phase2: clear, 743 ticks, HP5, base kit.\nMoving coupling: 0 no-dash successes /935 samples; 23 successful dash ages.\nRanch practice/retry snapshot passed.\nPhase2 pressure: 2 distinct styles, speed2.5, cap2, >=90tick warning; protected route removes existing pressure.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/05-neon/verify.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Neon street: transition, 994 ticks HP5, no powers.\nNeon billboard: clear, 499 ticks HP5, standard jumps and autofire.\nNeon fast-climb pressure emissions: [{\"tick\":183,\"sprite\":\"missile\"}] active missile ticks: 107\nNeon floor-wait pressure emissions: [{\"tick\":180,\"sprite\":\"missile\"},{\"tick\":660,\"sprite\":\"missile\"},{\"tick\":660,\"sprite\":\"orb\"},{\"tick\":780,\"sprite\":\"seed\"},{\"tick\":1140,\"sprite\":\"missile\"},{\"tick\":1380,\"sprite\":\"orb\"},{\"tick\":1500,\"sprite\":\"seed\"},{\"tick\":1620,\"sprite\":\"missile\"},{\"tick\":1980,\"sprite\":\"seed\"},{\"tick\":2100,\"sprite\":\"missile\"},{\"tick\":2220,\"sprite\":\"seed\"},{\"tick\":2580,\"sprite\":\"missile\"},{\"tick\":2820,\"sprite\":\"orb\"},{\"tick\":2940,\"sprite\":\"seed\"}]\nGround-level autofire cannot bypass vertical alignment.\nUpper route cache reachable with standard jumps.\nNeon practice/retry resets targets and safe spawn.\nPhase2 pressure: 2 distinct styles, speed2.5, cap2, >=90tick warning; protected route removes existing pressure.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/06-circuit/basekit.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"06-circuit\",\n  \"full\": {\n    \"state\": \"clear\",\n    \"ticks\": 2378,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {\n      \"dash\": 4,\n      \"ordinary\": 3\n    },\n    \"returns\": 0,\n    \"pressure\": 7,\n    \"pressureStyles\": [\n      \"missile\",\n      \"orb\"\n    ]\n  },\n  \"practice\": {\n    \"state\": \"clear\",\n    \"ticks\": 1926,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {\n      \"dash\": 4,\n      \"ordinary\": 3\n    },\n    \"returns\": 0,\n    \"pressure\": 7,\n    \"pressureStyles\": [\n      \"missile\",\n      \"orb\"\n    ]\n  },\n  \"reproducible\": true,\n  \"inputs\": \"movement/jump/dash/shield and baseline autofire only\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/06-circuit/pressure.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"06-circuit\",\n  \"legalIdleTicks\": 1503,\n  \"state\": \"lost\",\n  \"emitted\": 4,\n  \"styles\": [\n    \"orb\",\n    \"bolt\"\n  ],\n  \"activePressureTicks\": 300,\n  \"maxAlive\": 2,\n  \"protectedTicks\": 602,\n  \"first\": {\n    \"tick\": 720,\n    \"style\": \"orb\",\n    \"speed\": 2.5,\n    \"windup\": 90\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/07-moonkeep/test.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Moonkeep base-kit full run 763 ticks, HP 4\nPASS maximum-speed non-dash second-jump sweep, furthest upper X 860 < landing contact984\nPASS moving-lift rider carry, 15 dash timings, recovery cannot bypass upper crossing\nPASS legal recovery ledge → step → upper launch return",
+      "stderr": ""
+    },
+    {
+      "file": "stages/08-crown/basekit.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"08-crown\",\n  \"full\": {\n    \"state\": \"clear\",\n    \"ticks\": 3608,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {\n      \"shield\": 4,\n      \"dash\": 3\n    },\n    \"returns\": 0,\n    \"pressure\": 9,\n    \"pressureStyles\": [\n      \"missile\",\n      \"roller\"\n    ]\n  },\n  \"practice\": {\n    \"state\": \"clear\",\n    \"ticks\": 2820,\n    \"hp\": 5,\n    \"hits\": 0,\n    \"counters\": {\n      \"dash\": 3,\n      \"shield\": 2\n    },\n    \"returns\": 0,\n    \"pressure\": 9,\n    \"pressureStyles\": [\n      \"missile\",\n      \"roller\"\n    ]\n  },\n  \"reproducible\": true,\n  \"inputs\": \"movement/jump/dash/shield and baseline autofire only\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/08-crown/pressure.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"stage\": \"08-crown\",\n  \"legalIdleTicks\": 2666,\n  \"state\": \"lost\",\n  \"emitted\": 6,\n  \"styles\": [\n    \"diamond\",\n    \"roller\"\n  ],\n  \"activePressureTicks\": 630,\n  \"maxAlive\": 2,\n  \"protectedTicks\": 899,\n  \"first\": {\n    \"tick\": 900,\n    \"style\": \"diamond\",\n    \"speed\": 2.5,\n    \"windup\": 90\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/09-hatchery/test.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Hatchery base-kit full run 1516 ticks HP 5\nPASS pod shell/break/hatch footing lifecycle, moving shell and actual lane gate",
+      "stderr": ""
+    },
+    {
+      "file": "stages/10-verse/playthrough.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"ticks\": 1507,\n  \"riftCounters\": 4,\n  \"hits\": 0,\n  \"moduleSides\": [\n    0,\n    1,\n    2,\n    3\n  ],\n  \"collected\": false\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/11-rooftop/verify.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "phase 1: transition, 1937 ticks, 5 HP; base kit no power use\nRooftop legal-route pressure emissions: [{\"tick\":325,\"sprite\":\"missile\"},{\"tick\":805,\"sprite\":\"missile\"},{\"tick\":840,\"sprite\":\"orb\"}]\nphase 2: clear, 1597 ticks, 5 HP; base kit no power use\ngap: 0 no-dash landings across 990 samples; dash succeeds ages 15,16,17,18,19,20,21,22,23,24,25,26,27,28,37,38,39,40,41,42,43,44,45\nRooftop fixture passed (simulation only; not human balance validation).\nupper roof cache reachable with standard jumps\npractice sectors reset to safe base-kit snapshots; normal run cannot skip crossing\nPhase2 pressure: 2 distinct styles, speed2.5, cap2, >=90tick warning; protected route removes existing pressure.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/12-codebreak/missiles.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "[\n  {\n    \"id\": \"03-mudline\",\n    \"emitted\": 2,\n    \"activeTicks\": 2039,\n    \"peak\": 2,\n    \"first\": 180,\n    \"guards\": 4\n  },\n  {\n    \"id\": \"07-moonkeep\",\n    \"emitted\": 2,\n    \"activeTicks\": 2039,\n    \"peak\": 2,\n    \"first\": 180,\n    \"guards\": 4\n  },\n  {\n    \"id\": \"09-hatchery\",\n    \"emitted\": 3,\n    \"activeTicks\": 1559,\n    \"peak\": 2,\n    \"first\": 180,\n    \"guards\": 3\n  },\n  {\n    \"id\": \"10-verse\",\n    \"emitted\": 4,\n    \"activeTicks\": 619,\n    \"peak\": 2,\n    \"first\": 180,\n    \"guards\": 2\n  },\n  {\n    \"id\": \"11-rooftop\",\n    \"emitted\": 2,\n    \"activeTicks\": 2039,\n    \"peak\": 2,\n    \"first\": 180,\n    \"guards\": 5\n  },\n  {\n    \"id\": \"12-codebreak\",\n    \"emitted\": 4,\n    \"activeTicks\": 156,\n    \"peak\": 2,\n    \"first\": 281,\n    \"guards\": 3\n  }\n]\nPASS six-stage missile active travel, total pool, guarded commitments and legal standard movement off committed line.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/12-codebreak/pacing.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "[\n  {\n    \"id\": \"03-mudline\",\n    \"emitted\": 7,\n    \"styles\": [\n      \"orb\",\n      \"diamond\"\n    ],\n    \"peak\": 2,\n    \"activePeak\": 2,\n    \"first\": 660,\n    \"attacks\": [\n      {\n        \"source\": \"pump-sludge-belch\",\n        \"speed\": 6,\n        \"authored\": 9,\n        \"windup\": 0,\n        \"active\": 165\n      }\n    ]\n  },\n  {\n    \"id\": \"07-moonkeep\",\n    \"emitted\": 7,\n    \"styles\": [\n      \"seed\",\n      \"orb\"\n    ],\n    \"peak\": 2,\n    \"activePeak\": 2,\n    \"first\": 660,\n    \"attacks\": [\n      {\n        \"source\": \"07-moonkeep/iron-fang\",\n        \"speed\": 0,\n        \"authored\": 0,\n        \"windup\": 60,\n        \"active\": 18\n      }\n    ]\n  },\n  {\n    \"id\": \"09-hatchery\",\n    \"emitted\": 6,\n    \"styles\": [\n      \"roller\",\n      \"seed\"\n    ],\n    \"peak\": 2,\n    \"activePeak\": 2,\n    \"first\": 660,\n    \"attacks\": [\n      {\n        \"source\": \"09-hatchery/hatch-timer\",\n        \"speed\": 3,\n        \"authored\": 3,\n        \"windup\": 75,\n        \"active\": 90\n      },\n      {\n        \"source\": \"09-hatchery/brood-conveyor\",\n        \"speed\": 6,\n        \"authored\": 6,\n        \"windup\": 75,\n        \"active\": 180\n      }\n    ]\n  },\n  {\n    \"id\": \"10-verse\",\n    \"emitted\": 8,\n    \"styles\": [\n      \"diamond\",\n      \"orb\"\n    ],\n    \"peak\": 2,\n    \"activePeak\": 2,\n    \"first\": 960,\n    \"attacks\": [\n      {\n        \"source\": \"showroom-demo-rift\",\n        \"speed\": 7.9573170731707314,\n        \"authored\": 9,\n        \"windup\": 90,\n        \"active\": 164\n      },\n      {\n        \"source\": \"showroom-side-volley\",\n        \"speed\": 5.9798994974874375,\n        \"authored\": 7,\n        \"windup\": 75,\n        \"active\": 199\n      }\n    ]\n  },\n  {\n    \"id\": \"12-codebreak\",\n    \"emitted\": 13,\n    \"styles\": [\n      \"roller\",\n      \"diamond\"\n    ],\n    \"peak\": 2,\n    \"activePeak\": 1,\n    \"first\": 780,\n    \"attacks\": [\n      {\n        \"source\": \"12-codebreak/summit-scanner\",\n        \"speed\": 7.974683544303797,\n        \"authored\": 9,\n        \"windup\": 75,\n        \"active\": 158\n      },\n      {\n        \"source\": \"12-codebreak/warrant-drop\",\n        \"speed\": 5.955882352941177,\n        \"authored\": 9,\n        \"windup\": 75,\n        \"active\": 68\n      }\n    ]\n  }\n]\nPASS five-stage real runtime pressure population/styles, protected-state cleanup and normalized scanner pose deadline.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/12-codebreak/test.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Codebreak authored geometry, climb objective, scanner gate, shield rejection, vent timing, return attack and defeat fixtures\nPASS real runtime base-kit start-to-clear (seed 37), tick 1614, HP4, required upper/summit dash, checkpoint restart and shield-only rejection\nPASS summit continuous fixed-tick articulation; max step 3.489 px, six scanner states, planted feet, pilot/cab lock, fixed vent bounds and draw smoke",
+      "stderr": ""
+    },
+    {
+      "file": "qa/static-checks.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stages\": 12,\n  \"localScriptReferences\": 40,\n  \"fighterFrameReferences\": 662,\n  \"kind\": \"static-reference-check\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "qa/shared-rules.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS shield cannot substitute for marked dash\nPASS active dash counters swept front\nPASS last active dash tick counters front\nPASS early dash expires before front\nPASS late dash does not undo prior hit\nPASS shield-only pulse rejects dash\nPASS shield-only pulse accepts shield\nPASS restart clears transient state and failure in one input\nPASS phase transition clears hazards and reaches phase2\nPASS practice spawn and restart preserve practice phase\nPASS loot draws do not change attack seed stream\nPASS countered front resolves once across repeated overlap\nPASS ledge-grace jump preserves air jump\nPASS equipped charges carry across phase but reset on retry\n{\"status\":\"passed\",\"fixtures\":14,\"kind\":\"black-box-shared-contract\"}",
+      "stderr": ""
+    },
+    {
+      "file": "qa/pacing-checks.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS both phases use same vector speed caps and preserve exact travel\nPASS slower and stationary hazards unchanged; unnumbered fixtures unchanged\nPASS Phase1 and first 599 ticks stay pressure-free even with early start\nPASS slow committed warning visible spawn and cue preservation\nPASS stable id/tick dedup and global population cap\nPASS distinct style cycle and combat RNG independence\nPASS disabled windows remove old pressures\nPASS mandatory fronts immediately clear pressure and suppress further pressure\nPASS unsafe same-side near-edge spawn defers\nPASS pressure speed and lifetime bounded and no duplicate IDs\nPASS retry and phase entry reset pressure state\n{\"status\":\"passed\",\"kind\":\"independent-gameplay-pacing-contract\",\"fixtures\":11,\"limitations\":[\"Synthetic fixtures validate the runtime contract, not human reaction comfort or route fairness.\"]}",
+      "stderr": ""
+    },
+    {
+      "file": "qa/missile-checks.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Phase1 and initial 180-tick lesson cannot emit\nPASS ordinary distinct missile has slow committed aim, safe box and visible warning\nPASS minimum warning speed and cooldown resist unsafe specification\nPASS one missile, two total pressure, no base attack removal\nPASS blocked request does not spend cooldown\nPASS independent guards clear their own pressure class\nPASS mandatory fronts clear all pressure and prevent emissions\nPASS ordinary jump and flight avoid the complete isolated missile travel without dash\nPASS bounded lifetime and camera retirement\nPASS retry and phase reset remove missiles and restore first request\n{\"status\":\"passed\",\"kind\":\"independent-slow-missile-contract\",\"fixtures\":10,\"limitations\":[\"Synthetic route checks establish isolated missile avoidability; campaign combinations and human comfort remain separate.\"]}",
+      "stderr": ""
+    }
+  ],
+  "limitations": [
+    "Scripted fixture controllers are not human playtests.",
+    "Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.",
+    "Full gameplay balance and readability require human playtesting; animation production is stopped."
+  ]
+}
