@@ -18,3 +18,11 @@ Each phase `{name,machine,mode,objective,hudLabel,spawn:{x,y},practiceSpawn:{x,y
 
 ## QA H
 Own qa/** only. Node built-ins and vm for offline scripts. Do not assume browser automation installed. Baseline entry matrix, contract fixtures and defects. Report observed separately from inferred. Deterministic simulation tests may script inputs; never report them as human playtests.
+
+## Additive integration conventions
+
+Approved during slice integration: `w.input` is current tick only; `w.weapons`, `w.attackRandom`, `w.redirectVolley(volley)` are exposed. Input `beam`/`bomb` drives standard recharging C/V kit. Runtime calls optional `weapons.tick(world.tick)` to expire temporary decoys. Grounded players inherit moving-platform displacement; platform authors provide `prevX`/`prevY` before moving geometry.
+
+`stage.practiceSectors` is optional `[{id,label,phase}]`; only practice honors authored sector snapshots. Root forwards `sector` and labels records by stage, phase and sector. `phase.pilot` may be an `{x,y,scale}` feet anchor or function `(w)=>anchor`; scale is visible pixel height. `pilotHeight` is a fallback. `drawsPilot` skips root sprite drawing only when a stage actually supplies its own identity. `drawsTargetLabels` suppresses root target labels when the encounter provides readable custom labels. All are additive presentation/adapter fields, not changes to simulation semantics.
+
+New sprite renderer crops the existing transparent PNG bounds using generated metadata in `runtime/sprite-bounds.js`; original raster files remain unchanged. Asset registration includes reference-only packs with `productionApproved:false`; registering them does not release the art gate.

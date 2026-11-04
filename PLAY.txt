@@ -1,35 +1,24 @@
-SPROTO ARCADE • THE LONG WAY HOME
+SPROTO ARCADE — MACHINE TRIALS PROTOTYPE
 
-Open index.html in a desktop browser. The game runs offline.
-Choose a Sproto portrait and a starting level.
+Open index.html directly in your desktop browser. No server or network needed.
+Choose encounter, pilot, seed and full run or phase/sector practice, then Start.
 
-GROUND FIGHTS
-Left / Right (or A / D)   Backpedal / advance
-Space (or Up / W)         Jump. Press again in midair to double jump.
-Down (or S)               Crouch
-Shift                     Dash
-C                         Tracking missile, 2-second recharge
-V                         Tracking bomb, 3-second recharge
-X                         Shield for 1 second, 10-second recharge
+MOVE: arrows / WASD (four directions while flying)
+JUMP: Space; press again for air jump
+DASH: Shift; remap using the button below the game
+SHIELD: X — shield-symbol attacks only accept shield
+STANDARD SPECIALS: C piercing beam / V bouncing ball (recharging base kit)
+PICKUP POWER: F; E while touching a pickup deliberately replaces your slot
+RETRY: R (restores standard kit and current full/practice entry)
+PAUSE: Escape; focus loss also pauses
 
-Your Sproto faces right and fires horizontally on its own.
-Hold Down to dodge Ceiling Sweep. Your weapons still work during the sweep.
-Ground columns are Phase 2 hazards. In the last two quarters of Phase 2,
-watch for SHIELD NOW and press X to block the arena pulse.
+Broken chevrons mark attacks requiring an active dash. Ready indicators and
+remaining power charges appear in the HUD. Read the current objective: an
+armored target may require a valve, relay, reflection or successful counter.
 
-LEVEL 3 • MUDLINE TRENCHES
-Use all four arrow keys or WASD to fly. The saucer fires green shots
-automatically. C extends the red laser arm, V fires a bouncing beach ball
-from the rear launcher, and X shields the saucer for 3 seconds.
+Full clears offer the next encounter. Practice results are kept separately
+by phase and sector. Same seed and inputs reproduce simulation behavior.
 
-LEVEL 11 • ROOFTOP BREAKAWAY
-Your Sproto runs automatically. Use Left / Right to adjust your pace.
-Jump, double jump or dash across the gaps and dodge Goldie's jetpack shots.
-Falling or getting caught ends the run. Reach the exit to clear the campaign.
-
-Escape                   Pause or resume
-9, 9                     Toggle God Mode
-Z                        Toggle auto-fire and weapons in God Mode
-I                        Toggle God Mode damage between 6× and 20×
-
-Health refills at the start of each level. A retry restarts the current level.
+Original campaign: legacy.html. Reference review: art-review.html.
+Placeholder machines are intentional. Production animation and human balance
+validation remain gated; see docs/GATES.md and README.md for evidence.
