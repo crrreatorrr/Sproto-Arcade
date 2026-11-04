@@ -1,7 +1,8 @@
 {
-  "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+  "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
   "workingTree": "",
   "kind": "all-boss-two-phase-placeholder-animation-review",
+  "captureMethod": "synchronous canvas.toDataURL and metadata in the same Runtime.evaluate; native1280x720buffer; no compositor screenshot",
   "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
   "stageCount": 12,
   "phaseCount": 24,
@@ -99,7 +100,7 @@
       "generationIds": 0
     }
   ],
-  "privateCaptureDirectory": "/tmp/arcade-animation-review-KNdZLC",
+  "privateCaptureDirectory": "/tmp/arcade-animation-review-ARymiA",
   "errors": [],
   "rows": [
     {
@@ -109,6 +110,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Dave raises the piston. Jump the wake, then shoot the steaming vent.",
@@ -143,10 +146,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t0.png",
-          "sha256": "5fa3dd257977391ac2ee09a6414d80b514293a74613c0356999ebb25818a2571"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p1-t0.png",
+          "sha256": "924f5b71c151a8c43e28faf169988fbed098be965c46f23546d8e5e5b4234a67"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "PISTON HANGS \u2014 LOW WAKE IN 60 TICKS: JUMP",
@@ -181,10 +186,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t60.png",
-          "sha256": "d53018c2f0615d2ea498093f5b40582dbd7e0417175ed61e37c8fbfbb21882f8"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p1-t60.png",
+          "sha256": "722eea4ad8e8ea1d2e01195ad459d1ed13e7f1d88873ecdd522d0d0aa6995c52"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "BOW PISTON \u2014 JUMP THE LOW WAKE",
@@ -229,10 +236,12 @@
               "y": 568
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t120.png",
-          "sha256": "74c2e7d95d600c78b329351fd8d6790553a1f38b4ca9e9491d96b6596b4d8d8e"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p1-t120.png",
+          "sha256": "74191efae404076422c77ea94a59f37bf8a695ab1f1cda277bd79232a7729d77"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "STEAM OPENING \u2014 FIRE AT THE VENT",
@@ -277,8 +286,8 @@
               "y": 568
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t240.png",
-          "sha256": "12c1e198c82fd1c5c95227149f94e240290e303a02aa10d5c04b6b582dae4019"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p1-t240.png",
+          "sha256": "78855381e6790fcb308e8327df1d7a1cc671fe5b412817c5d980ab380f464c93"
         }
       ],
       "diagnosticBossFrame": {
@@ -286,8 +295,19 @@
           "x": 148,
           "y": 0
         },
+        "pilot": {
+          "x": 1048,
+          "y": 440
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 440
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-boss-frame.png"
+        "sha256": "59d51ce7366522ee4b0784070a58e8088c330a54da8f75439532a8f6b8089339",
+        "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -300,11 +320,57 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "01-marina-p1.png"
+      "reviewKeyframe": "01-marina-p1.png",
+      "trackedKeyframe": {
+        "file": "01-marina-p1.png",
+        "sha256": "59d51ce7366522ee4b0784070a58e8088c330a54da8f75439532a8f6b8089339",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 148,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1048,
+          "y": 440
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 440
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "marina-vent",
+            "x": 1040,
+            "y": 490,
+            "w": 110,
+            "h": 110,
+            "open": true
+          }
+        ],
+        "hazards": [
+          {
+            "id": "marina-wake-0-0",
+            "source": "marina.breakwater-slam.wake",
+            "age": 120,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": -60,
+            "y": 568
+          }
+        ]
+      }
     },
     {
       "id": "01-marina",
@@ -313,6 +379,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK: dash through \u226b pressure, then shoot the valve to vent the press.",
@@ -355,10 +423,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t0.png",
-          "sha256": "2f0f592a36d9f17eefdecb140f982e55c558788f39db7713acc845f8ae601960"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p2-t0.png",
+          "sha256": "18ea1b974ede03b5ec2ab0e1198081695887211c48447d10078cbc15265eab33"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "\u226b DASH THROUGH THE FULL-HEIGHT FRONT \u226b",
@@ -411,10 +481,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t60.png",
-          "sha256": "1ad8784add8c77e34a907d11ab2cc1ce89479842a174520b6592f7e5fb647826"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p2-t60.png",
+          "sha256": "99f4ffc89b2bd123cbf90d636f12e4ea680bc595a0f58b5d6162fc13648064cf"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -467,10 +539,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t120.png",
-          "sha256": "c8f3500ea05ee4668dde237f362228c8ac75d1a844a1ac72029c64710adac5e6"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p2-t120.png",
+          "sha256": "fd7569e4e8b4e58e8c9e2f2ae2f22f66ba0a52fc9cbc607f1501470b30c4a696"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -513,8 +587,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t240.png",
-          "sha256": "eb01d6f193b765325f278be374499008635eb94d189bdc17b5e5b64efd202196"
+          "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p2-t240.png",
+          "sha256": "30f4f4f6357d531f17b3a0f1db4f2785a84524632618c0162306877dec9d0048"
         }
       ],
       "diagnosticBossFrame": {
@@ -522,8 +596,19 @@
           "x": 148,
           "y": 0
         },
+        "pilot": {
+          "x": 1048,
+          "y": 440
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 440
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-boss-frame.png"
+        "sha256": "6e76a12eb509917d00b933edec35304575ea653c3ad02e30759a291a8723a967",
+        "capture": "/tmp/arcade-animation-review-ARymiA/01-marina-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -536,11 +621,55 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "01-marina-p2.png"
+      "reviewKeyframe": "01-marina-p2.png",
+      "trackedKeyframe": {
+        "file": "01-marina-p2.png",
+        "sha256": "6e76a12eb509917d00b933edec35304575ea653c3ad02e30759a291a8723a967",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 148,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1048,
+          "y": 440
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 440
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "marina-vent",
+            "x": 1040,
+            "y": 490,
+            "w": 110,
+            "h": 110,
+            "open": false
+          },
+          {
+            "id": "marina-valve",
+            "x": 838,
+            "y": 500,
+            "w": 68,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "02-last-light",
@@ -549,6 +678,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "MOVE LEFT: the booth blocks Morelight\u2019s locked beam.",
@@ -583,10 +714,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t0.png",
-          "sha256": "ee5f11441358e68bf078c96e1f1dbc7c5b82343675ab56cd60fbc9f3a2d64e30"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p1-t0.png",
+          "sha256": "db03d8765beb07c75e973061ecb6a815af726b573696ace75d4b7b881b012458"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "LENS LOCKED: hide left of the booth.",
@@ -621,10 +754,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t60.png",
-          "sha256": "9da922ed7da4c767ef6b1b32608164457c7519733977ab403ca6e1122b40febd"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p1-t60.png",
+          "sha256": "794a79362ce912016f10d6f5802041afc82d863ac201ef1b314364a23e78e778"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "BEAM RELEASE",
@@ -669,10 +804,12 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t120.png",
-          "sha256": "f00b9cfbacf02ecb33ac5066283876eecf1e5b2fefbe3bf10f4a3574f440107c"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p1-t120.png",
+          "sha256": "4d79df04f6666f7fc8c34c140ca8fa46116f3a0e303f593d26b1ac51700611ee"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -707,8 +844,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t240.png",
-          "sha256": "a93cfab8c2da205d156532480f4b0ff53c6a235d1bd018132d037ce0d1ee6110"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p1-t240.png",
+          "sha256": "f5ecaa38a8d12b991989a18ffa9f467730fce7335fc85058380499dde904880f"
         }
       ],
       "diagnosticBossFrame": {
@@ -716,8 +853,19 @@
           "x": 180,
           "y": 0
         },
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 430
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-boss-frame.png"
+        "sha256": "b143e8799394ddb3c84732c1ae826256aed9f2723da1ac6f8e3eeb015b2acf64",
+        "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -730,11 +878,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "02-last-light-p1.png"
+      "reviewKeyframe": "02-last-light-p1.png",
+      "trackedKeyframe": {
+        "file": "02-last-light-p1.png",
+        "sha256": "b143e8799394ddb3c84732c1ae826256aed9f2723da1ac6f8e3eeb015b2acf64",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 180,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 430
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "light-iris",
+            "x": 1040,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "02-last-light",
@@ -743,6 +927,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK: booths fold away. Bait a low beam through the angled mirror.",
@@ -777,10 +963,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t0.png",
-          "sha256": "d2c9dd36a06d91cd89d905b2d460a9f5411b0ba20d69fd04a89ed7eb126a1960"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p2-t0.png",
+          "sha256": "e27bd9fa33a061dd9ad1ca8c971607d78ee7224c3bd2cf85ce727c5d659ef40a"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "LENS LOCKED: hold a beam line through the mirror, then move.",
@@ -815,10 +1003,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t60.png",
-          "sha256": "fee51d412f0acda33e206e050fb7e5f2b651927b7688cf587e89012267e5279e"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p2-t60.png",
+          "sha256": "2b911b20b468c4bfa01a4f7334352ff17a622b389b5eaa008a802388168e0996"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "BEAM RELEASE",
@@ -863,10 +1053,12 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t120.png",
-          "sha256": "aedecf1a1fc4af8eedf6d364e8fe4ceae7ac749644f1426e8119f9df669085ff"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p2-t120.png",
+          "sha256": "ed3539086cdd0c2e9097b7a458c466433438f34031f1ccde1190206651875730"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -901,8 +1093,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t240.png",
-          "sha256": "3ff10886be15660e7c3758033ecc1dc8a56b4ea390c026192d45268885984ec1"
+          "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p2-t240.png",
+          "sha256": "4ecdbb0be538ba141802fdba650a61bc34e549a7e83c47ad81f508575ac1a38e"
         }
       ],
       "diagnosticBossFrame": {
@@ -910,8 +1102,19 @@
           "x": 180,
           "y": 0
         },
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 430
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-boss-frame.png"
+        "sha256": "6167a7299257624f93b3692832f6f60cccfe7e75101f45d6dfac4c0884802910",
+        "capture": "/tmp/arcade-animation-review-ARymiA/02-last-light-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -924,11 +1127,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "02-last-light-p2.png"
+      "reviewKeyframe": "02-last-light-p2.png",
+      "trackedKeyframe": {
+        "file": "02-last-light-p2.png",
+        "sha256": "6167a7299257624f93b3692832f6f60cccfe7e75101f45d6dfac4c0884802910",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 180,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 430
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "light-iris",
+            "x": 1040,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "03-mudline",
@@ -937,6 +1176,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "FLY: arrows \u00b7 nozzle locks before firing \u00b7 fire into the open glass vent",
@@ -971,10 +1212,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t0.png",
-          "sha256": "c942f95d0d7a471b4b974c3a5c26dd7d609bece1055a6b97fa3441423a4b57f6"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p1-t0.png",
+          "sha256": "2f8223c1aca18f85b2a0ad5643adde8c2339dc8f61be8db450ace32b2b309519"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "FLY: arrows \u00b7 nozzle locks before firing \u00b7 fire into the open glass vent",
@@ -1009,10 +1252,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t60.png",
-          "sha256": "a05f9465f691d0c4cc4236ae79606d66ab9f85adb45d502613bebd78891ea30a"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p1-t60.png",
+          "sha256": "4a44b40b1f620ed8d7c653695d7e28cced10528754b9a47e54a889b60f1ddcb3"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "NOZZLE LOCKED: change altitude now",
@@ -1047,10 +1292,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t120.png",
-          "sha256": "3b014678b919719dda14af77be870c6c29ba594a4a54728919c23da781176906"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p1-t120.png",
+          "sha256": "a25e7e3c230058cf71a2c9255f8716dac6230bec720a01c719d9f2945f90e106"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "STEAM ESCAPING: glass vent exposed",
@@ -1095,8 +1342,8 @@
               "y": 309
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t240.png",
-          "sha256": "d2062563dcc27b2033105103009f36d3150b8941cbb5ac663956d2a543cc915b"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p1-t240.png",
+          "sha256": "e908c3edbf4aa5ed6dc22065ed031af575f74a0f53a0c5ae76550ec3c7996b47"
         }
       ],
       "diagnosticBossFrame": {
@@ -1104,8 +1351,19 @@
           "x": 150,
           "y": 0
         },
+        "pilot": {
+          "x": 1050,
+          "y": 270
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 270
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-boss-frame.png"
+        "sha256": "4b29374b75add6b124a89f3407b6ebab6dfcf69278de4ad43cab60dd130e465a",
+        "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1118,11 +1376,57 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "03-mudline-p1.png"
+      "reviewKeyframe": "03-mudline-p1.png",
+      "trackedKeyframe": {
+        "file": "03-mudline-p1.png",
+        "sha256": "4b29374b75add6b124a89f3407b6ebab6dfcf69278de4ad43cab60dd130e465a",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 150,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1050,
+          "y": 270
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 270
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "glass-vent",
+            "x": 925,
+            "y": 340,
+            "w": 170,
+            "h": 100,
+            "open": true
+          }
+        ],
+        "hazards": [
+          {
+            "id": "sludge-belch-145",
+            "source": "sludge-belch",
+            "age": 95,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": -35,
+            "y": 309
+          }
+        ]
+      }
     },
     {
       "id": "03-mudline",
@@ -1131,6 +1435,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "SHUTTERS: fly high to beam the latch, or low to bounce into the intake",
@@ -1181,10 +1487,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t0.png",
-          "sha256": "4f4730624940aade03c0353079ce83b37ab5d194deaa4f6d9ba9fadbfa9e76eb"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p2-t0.png",
+          "sha256": "a6128b66f0773bd0a89ec92a6c20a792b7118e8d06c6851067d033a15fcfdbb7"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "SHUTTERS: fly high to beam the latch, or low to bounce into the intake",
@@ -1235,10 +1543,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t60.png",
-          "sha256": "c689beb313d92ded0eff5a3d073eeb818352a5338ea082b83ebd7ce4f3d8c65f"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p2-t60.png",
+          "sha256": "c7840135c85de2b251ef5d766223dd5a6eb28ea9fd7d496c0b883aab1ea5e403"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "CLEAN SHUTTER CYCLE: pump vent exposed. Marked front comes next.",
@@ -1289,10 +1599,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t120.png",
-          "sha256": "ab98ca6f4adbd67c0fa1bfc47ab2aaaa9f1140c28d018513cc6d09871d47567e"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p2-t120.png",
+          "sha256": "02e2bd3dbeb73e9561f82fb9c6c2615bc34907d95701507f275c53dfa1845d8b"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "CLEAN SHUTTER CYCLE: pump vent exposed. Marked front comes next.",
@@ -1343,8 +1655,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t240.png",
-          "sha256": "dbba8ace8de9c8d3be6e8cdeda2a1be41188cbd5139ed634f50852162e8aea28"
+          "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p2-t240.png",
+          "sha256": "cc798684153690c9db715183620d15db25e4a466cecd97e6bdb36a3f22de046c"
         }
       ],
       "diagnosticBossFrame": {
@@ -1352,8 +1664,19 @@
           "x": 150,
           "y": 0
         },
+        "pilot": {
+          "x": 1050,
+          "y": 270
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 270
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-boss-frame.png"
+        "sha256": "b7ec25d0439509df51e3c92ae9c9b24558518245134d8a001f6d00f75b53abac",
+        "capture": "/tmp/arcade-animation-review-ARymiA/03-mudline-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1366,11 +1689,63 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "03-mudline-p2.png"
+      "reviewKeyframe": "03-mudline-p2.png",
+      "trackedKeyframe": {
+        "file": "03-mudline-p2.png",
+        "sha256": "b7ec25d0439509df51e3c92ae9c9b24558518245134d8a001f6d00f75b53abac",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 150,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1050,
+          "y": 270
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 270
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "pump-vent",
+            "x": 985,
+            "y": 330,
+            "w": 120,
+            "h": 140,
+            "open": false
+          },
+          {
+            "id": "latch-1",
+            "x": 890,
+            "y": 190,
+            "w": 105,
+            "h": 85,
+            "open": false
+          },
+          {
+            "id": "intake-1",
+            "x": 890,
+            "y": 550,
+            "w": 105,
+            "h": 75,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "04-ranch",
@@ -1379,6 +1754,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Catch Halloween\u2019s harvester. Jump when the lantern swings and cutter rattles.",
@@ -1414,10 +1791,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t0.png",
-          "sha256": "db65249d2fdaf542a27b1c764fbbb98d1e3703cb064df38cc32dd3841738a133"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p1-t0.png",
+          "sha256": "558683c842176abf45ed49b51bacfd584028ad00cb0ef0bec1a6de50d89c8d96"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "Catch Halloween\u2019s harvester. Jump when the lantern swings and cutter rattles.",
@@ -1453,10 +1832,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t60.png",
-          "sha256": "73df552b7eca49f983859f6b4a7871d971c022a353e1d8cff2623ac116e9a787"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p1-t60.png",
+          "sha256": "b56efaae6ce2d1a4e117494b6492a3893578abbcb5b480829d5be9ff63b2147c"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "Lantern swings; cutter rattles \u2014 jump the roller",
@@ -1502,10 +1883,12 @@
               "y": 567
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t120.png",
-          "sha256": "8b32574f7b60c2bec17525223d622a1f2ab480f86cca783f5ff969b088fc5a23"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p1-t120.png",
+          "sha256": "6bcc6f64d0a3318913b5d81f82f848feaf1cda99d2af4cbe6d43326bb4aff7e4"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -1551,8 +1934,8 @@
               "y": 567
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t240.png",
-          "sha256": "92177ea5a2296fd0dcba59eb2453fdd0ae92769d6a73030b040e2d45d908a3d0"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p1-t240.png",
+          "sha256": "99a5091075fc8f4b684ff43aa495e01d3014bf38595bb7140173e802b918064a"
         }
       ],
       "diagnosticBossFrame": {
@@ -1560,8 +1943,20 @@
           "x": 3210,
           "y": 0
         },
+        "pilot": {
+          "x": 4110,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-boss-frame.png"
+        "sha256": "d08639fb8728a0c9c4bba5e1bdb0fa10e927cf3ed503ec7098c8d819ba5301b1",
+        "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1574,11 +1969,58 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "04-ranch-p1.png"
+      "reviewKeyframe": "04-ranch-p1.png",
+      "trackedKeyframe": {
+        "file": "04-ranch-p1.png",
+        "sha256": "d08639fb8728a0c9c4bba5e1bdb0fa10e927cf3ed503ec7098c8d819ba5301b1",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 3210,
+          "y": 0
+        },
+        "pilot": {
+          "x": 4110,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [
+          {
+            "id": "ranch.linkage",
+            "x": 3980,
+            "y": 548,
+            "w": 85,
+            "h": 50,
+            "open": true
+          }
+        ],
+        "hazards": [
+          {
+            "id": "ranch.harvest-roll.90",
+            "source": "ranch.harvest-roll",
+            "age": 150,
+            "windup": 55,
+            "rule": "ordinary",
+            "x": 165,
+            "y": 567
+          }
+        ]
+      }
     },
     {
       "id": "04-ranch",
@@ -1587,6 +2029,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "The cars uncouple. Jump from the paired chevrons; air dash through the marked coupling.",
@@ -1622,10 +2066,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t0.png",
-          "sha256": "63d8352826a7bbe776f99b649c125df04aeb7e463f6b98f7af822a9b20817470"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p2-t0.png",
+          "sha256": "7c690fdd65efccaa74c2f8bb1ab788d13bdb52bca720c15d7601b03308e8e2ae"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "",
@@ -1671,10 +2117,12 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t60.png",
-          "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p2-t60.png",
+          "sha256": "03e5c6bd0631058da506a46f58e1f48e8379003ff3e9ce072aefe0e517343ee0"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -1720,10 +2168,12 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t120.png",
-          "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p2-t120.png",
+          "sha256": "03e5c6bd0631058da506a46f58e1f48e8379003ff3e9ce072aefe0e517343ee0"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -1769,8 +2219,8 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t240.png",
-          "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
+          "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p2-t240.png",
+          "sha256": "03e5c6bd0631058da506a46f58e1f48e8379003ff3e9ce072aefe0e517343ee0"
         }
       ],
       "diagnosticBossFrame": {
@@ -1778,8 +2228,20 @@
           "x": 3473.999999999999,
           "y": 0
         },
+        "pilot": {
+          "x": 4373.999999999999,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-boss-frame.png"
+        "sha256": "4abcac52a9f2ac283ab74a1191f48812173a19a18b0296fb8e11624c744292d0",
+        "capture": "/tmp/arcade-animation-review-ARymiA/04-ranch-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1792,11 +2254,58 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "04-ranch-p2.png"
+      "reviewKeyframe": "04-ranch-p2.png",
+      "trackedKeyframe": {
+        "file": "04-ranch-p2.png",
+        "sha256": "4abcac52a9f2ac283ab74a1191f48812173a19a18b0296fb8e11624c744292d0",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 3473.999999999999,
+          "y": 0
+        },
+        "pilot": {
+          "x": 4373.999999999999,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [
+          {
+            "id": "ranch.linkage",
+            "x": 4244.000000000087,
+            "y": 548,
+            "w": 85,
+            "h": 50,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "ranch.uncouple.dash.0",
+            "source": "ranch.uncouple.dash",
+            "age": 239,
+            "windup": 0,
+            "rule": "dash",
+            "x": 3213.999999999978,
+            "y": -1000
+          }
+        ]
+      }
     },
     {
       "id": "05-neon",
@@ -1805,6 +2314,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "The salvage line scrolls forward. Street is safer; climb signs for the optional cache.",
@@ -1840,10 +2351,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t0.png",
-          "sha256": "949915c4b2e2724601165d69e7a9ad16b8c1d05dce432ea15bfc8e4c99db11d0"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p1-t0.png",
+          "sha256": "ac178fe46830d6cb62188b268996f8dccd133073b59eb6f484525f557c2afb27"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "The salvage line scrolls forward. Street is safer; climb signs for the optional cache.",
@@ -1879,10 +2392,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t60.png",
-          "sha256": "d32e5a803e3daf9fa849cfb2475e4aa781915ac89636056c89e2afc9c2944ac6"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p1-t60.png",
+          "sha256": "e8deb7d856ef8714ad5f59e3342ee22257568c862e9a19537ede2e3627132d01"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "The salvage line scrolls forward. Street is safer; climb signs for the optional cache.",
@@ -1918,10 +2433,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t120.png",
-          "sha256": "636b1ae26e4af3523ef6370e9b66758e09f683de5ffd56369b151ef2ee80e733"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p1-t120.png",
+          "sha256": "9d613d992320dbc45ee08f94d743aecd503bb4746294a668b0de81d42bf594e5"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "Claw locks street \u2014 leave the marked route",
@@ -1967,8 +2484,8 @@
               "y": 552
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t240.png",
-          "sha256": "ca1a0153a9308fdc61b03696a8eedbd6bb4aa528cccb790d5fae8d3707a66133"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p1-t240.png",
+          "sha256": "ad6f497d31612bc117d2e7a9fbf1dcb3658f01f50614ee1e0d3328571e48bea9"
         }
       ],
       "diagnosticBossFrame": {
@@ -1976,8 +2493,20 @@
           "x": 3980,
           "y": 0
         },
+        "pilot": {
+          "x": 4880,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-boss-frame.png"
+        "sha256": "715ca6016cf6921e72cd573a12e5cc5b639dc8c75a11e186047183cde8e5bf70",
+        "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1990,11 +2519,58 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "05-neon-p1.png"
+      "reviewKeyframe": "05-neon-p1.png",
+      "trackedKeyframe": {
+        "file": "05-neon-p1.png",
+        "sha256": "715ca6016cf6921e72cd573a12e5cc5b639dc8c75a11e186047183cde8e5bf70",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 3980,
+          "y": 0
+        },
+        "pilot": {
+          "x": 4880,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 390
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [
+          {
+            "id": "neon.claw-drive",
+            "x": 4800,
+            "y": 548,
+            "w": 100,
+            "h": 52,
+            "open": true
+          }
+        ],
+        "hazards": [
+          {
+            "id": "neon.magnet-snatch.180",
+            "source": "neon.magnet-snatch",
+            "age": 60,
+            "windup": 65,
+            "rule": "ordinary",
+            "x": 1134.0000000000011,
+            "y": 552
+          }
+        ]
+      }
     },
     {
       "id": "05-neon",
@@ -2003,6 +2579,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Collector anchors the crane. Climb the signs; horizontal shots must line up with the drive.",
@@ -2038,10 +2616,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t0.png",
-          "sha256": "33d47574809c46ab3052add1bc4b144c3d9ac1dfad97579b63cfb0282d38b914"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p2-t0.png",
+          "sha256": "87f3b2c60938a69d7d937018dc4fe1634efe0f77e0b0fdd3c1015325279d63d2"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "Collector anchors the crane. Climb the signs; horizontal shots must line up with the drive.",
@@ -2077,10 +2657,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t60.png",
-          "sha256": "e0f85e0bf2220a9dff871bd39b8c18b9b802cf4458b2b03163c31d2b504f011a"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p2-t60.png",
+          "sha256": "66f3c3b7e841552b05da14a7956fb953b33c1390484835ae53e1526ce6055e2e"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "Collector anchors the crane. Climb the signs; horizontal shots must line up with the drive.",
@@ -2116,10 +2698,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t120.png",
-          "sha256": "885b37efa400945e263ed1b04e05c229f3b78174e8b62a1a96f8276a03ff3fd7"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p2-t120.png",
+          "sha256": "deba8d89b6b3a207595fd8e594626382b96685a4b4fa072e6f69ae2946b1dfc4"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -2155,8 +2739,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t240.png",
-          "sha256": "13f88f778b39ed27860cb7908e27870f35093d1d74e58d637ae022de160b7f2f"
+          "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p2-t240.png",
+          "sha256": "a3ec156821a7dc89d50a178a69989af089963e8c931806c0452d4f316e3c3532"
         }
       ],
       "diagnosticBossFrame": {
@@ -2164,8 +2748,20 @@
           "x": 230,
           "y": 0
         },
+        "pilot": {
+          "x": 1130,
+          "y": 285,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 285
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-boss-frame.png"
+        "sha256": "12dd7dd44d10dfe05750b1b9ae682dac38c02b0baac4fe4550e34493e76c3543",
+        "capture": "/tmp/arcade-animation-review-ARymiA/05-neon-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2178,11 +2774,48 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "CORRECTED at final pin: Collector feet285, sprite top205, fully below HUD/cue. Source and screenshot verify cab moved down100px. Historical initial-review pilot occlusion no longer applies. Billboard title still sits close to cue strip and drive label crowds pilot feet; cosmetic hierarchy review remains."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional. Collector pilot remains safely below cue/HUD (feet285/top205); historical initial pilot-occlusion finding is corrected."
       },
       "productionApproval": false,
-      "reviewKeyframe": "05-neon-p2.png"
+      "reviewKeyframe": "05-neon-p2.png",
+      "trackedKeyframe": {
+        "file": "05-neon-p2.png",
+        "sha256": "12dd7dd44d10dfe05750b1b9ae682dac38c02b0baac4fe4550e34493e76c3543",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 230,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1130,
+          "y": 285,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 285
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [
+          {
+            "id": "neon.billboard-drive",
+            "x": 1070,
+            "y": 295,
+            "w": 100,
+            "h": 95,
+            "open": true
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "06-circuit",
@@ -2191,6 +2824,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Break the low relay, jump onto the platform, shoot the upper cable relay.",
@@ -2241,10 +2876,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t0.png",
-          "sha256": "bbabf865aaaeeef5bfba1d7f3a91b8882fd3eeaf48f63689b22c0a15f6d753c1"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p1-t0.png",
+          "sha256": "e995277738a65c2f3a4488ee8300012a99c1f142e941f5eacb7996f6b74ea782"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "CABLE CHARGE \u2014 JUMP THE LOW DISCHARGE",
@@ -2305,10 +2942,12 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t60.png",
-          "sha256": "cd7a2631ddfd1f39d3cd22465032b2ae87cb858c54a6f6d03cae1e522a440112"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p1-t60.png",
+          "sha256": "bb6b8946413d9576e175e230ed6698f0b8608a78f7e94d11ae3f7ea1ca9dbdce"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -2369,10 +3008,12 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t120.png",
-          "sha256": "098c8541b9e42a2cc060e5e8b103c428a2f1517086a422c7b8971f09a20c4374"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p1-t120.png",
+          "sha256": "456dbe31dab467a648b38c418a39d87ca8945fa23c4eae2a6100bab3502e8db5"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -2433,8 +3074,8 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t240.png",
-          "sha256": "f0b6a1301ca717623bea0d715db474b01212f3b5692ec23066078432a3a13ece"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p1-t240.png",
+          "sha256": "2a43644614f915f23a7c674377e489a2fcdab4530b231daf963919c61538a772"
         }
       ],
       "diagnosticBossFrame": {
@@ -2442,8 +3083,19 @@
           "x": 260,
           "y": 0
         },
+        "pilot": {
+          "x": 1160,
+          "y": 420
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 420
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-boss-frame.png"
+        "sha256": "45caa781a2df547f7b55bd2d404b91f2a0817f8b0837796ebd735ae70379bfcc",
+        "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2456,11 +3108,73 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "06-circuit-p1.png"
+      "reviewKeyframe": "06-circuit-p1.png",
+      "trackedKeyframe": {
+        "file": "06-circuit-p1.png",
+        "sha256": "45caa781a2df547f7b55bd2d404b91f2a0817f8b0837796ebd735ae70379bfcc",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 260,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1160,
+          "y": 420
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 420
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "relay-low",
+            "x": 630,
+            "y": 500,
+            "w": 65,
+            "h": 100,
+            "open": true
+          },
+          {
+            "id": "relay-high",
+            "x": 990,
+            "y": 385,
+            "w": 65,
+            "h": 100,
+            "open": true
+          },
+          {
+            "id": "circuit-core",
+            "x": 1130,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "relay-arc-0-0",
+            "source": "circuit.relay-arc.discharge",
+            "age": 180,
+            "windup": 60,
+            "rule": "ordinary",
+            "x": 230,
+            "y": 566
+          }
+        ]
+      }
     },
     {
       "id": "06-circuit",
@@ -2469,6 +3183,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK: dash \u226b firewall, then shoot the lit relay before charge transfers.",
@@ -2503,10 +3219,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t0.png",
-          "sha256": "3c83304a5e3625085aba2ea5d28ef238ec58c905476dad5e35fb3046d2c2efa9"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p2-t0.png",
+          "sha256": "3dd859bb25c285023b53677ef613913a50fd701273c6afda226896c762713040"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "\u226b DASH THE FIREWALL. NODE TRANSFER FOLLOWS \u226b",
@@ -2559,10 +3277,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t60.png",
-          "sha256": "b34e70f493903827b745b2bace463d010cff04384e08e781a34025017a835de4"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p2-t60.png",
+          "sha256": "833568ffd7dfb30a8a6ef0e783c9ec5cadb6127de48c14b057f999f217f13c89"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -2615,10 +3335,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t120.png",
-          "sha256": "b9bf470e7b7c81a8a020416efcb60c214d0e2154786a27529ea69109b266c2ca"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p2-t120.png",
+          "sha256": "8edb4063b7925edfed2beddc93a1a7203a1bc0f57b90d5a92dd6ff83523bea5d"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -2671,8 +3393,8 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t240.png",
-          "sha256": "b50bc28f80ba58280accd8f9967587b095b3a7ebd48a4c8bec06282e28d48404"
+          "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p2-t240.png",
+          "sha256": "fb542739828fc64c4a740ed93deb2bba0e20118df87ad29bd031b19b56e05409"
         }
       ],
       "diagnosticBossFrame": {
@@ -2680,8 +3402,19 @@
           "x": 260,
           "y": 0
         },
+        "pilot": {
+          "x": 1160,
+          "y": 420
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 420
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-boss-frame.png"
+        "sha256": "27956467f9da4e33e3ae29d92243b1b05e9e55e814bfcb387deb92fdb70d3c27",
+        "capture": "/tmp/arcade-animation-review-ARymiA/06-circuit-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2694,11 +3427,65 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "06-circuit-p2.png"
+      "reviewKeyframe": "06-circuit-p2.png",
+      "trackedKeyframe": {
+        "file": "06-circuit-p2.png",
+        "sha256": "27956467f9da4e33e3ae29d92243b1b05e9e55e814bfcb387deb92fdb70d3c27",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 260,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1160,
+          "y": 420
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 420
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "circuit-core",
+            "x": 1130,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          },
+          {
+            "id": "relay-active",
+            "x": 740,
+            "y": 500,
+            "w": 65,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "firewall-0",
+            "source": "circuit.firewall-transfer.front",
+            "age": 210,
+            "windup": 90,
+            "rule": "dash",
+            "x": -110,
+            "y": 0
+          }
+        ]
+      }
     },
     {
       "id": "07-moonkeep",
@@ -2707,6 +3494,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "RIDE THE LIFT \u00b7 Bait the jaw, then shoot the glowing neck joint",
@@ -2741,10 +3530,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t0.png",
-          "sha256": "1e7a9fed6faf181fb638c54dae5fb5aef0889dd72cd216f150eb5eddbfb55ad4"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p1-t0.png",
+          "sha256": "2db5392445ba540d4f898df7051119195d0d2ee3c6c4545dc0d7ded5677b7a5d"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "JAW LOCKED \u00b7 Move off the marked lift, then shoot the withdrawing joint",
@@ -2789,10 +3580,12 @@
               "y": 545
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t60.png",
-          "sha256": "6826dd97787c3d19dad047d6445e6c4635e50179fed4aa0bcc918089269271fd"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p1-t60.png",
+          "sha256": "c902b2121a22a4fcf08918a062c5a615f5bc1e5fe01c00b0b180f6d5ae281fd6"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "JAW LOCKED \u00b7 Move off the marked lift, then shoot the withdrawing joint",
@@ -2837,10 +3630,12 @@
               "y": 545
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t120.png",
-          "sha256": "fe9c91f50ac3ad77690af1c22b525db59d26fadaf9c4d75e48984dfded7007e2"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p1-t120.png",
+          "sha256": "d0b7fad00e5f2319facaad3fc3e58cd579767c8f0ff4a9a78f7ccb337ae8a0f4"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -2875,8 +3670,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t240.png",
-          "sha256": "8ee5a4d886efe6a2a3d3411d0e737a9f91a9ddc8b636433642ae05c59ccb3945"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p1-t240.png",
+          "sha256": "e6637598ab5a29382b0586f11569e23550db4cf685363ab7cd7a123cb47e2692"
         }
       ],
       "diagnosticBossFrame": {
@@ -2884,8 +3679,19 @@
           "x": 192,
           "y": 0
         },
+        "pilot": {
+          "x": 1092,
+          "y": 278
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 278
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-boss-frame.png"
+        "sha256": "0a56904bac5be3c3cb37c4ccd25632cf67046128c25fb18368f162134750cfbe",
+        "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2898,11 +3704,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "07-moonkeep-p1.png"
+      "reviewKeyframe": "07-moonkeep-p1.png",
+      "trackedKeyframe": {
+        "file": "07-moonkeep-p1.png",
+        "sha256": "0a56904bac5be3c3cb37c4ccd25632cf67046128c25fb18368f162134750cfbe",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 192,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1092,
+          "y": 278
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 278
+        },
+        "pilotHeight": 48,
+        "pose": null,
+        "targets": [
+          {
+            "id": "neck-joint",
+            "x": 1050,
+            "y": 330,
+            "w": 110,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "07-moonkeep",
@@ -2911,6 +3753,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK \u00b7 \u00bb launch at the upper edge; air dash to the far chevrons",
@@ -2945,10 +3789,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t0.png",
-          "sha256": "a05137e3841f40acd9b37ad3346ef8e3f0135abd7f4d482beec7c87a3b7be037"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p2-t0.png",
+          "sha256": "68da4e2c2f26b20e5f32d1e870ec0220e95a53ef800e82397a8ab5907ff4fc93"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "RAMPART CRACK \u00b7 Lower recovery ledge returns to the launch",
@@ -2983,10 +3829,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t60.png",
-          "sha256": "aa26d4ea617af4af247153b9127536bf4e0862b7998aa0186a584c608b3ebf59"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p2-t60.png",
+          "sha256": "46457c7b6184411f44782d85848fbc52ddd82d0d6ba458d853ad54cb6a46b379"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "RAMPART CRACK \u00b7 Lower recovery ledge returns to the launch",
@@ -3021,10 +3869,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t120.png",
-          "sha256": "4a5e69b2454da66e381e2328e18fb640320777ea65cb0dfd4a7ad91ac5b0b9aa"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p2-t120.png",
+          "sha256": "55fe52b4ff9a1991f21a565392bf8ac8faf331ab1771f178dbdd9e61e3965aab"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -3059,8 +3909,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t240.png",
-          "sha256": "4dae5783ff53645ceb2d93aaa295bced0910ea3a9686cfcb453611c369b19ca9"
+          "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p2-t240.png",
+          "sha256": "c18e1c231930520367101bf3857e583f711928246d5739623daf53e31c0764f6"
         }
       ],
       "diagnosticBossFrame": {
@@ -3068,8 +3918,19 @@
           "x": 192,
           "y": 0
         },
+        "pilot": {
+          "x": 1092,
+          "y": 278
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 278
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-boss-frame.png"
+        "sha256": "ea44899fac8eac14603c209c498966f0ecc409462624f0b088b53a2cc7dcbdc6",
+        "capture": "/tmp/arcade-animation-review-ARymiA/07-moonkeep-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3082,11 +3943,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "07-moonkeep-p2.png"
+      "reviewKeyframe": "07-moonkeep-p2.png",
+      "trackedKeyframe": {
+        "file": "07-moonkeep-p2.png",
+        "sha256": "ea44899fac8eac14603c209c498966f0ecc409462624f0b088b53a2cc7dcbdc6",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 192,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1092,
+          "y": 278
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 278
+        },
+        "pilotHeight": 48,
+        "pose": null,
+        "targets": [
+          {
+            "id": "rampart-joint",
+            "x": 1110,
+            "y": 330,
+            "w": 100,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "08-crown",
@@ -3095,6 +3992,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Reels stop one at a time. Matching X symbols mean SHIELD at contact.",
@@ -3129,10 +4028,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t0.png",
-          "sha256": "bc89bce901bc291bd74d9779024f96f8364b5a7aed542967713c429207e5c508"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p1-t0.png",
+          "sha256": "60f807019668d4b4a280993027321506a5c3f64f6b9220bac7a7fd5418760315"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "REELS STOP 1\u20262\u20263. MATCHED X SYMBOLS CALL FOR SHIELD",
@@ -3167,10 +4068,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t60.png",
-          "sha256": "a0b0bb34fdf9f352eb955d5d5c79b08d7b2ec4da278d3b2d95f915f6e2b7e5d3"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p1-t60.png",
+          "sha256": "8da0d3d19bc6d74d78caf5695a8d5e5cc64b024ae58b963e8dbda6a3fa7b4bbe"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -3215,10 +4118,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t120.png",
-          "sha256": "1631f218a60d47d238efa2e18fb83f7a7852d892cf3e546d8089d96c5cd588d6"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p1-t120.png",
+          "sha256": "0f98f2ce48ca5fc1def0aca1845415043fcca3ddc6b1dfe31bb9684ebf3d9616"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -3253,8 +4158,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t240.png",
-          "sha256": "d6980a01d2c6be5626c487d4a8b30b72f6e07b2497abfed6be40712af422bdad"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p1-t240.png",
+          "sha256": "32292b6ab2d98a6a9caf9f49b51dec80201d629ae5a22b27aa6c1cf0f016cef5"
         }
       ],
       "diagnosticBossFrame": {
@@ -3262,8 +4167,19 @@
           "x": 170,
           "y": 0
         },
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 425
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-boss-frame.png"
+        "sha256": "ccf3bacf1cf3c713f525868fb6a7c84aaff7ba2f2cebe2caca7b8bbc526254b4",
+        "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3276,11 +4192,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "08-crown-p1.png"
+      "reviewKeyframe": "08-crown-p1.png",
+      "trackedKeyframe": {
+        "file": "08-crown-p1.png",
+        "sha256": "ccf3bacf1cf3c713f525868fb6a7c84aaff7ba2f2cebe2caca7b8bbc526254b4",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 170,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 425
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "crown-core",
+            "x": 1100,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "08-crown",
@@ -3289,6 +4241,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK: \u226b lance requires DASH. Later matching X reels still require SHIELD.",
@@ -3331,10 +4285,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t0.png",
-          "sha256": "afb958b317eaa32b3271978b1850aded5d9a0c179b59dd276e2dff5630e0a20a"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p2-t0.png",
+          "sha256": "605d0ca7261d41c9d9d5bd919dd58281c0103bfe2a19ce578957eaed15816079"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "SLED RECOILS \u2014 LANCE \u226b CALLS FOR SHIFT",
@@ -3377,10 +4333,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t60.png",
-          "sha256": "ba1bdc1401239bf93b9e617bbc0112339bf3a29612820813c973a2275744a0ac"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p2-t60.png",
+          "sha256": "243fed23c3ffaed435e171cceaf2ae9a87c01fcb07be6c5f2f5b60a6c2e8d26e"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "",
@@ -3433,10 +4391,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t120.png",
-          "sha256": "8b430a094e89fec49c81b0dcd7af3bb907bb74c2056288d4a5411ff3da33fba0"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p2-t120.png",
+          "sha256": "293cded8936e06492ec0461fed5cafaf66fc67f19691fb5f18803de2c581ae7c"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -3479,8 +4439,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t240.png",
-          "sha256": "5923444220d58efcb876b0c2e36386ed34e9262c32c521b991b16647444758b9"
+          "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p2-t240.png",
+          "sha256": "5dd6db55cd241007e4dd863c7b70e50ef94e68b7f210feef6c7f08f5a2754323"
         }
       ],
       "diagnosticBossFrame": {
@@ -3488,8 +4448,19 @@
           "x": 170,
           "y": 0
         },
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 425
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-boss-frame.png"
+        "sha256": "d041d77990018cd869f4c99f7a7a00e22c45117e114271c8802f0da05978ebc8",
+        "capture": "/tmp/arcade-animation-review-ARymiA/08-crown-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3502,11 +4473,55 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "08-crown-p2.png"
+      "reviewKeyframe": "08-crown-p2.png",
+      "trackedKeyframe": {
+        "file": "08-crown-p2.png",
+        "sha256": "d041d77990018cd869f4c99f7a7a00e22c45117e114271c8802f0da05978ebc8",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 170,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 425
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "crown-dash-core",
+            "x": 880,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          },
+          {
+            "id": "crown-shield-core",
+            "x": 1100,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "09-hatchery",
@@ -3515,6 +4530,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "POD SEAMS COUNT DOWN \u00b7 Keep footing or break a shell to open the crane",
@@ -3573,10 +4590,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t0.png",
-          "sha256": "aee5126c0bb2662a77959d0733b05fd869ac7fea62cd8445426787ec83584050"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p1-t0.png",
+          "sha256": "cb004e560ab43f9f3c532f55f02d8b564e274b5a5d76fd9fe60107e7421c5764"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "POD SEAMS COUNT DOWN \u00b7 Keep footing or break a shell to open the crane",
@@ -3635,10 +4654,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t60.png",
-          "sha256": "8f22457f19c69606be4e2c2ab311454c450655940a102a620e3cb34315966f49"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p1-t60.png",
+          "sha256": "2f52f7f9970e217206e87b8737f9b7558c367cd51b2fb1414b5c9d0caedff9ff"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "POD SEAMS COUNT DOWN \u00b7 Keep footing or break a shell to open the crane",
@@ -3697,10 +4718,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t120.png",
-          "sha256": "f9e0577fdca40fed6833fef34fdf104a13ff6e8c012a8ec70347ea465298ed01"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p1-t120.png",
+          "sha256": "1b8db1bf8a7d624d38bfb9fb5f1e49f4897e30d764c8fc5fc90ff09ff161f961"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -3759,8 +4782,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t240.png",
-          "sha256": "a9be2f528768b5db6905890f200c13ace2d321890f23a2dc1c991a95608caa85"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p1-t240.png",
+          "sha256": "26d4d23586f263ae41bb9bff3cce6def25a378e92128160fff5485201e7f01b8"
         }
       ],
       "diagnosticBossFrame": {
@@ -3768,8 +4791,19 @@
           "x": 212,
           "y": 0
         },
+        "pilot": {
+          "x": 1112,
+          "y": 320
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 320
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-boss-frame.png"
+        "sha256": "4a4601b4df810cbe6bad246c9f9bff5f7273084ef490fb6395d32b8a4cfeb38d",
+        "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3782,11 +4816,71 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "09-hatchery-p1.png"
+      "reviewKeyframe": "09-hatchery-p1.png",
+      "trackedKeyframe": {
+        "file": "09-hatchery-p1.png",
+        "sha256": "4a4601b4df810cbe6bad246c9f9bff5f7273084ef490fb6395d32b8a4cfeb38d",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 212,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1112,
+          "y": 320
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 320
+        },
+        "pilotHeight": 48,
+        "pose": null,
+        "targets": [
+          {
+            "id": "incubator-core",
+            "x": 1060,
+            "y": 390,
+            "w": 100,
+            "h": 110,
+            "open": true
+          },
+          {
+            "id": "pod-a-shell",
+            "x": 450,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          },
+          {
+            "id": "pod-b-shell",
+            "x": 710,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          },
+          {
+            "id": "pod-c-shell",
+            "x": 950,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "09-hatchery",
@@ -3795,6 +4889,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK \u00b7 Break the moving shells; the crawler hatch passes behind them",
@@ -3837,10 +4933,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t0.png",
-          "sha256": "d3f5609da828ecabab52a897082bf685e80d31ae84ffd294857d11bd68dfc745"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p2-t0.png",
+          "sha256": "a67da0fdb9b7633188be03ce07992cb75b07cd1fe21a51447efe6a1d0f470bd5"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "NEW TASK \u00b7 Break the moving shells; the crawler hatch passes behind them",
@@ -3883,10 +4981,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t60.png",
-          "sha256": "53c7b98b5db05a110d7343dca41c437e1f0b363d3660978cb36e143f24a1dcbd"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p2-t60.png",
+          "sha256": "9b0ac20da365c954c2883285606cebd8e2bcfb92872f24593c48135c0b22e415"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "NEW TASK \u00b7 Break the moving shells; the crawler hatch passes behind them",
@@ -3929,10 +5029,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t120.png",
-          "sha256": "f6a11e4d44a616e33aed69fa3136df635cbcc49065baf22fe3571d6295e995fc"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p2-t120.png",
+          "sha256": "504cc5dec61035e7aa97c70f81768dafe0667b07617599c13583612d07467147"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -3983,8 +5085,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t240.png",
-          "sha256": "ebf26ce3889088d5249c99e1afd801578ba06482c77f10f302ba6e29776e14fb"
+          "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p2-t240.png",
+          "sha256": "e43021a0bc6245c4a884ae936d90b2f33ec64792a60415bb1a8b960c7192ea34"
         }
       ],
       "diagnosticBossFrame": {
@@ -3992,8 +5094,19 @@
           "x": 208.47808632791566,
           "y": 0
         },
+        "pilot": {
+          "x": 1108.4780863279157,
+          "y": 460
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 460
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-boss-frame.png"
+        "sha256": "4d9b0721cac4bb96be70d686e6df9b473d4351140d6ac1f0a71173773650e4e4",
+        "capture": "/tmp/arcade-animation-review-ARymiA/09-hatchery-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4006,11 +5119,63 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "09-hatchery-p2.png"
+      "reviewKeyframe": "09-hatchery-p2.png",
+      "trackedKeyframe": {
+        "file": "09-hatchery-p2.png",
+        "sha256": "4d9b0721cac4bb96be70d686e6df9b473d4351140d6ac1f0a71173773650e4e4",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 208.47808632791566,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1108.4780863279157,
+          "y": 460
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 460
+        },
+        "pilotHeight": 48,
+        "pose": null,
+        "targets": [
+          {
+            "id": "crawler-hatch",
+            "x": 1056.4780863279157,
+            "y": 510,
+            "w": 110,
+            "h": 90,
+            "open": false
+          },
+          {
+            "id": "conveyor-first-shell",
+            "x": 592.3999999999978,
+            "y": 510,
+            "w": 78,
+            "h": 100,
+            "open": true
+          },
+          {
+            "id": "conveyor-240-shell",
+            "x": 1100,
+            "y": 510,
+            "w": 78,
+            "h": 100,
+            "open": true
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "10-verse",
@@ -4019,6 +5184,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "DEBRIS: choose the open lane",
@@ -4081,10 +5248,12 @@
               "y": 435
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t0.png",
-          "sha256": "9384cef159cd26eeb1f7b6c841d665a66239e25a9dbe21d0cadeaa5c2d6282be"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p1-t0.png",
+          "sha256": "bbc48bbfcba3aa837a63f4ddd84e7d453f939a94193ceaadadbc338889bb0e40"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "",
@@ -4147,10 +5316,12 @@
               "y": 435
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t60.png",
-          "sha256": "70567f981aa0e4685f8d37c8558e0f68408a85eaa0296782b0bf84137963fe72"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p1-t60.png",
+          "sha256": "1e6a25aa1abd9ed63774e71334fdfb74f48635121169c69b96df07762c3150de"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "RIFT FRONT: ready your directional dash (Shift). Shield cannot cross.",
@@ -4222,10 +5393,12 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t120.png",
-          "sha256": "cfeafceea13d2b384ac6e4e79af93939e1618b5a507e0ac1faeec8e28bac20d8"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p1-t120.png",
+          "sha256": "0ed7a1e499cd5613af440ec6d22e89fd51dbad28b101f0e091600e827e77db99"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "RIFT FRONT: ready your directional dash (Shift). Shield cannot cross.",
@@ -4297,8 +5470,8 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t240.png",
-          "sha256": "2717e2cc6a09d3434eea245a8fcd74cef373e01c098cc9ecce79f5b9df3cd0b9"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p1-t240.png",
+          "sha256": "d3bab22e5c64dcc3bb13bd0a9995b1071df0e6982133afe130f5b633baf2dd39"
         }
       ],
       "diagnosticBossFrame": {
@@ -4306,8 +5479,19 @@
           "x": 3800,
           "y": 0
         },
+        "pilot": {
+          "x": 4700,
+          "y": 300
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 300
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-boss-frame.png"
+        "sha256": "60e0d1d440e7078f8eefa2f8f0b748b167909a77c8c60f6956462a44decd4281",
+        "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4320,11 +5504,84 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "10-verse-p1.png"
+      "reviewKeyframe": "10-verse-p1.png",
+      "trackedKeyframe": {
+        "file": "10-verse-p1.png",
+        "sha256": "60e0d1d440e7078f8eefa2f8f0b748b167909a77c8c60f6956462a44decd4281",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 3800,
+          "y": 0
+        },
+        "pilot": {
+          "x": 4700,
+          "y": 300
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 300
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [],
+        "hazards": [
+          {
+            "id": "debris-0",
+            "source": "carrier-debris-high",
+            "age": 240,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": 650,
+            "y": 90
+          },
+          {
+            "id": "debris-1",
+            "source": "carrier-debris-low",
+            "age": 240,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": 1550,
+            "y": 435
+          },
+          {
+            "id": "debris-2",
+            "source": "carrier-debris-high",
+            "age": 240,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": 2750,
+            "y": 90
+          },
+          {
+            "id": "debris-3",
+            "source": "carrier-debris-low",
+            "age": 240,
+            "windup": 0,
+            "rule": "ordinary",
+            "x": 3950,
+            "y": 435
+          },
+          {
+            "id": "rift-0-1",
+            "source": "demo-rift-0",
+            "age": 152,
+            "windup": 90,
+            "rule": "dash",
+            "x": 1050,
+            "y": 0
+          }
+        ]
+      }
     },
     {
       "id": "10-verse",
@@ -4333,6 +5590,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "ORBITAL DUEL: module hinges in order LEFT \u2192 TOP \u2192 RIGHT \u2192 BOTTOM. Match its side.",
@@ -4367,10 +5626,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t0.png",
-          "sha256": "5a7357d74c2877efddb2729d4f3d07d68546b011f111479f14fbbe92d0ec481a"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p2-t0.png",
+          "sha256": "e8a04374e893f9275f271543c244bd6819216b695b402296314e0c58752ad054"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "MODULE LEFT opening \u2014 move to the same side",
@@ -4405,10 +5666,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t60.png",
-          "sha256": "139f0a01faa62c00d68d4f55f15ce628399df2acc71e7c1fdb75b46f7651bea0"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p2-t60.png",
+          "sha256": "fc7ae57413b7445f77756db9f8ff4e97723d70b6d46aa7665cd909d7d5c984cb"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "MODULE TOP opening \u2014 move to the same side",
@@ -4443,10 +5706,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t120.png",
-          "sha256": "71d8cfe96011438368572c44b6614b1a490aefa2e5efd0ba2a6ee6c94093493f"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p2-t120.png",
+          "sha256": "9c4a9babd89b7474b803d573fca6171df609034e44b68eb8576e430ca83446d0"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "MODULE RIGHT opening \u2014 move to the same side",
@@ -4481,8 +5746,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t240.png",
-          "sha256": "80161102edca1d14c75dc26871c0e36628ccbefa7a4fa9d011ddbb58360247fb"
+          "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p2-t240.png",
+          "sha256": "76fcd2476bd98446e1c1e40d9ce6c2297165fec988c90be5c14e84fc638814ba"
         }
       ],
       "diagnosticBossFrame": {
@@ -4490,8 +5755,19 @@
           "x": -260,
           "y": 0
         },
+        "pilot": {
+          "x": 640,
+          "y": 310
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 310
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-boss-frame.png"
+        "sha256": "290d538908de8c22a31e59d93a5989f5d3d89b8c72c42b801ef2f274fc145b1a",
+        "capture": "/tmp/arcade-animation-review-ARymiA/10-verse-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4504,11 +5780,47 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "10-verse-p2.png"
+      "reviewKeyframe": "10-verse-p2.png",
+      "trackedKeyframe": {
+        "file": "10-verse-p2.png",
+        "sha256": "290d538908de8c22a31e59d93a5989f5d3d89b8c72c42b801ef2f274fc145b1a",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": -260,
+          "y": 0
+        },
+        "pilot": {
+          "x": 640,
+          "y": 310
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 310
+        },
+        "pilotHeight": 82,
+        "pose": null,
+        "targets": [
+          {
+            "id": "showroom-core",
+            "x": 850,
+            "y": 310,
+            "w": 80,
+            "h": 80,
+            "open": false
+          }
+        ],
+        "hazards": []
+      }
     },
     {
       "id": "11-rooftop",
@@ -4517,6 +5829,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Pursuit: Space jumps. The first roof gap needs a jump, then Shift crosses the marked gap.",
@@ -4543,10 +5857,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t0.png",
-          "sha256": "6db8407f696063349967285b2718efe9b2cf1814ee1d203ecbd242e8f8f7990b"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p1-t0.png",
+          "sha256": "d8c4e5b6ff7bd715c4633219916140fc723a35684f437114071368a286b1fbb4"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "Pursuit: Space jumps. The first roof gap needs a jump, then Shift crosses the marked gap.",
@@ -4573,10 +5889,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t60.png",
-          "sha256": "d0734a6fe4295875740abeef6ef1d5d67b80301d71e348a31a41658fccf08a2f"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p1-t60.png",
+          "sha256": "7aacd463ca7134dcc2c5c7075aa47e9aa577bb203c986d285f0b6fb7ec33db27"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "Pursuit: Space jumps. The first roof gap needs a jump, then Shift crosses the marked gap.",
@@ -4603,10 +5921,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t120.png",
-          "sha256": "08ae4e78236a50e1cd11376323e06e6cc4b19f1b761fd4aec9604a4ed2542863"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p1-t120.png",
+          "sha256": "eed32cde6b1f59b470967a982a91562af9ffae0b9efb3230586d359434bd0c44"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -4633,8 +5953,8 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t240.png",
-          "sha256": "fcd2e5ff6aeae1435d7bd3ae09087bde303eead79368a06a4c270d9fecf1e8be"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p1-t240.png",
+          "sha256": "6490e30cf1aa38edd4a1a433e84055697427fa99d423d20f77620b73cd6e45a9"
         }
       ],
       "diagnosticBossFrame": {
@@ -4642,8 +5962,20 @@
           "x": -1030,
           "y": 0
         },
+        "pilot": {
+          "x": -130,
+          "y": 263.10675338551323,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 263.10675338551323
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-boss-frame.png"
+        "sha256": "460888072b41f8d2a686e5f5747ebbb376cfd0dc2c2d8ce9bf69cb62f662a2f9",
+        "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4656,11 +5988,39 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "11-rooftop-p1.png"
+      "reviewKeyframe": "11-rooftop-p1.png",
+      "trackedKeyframe": {
+        "file": "11-rooftop-p1.png",
+        "sha256": "460888072b41f8d2a686e5f5747ebbb376cfd0dc2c2d8ce9bf69cb62f662a2f9",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": -1030,
+          "y": 0
+        },
+        "pilot": {
+          "x": -130,
+          "y": 263.10675338551323,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 263.10675338551323
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [],
+        "hazards": []
+      }
     },
     {
       "id": "11-rooftop",
@@ -4669,6 +6029,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "Goldie unfolds his wings. Reach the exit; dash through his final intercept.",
@@ -4695,10 +6057,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t0.png",
-          "sha256": "8c28826ca3828f1e742c008a3d41e4d1fef5e82722e6dac6a3152868f4a51556"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p2-t0.png",
+          "sha256": "98aabef9e5fbcefc2a1903b6e3ed5cc7e9eb925e104c0586ab652ae2b1d827cf"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "Goldie unfolds his wings. Reach the exit; dash through his final intercept.",
@@ -4725,10 +6089,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t60.png",
-          "sha256": "f368a7bf7b6ec02bb4b5c805872bb18166f990b059530f0552e85b98d9a9d6ac"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p2-t60.png",
+          "sha256": "f9ad078b1b212bbd5433fa86fef3bad70abfea02c74128041fca6d48b4a0fcfa"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "Goldie unfolds his wings. Reach the exit; dash through his final intercept.",
@@ -4755,10 +6121,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t120.png",
-          "sha256": "ac90d8603bbfff8e2ba678edf008b9c5e2a2f466dcd100e797e8e9127d222380"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p2-t120.png",
+          "sha256": "f16741e56f29d1de198110fddae05c65d691161d67d40a518027a9ab679065d0"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -4785,8 +6153,8 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t240.png",
-          "sha256": "fc6ea7bf31ae7610ce8472ea836af9a1210c9fd0acb7d347191210813b0e2305"
+          "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p2-t240.png",
+          "sha256": "63d089d59799f2c63ec0a1669afcab55c53c677816b5aa528ae45cd26e145ee5"
         }
       ],
       "diagnosticBossFrame": {
@@ -4794,8 +6162,20 @@
           "x": -330,
           "y": 0
         },
+        "pilot": {
+          "x": 570,
+          "y": 263.10675338551323,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 263.10675338551323
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-boss-frame.png"
+        "sha256": "b199255ad2ad43e3e4337c82e19aca743e9c0ff87e6e1f4778af400fa6cea58a",
+        "capture": "/tmp/arcade-animation-review-ARymiA/11-rooftop-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4808,11 +6188,39 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "11-rooftop-p2.png"
+      "reviewKeyframe": "11-rooftop-p2.png",
+      "trackedKeyframe": {
+        "file": "11-rooftop-p2.png",
+        "sha256": "b199255ad2ad43e3e4337c82e19aca743e9c0ff87e6e1f4778af400fa6cea58a",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": -330,
+          "y": 0
+        },
+        "pilot": {
+          "x": 570,
+          "y": 263.10675338551323,
+          "scale": 80
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 263.10675338551323
+        },
+        "pilotHeight": 80,
+        "pose": null,
+        "targets": [],
+        "hazards": []
+      }
     },
     {
       "id": "12-codebreak",
@@ -4821,6 +6229,8 @@
       "phase": 1,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "CLIMB \u00b7 Jump twice, change sides, Shift for an air dash",
@@ -4846,10 +6256,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t0.png",
-          "sha256": "5968c641a6a4329db2fac81cf27f6ac779abb678ad97d439f818f5296d5a43c3"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p1-t0.png",
+          "sha256": "8894c879c85297363e7361b79cd7118fb01ad3ea44a63c84b6082a86e9a367d3"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "CLIMB \u00b7 Jump twice, change sides, Shift for an air dash",
@@ -4875,10 +6287,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t60.png",
-          "sha256": "683808799c51ff44c4da46a99161413c0b4a6de845d47c83f10932ae96c2f9c9"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p1-t60.png",
+          "sha256": "ef2fcdf674b64521fcb9fe3d316067f87f9709528430844b89adb43ee0d6eb37"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "CLIMB \u00b7 Jump twice, change sides, Shift for an air dash",
@@ -4904,10 +6318,12 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t120.png",
-          "sha256": "215b795e670cc1218d0798a0632e64bf60b82b7c0cc0667cfecab3457ead76a3"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p1-t120.png",
+          "sha256": "80e0c50a7290d4f4ba3265bdf69686760bb85e378cbb5c238d43046a25714847"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "WARRANT DROP \u00b7 Reticle locks, then move to the next ledge",
@@ -4943,8 +6359,8 @@
               "y": 695
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t240.png",
-          "sha256": "3b9ea15d231e5e4b359622f20771c0412f7d4ccf8e57021b33ceb6b0198170ef"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p1-t240.png",
+          "sha256": "465639239a90bc8ac5d1d8b6d31c13a09e7f33b6b5af715b908176f145217b22"
         }
       ],
       "diagnosticBossFrame": {
@@ -4952,8 +6368,19 @@
           "x": 220,
           "y": 0
         },
+        "pilot": {
+          "x": 1120,
+          "y": 462
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 462
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-boss-frame.png"
+        "sha256": "772f8d12b52469b3dcd31c9e96738517b7c749e6f27e7511fe7aec1379cc82a8",
+        "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4966,11 +6393,48 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "12-codebreak-p1.png"
+      "reviewKeyframe": "12-codebreak-p1.png",
+      "trackedKeyframe": {
+        "file": "12-codebreak-p1.png",
+        "sha256": "772f8d12b52469b3dcd31c9e96738517b7c749e6f27e7511fe7aec1379cc82a8",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 220,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1120,
+          "y": 462
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 462
+        },
+        "pilotHeight": 45,
+        "pose": null,
+        "targets": [],
+        "hazards": [
+          {
+            "id": "warrant-0",
+            "source": "12-codebreak/warrant-drop",
+            "age": 90,
+            "windup": 65,
+            "rule": "ordinary",
+            "x": 225,
+            "y": 695
+          }
+        ]
+      }
     },
     {
       "id": "12-codebreak",
@@ -4979,6 +6443,8 @@
       "phase": 2,
       "samples": [
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 0,
           "state": "playing",
           "cue": "NEW TASK \u00b7 Broken chevrons mean DASH, then fire at the vent",
@@ -5037,10 +6503,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t0.png",
-          "sha256": "0944d9f6f28ebeaf47482bdcaabebf7bbf62c37fc1ebce01983c648234cb3887"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p2-t0.png",
+          "sha256": "fa4b6c6e787f8383d288cc80d7b079c8c6f160dc426bdc8559850e27bfc452af"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 60,
           "state": "playing",
           "cue": "NEW TASK \u00b7 Broken chevrons mean DASH, then fire at the vent",
@@ -5099,10 +6567,12 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t60.png",
-          "sha256": "4938a54b62bbea17f2c4c677551754ff961d61800d1d17c9e511d636f5ad9211"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p2-t60.png",
+          "sha256": "ee4c1f6e1f7cf7a0719a3fc8b0bd5491c0a8fb7d0d11bed210468e0e16c15349"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 120,
           "state": "playing",
           "cue": "\u00bb  \u00bb SHIFT \u00b7 Dash through the marked scanner",
@@ -5171,10 +6641,12 @@
               "y": 150
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t120.png",
-          "sha256": "724a4200b5d2c041d34873cdc40830697ad06bc0a87c1c1a7d57c8333716e49a"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p2-t120.png",
+          "sha256": "d13a4560e2fea32a092f25f97ea9ca32ef5b438c500d258ea435ac722452d132"
         },
         {
+          "canvasWidth": 1280,
+          "canvasHeight": 720,
           "tick": 240,
           "state": "playing",
           "cue": "",
@@ -5243,8 +6715,8 @@
               "y": 150
             }
           ],
-          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t240.png",
-          "sha256": "824639b0a228f48d0001086f801fe84d173063a8fed7c72d2af00ad0915f68ee"
+          "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p2-t240.png",
+          "sha256": "4c95975e1055d9b3dcb5f4ff515d5f85008e9976c57faac0b4d31e59d3b57dd6"
         }
       ],
       "diagnosticBossFrame": {
@@ -5252,8 +6724,19 @@
           "x": 190.00064843534142,
           "y": 0
         },
+        "pilot": {
+          "x": 1090.0006484353414,
+          "y": 452
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 452
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-boss-frame.png"
+        "sha256": "2bf7ae21474dbf6bffe9998551b3b6844d31ab0988e46c9408e470058535d56a",
+        "capture": "/tmp/arcade-animation-review-ARymiA/12-codebreak-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -5266,11 +6749,80 @@
         "terminalProductionClipsObserved": 0,
         "criticalPoseSignoff": false,
         "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
-        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
+        "finalCaptureBuild": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+        "finalPinObservation": "Atomic raw-canvas refresh at2c20398. Tracked image uses exact diagnostic snapshot below; source-review recommendations remain provisional."
       },
       "productionApproval": false,
-      "reviewKeyframe": "12-codebreak-p2.png"
+      "reviewKeyframe": "12-codebreak-p2.png",
+      "trackedKeyframe": {
+        "file": "12-codebreak-p2.png",
+        "sha256": "2bf7ae21474dbf6bffe9998551b3b6844d31ab0988e46c9408e470058535d56a",
+        "width": 1280,
+        "height": 720,
+        "captureMethod": "synchronous canvas.toDataURL and metadata inside same Runtime.evaluate",
+        "metadataSource": "diagnosticBossFrame",
+        "diagnosticOnly": true,
+        "tick": 240,
+        "state": "playing",
+        "camera": {
+          "x": 190.00064843534142,
+          "y": 0
+        },
+        "pilot": {
+          "x": 1090.0006484353414,
+          "y": 452
+        },
+        "pilotScreen": {
+          "x": 900,
+          "feet": 452
+        },
+        "pilotHeight": 45,
+        "pose": {
+          "x": 1090.0006484353414,
+          "y": 450,
+          "feet": [
+            {
+              "x": 970,
+              "y": 600
+            },
+            {
+              "x": 1190,
+              "y": 600
+            }
+          ],
+          "unfold": 1,
+          "recoil": 0.0006484353413104127,
+          "hit": 2.314590627226835e-60,
+          "open": 0,
+          "scannerAge": 150,
+          "scannerState": "release",
+          "elbowX": 1180,
+          "elbowY": 318,
+          "emitterX": 1200,
+          "emitterY": 280
+        },
+        "targets": [
+          {
+            "id": "summit-core",
+            "x": 1050,
+            "y": 490,
+            "w": 105,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "hazards": [
+          {
+            "id": "summit-scanner-0",
+            "source": "12-codebreak/summit-scanner",
+            "age": 150,
+            "windup": 75,
+            "rule": "dash",
+            "x": 525,
+            "y": 150
+          }
+        ]
+      }
     }
   ],
   "terminalReview": {
@@ -5298,17 +6850,29 @@
       "errors": [],
       "privateCaptureDirectory": "/tmp/arcade-animation-review-9T4cAs",
       "note": "Initial findings retained per row; representative keyframes now show final clean pin."
+    },
+    {
+      "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+      "kind": "superseded compositor capture and mixed normal/diagnostic keyframe selection",
+      "note": "Do not use previous keyframe/diagnostic metadata pairings for guide coordinates. Current trackedKeyframe explicitly owns file/hash/camera/pose/targets."
     }
   ],
   "finalRefresh": {
-    "status": "diagnostic-render-pass; human-art-approval-not-asserted",
+    "status": "atomic-canvas-diagnostic-render-pass; human-art-approval-not-asserted",
     "cleanCheckout": true,
     "phaseCount": 24,
     "exactTickSamples": 96,
     "additionalDiagnosticBossFrames": 24,
     "contactKeyframes": 24,
-    "neonPilotOcclusion": "corrected; feet285 top205",
-    "inactivePlatformRendering": "final source renderer suppresses active===false platforms; capture uses this version",
-    "productionClips": 0
+    "productionClips": 0,
+    "coordinateValidation": {
+      "all24PilotScreenX": 900,
+      "all24ImageMetadataSha256Match": true,
+      "visuallyInspectedNative1280x720PilotAtX900": [
+        "12-codebreak/phase2",
+        "10-verse/phase2",
+        "08-crown/phase2"
+      ]
+    }
   }
 }

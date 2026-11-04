@@ -1,6 +1,6 @@
 # All-boss, both-phase animation review
 
-Initial source/motion findings reviewed build `e04d5f6`; all keyframes and exact-tick browser evidence refreshed from the clean final code pin `e1c9dbc`. Twelve bosses, twenty-four phase entries, 96 exact-tick offline renders (0/60/120/240) plus 24 camera-only diagnostic boss frames. Chrome reported **zero errors**. One game-only keyframe per phase is tracked here; the other captures remain private scratch.
+Initial source/motion findings reviewed build `e04d5f6`; all keyframes and exact-tick browser evidence refreshed atomically from the clean final code pin `2c20398`. Twelve bosses, twenty-four phase entries, 96 exact-tick offline renders (0/60/120/240) plus 24 camera-only diagnostic boss frames. Chrome reported **zero errors**. One game-only keyframe per phase is tracked here; the other captures remain private scratch.
 
 **Current production animation coverage: 0 clips. Bespoke animated transformations: 0/12. Boss-specific terminal animation coverage: 0/12.** Existing identity sprites and procedural canvas changes are prototype feedback. Codebreak summit has the strongest articulated prototype motion; it is still not a production clip pack.
 
@@ -245,3 +245,11 @@ Repeated all24phase entries at ticks0/60/120/240 plus24camera-only boss frames a
 **NeonPhase2pilot occlusion is corrected.** Final source/capture place Collector feet at285 and sprite top205, below the HUD/cue. The old screenshot finding described e04d5f6 and is superseded for pilot visibility. The title still sits close to the cue strip and the generic drive label crowds the pilot feet; those are cosmetic hierarchy recommendations. The renderer now hides explicitly inactive platforms, so a removed/crumbling foothold is no longer pictured as solid support.
 
 This refresh remains diagnostic motion/render evidence, not earned-clear, human critical-pose signoff, production animation approval, or completed boss-specific terminal coverage. Actual final animation clips remain0.
+
+## Atomic canvas capture correction · 2c20398
+
+The previous tracked fixed-arena PNG selection used normal-camera samples while guide code consumed the separate diagnostic-camera metadata. Compositor screenshots also failed to guarantee same-call canvas/metadata synchronization. Those pairings are superseded.
+
+All120frames were recaptured from clean code2c20398 by calling `ArcadeApp.render()` and `canvas.toDataURL('image/png')` in the same browser evaluation that returns the metadata. The file is the native1280×720canvas pixelbuffer, with no browser UI or asynchronous compositor screenshot. Every tracked keyframe now uses its own `trackedKeyframe` record containing file,SHA256,camera,pilot,pose,targets/hazards and exact tick; every tracked image is a diagnostic boss frame, with pilot projected toX900. This is a camera-only inspection view and may crop normal player/arena context.
+
+All24tracked PNG hashes match the atomic diagnostic-frame records. Native-buffer visual inspection of CodebreakPhase2,VersePhase2,andCrownPhase2 confirms pilot atX900, matching their metadata. Offline rendering reported0errors. Earlier source/motion recommendations remain historical/provisional; no human approval or production-animation completion is inferred.
