@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sproto Arcade • The Long Way Home</title>
+<style>
+:root{color-scheme:dark;--cream:#fff0c9;--gold:#ffcc59;--ink:#181218}
+*{box-sizing:border-box}body{margin:0;background:#17121a;color:var(--cream);font:14px system-ui,sans-serif;min-height:100svh;display:grid;place-items:center}
+main{width:min(1280px,100%);padding:clamp(8px,2vw,28px)}header,footer,.hud,.label{display:flex;align-items:center;justify-content:space-between;gap:12px}
+header,footer{font-weight:750;text-transform:uppercase;letter-spacing:.14em;font-size:clamp(9px,1.2vw,12px)}header{padding:0 2px 10px}footer{padding:12px 2px 0;color:#ded0b2;flex-wrap:wrap}
+.badge{color:var(--gold)}.screen{position:relative;aspect-ratio:16/9;border:2px solid #b88a53;overflow:hidden;background:#2a192a;box-shadow:0 10px 50px #000a}
+canvas{display:block;width:100%;height:100%}.hud{position:absolute;top:0;left:0;right:0;padding:clamp(5px,1.8vw,20px);font-size:clamp(8px,1.25vw,14px);background:linear-gradient(#100b16d9,transparent);align-items:start;text-shadow:0 2px 3px #000}
+#god-mode{display:inline-block;margin-left:.55em;color:#8ef8d6;font-size:.76em;font-weight:900;letter-spacing:.08em}#hearts{color:var(--gold);font-size:1.6em;letter-spacing:.12em}#scene{text-align:right;font-weight:900}#count{display:block;color:var(--gold);letter-spacing:.15em;font-size:.8em}
+#boss{position:absolute;left:30%;right:30%;top:5%;text-align:center;font-size:clamp(8px,1.1vw,14px);font-weight:900;text-shadow:0 1px 4px black}
+.boss-health{position:relative;margin-top:3px}.boss-health progress{display:block;width:100%;height:10px;accent-color:#ef7c57}.boss-health::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to right,transparent 0 calc(25% - 2px),#251525 calc(25% - 2px) 25%)}
+.overlay{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse,#211122e8 0%,#160c1bd0 45%,#170a1c35 100%);text-align:center;padding:12px}
+[hidden]{display:none!important}.card{max-width:80%;padding:clamp(8px,2vw,30px);text-shadow:0 3px 0 #261426}.eyebrow{font-size:clamp(8px,1.35vw,15px);font-weight:850;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+h1{font:900 italic clamp(28px,7.5vw,104px)/.83 Georgia,serif;letter-spacing:-.065em;margin:.15em 0 .25em;text-wrap:balance}p{margin:.5em 0 1em;font-size:clamp(9px,1.4vw,16px);font-weight:650}
+button{font:900 clamp(10px,1.3vw,15px) system-ui;letter-spacing:.1em;text-transform:uppercase;border:1px solid #fff1bd;background:var(--gold);color:#21131d;padding:.65em 1.5em;border-radius:3px;cursor:pointer;box-shadow:0 4px 0 #8a4e34}
+button:hover{background:#fff0bc}button:focus-visible{outline:3px solid white;outline-offset:4px}
+#notice{position:absolute;left:0;right:0;top:21%;text-align:center;pointer-events:none;font:900 italic clamp(14px,3vw,38px) Georgia,serif;text-shadow:0 3px #201125,0 0 12px #000}
+#dash{display:block;font-size:.7em;letter-spacing:.12em;color:#d1c2ad}#dash.ready{color:#ffdc7b}
+#cue{position:absolute;left:20%;right:20%;top:12%;text-align:center;pointer-events:none;font-size:clamp(8px,1.25vw,14px);font-weight:850;color:#fff2bc;text-shadow:0 2px 4px #000,0 0 8px #000}
+.weapons{display:flex;gap:16px;flex-wrap:wrap;padding:10px 2px 0;color:#e9d9b7;font-size:12px}.weapons b{color:#ffde65}.weapons .missile-key b{color:#6aebff}.weapons .bomb-key b,.weapons [data-flight-only] b{color:#99fb92}
+.weapons output{font-variant-numeric:tabular-nums;display:inline-block;min-width:3em}
+kbd{color:var(--gold)}
+.stage-blackout :is(.hud,#boss,#cue,#notice){visibility:hidden}
+.overlay{overflow:auto}
+.card:has(#sproto-select:not([hidden])){width:min(780px,100%);max-width:100%;padding:8px}
+.card:has(#sproto-select:not([hidden])) h1{font-size:clamp(26px,5vw,68px)}
+#sproto-select{padding:0;border:0;margin:0 auto 12px;min-width:0}
+#sproto-select legend{padding:0 0 6px;color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+#sproto-portraits{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+#sproto-portraits button{padding:3px;min-width:0;color:var(--cream);background:#25192c;box-shadow:none;border-color:#79543f;letter-spacing:0;font-size:clamp(9px,1.05vw,13px);text-transform:none}
+#sproto-portraits button:hover{background:#453046}
+#sproto-portraits button[aria-pressed="true"]{background:#553747;border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+#sproto-portraits img{display:block;width:100%;height:clamp(34px,5vw,70px);object-fit:contain;image-rendering:pixelated}
+#sproto-portraits span{display:block;line-height:1.12;padding:3px 0}
+@media(max-width:630px){.screen:has(#sproto-select:not([hidden])){min-height:350px}#sproto-portraits{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+<main>
+<header><span class="badge">✦ Sproto Arcade</span><span>11 levels • 10 boss fights • 1 chase</span></header>
+<div class="screen">
+<canvas width="1280" height="720" aria-label="Sproto Arcade campaign"></canvas>
+<div class="hud" hidden><div><b>HP</b> <span id="hearts"></span><span id="god-mode" hidden>GOD MODE</span><span id="dash" class="ready">DASH READY</span></div><div id="scene"><span id="count"></span><span id="location"></span></div></div>
+<div id="boss" hidden><span></span><div class="boss-health"><progress aria-label="Boss phase health" max="1" value="1"></progress></div></div>
+<div id="cue" aria-hidden="true"></div>
+<div id="notice" hidden></div>
+<div class="overlay"><div class="card"><div class="eyebrow" id="eyebrow">Golden Sproto in</div><h1 id="title">The Long<br>Way Home</h1><p id="description">Ten giant boss fights, a rooftop chase, and a climb through the code shaft.</p><fieldset id="sproto-select"><legend>Choose your Sproto</legend><div id="sproto-portraits"></div></fieldset><label for="level-select" style="display:block;margin:0 0 12px">Start at <select id="level-select" aria-label="Starting level"></select></label><button id="start" disabled>Loading art…</button></div></div>
+</div>
+<footer><span data-ground-only><kbd>← →</kbd> Backpedal / Advance</span><span data-ground-only><kbd>Space</kbd> Jump twice</span><span data-ground-only><kbd>↓</kbd> Crouch</span><span data-flight-only hidden><kbd>← ↑ ↓ →</kbd> Fly</span><span><kbd>Shift</kbd> Dash</span><span><kbd>Esc</kbd> Pause</span></footer>
+<div class="weapons" aria-label="Combat controls"><span id="ground-auto-fire" data-ground-only data-boss-only><b>■</b> Horizontal • Auto</span><span id="tracking-auto-fire" hidden><b>■</b> Tracking Laser • Auto</span><span data-flight-only data-boss-only hidden><b>■</b> Green Laser • Auto</span><span class="missile-key" data-boss-only><b>C</b> <span data-ground-only>Tracking missile</span><span data-flight-only hidden>Red laser</span> · <output id="missile-status">Ready</output></span><span class="bomb-key" data-boss-only><b>V</b> <span data-ground-only>Tracking bomb</span><span data-flight-only hidden>Beach ball</span> · <output id="bomb-status">Ready</output></span><span><b>X</b> Shield · <output id="shield-status">Ready</output></span></div>
+</main>
+<script src="original-art.js"></script><script src="assets.js?v=jessica-walk-size"></script><script src="levels.js?v=codebreak"></script><script src="arena-effects.js?v=stage-visual-qa"></script><script src="codebreak.js?v=9"></script><script src="game.js?v=codebreak-goldie-hover"></script>
+</html>
