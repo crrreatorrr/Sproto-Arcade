@@ -25,10 +25,3 @@ ART.sprites.sproto2177 = {"poses":{"0":["fighters/poses/sproto2177/00.png",112,2
 ART.sprites.sproto2569 = {"poses":{"0":["fighters/poses/sproto2569/00.png",112,210],"1":["fighters/poses/sproto2569/01.png",112,210],"6":["fighters/poses/sproto2569/06.png",112,210],"8":["fighters/poses/sproto2569/08.png",112,210],"9":["fighters/poses/sproto2569/09.png",112,210],"10":["fighters/poses/sproto2569/10.png",112,210]},"walk":[["fighters/walk/sproto2569/00.png",114,210],["fighters/walk/sproto2569/01.png",114,210],["fighters/walk/sproto2569/02.png",114,210],["fighters/walk/sproto2569/03.png",114,210],["fighters/walk/sproto2569/04.png",114,210],["fighters/walk/sproto2569/05.png",114,210],["fighters/walk/sproto2569/06.png",114,210],["fighters/walk/sproto2569/07.png",114,210]],"cast":[["fighters/events/sproto2569/14.png",112,210]],"cockpitCrop":[64,80,79,72]};
 
 ART.sprites.sproto2884 = {"poses":{"0":["fighters/poses/sproto2884/00.png",112,210],"1":["fighters/poses/sproto2884/01.png",112,210],"6":["fighters/poses/sproto2884/06.png",112,210],"8":["fighters/poses/sproto2884/08.png",112,210],"9":["fighters/poses/sproto2884/09.png",112,210],"10":["fighters/poses/sproto2884/10.png",112,210]},"walk":[["fighters/walk/sproto2884/00.png",111,210],["fighters/walk/sproto2884/01.png",111,210],["fighters/walk/sproto2884/02.png",111,210],["fighters/walk/sproto2884/03.png",112,210],["fighters/walk/sproto2884/04.png",110,210],["fighters/walk/sproto2884/05.png",111,210],["fighters/walk/sproto2884/06.png",111,210],["fighters/walk/sproto2884/07.png",111,210]],"cast":[["fighters/events/sproto2884/14.png",112,210]],"cockpitCrop":[77,80,79,72]};
-
-for (const id of ['nick', 'vaudream']) {
-  const poses = Object.fromEntries([0,1,2,3,4,5,6,7,8,9,10,24,29,30,31].map(
-    n => [n, [`fighters/poses/${id}/${String(n).padStart(2,'0')}.png`,112,210]]
-  ));
-  ART.sprites[id] = {poses, walk:[], entrance:[], ranged:[], death:[]};
-}

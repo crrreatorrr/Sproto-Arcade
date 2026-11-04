@@ -6,7 +6,7 @@ const build=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).
 const browser=await openBrowser(pathToFileURL(path.join(root,'index.html')).href);
 try{
  for(let i=0;i<100;i++){if(await browser.evaluate('!!globalThis.ArcadeApp'))break;await wait(100);}
- const stages=await browser.evaluate('[...document.getElementById("stage").options].filter(x=>!x.disabled).map(x=>({id:x.value,title:x.textContent}))');
+ const stages=await browser.evaluate('[...document.getElementById("stage").options].map(x=>({id:x.value,title:x.textContent}))');
  const rows=[];
  for(const stage of stages)for(const phase of [0,1]){
   await browser.evaluate(`document.getElementById('stage').value=${JSON.stringify(stage.id)};document.getElementById('entry').value='${phase}';document.getElementById('start').click()`);
