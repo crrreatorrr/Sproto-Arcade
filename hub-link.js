@@ -17,9 +17,10 @@
   const TICKETS_PER_CLEAR = 20;
   const PENDING_KEY = 'sproto-arcade-hub-pending-v1';
   const RELIC_CACHE_KEY = 'sproto-arcade-hub-relics';
-  // Deployments override with window.SPROTO_ARCADE_HUB = { serverUrl, serverKey, hubUrl } before
-  // this script. serverUrl '' is same-origin /v2, as on play.<domain> and the hub dev proxy.
-  const config = { serverUrl: '', serverKey: 'defaultkey', hubUrl: '/hub/', ...(root.SPROTO_ARCADE_HUB || {}) };
+  // hub-config.js sets window.SPROTO_ARCADE_HUB = { serverUrl, serverKey, hubUrl } before this
+  // script (dev key locally, the production key in dist/). serverUrl '' is same-origin /v2, as on
+  // play.<domain> and the hub dev proxy.
+  const config = { serverUrl: '', serverKey: '', hubUrl: '/hub/', ...(root.SPROTO_ARCADE_HUB || {}) };
 
   const P = root.ArcadeProgress;
   const storage = (() => {
