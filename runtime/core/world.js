@@ -40,6 +40,7 @@
       this.player={...spawn,prevX:spawn.x,prevY:spawn.y,vx:0,vy:0,hp,grounded:false,airJump:true,airDash:true,dash:0,dashX:1,dashY:0,dashWait:0,shield:0,shieldWait:0,beamWait:0,bombWait:0,facing:1,inv:0,grace:0,jumpBuffer:0};
       if(carry&&this.weapons)this.weapons.phase(this.phase.mode);
       this.phase.enter?.(this);
+      if(['flight','orbit'].includes(this.phase.mode)){this.clampFlightPosition();this.player.prevX=this.player.x;this.player.prevY=this.player.y;}
       this.player.grounded=this.platforms.some(p=>Math.abs(this.player.y-p.y)<1&&this.player.x+16>p.x&&this.player.x-16<p.x+p.w);
       this.player.grace=this.player.grounded?6:0;this.updateCamera();
     }
@@ -106,12 +107,17 @@
         }
       }
       const scrolling=this.phase.camera||this.phase.mode;
-      if(!['horizontal','vertical'].includes(scrolling)){
-        p.x=clamp(p.x,20,1260);if(flying)p.y=clamp(p.y,60,690);
-      } else if(scrolling==='horizontal')p.x=Math.max(20,p.x);else p.x=clamp(p.x,20,1260);
+      if(flying)this.clampFlightPosition();
+      else if(!['horizontal','vertical'].includes(scrolling))p.x=clamp(p.x,20,1260);
+      else if(scrolling==='horizontal')p.x=Math.max(20,p.x);else p.x=clamp(p.x,20,1260);
       if(!p.grounded)p.support=null;
       for(const plat of this.platforms){plat._lastX=plat.x;plat._lastY=plat.y;}
       if(p.y>this.camera.y+900)this.lose('fall');
+    }
+    clampFlightPosition(){
+      const p=this.player,b={left:20,right:1260,top:240,bottom:690,...this.phase.flightBounds};
+      p.x=(this.phase.camera||this.phase.mode)==='horizontal'?Math.max(b.left,p.x):clamp(p.x,b.left,b.right);
+      p.y=clamp(p.y,b.top,b.bottom);
     }
     autoFire(){
       const p=this.player;let dx=p.facing,dy=0;
