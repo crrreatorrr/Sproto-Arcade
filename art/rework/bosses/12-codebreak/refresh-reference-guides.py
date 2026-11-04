@@ -37,9 +37,17 @@ for sid in STAGES:
  rows=sorted([r for r in report['rows'] if r['id']==sid],key=lambda r:r['phase']);assert len(rows)==2
  infos=[]
  for row in rows:
-  sample=row['samples'][-1];pngname=row.get('reviewKeyframe',sid+'-p'+str(row['phase'])+'.png');raw=(review/pngname).read_bytes();assert raw[:8]==b'\x89PNG\r\n\x1a\n'
-  w,h=struct.unpack('>II',raw[16:24]);cam=row.get('diagnosticBossFrame',{}).get('camera',sample['camera'])
-  infos.append({'phase':row['phase'],'tick':sample['tick'],'machine':sample['machine'],'signature':sample['signature'],'pilot':sample.get('pilot'),'pilotHeight':sample.get('pilotHeight',82),'targets':sample.get('targets',[]),'camera':cam,'critical':row.get('review',{}).get('criticalPoseRecommendation','Review authored cue / release / recovery in stage timing before approval'),'cue':sample.get('cue',''),'source':'../../review/'+pngname,'sourcePixels':[w,h],'sha256':hashlib.sha256(raw).hexdigest(),'dataUri':'data:image/png;base64,'+base64.b64encode(raw).decode()})
+  sample=row['samples'][-1];tracked=row.get('trackedKeyframe');assert tracked, 'Missing atomic trackedKeyframe metadata for '+sid
+  pngname=Path(tracked['file']).name;assert pngname==sid+'-p'+str(row['phase'])+'.png'
+  raw=(review/pngname).read_bytes();assert raw[:8]==b'\x89PNG\r\n\x1a\n'
+  assert hashlib.sha256(raw).hexdigest()==tracked['sha256'], 'PNG / trackedKeyframe hash mismatch for '+pngname
+  w,h=struct.unpack('>II',raw[16:24]);assert [w,h]==[tracked['width'],tracked['height']]
+  cam=tracked['camera'];assert tracked['metadataSource']=='diagnosticBossFrame'
+  pilot=tracked.get('pilot');screen=tracked.get('pilotScreen')
+  if pilot and screen:
+   assert abs(pilot['x']-cam['x']-screen['x'])<.001
+   assert abs(pilot['y']-cam['y']-screen['feet'])<.001
+  infos.append({'phase':row['phase'],'tick':tracked['tick'],'machine':sample['machine'],'signature':sample['signature'],'pilot':tracked.get('pilot'),'pilotHeight':tracked.get('pilotHeight',82),'targets':tracked.get('targets',[]),'camera':cam,'anchorMetadataSource':'trackedKeyframe','atomicCaptureMethod':tracked['captureMethod'],'critical':row.get('review',{}).get('criticalPoseRecommendation','Review authored cue / release / recovery in stage timing before approval'),'cue':sample.get('cue',''),'source':'../../review/'+pngname,'sourcePixels':[w,h],'sha256':hashlib.sha256(raw).hexdigest(),'dataUri':'data:image/png;base64,'+base64.b64encode(raw).decode()})
  folder=ROOT/'art/rework/bosses'/sid;m=parse_manifest(folder/'manifest.js')
  header='<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="{height}" viewBox="0 0 1280 {height}"><rect width="1280" height="{height}" fill="#102432"/><g font-family="system-ui,sans-serif">'
  common=tx('GAMEPLAY REFERENCE CANDIDATE',32,42,27,'#8af2d5')+tx('LOOK DEVELOPMENT / HUMAN SIGNOFF PENDING',32,77,23,'#edcd90')+tx(rows[0]['title']+' / '+rows[0]['operator'],32,115,24)+tx('Clean source '+report['build'][:12]+' · actual production clips 0 · no generation or credit spend',32,147,15,'#b1c3cd')
@@ -51,7 +59,7 @@ for sid in STAGES:
   s+=tx('CRITICAL POSE CANDIDATE',x,578,16,'#edcd90')+wrapped(info['critical'],x,607,width=62,size=16,line=24,maxlines=9)
   y=840;s+=tx('ANCHORS / SAMPLED STATE',x,y,16,'#8af2d5')
   for line in anchor_text(info):s+=wrapped(line,x,y+29,width=64,size=14,line=22,maxlines=2);y+=52
-  s+=wrapped('Source '+info['source']+'; last neutral sample tick '+str(info['tick']),x,1275,width=66,size=14,line=22)
+  s+=wrapped('Source '+info['source']+'; atomic tracked sample tick '+str(info['tick']),x,1275,width=66,size=14,line=22)
  s+=tx('These are captured placeholder frames with review overlays, not final concept art or approved animation.',32,1365,17,'#edcd90')+tx('Look development still needs both machine silhouettes, operator articulation, transformation and terminal poses.',32,1394,15,'#b1c3cd')+'</g></svg>'
  ET.fromstring(s);(folder/'reference.svg').write_text(s)
  # Two full 1280x720 viewport images, with notes outside the image bounds.
@@ -75,7 +83,7 @@ for sid in STAGES:
  (folder/'manifest.js').write_text('/* Gameplay references and inventory remain unapproved candidates. */\nArcade.registerAssets('+json.dumps(m,indent=2)+');\n')
  p=folder/'source-record.md';old=p.read_text();marker='\n## Captured gameplay reference guide';old=old.split(marker)[0]
  old+=marker+'\n\n`reference.svg` provides both phases as a contact sheet; `gameplay-scale.svg` provides two full 1280 × 720 viewport panels. Both display **GAMEPLAY REFERENCE CANDIDATE — LOOK DEVELOPMENT / HUMAN SIGNOFF PENDING**. They package the original reviewed PNG bytes as self-contained SVG image resources without raster editing or generation. They are gameplay guides, not final concept art, identity redesigns or approved motion poses.\n\n'
- old+='Source report: `art/rework/review/report.json`, clean build `'+report['build']+'`. Original source images: '+', '.join('`'+i['source']+'`' for i in infos)+'. The last neutral sample is paired with the report\'s diagnostic boss-framing camera. Overlay pilot feet/top and target bounds use world coordinates minus that diagnostic camera. Canvas captures are normalized to a 1280 × 720 viewport; original PNG dimensions and hashes are recorded in the manifest.\n\n'
+ old+='Source report: `art/rework/review/report.json`, clean build `'+report['build']+'`. Original source images: '+', '.join('`'+i['source']+'`' for i in infos)+'. Each PNG is paired only with its own atomic `trackedKeyframe` snapshot, including the exact camera, pilot, target rectangles and PNG hash. The helper rejects missing snapshots or mismatched PNG hashes. Overlay pilot feet/top and target bounds use world coordinates minus the tracked capture camera. Canvas captures are normalized to a 1280 × 720 viewport; original PNG dimensions and hashes are recorded in the manifest.\n\n'
  old+='The frames do not demonstrate an earned clear or all conditional openings, transformations or terminal outcomes. Critical-pose labels come from the report\'s source-reviewed recommendations and still require human review against stage timing. Both phases need look development, operator articulation, bespoke transformation and terminal poses. All production counts and approvals remain unchanged at zero/false.\n\n'
  old+='Refresh only from a clean capture report using `python3 art/rework/bosses/12-codebreak/refresh-reference-guides.py --expected-build <capture-build-prefix>`. The helper reads existing reviewed PNGs, embeds them unchanged and updates only the nine candidate guide packs. It does not call image models or spend credits.\n'
  old=old.replace('Reference artwork and gameplay-scale pose boards have not yet been created for this pack. Its inventory does not imply visual, timing or pose approval.','Captured gameplay reference candidates are now supplied; final concept/look development and critical-pose artwork remain unapproved. This inventory and its guides do not imply visual, timing or pose approval.')

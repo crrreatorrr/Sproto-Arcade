@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -652,13 +652,15 @@ Arcade.registerAssets({
           "x": 3800,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "RIFT FRONT: ready your directional dash (Shift). Shield cannot cross.",
         "source": "../../review/10-verse-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "f91725e3ef617fdc5e7a8fe550fb098fe6dd68224cdeecce2e7cd4d12f8e7664"
+        "sha256": "60e0d1d440e7078f8eefa2f8f0b748b167909a77c8c60f6956462a44decd4281"
       },
       {
         "phase": 2,
@@ -684,13 +686,15 @@ Arcade.registerAssets({
           "x": -260,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "MODULE RIGHT opening \u2014 move to the same side",
         "source": "../../review/10-verse-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "71d8cfe96011438368572c44b6614b1a490aefa2e5efd0ba2a6ee6c94093493f"
+        "sha256": "290d538908de8c22a31e59d93a5989f5d3d89b8c72c42b801ef2f274fc145b1a"
       }
     ],
     "humanSignoff": false

@@ -743,7 +743,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -763,13 +763,15 @@ Arcade.registerAssets({
           "x": 220,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "WARRANT DROP \u00b7 Reticle locks, then move to the next ledge",
         "source": "../../review/12-codebreak-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "215b795e670cc1218d0798a0632e64bf60b82b7c0cc0667cfecab3457ead76a3"
+        "sha256": "772f8d12b52469b3dcd31c9e96738517b7c749e6f27e7511fe7aec1379cc82a8"
       },
       {
         "phase": 2,
@@ -795,13 +797,15 @@ Arcade.registerAssets({
           "x": 190.00064843534142,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/12-codebreak-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "824639b0a228f48d0001086f801fe84d173063a8fed7c72d2af00ad0915f68ee"
+        "sha256": "2bf7ae21474dbf6bffe9998551b3b6844d31ab0988e46c9408e470058535d56a"
       }
     ],
     "humanSignoff": false

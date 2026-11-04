@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -661,13 +661,15 @@ Arcade.registerAssets({
           "x": 180,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/02-last-light-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "f00b9cfbacf02ecb33ac5066283876eecf1e5b2fefbe3bf10f4a3574f440107c"
+        "sha256": "b143e8799394ddb3c84732c1ae826256aed9f2723da1ac6f8e3eeb015b2acf64"
       },
       {
         "phase": 2,
@@ -693,13 +695,15 @@ Arcade.registerAssets({
           "x": 180,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/02-last-light-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "aedecf1a1fc4af8eedf6d364e8fe4ceae7ac749644f1426e8119f9df669085ff"
+        "sha256": "6167a7299257624f93b3692832f6f60cccfe7e75101f45d6dfac4c0884802910"
       }
     ],
     "humanSignoff": false

@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -661,13 +661,15 @@ Arcade.registerAssets({
           "x": 170,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/08-crown-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "1631f218a60d47d238efa2e18fb83f7a7852d892cf3e546d8089d96c5cd588d6"
+        "sha256": "ccf3bacf1cf3c713f525868fb6a7c84aaff7ba2f2cebe2caca7b8bbc526254b4"
       },
       {
         "phase": 2,
@@ -701,13 +703,15 @@ Arcade.registerAssets({
           "x": 170,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/08-crown-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "8b430a094e89fec49c81b0dcd7af3bb907bb74c2056288d4a5411ff3da33fba0"
+        "sha256": "d041d77990018cd869f4c99f7a7a00e22c45117e114271c8802f0da05978ebc8"
       }
     ],
     "humanSignoff": false

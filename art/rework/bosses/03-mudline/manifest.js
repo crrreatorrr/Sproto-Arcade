@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -661,13 +661,15 @@ Arcade.registerAssets({
           "x": 150,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "STEAM ESCAPING: glass vent exposed",
         "source": "../../review/03-mudline-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "3b014678b919719dda14af77be870c6c29ba594a4a54728919c23da781176906"
+        "sha256": "4b29374b75add6b124a89f3407b6ebab6dfcf69278de4ad43cab60dd130e465a"
       },
       {
         "phase": 2,
@@ -709,13 +711,15 @@ Arcade.registerAssets({
           "x": 150,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "CLEAN SHUTTER CYCLE: pump vent exposed. Marked front comes next.",
         "source": "../../review/03-mudline-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "ab98ca6f4adbd67c0fa1bfc47ab2aaaa9f1140c28d018513cc6d09871d47567e"
+        "sha256": "b7ec25d0439509df51e3c92ae9c9b24558518245134d8a001f6d00f75b53abac"
       }
     ],
     "humanSignoff": false

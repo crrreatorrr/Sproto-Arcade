@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -685,13 +685,15 @@ Arcade.registerAssets({
           "x": 212,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/09-hatchery-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "f9e0577fdca40fed6833fef34fdf104a13ff6e8c012a8ec70347ea465298ed01"
+        "sha256": "4a4601b4df810cbe6bad246c9f9bff5f7273084ef490fb6395d32b8a4cfeb38d"
       },
       {
         "phase": 2,
@@ -733,13 +735,15 @@ Arcade.registerAssets({
           "x": 208.47808632791566,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/09-hatchery-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "f6a11e4d44a616e33aed69fa3136df635cbcc49065baf22fe3571d6295e995fc"
+        "sha256": "4d9b0721cac4bb96be70d686e6df9b473d4351140d6ac1f0a71173773650e4e4"
       }
     ],
     "humanSignoff": false

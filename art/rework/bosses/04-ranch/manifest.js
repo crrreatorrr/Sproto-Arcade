@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -662,13 +662,15 @@ Arcade.registerAssets({
           "x": 3210,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/04-ranch-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "5f52a8faf591fe73b5578bfb3f7de79ca456d3c89cb3961e311b59f2687fa97f"
+        "sha256": "d08639fb8728a0c9c4bba5e1bdb0fa10e927cf3ed503ec7098c8d819ba5301b1"
       },
       {
         "phase": 2,
@@ -695,13 +697,15 @@ Arcade.registerAssets({
           "x": 3473.999999999999,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/04-ranch-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
+        "sha256": "4abcac52a9f2ac283ab74a1191f48812173a19a18b0296fb8e11624c744292d0"
       }
     ],
     "humanSignoff": false

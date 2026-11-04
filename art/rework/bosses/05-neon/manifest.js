@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -662,13 +662,15 @@ Arcade.registerAssets({
           "x": 3980,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "Claw locks street \u2014 leave the marked route",
         "source": "../../review/05-neon-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "0c134fe75775675b3b1a8bea9731733aa9ce2dbc1982127488366190b13783ce"
+        "sha256": "715ca6016cf6921e72cd573a12e5cc5b639dc8c75a11e186047183cde8e5bf70"
       },
       {
         "phase": 2,
@@ -695,13 +697,15 @@ Arcade.registerAssets({
           "x": 230,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/05-neon-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "885b37efa400945e263ed1b04e05c229f3b78174e8b62a1a96f8276a03ff3fd7"
+        "sha256": "12dd7dd44d10dfe05750b1b9ae682dac38c02b0baac4fe4550e34493e76c3543"
       }
     ],
     "humanSignoff": false

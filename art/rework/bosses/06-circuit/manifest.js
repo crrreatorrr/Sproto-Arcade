@@ -632,7 +632,7 @@ Arcade.registerAssets({
   },
   "captureEvidence": {
     "report": "art/rework/review/report.json",
-    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
     "sourceWorkingTreeClean": true,
     "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
     "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
@@ -677,13 +677,15 @@ Arcade.registerAssets({
           "x": 260,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/06-circuit-p1.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "098c8541b9e42a2cc060e5e8b103c428a2f1517086a422c7b8971f09a20c4374"
+        "sha256": "45caa781a2df547f7b55bd2d404b91f2a0817f8b0837796ebd735ae70379bfcc"
       },
       {
         "phase": 2,
@@ -717,13 +719,15 @@ Arcade.registerAssets({
           "x": 260,
           "y": 0
         },
+        "anchorMetadataSource": "trackedKeyframe",
+        "atomicCaptureMethod": "synchronous canvas.toDataURL and ALL metadata inside same Runtime.evaluate",
         "cue": "",
         "source": "../../review/06-circuit-p2.png",
         "sourcePixels": [
-          1270,
-          714
+          1280,
+          720
         ],
-        "sha256": "b9bf470e7b7c81a8a020416efcb60c214d0e2154786a27529ea69109b266c2ca"
+        "sha256": "27956467f9da4e33e3ae29d92243b1b05e9e55e814bfcb387deb92fdb70d3c27"
       }
     ],
     "humanSignoff": false
