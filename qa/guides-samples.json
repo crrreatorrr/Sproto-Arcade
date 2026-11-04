@@ -1,0 +1,54 @@
+{
+  "build": "2c203985a7d9a58f1c9bdb8b27bf98c6aff38874",
+  "workingTree": "",
+  "status": "passed",
+  "kind": "offline-guide-sample-load",
+  "rows": [
+    {
+      "stage": "08-crown",
+      "dom": {
+        "width": "1280",
+        "height": "2320",
+        "images": 2,
+        "text": 24
+      },
+      "files": [
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/08-crown-guide-phase1.png",
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/08-crown-guide-phase2.png"
+      ],
+      "errors": []
+    },
+    {
+      "stage": "10-verse",
+      "dom": {
+        "width": "1280",
+        "height": "2320",
+        "images": 2,
+        "text": 22
+      },
+      "files": [
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/10-verse-guide-phase1.png",
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/10-verse-guide-phase2.png"
+      ],
+      "errors": []
+    },
+    {
+      "stage": "12-codebreak",
+      "dom": {
+        "width": "1280",
+        "height": "2320",
+        "images": 2,
+        "text": 22
+      },
+      "files": [
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/12-codebreak-guide-phase1.png",
+        "/Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-h/qa/artifacts/12-codebreak-guide-phase2.png"
+      ],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Samples are diagnostic guide screenshots; observer readability review is reported separately.",
+    "No production animation or human signoff is claimed."
+  ]
+}
