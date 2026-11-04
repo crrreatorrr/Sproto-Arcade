@@ -1,0 +1,13 @@
+/* Real-runtime base-kit simulation. No player/target/phase mutation. */
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const root=path.resolve(__dirname,'../..'),runtimeRoot=process.argv[2]||root,context=vm.createContext({console});
+for(const f of [path.join(root,'runtime/contract.js'),path.join(runtimeRoot,'runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
+const A=context.Arcade,stage=A.stages.get('08-crown');
+function controller(w){const p=w.player;let input={}; const h=w.hazards.find(h=>!h.resolved&&h.age>=h.windup);if(h&&h.rule==='shield'&&h.x-p.x<170&&h.x>p.x&&!p.shieldWait)input.shield=true;else if(h&&h.rule==='dash'&&h.x-p.x<85&&h.x>p.x&&!p.dashWait)input={dash:true,right:true};else if(!p.dash){if(p.x>265)input.left=true;else if(p.facing<0)input.right=true;} return input;}
+function run(options={},control=controller,limit=10000){const w=new A.World(stage,options);let hits=0,counters={},returns=0;for(let i=0;i<limit&&!['clear','lost'].includes(w.state);i++){w.step(control(w));for(const e of w.events){if(e.type==='hit')hits++;if(e.type==='counter')counters[e.rule]=(counters[e.rule]||0)+1;}returns=Math.max(returns,w.data.returns||0);}return{world:w,summary:{state:w.state,ticks:w.tick,hp:w.player.hp,hits,counters,returns}};}
+const full=run({seed:17}),practice=run({seed:17,phase:1,practice:true});for(const r of [full,practice]){assert.equal(r.world.state,'clear');assert.equal(r.world.player.hp,5);assert.equal(r.summary.hits,0);}
+assert.deepEqual(run({seed:17}).summary,full.summary);
+assert.ok(full.summary.counters.shield>0&&full.summary.counters.dash>0);assert.ok(practice.summary.counters.shield>0&&practice.summary.counters.dash>0);
+const shieldOnly=run({phase:1},w=>{const h=w.hazards.find(h=>!h.resolved&&h.age>=h.windup);return{shield:!!h&&h.x-w.player.x<170&&h.x>w.player.x};},6500);assert.notEqual(shieldOnly.world.state,'clear');assert.equal(shieldOnly.world.targets.find(t=>t.id==='crown-dash-core').hp,18);
+const dashOnly=run({},w=>{const h=w.hazards.find(h=>!h.resolved&&h.age>=h.windup);return{right:true,dash:!!h&&h.x-w.player.x<85&&h.x>w.player.x};},2600);assert.notEqual(dashOnly.world.state,'clear');assert.equal(dashOnly.world.targets.find(t=>t.id==='crown-core').hp,20);
+console.log(JSON.stringify({stage:stage.id,full:full.summary,practice:practice.summary,reproducible:true,inputs:'movement/jump/dash/shield and baseline autofire only'},null,2));

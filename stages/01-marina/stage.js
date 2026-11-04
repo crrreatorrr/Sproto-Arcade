@@ -31,7 +31,7 @@
     label(ctx,vent&&vent.open?'STEAM: VENT OPEN':'VENT ARMORED',985,635,vent&&vent.open?'#eaffad':'#afb3b7');
   }
   const phase1={
-    name:'Breakwater Slam',machine:'Breakwater Tug',mode:'fixed',camera:'fixed',
+    name:'Breakwater Slam',machine:'Breakwater Tug',mode:'fixed',camera:'fixed',drawsTargetLabels:true,
     objective:'Jump the low wake; fire into the steaming vent.',hudLabel:'VENT INTEGRITY',
     spawn:{x:230,y:FLOOR},practiceSpawn:{x:230,y:FLOOR},pilot:{x:1048,y:440},attackIds:['marina.breakwater-slam.wake'],
     enter(w){
@@ -57,7 +57,7 @@
     }});w.data.valveCycle=cycle;
   }
   const phase2={
-    name:'Pressure Lock',machine:'Dry Dock Press',mode:'fixed',camera:'fixed',
+    name:'Pressure Lock',machine:'Dry Dock Press',mode:'fixed',camera:'fixed',drawsTargetLabels:true,
     objective:'Dash the marked pressure front, shoot the release valve, punish the vent.',hudLabel:'PRESSURE / VENT',
     spawn:{x:260,y:FLOOR},practiceSpawn:{x:260,y:FLOOR},pilot:{x:1048,y:440},attackIds:['marina.pressure-lock.front','marina.breakwater-slam.wake'],
     enter(w){
@@ -84,5 +84,5 @@
       w.objective=vent&&vent.open?'Pressure released: shoot the steaming vent.':w.data.unlocked?'Shoot the release valve (left of the vent).':'Read the three pipes; dash through the marked pressure front.';
     },draw(ctx,w){machine(ctx,w,true);}
   };
-  A.registerStage({id:'01-marina',number:1,title:'Tidebreak Marina',operator:'Fat Head Dave',operatorSprite:'bront',color:'#efad76',eligibleWeapons:['prism-rail','ricochet-mine','echo-decoy'],phases:[phase1,phase2]});
+  A.registerStage({id:'01-marina',number:1,title:'Tidebreak Marina',operator:'Fat Head Dave',operatorSprite:'bront',color:'#efad76',eligibleWeapons:['prism-rail','ricochet-mine'],phases:[phase1,phase2]});
 })(Arcade);
