@@ -1,11 +1,11 @@
-/* Inventory is planning metadata; actual production clips remain empty. */
+/* Gameplay references and inventory remain unapproved candidates. */
 Arcade.registerAssets({
   "id": "bosses/09-hatchery",
   "stage": "09-hatchery",
   "status": "inventory-only",
   "productionApproved": false,
   "timingProvisional": false,
-  "sourceKind": "planned-motion-inventory",
+  "sourceKind": "planned-motion-inventory-with-embedded-gameplay-reference",
   "generationIds": [],
   "timingSource": "stages/09-hatchery/timing.md",
   "clips": [],
@@ -574,7 +574,7 @@ Arcade.registerAssets({
     }
   ],
   "countPolicy": "Count verified distinct production motion clips only. Never count frames, mirrored exports, speed variants, holds, alternate encodes or repeated crops as extra animations.",
-  "referenceStatus": "reference-art-not-yet-created",
+  "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
   "phaseCoverage": {
     "1": {
       "planned": 12,
@@ -611,5 +611,227 @@ Arcade.registerAssets({
     "operatorDeathImplied": false,
     "retryResetMustRemainValid": true,
     "status": "pending-production-and-integration"
+  },
+  "reference": {
+    "path": "art/rework/bosses/09-hatchery/reference.svg",
+    "width": 1280,
+    "height": 1420,
+    "pivot": [
+      0,
+      0
+    ]
+  },
+  "gameplayReview": {
+    "path": "art/rework/bosses/09-hatchery/gameplay-scale.svg",
+    "width": 1280,
+    "height": 2320,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "captureEvidence": {
+    "report": "art/rework/review/report.json",
+    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "sourceWorkingTreeClean": true,
+    "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
+    "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
+    "phases": [
+      {
+        "phase": 1,
+        "tick": 240,
+        "machine": "Incubator Crane",
+        "signature": "Hatch timer",
+        "pilot": {
+          "x": 1112,
+          "y": 320
+        },
+        "pilotHeight": 48,
+        "targets": [
+          {
+            "id": "incubator-core",
+            "x": 1060,
+            "y": 390,
+            "w": 100,
+            "h": 110,
+            "open": true
+          },
+          {
+            "id": "pod-a-shell",
+            "x": 450,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          },
+          {
+            "id": "pod-b-shell",
+            "x": 710,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          },
+          {
+            "id": "pod-c-shell",
+            "x": 950,
+            "y": 530,
+            "w": 78,
+            "h": 90,
+            "open": true
+          }
+        ],
+        "camera": {
+          "x": 212,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/09-hatchery-p1.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "f9e0577fdca40fed6833fef34fdf104a13ff6e8c012a8ec70347ea465298ed01"
+      },
+      {
+        "phase": 2,
+        "tick": 240,
+        "machine": "Brood Crawler",
+        "signature": "Brood conveyor",
+        "pilot": {
+          "x": 1108.4780863279157,
+          "y": 460
+        },
+        "pilotHeight": 48,
+        "targets": [
+          {
+            "id": "crawler-hatch",
+            "x": 1056.4780863279157,
+            "y": 510,
+            "w": 110,
+            "h": 90,
+            "open": false
+          },
+          {
+            "id": "conveyor-first-shell",
+            "x": 592.3999999999978,
+            "y": 510,
+            "w": 78,
+            "h": 100,
+            "open": true
+          },
+          {
+            "id": "conveyor-240-shell",
+            "x": 1100,
+            "y": 510,
+            "w": 78,
+            "h": 100,
+            "open": true
+          }
+        ],
+        "camera": {
+          "x": 208.47808632791566,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/09-hatchery-p2.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "f6a11e4d44a616e33aed69fa3136df635cbcc49065baf22fe3571d6295e995fc"
+      }
+    ],
+    "humanSignoff": false
+  },
+  "referenceAnchors": {
+    "1": {
+      "space": "world",
+      "pilot": {
+        "x": 1112,
+        "y": 320
+      },
+      "pilotHeight": 48,
+      "targets": [
+        {
+          "id": "incubator-core",
+          "x": 1060,
+          "y": 390,
+          "w": 100,
+          "h": 110,
+          "open": true
+        },
+        {
+          "id": "pod-a-shell",
+          "x": 450,
+          "y": 530,
+          "w": 78,
+          "h": 90,
+          "open": true
+        },
+        {
+          "id": "pod-b-shell",
+          "x": 710,
+          "y": 530,
+          "w": 78,
+          "h": 90,
+          "open": true
+        },
+        {
+          "id": "pod-c-shell",
+          "x": 950,
+          "y": 530,
+          "w": 78,
+          "h": 90,
+          "open": true
+        }
+      ],
+      "projectionCamera": {
+        "x": 212,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    },
+    "2": {
+      "space": "world",
+      "pilot": {
+        "x": 1108.4780863279157,
+        "y": 460
+      },
+      "pilotHeight": 48,
+      "targets": [
+        {
+          "id": "crawler-hatch",
+          "x": 1056.4780863279157,
+          "y": 510,
+          "w": 110,
+          "h": 90,
+          "open": false
+        },
+        {
+          "id": "conveyor-first-shell",
+          "x": 592.3999999999978,
+          "y": 510,
+          "w": 78,
+          "h": 100,
+          "open": true
+        },
+        {
+          "id": "conveyor-240-shell",
+          "x": 1100,
+          "y": 510,
+          "w": 78,
+          "h": 100,
+          "open": true
+        }
+      ],
+      "projectionCamera": {
+        "x": 208.47808632791566,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    }
   }
 });

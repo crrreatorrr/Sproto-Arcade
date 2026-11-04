@@ -1,11 +1,11 @@
-/* Inventory is planning metadata; actual production clips remain empty. */
+/* Gameplay references and inventory remain unapproved candidates. */
 Arcade.registerAssets({
   "id": "bosses/12-codebreak",
   "stage": "12-codebreak",
   "status": "inventory-only",
   "productionApproved": false,
   "timingProvisional": false,
-  "sourceKind": "planned-motion-inventory",
+  "sourceKind": "planned-motion-inventory-with-embedded-gameplay-reference",
   "generationIds": [],
   "timingSource": "stages/12-codebreak/timing.md",
   "clips": [],
@@ -687,7 +687,7 @@ Arcade.registerAssets({
     "ventOpenTicks": 18,
     "collisionTiming": "unchanged; validate against latest stage timing before generation"
   },
-  "referenceStatus": "reference-art-not-yet-created",
+  "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
   "phaseCoverage": {
     "1": {
       "planned": 17,
@@ -722,5 +722,129 @@ Arcade.registerAssets({
     "operatorDeathImplied": false,
     "retryResetMustRemainValid": true,
     "status": "pending-production-and-integration"
+  },
+  "reference": {
+    "path": "art/rework/bosses/12-codebreak/reference.svg",
+    "width": 1280,
+    "height": 1420,
+    "pivot": [
+      0,
+      0
+    ]
+  },
+  "gameplayReview": {
+    "path": "art/rework/bosses/12-codebreak/gameplay-scale.svg",
+    "width": 1280,
+    "height": 2320,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "captureEvidence": {
+    "report": "art/rework/review/report.json",
+    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "sourceWorkingTreeClean": true,
+    "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
+    "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
+    "phases": [
+      {
+        "phase": 1,
+        "tick": 240,
+        "machine": "Warrant Rig",
+        "signature": "Warrant climb",
+        "pilot": {
+          "x": 1120,
+          "y": 462
+        },
+        "pilotHeight": 45,
+        "targets": [],
+        "camera": {
+          "x": 220,
+          "y": 0
+        },
+        "cue": "WARRANT DROP \u00b7 Reticle locks, then move to the next ledge",
+        "source": "../../review/12-codebreak-p1.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "215b795e670cc1218d0798a0632e64bf60b82b7c0cc0667cfecab3457ead76a3"
+      },
+      {
+        "phase": 2,
+        "tick": 240,
+        "machine": "Summit Lockdown",
+        "signature": "Summit lockdown",
+        "pilot": {
+          "x": 1090.0006484353414,
+          "y": 452
+        },
+        "pilotHeight": 45,
+        "targets": [
+          {
+            "id": "summit-core",
+            "x": 1050,
+            "y": 490,
+            "w": 105,
+            "h": 100,
+            "open": false
+          }
+        ],
+        "camera": {
+          "x": 190.00064843534142,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/12-codebreak-p2.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "824639b0a228f48d0001086f801fe84d173063a8fed7c72d2af00ad0915f68ee"
+      }
+    ],
+    "humanSignoff": false
+  },
+  "referenceAnchors": {
+    "1": {
+      "space": "world",
+      "pilot": {
+        "x": 1120,
+        "y": 462
+      },
+      "pilotHeight": 45,
+      "targets": [],
+      "projectionCamera": {
+        "x": 220,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    },
+    "2": {
+      "space": "world",
+      "pilot": {
+        "x": 1090.0006484353414,
+        "y": 452
+      },
+      "pilotHeight": 45,
+      "targets": [
+        {
+          "id": "summit-core",
+          "x": 1050,
+          "y": 490,
+          "w": 105,
+          "h": 100,
+          "open": false
+        }
+      ],
+      "projectionCamera": {
+        "x": 190.00064843534142,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    }
   }
 });

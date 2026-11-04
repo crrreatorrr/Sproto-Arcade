@@ -1,11 +1,11 @@
-/* Inventory is planning metadata; actual production clips remain empty. */
+/* Gameplay references and inventory remain unapproved candidates. */
 Arcade.registerAssets({
   "id": "bosses/08-crown",
   "stage": "08-crown",
   "status": "inventory-only",
   "productionApproved": false,
   "timingProvisional": false,
-  "sourceKind": "planned-motion-inventory",
+  "sourceKind": "planned-motion-inventory-with-embedded-gameplay-reference",
   "generationIds": [],
   "timingSource": "stages/08-crown/timing.md",
   "clips": [],
@@ -574,7 +574,7 @@ Arcade.registerAssets({
     }
   ],
   "countPolicy": "Count verified distinct production motion clips only. Never count frames, mirrored exports, speed variants, holds, alternate encodes or repeated crops as extra animations.",
-  "referenceStatus": "reference-art-not-yet-created",
+  "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
   "phaseCoverage": {
     "1": {
       "planned": 12,
@@ -611,5 +611,163 @@ Arcade.registerAssets({
     "operatorDeathImplied": false,
     "retryResetMustRemainValid": true,
     "status": "pending-production-and-integration"
+  },
+  "reference": {
+    "path": "art/rework/bosses/08-crown/reference.svg",
+    "width": 1280,
+    "height": 1420,
+    "pivot": [
+      0,
+      0
+    ]
+  },
+  "gameplayReview": {
+    "path": "art/rework/bosses/08-crown/gameplay-scale.svg",
+    "width": 1280,
+    "height": 2320,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "captureEvidence": {
+    "report": "art/rework/review/report.json",
+    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "sourceWorkingTreeClean": true,
+    "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
+    "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
+    "phases": [
+      {
+        "phase": 1,
+        "tick": 240,
+        "machine": "Jackpot Knight",
+        "signature": "Jackpot Pulse",
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotHeight": 82,
+        "targets": [
+          {
+            "id": "crown-core",
+            "x": 1100,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "camera": {
+          "x": 170,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/08-crown-p1.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "1631f218a60d47d238efa2e18fb83f7a7852d892cf3e546d8089d96c5cd588d6"
+      },
+      {
+        "phase": 2,
+        "tick": 240,
+        "machine": "Crown Joust Rig",
+        "signature": "Royal Joust",
+        "pilot": {
+          "x": 1070,
+          "y": 425
+        },
+        "pilotHeight": 82,
+        "targets": [
+          {
+            "id": "crown-dash-core",
+            "x": 880,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          },
+          {
+            "id": "crown-shield-core",
+            "x": 1100,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "camera": {
+          "x": 170,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/08-crown-p2.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "8b430a094e89fec49c81b0dcd7af3bb907bb74c2056288d4a5411ff3da33fba0"
+      }
+    ],
+    "humanSignoff": false
+  },
+  "referenceAnchors": {
+    "1": {
+      "space": "world",
+      "pilot": {
+        "x": 1070,
+        "y": 425
+      },
+      "pilotHeight": 82,
+      "targets": [
+        {
+          "id": "crown-core",
+          "x": 1100,
+          "y": 490,
+          "w": 100,
+          "h": 110,
+          "open": false
+        }
+      ],
+      "projectionCamera": {
+        "x": 170,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    },
+    "2": {
+      "space": "world",
+      "pilot": {
+        "x": 1070,
+        "y": 425
+      },
+      "pilotHeight": 82,
+      "targets": [
+        {
+          "id": "crown-dash-core",
+          "x": 880,
+          "y": 490,
+          "w": 100,
+          "h": 110,
+          "open": false
+        },
+        {
+          "id": "crown-shield-core",
+          "x": 1100,
+          "y": 490,
+          "w": 100,
+          "h": 110,
+          "open": false
+        }
+      ],
+      "projectionCamera": {
+        "x": 170,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    }
   }
 });

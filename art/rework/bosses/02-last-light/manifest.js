@@ -1,11 +1,11 @@
-/* Inventory is planning metadata; actual production clips remain empty. */
+/* Gameplay references and inventory remain unapproved candidates. */
 Arcade.registerAssets({
   "id": "bosses/02-last-light",
   "stage": "02-last-light",
   "status": "inventory-only",
   "productionApproved": false,
   "timingProvisional": false,
-  "sourceKind": "planned-motion-inventory",
+  "sourceKind": "planned-motion-inventory-with-embedded-gameplay-reference",
   "generationIds": [],
   "timingSource": "stages/02-last-light/timing.md",
   "clips": [],
@@ -574,7 +574,7 @@ Arcade.registerAssets({
     }
   ],
   "countPolicy": "Count verified distinct production motion clips only. Never count frames, mirrored exports, speed variants, holds, alternate encodes or repeated crops as extra animations.",
-  "referenceStatus": "reference-art-not-yet-created",
+  "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
   "phaseCoverage": {
     "1": {
       "planned": 12,
@@ -611,5 +611,147 @@ Arcade.registerAssets({
     "operatorDeathImplied": false,
     "retryResetMustRemainValid": true,
     "status": "pending-production-and-integration"
+  },
+  "reference": {
+    "path": "art/rework/bosses/02-last-light/reference.svg",
+    "width": 1280,
+    "height": 1420,
+    "pivot": [
+      0,
+      0
+    ]
+  },
+  "gameplayReview": {
+    "path": "art/rework/bosses/02-last-light/gameplay-scale.svg",
+    "width": 1280,
+    "height": 2320,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "captureEvidence": {
+    "report": "art/rework/review/report.json",
+    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "sourceWorkingTreeClean": true,
+    "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
+    "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
+    "phases": [
+      {
+        "phase": 1,
+        "tick": 240,
+        "machine": "Prism Projector",
+        "signature": "Iris Shot",
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotHeight": 82,
+        "targets": [
+          {
+            "id": "light-iris",
+            "x": 1040,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "camera": {
+          "x": 180,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/02-last-light-p1.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "f00b9cfbacf02ecb33ac5066283876eecf1e5b2fefbe3bf10f4a3574f440107c"
+      },
+      {
+        "phase": 2,
+        "tick": 240,
+        "machine": "Mirror Gantry",
+        "signature": "House of Mirrors",
+        "pilot": {
+          "x": 1080,
+          "y": 430
+        },
+        "pilotHeight": 82,
+        "targets": [
+          {
+            "id": "light-iris",
+            "x": 1040,
+            "y": 490,
+            "w": 100,
+            "h": 110,
+            "open": false
+          }
+        ],
+        "camera": {
+          "x": 180,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/02-last-light-p2.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "aedecf1a1fc4af8eedf6d364e8fe4ceae7ac749644f1426e8119f9df669085ff"
+      }
+    ],
+    "humanSignoff": false
+  },
+  "referenceAnchors": {
+    "1": {
+      "space": "world",
+      "pilot": {
+        "x": 1080,
+        "y": 430
+      },
+      "pilotHeight": 82,
+      "targets": [
+        {
+          "id": "light-iris",
+          "x": 1040,
+          "y": 490,
+          "w": 100,
+          "h": 110,
+          "open": false
+        }
+      ],
+      "projectionCamera": {
+        "x": 180,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    },
+    "2": {
+      "space": "world",
+      "pilot": {
+        "x": 1080,
+        "y": 430
+      },
+      "pilotHeight": 82,
+      "targets": [
+        {
+          "id": "light-iris",
+          "x": 1040,
+          "y": 490,
+          "w": 100,
+          "h": 110,
+          "open": false
+        }
+      ],
+      "projectionCamera": {
+        "x": 180,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    }
   }
 });

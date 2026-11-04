@@ -1,11 +1,11 @@
-/* Inventory is planning metadata; actual production clips remain empty. */
+/* Gameplay references and inventory remain unapproved candidates. */
 Arcade.registerAssets({
   "id": "bosses/05-neon",
   "stage": "05-neon",
   "status": "inventory-only",
   "productionApproved": false,
   "timingProvisional": false,
-  "sourceKind": "planned-motion-inventory",
+  "sourceKind": "planned-motion-inventory-with-embedded-gameplay-reference",
   "generationIds": [],
   "timingSource": "stages/05-neon/timing.md",
   "clips": [],
@@ -574,7 +574,7 @@ Arcade.registerAssets({
     }
   ],
   "countPolicy": "Count verified distinct production motion clips only. Never count frames, mirrored exports, speed variants, holds, alternate encodes or repeated crops as extra animations.",
-  "referenceStatus": "reference-art-not-yet-created",
+  "referenceStatus": "gameplay-reference-candidate-lookdev-pending",
   "phaseCoverage": {
     "1": {
       "planned": 12,
@@ -611,5 +611,151 @@ Arcade.registerAssets({
     "operatorDeathImplied": false,
     "retryResetMustRemainValid": true,
     "status": "pending-production-and-integration"
+  },
+  "reference": {
+    "path": "art/rework/bosses/05-neon/reference.svg",
+    "width": 1280,
+    "height": 1420,
+    "pivot": [
+      0,
+      0
+    ]
+  },
+  "gameplayReview": {
+    "path": "art/rework/bosses/05-neon/gameplay-scale.svg",
+    "width": 1280,
+    "height": 2320,
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "captureEvidence": {
+    "report": "art/rework/review/report.json",
+    "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+    "sourceWorkingTreeClean": true,
+    "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
+    "rasterOperation": "original PNG bytes embedded unchanged; no image editing or generation",
+    "phases": [
+      {
+        "phase": 1,
+        "tick": 240,
+        "machine": "Salvage Strider",
+        "signature": "Salvage routes",
+        "pilot": {
+          "x": 4880,
+          "y": 390,
+          "scale": 80
+        },
+        "pilotHeight": 80,
+        "targets": [
+          {
+            "id": "neon.claw-drive",
+            "x": 4800,
+            "y": 548,
+            "w": 100,
+            "h": 52,
+            "open": true
+          }
+        ],
+        "camera": {
+          "x": 3980,
+          "y": 0
+        },
+        "cue": "Claw locks street \u2014 leave the marked route",
+        "source": "../../review/05-neon-p1.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "0c134fe75775675b3b1a8bea9731733aa9ce2dbc1982127488366190b13783ce"
+      },
+      {
+        "phase": 2,
+        "tick": 240,
+        "machine": "Billboard Rig",
+        "signature": "Billboard Shuffle",
+        "pilot": {
+          "x": 1130,
+          "y": 285,
+          "scale": 80
+        },
+        "pilotHeight": 80,
+        "targets": [
+          {
+            "id": "neon.billboard-drive",
+            "x": 1070,
+            "y": 295,
+            "w": 100,
+            "h": 95,
+            "open": true
+          }
+        ],
+        "camera": {
+          "x": 230,
+          "y": 0
+        },
+        "cue": "",
+        "source": "../../review/05-neon-p2.png",
+        "sourcePixels": [
+          1270,
+          714
+        ],
+        "sha256": "885b37efa400945e263ed1b04e05c229f3b78174e8b62a1a96f8276a03ff3fd7"
+      }
+    ],
+    "humanSignoff": false
+  },
+  "referenceAnchors": {
+    "1": {
+      "space": "world",
+      "pilot": {
+        "x": 4880,
+        "y": 390,
+        "scale": 80
+      },
+      "pilotHeight": 80,
+      "targets": [
+        {
+          "id": "neon.claw-drive",
+          "x": 4800,
+          "y": 548,
+          "w": 100,
+          "h": 52,
+          "open": true
+        }
+      ],
+      "projectionCamera": {
+        "x": 3980,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    },
+    "2": {
+      "space": "world",
+      "pilot": {
+        "x": 1130,
+        "y": 285,
+        "scale": 80
+      },
+      "pilotHeight": 80,
+      "targets": [
+        {
+          "id": "neon.billboard-drive",
+          "x": 1070,
+          "y": 295,
+          "w": 100,
+          "h": 95,
+          "open": true
+        }
+      ],
+      "projectionCamera": {
+        "x": 230,
+        "y": 0
+      },
+      "sampleTick": 240,
+      "diagnosticOnly": true
+    }
   }
 });
