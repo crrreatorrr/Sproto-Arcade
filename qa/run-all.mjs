@@ -20,7 +20,8 @@ const commands=tests.map(file=>{
  return {file,relative,args};
 });
 for(const file of ['static-checks.mjs','shared-rules.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
-if(fs.existsSync(path.join(root,'art/rework/bosses/12-codebreak/manifest.js')))commands.push({file:path.join(qaDir,'animation-inventory.mjs'),relative:'qa/animation-inventory.mjs',args:[root]});
+// Animation inventory is archived pre-production evidence; current user stopped production.
+if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.join(qaDir,'pacing-checks.mjs'),relative:'qa/pacing-checks.mjs',args:[root]});
 const results=[];
 for(const command of commands){
  const r=spawnSync(process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});
@@ -30,5 +31,5 @@ for(const command of commands){
 const build=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 const dirty=execFileSync('git',['status','--short'],{cwd:root,encoding:'utf8'}).trim();
 const failed=results.filter(r=>r.status!=='passed').length;
-console.log(JSON.stringify({build,workingTree:dirty,kind:'deterministic-regression',status:failed?'failed':'passed',commands:results.length,failed,results,limitations:['Scripted fixture controllers are not human playtests.','Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.','Full gameplay balance, display-refresh timing and production animation readability require separate validation.']},null,2));
+console.log(JSON.stringify({build,workingTree:dirty,kind:'deterministic-regression',status:failed?'failed':'passed',commands:results.length,failed,results,limitations:['Scripted fixture controllers are not human playtests.','Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.','Full gameplay balance and readability require human playtesting; animation production is stopped.']},null,2));
 if(failed)process.exitCode=1;
