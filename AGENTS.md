@@ -2,7 +2,7 @@
 
 ## Current priority
 
-Animation production and Higgsfield generation are STOPPED at the user’s direction. The earlier30+boss-animation requirement is superseded. Work on core gameplay, readable attacks and reaction windows. Phase2 retains corrected base projectile speed and increases density/variety through slow, visually distinct projectiles. No animation approval is needed to continue gameplay implementation or QA. Preserve historical art/reference records as archived material.
+Boss animation production and Higgsfield boss-animation generation are STOPPED at the user’s direction. Authorized static gameplay projectile art may be supplied and integrated without restarting boss animation production. The earlier30+boss-animation requirement is superseded. Work on core gameplay, readable attacks and reaction windows. Phase2 retains corrected base projectile speed and increases density/variety through slow, visually distinct projectiles. No animation approval is needed to continue gameplay implementation or QA. Preserve historical art/reference records as archived material.
 
 
 - Integrate completed, verified project work into local `main` as it is finished. The user now also authorizes pushing completed verified tasks to GitHub main after local integration. Verify the repository destination, current remote state and CI, preserve concurrent work, and never force push.
