@@ -1,3 +1,5 @@
+> ARCHIVED: animation production and Higgsfield jobs are stopped at the user’s direction. The prior30+clip request is superseded. This record is not an approval gate for current gameplay tuning.
+
 # Supported Higgsfield production handoff
 
 User authorizes Higgsfield credits as needed or appropriate free models. The encounter timing / critical-pose / hit-area gate remains in force. No generation job has been submitted in this implementation session; reserved credits0, billed credits0, completed production clips0. Authorization is not a claim that a quotation or completed asset exists.

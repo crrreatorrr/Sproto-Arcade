@@ -415,5 +415,8 @@
       "terminalClipId": "12-codebreak.rig-defeat-shutdown",
       "actualTerminalVerified": false
     }
-  ]
+  ],
+  "status": "archived-animation-plan",
+  "animationProduction": "stopped-by-user",
+  "currentRequirement": "core gameplay pacing and slow projectile density; prior30+clip goal superseded"
 }

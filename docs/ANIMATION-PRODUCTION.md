@@ -1,3 +1,5 @@
+> ARCHIVED: animation production and Higgsfield jobs are stopped at the user’s direction. The prior30+clip request is superseded. This record is not an approval gate for current gameplay tuning.
+
 # Production animation acceptance
 
 The user's additional requirement is **at least 30 distinct animations for each boss**. Frames inside a clip do not count as distinct animations. Alternate filenames, playback-speed changes, duplicate holds and duplicate rendered motion do not increase coverage. Every accepted clip needs a different observable action or purposeful machine articulation, plus its own cue/action/recovery intent and verified event/anchor metadata.

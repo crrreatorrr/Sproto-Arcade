@@ -18,14 +18,14 @@ Autofire provides baseline pressure. Prism Rail has two piercing shots, Ricochet
 
 Practice and full-run records are separate; practice records are also separated by phase and authored sector. Completing a full encounter offers the next registered encounter. Seeds make simulation and drop order reproducible, with independent attack and loot random streams.
 
-## Verification and art gate
+## Current focus: core gameplay
 
-`docs/STATUS.md` gives the exact milestone checkpoint and remaining approval. `docs/GATES.md` records integration commits, observed evidence and limitations. `qa/SLICE.md` documents the first four-stage slice. Run `node qa/run-all.mjs .` for dependency-free simulation fixtures; `node qa/ui-browser.mjs .` exercises the actual offline entry using local Chrome. Browser checks intentionally distinguish forced lifecycle routing from earned victories. The original offline entry has its own twelve-stage routing matrix.
+Animation production and Higgsfield jobs are stopped. The previous30+animation-per-boss goal is superseded; archived reference material is retained as history. No animation signoff is required to continue gameplay work.
 
-Open **art-review.html** for every boss’s two-phase reference guides, the initial Dave/Big Swole/Goldie silhouette studies, weapon boards, and per-boss clip inventories. The linked contact sheet reviews all24phases. These are procedural guides with source records and classic-script manifests. The user requires30 or more distinct animations per boss; planned clip inventories and delivered clip counts remain separate. Frames and duplicate motion do not increase distinct animation coverage. No production Higgsfield animations have been generated. See `docs/ANIMATION-PRODUCTION.md`. Encounter timing, critical poses and hit-area approval are required before generation. Human comprehension tests, final balance, production-art readability and final atlas verification are not implied by simulation passes.
+Fast ordinary enemy shots are capped at6pixels per simulation tick; marked dash/shield fronts at8. Phase2 uses the same limits and adds slow, distinct projectiles after the isolated rule lesson. Slow pressure has a long warning, a bounded population, committed trajectories and protected counter/route intervals. Player movement and required gap geometry are preserved.
 
-Developer interface: `docs/INTERFACE.md`. Each specialist worked in a separate branch/worktree with exclusive paths; integration was serial. Nothing has been pushed or published from this implementation branch.
+Open **review-start.html** for direct full-run and Phase2 practice links, projectile shapes and useful feedback. Current evidence is in **qa/PACING.md** and stage timing notes; prior reports in qa/RELEASE.md and docs/GATES.md are historical. Run `node qa/run-all.mjs .` in the git checkout for gameplay fixtures. Actual browser checks distinguish diagnostic arrangements and forced routing from legal-input clears.
 
-Human validation: open **qa/playtest.html** and follow **qa/PLAYTEST.md** for the eight-person formative session. The form starts empty; no human playtest results have been recorded.
+Human reaction comfort and final balance remain unvalidated until people play the game. **qa/playtest.html** starts blank; follow **qa/PLAYTEST.md** for reaction, density and route observations. No human results are fabricated.
 
-For a guided Mac review, open **review-start.html**. The four-stage slice can be approved incrementally by named encounter and phase; unrelated encounters stay pending.
+Developer interface: docs/INTERFACE.md and docs/GAMEPLAY-TUNING-CONTRACT.md. Completed verified work goes to local main and then the verified GitHub main without force. No shared Fighter/dependent repository pull is allowed before Fighter PR #8 finishes. This Arcade pass uses checked-in assets and proceeds without pulling.
