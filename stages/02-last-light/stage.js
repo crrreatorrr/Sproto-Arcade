@@ -8,7 +8,7 @@ function draw(c,w,mirror){
  if(mirror){c.strokeStyle='#9f98bd';c.lineWidth=14;c.beginPath();c.moveTo(740,280);c.lineTo(1250,280);c.moveTo(1080,280);c.lineTo(1080,340);c.stroke();c.strokeStyle='#c9f2ff';c.lineWidth=12;c.beginPath();c.moveTo(650,600);c.lineTo(695,500);c.stroke();text(c,'BAIT BEAM HERE →',345,485);text(c,'MIRROR / REAR HOUSING',740,320);}
  else{c.fillStyle='#805c70';c.fillRect(480,480,100,120);c.strokeStyle='#ffd69d';c.strokeRect(480,480,100,120);text(c,'COVER ←',300,468);}
  if(w.data.lockY){c.setLineDash([10,10]);c.strokeStyle='#ffe5ba';c.lineWidth=3;c.beginPath();c.moveTo(1060,w.data.lockY);c.lineTo(w.data.lockX,w.data.lockY);c.stroke();c.setLineDash([]);}
- text(c,iris?.open?'IRIS OPEN':'IRIS ARMORED',985,630);text(c,mirror?'MIRROR GANTRY':'PRISM PROJECTOR',970,305);
+ if(w.data.reflectedUntil>w.phaseTick){c.strokeStyle='#fff5b7';c.lineWidth=7;c.beginPath();c.moveTo(mirror?675:530,w.data.lockY);c.lineTo(1090,530);c.stroke();}text(c,iris?.open?'IRIS OPEN':'IRIS ARMORED',985,630);text(c,mirror?'MIRROR GANTRY':'PRISM PROJECTOR',970,305);
 }
 function core(w,hp,next){w.target({id:'light-iris',x:1040,y:490,w:100,h:110,hp,maxHp:hp,open:false,label:'Iris housing',onDefeat(z){next?z.advancePhase():z.clear();}});}
 function attack(w,reflect){const t=w.phaseTick%C,cycle=Math.floor(w.phaseTick/C);
@@ -19,7 +19,7 @@ function attack(w,reflect){const t=w.phaseTick%C,cycle=Math.floor(w.phaseTick/C)
   const edge=aligned?(reflect?700:580):0;
   w.hazard({id:'light-beam-'+w.phaseIndex+'-'+cycle,source:reflect?'light.house-of-mirrors.beam':'light.iris-shot.beam',rule:'ordinary',x:edge,y:y-8,w:1060-edge,h:16,windup:0,active:2,recovery:20,cue:returned?'LIGHT RETURN — HOUSING EXPOSED':'BEAM RELEASE'});
   w.data.openUntil=returned?w.phaseTick+210:0;
-  if(returned){w.data.returns++;w.cue(reflect?'MIRROR RETURN: shoot the exposed rear housing.':'COVER RETURN: shoot the opened iris.',180);if(w.data.returns===1)w.drop('light-first-return',w.player.x+55,574);}
+  if(returned){w.data.returns++;w.data.reflectedUntil=w.phaseTick+24;w.events.push({type:reflect?'reflection':'coverReturn',source:reflect?'light.house-of-mirrors.mirror':'light.iris-shot.booth',x:reflect?675:530,y,cycle});w.cue(reflect?'MIRROR RETURN: shoot the exposed rear housing.':'COVER RETURN: shoot the opened iris.',180);if(w.data.returns===1)w.drop('light-first-return',w.player.x+55,574);}
  }
  const iris=w.targets.find(t=>t.id==='light-iris');if(iris){iris.open=w.phaseTick<w.data.openUntil;w.progress=1-iris.hp/iris.maxHp;}
  if(reflect&&w.phaseTick>=600&&t===340)w.hazard({id:'light-reprise-'+cycle,source:'light.iris-shot.reprise',rule:'ordinary',x:1180,y:568,w:40,h:32,vx:-7,windup:30,active:180,recovery:0,cue:'LOW PROJECTOR SHOT — JUMP OR SHIELD'});
