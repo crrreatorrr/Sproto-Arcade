@@ -60,7 +60,8 @@ const LEVELS = [
     "art": "art/level-10.jpg",
     "foot": 0.875
   },
-  {title:"Rooftop Breakaway",id:11,chase:true}
+  {title:"Rooftop Breakaway",id:11,chase:true},
+  {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84}
 ];
 
 // Generated panoramas share the same pixels on each side of a baked join.
@@ -95,7 +96,8 @@ const LEVEL_EXTENSIONS = [
   ['0-17-castle-battlements','1-17-castle-snow-swept-battlements','catalog-frostbastion','0-15-castle-great-hall','1-15-castle-stained-glass-great-hall','0-16-castle-armory'],
   ['catalog-royallibrary','catalog-lunarchapel','0-13-throne-power-gallery','1-13-throne-power-conduit-gallery','catalog-chainforge','1-12-throne-furnace-relay-vault'],
   ['catalog-ambernursery','catalog-sporegrove','catalog-moltinghall','catalog-pearlchamber','catalog-rootreservoir','catalog-hatchery'],
-  ['catalog-auroragate','catalog-starbridge','catalog-observatory','1-18-verse-red-sun-asteroid-causeway','catalog-gravityarchive','1-19-verse-cosmic-crystal-cavern']
+  ['catalog-auroragate','catalog-starbridge','catalog-observatory','1-18-verse-red-sun-asteroid-causeway','catalog-gravityarchive','1-19-verse-cosmic-crystal-cavern'],
+  [], []
 ];
 
 const STATIC_ARENAS = [

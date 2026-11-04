@@ -275,6 +275,7 @@ function sceneryTile([file,foot],width) {
 }
 
 function drawBackground() {
+  if (isCodebreak()) return drawCodebreakBackground();
   if (mode!=='title' && mode!=='won' && boss?.phase===2) {
     const tile=sceneryTile(STATIC_ARENAS[levelIndex],W);
     if (tile) {
@@ -384,6 +385,8 @@ function showLevelControls() {
       (!flying && element.hasAttribute('data-flight-only')) ||
       (flying && element.hasAttribute('data-ground-only'));
   }
+  document.querySelector('#ground-auto-fire').hidden=chase || flying || isCodebreak();
+  document.querySelector('#tracking-auto-fire').hidden=!isCodebreak();
 }
 
 function begin(index = firstLevel, carryShield = false) {
@@ -399,11 +402,12 @@ function begin(index = firstLevel, carryShield = false) {
   phaseShift = 0;
   gameScreen.classList.remove('stage-blackout');
   vaultBeam = null;
-  player = {id:selectedSproto.id,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
+  player = {id:selectedSproto.id,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
   hud.hidden = false;
   setOverlay('play','','','','');
-  if (isChase()) startChase();
+  if (isCodebreak()) startCodebreak();
+  else if (isChase()) startChase();
   else startBoss();
   refreshHud();
 }
@@ -456,6 +460,7 @@ function refreshHud() {
   ui.dash.classList.toggle('ready',!player.dashWait);
   showCooldown(ui['missile-status'],player.missileWait);
   showCooldown(ui['bomb-status'],player.bombWait);
+  if (isCodebreak()) return refreshCodebreakHud();
   const m = boss?.move && moves[boss.move];
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
@@ -524,12 +529,14 @@ function movePlayer() {
   p.shot=(p.shot+1)%9;
   if (p.shot===1) {
     const flying=isFlying(), y=flying?p.y+SAUCER_MUZZLE_Y:p.y-(p.crouch?74:109);
-    fire(p.x+(flying?SAUCER_MUZZLE_X:44),y,25,0,flying?'greenLaser':'spark',true);
+    if (isCodebreak()) fireCodeWeapon('greenLaser');
+    else fire(p.x+(flying?SAUCER_MUZZLE_X:44),y,25,0,flying?'greenLaser':'spark',true);
     if (time%18<9) sound(500,250,.047,.019);
   }
   if (boss.hp && !p.missileWait && tapped('KeyC')) {
     p.missileWait=MISSILE_COOLDOWN;
-    if (!isFlying()) fire(p.x+30,p.y-88,12,-5,'missile',true);
+    if (isCodebreak()) fireCodeWeapon('missile');
+    else if (!isFlying()) fire(p.x+30,p.y-88,12,-5,'missile',true);
     sound(590,860,.075,.025);
   }
   if (isFlying() && MISSILE_COOLDOWN-p.missileWait===RED_ARM_DEPLOY) {
@@ -538,7 +545,8 @@ function movePlayer() {
   }
   if (boss.hp && !p.bombWait && tapped('KeyV')) {
     p.bombWait=BOMB_COOLDOWN;
-    if (!isFlying()) {
+    if (isCodebreak()) fireCodeWeapon('bomb');
+    else if (!isFlying()) {
       fire(p.x,p.y-103,5,-14,'bomb',true,.46);
       sound(260,430,.10,.035);
     }
@@ -579,7 +587,8 @@ function moveGround(p,dx) {
   p.vx=dx*(p.crouch?3.1:8.2);
   const prevX=p.x;
   p.x=clamp(p.x+(p.dash?p.dashDir*20:p.vx),58,isChase()?W-360:W-58);
-  if (isChase() && p.grounded && !chasePlatformAt(p.x,p.y,p.y)) {
+  const platformAt=isCodebreakClimb()?codebreakPlatformAt:isChase()?chasePlatformAt:null;
+  if (platformAt && p.grounded && !platformAt(p.x,p.y,p.y)) {
     p.grounded=false;
     p.crouch=false;
   }
@@ -592,7 +601,7 @@ function moveGround(p,dx) {
     p.vy += released && p.vy<0 ? 1.28 : .94;
     const fromY=p.y;
     p.y+=p.vy;
-    const landing=isChase()?chasePlatformAt(p.x,fromY,p.y)?.y:FLOOR;
+    const landing=platformAt?platformAt(p.x,fromY,p.y)?.y:FLOOR;
     if (landing!==undefined && p.y>=landing) {
       p.y=landing;
       p.vy=0;
@@ -904,7 +913,7 @@ function attackBoss(t) {
   }
 }
 
-const playerHeight=()=>player.crouch?72:110;
+const playerHeight=()=>(player.crouch?72:110)*(isCodebreak()?CODE_CHARACTER_SCALE:1);
 
 const bossAttackRate=b=>ENEMY_ATTACK_RATE*b.cadence*(1+b.section*.08);
 
@@ -1080,7 +1089,7 @@ function updateBullets() {
       continue;
     }
     const mech=hasMecha(b);
-    const hitTop=mech?mechaY(b)-122:b.y-116*b.scale;
+    const hitTop=isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
     const hitBottom=mech?mechaY(b)+122:b.y-12;
     const halfWidth=mech?106:147;
     const beam=shot.shape==='redLaser';
@@ -1104,7 +1113,7 @@ function updateBullets() {
 function hitBoss(shot,damage) {
   shot.dead=true;
   let floor=0;
-  if (boss.phase===2) {
+  if (boss.phase===2 && !isCodebreak()) {
     // Keep both shield tests reachable, even if damage outpaces the recharge.
     if (!boss.pulses.has(2)) floor=Math.floor(boss.max/4)+1;
     else if (!boss.pulses.has(3)) floor=1;
@@ -1115,7 +1124,7 @@ function hitBoss(shot,damage) {
   const x=shot.shape==='bomb'?clamp(shot.x,boss.x-125,boss.x+125):shot.x;
   const y=shot.shape==='bomb'?(hasMecha(boss)?mechaY(boss)+102:boss.y-55):shot.y;
   impacts.push({...effect,x,y,age:0});
-  if (!boss.hp) {
+  if (!boss.hp && !isCodebreak()) {
     if (boss.phase===1) startStageShift();
     else defeatBoss();
   }
@@ -1204,6 +1213,7 @@ function updateChase() {
 
 function update() {
   time++;
+  if (isCodebreak()) return updateCodebreak();
   if (isChase()) {
     updateChase();
     return;
@@ -1703,7 +1713,9 @@ function drawSaucerRedArm(p) {
 
 function drawGroundPlayer() {
   const p=player, art=ART.sprites[p.id];
-  if (!isChase() || p.grounded) shadow(p.x,isChase()?p.y:FLOOR,36);
+  const platforming=isChase() || isCodebreakClimb();
+  const scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+  if (!platforming || p.grounded) shadow(p.x,platforming?p.y:FLOOR,36*scale);
   const casting=phaseShift>0 && phaseShift<=8 && !p.crouch;
   const walking=p.walking && p.grounded && !p.dash && !p.crouch && !casting;
   const pose=casting?(art.cast.at(-2)??art.cast[0]):
@@ -1711,8 +1723,8 @@ function drawGroundPlayer() {
     !p.grounded?art.poses[p.vy<0?8:9]:
     walking?walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length):
     p.id==='rivet' && p.shot<3?art.cast.at(p.shot<2?-2:-1):art.poses[time%46<23?0:1];
-  if (!p.inv || time%8<5) sprite(p.id,pose,p.x,p.y,1,1.20*(walking?(art.walkScale??1):1));
-  if (p.shield) drawPlayerShield('shield',p.x,p.y-77);
+  if (!p.inv || time%8<5) sprite(p.id,pose,p.x,p.y,1,1.20*scale*(walking?(art.walkScale??1):1));
+  if (p.shield) drawPlayerShield('shield',p.x,p.y-77*scale,scale);
 }
 
 function drawPlayerShield(folder,x,y,scale=1) {
@@ -1846,6 +1858,7 @@ function drawChase() {
 }
 
 function render() {
+  if (isCodebreak()) return drawCodebreak();
   if (phaseShift>=STAGE_BLACKOUT) {
     ctx.fillStyle='#000';
     ctx.fillRect(0,0,W,H);
@@ -2008,7 +2021,7 @@ function makePanoramaTile(image, floorRatio, width) {
 }
 
 const openingPanels=LEVELS.map((_,i)=>loopPanels(i)[0]);
-const initial=[...openingPanels,...STATIC_ARENAS,...GENERATED_LOOPS[firstLevel].panels.slice(1,3)]
+const initial=[...openingPanels,...STATIC_ARENAS,...(GENERATED_LOOPS[firstLevel]?.panels.slice(1,3)??[])]
   .map(([file])=>picture('art/'+file));
 for (let i=0;i<4;i++) {
   if (i<2) initial.push(attackFrame('boss/higgsfield/transition',i));
@@ -2053,6 +2066,7 @@ for (const width of [65,84]) {
 }
 for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) initial.push(chaseBuildingImage(i));
 initial.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
+initial.push(...codebreakImages());
 Promise.all(initial.map(img=>img.decode())).then(()=>{
   goldieHoverSheet=makeGoldieHoverSheet();
   camera=0;
