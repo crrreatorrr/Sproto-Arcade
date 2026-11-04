@@ -1,0 +1,283 @@
+{
+  "status": "passed",
+  "kind": "forced-routing-smoke",
+  "rows": [
+    {
+      "number": 1,
+      "title": "Tidebreak Marina",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 2,
+      "title": "Last Light Bar",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 3,
+      "title": "Mudline Trenches",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 4,
+      "title": "Sproto Ranch",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 5,
+      "title": "Neon Tomorrow",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 6,
+      "title": "Circuit Gate",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 7,
+      "title": "Moonkeep Castle",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 8,
+      "title": "Crown Relay Chamber",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 9,
+      "title": "The Hatchery",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 10,
+      "title": "Verse Gate",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 11,
+      "title": "Rooftop Breakaway",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": "chase"
+      },
+      "phase2": "not implemented in baseline",
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": "chase",
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "clear",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    },
+    {
+      "number": 12,
+      "title": "Codebreak Ascent",
+      "seed": "legacy-unseeded",
+      "entry": "selector/start",
+      "build": "a25acb1",
+      "start": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1
+      },
+      "phase2": 2,
+      "loss": "lost",
+      "retry": {
+        "mode": "play",
+        "hp": 5,
+        "phase": 1,
+        "bullets": 0,
+        "hazards": 0
+      },
+      "clearRoute": "won",
+      "result": "routing passed (phase/clear invoked, not earned)"
+    }
+  ],
+  "errors": []
+}
