@@ -25,15 +25,16 @@ const server=http.createServer((req,res)=>{
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const origin='http://127.0.0.1:'+server.address().port;
 const STUB=`var HubSdk={createHubSdk:function(){
-  var calls=window.__hubCalls=[];var relics=['cones_tip'];var cloud={data:{v:1,cleared:[4],unlocked:['sproto831'],updatedAt:1},updatedAt:1};
+  var calls=window.__hubCalls=[];var me=window.__stubPlayer||'p1';var relics=me==='p1'?['cones_tip']:[];
+  var cloud=me==='p1'?{data:{v:1,cleared:[4],unlocked:['sproto831'],updatedAt:1},updatedAt:1}:{data:null,updatedAt:0};
   return {
-    init:async function(g){calls.push(['init',g]);return {playerId:'p1',ranked:false,relics:relics.slice(),effects:{},ticketsCapLeft:200,serverTime:0};},
-    getSession:function(){return {token:'t',playerId:'p1',game:'sproto-arcade',ranked:false,expiresAt:Date.now()+1e6};},
+    init:async function(g){calls.push(['init',g]);return {playerId:me,ranked:false,relics:relics.slice(),effects:{},ticketsCapLeft:200,serverTime:0};},
+    getSession:function(){return {token:'t',playerId:me,game:'sproto-arcade',ranked:false,expiresAt:Date.now()+1e6};},
     loadSave:async function(){calls.push(['loadSave']);return cloud;},
     writeSave:async function(d){calls.push(['writeSave',JSON.parse(JSON.stringify(d))]);cloud={data:d,updatedAt:2};return cloud;},
     getTicketBalance:async function(){return {balance:40,sessionCapLeft:200,dailyCapLeft:1000,serverTime:0};},
     reportEvent:async function(e,d,k){calls.push(['reportEvent',e,d,k]);if(e==='arcade.boss_defeated'&&d.boss==='bront'&&relics.indexOf('breakwater_coin')<0){relics.push('breakwater_coin');return {granted:'breakwater_coin'};}return {};},
-    earnTickets:async function(a,r,k){calls.push(['earnTickets',a,r,k]);return {balance:60,capped:false};},
+    earnTickets:async function(a,r,k){if(window.__slowEarn)await new Promise(function(ok){setTimeout(ok,window.__slowEarn);});calls.push(['earnTickets',a,r,k]);return {balance:60,capped:false};},
     exit:function(r){calls.push(['exit',r]);}
   };}};`;
 const browser=await chromium.launch();
@@ -93,12 +94,43 @@ try{
     assert.match(earns[0][3],/^arcade:clear:0:/);
     assert.deepEqual(calls.filter(c=>c[0]==='writeSave').at(-1)[1].cleared,[0,2,4]);
     assert.match(await page.textContent('#hub-status'),/Breakwater Coin owned/);
-    assert.equal(await page.evaluate(()=>localStorage.getItem('sproto-arcade-hub-pending-v1')),'[]','nothing left queued');
+    assert.equal(await page.evaluate(()=>localStorage.getItem('sproto-arcade-hub-pending-v1:p1')),'[]','nothing left queued');
+    // Overlapping syncs: a slow earn for one clear must not drop the next clear's row.
+    await page.evaluate(()=>{window.__slowEarn=400;});
+    await clear(page,3,false);await clear(page,4,false);
+    await page.waitForFunction(()=>window.__hubCalls.filter(c=>c[0]==='earnTickets').length===3,null,{timeout:10000});
+    const levels=(await page.evaluate(()=>window.__hubCalls)).filter(c=>c[0]==='earnTickets').map(c=>c[3].split(':')[2]);
+    assert.deepEqual(levels,['0','3','4'],'every non-god clear is paid once');
+    await page.waitForFunction(()=>localStorage.getItem('sproto-arcade-hub-pending-v1:p1')==='[]');
     await page.click('#hub-return');
     assert.deepEqual((await page.evaluate(()=>window.__hubCalls)).at(-1),['exit','return']);
     assert.deepEqual(errors,[]);
     results.hubSession='passed';
     await page.close();
+  }
+  { // 2b. Accounts on one browser stay apart: offline progress goes to the first account only.
+    const context=await browser.newContext();
+    const page=await context.newPage();
+    await page.goto(origin+'/legacy.html');
+    await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});
+    await page.evaluate(()=>window.ArcadeHub.ready);
+    await clear(page,2,false); // offline, before any sign-in
+    await page.route('**/vendor/hub-sdk/hub-sdk.iife.js',r=>r.fulfill({contentType:'text/javascript',body:STUB}));
+    await page.reload();await page.waitForFunction(()=>window.ArcadeHub?.state.status==='online',null,{timeout:60000});
+    assert.deepEqual(await page.evaluate(()=>window.ArcadeHub.state.save.cleared),[2,4],'first account takes over the guest progress');
+    await clear(page,5,false);
+    await page.addInitScript(()=>{window.__stubPlayer='p2';});
+    await page.reload();await page.waitForFunction(()=>window.ArcadeHub?.state.status==='online',null,{timeout:60000});
+    const p2=await page.evaluate(()=>({save:window.ArcadeHub.state.save,relics:window.ArcadeHub.state.relics,calls:window.__hubCalls}));
+    assert.deepEqual(p2.save.cleared,[],"another account does not inherit p1's progress");
+    assert.deepEqual(p2.relics,[]);
+    assert.ok(!p2.calls.some(c=>c[0]==='earnTickets'||c[0]==='reportEvent'),"p1's queued writes are not sent as p2");
+    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('sproto-arcade-story-v1:p1')).cleared),[2,4,5]);
+    // Production hub address: play.<domain> games return to <domain>/hub/.
+    assert.equal(await page.evaluate(()=>window.ArcadeHub.hubUrlFor({hostname:'play.example.com',protocol:'https:',port:''})),'https://example.com/hub/');
+    assert.equal(await page.evaluate(()=>window.ArcadeHub.hubUrlFor({hostname:'127.0.0.1',protocol:'http:',port:'5173'})),'/hub/');
+    results.accounts='passed';
+    await context.close();
   }
   { // 3. index.html forwards a ticket.
     const page=await browser.newPage();

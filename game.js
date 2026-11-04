@@ -2135,8 +2135,13 @@ function levelAssets(index) {
 const assetGroups=new Map(), readyGroups=new Set();
 function loadGroup(key,make) {
   if (!assetGroups.has(key)) {
-    const loading=Promise.all(make().map(img=>img.decode())).then(()=>{readyGroups.add(key);});
-    loading.catch(()=>assetGroups.delete(key));
+    const images=make();
+    const loading=Promise.all(images.map(img=>img.decode())).then(()=>{readyGroups.add(key);});
+    // A failed image stays broken in the picture() cache, so drop it and let a retry fetch it again.
+    loading.catch(()=>{
+      assetGroups.delete(key);
+      for (const img of images) if (!img.complete || !img.naturalWidth) for (const [path,cached] of pictures) if (cached===img) pictures.delete(path);
+    });
     assetGroups.set(key,loading);
   }
   return assetGroups.get(key);
@@ -2194,7 +2199,10 @@ function refreshTitleReadiness() {
 
 if (new URLSearchParams(location.search).has('assetAudit')) {
   // QA only: qa/lazy-load-browser.mjs loads every group to compare with the old preload set.
-  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...playable.map(p=>loadSproto(p.id))])};
+  // Also every scrolling panel: drawBackground() requests panels past the first three only as the
+  // camera reaches them, so tools/build-web.mjs needs them listed here to ship them.
+  const allPanels=()=>LEVELS.flatMap((_,i)=>loopPanels(i)).map(([file])=>picture('art/'+file));
+  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
 }
 
 loadFor(firstLevel).then(()=>{

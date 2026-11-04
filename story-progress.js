@@ -94,21 +94,24 @@
     return `Clear ${level}, or own the ${relics} in the hub`;
   }
 
-  function load(storage) {
+  /** `key` defaults to the device (guest) save; hub-link.js passes a per-player key. */
+  function load(storage, key = STORAGE_KEY) {
     try {
-      return normalize(JSON.parse(storage?.getItem(STORAGE_KEY) ?? 'null'));
+      return normalize(JSON.parse(storage?.getItem(key) ?? 'null'));
     } catch {
       return empty();
     }
   }
 
-  function store(storage, save) {
+  function store(storage, save, key = STORAGE_KEY) {
     try {
-      storage?.setItem(STORAGE_KEY, JSON.stringify(normalize(save)));
+      storage?.setItem(key, JSON.stringify(normalize(save)));
     } catch {
       // Private windows and file:// can refuse storage. Progress then lasts for this visit.
     }
   }
 
-  root.ArcadeProgress = { STORAGE_KEY, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, isUnlocked, lockReason, load, store };
+  const playerKey = (playerId) => `${STORAGE_KEY}:${playerId}`;
+
+  root.ArcadeProgress = { STORAGE_KEY, playerKey, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, isUnlocked, lockReason, load, store };
 })(typeof window !== 'undefined' ? window : globalThis);
