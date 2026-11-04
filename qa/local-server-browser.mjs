@@ -1,5 +1,6 @@
 // HTTP delivery check; does not change gameplay or record approval.
 import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
 import {openBrowser,wait} from './browser-cdp.mjs';
 const origin=process.argv[2]||'http://127.0.0.1:5201';
 const paths=['/index.html','/review-start.html','/art-review.html','/art/rework/review/index.html','/qa/playtest.html','/favicon.ico'];
@@ -17,10 +18,10 @@ try{
  if(playing.state!=='playing'||playing.phase!==1||!playing.practice||playing.tick<1)throw Error('HTTP practice start failed');
  await b.send('Page.navigate',{url:origin+'/review-start.html'});await wait(150);
  const sliceLinks=await b.evaluate('[...document.querySelectorAll("table a")].map(a=>a.href)');
- if(sliceLinks.length!==12)throw Error('Slice entry links missing');
+ if(sliceLinks.length!==24)throw Error('Campaign entry links missing');
  const errors=b.events.filter(e=>e.method==='Runtime.exceptionThrown'||(e.method==='Log.entryAdded'&&e.params.entry.level==='error'));
  if(errors.length)throw Error(JSON.stringify(errors));
- const result={status:'passed',origin,serverRoot:'arcade-offline-build',servedGameplayCommit:'de69983',http,selected,playing,guideImages:images.length,guideFailures:images.filter(i=>!i.ok),sliceLinks,browserErrors:errors.length,offlineEntryPreserved:fs.existsSync(new URL('../index.html',import.meta.url)),approvalScope:'incremental by named encounter and phase; slice=Marina,Mudline,Rooftop,Codebreak',generationJobsSubmitted:0,creditsSpentByThisTask:0};
- fs.writeFileSync(new URL('./local-server-check.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+ const result={status:'passed',origin,serverRoot:'local-main-checkout',servedGameplayCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),http,selected,playing,guideImages:images.length,guideFailures:images.filter(i=>!i.ok),sliceLinks,browserErrors:errors.length,offlineEntryPreserved:fs.existsSync(new URL('../index.html',import.meta.url)),focus:'core gameplay; animation production stopped',generationJobsSubmitted:0,creditsSpentByThisTask:0};
+ if(process.env.QA_OUTPUT)fs.writeFileSync(process.env.QA_OUTPUT,JSON.stringify(result,null,2)+'\n');
  console.log(JSON.stringify(result,null,2));
 }finally{await b.close();}

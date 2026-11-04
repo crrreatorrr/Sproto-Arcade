@@ -6,7 +6,7 @@ Animation production and Higgsfield generation are STOPPED at the user’s direc
 
 
 - Integrate completed, verified project work into local `main` as it is finished. The user now also authorizes pushing completed verified tasks to GitHub main after local integration. Verify the repository destination, current remote state and CI, preserve concurrent work, and never force push.
-- Do not pull Sproto Fighter updates or dependent shared repositories until Sproto Fighter PR #8 has finished. Check that PR before any later pull. Current Arcade tuning uses checked-in assets and continues independently without pulling.
+- Do not pull Sproto Fighter updates or dependent shared repositories until Sproto Fighter PR #8 has finished. Check that PR before any later pull. Current Arcade tuning uses checked-in assets. PR #8 was verified merged as04573bc9b1b4cc20308d4149f9e9fae0ef8d6454 before the subsequent safe Arcade pull; preserve that verification and recheck before later shared updates.
 - Before integration, check the actual `main` checkout, its status and active worktrees. Preserve unrelated changes and other worktrees; use a fast-forward where the history permits it.
 - Keep unfinished work and unapproved production assets separate. Completed reference guides and inventories may be integrated as review material, clearly labeled pre-production; planned clips must never count as delivered animation.
 - Respect the existing encounter timing, critical-pose and hit-area approval gate before final animation generation. Honor approval already granted for a named scope without repeatedly asking for it.

@@ -1,31 +1,17 @@
-# Mac local review
+# Mac gameplay preview
 
-The prototype is served only on this Mac's loopback interface at http://127.0.0.1:5201/ from the extracted arcade-offline-build folder. It is not published.
+Use http://127.0.0.1:5201/index.html to play and http://127.0.0.1:5201/review-start.html for all encounter/practice links and current projectile shapes. Delivery refreshes the loopback-only preview to the verified local-main checkout; it is not a public deployment. Opening index.html directly still works offline.
 
-- Guided review and four-stage links: http://127.0.0.1:5201/review-start.html
-- Play: http://127.0.0.1:5201/index.html
-- Boss timing / pose / hit-area guides: http://127.0.0.1:5201/art-review.html
-- All24phase contact sheet: http://127.0.0.1:5201/art/rework/review/index.html
-- Revised summit practice: http://127.0.0.1:5201/index.html?stage=12-codebreak&phase=1
+Animation production is stopped. The old30+clip request and animation approval question are superseded. Continue gameplay work and collect reaction/density feedback without waiting for art approval.
 
-Choose Start run after opening an encounter URL. R retries; Shift dashes; X shields; C/V are the standard specials. The server does not change the offline entry: opening index.html or review-start.html directly from the folder still works.
+The current pacing pass keeps ordinary enemy speed at most6px/tick and marked front speed at most8 in both phases. Phase2 adds slow2–3px/tick pressure with distinct shapes, warnings, bounded population and protected commitments. qa/PACING.md records actual observations and limitations.
 
-## Incremental approval
+The user authorizes completed verified work to local main, then GitHub main without force after repository/remote/CI verification. Fighter PR #8 was verified MERGED as04573bc9b1b4cc20308d4149f9e9fae0ef8d6454 (2026-11-04T05:50:10Z) before the first Arcade pull; Arcade origin/main was already up to date and local work was preserved. No updated Fighter asset format was imported into the checked-in offline sprite set.
 
-Signoff may cover one named encounter and its two phases, the four-stage slice (Marina/Dave, Mudline/Crapto, Rooftop/Goldie, Codebreak/Bitcoin Sheriff), or all12. Unapproved encounters remain pending. Phase-only approval does not cover the other phase or a transformation whose endpoints have not been reviewed. The Dave/Big Swole/Goldie style-study group is a separate look-development grouping; Moonkeep need not be approved to unlock the four-stage gameplay slice.
-
-Confirm warning/commitment/release/recovery timing, required counters, critical machine/operator poses, exposed target and collision bounds, transformation carryover, and intended unique defeat/escape. Goldie escapes. A precise reply can be:
-
-“I approve the current timing, critical poses and hit areas for both phases of Marina, Mudline, Rooftop and Codebreak for initial animation production. Preserve Goldie's escape outcome. Keep the other eight pending.”
-
-Credit permission is already recorded. This approval unlocks the named production scope; it does not count planned clips as delivered or validate human comprehension/balance. Current production clips0 and task spend0.
-
-## Local service and verification
-
-The current detached Python server was started as PID60117, bound127.0.0.1:5201. Logs: /tmp/sproto-arcade-5201.log. If it is no longer running, restart in Terminal:
+If the local preview is stopped, restart from Terminal:
 
 ```sh
-/usr/bin/python3 -m http.server 5201 --bind 127.0.0.1 --directory /Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-offline-build
+/usr/bin/python3 -m http.server 5201 --bind 127.0.0.1 --directory /Users/kenhiraoka/Documents/Codex/2026-11-02/use-assets-of-sproto-fighter-to-2/work/sproto-arcade-repo
 ```
 
-qa/local-server-check.json records actual HTTP200 checks, correct direct Phase2 selection/start, all27guide images,12slice links and zero browser errors. Reproduce with `node qa/local-server-browser.mjs http://127.0.0.1:5201` from the git checkout. The local delivery check found a missing default favicon; favicon.ico now resolves successfully. No gameplay source was changed.
+See qa/playtest.html and qa/PLAYTEST.md for real human observations; actual participants remain0/8. Historical art review files are archived snapshots, not current timing approval material.
