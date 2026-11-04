@@ -4,6 +4,17 @@ Open **index.html** directly in a desktop browser. It runs offline with classic 
 
 This is the implementation branch for the Bot-ero handoff, starting from main `a25acb1`. It is separate from Sproto Fighter. Existing art and original encounters have been retained. The new encounter machines and effects currently use placeholder canvas art with the existing Sproto sprites.
 
+## Hub, Relic, Tickets and saved progress (story mode)
+
+The metaverse hub's Bar cabinet now offers **Sproto Arcade** or **Sproto Fighter**. Picking Sproto Arcade opens `/play/sproto-arcade/#t=<ticket>`. `index.html` forwards a ticket to story mode (`legacy.html`), where `hub-link.js` redeems it with the vendored SDK (`vendor/hub-sdk/hub-sdk.iife.js`, see its VENDOR.md). That redemption is the login. Opened directly or from `file://`, the game stays offline and fully playable.
+
+- **Breakwater Coin:** beating the first story boss (Fat Head Dave, Tidebreak Marina) reports `arcade.boss_defeated`, and the server grants the Coin once. God-mode wins count. In the other games it repeats Cone's Tip's award, and in NOBU it unlocks Wizard Hat II. Its hub look is Cone's Tip's gem as a placeholder.
+- **Tickets:** each level clear made without god mode earns 20 Tickets (`arcade_clear`), within the hub's session and daily caps. The hub bar under the game shows the balance.
+- **Progress and unlocked Sprotos:** `story-progress.js` keeps cleared levels and unlocked Sprotos in localStorage. During a hub session the same save syncs with the hub's cloud save, merging as a union, so neither copy loses progress. Progress is kept per hub account. Offline play before any sign-in goes to the first account that signs in on this browser, and offline play after that tops up the last signed-in account. Ten Sprotos are open from the start. Morelight, The Villain, Jessica and Goldie open by clearing Last Light Bar, Circuit Gate, The Hatchery and Rooftop Breakaway, or by owning a Relic from another hub game. `?unlockAll=1` opens every Sproto for reviews and QA. Levels all stay selectable.
+- **Web build and deploy:** `node tools/build-web.mjs [dist]` copies only the files `index.html` and `legacy.html` use, about 140 MB of the repo's 200 MB, most of it scrolling level scenery. It then replays both pages against the copy and fails on any missing file. It writes `dist/hub-config.js` with the server key from `NAKAMA_SERVER_KEY`, so the dev key never ships. The committed `hub-config.js` is for local play. CI (`.github/workflows/web-build.yml`) uploads the result as the `web-build` artifact for the hub's `npm run fetch:sproto-arcade` and `deploy-game.sh sproto-arcade`. Add the hub's public client key as the repository variable (or secret) `NAKAMA_SERVER_KEY`. It is the same value as HPOS10I's `HPOS_NAKAMA_SERVER_KEY` variable. Without it, the build plays offline only.
+
+Checks: `runtime/fixtures/story-progress.test.js` runs in `node qa/run-all.mjs .`. `qa/hub-e2e.cjs` is the real end-to-end run against a local hub stack (steps in its header). In the browser, run `node qa/hub-link-browser.mjs` (offline, a stubbed hub session, ticket forwarding), `node qa/lazy-load-browser.mjs` (per-level loading) and `node qa/replay-browser.mjs` (determinism). The plan, its critique and the co-op design are in `docs/HUB-COOP-PLAN.md` and `docs/COOP-DESIGN.md`.
+
 ## Controls
 
 - Arrow keys / WASD: move; all four directions in flight.

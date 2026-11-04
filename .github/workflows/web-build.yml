@@ -1,0 +1,43 @@
+# Builds the web copy the hub serves at /play/sproto-arcade/ and uploads it as the `web-build`
+# artifact. The hub's `npm run fetch:sproto-arcade` downloads the latest successful run of this
+# workflow (by name), and deploy-game.sh publishes the same tree to play.<domain>/sproto-arcade/.
+name: Web build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deterministic gameplay checks
+        run: node qa/run-all.mjs .
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.63.0
+          npx playwright install --with-deps chromium
+      # Copies only what index.html and legacy.html use, then replays both pages against dist/.
+      - name: Build dist/
+        run: node tools/build-web.mjs dist
+        env:
+          # The hub's public client key: a repository variable (as HPOS10I's HPOS_NAKAMA_SERVER_KEY)
+          # or a secret, both named NAKAMA_SERVER_KEY. Without it dist/ plays offline only.
+          NAKAMA_SERVER_KEY: ${{ vars.NAKAMA_SERVER_KEY || secrets.NAKAMA_SERVER_KEY }}
+      - name: Story-mode hub link
+        run: node qa/hub-link-browser.mjs .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: dist
+          if-no-files-found: error

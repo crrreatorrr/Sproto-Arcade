@@ -37,6 +37,8 @@ kbd{color:var(--gold)}
 #sproto-portraits img{display:block;width:100%;height:clamp(34px,5vw,70px);object-fit:contain;image-rendering:pixelated}
 #sproto-portraits span{display:block;line-height:1.12;padding:3px 0}
 @media(max-width:630px){.screen:has(#sproto-select:not([hidden])){min-height:350px}#sproto-portraits{grid-template-columns:repeat(4,minmax(0,1fr))}}
+#hub-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 2px 0;font-size:12px;color:#e9d9b7}#hub-bar[hidden]{display:none}#hub-status b{color:var(--gold)}#hub-return{font-size:11px;padding:.45em 1em;box-shadow:none}
+#sproto-portraits button.locked{opacity:.38;filter:grayscale(1);cursor:not-allowed}#sproto-portraits button.locked span::after{content:" 🔒"}
 </style>
 <main>
 <header><span class="badge">✦ Sproto Arcade</span><span>11 levels • 10 boss fights • 1 chase</span></header>
@@ -49,7 +51,9 @@ kbd{color:var(--gold)}
 <div class="overlay"><div class="card"><div class="eyebrow" id="eyebrow">Golden Sproto in</div><h1 id="title">The Long<br>Way Home</h1><p id="description">Ten giant boss fights, a rooftop chase, and a climb through the code shaft.</p><fieldset id="sproto-select"><legend>Choose your Sproto</legend><div id="sproto-portraits"></div></fieldset><label for="level-select" style="display:block;margin:0 0 12px">Start at <select id="level-select" aria-label="Starting level"></select></label><button id="start" disabled>Loading art…</button></div></div>
 </div>
 <footer><span data-ground-only><kbd>← →</kbd> Backpedal / Advance</span><span data-ground-only><kbd>Space</kbd> Jump twice</span><span data-ground-only><kbd>↓</kbd> Crouch</span><span data-flight-only hidden><kbd>← ↑ ↓ →</kbd> Fly</span><span><kbd>Shift</kbd> Dash</span><span><kbd>Esc</kbd> Pause</span></footer>
+<div id="hub-bar" hidden><span id="hub-status" role="status" aria-live="polite"></span><button id="hub-return" type="button" hidden>Return to hub</button></div>
 <div class="weapons" aria-label="Combat controls"><span id="ground-auto-fire" data-ground-only data-boss-only><b>■</b> Horizontal • Auto</span><span id="tracking-auto-fire" hidden><b>■</b> Tracking Laser • Auto</span><span data-flight-only data-boss-only hidden><b>■</b> Green Laser • Auto</span><span class="missile-key" data-boss-only><b>C</b> <span data-ground-only>Tracking missile</span><span data-flight-only hidden>Red laser</span> · <output id="missile-status">Ready</output></span><span class="bomb-key" data-boss-only><b>V</b> <span data-ground-only>Tracking bomb</span><span data-flight-only hidden>Beach ball</span> · <output id="bomb-status">Ready</output></span><span><b>X</b> Shield · <output id="shield-status">Ready</output></span></div>
 </main>
-<script src="original-art.js"></script><script src="assets.js?v=jessica-walk-size"></script><script src="levels.js?v=codebreak"></script><script src="arena-effects.js?v=stage-visual-qa"></script><script src="codebreak.js?v=9"></script><script src="game.js?v=codebreak-goldie-hover"></script>
+<script src="hub-config.js"></script><script src="vendor/hub-sdk/hub-sdk.iife.js"></script><script src="story-progress.js"></script><script src="levels.js?v=codebreak"></script><script src="hub-link.js"></script><script src="original-art.js"></script><script src="assets.js?v=jessica-walk-size"></script><script src="arena-effects.js?v=stage-visual-qa"></script><script src="codebreak.js?v=9"></script><script src="game.js?v=hub-link"></script>
+<script src="hub-ui.js"></script>
 </html>

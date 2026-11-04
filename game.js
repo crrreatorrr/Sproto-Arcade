@@ -76,6 +76,16 @@ const playable = [
   {id:'sproto2884',name:'Sprite'}
 ];
 let selectedSproto=playable[0];
+// Locks come from story-progress.js through hub-link.js. Without them (older pages) every Sproto is open.
+const sprotoUnlocked=id=>window.ArcadeHub?.isUnlocked(id)??true;
+function paintSprotoLocks() {
+  for (const button of portraits.querySelectorAll('button[data-fighter]')) {
+    const id=button.dataset.fighter, open=sprotoUnlocked(id);
+    button.disabled=!open;
+    button.classList.toggle('locked',!open);
+    button.title=open?'':(window.ArcadeHub?.lockReason(id)??'');
+  }
+}
 for (const fighter of playable) {
   const button=document.createElement('button');
   button.type='button';
@@ -88,6 +98,7 @@ for (const fighter of playable) {
   label.textContent=fighter.name;
   button.append(img,label);
   button.addEventListener('click',()=>{
+    if (!sprotoUnlocked(fighter.id)) return;
     portraits.querySelector('[aria-pressed="true"]').setAttribute('aria-pressed','false');
     button.setAttribute('aria-pressed','true');
     selectedSproto=fighter;
@@ -95,6 +106,7 @@ for (const fighter of playable) {
   });
   portraits.append(button);
 }
+paintSprotoLocks();
 for (const [index,level] of LEVELS.entries()) {
   levelSelect.add(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
 }
@@ -236,7 +248,33 @@ const shieldPulseWindup=()=>isFlying()?204:84;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const active = (...codes) => codes.some(code => keys.has(code));
 const tapped = (...codes) => codes.some(code => pressed.has(code));
+// One player's input for one simulation tick. The simulation reads only this, never the key sets,
+// so a second local player or a lockstep network peer can supply frames the same way.
+const NO_INPUT=Object.freeze({left:false,right:false,up:false,down:false,jump:false,jumpHeld:false,dash:false,shield:false,missile:false,bomb:false});
+function readKeyboardFrame() {
+  return {
+    left:active('ArrowLeft','KeyA'), right:active('ArrowRight','KeyD'),
+    up:active('ArrowUp','KeyW'), down:active('ArrowDown','KeyS'),
+    jump:tapped('Space','ArrowUp','KeyW'), jumpHeld:active('Space','ArrowUp','KeyW'),
+    dash:tapped('ShiftLeft','ShiftRight'), shield:tapped('KeyX'),
+    missile:tapped('KeyC'), bomb:tapped('KeyV')
+  };
+}
+let inputFrame=NO_INPUT;
+// Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
+function seededRandom(seed) {
+  let state=seed>>>0;
+  return ()=>{
+    state=(state+0x6d2b79f5)>>>0;
+    let t=Math.imul(state^state>>>15,1|state);
+    t=(t+Math.imul(t^t>>>7,61|t))^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+let cosmeticRandom=seededRandom(1);
 let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infinity;
+// True when god mode was on at any point in the current level. Such clears earn no Tickets.
+let godUsed=false;
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
 const tileCache=new Map();
@@ -392,6 +430,9 @@ function showLevelControls() {
 function begin(index = firstLevel, carryShield = false) {
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
+  godUsed=godMode;
+  cosmeticRandom=seededRandom(0x5eed+index);
+  inputFrame=NO_INPUT;
   showLevelControls();
   levelSelect.value = String(index);
   document.title = LEVELS[index].title + ' • Sproto Arcade';
@@ -410,6 +451,8 @@ function begin(index = firstLevel, carryShield = false) {
   else if (isChase()) startChase();
   else startBoss();
   refreshHud();
+  prefetchLevel(index);
+  prefetchLevel(index+1);
 }
 
 function startBoss() {
@@ -427,12 +470,16 @@ function startBoss() {
 }
 
 function clearLevel() {
+  // Hub link: progress, the first-boss Relic and Tickets. A no-op offline.
+  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed)??[];
+  if (opened.length) paintSprotoLocks();
   if (levelIndex+1===LEVELS.length) {
     levelSelect.value=String(firstLevel);
     setOverlay('won','Campaign clear','That’s all, Sproto!',isChase()?'You escaped across the rooftops.':'The last giant is down.','Play again');
   } else {
     setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[levelIndex+1].title,'Next level');
   }
+  if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
 }
 
 function refreshHud() {
@@ -477,7 +524,7 @@ function showCooldown(label,frames) {
 
 function puff(x,y,color,count=9) {
   for (let i=0;i<count;i++) {
-    const angle=i/count*Math.PI*2, speed=2+Math.random()*8;
+    const angle=i/count*Math.PI*2, speed=2+cosmeticRandom()*8;
     sparks.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:18,color});
   }
 }
@@ -505,7 +552,7 @@ function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0,laser=false) {
 function updateShield(p, canActivate) {
   if (p.shield) p.shield--;
   if (p.shieldWait) p.shieldWait--;
-  if (canActivate && !p.shieldWait && tapped('KeyX')) {
+  if (canActivate && !p.shieldWait && inputFrame.shield) {
     p.shield=shieldDuration();
     p.shieldWait=SHIELD_COOLDOWN;
     sound(480,850,.16,.042);
@@ -519,7 +566,7 @@ function movePlayer() {
   if (p.missileWait) p.missileWait--;
   if (p.bombWait) p.bombWait--;
   updateShield(p, boss.hp>0);
-  const dx=Number(active('ArrowRight','KeyD'))-Number(active('ArrowLeft','KeyA'));
+  const dx=Number(inputFrame.right)-Number(inputFrame.left);
   if (isFlying()) moveSaucer(p,dx);
   else moveGround(p,dx);
   if (godMode && !godFire) {
@@ -533,7 +580,7 @@ function movePlayer() {
     else fire(p.x+(flying?SAUCER_MUZZLE_X:44),y,25,0,flying?'greenLaser':'spark',true);
     if (time%18<9) sound(500,250,.047,.019);
   }
-  if (boss.hp && !p.missileWait && tapped('KeyC')) {
+  if (boss.hp && !p.missileWait && inputFrame.missile) {
     p.missileWait=MISSILE_COOLDOWN;
     if (isCodebreak()) fireCodeWeapon('missile');
     else if (!isFlying()) fire(p.x+30,p.y-88,12,-5,'missile',true);
@@ -543,7 +590,7 @@ function movePlayer() {
     fire(p.x+RED_ARM_TIP_X,p.y+RED_ARM_TIP_Y,0,0,'redLaser',true);
     sound(215,560,.16,.045);
   }
-  if (boss.hp && !p.bombWait && tapped('KeyV')) {
+  if (boss.hp && !p.bombWait && inputFrame.bomb) {
     p.bombWait=BOMB_COOLDOWN;
     if (isCodebreak()) fireCodeWeapon('bomb');
     else if (!isFlying()) {
@@ -564,8 +611,8 @@ function chasePlatformAt(screenX,fromY,toY) {
 
 function moveGround(p,dx) {
   if (p.jumpBuffer) p.jumpBuffer--;
-  if (tapped('Space','ArrowUp','KeyW')) p.jumpBuffer=7;
-  p.crouch=active('ArrowDown','KeyS') && p.grounded && !p.dash;
+  if (inputFrame.jump) p.jumpBuffer=7;
+  p.crouch=inputFrame.down && p.grounded && !p.dash;
   if (p.jumpBuffer && (p.grounded || p.airJump) && !p.dash) {
     const fromGround=p.grounded;
     if (!fromGround) p.airJump=false;
@@ -576,7 +623,7 @@ function moveGround(p,dx) {
     if (fromGround && !isChase()) puff(p.x,p.y,'#efe3c8',5);
     sound(195,400,.12);
   }
-  if (!p.dashWait && (p.grounded || p.airDash) && tapped('ShiftLeft','ShiftRight')) {
+  if (!p.dashWait && (p.grounded || p.airDash) && inputFrame.dash) {
     p.dash=11;
     p.dashDir=Math.sign(dx) || 1;
     p.dashWait=24;
@@ -597,7 +644,7 @@ function moveGround(p,dx) {
   if (p.dash) {
     if (time%2===0 && !isChase()) puff(p.x,p.y-52,'#f6c774',4);
   } else if (!p.grounded) {
-    const released=!active('Space','ArrowUp','KeyW');
+    const released=!inputFrame.jumpHeld;
     p.vy += released && p.vy<0 ? 1.28 : .94;
     const fromY=p.y;
     p.y+=p.vy;
@@ -614,11 +661,11 @@ function moveGround(p,dx) {
 }
 
 function moveSaucer(p,dx) {
-  const dy=Number(active('ArrowDown','KeyS'))-Number(active('ArrowUp','KeyW'));
+  const dy=Number(inputFrame.down)-Number(inputFrame.up);
   const length=Math.hypot(dx,dy)||1;
   p.vx=dx/length*10.4;
   p.vy=dy/length*10.4;
-  if (!p.dashWait && tapped('ShiftLeft','ShiftRight')) {
+  if (!p.dashWait && inputFrame.dash) {
     p.dash=11;
     p.dashWait=24;
     p.dashDir=(dx||(!dy?1:0))/length;
@@ -1189,7 +1236,7 @@ function updateChase() {
   if (p.dashWait) p.dashWait--;
   if (p.inv) p.inv--;
   updateShield(p, true);
-  const dx=Number(active('ArrowRight','KeyD'))-Number(active('ArrowLeft','KeyA'));
+  const dx=Number(inputFrame.right)-Number(inputFrame.left);
   moveGround(p,dx || CHASE_SCROLL/8.2);
   camera+=CHASE_SCROLL;
   p.x-=CHASE_SCROLL;
@@ -1941,6 +1988,7 @@ window.addEventListener('keydown',e=>{
     if (e.timeStamp-lastNine<=750) {
       godMode=!godMode;
       if (godMode) godHits=0;
+      if (godMode) godUsed=true;
       godFire=true;
       godDamageBoost=false;
       lastNine=-Infinity;
@@ -1985,9 +2033,12 @@ ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
   if (mode==='paused') setOverlay('play','','','','');
-  else if (mode==='clear') begin(levelIndex+1,true);
-  else if (mode==='lost') begin(levelIndex);
-  else begin(Number(levelSelect.value));
+  else if (mode==='clear') whenReady(levelIndex+1,()=>begin(levelIndex+1,true));
+  else if (mode==='lost') begin(levelIndex); // Same level: its art is already drawn or loading.
+  else {
+    const index=Number(levelSelect.value);
+    whenReady(index,()=>begin(index));
+  }
 });
 
 let last=0,carry=0;
@@ -1997,6 +2048,7 @@ function loop(now) {
   if (mode==='play') {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
+      inputFrame=readKeyboardFrame();
       update();
       pressed.clear();
       carry-=1000/60;
@@ -2020,54 +2072,140 @@ function makePanoramaTile(image, floorRatio, width) {
   return tile;
 }
 
-const openingPanels=LEVELS.map((_,i)=>loopPanels(i)[0]);
-const initial=[...openingPanels,...STATIC_ARENAS,...(GENERATED_LOOPS[firstLevel]?.panels.slice(1,3)??[])]
-  .map(([file])=>picture('art/'+file));
-for (let i=0;i<4;i++) {
-  if (i<2) initial.push(attackFrame('boss/higgsfield/transition',i));
-  for (const color of Object.keys(BUNKER_LIGHTS)) initial.push(bunkerLightFrame(color,i));
-  for (const kind of ['lava','candle','smoke']) initial.push(forgeMotionFrame(kind,i));
-  for (const kind of ['specimen','bubble']) initial.push(hatcheryFrame(kind,i));
-  for (const kind of ['crystal','portal']) initial.push(verseMotionFrame(kind,i));
-  initial.push(marinaWaterFrame(i));
-  for (let level=0;level<acts.length;level++) {
-    initial.push(stageEffectFrame(level,i));
-    if (level<3) initial.push(backdropFrame(level,i));
-  }
-  initial.push(attackFrame('boss/higgsfield/shield-pulse',i));
-}
-for (const id of new Set([...playable.map(fighter=>fighter.id),...acts.map(b=>b.id)])) {
+// Assets load in groups so Start waits only for what the chosen level and Sproto draw.
+// picture() starts a download as soon as it is called, so a group's generator runs only when needed.
+function spriteFrames(id) {
   const art=ART.sprites[id];
-  for (const frame of [...Object.values(art.poses),...art.walk,...(art.cast??[]),...(art.entrance??[]),...(art.death??[]),...(art.ranged??[])]) initial.push(picture(frame[0]));
+  return [...Object.values(art.poses),...art.walk,...(art.cast??[]),...(art.entrance??[]),...(art.death??[]),...(art.ranged??[])].map(frame=>picture(frame[0]));
 }
-for (const key of ['spark','greenLaser','redLaser','missile','bomb']) initial.push(attackArt(boxes[key].art));
-for (let i=0;i<4;i++) initial.push(attackFrame('boss/higgsfield/barn-fire',i));
-for (const [name] of Object.values(bossShotArt)) initial.push(bossAttackImage(name));
-initial.push(bossAttackImage('ground-eruption'));
-for (const part of ['hover','fire']) initial.push(bossAttackImage('mecha/'+part));
-for (const piece of ['cannon','cannon-fire','beam','tip']) initial.push(attackArt('boss/higgsfield/vault-laser/'+piece));
-for (let i=0;i<4;i++) initial.push(attackFrame('boss/higgsfield/vault-laser/warning',i));
-initial.push(attackArt('player/higgsfield/explosion'),picture('art/backdrop-motion/ranch-wheel.png'),picture('art/backdrop-motion/crown-astrolabe.png'),picture('art/backdrop-motion/verse/ship.png'),picture('art/backdrop-motion/marina/turbine.png'),picture('art/backdrop-motion/transit-train.png'));
-initial.push(attackArt('boss/higgsfield/ceiling-sweep/blast'));
-for (let i=0;i<4;i++) {
-  initial.push(attackFrame('player/higgsfield/shield',i));
-  initial.push(attackFrame('player/higgsfield/saucer-shield',i));
+
+function coreAssets() {
+  const images=[];
+  for (let i=0;i<4;i++) {
+    if (i<2) images.push(attackFrame('boss/higgsfield/transition',i));
+    for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
+    for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
+    for (const kind of ['specimen','bubble']) images.push(hatcheryFrame(kind,i));
+    for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
+    images.push(marinaWaterFrame(i));
+    for (let level=0;level<3;level++) images.push(backdropFrame(level,i));
+    images.push(attackFrame('boss/higgsfield/shield-pulse',i));
+  }
+  for (const key of ['spark','greenLaser','redLaser','missile','bomb']) images.push(attackArt(boxes[key].art));
+  for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/barn-fire',i));
+  for (const [name] of Object.values(bossShotArt)) images.push(bossAttackImage(name));
+  images.push(bossAttackImage('ground-eruption'));
+  for (const part of ['hover','fire']) images.push(bossAttackImage('mecha/'+part));
+  for (const piece of ['cannon','cannon-fire','beam','tip']) images.push(attackArt('boss/higgsfield/vault-laser/'+piece));
+  for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/vault-laser/warning',i));
+  images.push(attackArt('player/higgsfield/explosion'),picture('art/backdrop-motion/ranch-wheel.png'),picture('art/backdrop-motion/crown-astrolabe.png'),picture('art/backdrop-motion/verse/ship.png'),picture('art/backdrop-motion/marina/turbine.png'),picture('art/backdrop-motion/transit-train.png'));
+  images.push(attackArt('boss/higgsfield/ceiling-sweep/blast'));
+  for (let i=0;i<4;i++) {
+    images.push(attackFrame('player/higgsfield/shield',i));
+    images.push(attackFrame('player/higgsfield/saucer-shield',i));
+  }
+  for (let i=0;i<16;i++) images.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
+  for (const part of ['cockpit-rear','cockpit-front','muzzle']) images.push(attackArt('player/higgsfield/saucer/'+part));
+  for (const color of ['green','orange']) {
+    for (let i=0;i<2;i++) images.push(attackFrame('flight-flames/'+color,i));
+  }
+  for (const {art} of Object.values(playerImpacts)) images.push(attackArt(`player/higgsfield/${art}`));
+  for (const width of [65,84]) {
+    const folder=`hazards/${width}px`;
+    for (let i=0; i<3; i++) images.push(attackFrame(`${folder}/warning`,i));
+    for (let i=0; i<4; i++) images.push(attackFrame(`${folder}/retract`,i));
+  }
+  images.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
+  return images;
 }
-for (let i=0;i<16;i++) initial.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
-for (const part of ['cockpit-rear','cockpit-front','muzzle']) initial.push(attackArt('player/higgsfield/saucer/'+part));
-for (const color of ['green','orange']) {
-  for (let i=0;i<2;i++) initial.push(attackFrame('flight-flames/'+color,i));
+
+function levelAssets(index) {
+  const level=LEVELS[index];
+  const images=[loopPanels(index)[0],...(GENERATED_LOOPS[index]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
+  if (STATIC_ARENAS[index]) images.push(picture('art/'+STATIC_ARENAS[index][0]));
+  if (index<acts.length) {
+    for (let i=0;i<4;i++) images.push(stageEffectFrame(index,i));
+    images.push(...spriteFrames(acts[index].id));
+  }
+  if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
+  if (level.codebreak) images.push(...codebreakImages());
+  return images;
 }
-for (const {art} of Object.values(playerImpacts)) initial.push(attackArt(`player/higgsfield/${art}`));
-for (const width of [65,84]) {
-  const folder=`hazards/${width}px`;
-  for (let i=0; i<3; i++) initial.push(attackFrame(`${folder}/warning`,i));
-  for (let i=0; i<4; i++) initial.push(attackFrame(`${folder}/retract`,i));
+
+const assetGroups=new Map(), readyGroups=new Set();
+function loadGroup(key,make) {
+  if (!assetGroups.has(key)) {
+    const images=make();
+    const loading=Promise.all(images.map(img=>img.decode())).then(()=>{readyGroups.add(key);});
+    // A failed image stays broken in the picture() cache, so drop it and let a retry fetch it again.
+    loading.catch(()=>{
+      assetGroups.delete(key);
+      for (const img of images) if (!img.complete || !img.naturalWidth) for (const [path,cached] of pictures) if (cached===img) pictures.delete(path);
+    });
+    assetGroups.set(key,loading);
+  }
+  return assetGroups.get(key);
 }
-for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) initial.push(chaseBuildingImage(i));
-initial.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
-initial.push(...codebreakImages());
-Promise.all(initial.map(img=>img.decode())).then(()=>{
+const loadCore=()=>loadGroup('core',coreAssets);
+const loadLevel=index=>loadGroup('level:'+index,()=>levelAssets(index));
+const loadSproto=id=>loadGroup('sproto:'+id,()=>spriteFrames(id));
+const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id);
+const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id)]);
+function prefetchLevel(index) {
+  if (index<LEVELS.length) loadLevel(index).catch(()=>{});
+}
+
+// Runs start once the level and Sproto groups are decoded; the button reads Loading… meanwhile.
+let pendingStart=0;
+function whenReady(index,start) {
+  if (isReady(index)) return start();
+  const ticket=++pendingStart, label=ui.start.textContent;
+  ui.start.disabled=true;
+  ui.start.textContent='Loading…';
+  loadFor(index).then(()=>{
+    if (ticket!==pendingStart) return;
+    ui.start.disabled=false;
+    ui.start.textContent=label;
+    start();
+  },()=>{
+    if (ticket!==pendingStart) return;
+    ui.start.disabled=false;
+    ui.start.textContent='Retry loading';
+  });
+}
+
+// Title-screen choices: load the chosen group, keep Start disabled until it is ready.
+function refreshTitleReadiness() {
+  if (mode!=='title' && mode!=='won') return;
+  const index=Number(levelSelect.value), ticket=++pendingStart, label=mode==='won'?'Play again':'Start level';
+  if (isReady(index)) {
+    ui.start.disabled=false;
+    ui.start.textContent=label;
+    return;
+  }
+  ui.start.disabled=true;
+  ui.start.textContent='Loading…';
+  loadFor(index).then(()=>{
+    if (ticket!==pendingStart) return;
+    ui.start.disabled=false;
+    ui.start.textContent=label;
+    if (levelIndex===index && (mode==='title' || mode==='won')) drawBackground();
+  },()=>{
+    if (ticket!==pendingStart) return;
+    ui.start.disabled=false;
+    ui.start.textContent='Retry loading';
+  });
+}
+
+if (new URLSearchParams(location.search).has('assetAudit')) {
+  // QA only: qa/lazy-load-browser.mjs loads every group to compare with the old preload set.
+  // Also every scrolling panel: drawBackground() requests panels past the first three only as the
+  // camera reaches them, so tools/build-web.mjs needs them listed here to ship them.
+  const allPanels=()=>LEVELS.flatMap((_,i)=>loopPanels(i)).map(([file])=>picture('art/'+file));
+  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
+}
+
+loadFor(firstLevel).then(()=>{
   goldieHoverSheet=makeGoldieHoverSheet();
   camera=0;
   levelIndex=firstLevel;
@@ -2081,10 +2219,13 @@ Promise.all(initial.map(img=>img.decode())).then(()=>{
     camera=0;
     ui.title.textContent=LEVELS[levelIndex].title;
     drawBackground();
+    refreshTitleReadiness();
   });
+  sprotoSelect.addEventListener('click',()=>refreshTitleReadiness());
   ui.start.disabled=false;
   ui.start.textContent='Start level';
   requestAnimationFrame(loop);
+  prefetchLevel(firstLevel+1);
 }).catch(()=>{
   ui.start.textContent='Art could not load';
   ui.description.textContent='Extract the entire game folder before opening index.html.';
