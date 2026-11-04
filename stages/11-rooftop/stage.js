@@ -56,6 +56,7 @@
       roof(w,'extraction-run',0,6650);roof(w,'exit-landing',7130,END2+550);roof(w,'extraction-upper',2850,3580,480);
       w.cue('Goldie unfolds his wings. Reach the exit; dash through his final intercept.',220);
     }
+    if(w.practice && w.sector){const checkpoints={1:{phase:0,x:800},2:{phase:0,x:3300},3:{phase:0,x:5200,crossed:true},4:{phase:1,x:6150}};const cp=checkpoints[w.sector];if(cp&&cp.phase===phase){Object.assign(w.player,{x:cp.x,prevX:cp.x,y:GROUND,prevY:GROUND,vx:0,vy:0,dash:0,dashWait:0,airJump:true,airDash:true});w.data.crossing=!!cp.crossed;w.cue('PRACTICE · authored roof sector · base kit',180);}}
     w.objective=phase?'ESCAPE · reach the marked extraction exit':'ROUTE · jump, dash, then choose a roof';w.progress=0;
   }
   function update(w,phase){
@@ -75,7 +76,7 @@
     w.objective=(phase?'ESCAPE':'ROUTE')+' · '+Math.floor(w.progress*100)+'%'+(!d.crossing?' · marked dash crossing ahead':' · dash crossing passed');
     if(p.x>=end && d.crossing && p.grounded && Math.abs(p.y-GROUND)<5) phase?w.clear():w.advancePhase();
   }
-  A.registerStage({id:'11-rooftop',number:11,title:'Rooftop Breakaway',operator:'Goldie',operatorSprite:'sproto1668',color:theme.gold,eligibleWeapons:['echo-decoy','prism-rail','ricochet-mine'],
+  A.registerStage({id:'11-rooftop',number:11,title:'Rooftop Breakaway',operator:'Goldie',operatorSprite:'sproto1668',color:theme.gold,practiceSectors:[{id:1,label:'First jump',phase:0},{id:2,label:'Required dash gap',phase:0},{id:3,label:'Route fork (prior dash passed)',phase:0},{id:4,label:'Final intercept crossing',phase:1}],eligibleWeapons:['echo-decoy','prism-rail','ricochet-mine'],
     phases:[
       {name:'Pursuit',drawsPilot:true,pilot:null,machine:'Pursuit Jetpack',mode:'horizontal',camera:'horizontal',objective:'Jump, air dash, choose a route',hudLabel:'Route progress',spawn:{x:130,y:GROUND},practiceSpawn:{x:3300,y:GROUND},attackIds:['goldie.afterburner.aimed-shot','goldie.afterburner.dash-crossing'],enter(w){init(w,0);},update(w){update(w,0);},draw(ctx,w){drawRoute(ctx,w,0);}},
       {name:'Extraction',drawsPilot:true,pilot:null,machine:'Intercept Glider',mode:'horizontal',camera:'horizontal',objective:'Reach the exit through the final intercept',hudLabel:'Escape progress',spawn:{x:130,y:GROUND},practiceSpawn:{x:130,y:GROUND},attackIds:['goldie.cutoff.aimed-shot','goldie.cutoff.final-crossing','goldie.afterburner.returning-burst'],enter(w){init(w,1);},update(w){update(w,1);},draw(ctx,w){drawRoute(ctx,w,1);}}

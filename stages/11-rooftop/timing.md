@@ -32,3 +32,7 @@ Passed with Packet A development runtime on 2026-11-04:
 - Upper-cache geometry is reachable with standard jumps.
 
 Remaining: actual offline browser/visual checks by integration QA; formative human playtest; final camera, animation and audio cue review. No player-comprehension or final-art acceptance is claimed. Collision uses runtime's full-height front and swept resolution; the stage does not implement separate contact logic.
+
+## Authored practice sectors
+
+Root entry may enumerate `stage.practiceSectors`: first jump, required dash gap, route fork (explicitly labelled prior dash passed), and final intercept. Only a practice World honors sector snapshots; normal run ignores sector IDs. Snapshots start on a safe roof with base-kit HP, no projectiles or powers, ready dash. The route-fork practice snapshot marks the earlier dash complete; retry preserves that labelled checkpoint, while a full run cannot skip it. Sector fixture assertions passed.
