@@ -35,7 +35,7 @@
       const hp=carry?this.player.hp:5;
       this.phaseIndex=index;this.phase=this.stage.phases[index];this.phaseTick=0;this.state='playing';this.transitionTick=0;
       this.platforms=[];this.targets=[];this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.events=[];this.data={};this.input={};
-      this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;
+      this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;this.pressureTicks=new Map();
       const spawn=(this.practice&&this.phase.practiceSpawn)||this.phase.spawn||{x:120,y:600};
       this.player={...spawn,prevX:spawn.x,prevY:spawn.y,vx:0,vy:0,hp,grounded:false,airJump:true,airDash:true,dash:0,dashX:1,dashY:0,dashWait:0,shield:0,shieldWait:0,beamWait:0,bombWait:0,facing:1,inv:0,grace:0,jumpBuffer:0};
       if(carry&&this.weapons)this.weapons.phase(this.phase.mode);
@@ -51,7 +51,48 @@
     platform(spec){return this.upsert(this.platforms,{h:20,...spec});}
     target(spec){return this.upsert(this.targets,{open:true,...spec,maxHp:spec.maxHp??spec.hp});}
     upsert(array,item){const i=array.findIndex(v=>v.id===item.id);if(i<0)array.push(item);else array[i]=item;return item;}
-    hazard(spec){const existing=this.hazards.find(h=>h.id===spec.id);if(existing)return existing;const h={source:spec.id,rule:'ordinary',vx:0,vy:0,windup:0,active:1,recovery:0,age:0,resolved:false,...spec};this.hazards.push(h);if(h.cue)this.cue(h.cue,Math.max(h.windup,30));return h;}
+    hazard(spec){
+      const existing=this.hazards.find(h=>h.id===spec.id);if(existing)return existing;
+      const h={source:spec.id,rule:'ordinary',vx:0,vy:0,windup:0,active:1,recovery:0,age:0,resolved:false,...spec};
+      // Campaign pacing is phase-independent; unnumbered mechanics fixtures keep authored physics.
+      if(Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=12){
+        const speed=Math.hypot(h.vx,h.vy),cap=['dash','shield'].includes(h.rule)?8:6;
+        h.authoredSpeed=speed;h.authoredActive=h.active;h.speedCap=cap;
+        if(speed>cap&&h.active>0){
+          h.active=Math.ceil(h.active*speed/cap);
+          const scale=h.authoredActive/h.active;h.vx*=scale;h.vy*=scale;
+        }
+      }
+      if(['dash','shield'].includes(h.rule)&&!h.resolved)this.hazards=this.hazards.filter(v=>!v.pressure);
+      this.hazards.push(h);if(h.cue)this.cue(h.cue,Math.max(h.windup,30));return h;
+    }
+    pressure(spec={}){
+      const clear=()=>{this.hazards=this.hazards.filter(h=>!h.pressure);return null;};
+      if(spec.enabled===false||this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule)))return clear();
+      if(this.state!=='playing'||this.phaseIndex!==1||!spec.id)return null;
+      const start=Math.max(600,Math.ceil(spec.start??660)),period=Math.max(1,Math.ceil(spec.period??180));
+      const elapsed=this.phaseTick-start-Math.max(0,Math.floor(spec.offset??0));
+      if(elapsed<0||elapsed%period!==0||this.pressureTicks.get(spec.id)===this.phaseTick)return null;
+      this.pressureTicks.set(spec.id,this.phaseTick);
+      const maxAlive=Math.max(0,Math.min(4,Math.floor(spec.maxAlive??2)));
+      if(this.hazards.filter(h=>h.pressure&&!h.removed).length>=maxAlive)return null;
+      const cycle=Math.floor(elapsed/period),allowed=['bolt','orb','seed','diamond','roller'];
+      const styles=(spec.styles||['orb','seed']).filter(s=>allowed.includes(s));
+      const sprite=styles[cycle%styles.length]||'orb';
+      const sizes={bolt:[30,14],orb:[28,28],seed:[28,18],diamond:[26,26],roller:[34,26]},[w,h]=sizes[sprite];
+      const p=this.player,c=this.camera,side=spec.side||'far';
+      const right=side==='right'||(side==='alternate'?cycle%2===0:side==='left'?false:p.x<c.x+640);
+      const x=c.x+(right?1260-w:20);
+      // Defer unsafe near-edge requests instead of creating a point-blank projectile.
+      if(Math.abs(x+w/2-p.x)<360)return null;
+      const lane=spec.lane||'low';
+      const y=clamp(p.y-(lane==='high'?140:lane==='aimed'?26:24),c.y+240,c.y+680-h);
+      const speed=clamp(Number(spec.speed)||2.5,.1,3);
+      const dx=p.x-(x+w/2),dy=lane==='aimed'?p.y-26-(y+h/2):0,length=Math.hypot(dx,dy)||1;
+      const vx=dx/length*speed,vy=dy/length*speed;
+      return this.hazard({id:spec.id+':'+this.phaseTick,source:spec.id,rule:'ordinary',pressure:true,sprite,lane,
+        x,y,w,h,vx,vy,windup:Math.max(75,Math.ceil(spec.windup??75)),active:Math.min(900,Math.ceil(1500/speed)),recovery:0});
+    }
     drop(id,x,y){if(!this.weapons)return null;const p=this.weapons.opportunity(id,{x,y,guaranteed:true});if(p)this.pickups.push(p);return p;}
     redirectVolley(volley){return this.weapons?this.weapons.redirect(volley):volley;}
     step(input={}) {
