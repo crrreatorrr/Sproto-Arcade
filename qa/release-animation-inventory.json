@@ -1,0 +1,198 @@
+{
+  "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+  "workingTree": "",
+  "status": "passed",
+  "kind": "planned-versus-actual-animation-audit",
+  "bosses": 12,
+  "totalPlanned": 388,
+  "totalActual": 0,
+  "productionRequirementMet": false,
+  "humanSignoff": false,
+  "rows": [
+    {
+      "stage": "01-marina",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "01-marina.engine-final-seize",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "02-last-light",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "02-last-light.prism-final-fracture",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "03-mudline",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "03-mudline.glass-pump-final-crack",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "04-ranch",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "04-ranch.engine-linkage-fail",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "05-neon",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "05-neon.winch-final-break",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "06-circuit",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "06-circuit.gate-core-final-short",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "07-moonkeep",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "07-moonkeep.neck-final-separation",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "08-crown",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "08-crown.dual-core-final-break",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "09-hatchery",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "09-hatchery.crawler-core-final-rupture",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "10-verse",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "10-verse.showroom-core-final-fail",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "11-rooftop",
+      "planned": 32,
+      "uniquePlannedIds": 32,
+      "phases": {
+        "1": 12,
+        "2": 12
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "escape",
+      "terminalClipId": "11-rooftop.glider-departure",
+      "actualTerminalVerified": false
+    },
+    {
+      "stage": "12-codebreak",
+      "planned": 36,
+      "uniquePlannedIds": 36,
+      "phases": {
+        "1": 17,
+        "2": 13
+      },
+      "actualClips": 0,
+      "actualVerified": 0,
+      "productionApproved": false,
+      "terminalOutcome": "machine-defeat",
+      "terminalClipId": "12-codebreak.rig-defeat-shutdown",
+      "actualTerminalVerified": false
+    }
+  ],
+  "limitations": [
+    "Unique metadata IDs, action keys and briefs do not prove distinct generated motions.",
+    "The thirty-plus real-animation requirement is unmet: actual production clips remain zero.",
+    "Both-phase timing/critical poses and terminal sequences remain pending human review and production."
+  ]
+}

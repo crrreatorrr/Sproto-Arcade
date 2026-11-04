@@ -20,6 +20,7 @@ const commands=tests.map(file=>{
  return {file,relative,args};
 });
 for(const file of ['static-checks.mjs','shared-rules.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+if(fs.existsSync(path.join(root,'art/rework/bosses/12-codebreak/manifest.js')))commands.push({file:path.join(qaDir,'animation-inventory.mjs'),relative:'qa/animation-inventory.mjs',args:[root]});
 const results=[];
 for(const command of commands){
  const r=spawnSync(process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});

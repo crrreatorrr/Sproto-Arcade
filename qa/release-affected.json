@@ -1,0 +1,116 @@
+{
+  "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+  "workingTree": "",
+  "status": "passed",
+  "kind": "affected-browser-motion-and-platforms",
+  "checks": [
+    {
+      "name": "six procedural scanner states stay continuous with anchored feet and aligned pilot",
+      "status": "passed",
+      "detail": {
+        "states": [
+          "anchor",
+          "unfold",
+          "windup",
+          "release",
+          "retract",
+          "recovery"
+        ],
+        "samples": [
+          {
+            "tick": 7,
+            "state": "anchor",
+            "x": 1090,
+            "y": 369.8014734376874,
+            "unfold": 0
+          },
+          {
+            "tick": 90,
+            "state": "unfold",
+            "x": 1090,
+            "y": 450,
+            "unfold": 0
+          },
+          {
+            "tick": 145,
+            "state": "windup",
+            "x": 1090,
+            "y": 450,
+            "unfold": 1
+          },
+          {
+            "tick": 165,
+            "state": "release",
+            "x": 1090,
+            "y": 450,
+            "unfold": 1
+          },
+          {
+            "tick": 305,
+            "state": "retract",
+            "x": 1090.0000266589927,
+            "y": 450,
+            "unfold": 1
+          },
+          {
+            "tick": 360,
+            "state": "recovery",
+            "x": 1090.0000000760226,
+            "y": 450,
+            "unfold": 0
+          }
+        ],
+        "maxJump": 3.4893126248071553,
+        "feetFixed": true,
+        "aligned": true,
+        "tick": 446,
+        "state": "playing",
+        "hp": 4
+      }
+    },
+    {
+      "name": "Codebreak summit earns clear with standard movement dash and autofire",
+      "status": "passed",
+      "detail": {
+        "state": "clear",
+        "tick": 402,
+        "hp": 5,
+        "counters": 1,
+        "power": {
+          "weapon": "echo-decoy",
+          "charges": 1
+        },
+        "failure": ""
+      }
+    },
+    {
+      "name": "07-moonkeep inactive footing is absent from solid-platform draw calls",
+      "status": "passed",
+      "detail": {
+        "stage": "07-moonkeep",
+        "inactive": [
+          "crumbling"
+        ],
+        "solidDraws": []
+      }
+    },
+    {
+      "name": "09-hatchery inactive footing is absent from solid-platform draw calls",
+      "status": "passed",
+      "detail": {
+        "stage": "09-hatchery",
+        "inactive": [
+          "pod-a-foot",
+          "pod-b-foot"
+        ],
+        "solidDraws": []
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Scanner states are procedural placeholder motion, not generated production clips.",
+    "Summit clear is a scripted standard-input simulation inside the actual browser; no human input-comprehension claim.",
+    "Motion sweep uses idle inputs and can take damage; clear controller is a separate fresh practice attempt."
+  ]
+}
