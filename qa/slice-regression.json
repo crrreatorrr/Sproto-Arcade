@@ -1,0 +1,126 @@
+{
+  "build": "156ee3dedd9950160b3cba2b94686ab836578bc5",
+  "workingTree": "M docs/GATES.md",
+  "kind": "deterministic-regression",
+  "status": "passed",
+  "commands": 11,
+  "failed": 0,
+  "results": [
+    {
+      "file": "runtime/fixtures/weapons-integration.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Prism Rail pierces two real runtime targets and consumes one charge\nPASS Ricochet Mine explodes on real target and destroys ordinary hazards only\nPASS Mine visibly skips off supplied floor then expires\nPASS Decoy redirects only the next eligible ordinary volley to deployment point\nPASS World clock expires decoy in 240 ticks\nPASS Phase retains charges and clears decoy; retry removes slot\nPASS Occupied slot requires deliberate replacement\nPASS Drop draws never advance runtime attack stream\nPASS C beam pierces and V ball bounce are base kit without pickups\n9 weapon/runtime integration fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/fixtures/world.test.js",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS moving narrow front sweeps past stationary player\nPASS shield cannot substitute for dash\nPASS active dash counters swept front exactly once\nPASS last active dash frame remains protected\nPASS too early dash fails after dash expires\nPASS too late dash cannot undo previous contact\nPASS shield pulse ignores dash but shield counters it\nPASS ordinary damage is blocked by either defensive action\nPASS ledge grace preserves the air jump\nPASS dash duration and distance are fixed\nPASS retry resets temporary state and attack RNG\nPASS phase transition clears stale state and waits exactly 90 ticks\nPASS practice phase restarts from base kit checkpoint\nPASS autofire target defeat called only once\nPASS closed armor blocks normal and piercing damage\nPASS fall cause bypasses defense and records loss\nPASS hazard windup does not contact before active tick\nPASS same seed and input reproduce snapshot\nPASS moving lift carries a grounded player horizontally and vertically\n19 runtime fixtures passed",
+      "stderr": ""
+    },
+    {
+      "file": "runtime/weapons/test.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS seeded bag has no repeats before refill and duplicate opportunities consume nothing\nPASS stage compatibility filters IDs and guarantees eligible teaching reward\nPASS occupied slot replacement is deliberate and snapshots cannot mutate state\nPASS prism committed horizontal shots pierce and consume exactly two charges\nPASS flight prism aims at nearest open target or explicit normalized aim\nPASS mine launch requires supported flight bounce geometry, leaves charges on failure\nPASS decoy ignores fixed, shield and dash volleys and redirects only one eligible volley\nPASS decoy expires on exact ttl and phase clears temporary redirect but preserves charges\nPASS reset clears slot, dedup and seed state; attack stream stays independent\nPASS rejected emission, malformed state and dead player consume no charge\n10 weapon checks passed",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/basekit.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"full\": {\n    \"ticks\": 1900,\n    \"hp\": 5,\n    \"dashCounters\": 3,\n    \"hits\": 0\n  },\n  \"practice\": {\n    \"ticks\": 1198,\n    \"hp\": 5,\n    \"dashCounters\": 3,\n    \"hits\": 0\n  },\n  \"reproducible\": true,\n  \"inputs\": \"movement/jump/dash only; autofire baseline\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "stages/01-marina/fixture.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Marina authoring fixtures passed (rule scheduling, objectives, reward, lifecycle).",
+      "stderr": ""
+    },
+    {
+      "file": "stages/03-mudline/fixture.cjs",
+      "args": [],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "Mudline authored fixture passed: telegraph, windows, route selection, drop dedup, clean introduction, dash gate, missed-front recovery, phase/clear callbacks. Collision and browser play not covered.",
+      "stderr": ""
+    },
+    {
+      "file": "stages/03-mudline/playthrough.cjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "[\n  {\n    \"route\": \"upper\",\n    \"phase1\": true,\n    \"fronts\": 2,\n    \"upper\": 3,\n    \"lower\": 0,\n    \"damage\": 0,\n    \"beamHits\": 3,\n    \"ballHits\": 0,\n    \"ticks\": 1594,\n    \"phase2Ticks\": 921\n  },\n  {\n    \"route\": \"lower\",\n    \"phase1\": true,\n    \"fronts\": 2,\n    \"upper\": 0,\n    \"lower\": 3,\n    \"damage\": 0,\n    \"beamHits\": 0,\n    \"ballHits\": 3,\n    \"ticks\": 1867,\n    \"phase2Ticks\": 1194,\n    \"bouncedBallHits\": 3\n  }\n]",
+      "stderr": ""
+    },
+    {
+      "file": "stages/11-rooftop/verify.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "phase 1: transition, 1937 ticks, 5 HP; base kit no power use\nphase 2: clear, 1597 ticks, 5 HP; base kit no power use\ngap: 0 no-dash landings across 990 samples; dash succeeds ages 15,16,17,18,19,20,21,22,23,24,25,26,27,28,37,38,39,40,41,42,43,44,45\nRooftop fixture passed (simulation only; not human balance validation).\nupper roof cache reachable with standard jumps\npractice sectors reset to safe base-kit snapshots; normal run cannot skip crossing",
+      "stderr": ""
+    },
+    {
+      "file": "stages/12-codebreak/test.cjs",
+      "args": [
+        "<repo>/runtime/core/world.js"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS Codebreak authored geometry, climb objective, scanner gate, shield rejection, vent timing, return attack and defeat fixtures\nPASS real runtime base-kit start-to-clear (seed 37), HP5, required summit dash, checkpoint restart and shield-only rejection",
+      "stderr": ""
+    },
+    {
+      "file": "qa/static-checks.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stages\": 12,\n  \"localScriptReferences\": 15,\n  \"fighterFrameReferences\": 662,\n  \"kind\": \"static-reference-check\"\n}",
+      "stderr": ""
+    },
+    {
+      "file": "qa/shared-rules.mjs",
+      "args": [
+        "<repo>"
+      ],
+      "status": "passed",
+      "exit": 0,
+      "signal": null,
+      "stdout": "PASS shield cannot substitute for marked dash\nPASS active dash counters swept front\nPASS last active dash tick counters front\nPASS early dash expires before front\nPASS late dash does not undo prior hit\nPASS shield-only pulse rejects dash\nPASS shield-only pulse accepts shield\nPASS restart clears transient state and failure in one input\nPASS phase transition clears hazards and reaches phase2\nPASS practice spawn and restart preserve practice phase\nPASS loot draws do not change attack seed stream\nPASS countered front resolves once across repeated overlap\nPASS ledge-grace jump preserves air jump\nPASS equipped charges carry across phase but reset on retry\n{\"status\":\"passed\",\"fixtures\":14,\"kind\":\"black-box-shared-contract\"}",
+      "stderr": ""
+    }
+  ],
+  "limitations": [
+    "Scripted fixture controllers are not human playtests.",
+    "Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.",
+    "Full gameplay balance, display-refresh timing and production animation readability require separate validation."
+  ]
+}

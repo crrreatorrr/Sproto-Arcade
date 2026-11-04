@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+// Local deterministic regression runner. Browser checks are intentionally separate.
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawnSync,execFileSync} from 'node:child_process';
+const qaDir=path.dirname(fileURLToPath(import.meta.url));
+const root=path.resolve(process.argv[2]||path.join(qaDir,'..'));
+function discover(dir){if(!fs.existsSync(dir))return[];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?discover(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+const tests=['runtime','stages'].flatMap(d=>discover(path.join(root,d))).filter(f=>/\.cjs$|(?:^|[./-])test\.js$/.test(f)).sort();
+const runtime=path.join(root,'runtime/core/world.js');
+const commands=tests.map(file=>{
+ const relative=path.relative(root,file),source=fs.readFileSync(file,'utf8');let args=[];
+ if(source.includes('process.argv[2]')){
+  // Flight's playthrough accepts repository root; isolated stage/runtime fixtures accept world.js.
+  if(/(?:const|let)\s+root\s*=\s*path\.resolve\(process\.argv\[2\]/.test(source))args=[root];
+  else if(/runtime\s*=\s*process\.argv\[2\]|process\.argv\[2\]\s*\|\|\s*path\.join\(root,\s*['"]\.\.\/arcade-a/.test(source))args=[runtime];
+  else throw Error('Unclassified positional test argument in '+relative+'; add an explicit routing rule before running');
+ }
+ return {file,relative,args};
+});
+for(const file of ['static-checks.mjs','shared-rules.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+const results=[];
+for(const command of commands){
+ const r=spawnSync(process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});
+ const result={file:command.relative,args:command.args.map(a=>a===root?'<repo>':a===runtime?'<repo>/runtime/core/world.js':a),status:r.status===0?'passed':'failed',exit:r.status,signal:r.signal,stdout:r.stdout?.trim(),stderr:r.stderr?.trim(),error:r.error?.message};results.push(result);
+ console.error(result.status.toUpperCase()+' '+command.relative);
+}
+const build=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+const dirty=execFileSync('git',['status','--short'],{cwd:root,encoding:'utf8'}).trim();
+const failed=results.filter(r=>r.status!=='passed').length;
+console.log(JSON.stringify({build,workingTree:dirty,kind:'deterministic-regression',status:failed?'failed':'passed',commands:results.length,failed,results,limitations:['Scripted fixture controllers are not human playtests.','Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.','Full gameplay balance, display-refresh timing and production animation readability require separate validation.']},null,2));
+if(failed)process.exitCode=1;
