@@ -11,7 +11,7 @@ const check=(name,fn)=>{fn();console.log('PASS '+name);};
 check('moving narrow front sweeps past stationary player',()=>{const w=world();front(w);w.step({});assert.equal(w.player.hp,4);assert.equal(w.events[0].source,'pressure-front');});
 check('shield cannot substitute for dash',()=>{const w=world();front(w);w.step({shield:true});assert.equal(w.player.hp,4);});
 check('active dash counters swept front exactly once',()=>{const w=world();front(w);w.step({dash:true,right:true});assert.equal(w.player.hp,5);assert.equal(w.events.filter(e=>e.type==='counter').length,1);for(let i=0;i<4;i++)w.step({});assert.equal(w.player.hp,5);});
-check('last active dash frame remains protected',()=>{const w=world();w.player.dash=1;w.player.dashX=1;front(w);w.step({});assert.equal(w.player.hp,5);assert.equal(w.player.dash,0);});
+check('last active dash frame remains protected',()=>{const w=world();w.player.dash=1;front(w);w.step({});assert.equal(w.player.hp,5);assert.equal(w.player.dash,0);});
 check('too early dash fails after dash expires',()=>{const w=world();w.step({dash:true});for(let i=0;i<10;i++)w.step({});w.hazard({id:'late',source:'late-front',rule:'dash',x:w.player.x-100,y:0,w:2,h:720,vx:150,active:1});w.step({});assert.equal(w.player.hp,4);});
 check('too late dash cannot undo previous contact',()=>{const w=world();front(w);w.step({});w.step({dash:true});assert.equal(w.player.hp,4);});
 check('shield pulse ignores dash but shield counters it',()=>{for(const [input,hp] of [[{dash:true},4],[{shield:true},5]]){const w=world();w.hazard({id:'pulse',source:'shield-pulse',rule:'shield',x:0,y:0,w:1280,h:720});w.step(input);assert.equal(w.player.hp,hp);}});
@@ -26,4 +26,5 @@ check('closed armor blocks normal and piercing damage',()=>{const w=world();w.ta
 check('fall cause bypasses defense and records loss',()=>{const w=world();w.platforms=[];w.player.shield=100;w.player.y=950;w.step({});assert.equal(w.state,'lost');assert.equal(w.failure,'fall');});
 check('hazard windup does not contact before active tick',()=>{const w=world();w.hazard({id:'tell',x:0,y:0,w:1280,h:720,windup:3,active:1});for(let i=0;i<3;i++)w.step({});assert.equal(w.player.hp,5);w.step({});assert.equal(w.player.hp,4);});
 check('same seed and input reproduce snapshot',()=>{const run=()=>{const w=world();for(let i=0;i<100;i++){if(i%30===0)w.hazard({id:'r'+i,x:Math.floor(w.attackRandom()*1000),y:400,w:20,h:200,active:20});w.step({right:i<40,jump:i===10,dash:i===30});}return JSON.stringify({p:w.player,h:w.hazards,t:w.tick});};assert.equal(run(),run());});
-console.log('18 runtime fixtures passed');
+check('moving lift carries a grounded player horizontally and vertically',()=>{const w=world();w.step({});const floor=w.platforms[0];floor.x+=10;floor.y-=5;w.step({});assert.equal(w.player.x,110);assert.equal(w.player.y,595);assert.equal(w.player.grounded,true);});
+console.log('19 runtime fixtures passed');

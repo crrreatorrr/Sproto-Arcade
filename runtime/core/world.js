@@ -37,7 +37,7 @@
       this.platforms=[];this.targets=[];this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.events=[];this.data={};this.input={};
       this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;
       const spawn=(this.practice&&this.phase.practiceSpawn)||this.phase.spawn||{x:120,y:600};
-      this.player={...spawn,prevX:spawn.x,prevY:spawn.y,vx:0,vy:0,hp,grounded:false,airJump:true,airDash:true,dash:0,dashWait:0,shield:0,shieldWait:0,beamWait:0,bombWait:0,facing:1,inv:0,grace:0,jumpBuffer:0};
+      this.player={...spawn,prevX:spawn.x,prevY:spawn.y,vx:0,vy:0,hp,grounded:false,airJump:true,airDash:true,dash:0,dashX:1,dashY:0,dashWait:0,shield:0,shieldWait:0,beamWait:0,bombWait:0,facing:1,inv:0,grace:0,jumpBuffer:0};
       if(carry&&this.weapons)this.weapons.phase(this.phase.mode);
       this.phase.enter?.(this);
       this.player.grounded=this.platforms.some(p=>Math.abs(this.player.y-p.y)<1&&this.player.x+16>p.x&&this.player.x-16<p.x+p.w);
@@ -76,6 +76,7 @@
     }
     movePlayer(input){
       const p=this.player;p.prevX=p.x;p.prevY=p.y;
+      if(p.grounded&&p.support){const support=this.platforms.find(t=>t.id===p.support&&!t.removed&&t.active!==false);if(support){p.x+=support.x-(support._lastX??support.x);p.y+=support.y-(support._lastY??support.y);}}
       for(const key of ['dashWait','shieldWait','beamWait','bombWait'])if(p[key]>0)p[key]--;
       if(input.shield&&!p.shieldWait){p.shield=45;p.shieldWait=150;}
       const dx=Number(!!input.right)-Number(!!input.left),dy=Number(!!input.down)-Number(!!input.up);
@@ -98,9 +99,9 @@
         p.y+=p.vy;p.grounded=false;
         if(p.vy>=0)for(const plat of this.platforms){
           if(plat.removed||plat.active===false)continue;
-          const py=plat.prevY??plat.y;
+          const py=plat.prevY??plat._lastY??plat.y;
           if(p.x+16>plat.x&&p.x-16<plat.x+plat.w&&p.prevY<=py+1&&p.y>=plat.y){
-            p.y=plat.y;p.vy=0;p.grounded=true;p.airJump=true;p.airDash=true;p.grace=6;
+            p.y=plat.y;p.vy=0;p.grounded=true;p.support=plat.id;p.airJump=true;p.airDash=true;p.grace=6;
           }
         }
       }
@@ -108,6 +109,8 @@
       if(!['horizontal','vertical'].includes(scrolling)){
         p.x=clamp(p.x,20,1260);if(flying)p.y=clamp(p.y,60,690);
       } else if(scrolling==='horizontal')p.x=Math.max(20,p.x);else p.x=clamp(p.x,20,1260);
+      if(!p.grounded)p.support=null;
+      for(const plat of this.platforms){plat._lastX=plat.x;plat._lastY=plat.y;}
       if(p.y>this.camera.y+900)this.lose('fall');
     }
     autoFire(){
