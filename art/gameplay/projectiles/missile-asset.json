@@ -1,0 +1,11 @@
+{
+  "id": "missile",
+  "status": "placeholder-awaiting-provided-static-sprite",
+  "path": "art/gameplay/projectiles/missile.svg",
+  "collisionBox": [44, 18],
+  "facing": "right",
+  "libraryFileId": null,
+  "sourceGenerationId": null,
+  "generationByThisTask": false,
+  "bossAnimationProduction": "stopped"
+}

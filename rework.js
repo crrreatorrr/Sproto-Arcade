@@ -38,10 +38,10 @@ for(const h of w.hazards){
  if(recovery)continue;
  const moving=Math.hypot(h.vx||0,h.vy||0)>0;
  const style=h.sprite||(h.rule==='ordinary'&&moving&&h.w<=128&&h.h<=128?'bolt':null);
- ctx.save();ctx.globalAlpha=warning?.35:.95;
+ ctx.save();ctx.globalAlpha=warning ? (h.missile ? 0.65 : 0.35) : 0.95;
  if(style&&h.rule==='ordinary'){
-  const picture=img('art/gameplay/projectiles/'+style+'.svg');
-  if(picture){ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}
+  const asset=Arcade.projectileAssets?.[style],picture=img(asset?.path||'art/gameplay/projectiles/'+style+'.svg');
+  if(picture){ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);if(asset?.crop)ctx.drawImage(picture,...asset.crop,-h.w/2,-h.h/2,h.w,h.h);else ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}
   else{ctx.fillStyle=h.pressure?'#a3e8d6':'#ffb482';ctx.fillRect(h.x,h.y,h.w,h.h);}
  }else{ctx.fillStyle=h.rule==='dash'?'#d488fe':h.rule==='shield'?'#79e4e2':'#ff977a';ctx.fillRect(h.x,h.y,h.w,h.h);}
  ctx.restore();ctx.strokeStyle=warning?'#f6ddb5':h.pressure?'#b9f3df':'#fff0d5';ctx.lineWidth=warning?2:1;ctx.setLineDash(warning?[7,7]:[]);ctx.strokeRect(h.x,h.y,h.w,h.h);ctx.setLineDash([]);
@@ -49,6 +49,7 @@ for(const h of w.hazards){
   const n=Math.hypot(h.vx,h.vy)||1,dx=h.vx/n,dy=h.vy/n,cx=h.x+h.w/2,cy=h.y+h.h/2;
   ctx.strokeStyle='#fff3c6';ctx.lineWidth=2;ctx.setLineDash([5,7]);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+dx*100,cy+dy*100);ctx.stroke();ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(cx+dx*88-dy*7,cy+dy*88+dx*7);ctx.lineTo(cx+dx*100,cy+dy*100);ctx.lineTo(cx+dx*88+dy*7,cy+dy*88-dx*7);ctx.stroke();
  }
+ if(warning&&h.missile)text('SLOW MISSILE',h.x+h.w/2,h.y-10,12,'#fff2bc','center');
  if(h.rule==='dash')chevrons(h.x+h.w/2,h.y,h.h);if(h.rule==='shield')text('◇ X',h.x+h.w/2,h.y+30,24,'#e1fffb','center');
 }
 for(const s of w.shots){if(s.removed)continue;ctx.fillStyle=s.type==='mine'?'#9af0ad':'#ffe9a3';ctx.fillRect(s.x,s.y,s.w||12,s.h||6);}
