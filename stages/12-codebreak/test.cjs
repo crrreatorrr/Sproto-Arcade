@@ -45,3 +45,23 @@ if(runtime){
  assert.equal(shield.targets[0].open,false);assert.equal(shield.data.countered,0);assert.equal(shield.targets[0].hp,12);
  console.log('PASS real runtime base-kit start-to-clear (seed 37), tick '+w.tick+', HP'+w.player.hp+', required upper/summit dash, checkpoint restart and shield-only rejection');
 }
+// Articulation is pure fixed-tick sampling: display draw count cannot change motion.
+const motion=mock(1),phase=stage.phases[1];let previous=null,maxStep=0;const states=new Set();
+for(let tick=0;tick<1200;tick++){
+ motion.phaseTick=tick;const pose=phase.pose(motion),again=phase.pose(motion),pilot=phase.pilot(motion);
+ assert.deepEqual(JSON.parse(JSON.stringify(pose)),JSON.parse(JSON.stringify(again)));
+ assert.equal(pilot.x,pose.x);assert.equal(pilot.y,pose.y+2);
+ assert.equal(pose.feet[0].y,600);assert.equal(pose.feet[1].y,600);
+ assert.equal(pose.feet[0].x,970);assert.equal(pose.feet[1].x,1190);
+ assert.ok(pose.unfold>=0&&pose.unfold<=1);assert.equal(pose.open,0,'closed core must not appear open during intro');
+ if(tick===75)assert.equal(pose.y,450,'landing settles before first scanner cue');
+ if(previous){for(const key of ['x','y','elbowX','elbowY','emitterX','emitterY'])maxStep=Math.max(maxStep,Math.abs(pose[key]-previous[key]));}
+ states.add(pose.scannerState);previous=pose;
+}
+assert.ok(maxStep<5,'articulated rig has no tick-to-tick jumps');
+for(const state of ['anchor','unfold','windup','release','retract','recovery'])assert.ok(states.has(state));
+motion.phaseTick=200;motion.data.hitAt=200;assert.equal(phase.pose(motion).hit,0);motion.phaseTick=201;assert.notEqual(phase.pose(motion).hit,0);
+motion.data.ventOpenedAt=201;motion.data.openUntil=411;motion.phaseTick=219;assert.equal(phase.pose(motion).open,1);assert.equal(motion.targets[0].x,1050);assert.equal(motion.targets[0].y,490);assert.equal(motion.targets[0].w,105);assert.equal(motion.targets[0].h,100);
+const context=new Proxy({}, {get:(_,key)=>typeof key==='string'?((...args)=>{for(const arg of args)if(typeof arg==='number')assert.ok(Number.isFinite(arg),'finite draw geometry '+key);}):undefined,set:()=>true});
+for(const tick of [0,74,75,90,144,164,165,304,305,359,450]){motion.phaseTick=tick;phase.draw(context,motion);}
+console.log('PASS summit continuous fixed-tick articulation; max step',maxStep.toFixed(3),'px, six scanner states, planted feet, pilot/cab lock, fixed vent bounds and draw smoke');

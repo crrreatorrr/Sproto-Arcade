@@ -25,3 +25,52 @@ Critical animation poses requested after gameplay approval: climb arm locks reti
 The upper climb now emits a `12-codebreak/upper-crossing` dash-rule warrant front after entering the final390px below summit.75tick warning,140 active at -9px/tick,20recovery; retries every270ticks until countered. The summit route objective explicitly requires this counter before landing can advance. Dash readiness is restored on safe upper footholds until secured. Shield, ordinary hit grace and strongest non-dash double-jump routes cannot satisfy the source-gated counter. Recovery ledges feed back to the authored climb. This is a marked front commitment, not a claim that all climb gaps are geometrically dash-only.
 
 The updated actual runtime base-kit controller clears both phases seed37 at tick1250 HP4. It waits at summit to counter the upper front, then uses the separate summit scanner/vent task. Dynamic45px operator feet anchors now follow the pursuing cockpit and sit inside the summit cockpit; the placeholder duplicate face was removed. Original tick1086 HP5 result above records the earlier ungated climb build and is superseded by this follow-up.
+
+## Summit motion refinement
+
+Phase2 now uses a pure fixed-tick articulated pose rather than the floating sine-arm placeholder. The cabin arrives with a critically damped75tick settle; anchored feet stay atY600 throughout. The first scanner still cues at90 and activates after75warning ticks, so the landing settles before the first active commitment. The scanner unfolds over55ticks, locks for20, releases for140, retracts over55, then recovers. Upper/lower arm joints, hinged emitter, release recoil and actual target-hit reactions move independently. The operator feet follow the cab exactly. The side vent remains fixed to the actual target rectangle1050,490,105,100, with shutters opening over18ticks after a successful counter; visual articulation never moves the hit area.
+
+All attack, opening, HP, phase and collision timings are unchanged. Automated continuity sampling over1200ticks shows maximum articulated coordinate step below5px/tick with planted feet; six scanner states, intro settle, recoil response, pilot lock and finite draw geometry pass. Existing actual-runtime full start-to-clear remains tick1250 HP4, seed37, base kit. These checks do not replace browser observation or human movement approval.
+
+### Production clip request: 36 distinct clips
+
+The user's30+animation requirement means separately authored clips with distinct actions, not30frames or copied timing labels. The following production backlog is **unproduced**, pending encounter timing and critical-pose signoff:
+
+1. Warrant rig pursuit idle.
+2. Operator pursuit throttle pull.
+3. Left rocket lift acceleration.
+4. Right rocket banking correction.
+5. Vertical pursuit brake.
+6. Reticle arm unfold.
+7. Reticle aim-left lock.
+8. Reticle aim-right lock.
+9. Warrant stamp windup.
+10. Warrant drop release.
+11. Drop arm recoil.
+12. Reticle arm retract.
+13. Upper warrant-front deploy.
+14. Upper-front charge hold.
+15. Upper-front release.
+16. Upper-front cooldown.
+17. Pursuit hit flinch.
+18. Summit approach deceleration.
+19. Landing compression.
+20. Anchoring feet deployment.
+21. Anchored cabin settle.
+22. Summit operator ready idle.
+23. Scanner shoulder unfold.
+24. Scanner emitter hinge opening.
+25. Scanner lock-on windup.
+26. Scanner front release recoil.
+27. Scanner sustained sweep.
+28. Scanner emitter retract.
+29. Scanner arm fold recovery.
+30. Counter overload stagger.
+31. Vent shutter unlock/open.
+32. Exposed-core breathing hold.
+33. Core shot reaction.
+34. Vent shutter relock.
+35. Rig defeat shutdown.
+36. Operator defeat/escape.
+
+Each future clip needs an individual stable ID, authored start/end poses, event markers, anchors and generation/source record. Procedural motion states here are prototype feedback, not fulfillment of that production asset count. No final Higgsfield animation was generated or integrated by this packet.
