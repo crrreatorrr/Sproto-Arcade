@@ -31,8 +31,9 @@ jobs:
       - name: Build dist/
         run: node tools/build-web.mjs dist
         env:
-          # The hub's public client key (repository secret). Without it dist/ plays offline only.
-          NAKAMA_SERVER_KEY: ${{ secrets.NAKAMA_SERVER_KEY }}
+          # The hub's public client key: a repository variable (as HPOS10I's HPOS_NAKAMA_SERVER_KEY)
+          # or a secret, both named NAKAMA_SERVER_KEY. Without it dist/ plays offline only.
+          NAKAMA_SERVER_KEY: ${{ vars.NAKAMA_SERVER_KEY || secrets.NAKAMA_SERVER_KEY }}
       - name: Story-mode hub link
         run: node qa/hub-link-browser.mjs .
       - uses: actions/upload-artifact@v4
