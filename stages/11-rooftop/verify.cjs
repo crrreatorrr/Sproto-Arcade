@@ -2,7 +2,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(__dirname,'../..');
 const c=vm.createContext({console});
-for(const f of [path.join(root,'runtime/contract.js'),process.argv[2]||path.join(root,'../arcade-a/runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
+for(const f of [path.join(root,'runtime/contract.js'),process.argv[2]||path.join(root,'../arcade-integration/runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
 const A=c.Arcade,stage=A.stages.get('11-rooftop');
 function gapWorld(){return new A.World({id:'gap-fixture',phases:[0,1].map(()=>({mode:'horizontal',spawn:{x:3500,y:600},enter(w){w.platform({id:'launch',x:0,y:600,w:3800});w.platform({id:'land',x:4280,y:600,w:1000});},update(){}}))});}
 function jumpTrial(launch,doubleDelay,dashDelay){const w=gapWorld();let age=-1;for(let t=0;t<180&&w.state==='playing';t++){const input={right:true};if(age<0&&w.player.x>=launch){input.jump=true;age=0;}else if(age>=0)age++;if(age===doubleDelay)input.jump=true;if(age===dashDelay)input.dash=true;w.step(input);if(w.player.grounded&&w.player.x>=4280-16)return true;}return false;}

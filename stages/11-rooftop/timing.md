@@ -36,3 +36,7 @@ Remaining: actual offline browser/visual checks by integration QA; formative hum
 ## Authored practice sectors
 
 Root entry may enumerate `stage.practiceSectors`: first jump, required dash gap, route fork (explicitly labelled prior dash passed), and final intercept. Only a practice World honors sector snapshots; normal run ignores sector IDs. Snapshots start on a safe roof with base-kit HP, no projectiles or powers, ready dash. The route-fork practice snapshot marks the earlier dash complete; retry preserves that labelled checkpoint, while a full run cannot skip it. Sector fixture assertions passed.
+
+## Pilot identity correction
+
+Phase pilot anchors now resolve dynamically to the moving Goldie cockpit: player.x−260 (Pursuit) or player.x+440 (Extraction), y281+sin(tick/45)×22. Root overlays the existing Goldie sprite at those anchors. The machine canvas remains a placeholder; it no longer suppresses the identity sprite.
