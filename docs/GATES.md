@@ -12,7 +12,7 @@ This branch implements the 2026-11-04 Library handoff. Sproto Arcade is separate
 
 ## Shared mechanics
 
-- Runtime integrated at 180ac5c; 19 deterministic fixtures pass, including swept moving fronts, final dash tick, shield-only failure, ledge grace, retry and phase lifecycle.
+- Runtime integrated at 180ac5c; 22 deterministic fixtures pass, including swept moving fronts, final dash tick, shield-only failure, ledge grace, retry and phase lifecycle.
 - Weapons integrated at 8e07095; 10 deterministic fixtures plus9 actual runtime-effect fixtures pass, including drop bags, mode compatibility, charges, replacement, decoy eligibility, TTL and independent RNG.
 - These are simulation fixtures, not human comprehension or balance validation.
 
@@ -40,14 +40,14 @@ All twelve new modules have two authored tasks and executable base-kit fixtures.
 |---|---|---|
 | Marina | cadb837, b6e72ca | Full1900 / phase2practice1198 ticks; HP5 |
 | Last Light | 2a946a3, e607ca5 | Full1307 / practice622; geometric mirror-return events, HP5 |
-| Mudline | bffc03d,37ea6b6,aae7254 | Upper1594 / bounced lower1867; no hits |
+| Mudline | bffc03d,37ea6b6,aae7254 | Updated upper1592 / bounced lower1866; no hits |
 | Ranch | 2a69744 | Phase1 685 + phase2 743; HP5;935 non-dash gap samples fail |
 | Neon | a75658e | Phase1 994 + phase2 499; HP5; vertical alignment required |
 | Circuit | 2a946a3 | Full2366 / practice1914; HP5; relay transfer requires dash |
 | Moonkeep | 08ed7ce | Full763; HP4;100 non-dash upper-gap timings fail;15 dash timings pass |
 | Crown | 2a946a3 | Full4042 / practice3338; HP5; separate shield/dash cores |
 | Hatchery | 08ed7ce | Full1516; HP5; actual shell footing and firing-lane gate |
-| Verse | aae7254 | Full1495; no hits;4 rift counters and4 exposed module sides |
+| Verse | aae7254 | Updated full1507; no hits;4 rift counters and4 exposed module sides |
 | Rooftop | 42c00cd,4086850,953242a | Phase1 1937 + phase2 1597; HP5;990 non-dash gap samples fail |
 | Codebreak | 4349ebf,08ed7ce | Updated full1250; HP4; upper and summit dash gates |
 
@@ -58,3 +58,23 @@ The full campaign browser matrix, clean-worktree regression and display-refresh 
 Reference packs integrated at26f95cc for Dave, Big Swole, Goldie and three powers; manifests explicitly set productionApproved:false and contain no clips/generation IDs. Review entry: art-review.html. Remaining boss reference batches and all final animations follow signoff, rather than preceding encounter testing.
 
 No eight-person formative playtest occurred. First-dash comprehension by attempt3, Phase2 task comprehension, restart perception, player balance and production-art readability are unvalidated. Do not call this a finished release or claim the production-art/acceptance gates passed.
+
+## Clean campaign technical gate
+
+Candidate `7c62524`, checked from clean detached `arcade-release-check`:
+- All24 actual offline full-start/Phase2-practice entries,12 explicitly forced transitions, named loss/R retry and pause/resume passed with no browser errors.
+- Six adapter checks passed, including remapping, reserved-key handling, phase/sector record isolation, transition pause/blur and next-encounter routing.
+- Nineteen deterministic regression commands passed, including every stage's standard-kit fixtures.
+- Controlled actual browser RAF schedules at30/60/120/144Hz produced the same144ticks and player X950 after2400.001ms.
+- Six initial reference packs and all9 SVG review images loaded offline; all production approval flags false, delivered clips0.
+- Evidence integrated at `e04d5f6`: qa/CAMPAIGN.md and campaign-*.json.
+
+Later Codebreak motion polish integrated at `9e8b3d1` and label cleanup `d667240`:1200-tick continuity fixture passes, maximum articulated point step3.489px, six scanner states, planted feet, locked pilot/cab and fixed true vent bounds; same full standard-kit clear1250ticks HP4. This verifies placeholder motion continuity, not production sprite coverage or human perception.
+
+## Additional animation requirement
+
+Every boss now requires at least30 genuinely distinct production animations. Minimum campaign scope is360 boss clips. Planned inventory and delivered clips are separate manifest fields. Frames, duplicated holds and duplicate footage do not count as extra animations. See ANIMATION-PRODUCTION.md. Production remains gated on human timing/critical-pose/hit-area approval; no final Higgsfield clips are claimed.
+
+Animation inventory integrated at `8cb2ef1`: all12 bosses, both phases,388 distinct motion requests (32 each;36 for Codebreak),12 bespoke terminal plans including Goldie's escape. Validator passes IDs, distinct request keys/briefs, per-phase coverage and terminal links. Actual verified production clips0; verified terminal clips0. Nine bespoke visual reference boards still need development; the initial three boards are procedural candidates. Quantity and semantic distinctness of future rendered motion require review, not only metadata validation.
+
+Supported Higgsfield route verified read-only: AutoSprite custom image-output animation with one approved reference,2–64frames per clip,32–512px frame size. Credits are authorized, but no generation job was submitted and spend is0. docs/HIGGSFIELD-HANDOFF.md contains exact supported parameters, reference paths and production workflow. Free coverage for AutoSprite has not been established; no total campaign cost is invented.

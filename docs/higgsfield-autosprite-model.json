@@ -1,0 +1,130 @@
+{
+  "observed": "2026-11-04",
+  "source": "Higgsfield models_get read-only",
+  "id": "autosprite",
+  "name": "AutoSprite Animation",
+  "provider_name": "Higgsfield",
+  "description": "Animate a character image into a game-ready sprite sheet PNG with optional atlas and audio metadata",
+  "output_type": "image",
+  "parameters": [
+    {
+      "name": "kind",
+      "required": "optional",
+      "type": "string",
+      "description": "Animation preset. Use 'custom' with prompt and name for a custom animation.",
+      "default": "idle",
+      "options": [
+        "idle",
+        "walk",
+        "run",
+        "attack",
+        "jump",
+        "custom",
+        "iso_idle_up",
+        "iso_idle_northeast",
+        "iso_idle_right",
+        "iso_idle_southeast",
+        "iso_idle_down",
+        "iso_walk_up",
+        "iso_walk_northeast",
+        "iso_walk_right",
+        "iso_walk_southeast",
+        "iso_walk_down",
+        "iso_run_up",
+        "iso_run_northeast",
+        "iso_run_right",
+        "iso_run_southeast",
+        "iso_run_down",
+        "iso_jump_up",
+        "iso_jump_northeast",
+        "iso_jump_right",
+        "iso_jump_southeast",
+        "iso_jump_down"
+      ]
+    },
+    {
+      "name": "name",
+      "required": "optional",
+      "type": "string",
+      "description": "Custom animation name. Required only when kind is 'custom'."
+    },
+    {
+      "name": "video_tier",
+      "required": "optional",
+      "type": "string",
+      "description": "Generation quality/cost tier. 'turbo' is fastest and cheapest; 'max' is highest cost.",
+      "default": "turbo",
+      "options": [
+        "turbo",
+        "pro",
+        "max"
+      ]
+    },
+    {
+      "name": "frame_count",
+      "required": "optional",
+      "type": "number",
+      "description": "Number of frames in the sprite sheet.",
+      "default": 25,
+      "min": 2,
+      "max": 64
+    },
+    {
+      "name": "frame_size",
+      "required": "optional",
+      "type": "number",
+      "description": "Frame width/height in pixels.",
+      "default": 256,
+      "min": 32,
+      "max": 512
+    },
+    {
+      "name": "remove_bg",
+      "required": "optional",
+      "type": "string",
+      "description": "Background removal mode.",
+      "default": "default",
+      "options": [
+        "default",
+        "ultra"
+      ]
+    },
+    {
+      "name": "with_sound",
+      "required": "optional",
+      "type": "bool",
+      "description": "Generate sound effects when available. Adds cost.",
+      "default": false
+    },
+    {
+      "name": "is_humanoid",
+      "required": "optional",
+      "type": "bool",
+      "description": "Whether the source character is humanoid.",
+      "default": true
+    }
+  ],
+  "medias": [
+    {
+      "name": "medias",
+      "type": "image",
+      "max": 1,
+      "required": true,
+      "roles": [
+        "image"
+      ],
+      "description": "Single character image to animate into a sprite sheet (role: image)."
+    }
+  ],
+  "aspect_ratios": [],
+  "tags": [
+    "sprite",
+    "spritesheet",
+    "animation",
+    "game",
+    "character",
+    "pixel",
+    "atlas",
+    "image-to-animation"
+  ]
+}
