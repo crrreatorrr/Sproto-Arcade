@@ -19,14 +19,17 @@
   // Pose is a pure fixed-tick sample. Draws and display refresh never advance it.
   function summitPose(w){
     const t=w.phaseTick,age=t<90?-1:(t-90)%360;
-    const unfold=age<0?0:age<55?smooth(age/55):age<215?1:1-smooth((age-215)/55);
-    const recoil=age<75?0:Math.sin((age-75)*.42)*Math.exp(-(age-75)/12)*4;
+    // Sample the actual normalized scanner lifetime, including the slower front's extended travel.
+    const windup=w.data.scannerWindup??75,unfoldEnd=Math.max(1,windup-20);
+    const releaseEnd=windup+(w.data.scannerActive??158),retractEnd=releaseEnd+55;
+    const unfold=age<0?0:age<unfoldEnd?smooth(age/unfoldEnd):age<releaseEnd?1:1-smooth((age-releaseEnd)/55);
+    const recoil=age<windup?0:Math.sin((age-windup)*.42)*Math.exp(-(age-windup)/12)*4;
     const sinceHit=t-(w.data.hitAt??-1000);
     const hit=sinceHit<0?0:Math.sin(sinceHit*.6)*Math.exp(-sinceHit/9)*3;
     const settle=t>=75?0:-95*(1+t/10)*Math.exp(-t/10)*(1-smooth((t-55)/20));
     const open=(w.data.ventOpenedAt<0?0:smooth((t-(w.data.ventOpenedAt??-1000))/18))*(t<w.data.openUntil?1:1-smooth((t-w.data.openUntil)/18));
     return {x:1090+recoil+hit,y:450+settle,feet:[{x:970,y:600},{x:1190,y:600}],unfold,recoil,hit,open,
-      scannerAge:age,scannerState:age<0?'anchor':age<55?'unfold':age<75?'windup':age<215?'release':age<270?'retract':'recovery',
+      scannerAge:age,scannerState:age<0?'anchor':age<unfoldEnd?'unfold':age<windup?'windup':age<releaseEnd?'release':age<retractEnd?'retract':'recovery',
       elbowX:1138+unfold*42,elbowY:430-unfold*112,emitterX:1155+unfold*45,emitterY:405-unfold*125};
   }
   function segment(ctx,a,b,width,color){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
@@ -47,7 +50,7 @@
   }
   function markDrop(w,cycle){
     const x=w.player.x-35,y=w.player.y-170;
-    w.hazard({id:'warrant-'+cycle,source:ID+'/warrant-drop',rule:'ordinary',x,y,w:70,h:24,vy:9,windup:65,active:45,recovery:10,cue:'WARRANT DROP — change ledge'});
+    w.hazard({id:'warrant-'+cycle,source:ID+'/warrant-drop',rule:'ordinary',x,y,w:70,h:24,vy:9,windup:75,active:45,recovery:10,cue:'WARRANT DROP — change ledge'});
     w.cue('WARRANT DROP · Reticle locks, then move to the next ledge',100);
   }
   A.registerStage({id:ID,number:12,title:'Codebreak Ascent',operator:'Bitcoin Sheriff',operatorSprite:'sproto3106',color:'#d5af69',eligibleWeapons:['prism-rail','echo-decoy'],practiceSectors:[{id:1,label:'Climb · sector 2',phase:0},{id:2,label:'Climb · sector 3',phase:0}],phases:[{
@@ -94,7 +97,8 @@
       const t=w.phaseTick,cycle=Math.floor(Math.max(0,t-90)/360);
       if(t>=90&&(t-90)%360===0){
         w.data.scannerCycle=cycle;
-        w.hazard({id:'summit-scanner-'+cycle,source:ID+'/summit-scanner',rule:'dash',x:1200,y:150,w:24,h:450,vx:-9,windup:75,active:140,recovery:20,cue:'»  » DASH THROUGH SCANNER'});
+        const scanner=w.hazard({id:'summit-scanner-'+cycle,source:ID+'/summit-scanner',rule:'dash',x:1200,y:150,w:24,h:450,vx:-9,windup:75,active:140,recovery:20,cue:'»  » DASH THROUGH SCANNER'});
+        w.data.scannerActive=scanner.active;w.data.scannerWindup=scanner.windup;
         w.cue('»  » SHIFT · Dash through the marked scanner',150);
       }
       for(const event of w.events){if(event.type==='counter'&&event.rule==='dash'&&event.source===ID+'/summit-scanner'){
@@ -107,6 +111,7 @@
       w.objective=t<w.data.openUntil?'Vent open · shoot the right side':'Dash through the scanner to unlock the vent';
       // Reintroduce the climbing reticle only after the isolated scanner lesson.
       if(t>=690&&(t-690)%360===0)markDrop(w,'summit-'+Math.floor(t/360));
+      w.pressure?.({id:'codebreak-warrants',start:780,period:120,styles:['roller','diamond'],speed:2.4,windup:90,lane:'high',side:'far',maxAlive:2,enabled:!core?.open});
     },
     draw(ctx,w){
       summitRig(ctx,w);

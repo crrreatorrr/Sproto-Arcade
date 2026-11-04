@@ -74,3 +74,18 @@ The user's30+animation requirement means separately authored clips with distinct
 36. Operator defeat/escape.
 
 Each future clip needs an individual stable ID, authored start/end poses, event markers, anchors and generation/source record. Procedural motion states here are prototype feedback, not fulfillment of that production asset count. No final Higgsfield animation was generated or integrated by this packet.
+
+
+## Gameplay pacing — current direction (2026-11-04)
+
+Animation production is stopped. Earlier production-clip references are archived planning, not current deliverables or a gameplay approval blocker.
+
+Warrant warning65→75ticks. Shared campaign pacing changes ordinary drop9→5.956px/tick (active45→68) and both upper/summit dash fronts9→7.975 (active140→158), preserving travel with identical caps in both phases. Eighteen ledges, recovery platforms, dash requirement and fixed vent hit rectangle are unchanged.
+
+The existing procedural scanner pose now reads the normalized hazard.active duration. Its release lasts through actual active tick232 and retract begins233ticks after the scanner cue, replacing the old215deadline. Feet remain planted and the pilot follows the cab. This is synchronization of existing prototype geometry; production animation/Higgsfield work is stopped.
+
+Phase2 pressure: roller/diamond,2.4px/tick,90tick warning,120tick cadence, max2, no earlier than780. Unresolved scanners clear it automatically; an open vent explicitly clears it every update, protecting the counter/punish sequence.
+
+Verified actual seed37 base-kit climb/summit clear1614ticks,HP4, upper and summit dash counters, checkpoint restart and shield-only rejection. Procedural sampling over1200ticks has max3.489px tick movement, six scanner states, fixed feet/pilot/vent and draw smoke. The five-stage pacing.cjs additionally checks the actual158tick scanner deadline, both pressure styles surviving warning, live cap2 and protected-state removal. Codebreak's extended3000tick closed-vent sample emitted13shots, peak2live/1active, first780; retained health/target sample is a density fixture, not a human playtest.
+
+Run the stage clear fixture and `node stages/12-codebreak/pacing.cjs` after integrating the shared runtime pacing helper. Automated controllers cover technical base-kit routes; human feel/difficulty playtesting remains outstanding.

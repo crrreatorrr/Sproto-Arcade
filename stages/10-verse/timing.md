@@ -27,3 +27,16 @@ No browser/human playtest, refresh-rate distribution, perceptual comprehension, 
 ### Offline browser visibility correction
 
 Top orbital module moved to center(640,260), target y220–300, label y195, and phase flight bounds keep player feet at260 or lower. Top exposure still requires feet<290, leaving a visible 30px decision band. Top controller now aims atfeet280. The other three module sides remain unchanged. This addresses QA screenshot occlusion under HUD/cue; browser recapture is required after integration.
+
+
+## Gameplay pacing — current direction (2026-11-04)
+
+Animation production is stopped. Earlier production-clip references are archived planning, not current deliverables or a gameplay approval blocker.
+
+Drone and showroom side-volley warnings50→75ticks. Shared campaign pacing changes drone8→6px/tick (active180→240), showroom volley7→5.980 (active170→199), and returning rift9→7.957 (active145→164), preserving travel and applying the same caps to both phases. Three forward rifts remain stationary mandatory dash crossings.
+
+Phase2 pressure: diamond/orb,2.5px/tick,90tick warning,150tick cadence, max2, after660. The helper clears it during the short center shortcut and whenever a returning mandatory rift is unresolved. Safe orbital intervals provide the additional density; module geometry, side matching and top flight band remain unchanged.
+
+Verified seed41 actual base-kit clear1507ticks,4dash counters,0hits, all four module sides exposed, no pickup/power. Shield-only first-rift rejection and phase2practice/retry pass. Extended3000tick showroom sample emitted8pressure shots, both styles reached active travel, peak2live/2active, first960because the first rift protected the earlier slots. Retained health/target sample measures density, not a new clear controller.
+
+Run the stage clear fixture and `node stages/12-codebreak/pacing.cjs` after integrating the shared runtime pacing helper. Automated controllers cover technical base-kit routes; human feel/difficulty playtesting remains outstanding.

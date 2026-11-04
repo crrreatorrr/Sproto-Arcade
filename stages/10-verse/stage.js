@@ -19,7 +19,7 @@
    if(w.phaseTick>600&&w.phaseTick%300===120){
     let volley={eligibleAim:true,rule:'ordinary',x:p.x+750,y:160,targetX:p.x,targetY:p.y-26};if(w.redirectVolley)volley=w.redirectVolley(volley);
     const dx=volley.targetX-volley.x,dy=volley.targetY-volley.y,len=Math.hypot(dx,dy)||1;
-    w.hazard({id:'demo-bolt-'+w.phaseTick,source:'demo-drone-volley',rule:'ordinary',x:volley.x,y:volley.y,w:24,h:24,vx:dx/len*8,vy:dy/len*8,windup:50,active:180,cue:'DRONE UNFOLDING: move after its aim locks'});
+    w.hazard({id:'demo-bolt-'+w.phaseTick,source:'demo-drone-volley',rule:'ordinary',x:volley.x,y:volley.y,w:24,h:24,vx:dx/len*8,vy:dy/len*8,windup:75,active:180,cue:'DRONE UNFOLDING: move after its aim locks'});
    }
    w.progress=Math.min(1,p.x/end);w.objective=d.crossings<3?'RIFT '+(d.crossings+1)+'/3 — choose lane, then dash the marked front':'ALL RIFTS CLEARED — reach the carrier at 4500m';
    if(d.crossings===3&&p.x>=end)w.advancePhase();
@@ -49,10 +49,12 @@
    const inCabin=p.x>565&&p.x<715&&p.y>285&&p.y<465;
    if(inCabin&&!d.centerWindow){const dx=p.x-640,dy=p.y-375;if(Math.abs(dx)>Math.abs(dy))p.x=dx<0?560:720;else p.y=dy<0?280:470;}
    if(w.phaseTick>600&&w.phaseTick%360===60){
-    const side=o.side;w.hazard({id:'showroom-volley-'+w.phaseTick,source:'showroom-side-volley',rule:'ordinary',x:side===0?1160:80,y:p.y-38,w:26,h:26,vx:side===0?-7:7,windup:50,active:170,cue:'DEMO DRONE: side volley locked'});
+    const side=o.side;w.hazard({id:'showroom-volley-'+w.phaseTick,source:'showroom-side-volley',rule:'ordinary',x:side===0?1160:80,y:p.y-38,w:26,h:26,vx:side===0?-7:7,windup:75,active:170,cue:'DEMO DRONE: side volley locked'});
    }
    // Bring back the Phase1 rift only once the orbit has been taught in isolation.
    if(w.phaseTick>=600&&w.phaseTick%600===60){w.player.dashWait=0;w.hazard({id:'showroom-rift-'+w.phaseTick,source:'showroom-demo-rift',rule:'dash',x:1220,y:0,w:28,h:720,vx:-9,windup:90,active:145,cue:'≫ RETURNING DEMO RIFT · SHIFT ≫'});}
+   // Keep the brief center shortcut and mandatory returning rift free of background pressure.
+   w.pressure?.({id:'verse-exhibits',start:660,period:150,styles:['diamond','orb'],speed:2.5,windup:90,lane:'high',side:'far',maxAlive:2,enabled:!d.centerWindow});
    w.objective=d.centerWindow?'CENTER LANE OPEN — short route through cabin':t&&t.open?'MODULE EXPOSED — punish from the matching side':'HINGE '+['LEFT','TOP','RIGHT','BOTTOM'][o.side]+' — move to that side for the opening';
   },
   draw(ctx,w){const o=orbit(w);ctx.save();

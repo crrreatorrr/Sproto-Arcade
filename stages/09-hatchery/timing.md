@@ -9,3 +9,16 @@ Phase2: floorY600, crawler hatch oscillates horizontally950±130; shell pods mov
 Verification: `node stages/09-hatchery/test.cjs <runtime/core/world.js>`. Actual runtime seed37 full start-to-clear1516ticks HP5 with no drops. Separate fixtures verify shell state, shell break, disabled footing, ordered hatch timing, moving shell position and closed→open firing-lane state. No timer-only clear exists; target HP defeat drives each transition/clear. This is a scripted runtime test, not human comprehension or balance evidence.
 
 Animation poses after signoff: crane claw pod settle; seam countdown; shell break; hatch release; tracked cab lowering; conveyor drive; passing hatch open/close; shutdown. Final VFX must match the existing physical footing and target geometry.
+
+
+## Gameplay pacing — current direction (2026-11-04)
+
+Animation production is stopped. Earlier production-clip references are archived planning, not current deliverables or a gameplay approval blocker.
+
+Near-player hatch hazard warning25→75ticks; shell footing still disappears at its original300tick hatch deadline. The visible hatch box now waits75ticks before moving at the unchanged3px/tick. Conveyor brood-shot warning45→75ticks; speed remains6px/tick, including Phase2. Shell, hatch, break and moving-footing geometry are unchanged.
+
+Phase2 pressure: roller/seed,2.2px/tick,90tick warning,150tick cadence, max2, no earlier than660. Pressure clears near a shell within60ticks of hatching, on pod footing and above the low floor band, preserving shell landing choices and the shot lane lesson.
+
+Verified seed37 base-kit clear1516ticks,HP5, plus independent shell/break/hatch footing lifecycle, moving shell and actual firing-lane gate checks. Extended3000tick floor sample emitted6pressure shots, both styles reached active travel, peak2live/2active, first660. Health/targets were retained only in that technical density sample.
+
+Run the stage clear fixture and `node stages/12-codebreak/pacing.cjs` after integrating the shared runtime pacing helper. Automated controllers cover technical base-kit routes; human feel/difficulty playtesting remains outstanding.

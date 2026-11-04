@@ -10,7 +10,7 @@
     ctx.fillRect(905,180,245,350);ctx.strokeRect(905,180,245,350);
     // The glass belly and intake carry over into the docked pump.
     ctx.fillStyle='#122e34';ctx.fillRect(950,285,150,175);
-    ctx.fillStyle='#78ab4d';const fill=pump?110:Math.min(170,(t%360)/90*170);ctx.fillRect(956,455-fill,138,fill);
+    ctx.fillStyle='#78ab4d';const fill=pump?110:Math.min(170,(t%360)/70*170);ctx.fillRect(956,455-fill,138,fill);
     ctx.strokeStyle='#b5eee3';ctx.strokeRect(950,285,150,175);
     ctx.fillStyle='#b0beb1';ctx.fillRect(835,340,120,40);
     ctx.fillStyle='#172831';ctx.fillRect(1010,220,80,55);
@@ -22,9 +22,9 @@
       text(ctx,d.gateUnlocked?'SHUTTER RELEASED':'SHUTTER LOCKED',870,630);
     }else{
       const c=t%360;
-      ctx.fillStyle=c>=90&&c<145?'#ffe294':'#75846d';ctx.fillRect(805,345,70,30);
-      text(ctx,c<90?'GLASS FILLING':c<145?'NOZZLE LOCKED':c<300?'VENT OPEN':'RESEAL',925,575);
-      if(c>=90&&c<145){ctx.strokeStyle='#ffe294';ctx.setLineDash([12,8]);ctx.beginPath();ctx.moveTo(60,d.aimY);ctx.lineTo(850,d.aimY);ctx.stroke();ctx.setLineDash([]);text(ctx,'LOCKED ALTITUDE — MOVE',220,d.aimY-32);}
+      ctx.fillStyle=c>=70&&c<145?'#ffe294':'#75846d';ctx.fillRect(805,345,70,30);
+      text(ctx,c<70?'GLASS FILLING':c<145?'NOZZLE LOCKED':c<300?'VENT OPEN':'RESEAL',925,575);
+      if(c>=70&&c<145){ctx.strokeStyle='#ffe294';ctx.setLineDash([12,8]);ctx.beginPath();ctx.moveTo(60,d.aimY);ctx.lineTo(850,d.aimY);ctx.stroke();ctx.setLineDash([]);text(ctx,'LOCKED ALTITUDE — MOVE',220,d.aimY-32);}
     }
     ctx.restore();
   }
@@ -47,11 +47,11 @@
     },
     update(w){
       const c=w.phaseTick%360,d=w.data,vent=live(w,'glass-vent');
-      if(c===90){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: change altitude now',55);}
+      if(c===70){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: change altitude now',75);}
       if(c===145){aimedBelch(w,'sludge-belch-'+w.phaseTick);w.cue('STEAM ESCAPING: glass vent exposed',150);}
       if(vent){vent.open=c>=155&&c<300;w.progress=1-vent.hp/20;
         if(!d.rewarded&&vent.hp<20){d.rewarded=true;w.drop('mudline-first-vent',w.player.x+70,w.player.y);}}
-      w.objective=c<90?'Read the filling glass belly':c<145?'Locked altitude: move above or below':c<300?'Shoot the open glass vent':'Vent sealed: prepare for the next fill';
+      w.objective=c<70?'Read the filling glass belly':c<145?'Locked altitude: move above or below':c<300?'Shoot the open glass vent':'Vent sealed: prepare for the next fill';
     },
     draw(ctx,w){machine(ctx,w,false);}
   };
@@ -95,8 +95,10 @@
       if(d.gateUnlocked&&!d.introduced&&!d.countered&&w.phaseTick-d.unlockTick>=90)shutters(w);
       if(d.gateUnlocked&&((d.countered&&w.phaseTick-d.unlockTick>=200)||(!d.countered&&w.phaseTick-d.unlockTick>=280)))shutters(w);
       // First 600 ticks isolate the new shutter/front rule before the familiar belch returns.
-      if(w.phaseTick>=600&&w.phaseTick%360===90){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: reposition while working the shutter',55);}
+      if(w.phaseTick>=600&&w.phaseTick%360===70){d.aimY=w.player.y-26;w.cue('NOZZLE LOCKED: reposition while working the shutter',75);}
       if(w.phaseTick>=600&&w.phaseTick%360===145)aimedBelch(w,'pump-sludge-belch-'+w.phaseTick);
+      // Keep both high-C and low-V shutter setups, fronts and vent punish isolated.
+      w.pressure?.({id:'mudline-silt',start:660,period:150,styles:['orb','diamond'],speed:2.4,windup:90,lane:'high',side:'far',maxAlive:2,enabled:d.introduced&&!d.gateUnlocked&&w.player.x<600&&w.player.y>=350&&w.player.y<=430});
       w.objective=!d.gateUnlocked?'Release UPPER LATCH (fly high/C) or LOW INTAKE (fly low/V)':!d.countered?(!d.introduced?'Pressure unstable — repeat the shutter without taking a hit':'Dash through the marked pressure front — shield cannot counter it'):core&&core.open?'Pump vent OPEN — standard fire deals damage':'Pressure rebuilding — next shutter cycle';
     },
     draw(ctx,w){machine(ctx,w,true);}
