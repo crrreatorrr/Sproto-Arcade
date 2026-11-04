@@ -30,3 +30,7 @@ First batch remains Dave, Big Swole and Goldie for visual continuity, with Codeb
 Review the rendered result before counting it. Verify actual frame count, alpha/background cleanup, scale, pilot identity, pivot, muzzle/weakpoint anchors, windup/action/recovery markers and continuity at the join. Reject duplicate motion; frames, renamed copies and alternate playback speeds do not increase distinct coverage. Map positive frame durations to the approved fixed-tick cue/release/recovery timeline. Export offline atlases and register manifests through the integration owner; load only appropriate stage packs. Re-run collision/visual and offline playback checks after integration.
 
 Keep `clips` limited to delivered verified assets. Keep `plannedClips` for requests and `productionApproved:false` until the relevant human approval. No final sprite animation has been generated or integrated here.
+
+## Incremental review scope
+
+Final production signoff can cover one named boss/phase or the four-stage slice (Marina, Mudline, Rooftop, Codebreak). Both phases and transformation endpoints should be reviewed for a complete encounter approval. Other encounters remain pending. The initial style-study trio is a separate grouping. See review-start.html and LOCAL-REVIEW.md. No new credit authorization is required for the already-authorized task scope.

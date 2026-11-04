@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "origin": "http://127.0.0.1:5201",
+  "serverRoot": "arcade-offline-build",
+  "servedGameplayCommit": "de69983",
+  "http": [
+    {
+      "url": "http://127.0.0.1:5201/index.html",
+      "status": 200,
+      "bytes": 6101
+    },
+    {
+      "url": "http://127.0.0.1:5201/review-start.html",
+      "status": 200,
+      "bytes": 6241
+    },
+    {
+      "url": "http://127.0.0.1:5201/art-review.html",
+      "status": 200,
+      "bytes": 6660
+    },
+    {
+      "url": "http://127.0.0.1:5201/art/rework/review/index.html",
+      "status": 200,
+      "bytes": 14428
+    },
+    {
+      "url": "http://127.0.0.1:5201/qa/playtest.html",
+      "status": 200,
+      "bytes": 12804
+    },
+    {
+      "url": "http://127.0.0.1:5201/favicon.ico",
+      "status": 200,
+      "bytes": 4286
+    }
+  ],
+  "selected": {
+    "stage": "12-codebreak",
+    "entry": "1",
+    "stages": 12,
+    "packs": 15
+  },
+  "playing": {
+    "state": "playing",
+    "phase": 1,
+    "practice": true,
+    "tick": 21,
+    "hp": 5
+  },
+  "guideImages": 27,
+  "guideFailures": [],
+  "sliceLinks": [
+    "http://127.0.0.1:5201/index.html?stage=01-marina",
+    "http://127.0.0.1:5201/index.html?stage=01-marina&phase=1",
+    "http://127.0.0.1:5201/art/rework/bosses/01-marina/gameplay-scale.svg",
+    "http://127.0.0.1:5201/index.html?stage=03-mudline",
+    "http://127.0.0.1:5201/index.html?stage=03-mudline&phase=1",
+    "http://127.0.0.1:5201/art/rework/bosses/03-mudline/gameplay-scale.svg",
+    "http://127.0.0.1:5201/index.html?stage=11-rooftop",
+    "http://127.0.0.1:5201/index.html?stage=11-rooftop&phase=1",
+    "http://127.0.0.1:5201/art/rework/bosses/11-rooftop/gameplay-scale.svg",
+    "http://127.0.0.1:5201/index.html?stage=12-codebreak",
+    "http://127.0.0.1:5201/index.html?stage=12-codebreak&phase=1",
+    "http://127.0.0.1:5201/art/rework/bosses/12-codebreak/gameplay-scale.svg"
+  ],
+  "browserErrors": 0,
+  "offlineEntryPreserved": true,
+  "approvalScope": "incremental by named encounter and phase; slice=Marina,Mudline,Rooftop,Codebreak",
+  "generationJobsSubmitted": 0,
+  "creditsSpentByThisTask": 0
+}

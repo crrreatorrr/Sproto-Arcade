@@ -27,3 +27,5 @@ Open **art-review.html** for every boss’s two-phase reference guides, the init
 Developer interface: `docs/INTERFACE.md`. Each specialist worked in a separate branch/worktree with exclusive paths; integration was serial. Nothing has been pushed or published from this implementation branch.
 
 Human validation: open **qa/playtest.html** and follow **qa/PLAYTEST.md** for the eight-person formative session. The form starts empty; no human playtest results have been recorded.
+
+For a guided Mac review, open **review-start.html**. The four-stage slice can be approved incrementally by named encounter and phase; unrelated encounters stay pending.

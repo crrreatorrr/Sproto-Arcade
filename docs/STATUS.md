@@ -13,7 +13,7 @@ Local branch: **arcade/integration**. Gameplay code is verified at **e1c9dbc** a
 
 ## Precise remaining decision
 
-The attached plan says: “Get signoff on timing, critical poses, and hit area before generating final assets.” That signoff has not been received. A pending review question offers the first production batch (Dave, Big Swole, Goldie and prioritized Codebreak) or all12bosses. Credit use is already authorized; this is a timing/pose/hit-area approval, not another budget request.
+The attached plan says: “Get signoff on timing, critical poses, and hit area before generating final assets.” That signoff has not been received. Approval may be incremental by named encounter and phase. The four-stage gameplay slice is Marina/Dave, Mudline/Crapto, Rooftop/Goldie and Codebreak/Bitcoin Sheriff; the separate Big Swole look-development study does not force Moonkeep into that scope. All12 may also be approved. See review-start.html and LOCAL-REVIEW.md for direct review links and a precise approval reply. Credit use is already authorized; this is a timing/pose/hit-area approval, not another budget request.
 
 Higgsfield access is available. Read-only discovery verified AutoSprite custom animation and its required approved image reference. No job was submitted and this task spent0credits. Exact route, references, constraints and source record requirements are in HIGGSFIELD-HANDOFF.md. Future generation costs are unquoted; the current inventory does not establish sufficient credits or finished art.
 
