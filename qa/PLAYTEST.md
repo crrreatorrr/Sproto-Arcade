@@ -49,4 +49,21 @@ The worksheet offers all12 stages. Add stage-specific notes when actually observ
 - Review exact failure causes, Phase2 misunderstandings and restart comments alongside the count. Missing data, prompting, alternate entries and changes to the build must remain visible in the notes.
 - Export JSON locally. It contains only entered participants, explicit completeness/target status and `humanApproval:false`. Browser-local storage may vary for `file://`; keep a backup before changing browser/profile/path.
 
-No human execution or comprehension result is claimed by this prepared protocol. Production animation approval remains a separate gate.
+No human execution or comprehension result is claimed by this prepared protocol. Animation production is stopped under the current gameplay direction.
+
+
+## Current gameplay pacing follow-up
+
+Status: **prepared, zero executed participants**. Use the same candidate and seed for each P01–P08 record. Keep the existing first-counter criterion. Add the following observations to the worksheet notes for every phase actually sampled; the blank form remains blank until real sessions occur.
+
+| Observation | Record in notes |
+|---|---|
+| Warning recognition | Before first contact, ask “What do you think will happen next?” Record the named attack, inferred lane and intended response; mark independent, prompted or unrecognized. Distinguish the warning outline/trajectory from the active projectile. |
+| First-contact comfort | After the actual first trial, ask “How did the time to react feel?” Record too short / comfortable / overly long in the participant's words, plus whether they saw the cue before damage. Keep subjective comfort separate from measured timing and successful survival. |
+| Phase2 density and speed | After both phases are sampled, ask “What changed?” Record whether the player notices additional overlapping shots and lane decisions, whether the underlying attack feels faster, and the specific named source. Actual velocity measurements remain in technical evidence. |
+| Projectile identification | Show the live slow shots without naming their shapes. Record whether bolt, orb, seed, diamond and roller silhouettes can be distinguished, and whether their collision outline and travel direction are understood. Do not score unseen shapes. |
+| Required gap fairness | At Ranch, Moonkeep, Rooftop and Codebreak crossings actually reached, record cue recognition, chosen launch point, whether launch/landing remained readable and safe from added pressure, and the exact fall/hit source. A missed mandatory dash and pressure obscuring a route are separate observations. |
+
+Sample Last Light's reflection setup, Crown's alternating counter and punish opening, Mudline's C/V shutter choice and Verse's orbit alignment when possible. Note whether added pressure interrupts a decision the player has only just learned. Retry from the standard kit after a failure; record coaching or changed practice entries. Do not infer unvisited-stage results from automated clears or from another participant.
+
+Report completion only for observed sessions, with the exact build and entry. Eight-person formative results remain pending. Automated cap, count, route and renderer tests do not establish reaction comfort, shape comprehension or fairness to new players.

@@ -14,6 +14,7 @@ const commands=tests.map(file=>{
  if(source.includes('process.argv[2]')){
   // Flight's playthrough accepts repository root; isolated stage/runtime fixtures accept world.js.
   if(/(?:const|let)\s+root\s*=\s*path\.resolve\(process\.argv\[2\]|runtimeRoot\s*=\s*process\.argv\[2\]/.test(source))args=[root];
+  else if(source.includes("process.argv[2]||root+'/runtime/core/world.js'")||source.includes("process.argv[2]||path.join(root,'runtime/core/world.js')"))args=[runtime];
   else if(/runtime\s*=\s*(?:path\.resolve\()?process\.argv\[2\]|process\.argv\[2\]\s*\|\|\s*(?:path\.join\(root,\s*['"]\.\.\/arcade-|root\s*\+\s*['"]\/\.\.\/arcade-)/.test(source))args=[runtime];
   else throw Error('Unclassified positional test argument in '+relative+'; add an explicit routing rule before running');
  }
