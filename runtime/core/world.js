@@ -64,8 +64,8 @@
       this.movePlayer(input);
       if(this.state!=='playing')return;
       if(this.weapons?.tick)this.weapons.tick(this.tick);
-      if(input.beam&&!this.player.beamWait){this.standardSpecial('beam');this.player.beamWait=90;}
-      if(input.bomb&&!this.player.bombWait){this.standardSpecial('ball');this.player.bombWait=120;}
+      if(!this.stage.specialBoss&&input.beam&&!this.player.beamWait){this.standardSpecial('beam');this.player.beamWait=90;}
+      if(!this.stage.specialBoss&&input.bomb&&!this.player.bombWait){this.standardSpecial('ball');this.player.bombWait=120;}
       if(input.power&&this.weapons)this.weapons.activate({player:this.player,targets:this.targets,platforms:this.platforms,mode:this.phase.mode,blocked:false,tick:this.tick});
       if(++this.shotClock>=12){this.shotClock=0;this.autoFire();}
       this.updateShots();this.updateHazards();this.updateEffects();this.collectPickups(input);
@@ -108,7 +108,7 @@
       }
       const scrolling=this.phase.camera||this.phase.mode;
       if(flying)this.clampFlightPosition();
-      else if(!['horizontal','vertical'].includes(scrolling))p.x=clamp(p.x,20,1260);
+      else if(!['horizontal','vertical'].includes(scrolling))p.x=clamp(p.x,20,this.stage.specialBoss?960:1260);
       else if(scrolling==='horizontal')p.x=Math.max(20,p.x);else p.x=clamp(p.x,20,1260);
       if(!p.grounded)p.support=null;
       for(const plat of this.platforms){plat._lastX=plat.x;plat._lastY=plat.y;}
@@ -121,6 +121,11 @@
     }
     autoFire(){
       const p=this.player;let dx=p.facing,dy=0;
+      if(this.stage.specialBoss){
+        this.data.mouthShotTick=this.tick;
+        this.shots.push({id:'auto-'+this.tick,x:p.x+20,y:p.y-34,w:12,h:6,vx:17,vy:0,damage:1,ttl:90});
+        return;
+      }
       if(['flight','orbit'].includes(this.phase.mode)){
         const live=this.targets.filter(t=>!t.removed&&t.hp>0),open=live.filter(t=>t.open!==false);
         const target=(open.length?open:live).sort((a,b)=>Math.hypot(a.x+a.w/2-p.x,a.y+a.h/2-p.y+26)-Math.hypot(b.x+b.w/2-p.x,b.y+b.h/2-p.y+26))[0];

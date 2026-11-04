@@ -49,6 +49,12 @@ const PANEL_WIDTH=1344, GENERATED_PANEL_WIDTH=3072;
 const STAGE_BLAST=54, STAGE_BLACKOUT=82, STAGE_SHIFT_END=96;
 const VERSE_GEM_CHARGE=22, VERSE_GEM_FIRE=46, VERSE_GEM_END=64;
 const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75;
+const campaignLength = LEVELS.length;
+const specialBouts = SPECIAL_BOSSES.slice(1);
+for (const [index, special] of specialBouts.entries()) {
+  LEVELS.push({id:campaignLength+index+1, title:special.name+' · Regular bout', arena:special.arena});
+}
+const shooterLink = document.getElementById('shooter-link');
 const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
 const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel));
 const canvas = document.querySelector('canvas');
@@ -95,9 +101,13 @@ for (const fighter of playable) {
   });
   portraits.append(button);
 }
+const regularBouts = document.createElement('optgroup');
+regularBouts.label = 'Special Sproto qualifiers';
 for (const [index,level] of LEVELS.entries()) {
-  levelSelect.add(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
+  const group = index<campaignLength?levelSelect:regularBouts;
+  group.append(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
 }
+levelSelect.append(regularBouts);
 levelSelect.value = String(firstLevel);
 const pictures = new Map(), keys = new Set(), pressed = new Set();
 const acts = [
@@ -112,6 +122,9 @@ const acts = [
   {id:'highsproto',name:'High Sproto',tag:'The Smoke Signal',hp:355,color:'#a5c4ff',moves:['crossfire', 'bankShot', 'sweep', 'fan', 'rush'],staticMoves:['lanternShower', 'arenaHazard', 'skimmer']},
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']}
 ];
+const specialActs = specialBouts.map(special=>({
+  ...acts[special.arena],id:special.regularSprite,name:special.name,tag:'Special Sproto',color:special.color
+}));
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const moves = {
   quake:{tell:28,active:38,rest:31},
@@ -251,6 +264,7 @@ function picture(path) {
 }
 
 function loopPanels(index) {
+  index=LEVELS[index].arena??index;
   const level=LEVELS[index];
   return GENERATED_LOOPS[index]?.panels ?? [
     [level.art.slice(4),level.foot],
@@ -274,17 +288,19 @@ function sceneryTile([file,foot],width) {
   return tile;
 }
 
+function arenaIndex() {return LEVELS[levelIndex].arena??levelIndex;}
+
 function drawBackground() {
   if (isCodebreak()) return drawCodebreakBackground();
   if (mode!=='title' && mode!=='won' && boss?.phase===2) {
-    const tile=sceneryTile(STATIC_ARENAS[levelIndex],W);
+    const tile=sceneryTile(STATIC_ARENAS[arenaIndex()],W);
     if (tile) {
       ctx.drawImage(tile,0,0);
       return;
     }
   }
   const panels=loopPanels(levelIndex);
-  const generated=GENERATED_LOOPS[levelIndex];
+  const generated=GENERATED_LOOPS[arenaIndex()];
   const width=generated?GENERATED_PANEL_WIDTH:PANEL_WIDTH;
   const blend=generated?.overlap??128, stride=width-blend;
   const first=Math.max(0,Math.floor((camera-blend)/stride));
@@ -368,6 +384,7 @@ function announce(message, frames = 110) {
 
 function setOverlay(next, label, title, description, button) {
   mode = next;
+  shooterLink.hidden = true;
   overlay.hidden = next === 'play';
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   sprotoSelect.hidden=levelSelect.parentElement.hidden;
@@ -413,8 +430,8 @@ function begin(index = firstLevel, carryShield = false) {
 }
 
 function startBoss() {
-  const [archetype,cadence,shotRate]=BOSS_PROFILES[levelIndex];
-  const kit=acts[levelIndex];
+  const [archetype,cadence,shotRate]=BOSS_PROFILES[arenaIndex()];
+  const kit=acts[levelIndex]??specialActs[levelIndex-campaignLength];
   boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:FLOOR,hp:PHASE_ONE_HEALTH,max:PHASE_ONE_HEALTH,phaseTwoHealth:Math.ceil(kit.hp/2),scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
@@ -427,11 +444,24 @@ function startBoss() {
 }
 
 function clearLevel() {
-  if (levelIndex+1===LEVELS.length) {
+  const special = SPECIAL_BOSSES.find(entry=>entry.regularSprite===boss?.id);
+  if (levelIndex>=campaignLength) {
+    setOverlay('won','Regular bout cleared',boss.name+' defeated','The fixed-screen shooter fight is unlocked.','Rematch');
+  } else if (levelIndex+1===campaignLength) {
     levelSelect.value=String(firstLevel);
     setOverlay('won','Campaign clear','That’s all, Sproto!',isChase()?'You escaped across the rooftops.':'The last giant is down.','Play again');
   } else {
-    setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[levelIndex+1].title,'Next level');
+    const message = special
+      ? 'The '+boss.name+' shooter fight is unlocked. Continue the campaign anytime.'
+      : 'Next up: '+LEVELS[levelIndex+1].title;
+    setOverlay('clear','Level clear',LEVELS[levelIndex].title,message,'Next level');
+  }
+  if (special) {
+    unlockSpecialBoss(special.id);
+    shooterLink.href = 'index.html#victory='+special.id+'&pilot='+selectedSproto.id;
+    shooterLink.textContent = 'Play '+special.name+' shooter fight →';
+    shooterLink.hidden = false;
+    shooterLink.focus();
   }
 }
 
@@ -439,7 +469,7 @@ function refreshHud() {
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
   ui.hearts.textContent = '♥'.repeat(player.hp) + '♡'.repeat(MAX_HP-player.hp);
-  ui.count.textContent = 'LEVEL ' + (levelIndex+1) + ' / ' + LEVELS.length;
+  ui.count.textContent = levelIndex>=campaignLength?'REGULAR BOUT':'LEVEL '+(levelIndex+1)+' / '+campaignLength;
   ui.location.textContent = LEVELS[levelIndex].title;
   ui.boss.hidden = !boss;
   if (player.shield) ui['shield-status'].textContent='Active';
@@ -465,7 +495,7 @@ function refreshHud() {
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
   const arenaTell=levelIndex!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
-  const message=arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
+  const message=arenaTell?(PHASE_TWO_HAZARDS[arenaIndex()]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
     !boss.hp || !m || boss.age<=boss.tell+m.active?'':'EXPOSED  ·  Jump to hit the weak spot';
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
 }
@@ -651,12 +681,12 @@ function startMove() {
   }
   const flight=isFlying()?FLIGHT_POOLS[b.phase-1]:null;
   const base=flight?.base ?? (b.phase===1?b.moves:staticOrder);
-  const unlocked=(flight?.unlocks ?? BOSS_SECTION_ATTACKS[levelIndex][b.phase-1]).slice(0,section+1);
-  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,BOSS_SIGNATURES[levelIndex][b.phase-1]);
+  const unlocked=(flight?.unlocks ?? BOSS_SECTION_ATTACKS[arenaIndex()][b.phase-1]).slice(0,section+1);
+  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,BOSS_SIGNATURES[arenaIndex()][b.phase-1]);
   const order=section===0?[base[0],...unlocked,...base.slice(1)]:
     [unlocked.at(-1),...base,...unlocked.slice(0,-1)];
   if (!flight && section===b.phase) {
-    const signature=BOSS_SIGNATURES[levelIndex][b.phase-1];
+    const signature=BOSS_SIGNATURES[arenaIndex()][b.phase-1];
     order.splice(order.indexOf(signature),1);
     order.unshift(signature);
   }
@@ -850,11 +880,11 @@ function attackBoss(t) {
         vaultBeam={y:arenaLaserY(),age:0};
         sound(570,130,.24,.08);
       } else if (levelIndex!==0) {
-        for (const [frame,edge,lane,vx,vy,shape,gravity,bounces] of PHASE_TWO_HAZARDS[levelIndex].shots) {
+        for (const [frame,edge,lane,vx,vy,shape,gravity,bounces] of PHASE_TWO_HAZARDS[arenaIndex()].shots) {
           if (t!==frame) continue;
           const [x,y]=arenaHazardOrigin(edge,lane);
           fire(x,y,vx,vy,shape,false,gravity,bounces);
-          puff(x,y,PHASE_TWO_HAZARDS[levelIndex].color,7);
+          puff(x,y,PHASE_TWO_HAZARDS[arenaIndex()].color,7);
           sound(380+levelIndex*35,140,.15,.035);
         }
       }
@@ -992,7 +1022,7 @@ function advanceStageShift() {
   boss.hp=boss.max=boss.phaseTwoHealth;
   boss.step=0;
   startMove();
-  announce(PHASE_TWO_NAMES[levelIndex],85);
+  announce(PHASE_TWO_NAMES[arenaIndex()],85);
 }
 
 function keepPlayerLeft() {
@@ -1349,14 +1379,14 @@ function renderBoss() {
   const strike=m && b.age>=b.tell && b.age<b.tell+m.active;
   const exposed=m && b.age>=b.tell+m.active;
   let pose=art[time%48<24?0:1];
-  if (!b.hp && b.phase===2) pose=frames.death[Math.min(frames.death.length-1,Math.floor((108-transition)/4))] ?? art[24];
-  else if (!m) pose=frames.entrance[Math.min(frames.entrance.length-1,Math.floor(b.age/5))] ?? art[0];
+  if (!b.hp && b.phase===2) pose=frames.death?.[Math.floor((108-transition)/4)] ?? frames.death?.at(-1) ?? art[24];
+  else if (!m) pose=frames.entrance?.[Math.floor(b.age/5)] ?? frames.entrance?.at(-1) ?? art[0];
   else if (telling && b.move!=='arenaHazard') pose=art[b.move==='drop'?7:29];
   else if (strike && b.move!=='arenaHazard') {
     if (b.move==='rush') pose=b.age-b.tell<6?art[6]:walk(b.id,b.distance);
     else if (b.move==='drop') pose=art[b.age-b.tell<16?8:b.age-b.tell<32?9:10];
     else if (phaseTwoMoves.includes(b.move)) pose=art[31];
-    else if (frames.ranged.length) pose=frames.ranged[Math.min(frames.ranged.length-1,Math.floor((b.age-b.tell)/4))];
+    else if (frames.ranged?.length) pose=frames.ranged[Math.min(frames.ranged.length-1,Math.floor((b.age-b.tell)/4))];
     else pose=art[30];
   } else if (b.flash) pose=art[24];
   else if (b.moving) pose=walk(b.id,b.distance);
@@ -1396,7 +1426,7 @@ function stageEffectFrame(index, frame) {
 
 function drawStageShift() {
 
-  const [targetX,targetY,travel,lift,twist,radius,color]=STAGE_EFFECTS[levelIndex];
+  const [targetX,targetY,travel,lift,twist,radius,color]=STAGE_EFFECTS[arenaIndex()];
   const cut=phaseShift>=STAGE_BLAST;
   const charge=clamp((phaseShift-1)/(STAGE_BLAST-1),0,1);
   const burst=clamp((phaseShift-STAGE_BLAST)/(STAGE_BLACKOUT-STAGE_BLAST),0,1);
@@ -1411,7 +1441,7 @@ function drawStageShift() {
     ];
   };
   const [x,y]=cut?[targetX,targetY]:point(charge);
-  const atlas=stageEffectFrame(levelIndex,cut?(burst<.29?2:3):(charge<.57?0:1));
+  const atlas=stageEffectFrame(arenaIndex(),cut?(burst<.29?2:3):(charge<.57?0:1));
   const sprite=levelIndex===0 && !cut?attackFrame('boss/higgsfield/transition',Math.floor(phaseShift/6)%2):atlas;
   const alpha=cut?1-burst*.95:1;
   const size=cut?radius*(1.10+burst*1.22):74+charge*(travel?117:260);
@@ -1502,7 +1532,7 @@ function arenaHazardOrigin(edge,lane) {
 }
 
 function drawArenaHazardWarning() {
-  const hazard=PHASE_TWO_HAZARDS[levelIndex];
+  const hazard=PHASE_TWO_HAZARDS[arenaIndex()];
   if (!hazard || !boss.hp || boss.move!=='arenaHazard') return;
   const age=boss.age-boss.tell;
   ctx.save();
@@ -2036,7 +2066,7 @@ for (let i=0;i<4;i++) {
   }
   initial.push(attackFrame('boss/higgsfield/shield-pulse',i));
 }
-for (const id of new Set([...playable.map(fighter=>fighter.id),...acts.map(b=>b.id)])) {
+for (const id of new Set([...playable.map(fighter=>fighter.id),...[...acts,...specialActs].map(b=>b.id)])) {
   const art=ART.sprites[id];
   for (const frame of [...Object.values(art.poses),...art.walk,...(art.cast??[]),...(art.entrance??[]),...(art.death??[]),...(art.ranged??[])]) initial.push(picture(frame[0]));
 }
