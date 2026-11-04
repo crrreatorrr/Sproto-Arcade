@@ -18,7 +18,7 @@
       ctx.strokeStyle='#aab7a5';ctx.lineWidth=24;ctx.beginPath();ctx.moveTo(1040,185);ctx.lineTo(1040,120);ctx.lineTo(1170,120);ctx.lineTo(1170,570);ctx.stroke();
       ctx.fillStyle=d.gateUnlocked?'#a7f5ba':'#774a45';ctx.fillRect(835,275,28,150);
       ctx.strokeStyle='#fff0c9';ctx.lineWidth=3;ctx.strokeRect(828,270,42,160);
-      text(ctx,'UPPER LATCH',890,150);text(ctx,'LOW INTAKE',890,570);
+      text(ctx,'UPPER LATCH',690,225);text(ctx,'LOW INTAKE',690,590);
       text(ctx,d.gateUnlocked?'SHUTTER RELEASED':'SHUTTER LOCKED',870,630);
     }else{
       const c=t%360;
@@ -36,7 +36,7 @@
     w.hazard({id:source,source:source.replace(/-\d+$/,''),rule:'ordinary',x:820,y:target.y-25,w:70,h:50,vx:-9,active:110,windup:0,cue:'SLUDGE BELCH'});
   }
   const phase1={
-    name:'Sludge Belch',machine:'Sludge Dredger',mode:'flight',camera:'fixed',
+    drawsTargetLabels:true,name:'Sludge Belch',machine:'Sludge Dredger',mode:'flight',camera:'fixed',
     objective:'Reposition after the nozzle locks, then punish the glass vent.',hudLabel:'VENT INTEGRITY',
     spawn:{x:220,y:360},practiceSpawn:{x:220,y:360},pilot:{x:1050,y:270},
     enter(w){
@@ -69,12 +69,12 @@
         world.hazard({id:'backflush-'+d.round,source:'backflush-front',rule:'dash',x:1190,y:70,w:28,h:570,vx:-10,windup:90,active:130,recovery:10,cue:'≫  SHIFT THROUGH  ≫'});
       }else{d.countered=false;world.cue('Pressure unstable: avoid damage and release one clean shutter cycle.',150);}
     };
-    w.target({id:'latch-'+d.round,x:890,y:150,w:105,h:85,hp:4,maxHp:4,open:true,label:'UPPER LATCH · C BEAM',onDefeat:unlock});
+    w.target({id:'latch-'+d.round,x:890,y:190,w:105,h:85,hp:4,maxHp:4,open:true,label:'UPPER LATCH · C BEAM',onDefeat:unlock});
     w.target({id:'intake-'+d.round,x:890,y:550,w:105,h:75,hp:4,maxHp:4,open:false,label:'LOW INTAKE · V BOUNCE',onDefeat:unlock});
     w.cue('SHUTTERS: fly high to beam the latch, or low to bounce into the intake',180);
   }
   const phase2={
-    name:'Backflush',machine:'Floodgate Pump',mode:'flight',camera:'fixed',
+    drawsTargetLabels:true,name:'Backflush',machine:'Floodgate Pump',mode:'flight',camera:'fixed',
     objective:'Release a shutter, dash the marked front, then hit the glass vent.',hudLabel:'PUMP INTEGRITY',
     spawn:{x:220,y:345},practiceSpawn:{x:220,y:345},pilot:{x:1050,y:270},
     enter(w){

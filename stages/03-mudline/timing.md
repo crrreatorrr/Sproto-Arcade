@@ -11,7 +11,7 @@ These timings are prototype simulation values at 60Hz. Placeholder canvas geomet
 
 ## Phase 2: Floodgate Pump / Backflush
 
-- Spawn (220,345), fixed camera. Upper latch (890,150,105,85) and lower intake (890,550,105,75), 4 HP each. Upper is targetable from player feet above 350; lower from below 430. Baseline autofire is a fallback for either route; C beam and V bounce are standard-kit stronger options supplied by the shared adapter.
+- Spawn (220,345), fixed camera. Upper latch (890,190,105,85) and lower intake (890,550,105,75), 4 HP each. Upper is targetable from player feet above 350; lower from below 430. Baseline autofire is a fallback for either route; C beam and V bounce are standard-kit stronger options supplied by the shared adapter.
 - Destroying either route releases both shutters. The first clean (no hit this round) release opens the pump without a front, isolating the rule. A damaged teaching cycle repeats instead of gating progress permanently.
 - After a clean release, every subsequent release telegraphs the full-height broken-chevron front for 90 ticks. Front moves left at 10 px/tick from x1190, 28×570. Dash cooldown explicitly reset at this mandatory commitment. Only a `backflush-front` counter opens the pump; tanking or shielding does not unlock it.
 - Core open 180 ticks, capped to 8 damage per cycle, then shutter resets at 200 ticks. Missed front recovers into a fresh shutter at 280 ticks. Core total 24 HP. No hidden health stall: closed core has an explicit shutter/pressure objective in HUD.
@@ -25,3 +25,5 @@ Run `node stages/03-mudline/fixture.cjs` for authored lifecycle assertions. This
 ## Integrated deterministic evidence
 
 Against integration runtime pinned 180ac5c, `node stages/03-mudline/playthrough.cjs ../arcade-integration` drives actual World input and collision at seed23 without collecting/firing any power. Upper C route: 1594 total ticks, 3 latch kills with 3 beam hits, 2 front counters, zero hits. Lower V route: 1867 ticks, 3 intake kills with 3 bounced-ball hits, 2 front counters, zero hits. Both logs repeat identically. Phase2 practice and immediate retry reset are asserted. Geometry correction: low intake extends to y625 and its bounce shelf starts x0; otherwise the ball fell below the route before arrival. These are scripted simulation clears, not browser/manual or human comprehension tests.
+
+QA label adjustment: both phases own target labels; upper latch moved down to y190 so the integration cue banner at y125–170 does not cover it. Custom latch/intake labels sit left of their hit rectangles.
