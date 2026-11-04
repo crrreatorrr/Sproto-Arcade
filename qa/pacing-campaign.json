@@ -1,0 +1,1011 @@
+{
+  "build": "758b6bc40263e8a091e4e8f6d579daee3ad3859b",
+  "workingTree": "",
+  "kind": "diagnostic-neutral-observation-and-source-literals",
+  "rows": [
+    {
+      "stage": "01-marina",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 6,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 9,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "marina.breakwater-slam.wake",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 6,
+          "windup": 0,
+          "active": 189,
+          "spawnDistance": 790.6478356385984,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "01-marina",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 21,
+      "peakPressure": 2,
+      "firstPressureTick": 660,
+      "pressureStyles": [
+        "seed",
+        "roller"
+      ],
+      "fastestAuthored": 12,
+      "fastestRuntime": 8,
+      "distinct": [
+        {
+          "tick": 2130,
+          "source": "marina.pressure-lock.front",
+          "rule": "dash",
+          "authoredSpeed": 12,
+          "runtimeSpeed": 8,
+          "windup": 90,
+          "active": 165,
+          "spawnDistance": 1123.6102527122116,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2400,
+          "source": "marina-dock-spray",
+          "rule": "ordinary",
+          "authoredSpeed": 2.5,
+          "runtimeSpeed": 2.5,
+          "windup": 90,
+          "active": 600,
+          "spawnDistance": 966.2980906531898,
+          "pressure": true,
+          "sprite": "roller"
+        },
+        {
+          "tick": 2370,
+          "source": "marina.breakwater-slam.wake",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 6,
+          "windup": 0,
+          "active": 189,
+          "spawnDistance": 760.6733858891081,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "02-last-light",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 6,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0,
+      "fastestRuntime": 0,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "light.iris-shot.beam",
+          "rule": "ordinary",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 0,
+          "active": 2,
+          "spawnDistance": 183.18296864064627,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "02-last-light",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 20,
+      "peakPressure": 2,
+      "firstPressureTick": 660,
+      "pressureStyles": [
+        "orb",
+        "diamond"
+      ],
+      "fastestAuthored": 7,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "light.house-of-mirrors.beam",
+          "rule": "ordinary",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 0,
+          "active": 2,
+          "spawnDistance": 153.80507143784303,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2340,
+          "source": "light-prism-motes",
+          "rule": "ordinary",
+          "authoredSpeed": 2.25,
+          "runtimeSpeed": 2.25,
+          "windup": 90,
+          "active": 667,
+          "spawnDistance": 830.3469154516081,
+          "pressure": true,
+          "sprite": "orb"
+        },
+        {
+          "tick": 2020,
+          "source": "light.iris-shot.reprise",
+          "rule": "ordinary",
+          "authoredSpeed": 7,
+          "runtimeSpeed": 6,
+          "windup": 75,
+          "active": 210,
+          "spawnDistance": 331.5478849276526,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "03-mudline",
+      "phase": 1,
+      "mode": "flight",
+      "observedTicks": 2400,
+      "emissionCount": 7,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 9,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2305,
+          "source": "sludge-belch",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 6,
+          "windup": 0,
+          "active": 165,
+          "spawnDistance": 602.1635990326881,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "03-mudline",
+      "phase": 2,
+      "mode": "flight",
+      "observedTicks": 2400,
+      "emissionCount": 5,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 9,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2305,
+          "source": "pump-sludge-belch",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 6,
+          "windup": 0,
+          "active": 165,
+          "spawnDistance": 602.1635990326881,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "04-ranch",
+      "phase": 1,
+      "mode": "horizontal",
+      "observedTicks": 2400,
+      "emissionCount": 10,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 7,
+      "fastestRuntime": 5.975609756097561,
+      "distinct": [
+        {
+          "tick": 2250,
+          "source": "ranch.harvest-roll",
+          "rule": "ordinary",
+          "authoredSpeed": 7,
+          "runtimeSpeed": 5.975609756097561,
+          "windup": 75,
+          "active": 164,
+          "spawnDistance": 700.7774254354945,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "04-ranch",
+      "phase": 2,
+      "mode": "horizontal",
+      "observedTicks": 2400,
+      "emissionCount": 1,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0.6,
+      "fastestRuntime": 0.6,
+      "distinct": [
+        {
+          "tick": 1,
+          "source": "ranch.uncouple.dash",
+          "rule": "dash",
+          "authoredSpeed": 0.6,
+          "runtimeSpeed": 0.6,
+          "windup": 0,
+          "active": 20000,
+          "spawnDistance": 1775.9009994929334,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "05-neon",
+      "phase": 1,
+      "mode": "horizontal",
+      "observedTicks": 2400,
+      "emissionCount": 7,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 8,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2160,
+          "source": "neon.magnet-snatch",
+          "rule": "ordinary",
+          "authoredSpeed": 8,
+          "runtimeSpeed": 6,
+          "windup": 75,
+          "active": 200,
+          "spawnDistance": 681.6920125687254,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "05-neon",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 11,
+      "peakPressure": 2,
+      "firstPressureTick": 660,
+      "pressureStyles": [
+        "orb",
+        "seed"
+      ],
+      "fastestAuthored": 8,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2310,
+          "source": "neon.magnet-snatch.return",
+          "rule": "ordinary",
+          "authoredSpeed": 8,
+          "runtimeSpeed": 6,
+          "windup": 75,
+          "active": 200,
+          "spawnDistance": 681.6920125687259,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2220,
+          "source": "neon.street-pressure",
+          "rule": "ordinary",
+          "authoredSpeed": 2.5,
+          "runtimeSpeed": 2.5,
+          "windup": 90,
+          "active": 600,
+          "spawnDistance": 1102.261312030863,
+          "pressure": true,
+          "sprite": "seed"
+        }
+      ]
+    },
+    {
+      "stage": "06-circuit",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 5,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 8,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 1980,
+          "source": "circuit.relay-arc.discharge",
+          "rule": "ordinary",
+          "authoredSpeed": 8,
+          "runtimeSpeed": 6,
+          "windup": 60,
+          "active": 200,
+          "spawnDistance": 950.6082263477421,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "06-circuit",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 17,
+      "peakPressure": 2,
+      "firstPressureTick": 720,
+      "pressureStyles": [
+        "orb",
+        "bolt"
+      ],
+      "fastestAuthored": 12,
+      "fastestRuntime": 8,
+      "distinct": [
+        {
+          "tick": 1950,
+          "source": "circuit.firewall-transfer.front",
+          "rule": "dash",
+          "authoredSpeed": 12,
+          "runtimeSpeed": 8,
+          "windup": 90,
+          "active": 165,
+          "spawnDistance": 1123.6102527122116,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2220,
+          "source": "circuit-capacitors",
+          "rule": "ordinary",
+          "authoredSpeed": 2.5,
+          "runtimeSpeed": 2.5,
+          "windup": 90,
+          "active": 600,
+          "spawnDistance": 970.2968617902461,
+          "pressure": true,
+          "sprite": "bolt"
+        },
+        {
+          "tick": 2250,
+          "source": "circuit.relay-arc.discharge",
+          "rule": "ordinary",
+          "authoredSpeed": 8,
+          "runtimeSpeed": 6,
+          "windup": 60,
+          "active": 200,
+          "spawnDistance": 930.6212978435427,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "07-moonkeep",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 10,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0,
+      "fastestRuntime": 0,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "07-moonkeep/iron-fang",
+          "rule": "ordinary",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 60,
+          "active": 18,
+          "spawnDistance": 93.00537618869136,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "07-moonkeep",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 6,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0,
+      "fastestRuntime": 0,
+      "distinct": [
+        {
+          "tick": 2160,
+          "source": "07-moonkeep/iron-fang",
+          "rule": "ordinary",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 60,
+          "active": 18,
+          "spawnDistance": 93.00537618869136,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "08-crown",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 6,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 14,
+      "fastestRuntime": 8,
+      "distinct": [
+        {
+          "tick": 2190,
+          "source": "crown.jackpot-pulse.shield",
+          "rule": "shield",
+          "authoredSpeed": 14,
+          "runtimeSpeed": 8,
+          "windup": 60,
+          "active": 175,
+          "spawnDistance": 1115.168148756052,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "08-crown",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 10,
+      "peakPressure": 2,
+      "firstPressureTick": 900,
+      "pressureStyles": [
+        "diamond",
+        "roller"
+      ],
+      "fastestAuthored": 14,
+      "fastestRuntime": 8,
+      "distinct": [
+        {
+          "tick": 1290,
+          "source": "crown.royal-joust.front",
+          "rule": "dash",
+          "authoredSpeed": 14,
+          "runtimeSpeed": 8,
+          "windup": 60,
+          "active": 175,
+          "spawnDistance": 1115.168148756052,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 1890,
+          "source": "crown.jackpot-pulse.shield",
+          "rule": "shield",
+          "authoredSpeed": 14,
+          "runtimeSpeed": 8,
+          "windup": 60,
+          "active": 175,
+          "spawnDistance": 1115.168148756052,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2160,
+          "source": "crown-reel-spill",
+          "rule": "ordinary",
+          "authoredSpeed": 2.5,
+          "runtimeSpeed": 2.5,
+          "windup": 90,
+          "active": 600,
+          "spawnDistance": 966.2980906531898,
+          "pressure": true,
+          "sprite": "roller"
+        }
+      ]
+    },
+    {
+      "stage": "09-hatchery",
+      "phase": 1,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 12,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 3,
+      "fastestRuntime": 3,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "09-hatchery/hatch-timer",
+          "rule": "ordinary",
+          "authoredSpeed": 3,
+          "runtimeSpeed": 3,
+          "windup": 75,
+          "active": 90,
+          "spawnDistance": 795.1100552753688,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "09-hatchery",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 19,
+      "peakPressure": 2,
+      "firstPressureTick": 660,
+      "pressureStyles": [
+        "roller",
+        "seed"
+      ],
+      "fastestAuthored": 6,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 2220,
+          "source": "09-hatchery/hatch-timer",
+          "rule": "ordinary",
+          "authoredSpeed": 3,
+          "runtimeSpeed": 3,
+          "windup": 75,
+          "active": 90,
+          "spawnDistance": 392.4622017268257,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2160,
+          "source": "09-hatchery/brood-conveyor",
+          "rule": "ordinary",
+          "authoredSpeed": 6,
+          "runtimeSpeed": 6,
+          "windup": 75,
+          "active": 180,
+          "spawnDistance": 1040.9731024382907,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 1710,
+          "source": "hatchery-spores",
+          "rule": "ordinary",
+          "authoredSpeed": 2.2,
+          "runtimeSpeed": 2.2,
+          "windup": 90,
+          "active": 682,
+          "spawnDistance": 1072.2686230604718,
+          "pressure": true,
+          "sprite": "seed"
+        }
+      ]
+    },
+    {
+      "stage": "10-verse",
+      "phase": 1,
+      "mode": "flight",
+      "observedTicks": 2400,
+      "emissionCount": 7,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 8,
+      "fastestRuntime": 6,
+      "distinct": [
+        {
+          "tick": 88,
+          "source": "demo-rift-0",
+          "rule": "dash",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 90,
+          "active": 1800,
+          "spawnDistance": 738.24115301167,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2220,
+          "source": "demo-drone-volley",
+          "rule": "ordinary",
+          "authoredSpeed": 8,
+          "runtimeSpeed": 6,
+          "windup": 75,
+          "active": 240,
+          "spawnDistance": 773.692445355388,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "10-verse",
+      "phase": 2,
+      "mode": "orbit",
+      "observedTicks": 2400,
+      "emissionCount": 14,
+      "peakPressure": 2,
+      "firstPressureTick": 960,
+      "pressureStyles": [
+        "diamond",
+        "orb"
+      ],
+      "fastestAuthored": 9,
+      "fastestRuntime": 7.9573170731707314,
+      "distinct": [
+        {
+          "tick": 1860,
+          "source": "showroom-demo-rift",
+          "rule": "dash",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 7.9573170731707314,
+          "windup": 90,
+          "active": 164,
+          "spawnDistance": 1059.4810050208546,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2220,
+          "source": "showroom-side-volley",
+          "rule": "ordinary",
+          "authoredSpeed": 7,
+          "runtimeSpeed": 5.9798994974874375,
+          "windup": 75,
+          "active": 199,
+          "spawnDistance": 145.06550244630873,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2310,
+          "source": "verse-exhibits",
+          "rule": "ordinary",
+          "authoredSpeed": 2.5,
+          "runtimeSpeed": 2.5,
+          "windup": 90,
+          "active": 600,
+          "spawnDistance": 1017.9607065108162,
+          "pressure": true,
+          "sprite": "orb"
+        }
+      ]
+    },
+    {
+      "stage": "11-rooftop",
+      "phase": 1,
+      "mode": "horizontal",
+      "observedTicks": 2400,
+      "emissionCount": 1,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0,
+      "fastestRuntime": 0,
+      "distinct": [
+        {
+          "tick": 1,
+          "source": "goldie.afterburner.dash-crossing",
+          "rule": "dash",
+          "authoredSpeed": 0,
+          "runtimeSpeed": 0,
+          "windup": 0,
+          "active": 20000,
+          "spawnDistance": 2143.1052237349427,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "11-rooftop",
+      "phase": 2,
+      "mode": "horizontal",
+      "observedTicks": 2400,
+      "emissionCount": 0,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 0,
+      "fastestRuntime": 0,
+      "distinct": []
+    },
+    {
+      "stage": "12-codebreak",
+      "phase": 1,
+      "mode": "vertical",
+      "observedTicks": 2400,
+      "emissionCount": 13,
+      "peakPressure": 0,
+      "firstPressureTick": null,
+      "pressureStyles": [],
+      "fastestAuthored": 9,
+      "fastestRuntime": 5.955882352941177,
+      "distinct": [
+        {
+          "tick": 2310,
+          "source": "12-codebreak/warrant-drop",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 5.955882352941177,
+          "windup": 75,
+          "active": 68,
+          "spawnDistance": 173.5655495770978,
+          "pressure": false,
+          "sprite": null
+        }
+      ]
+    },
+    {
+      "stage": "12-codebreak",
+      "phase": 2,
+      "mode": "fixed",
+      "observedTicks": 2400,
+      "emissionCount": 21,
+      "peakPressure": 2,
+      "firstPressureTick": 780,
+      "pressureStyles": [
+        "roller",
+        "diamond"
+      ],
+      "fastestAuthored": 9,
+      "fastestRuntime": 7.974683544303797,
+      "distinct": [
+        {
+          "tick": 2250,
+          "source": "12-codebreak/summit-scanner",
+          "rule": "dash",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 7.974683544303797,
+          "windup": 75,
+          "active": 158,
+          "spawnDistance": 1042.1612159354233,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2130,
+          "source": "12-codebreak/warrant-drop",
+          "rule": "ordinary",
+          "authoredSpeed": 9,
+          "runtimeSpeed": 5.955882352941177,
+          "windup": 75,
+          "active": 68,
+          "spawnDistance": 173.5655495770978,
+          "pressure": false,
+          "sprite": null
+        },
+        {
+          "tick": 2220,
+          "source": "codebreak-warrants",
+          "rule": "ordinary",
+          "authoredSpeed": 2.4,
+          "runtimeSpeed": 2.4,
+          "windup": 90,
+          "active": 625,
+          "spawnDistance": 976.092208758988,
+          "pressure": true,
+          "sprite": "roller"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "file": "stages/01-marina/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -9,
+          "line": 8
+        },
+        {
+          "axis": "vy",
+          "value": 0,
+          "line": 8
+        },
+        {
+          "axis": "vx",
+          "value": -12,
+          "line": 74
+        },
+        {
+          "axis": "vy",
+          "value": 0,
+          "line": 74
+        }
+      ]
+    },
+    {
+      "file": "stages/02-last-light/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -7,
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": "stages/03-mudline/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -9,
+          "line": 36
+        },
+        {
+          "axis": "vx",
+          "value": -10,
+          "line": 69
+        }
+      ]
+    },
+    {
+      "file": "stages/04-ranch/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -7,
+          "line": 5
+        },
+        {
+          "axis": "vx",
+          "value": 0,
+          "line": 10
+        },
+        {
+          "axis": "vy",
+          "value": 0,
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "stages/05-neon/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -8,
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "stages/06-circuit/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -8,
+          "line": 7
+        },
+        {
+          "axis": "vx",
+          "value": -12,
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "stages/07-moonkeep/stage.js",
+      "velocityLiterals": []
+    },
+    {
+      "file": "stages/08-crown/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -14,
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "stages/09-hatchery/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -3,
+          "line": 4
+        },
+        {
+          "axis": "vx",
+          "value": -6,
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "stages/10-verse/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": -9,
+          "line": 55
+        }
+      ]
+    },
+    {
+      "file": "stages/11-rooftop/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vx",
+          "value": 0,
+          "line": 59
+        },
+        {
+          "axis": "vy",
+          "value": 0,
+          "line": 59
+        }
+      ]
+    },
+    {
+      "file": "stages/12-codebreak/stage.js",
+      "velocityLiterals": [
+        {
+          "axis": "vy",
+          "value": 9,
+          "line": 53
+        },
+        {
+          "axis": "vx",
+          "value": -9,
+          "line": 73
+        },
+        {
+          "axis": "vx",
+          "value": -9,
+          "line": 100
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Damage, falls and target damage disabled for observation: these are not legal clears.",
+    "Neutral inputs cannot reach traversal-gated encounters. Source literals may include player/entity motion and miss computed velocities.",
+    "Spawn distance is Euclidean top-left distance, not collision time or human reaction time. Warning and travel must be assessed with actual player route.",
+    "No human playtesting or difficulty proof."
+  ]
+}

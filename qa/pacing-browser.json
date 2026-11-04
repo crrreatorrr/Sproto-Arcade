@@ -1,0 +1,293 @@
+{
+  "build": "876eb0d158cb8fd9986f6aa60a27030da044982c",
+  "workingTree": "",
+  "kind": "actual-browser-synthetic-projectile-rendering",
+  "status": "passed",
+  "rows": [
+    {
+      "url": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "bolt",
+          "loaded": true,
+          "width": 300
+        },
+        {
+          "style": "orb",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "seed",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "diamond",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "roller",
+          "loaded": true,
+          "width": 250
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/art/gameplay/projectiles/bolt.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/art/gameplay/projectiles/orb.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/art/gameplay/projectiles/seed.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/art/gameplay/projectiles/diamond.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "file:///Users/kenhiraoka/Documents/Codex/2026-11-03/task/arcade-gameplay/art/gameplay/projectiles/roller.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        }
+      ],
+      "warningCollisionOutlines": 5,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 16,
+      "hazards": [
+        {
+          "sprite": "bolt",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            300,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "orb",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            460,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "seed",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            620,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "diamond",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            780,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "roller",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            940,
+            420,
+            32,
+            28
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    },
+    {
+      "url": "http://127.0.0.1:5202/index.html",
+      "status": "passed",
+      "images": [
+        {
+          "style": "bolt",
+          "loaded": true,
+          "width": 300
+        },
+        {
+          "style": "orb",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "seed",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "diamond",
+          "loaded": true,
+          "width": 150
+        },
+        {
+          "style": "roller",
+          "loaded": true,
+          "width": 250
+        }
+      ],
+      "projectileDraws": [
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/bolt.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/orb.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/seed.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/diamond.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        },
+        {
+          "src": "http://127.0.0.1:5202/art/gameplay/projectiles/roller.svg",
+          "box": [
+            -16,
+            -14,
+            32,
+            28
+          ]
+        }
+      ],
+      "warningCollisionOutlines": 5,
+      "dashedWarnings": true,
+      "trajectoryLineSegments": 16,
+      "hazards": [
+        {
+          "sprite": "bolt",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            300,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "orb",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            460,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "seed",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            620,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "diamond",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            780,
+            420,
+            32,
+            28
+          ]
+        },
+        {
+          "sprite": "roller",
+          "speed": 2.5,
+          "windup": 75,
+          "box": [
+            940,
+            420,
+            32,
+            28
+          ]
+        }
+      ],
+      "exceptions": [],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Synthetic hazard arrangement checks actual renderer/image loading; it is not a played encounter or clear.",
+    "Canvas traces establish draw calls and collision-outline coordinates, not human comprehension.",
+    "Campaign legal-input controllers and human playtesting remain separate."
+  ]
+}
