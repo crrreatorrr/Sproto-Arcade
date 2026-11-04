@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "kind": "playtest-form-behavior-only",
+  "initialBlankAndIncomplete": true,
+  "emptyExport": {
+    "participants": 0,
+    "studyStatus": "incomplete",
+    "primaryTarget": "pending",
+    "humanApproval": false
+  },
+  "localStorageRoundTrip": true,
+  "syntheticDataCleared": true,
+  "actualHumanParticipants": 0,
+  "errors": [],
+  "limitations": [
+    "Synthetic form storage check only; no participant or gameplay result.",
+    "Blank exported JSON and temporary browser profile were removed after validation."
+  ]
+}
