@@ -1,6 +1,6 @@
 {
-  "build": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
-  "workingTree": "M README.md\n M art-review.html\n M docs/GATES.md\n M rework.js\n?? docs/ANIMATION-PRODUCTION.md\n?? docs/HIGGSFIELD-HANDOFF.md\n?? docs/higgsfield-autosprite-model.json",
+  "build": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+  "workingTree": "",
   "kind": "all-boss-two-phase-placeholder-animation-review",
   "sampling": "Actual file:// Chrome rendering; RAF frozen; neutral diagnostic simulation at phase ticks0,60,120,240; extra camera-only boss framing. No earned clear or human gameplay claim.",
   "stageCount": 12,
@@ -8,24 +8,6 @@
   "screenshotCount": 120,
   "productionAnimationClips": 0,
   "assetPacks": [
-    {
-      "id": "bosses/01-marina",
-      "productionApproved": false,
-      "clips": 0,
-      "generationIds": 0
-    },
-    {
-      "id": "bosses/07-moonkeep",
-      "productionApproved": false,
-      "clips": 0,
-      "generationIds": 0
-    },
-    {
-      "id": "bosses/11-rooftop",
-      "productionApproved": false,
-      "clips": 0,
-      "generationIds": 0
-    },
     {
       "id": "weapons/prism-rail",
       "productionApproved": false,
@@ -43,9 +25,81 @@
       "productionApproved": false,
       "clips": 0,
       "generationIds": 0
+    },
+    {
+      "id": "bosses/01-marina",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/02-last-light",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/03-mudline",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/04-ranch",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/05-neon",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/06-circuit",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/07-moonkeep",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/08-crown",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/09-hatchery",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/10-verse",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/11-rooftop",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
+    },
+    {
+      "id": "bosses/12-codebreak",
+      "productionApproved": false,
+      "clips": 0,
+      "generationIds": 0
     }
   ],
-  "privateCaptureDirectory": "/tmp/arcade-animation-review-9T4cAs",
+  "privateCaptureDirectory": "/tmp/arcade-animation-review-KNdZLC",
   "errors": [],
   "rows": [
     {
@@ -89,7 +143,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t0.png",
           "sha256": "5fa3dd257977391ac2ee09a6414d80b514293a74613c0356999ebb25818a2571"
         },
         {
@@ -127,7 +181,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t60.png",
           "sha256": "d53018c2f0615d2ea498093f5b40582dbd7e0417175ed61e37c8fbfbb21882f8"
         },
         {
@@ -175,7 +229,7 @@
               "y": 568
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t120.png",
           "sha256": "74c2e7d95d600c78b329351fd8d6790553a1f38b4ca9e9491d96b6596b4d8d8e"
         },
         {
@@ -223,7 +277,7 @@
               "y": 568
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-t240.png",
           "sha256": "12c1e198c82fd1c5c95227149f94e240290e303a02aa10d5c04b6b582dae4019"
         }
       ],
@@ -233,7 +287,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -244,7 +298,10 @@
         "terminalOutcomeRecommendation": "Pressure overload opens relief stack, piston locks safely down, tug engine sputters out; Dave releases throttle and remains visibly safe in stopped wheelhouse.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "01-marina-p1.png"
@@ -298,7 +355,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t0.png",
           "sha256": "2f0f592a36d9f17eefdecb140f982e55c558788f39db7713acc845f8ae601960"
         },
         {
@@ -354,7 +411,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t60.png",
           "sha256": "1ad8784add8c77e34a907d11ab2cc1ce89479842a174520b6592f7e5fb647826"
         },
         {
@@ -410,7 +467,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t120.png",
           "sha256": "c8f3500ea05ee4668dde237f362228c8ac75d1a844a1ac72029c64710adac5e6"
         },
         {
@@ -456,7 +513,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-t240.png",
           "sha256": "eb01d6f193b765325f278be374499008635eb94d189bdc17b5e5b64efd202196"
         }
       ],
@@ -466,7 +523,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/01-marina-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/01-marina-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -477,7 +534,10 @@
         "terminalOutcomeRecommendation": "Pressure overload opens relief stack, piston locks safely down, tug engine sputters out; Dave releases throttle and remains visibly safe in stopped wheelhouse.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "01-marina-p2.png"
@@ -523,7 +583,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t0.png",
           "sha256": "ee5f11441358e68bf078c96e1f1dbc7c5b82343675ab56cd60fbc9f3a2d64e30"
         },
         {
@@ -561,7 +621,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t60.png",
           "sha256": "9da922ed7da4c767ef6b1b32608164457c7519733977ab403ca6e1122b40febd"
         },
         {
@@ -609,7 +669,7 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t120.png",
           "sha256": "f00b9cfbacf02ecb33ac5066283876eecf1e5b2fefbe3bf10f4a3574f440107c"
         },
         {
@@ -647,7 +707,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-t240.png",
           "sha256": "a93cfab8c2da205d156532480f4b0ff53c6a235d1bd018132d037ce0d1ee6110"
         }
       ],
@@ -657,7 +717,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -668,7 +728,10 @@
         "terminalOutcomeRecommendation": "Projector iris fractures internally and shutters close; gantry sags into a safety stop, Morelight lowers the controls and steps away from the dark lens.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "02-last-light-p1.png"
@@ -714,7 +777,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t0.png",
           "sha256": "d2c9dd36a06d91cd89d905b2d460a9f5411b0ba20d69fd04a89ed7eb126a1960"
         },
         {
@@ -752,7 +815,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t60.png",
           "sha256": "fee51d412f0acda33e206e050fb7e5f2b651927b7688cf587e89012267e5279e"
         },
         {
@@ -800,7 +863,7 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t120.png",
           "sha256": "aedecf1a1fc4af8eedf6d364e8fe4ceae7ac749644f1426e8119f9df669085ff"
         },
         {
@@ -838,7 +901,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-t240.png",
           "sha256": "3ff10886be15660e7c3758033ecc1dc8a56b4ea390c026192d45268885984ec1"
         }
       ],
@@ -848,7 +911,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/02-last-light-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/02-last-light-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -859,7 +922,10 @@
         "terminalOutcomeRecommendation": "Projector iris fractures internally and shutters close; gantry sags into a safety stop, Morelight lowers the controls and steps away from the dark lens.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "02-last-light-p2.png"
@@ -905,7 +971,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t0.png",
           "sha256": "c942f95d0d7a471b4b974c3a5c26dd7d609bece1055a6b97fa3441423a4b57f6"
         },
         {
@@ -943,7 +1009,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t60.png",
           "sha256": "a05f9465f691d0c4cc4236ae79606d66ab9f85adb45d502613bebd78891ea30a"
         },
         {
@@ -981,7 +1047,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t120.png",
           "sha256": "3b014678b919719dda14af77be870c6c29ba594a4a54728919c23da781176906"
         },
         {
@@ -1029,7 +1095,7 @@
               "y": 309
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-t240.png",
           "sha256": "d2062563dcc27b2033105103009f36d3150b8941cbb5ac663956d2a543cc915b"
         }
       ],
@@ -1039,7 +1105,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1050,7 +1116,10 @@
         "terminalOutcomeRecommendation": "Pump backpressure vents upward, glass belly drains, shutters lower into locked-safe position; Crapto shuts the intake lever and the machine goes still.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "03-mudline-p1.png"
@@ -1112,7 +1181,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t0.png",
           "sha256": "4f4730624940aade03c0353079ce83b37ab5d194deaa4f6d9ba9fadbfa9e76eb"
         },
         {
@@ -1166,7 +1235,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t60.png",
           "sha256": "c689beb313d92ded0eff5a3d073eeb818352a5338ea082b83ebd7ce4f3d8c65f"
         },
         {
@@ -1220,7 +1289,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t120.png",
           "sha256": "ab98ca6f4adbd67c0fa1bfc47ab2aaaa9f1140c28d018513cc6d09871d47567e"
         },
         {
@@ -1274,7 +1343,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-t240.png",
           "sha256": "dbba8ace8de9c8d3be6e8cdeda2a1be41188cbd5139ed634f50852162e8aea28"
         }
       ],
@@ -1284,7 +1353,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/03-mudline-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/03-mudline-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1295,7 +1364,10 @@
         "terminalOutcomeRecommendation": "Pump backpressure vents upward, glass belly drains, shutters lower into locked-safe position; Crapto shuts the intake lever and the machine goes still.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "03-mudline-p2.png"
@@ -1342,7 +1414,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t0.png",
           "sha256": "db65249d2fdaf542a27b1c764fbbb98d1e3703cb064df38cc32dd3841738a133"
         },
         {
@@ -1381,7 +1453,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t60.png",
           "sha256": "73df552b7eca49f983859f6b4a7871d971c022a353e1d8cff2623ac116e9a787"
         },
         {
@@ -1430,7 +1502,7 @@
               "y": 567
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t120.png",
           "sha256": "8b32574f7b60c2bec17525223d622a1f2ab480f86cca783f5ff969b088fc5a23"
         },
         {
@@ -1479,7 +1551,7 @@
               "y": 567
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-t240.png",
           "sha256": "92177ea5a2296fd0dcba59eb2453fdd0ae92769d6a73030b040e2d45d908a3d0"
         }
       ],
@@ -1489,7 +1561,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1500,7 +1572,10 @@
         "terminalOutcomeRecommendation": "Engine linkage shears, detached drive spins down and cars brake in staggered order; lantern remains lit as Halloween2008 pulls the emergency stop.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "04-ranch-p1.png"
@@ -1547,7 +1622,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t0.png",
           "sha256": "63d8352826a7bbe776f99b649c125df04aeb7e463f6b98f7af822a9b20817470"
         },
         {
@@ -1596,7 +1671,7 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t60.png",
           "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
         },
         {
@@ -1645,7 +1720,7 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t120.png",
           "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
         },
         {
@@ -1694,7 +1769,7 @@
               "y": -1000
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-t240.png",
           "sha256": "f7bceb20e9f0862d76ead1608b10ee2ac5abd3e7619d399a8a875286c1ebfb13"
         }
       ],
@@ -1704,7 +1779,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/04-ranch-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/04-ranch-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1715,7 +1790,10 @@
         "terminalOutcomeRecommendation": "Engine linkage shears, detached drive spins down and cars brake in staggered order; lantern remains lit as Halloween2008 pulls the emergency stop.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "04-ranch-p2.png"
@@ -1762,7 +1840,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t0.png",
           "sha256": "949915c4b2e2724601165d69e7a9ad16b8c1d05dce432ea15bfc8e4c99db11d0"
         },
         {
@@ -1801,7 +1879,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t60.png",
           "sha256": "d32e5a803e3daf9fa849cfb2475e4aa781915ac89636056c89e2afc9c2944ac6"
         },
         {
@@ -1840,7 +1918,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t120.png",
           "sha256": "636b1ae26e4af3523ef6370e9b66758e09f683de5ffd56369b151ef2ee80e733"
         },
         {
@@ -1889,7 +1967,7 @@
               "y": 552
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-t240.png",
           "sha256": "ca1a0153a9308fdc61b03696a8eedbd6bb4aa528cccb790d5fae8d3707a66133"
         }
       ],
@@ -1899,7 +1977,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -1910,7 +1988,10 @@
         "terminalOutcomeRecommendation": "Magnet polarity flips, scrap drops into a contained bin, winch cable loses tension and signs settle onto stops; Collector parks the gantry with hands off controls.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "05-neon-p1.png"
@@ -1937,14 +2018,14 @@
           },
           "pilot": {
             "x": 1130,
-            "y": 185,
+            "y": 285,
             "scale": 80
           },
           "pilotHeight": 80,
           "pilotScreen": {
             "x": 1130,
-            "feet": 185,
-            "top": 105
+            "feet": 285,
+            "top": 205
           },
           "targets": [
             {
@@ -1957,8 +2038,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p2-t0.png",
-          "sha256": "e671deb7cfbfd4edc2d23a9b1597edbaf28ccfab461a8d5378390a1c2e0352d9"
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t0.png",
+          "sha256": "33d47574809c46ab3052add1bc4b144c3d9ac1dfad97579b63cfb0282d38b914"
         },
         {
           "tick": 60,
@@ -1976,14 +2057,14 @@
           },
           "pilot": {
             "x": 1130,
-            "y": 185,
+            "y": 285,
             "scale": 80
           },
           "pilotHeight": 80,
           "pilotScreen": {
             "x": 1130,
-            "feet": 185,
-            "top": 105
+            "feet": 285,
+            "top": 205
           },
           "targets": [
             {
@@ -1996,8 +2077,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p2-t60.png",
-          "sha256": "ff56e18484554b78ae56e39bd41dddedd12216272f5d32ca0795fea94ab02658"
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t60.png",
+          "sha256": "e0f85e0bf2220a9dff871bd39b8c18b9b802cf4458b2b03163c31d2b504f011a"
         },
         {
           "tick": 120,
@@ -2015,14 +2096,14 @@
           },
           "pilot": {
             "x": 1130,
-            "y": 185,
+            "y": 285,
             "scale": 80
           },
           "pilotHeight": 80,
           "pilotScreen": {
             "x": 1130,
-            "feet": 185,
-            "top": 105
+            "feet": 285,
+            "top": 205
           },
           "targets": [
             {
@@ -2035,8 +2116,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p2-t120.png",
-          "sha256": "d0d23ebc5789a386dccd4621322d945963783fcb3dbb6cfa6ce712c7652e5ea7"
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t120.png",
+          "sha256": "885b37efa400945e263ed1b04e05c229f3b78174e8b62a1a96f8276a03ff3fd7"
         },
         {
           "tick": 240,
@@ -2054,14 +2135,14 @@
           },
           "pilot": {
             "x": 1130,
-            "y": 185,
+            "y": 285,
             "scale": 80
           },
           "pilotHeight": 80,
           "pilotScreen": {
             "x": 1130,
-            "feet": 185,
-            "top": 105
+            "feet": 285,
+            "top": 205
           },
           "targets": [
             {
@@ -2074,8 +2155,8 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p2-t240.png",
-          "sha256": "fb7247b3c97994ae25665df46aa566845fe3a3485973a0c01351e84c8d60b764"
+          "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-t240.png",
+          "sha256": "13f88f778b39ed27860cb7908e27870f35093d1d74e58d637ae022de160b7f2f"
         }
       ],
       "diagnosticBossFrame": {
@@ -2084,7 +2165,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/05-neon-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/05-neon-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2095,7 +2176,10 @@
         "terminalOutcomeRecommendation": "Magnet polarity flips, scrap drops into a contained bin, winch cable loses tension and signs settle onto stops; Collector parks the gantry with hands off controls.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "CORRECTED at final pin: Collector feet285, sprite top205, fully below HUD/cue. Source and screenshot verify cab moved down100px. Historical initial-review pilot occlusion no longer applies. Billboard title still sits close to cue strip and drive label crowds pilot feet; cosmetic hierarchy review remains."
       },
       "productionApproval": false,
       "reviewKeyframe": "05-neon-p2.png"
@@ -2157,7 +2241,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t0.png",
           "sha256": "bbabf865aaaeeef5bfba1d7f3a91b8882fd3eeaf48f63689b22c0a15f6d753c1"
         },
         {
@@ -2221,7 +2305,7 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t60.png",
           "sha256": "cd7a2631ddfd1f39d3cd22465032b2ae87cb858c54a6f6d03cae1e522a440112"
         },
         {
@@ -2285,7 +2369,7 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t120.png",
           "sha256": "098c8541b9e42a2cc060e5e8b103c428a2f1517086a422c7b8971f09a20c4374"
         },
         {
@@ -2349,7 +2433,7 @@
               "y": 566
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-t240.png",
           "sha256": "f0b6a1301ca717623bea0d715db474b01212f3b5692ec23066078432a3a13ece"
         }
       ],
@@ -2359,7 +2443,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2370,7 +2454,10 @@
         "terminalOutcomeRecommendation": "Broken transfer circuit cascades through nodes, cables discharge into grounded rods and spider legs fold into the gate; Bongraker removes the relay key.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "06-circuit-p1.png"
@@ -2416,7 +2503,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t0.png",
           "sha256": "3c83304a5e3625085aba2ea5d28ef238ec58c905476dad5e35fb3046d2c2efa9"
         },
         {
@@ -2472,7 +2559,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t60.png",
           "sha256": "b34e70f493903827b745b2bace463d010cff04384e08e781a34025017a835de4"
         },
         {
@@ -2528,7 +2615,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t120.png",
           "sha256": "b9bf470e7b7c81a8a020416efcb60c214d0e2154786a27529ea69109b266c2ca"
         },
         {
@@ -2584,7 +2671,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-t240.png",
           "sha256": "b50bc28f80ba58280accd8f9967587b095b3a7ebd48a4c8bec06282e28d48404"
         }
       ],
@@ -2594,7 +2681,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/06-circuit-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/06-circuit-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2605,7 +2692,10 @@
         "terminalOutcomeRecommendation": "Broken transfer circuit cascades through nodes, cables discharge into grounded rods and spider legs fold into the gate; Bongraker removes the relay key.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "06-circuit-p2.png"
@@ -2651,7 +2741,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t0.png",
           "sha256": "1e7a9fed6faf181fb638c54dae5fb5aef0889dd72cd216f150eb5eddbfb55ad4"
         },
         {
@@ -2699,7 +2789,7 @@
               "y": 545
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t60.png",
           "sha256": "6826dd97787c3d19dad047d6445e6c4635e50179fed4aa0bcc918089269271fd"
         },
         {
@@ -2747,7 +2837,7 @@
               "y": 545
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t120.png",
           "sha256": "fe9c91f50ac3ad77690af1c22b525db59d26fadaf9c4d75e48984dfded7007e2"
         },
         {
@@ -2785,7 +2875,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-t240.png",
           "sha256": "8ee5a4d886efe6a2a3d3411d0e737a9f91a9ddc8b636433642ae05c59ccb3945"
         }
       ],
@@ -2795,7 +2885,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2806,7 +2896,10 @@
         "terminalOutcomeRecommendation": "Neck joint breaks its drive pin, armored jaw settles against the battlement and tail uncoils; BigSwole dismounts onto intact rampart as the anchored machine powers down.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "07-moonkeep-p1.png"
@@ -2852,7 +2945,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t0.png",
           "sha256": "a05137e3841f40acd9b37ad3346ef8e3f0135abd7f4d482beec7c87a3b7be037"
         },
         {
@@ -2890,7 +2983,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t60.png",
           "sha256": "aa26d4ea617af4af247153b9127536bf4e0862b7998aa0186a584c608b3ebf59"
         },
         {
@@ -2928,7 +3021,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t120.png",
           "sha256": "4a5e69b2454da66e381e2328e18fb640320777ea65cb0dfd4a7ad91ac5b0b9aa"
         },
         {
@@ -2966,7 +3059,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-t240.png",
           "sha256": "4dae5783ff53645ceb2d93aaa295bced0910ea3a9686cfcb453611c369b19ca9"
         }
       ],
@@ -2976,7 +3069,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/07-moonkeep-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/07-moonkeep-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -2987,7 +3080,10 @@
         "terminalOutcomeRecommendation": "Neck joint breaks its drive pin, armored jaw settles against the battlement and tail uncoils; BigSwole dismounts onto intact rampart as the anchored machine powers down.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "07-moonkeep-p2.png"
@@ -3033,7 +3129,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t0.png",
           "sha256": "bc89bce901bc291bd74d9779024f96f8364b5a7aed542967713c429207e5c508"
         },
         {
@@ -3071,7 +3167,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t60.png",
           "sha256": "a0b0bb34fdf9f352eb955d5d5c79b08d7b2ec4da278d3b2d95f915f6e2b7e5d3"
         },
         {
@@ -3119,7 +3215,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t120.png",
           "sha256": "1631f218a60d47d238efa2e18fb83f7a7852d892cf3e546d8089d96c5cd588d6"
         },
         {
@@ -3157,7 +3253,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-t240.png",
           "sha256": "d6980a01d2c6be5626c487d4a8b30b72f6e07b2497abfed6be40712af422bdad"
         }
       ],
@@ -3167,7 +3263,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3178,7 +3274,10 @@
         "terminalOutcomeRecommendation": "Reels jam on mismatched symbols, lance folds away, rail brake sparks and sled rolls into a padded stop; Alpha777 raises empty hands from the intact cockpit.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "08-crown-p1.png"
@@ -3232,7 +3331,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t0.png",
           "sha256": "afb958b317eaa32b3271978b1850aded5d9a0c179b59dd276e2dff5630e0a20a"
         },
         {
@@ -3278,7 +3377,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t60.png",
           "sha256": "ba1bdc1401239bf93b9e617bbc0112339bf3a29612820813c973a2275744a0ac"
         },
         {
@@ -3334,7 +3433,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t120.png",
           "sha256": "8b430a094e89fec49c81b0dcd7af3bb907bb74c2056288d4a5411ff3da33fba0"
         },
         {
@@ -3380,7 +3479,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-t240.png",
           "sha256": "5923444220d58efcb876b0c2e36386ed34e9262c32c521b991b16647444758b9"
         }
       ],
@@ -3390,7 +3489,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/08-crown-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/08-crown-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3401,7 +3500,10 @@
         "terminalOutcomeRecommendation": "Reels jam on mismatched symbols, lance folds away, rail brake sparks and sled rolls into a padded stop; Alpha777 raises empty hands from the intact cockpit.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "08-crown-p2.png"
@@ -3471,7 +3573,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t0.png",
           "sha256": "aee5126c0bb2662a77959d0733b05fd869ac7fea62cd8445426787ec83584050"
         },
         {
@@ -3533,7 +3635,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t60.png",
           "sha256": "8f22457f19c69606be4e2c2ab311454c450655940a102a620e3cb34315966f49"
         },
         {
@@ -3595,7 +3697,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t120.png",
           "sha256": "f9e0577fdca40fed6833fef34fdf104a13ff6e8c012a8ec70347ea465298ed01"
         },
         {
@@ -3657,7 +3759,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-t240.png",
           "sha256": "a9be2f528768b5db6905890f200c13ace2d321890f23a2dc1c991a95608caa85"
         }
       ],
@@ -3667,7 +3769,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3678,7 +3780,10 @@
         "terminalOutcomeRecommendation": "Pressure gauge falls to zero, conveyor indexes remaining pods into safe cradles and tracks lock; HighSproto closes the incubation controls and exits the stopped cab.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "09-hatchery-p1.png"
@@ -3732,7 +3837,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t0.png",
           "sha256": "d3f5609da828ecabab52a897082bf685e80d31ae84ffd294857d11bd68dfc745"
         },
         {
@@ -3778,7 +3883,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t60.png",
           "sha256": "53c7b98b5db05a110d7343dca41c437e1f0b363d3660978cb36e143f24a1dcbd"
         },
         {
@@ -3824,7 +3929,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t120.png",
           "sha256": "f6a11e4d44a616e33aed69fa3136df635cbcc49065baf22fe3571d6295e995fc"
         },
         {
@@ -3878,7 +3983,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-t240.png",
           "sha256": "ebf26ce3889088d5249c99e1afd801578ba06482c77f10f302ba6e29776e14fb"
         }
       ],
@@ -3888,7 +3993,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/09-hatchery-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/09-hatchery-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -3899,7 +4004,10 @@
         "terminalOutcomeRecommendation": "Pressure gauge falls to zero, conveyor indexes remaining pods into safe cradles and tracks lock; HighSproto closes the incubation controls and exits the stopped cab.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "09-hatchery-p2.png"
@@ -3973,7 +4081,7 @@
               "y": 435
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t0.png",
           "sha256": "9384cef159cd26eeb1f7b6c841d665a66239e25a9dbe21d0cadeaa5c2d6282be"
         },
         {
@@ -4039,7 +4147,7 @@
               "y": 435
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t60.png",
           "sha256": "70567f981aa0e4685f8d37c8558e0f68408a85eaa0296782b0bf84137963fe72"
         },
         {
@@ -4114,7 +4222,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t120.png",
           "sha256": "cfeafceea13d2b384ac6e4e79af93939e1618b5a507e0ac1faeec8e28bac20d8"
         },
         {
@@ -4189,7 +4297,7 @@
               "y": 0
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-t240.png",
           "sha256": "2717e2cc6a09d3434eea245a8fcd74cef373e01c098cc9ecce79f5b9df3cd0b9"
         }
       ],
@@ -4199,7 +4307,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4210,7 +4318,10 @@
         "terminalOutcomeRecommendation": "Orbital modules sequentially lose power and dock around the central cabin, offer panels retract and carrier drifts away on emergency thrust; BotSales remains inside intact cabin.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "10-verse-p1.png"
@@ -4256,7 +4367,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t0.png",
           "sha256": "5a7357d74c2877efddb2729d4f3d07d68546b011f111479f14fbbe92d0ec481a"
         },
         {
@@ -4294,7 +4405,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t60.png",
           "sha256": "139f0a01faa62c00d68d4f55f15ce628399df2acc71e7c1fdb75b46f7651bea0"
         },
         {
@@ -4332,7 +4443,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t120.png",
           "sha256": "71d8cfe96011438368572c44b6614b1a490aefa2e5efd0ba2a6ee6c94093493f"
         },
         {
@@ -4370,7 +4481,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-t240.png",
           "sha256": "80161102edca1d14c75dc26871c0e36628ccbefa7a4fa9d011ddbb58360247fb"
         }
       ],
@@ -4380,7 +4491,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/10-verse-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/10-verse-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4391,7 +4502,10 @@
         "terminalOutcomeRecommendation": "Orbital modules sequentially lose power and dock around the central cabin, offer panels retract and carrier drifts away on emergency thrust; BotSales remains inside intact cabin.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "10-verse-p2.png"
@@ -4429,7 +4543,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t0.png",
           "sha256": "6db8407f696063349967285b2718efe9b2cf1814ee1d203ecbd242e8f8f7990b"
         },
         {
@@ -4459,7 +4573,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t60.png",
           "sha256": "d0734a6fe4295875740abeef6ef1d5d67b80301d71e348a31a41658fccf08a2f"
         },
         {
@@ -4489,7 +4603,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t120.png",
           "sha256": "08ae4e78236a50e1cd11376323e06e6cc4b19f1b761fd4aec9604a4ed2542863"
         },
         {
@@ -4519,7 +4633,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-t240.png",
           "sha256": "fcd2e5ff6aeae1435d7bd3ae09087bde303eead79368a06a4c270d9fecf1e8be"
         }
       ],
@@ -4529,7 +4643,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4540,7 +4654,10 @@
         "terminalOutcomeRecommendation": "ESCAPE, not pilot death: Goldie banks clear of the exit, retracts aim and glides away on trailing exhaust while player reaches extraction; retain readable surviving silhouette.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "11-rooftop-p1.png"
@@ -4578,7 +4695,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t0.png",
           "sha256": "8c28826ca3828f1e742c008a3d41e4d1fef5e82722e6dac6a3152868f4a51556"
         },
         {
@@ -4608,7 +4725,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t60.png",
           "sha256": "f368a7bf7b6ec02bb4b5c805872bb18166f990b059530f0552e85b98d9a9d6ac"
         },
         {
@@ -4638,7 +4755,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t120.png",
           "sha256": "ac90d8603bbfff8e2ba678edf008b9c5e2a2f466dcd100e797e8e9127d222380"
         },
         {
@@ -4668,7 +4785,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-t240.png",
           "sha256": "fc6ea7bf31ae7610ce8472ea836af9a1210c9fd0acb7d347191210813b0e2305"
         }
       ],
@@ -4678,7 +4795,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/11-rooftop-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/11-rooftop-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4689,7 +4806,10 @@
         "terminalOutcomeRecommendation": "ESCAPE, not pilot death: Goldie banks clear of the exit, retracts aim and glides away on trailing exhaust while player reaches extraction; retain readable surviving silhouette.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "11-rooftop-p2.png"
@@ -4726,7 +4846,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p1-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t0.png",
           "sha256": "5968c641a6a4329db2fac81cf27f6ac779abb678ad97d439f818f5296d5a43c3"
         },
         {
@@ -4755,7 +4875,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p1-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t60.png",
           "sha256": "683808799c51ff44c4da46a99161413c0b4a6de845d47c83f10932ae96c2f9c9"
         },
         {
@@ -4784,7 +4904,7 @@
           },
           "targets": [],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p1-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t120.png",
           "sha256": "215b795e670cc1218d0798a0632e64bf60b82b7c0cc0667cfecab3457ead76a3"
         },
         {
@@ -4823,7 +4943,7 @@
               "y": 695
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p1-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-t240.png",
           "sha256": "3b9ea15d231e5e4b359622f20771c0412f7d4ccf8e57021b33ceb6b0198170ef"
         }
       ],
@@ -4833,7 +4953,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p1-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p1-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -4844,7 +4964,10 @@
         "terminalOutcomeRecommendation": "Scanner overload folds emitter, vent pressure dumps, anchored knees compress and all lamps go dark in sequence; Sheriff holsters the warrant tool and exits the stopped rig.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "12-codebreak-p1.png"
@@ -4914,7 +5037,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p2-t0.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t0.png",
           "sha256": "0944d9f6f28ebeaf47482bdcaabebf7bbf62c37fc1ebce01983c648234cb3887"
         },
         {
@@ -4976,7 +5099,7 @@
             }
           ],
           "hazards": [],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p2-t60.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t60.png",
           "sha256": "4938a54b62bbea17f2c4c677551754ff961d61800d1d17c9e511d636f5ad9211"
         },
         {
@@ -5048,7 +5171,7 @@
               "y": 150
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p2-t120.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t120.png",
           "sha256": "724a4200b5d2c041d34873cdc40830697ad06bc0a87c1c1a7d57c8333716e49a"
         },
         {
@@ -5120,7 +5243,7 @@
               "y": 150
             }
           ],
-          "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p2-t240.png",
+          "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-t240.png",
           "sha256": "824639b0a228f48d0001086f801fe84d173063a8fed7c72d2af00ad0915f68ee"
         }
       ],
@@ -5130,7 +5253,7 @@
           "y": 0
         },
         "diagnosticOnly": true,
-        "capture": "/tmp/arcade-animation-review-9T4cAs/12-codebreak-p2-boss-frame.png"
+        "capture": "/tmp/arcade-animation-review-KNdZLC/12-codebreak-p2-boss-frame.png"
       },
       "review": {
         "status": "prototype-reviewed; production-not-approved",
@@ -5141,7 +5264,10 @@
         "terminalOutcomeRecommendation": "Scanner overload folds emitter, vent pressure dumps, anchored knees compress and all lamps go dark in sequence; Sheriff holsters the warrant tool and exits the stopped rig.",
         "productionClipsObserved": 0,
         "terminalProductionClipsObserved": 0,
-        "criticalPoseSignoff": false
+        "criticalPoseSignoff": false,
+        "initialReviewBuild": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+        "finalCaptureBuild": "e1c9dbce3b3571ae0c24d2249b4d96468fbafbe3",
+        "finalPinObservation": "Refreshed all four neutral diagnostic tick samples and boss framing; no browser errors. Findings about missing final clips and machine articulation remain prototype review."
       },
       "productionApproval": false,
       "reviewKeyframe": "12-codebreak-p2.png"
@@ -5164,5 +5290,25 @@
     "Screenshot changes can be caused by autofire/HUD; differences alone do not prove machine articulation.",
     "No final clips, transformation animations or boss-specific terminal animations are integrated.",
     "No Higgsfield generation, spend, production signoff or earned-clear claim."
-  ]
+  ],
+  "history": [
+    {
+      "build": "e04d5f6c2829d87ddb9ef10e1deb72fa72eccfaf",
+      "kind": "initial all24phase source/motion review",
+      "errors": [],
+      "privateCaptureDirectory": "/tmp/arcade-animation-review-9T4cAs",
+      "note": "Initial findings retained per row; representative keyframes now show final clean pin."
+    }
+  ],
+  "finalRefresh": {
+    "status": "diagnostic-render-pass; human-art-approval-not-asserted",
+    "cleanCheckout": true,
+    "phaseCount": 24,
+    "exactTickSamples": 96,
+    "additionalDiagnosticBossFrames": 24,
+    "contactKeyframes": 24,
+    "neonPilotOcclusion": "corrected; feet285 top205",
+    "inactivePlatformRendering": "final source renderer suppresses active===false platforms; capture uses this version",
+    "productionClips": 0
+  }
 }

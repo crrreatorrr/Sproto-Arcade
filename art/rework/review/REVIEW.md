@@ -1,6 +1,6 @@
 # All-boss, both-phase animation review
 
-Reviewed build `e04d5f6` from the integration checkout. Twelve bosses, twenty-four phase entries, 96 exact-tick offline renders (0/60/120/240) plus 24 camera-only diagnostic boss frames. Chrome reported **zero errors**. One game-only keyframe per phase is tracked here; the other captures remain private scratch.
+Initial source/motion findings reviewed build `e04d5f6`; all keyframes and exact-tick browser evidence refreshed from the clean final code pin `e1c9dbc`. Twelve bosses, twenty-four phase entries, 96 exact-tick offline renders (0/60/120/240) plus 24 camera-only diagnostic boss frames. Chrome reported **zero errors**. One game-only keyframe per phase is tracked here; the other captures remain private scratch.
 
 **Current production animation coverage: 0 clips. Bespoke animated transformations: 0/12. Boss-specific terminal animation coverage: 0/12.** Existing identity sprites and procedural canvas changes are prototype feedback. Codebreak summit has the strongest articulated prototype motion; it is still not a production clip pack.
 
@@ -237,3 +237,11 @@ Before generation: approve both gameplay silhouettes, pilot hand/control linkage
 No production fixes, Higgsfield calls or Library uploads were made by this review. No human motion/comprehension/balance approval is asserted.
 
 Review pin note: NeonPhase2visibility fix was requested after these e04d5f6 captures. Treat the captured occlusion as a baseline finding, not evidence that a later fix failed. Re-capture the changed phase on the final integration pin.
+
+## Final clean-code refresh · e1c9dbc
+
+Repeated all24phase entries at ticks0/60/120/240 plus24camera-only boss frames against the clean `arcade-final-check` checkout:120actualgame-only renders,zero browser errors. All24tracked representative keyframes now come from this final code pin. Historical initial-review findings above remain visible so changes are auditable.
+
+**NeonPhase2pilot occlusion is corrected.** Final source/capture place Collector feet at285 and sprite top205, below the HUD/cue. The old screenshot finding described e04d5f6 and is superseded for pilot visibility. The title still sits close to the cue strip and the generic drive label crowds the pilot feet; those are cosmetic hierarchy recommendations. The renderer now hides explicitly inactive platforms, so a removed/crumbling foothold is no longer pictured as solid support.
+
+This refresh remains diagnostic motion/render evidence, not earned-clear, human critical-pose signoff, production animation approval, or completed boss-specific terminal coverage. Actual final animation clips remain0.
