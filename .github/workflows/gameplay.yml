@@ -16,3 +16,31 @@ jobs:
           node-version: '22'
       - name: Run standard-kit, pacing and lifecycle checks
         run: node qa/run-all.mjs .
+  # The hub's server-side story replay verifier (docs/SERVER-SIM.md).
+  server-sim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - run: npm ci
+      # Fails when dist/arcade-sim.server.js changed without its version header (sha256 of the
+      # body), differs from a fresh build of the sources, or breaks the goja/ES5 rules.
+      - name: Server bundle is current, versioned and goja-safe
+        run: node tools/check-server-bundle.mjs
+      - name: Story replay goldens in Node (source simulation and bundle)
+        run: node qa/server-sim-goldens.mjs .
+  server-sim-goja:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: tools/goja-verify/go.mod
+          cache-dependency-path: tools/goja-verify/go.sum
+      - name: Story replay goldens in goja (the hub's server engine)
+        working-directory: tools/goja-verify
+        run: go run . ../..
