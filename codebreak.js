@@ -106,11 +106,11 @@ function updateCodeAttack() {
         player.y>lane.y && player.y-playerHeight()<lane.y+lane.height)) hurt();
   } else if (attack.frames.includes(b.age)) {
     const [x,y]=codeAttackMuzzle(attack.sprite);
-    const direction=climbing?-Math.PI/2+clamp(Math.atan2(b.aimX-x,Math.max(90,y-b.aimY)),-1.28,1.28):
+    const direction=climbing?-Math.PI/2+clamp(SimMath.atan2(b.aimX-x,Math.max(90,y-b.aimY)),-1.28,1.28):
       Math.PI+clamp((y-b.aimY)/Math.max(200,x-b.aimX),-.61,.61);
     for (const spread of attack.spread) {
       const angle=direction+spread;
-      codeShots.push({x,y,angle,vx:Math.cos(angle)*attack.speed,vy:Math.sin(angle)*attack.speed,attack});
+      codeShots.push({x,y,angle,vx:SimMath.cos(angle)*attack.speed,vy:SimMath.sin(angle)*attack.speed,attack});
     }
     sound(attack.sprite===2?710:300,100,.11,.045);
   }
@@ -153,7 +153,7 @@ function drawCodeBeamLane(attack,lane) {
   const vertical=attack.beam==='vertical';
   ctx.save();
   ctx.translate(x,y);
-  ctx.globalAlpha=live?.9+.1*Math.sin(time*1.3):.24+.18*Math.sin(time*.56);
+  ctx.globalAlpha=live?.9+.1*SimMath.sin(time*1.3):.24+.18*SimMath.sin(time*.56);
   if (!vertical && (boss.phase===2 || boss.section%2)) {
     ctx.translate(width,0);
     ctx.scale(-1,1);
@@ -180,8 +180,8 @@ function updateCodeShots() {
     shot.x+=shot.vx;
     shot.y+=shot.vy;
     const [width,length]=shot.attack.size;
-    const radiusX=(Math.abs(Math.cos(shot.angle))*length+Math.abs(Math.sin(shot.angle))*width)*.34;
-    const radiusY=(Math.abs(Math.sin(shot.angle))*length+Math.abs(Math.cos(shot.angle))*width)*.34;
+    const radiusX=(Math.abs(SimMath.cos(shot.angle))*length+Math.abs(SimMath.sin(shot.angle))*width)*.34;
+    const radiusY=(Math.abs(SimMath.sin(shot.angle))*length+Math.abs(SimMath.cos(shot.angle))*width)*.34;
     if (Math.abs(shot.x-player.x)<18*CODE_CHARACTER_SCALE+radiusX && shot.y+radiusY>player.y-playerHeight() && shot.y-radiusY<player.y && !player.dash) {
       hurt();
       shot.spent=true;
@@ -214,10 +214,10 @@ function codeTargetY() {
 
 function fireCodeWeapon(shape) {
   const x=player.x, y=player.y-(player.crouch?74:101)*CODE_CHARACTER_SCALE;
-  const angle=Math.atan2(codeTargetY()-y,boss.x-x);
+  const angle=SimMath.atan2(codeTargetY()-y,boss.x-x);
   const {speed}=CODE_PLAYER_WEAPONS[shape];
-  fire(x+Math.cos(angle)*26*CODE_CHARACTER_SCALE,y+Math.sin(angle)*26*CODE_CHARACTER_SCALE,
-    Math.cos(angle)*speed,Math.sin(angle)*speed,shape,true);
+  fire(x+SimMath.cos(angle)*26*CODE_CHARACTER_SCALE,y+SimMath.sin(angle)*26*CODE_CHARACTER_SCALE,
+    SimMath.cos(angle)*speed,SimMath.sin(angle)*speed,shape,true);
 }
 
 function updateCodePlayerShots() {
@@ -225,12 +225,12 @@ function updateCodePlayerShots() {
   for (const shot of bullets) {
     const {speed,tracking,damage}=CODE_PLAYER_WEAPONS[shot.shape];
     const dx=boss.x-shot.x, dy=targetY-shot.y;
-    const distance=Math.hypot(dx,dy)||1;
+    const distance=SimMath.hypot(dx,dy)||1;
     shot.vx+=(dx/distance*speed-shot.vx)*tracking;
     shot.vy+=(dy/distance*speed-shot.vy)*tracking;
     shot.x+=shot.vx;
     shot.y+=shot.vy;
-    if (Math.hypot(boss.x-shot.x,targetY-shot.y)<40) {
+    if (SimMath.hypot(boss.x-shot.x,targetY-shot.y)<40) {
       if (boss.phase===2) hitBoss(shot,damage);
       else {
         shot.dead=true;
@@ -262,9 +262,9 @@ function updateCodebreak() {
     }
     b.section=section;
     const sideX=W*CODE_ATTACK_SIDES[b.section];
-    const targetX=sideX+Math.sin(time*.031)*54;
+    const targetX=sideX+SimMath.sin(time*.031)*54;
     b.x+=clamp((targetX-b.x)*.08,-10,10);
-    const flightY=clamp(p.y+259,H-138,H-70)+Math.sin(time*.034)*5;
+    const flightY=clamp(p.y+259,H-138,H-70)+SimMath.sin(time*.034)*5;
     b.y+=clamp((flightY-b.y)*.09,-10,10);
     if (time>110 && Math.abs(b.x-sideX)<100) updateCodeAttack();
     updateCodeShots();
@@ -366,8 +366,8 @@ function drawCodeServerMotion(arena) {
   ctx.globalCompositeOperation='screen';
   for (const [i,{mask,x,y,w,h}] of codeLightMasks.entries()) {
     if (i<CODE_SERVER_LIGHTS.length) {
-      const pulse=.5+.5*Math.sin(time*.038+i*2.7);
-      ctx.globalAlpha=.08+pulse*.28+Math.max(0,Math.sin(time*.16+i*4))**8*.09;
+      const pulse=.5+.5*SimMath.sin(time*.038+i*2.7);
+      ctx.globalAlpha=.08+pulse*.28+Math.max(0,SimMath.sin(time*.16+i*4))**8*.09;
       ctx.drawImage(mask,x,y);
       continue;
     }
@@ -375,7 +375,7 @@ function drawCodeServerMotion(arena) {
     for (let offset=0;offset<20;offset+=2) {
       const row=band+offset;
       if (row<0 || row+2>h) continue;
-      ctx.globalAlpha=.53*Math.sin(Math.PI*(offset+1)/20);
+      ctx.globalAlpha=.53*SimMath.sin(Math.PI*(offset+1)/20);
       ctx.drawImage(mask,0,row,w,2,x,y+row,w,2);
     }
   }
@@ -419,7 +419,7 @@ function drawCodebreak() {
     for (const [index,[footX,footY]] of CODE_THRUSTER_FEET[pose].entries()) {
       const flame=codeFrame('thrust',(Math.floor(time/3)+index*2)%4);
       const width=28*CODE_MECHA_SCALE;
-      const height=(53+7*Math.sin(time*.7+index))*CODE_MECHA_SCALE;
+      const height=(53+7*SimMath.sin(time*.7+index))*CODE_MECHA_SCALE;
       const x=b.x+(footX-160)*CODE_MECHA_SCALE*facing;
       const y=b.y+(footY-320)*CODE_MECHA_SCALE;
       ctx.drawImage(flame,Math.round(x-width/2),Math.round(y),width,height);
@@ -427,7 +427,7 @@ function drawCodebreak() {
     drawCodeMecha(codeFrame('fly',pose),b.x,b.y,320*CODE_MECHA_SCALE,facing);
     if (!attack.beam && (frame===1 || fireFrame)) {
       const [x,y]=codeAttackMuzzle(attack.sprite);
-      ctx.globalAlpha=fireFrame?.88:.3+Math.sin(time*.65)*.15;
+      ctx.globalAlpha=fireFrame?.88:.3+SimMath.sin(time*.65)*.15;
       ctx.drawImage(codeFrame('shot',attack.sprite),x-15,y-36,30,38);
       ctx.globalAlpha=1;
     }
@@ -460,7 +460,7 @@ function drawCodebreak() {
     const sprite=attackArt(art),w=sprite.width*scale,h=sprite.height*scale;
     ctx.save();
     ctx.translate(shot.x,shot.y);
-    if (shot.shape!=='bomb') ctx.rotate(Math.atan2(shot.vy,shot.vx));
+    if (shot.shape!=='bomb') ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
     ctx.drawImage(sprite,-w/2,-h/2,w,h);
     ctx.restore();
   }
@@ -471,7 +471,7 @@ function drawCodebreak() {
     ctx.globalAlpha=1;
   }
   if (b.shift) {
-    const alpha=Math.sin(Math.PI*b.shift/53)*.83;
+    const alpha=SimMath.sin(Math.PI*b.shift/53)*.83;
     ctx.fillStyle='rgba(109,255,176,'+alpha+')';
     ctx.fillRect(0,0,W,H);
   }
