@@ -87,7 +87,15 @@ try{
     const events=calls.filter(c=>c[0]==='reportEvent');
     assert.equal(events.length,1,'one Relic report');
     assert.equal(events[0][1],'arcade.boss_defeated');
-    assert.deepEqual(events[0][2],{boss:'bront'});
+    assert.equal(events[0][2].boss,'bront');
+    // The run's replay log rides along for the hub's server-side check (docs/SERVER-SIM.md).
+    const replay=events[0][2].replay;
+    assert.deepEqual(Object.keys(events[0][2]).sort(),['boss','replay']);
+    assert.equal(replay.schema,1);
+    assert.match(replay.simVersion,/^[0-9a-f]{16}$/);
+    assert.deepEqual(replay.claimed.kind,'boss');
+    assert.equal(replay.claimed.bossId,'bront');
+    assert.equal(replay.godMode,true,'this clear was in god mode, so the hub will not count the replay');
     const earns=calls.filter(c=>c[0]==='earnTickets');
     assert.equal(earns.length,1,'Tickets only for the non-god clear');
     assert.deepEqual(earns[0].slice(1,3),[20,'arcade_clear']);

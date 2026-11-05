@@ -261,6 +261,7 @@ function readKeyboardFrame() {
   };
 }
 let inputFrame=NO_INPUT;
+let replayRecorder=null;
 // Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
 function seededRandom(seed) {
   let state=seed>>>0;
@@ -431,28 +432,44 @@ function begin(index = firstLevel, carryShield = false) {
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
   godUsed=godMode;
-  cosmeticRandom=seededRandom(0x5eed+index);
-  inputFrame=NO_INPUT;
   showLevelControls();
   levelSelect.value = String(index);
   document.title = LEVELS[index].title + ' • Sproto Arcade';
+  gameScreen.classList.remove('stage-blackout');
+  hud.hidden = false;
+  setOverlay('play','','','','');
+  const seed=0x5eed+index;
+  resetRun(index,selectedSproto.id,shieldWait,seed);
+  // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
+  replayRecorder=window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  refreshHud();
+  prefetchLevel(index);
+  prefetchLevel(index+1);
+}
+
+// The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
+function resetRun(index, pilot, shieldWait, seed) {
+  levelIndex = index;
+  cosmeticRandom=seededRandom(seed);
+  inputFrame=NO_INPUT;
   time = 0;
   camera = 0;
   shake = 0;
   transition = 0;
   phaseShift = 0;
-  gameScreen.classList.remove('stage-blackout');
   vaultBeam = null;
-  player = {id:selectedSproto.id,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
+  player = {id:pilot,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
-  hud.hidden = false;
-  setOverlay('play','','','','');
+  mode = 'play';
   if (isCodebreak()) startCodebreak();
   else if (isChase()) startChase();
   else startBoss();
-  refreshHud();
-  prefetchLevel(index);
-  prefetchLevel(index+1);
+}
+
+// Everything the simulation carries between ticks; the replay end-state hash covers all of it.
+function simState() {
+  return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,
+    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
 function startBoss() {
@@ -469,9 +486,17 @@ function startBoss() {
   announce(kit.name + '  •  ' + kit.tag,100);
 }
 
+// Hub report ids for each level's boss (docs/SERVER-SIM.md): the acts ids, then Goldie and the
+// Bitcoin Sheriff. Only `bront` is confirmed by the hub so far.
+const STORY_BOSS_IDS=[...acts.map(act=>act.id),'goldie','bitcoin_sheriff'];
+
 function clearLevel() {
+  // Replay log of this run, claiming the clear at this tick with this end state.
+  const claim={stage:LEVELS[levelIndex].id,bossId:STORY_BOSS_IDS[levelIndex],ticks:time,endHash:window.ArcadeReplay?.hashState(simState())};
+  const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
+  replayRecorder=null;
   // Hub link: progress, the first-boss Relic and Tickets. A no-op offline.
-  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed)??[];
+  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed,replay)??[];
   if (opened.length) paintSprotoLocks();
   if (levelIndex+1===LEVELS.length) {
     levelSelect.value=String(firstLevel);
@@ -2049,6 +2074,7 @@ function loop(now) {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
       inputFrame=readKeyboardFrame();
+      replayRecorder?.push(inputFrame);
       update();
       pressed.clear();
       carry-=1000/60;
