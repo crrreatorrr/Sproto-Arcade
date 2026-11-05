@@ -15,6 +15,8 @@
   const FIRST_BOSS = { level: 0, boss: 'bront' };
   const CLEAR_REASON = 'arcade_clear';
   const TICKETS_PER_CLEAR = 20;
+  // A replay log larger than this is not attached (docs/SERVER-SIM.md).
+  const MAX_REPLAY_BYTES = 32768;
   // Per-player keys, so a shared browser never carries one account's progress, queued writes or
   // Relics into another's. The device (guest) save holds progress made before any hub sign-in; the
   // first account to sign in on this browser takes it over. Offline, the last signed-in player's
@@ -53,6 +55,7 @@
     tickets: null,
     save: P.load(storage, saveKey()),
     message: '',
+    lastReplay: null,
     unlockAll: /(?:^|[?&])unlockAll=1(?:&|$)/.test(root.location?.search ?? ''),
   };
   let sdk = null;
@@ -106,7 +109,9 @@
 
   async function send(row) {
     if (row.type === 'relic') {
-      const result = await sdk.reportEvent(BOSS_EVENT, { boss: row.boss }, row.key);
+      // The replay log rides in the event data (docs/SERVER-SIM.md); the SDK passes data through.
+      const data = row.replay ? { boss: row.boss, replay: row.replay } : { boss: row.boss };
+      const result = await sdk.reportEvent(BOSS_EVENT, data, row.key);
       if (result?.granted === RELIC && !state.relics.includes(RELIC)) {
         state.relics = [...state.relics, RELIC];
         writeJson(RELIC_PREFIX + player, state.relics);
@@ -197,11 +202,25 @@
     }
   }
 
+  /** The run's replay log with its claim set to `kind`, or null when there is none or it is too big. */
+  function claimed(replay, kind) {
+    if (!replay || typeof replay !== 'object') return null;
+    const log = { ...replay, claimed: { ...(replay.claimed || {}), kind } };
+    try {
+      if (JSON.stringify(log).length > MAX_REPLAY_BYTES) return null;
+    } catch {
+      return null;
+    }
+    return log;
+  }
+
   /**
    * Called by game.js when a level is cleared. `god` is true when god mode was on at any point in
-   * that level. Returns the Sproto ids this clear unlocked.
+   * that level. `replay` is the run's input log (runtime/story/replay.js) for the hub's server-side
+   * replay. Returns the Sproto ids this clear unlocked.
    */
-  function levelCleared(level, god) {
+  function levelCleared(level, god, replay) {
+    state.lastReplay = claimed(replay, 'clear');
     const { save, opened } = P.recordClear(state.save, level, Date.now());
     state.save = save;
     P.store(storage, save, saveKey());
@@ -209,8 +228,11 @@
     if (connected()) {
       const rows = [];
       if (level === FIRST_BOSS.level && !state.relics.includes(RELIC)) {
-        rows.push({ type: 'relic', boss: FIRST_BOSS.boss, key: `${BOSS_EVENT}:${FIRST_BOSS.boss}:${uuid()}` });
+        const log = claimed(replay, 'boss');
+        rows.push({ type: 'relic', boss: FIRST_BOSS.boss, key: `${BOSS_EVENT}:${FIRST_BOSS.boss}:${uuid()}`, ...(log ? { replay: log } : {}) });
       }
+      // earnTickets(amount, reason, key) has no data field, so the clear's log cannot ride along.
+      // It stays in state.lastReplay (not on the stored row, to keep the outbox small).
       if (!god) rows.push({ type: 'tickets', amount: TICKETS_PER_CLEAR, level, key: `arcade:clear:${level}:${uuid()}` });
       addPending(rows);
       queue(flush);

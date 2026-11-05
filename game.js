@@ -261,6 +261,7 @@ function readKeyboardFrame() {
   };
 }
 let inputFrame=NO_INPUT;
+let replayRecorder=null;
 // Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
 function seededRandom(seed) {
   let state=seed>>>0;
@@ -431,28 +432,44 @@ function begin(index = firstLevel, carryShield = false) {
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
   godUsed=godMode;
-  cosmeticRandom=seededRandom(0x5eed+index);
-  inputFrame=NO_INPUT;
   showLevelControls();
   levelSelect.value = String(index);
   document.title = LEVELS[index].title + ' • Sproto Arcade';
+  gameScreen.classList.remove('stage-blackout');
+  hud.hidden = false;
+  setOverlay('play','','','','');
+  const seed=0x5eed+index;
+  resetRun(index,selectedSproto.id,shieldWait,seed);
+  // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
+  replayRecorder=window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  refreshHud();
+  prefetchLevel(index);
+  prefetchLevel(index+1);
+}
+
+// The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
+function resetRun(index, pilot, shieldWait, seed) {
+  levelIndex = index;
+  cosmeticRandom=seededRandom(seed);
+  inputFrame=NO_INPUT;
   time = 0;
   camera = 0;
   shake = 0;
   transition = 0;
   phaseShift = 0;
-  gameScreen.classList.remove('stage-blackout');
   vaultBeam = null;
-  player = {id:selectedSproto.id,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
+  player = {id:pilot,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
-  hud.hidden = false;
-  setOverlay('play','','','','');
+  mode = 'play';
   if (isCodebreak()) startCodebreak();
   else if (isChase()) startChase();
   else startBoss();
-  refreshHud();
-  prefetchLevel(index);
-  prefetchLevel(index+1);
+}
+
+// Everything the simulation carries between ticks; the replay end-state hash covers all of it.
+function simState() {
+  return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,
+    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
 function startBoss() {
@@ -469,9 +486,17 @@ function startBoss() {
   announce(kit.name + '  •  ' + kit.tag,100);
 }
 
+// Hub report ids for each level's boss (docs/SERVER-SIM.md): the acts ids, then Goldie and the
+// Bitcoin Sheriff. Only `bront` is confirmed by the hub so far.
+const STORY_BOSS_IDS=[...acts.map(act=>act.id),'goldie','bitcoin_sheriff'];
+
 function clearLevel() {
+  // Replay log of this run, claiming the clear at this tick with this end state.
+  const claim={stage:LEVELS[levelIndex].id,bossId:STORY_BOSS_IDS[levelIndex],ticks:time,endHash:window.ArcadeReplay?.hashState(simState())};
+  const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
+  replayRecorder=null;
   // Hub link: progress, the first-boss Relic and Tickets. A no-op offline.
-  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed)??[];
+  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed,replay)??[];
   if (opened.length) paintSprotoLocks();
   if (levelIndex+1===LEVELS.length) {
     levelSelect.value=String(firstLevel);
@@ -525,7 +550,7 @@ function showCooldown(label,frames) {
 function puff(x,y,color,count=9) {
   for (let i=0;i<count;i++) {
     const angle=i/count*Math.PI*2, speed=2+cosmeticRandom()*8;
-    sparks.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:18,color});
+    sparks.push({x,y,vx:SimMath.cos(angle)*speed,vy:SimMath.sin(angle)*speed,life:18,color});
   }
 }
 
@@ -662,7 +687,7 @@ function moveGround(p,dx) {
 
 function moveSaucer(p,dx) {
   const dy=Number(inputFrame.down)-Number(inputFrame.up);
-  const length=Math.hypot(dx,dy)||1;
+  const length=SimMath.hypot(dx,dy)||1;
   p.vx=dx/length*10.4;
   p.vy=dy/length*10.4;
   if (!p.dashWait && inputFrame.dash) {
@@ -820,7 +845,7 @@ function attackBoss(t) {
     case 'drop': {
       const f=Math.min(1,(t+1)/32);
       b.x=b.startX+(b.lanes[0]-b.startX)*f;
-      b.y=FLOOR-Math.sin(Math.PI*f)*187;
+      b.y=FLOOR-SimMath.sin(Math.PI*f)*187;
       if (t===31) {
         for (const dir of [-1,1]) fire(b.x,FLOOR-21,dir*12,0,'boulder',false);
         puff(b.x,FLOOR,b.color,24);
@@ -848,9 +873,9 @@ function attackBoss(t) {
       break;
     case 'fan':
       if (t===0 || (hard && t===27) || (hard && t===47)) {
-        const aim=Math.atan2(player.y-60-(FLOOR-184),Math.min(-90,player.x-x));
+        const aim=SimMath.atan2(player.y-60-(FLOOR-184),Math.min(-90,player.x-x));
         const angles=t===0 ? [-.48,-.24,.24,.48] : hard ? [-.55,-.27,0,.27,.55] : [-.34,0,.34];
-        for (const delta of angles) fire(x,FLOOR-184,Math.cos(aim+delta)*10.7,Math.sin(aim+delta)*10.7,'orb',false);
+        for (const delta of angles) fire(x,FLOOR-184,SimMath.cos(aim+delta)*10.7,SimMath.sin(aim+delta)*10.7,'orb',false);
       }
       break;
     case 'gearPincer':
@@ -941,7 +966,7 @@ function attackBoss(t) {
     case 'eyeShot':
       if (t===0 || t===31) {
         const x=t===0?b.x-145:-20,y=FLOOR-146;
-        const dx=player.x-x,dy=player.y-55-y,length=Math.hypot(dx,dy)||1;
+        const dx=player.x-x,dy=player.y-55-y,length=SimMath.hypot(dx,dy)||1;
         fire(x,y,dx/length*11,dy/length*11,'eye',false);
       }
       break;
@@ -969,10 +994,10 @@ function updateBoss() {
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
   if (hasMecha(b)) {
-    const target=FLOOR-72+Math.sin(time*.042)*76;
+    const target=FLOOR-72+SimMath.sin(time*.042)*76;
     b.y+=clamp(target-b.y,-5,5);
   } else if (isFlying()) {
-    b.y=FLOOR-28-Math.sin(time*.032)*26;
+    b.y=FLOOR-28-SimMath.sin(time*.032)*26;
   }
   const rate=bossAttackRate(b);
   const ticks=Math.floor(time*rate)-Math.floor((time-1)*rate);
@@ -989,7 +1014,7 @@ function advanceBossMove(b) {
   }
   const m=moves[b.move], t=b.age-b.tell;
   if (b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
-    const target=BOSS_HOME+Math.sin(time*.035)*42;
+    const target=BOSS_HOME+SimMath.sin(time*.035)*42;
     b.x+=clamp(target-b.x,-8,8);
   }
   if (t===0) b.startX=b.x;
@@ -1080,7 +1105,7 @@ function steer(shot) {
   if (!boss.hp) return;
   const dx=boss.x-shot.x;
   if (shot.shape==='missile') {
-    const dy=(hasMecha(boss)?mechaY(boss):boss.y-175)-shot.y, length=Math.hypot(dx,dy)||1;
+    const dy=(hasMecha(boss)?mechaY(boss):boss.y-175)-shot.y, length=SimMath.hypot(dx,dy)||1;
     shot.vx+=(dx/length*18-shot.vx)*.15;
     shot.vy+=(dy/length*18-shot.vy)*.15;
   } else if (shot.shape==='bomb') {
@@ -1099,7 +1124,7 @@ function updateBullets() {
       const target=clamp((p.y-shot.y)/lead,-5.6,5.6);
       shot.vy+=(target-shot.vy)*.066;
     } else if (shot.shape==='mechaWave') {
-      shot.vy=Math.sin(shot.age*.25)*6.2;
+      shot.vy=SimMath.sin(shot.age*.25)*6.2;
     }
     const step=shot.rate;
     shot.x+=shot.vx*step;
@@ -1243,7 +1268,7 @@ function updateChase() {
   const lead=p.x-boss.x;
   const pace=4.25+1.12*clamp(camera/CHASE_FINISH,0,1)+clamp((lead-305)*.035,0,6);
   boss.x=clamp(boss.x+pace-CHASE_SCROLL,GOLDIE_START_X,GOLDIE_MAX_X);
-  boss.y=390+Math.sin(time*.035)*24+Math.sin(time*.019)*9;
+  boss.y=390+SimMath.sin(time*.035)*24+SimMath.sin(time*.019)*9;
   updateChaseAttacks();
   if (mode!=='play') return;
   if (p.dash) p.dash--;
@@ -1418,7 +1443,7 @@ function renderBoss() {
     ctx.strokeStyle='#ffe5a1';
     ctx.lineWidth=3;
     ctx.beginPath();
-    ctx.arc(b.x,bossWeakY(b),22+Math.sin(time*.18)*3,0,Math.PI*2);
+    ctx.arc(b.x,bossWeakY(b),22+SimMath.sin(time*.18)*3,0,Math.PI*2);
     ctx.stroke();
   }
 }
@@ -1451,9 +1476,9 @@ function drawStageShift() {
   const fromX=travel===1?mouthX:travel===-1?W+65:targetX;
   const fromY=travel===1?mouthY:levelIndex===6||levelIndex===8?FLOOR+65:targetY;
   const point=t=>{
-    const arc=Math.sin(t*Math.PI);
+    const arc=SimMath.sin(t*Math.PI);
     return [
-      fromX+(targetX-fromX)*t+Math.sin(t*twist*2)*arc*86,
+      fromX+(targetX-fromX)*t+SimMath.sin(t*twist*2)*arc*86,
       fromY+(targetY-fromY)*t-lift*arc
     ];
   };
@@ -1487,8 +1512,8 @@ function drawStageShift() {
   for (let i=0;i<24;i++) {
     const angle=i*2.399+(cut?burst:charge)*twist;
     const reach=cut?(20+burst*(radius*.78+i%5*13)):(26+i%6*10)*(1+charge*.65);
-    const px=x+Math.cos(angle)*reach;
-    const py=y+Math.sin(angle)*reach*.66;
+    const px=x+SimMath.cos(angle)*reach;
+    const py=y+SimMath.sin(angle)*reach*.66;
     ctx.globalAlpha=alpha*(.25+i%4*.12);
     ctx.fillRect(Math.round(px),Math.round(py),3+i%3*2,2+i%3);
   }
@@ -1498,13 +1523,13 @@ function drawStageShift() {
 function updateVerseGemLaser(t) {
   const [x,y]=VERSE_GEM;
   if (t===VERSE_GEM_CHARGE) {
-    boss.gemAim=Math.atan2(player.y-playerHeight()/2-y,player.x-x);
+    boss.gemAim=SimMath.atan2(player.y-playerHeight()/2-y,player.x-x);
     sound(320,730,.27,.04);
   }
   if (t===VERSE_GEM_FIRE) sound(890,185,.26,.09);
   if (t<VERSE_GEM_FIRE || t>=VERSE_GEM_END || boss.gemLaserHit || boss.gemAim===null) return;
   const dx=player.x-x,dy=player.y-playerHeight()/2-y;
-  const ux=Math.cos(boss.gemAim),uy=Math.sin(boss.gemAim);
+  const ux=SimMath.cos(boss.gemAim),uy=SimMath.sin(boss.gemAim);
   const across=Math.abs(dx*uy-dy*ux);
   const clearance=Math.abs(uy)*18+Math.abs(ux)*playerHeight()/2+10;
   if (dx*ux+dy*uy>0 && across<clearance && !player.shield && !player.inv && !player.dash) {
@@ -1533,7 +1558,7 @@ function drawVerseGemLaser() {
     for (let i=12;i<W;i+=27) ctx.fillRect(i,-1,13,2);
   } else {
     const ageOn=age-VERSE_GEM_FIRE;
-    const height=22+6*Math.sin(ageOn*.55);
+    const height=22+6*SimMath.sin(ageOn*.55);
     const beam=attackArt('boss/higgsfield/vault-laser/beam');
     ctx.rotate(boss.gemAim);
     ctx.filter='hue-rotate(68deg) saturate(1.35)';
@@ -1564,12 +1589,12 @@ function drawArenaHazardWarning() {
         core.addColorStop(.32,'#ff2c2d');
         core.addColorStop(1,'#cf182000');
         ctx.fillStyle=core;
-        ctx.globalAlpha=.65+.35*(.5+.5*Math.sin(time*.35));
+        ctx.globalAlpha=.65+.35*(.5+.5*SimMath.sin(time*.35));
         ctx.fillRect(x-16,y-16,32,32);
       }
       continue;
     }
-    const size=16+Math.round(5*Math.sin(time*.4+frame));
+    const size=16+Math.round(5*SimMath.sin(time*.4+frame));
     ctx.globalAlpha=.84;
     ctx.strokeStyle=hazard.color;
     ctx.lineWidth=3;
@@ -1626,7 +1651,7 @@ function drawCeilingSweep() {
   const edge=elapsed<0
     ?Math.round(22+SWEEP_EDGE*.36*(1+elapsed/boss.sweepDescent))
     :SWEEP_EDGE;
-  const pulse=.5+.5*Math.sin(elapsed*.42*SWEEP_SPEED);
+  const pulse=.5+.5*SimMath.sin(elapsed*.42*SWEEP_SPEED);
   const art=attackArt('boss/higgsfield/ceiling-sweep/blast');
 
   ctx.save();
@@ -1709,8 +1734,8 @@ function drawSaucerBallLauncher(p) {
   const baseX=Math.round(p.x-65), baseY=Math.round(p.y+8);
   const muzzleX=Math.round(p.x+BALL_MUZZLE_X);
   const muzzleY=Math.round(baseY+(p.y+BALL_MUZZLE_Y-baseY)*open);
-  const angle=Math.atan2(muzzleY-baseY,muzzleX-baseX);
-  const length=Math.hypot(muzzleX-baseX,muzzleY-baseY);
+  const angle=SimMath.atan2(muzzleY-baseY,muzzleX-baseX);
+  const length=SimMath.hypot(muzzleX-baseX,muzzleY-baseY);
   ctx.save();
   ctx.translate(baseX,baseY);
   ctx.rotate(angle);
@@ -1783,7 +1808,7 @@ function drawPlayerShield(folder,x,y,scale=1) {
 }
 
 const goldieArt=kind=>attackArt('boss/higgsfield/goldie-jetpack/'+kind);
-const goldieHoverAngle=frame=>.032*Math.sin(frame*2*Math.PI/GOLDIE_HOVER_FRAMES);
+const goldieHoverAngle=frame=>.032*SimMath.sin(frame*2*Math.PI/GOLDIE_HOVER_FRAMES);
 let goldieHoverSheet;
 
 function makeGoldieHoverSheet() {
@@ -1813,7 +1838,7 @@ function goldiePose() {
   if (time>=100) {
     for (const [shotAge] of CHASE_ATTACKS[boss.attackIndex].shots) {
       const progress=clamp((age-shotAge)/16,0,1);
-      recoil+=Math.sin(Math.PI*progress)**2*(1-progress);
+      recoil+=SimMath.sin(Math.PI*progress)**2*(1-progress);
     }
   }
   return {frame,tilt:.055*easedLean-.11*recoil,shift:6*easedLean-16*recoil};
@@ -1821,7 +1846,7 @@ function goldiePose() {
 
 function goldieAttachment(x,y,pose) {
   const angle=goldieHoverAngle(pose.frame)+pose.tilt;
-  const cos=Math.cos(angle), sin=Math.sin(angle);
+  const cos=SimMath.cos(angle), sin=SimMath.sin(angle);
   return [x*cos-y*sin+pose.shift,x*sin+y*cos];
 }
 
@@ -1834,7 +1859,7 @@ function drawGoldieJetpack() {
   const exhaust=goldieArt('thrusters/02');
   for (const [i,[nozzleX,nozzleY]] of GOLDIE_EXHAUST.entries()) {
     const [x,y]=goldieAttachment(nozzleX,nozzleY,pose);
-    const length=65+9*Math.sin(time*.27+i);
+    const length=65+9*SimMath.sin(time*.27+i);
     ctx.drawImage(exhaust,x-15,y-3,30,length);
   }
   ctx.save();
@@ -1843,7 +1868,7 @@ function drawGoldieJetpack() {
   ctx.drawImage(goldieHoverSheet,pose.frame%6*size,Math.floor(pose.frame/6)*size,size,size,-size/2,-size/2,size,size);
   ctx.restore();
   const chargeAge=boss.attackAge-21;
-  const charge=time>=100 && chargeAge>0 && chargeAge<25?Math.sin(Math.PI*chargeAge/25):0;
+  const charge=time>=100 && chargeAge>0 && chargeAge<25?SimMath.sin(Math.PI*chargeAge/25):0;
   if (charge>0) {
     const glow=attackArt('player/higgsfield/saucer/muzzle');
     const [x,y]=goldieAttachment(...GOLDIE_MUZZLE,pose);
@@ -1919,7 +1944,7 @@ function render() {
   drawArenaMotion();
   drawShade();
   ctx.save();
-  if (shake) ctx.translate(Math.sin(time*1.8)*shake*.28,Math.cos(time*2)*shake*.25);
+  if (shake) ctx.translate(SimMath.sin(time*1.8)*shake*.28,SimMath.cos(time*2)*shake*.25);
   ctx.imageSmoothingEnabled=false;
   renderBoss();
   if (isFlying()) drawSaucer();
@@ -1928,7 +1953,7 @@ function render() {
     ctx.save();
     ctx.translate(Math.round(shot.x),Math.round(shot.y));
     ctx.imageSmoothingEnabled=false;
-    if (shot.shape==='missile'||MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(Math.atan2(shot.vy,shot.vx));
+    if (shot.shape==='missile'||MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
     else if ((shot.shape==='gear'||shot.shape==='saw'||shot.shape==='star')) ctx.rotate(shot.age*.17*Math.sign(shot.vx));
     else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
     if (shot.own) {
@@ -1943,7 +1968,7 @@ function render() {
       ctx.drawImage(bubble,-29,-29,58,58);
     } else if (shot.shape==='barnFire') {
       const flame=attackFrame('boss/higgsfield/barn-fire',Math.floor(shot.age/3)%4);
-      ctx.rotate(Math.atan2(-shot.vx,shot.vy)*.7);
+      ctx.rotate(SimMath.atan2(-shot.vx,shot.vy)*.7);
       ctx.drawImage(flame,-26,-66,52,92);
     } else {
       const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
@@ -2049,6 +2074,7 @@ function loop(now) {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
       inputFrame=readKeyboardFrame();
+      replayRecorder?.push(inputFrame);
       update();
       pressed.clear();
       carry-=1000/60;

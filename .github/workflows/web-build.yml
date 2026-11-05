@@ -36,6 +36,9 @@ jobs:
           NAKAMA_SERVER_KEY: ${{ vars.NAKAMA_SERVER_KEY || secrets.NAKAMA_SERVER_KEY }}
       - name: Story-mode hub link
         run: node qa/hub-link-browser.mjs .
+      # The page records the same replay logs and end hashes as dist/arcade-sim.server.js.
+      - name: Story replay, client equals server
+        run: node qa/replay-golden-browser.mjs .
       - uses: actions/upload-artifact@v4
         with:
           name: web-build
