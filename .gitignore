@@ -1,2 +1,4 @@
-dist/
+# dist/ is the web build output, except the committed server replay bundle (docs/SERVER-SIM.md).
+dist/*
+!dist/arcade-sim.server.js
 node_modules/

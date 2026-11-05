@@ -1,0 +1,14 @@
+{
+  "name": "sproto-arcade",
+  "private": true,
+  "description": "Build and check tools only. The game itself runs as classic scripts with no install.",
+  "scripts": {
+    "build:server-sim": "node tools/build-server-sim.mjs",
+    "check:server-sim": "node tools/check-server-bundle.mjs && node qa/server-sim-goldens.mjs"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0",
+    "acorn-walk": "8.3.4",
+    "typescript": "5.9.3"
+  }
+}

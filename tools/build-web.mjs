@@ -97,7 +97,11 @@ try{seen=await exercise(source.origin);}finally{source.server.close();}
 if(seen.missing.size)throw Error('Source checkout is missing files the game requests:\n'+[...seen.missing].join('\n'));
 for(const p of seen.used)if(fs.existsSync(path.join(root,p))&&fs.statSync(path.join(root,p)).isFile())files.add(p);
 
+// dist/arcade-sim.server.js is committed (the hub's server-side replay verifier, built by
+// tools/build-server-sim.mjs), so a build into the default dist/ keeps it.
+const serverSim=path.join(out,'arcade-sim.server.js'),keptServerSim=fs.existsSync(serverSim)?fs.readFileSync(serverSim):null;
 fs.rmSync(out,{recursive:true,force:true});
+if(keptServerSim){fs.mkdirSync(out,{recursive:true});fs.writeFileSync(serverSim,keptServerSim);}
 let bytes=0;
 for(const file of [...files].sort()){
   const dest=path.join(out,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(root,file),dest);bytes+=fs.statSync(dest).size;
