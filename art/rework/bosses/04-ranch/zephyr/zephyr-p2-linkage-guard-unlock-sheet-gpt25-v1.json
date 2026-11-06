@@ -1,0 +1,36 @@
+{
+  "asset_id": "35ee7193-2b4d-4e58-87e9-d678f0545dbf",
+  "sha256": "35fedd84c0eb4484279bf1d7f9ae704bd6ddcfa6c2d0e07dfb06541ef8f01cf7",
+  "credits": 0,
+  "references": [
+    "attack-sheets/zephyr/zephyr-p2-coupling-latch-load-sheet-gpt25-v1.png",
+    "batch-prep/attack-sheets/refs/composite-zephyr-express-large-pilot.png",
+    "batch-prep/attack-sheets/refs/concept-zephyr-halloween-pilot-v2.png",
+    "batch-prep/attack-sheets/refs/chroma-magenta-FF00FF.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Harvest Express boss machine (steam engine + wagon, jack-o-lantern boiler \u2014 NOT the tall Lantern Harvester kiosk). Sproto pilot LARGE and clearly readable filling the cockpit \u2014 not a tiny blob. Halloween is LARGE and clearly readable in the cockpit in every frame. Attack identity LOCK \u2014 DIFFERENT from coupling-latch: an engine LINKAGE GUARD panel/cover unlocks and swings open after the crossing objective, exposing linkage rods underneath; not the car coupling spring between engine and wagon. No text or lettering. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral guard closed (2) wind-up bolts loosen (3) anticipation guard unlatched (4) strike smear \u2014 guard swings open (5) peak \u2014 guard fully open, linkage rods exposed with sparks (6) follow-through (7) recovery vent puff (8) return to neutral guard closed. Solid flat pure magenta background #FF00FF only \u2014 flat even fill, no gradients, scenery, floor or gray. Generous margins \u2014 nothing clips. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, no cropping, text, UI, logos, words on glass, extra characters or detached parts. Match the attached Harvest Express and pilot references exactly.",
+  "created_at": "2026-11-05T21:17:18.111130-05:00",
+  "site_created_at": "2026-11-05 21:14 America/Lima (UTC-5)",
+  "kind": "attack",
+  "boss": "zephyr",
+  "phase": "p2",
+  "attack": "linkage-guard-unlock",
+  "machine": "harvest-express",
+  "model": "GPT Image 2.5 Sunburst",
+  "settings": {
+    "quality": "Medium",
+    "aspect": "4:3",
+    "resolution": "2K",
+    "batch": 1,
+    "unlimited": true,
+    "size": "2336x1744"
+  },
+  "corner_samples": {
+    "tl": "#F916F8",
+    "tr": "#F81AF6",
+    "bl": "#FA14F7",
+    "br": "#FA17F8"
+  },
+  "upload_method": "library picker -> Upload media -> Recent tick (leftover refs cleared first)",
+  "note": "guard-panel-not-coupling"
+}

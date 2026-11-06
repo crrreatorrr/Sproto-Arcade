@@ -1,0 +1,75 @@
+{
+  "asset_id": "66295e7b-8a8c-4fd1-9e3c-c42e138308fb",
+  "sha256": "a0ff90de56153e485343bb0e7eb6cd2b5c5b8db4618f8e951feaf1bee9f3ee91",
+  "credits": 0,
+  "references": [
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/composite-zephyr-lantern-large-pilot.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-zephyr-lantern-harvester-v1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/chroma-magenta-FF00FF.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Lantern Harvester boss machine. Sproto pilot LARGE and clearly readable filling the cockpit — not a tiny blob. Halloween is LARGE and clearly readable in the glass cockpit in every frame. Attack identity LOCK — NOT a pumpkin slam inside the glass: instead the hanging lantern on the machine swings in a WIDENING arc OUTSIDE the cab while a row of dark harvester CUTTER TEETH along the lower front rattle and flash in sharp silhouette. No smashed pumpkin, no downward slam inside the tank. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked camera (tall Harvester). Frame order: (1) neutral lantern hanging still, teeth quiet (2) wind-up lantern begins to sway (3) anticipation lantern arc widens, teeth start to chatter (4) strike smear — wide lantern swing + teeth blur (5) peak — broadest lantern swing arc + cutter teeth fully rattling in black silhouette with sparks (6) follow-through swing slows (7) recovery vent puff, teeth settle (8) return to neutral. Solid flat pure magenta background #FF00FF only — flat even fill, no gradients, scenery, floor or gray. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, generous margins, no cropping, text, UI, logos, extra characters or detached parts. Match the attached machine and pilot references exactly.",
+  "created_at": "2026-11-06T01:50:49.705274+00:00",
+  "site_created_at": "2026-11-05T20:47:00-05:00",
+  "site_created_at_timezone": "America/Lima",
+  "site_created_at_display": "November 5, 2026 at 8:47 PM",
+  "site_created_at_precision": "minute",
+  "kind": "attack",
+  "boss": "zephyr",
+  "phase": "P1",
+  "attack": "harvest-roll-cue",
+  "remake_of": "v1 WRONG-lantern-slam-clone",
+  "model": "GPT Image 2.5 Sunburst",
+  "settings": {
+    "quality": "Medium",
+    "unlimited": true,
+    "generate_button": "Unlimited",
+    "aspect_ratio": "4:3",
+    "resolution": "2K",
+    "batch": 1,
+    "background": "Auto"
+  },
+  "dimensions": [
+    2336,
+    1744
+  ],
+  "corner_samples": {
+    "top_left": [
+      230,
+      31,
+      230
+    ],
+    "top_right": [
+      238,
+      40,
+      233
+    ],
+    "bottom_left": [
+      230,
+      52,
+      227
+    ],
+    "bottom_right": [
+      233,
+      51,
+      228
+    ]
+  },
+  "upload_method": "website library picker → Upload media → Recent; ticked only three newly uploaded references after clearing all leftover attachments",
+  "note": "remake-swing-and-cutter-teeth-no-slam-ref",
+  "self_check": {
+    "large_halloween_pilot": true,
+    "widening_lantern_swing_outside_cab": true,
+    "cutter_teeth_rattle_and_sparks_at_peak": true,
+    "no_pumpkin_smash": true,
+    "flat_FF00FF": false,
+    "credits": 0,
+    "no_cropping": false,
+    "all_requirements_passed": false
+  },
+  "qc_notes": [
+    "Large readable pilot, clear external widening lantern swing, cutter teeth rattle and peak sparks, no pumpkin smash.",
+    "Generated magenta background is not exact flat #FF00FF; corner RGB samples vary.",
+    "Frame 4 lantern reaches/crops at right image edge.",
+    "Saved original unmodified newest asset; generated exactly once; no paid credits; no regeneration."
+  ]
+}
