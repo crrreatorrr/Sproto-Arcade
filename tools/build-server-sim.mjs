@@ -27,7 +27,7 @@ export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'
 export const BUNDLE_PATH=path.join(root,'dist/arcade-sim.server.js');
 export const VERSION_PATH=path.join(root,'runtime/story/sim-version.js');
 // Load order in legacy.html; each file's statements keep their order.
-const SOURCES=['levels.js','arena-effects.js','codebreak.js','art/bosses/sheet-data.js','game.js'];
+const SOURCES=['levels.js','arena-effects.js','codebreak.js','art/bosses/sheet-data.js','art/rework/bosses/05-neon/sheet-data.js','game.js'];
 const PRELUDE=['runtime/story/sim-math.js','runtime/story/replay.js'];
 const ENTRY='runtime/story/server-entry.js';
 // ECMAScript built-ins the simulation may use. Browser globals are deliberately absent.

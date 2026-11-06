@@ -23,7 +23,7 @@ const commands=tests.map(file=>{
 for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
 // Story replay goldens for the hub's server verifier (bundle always; source simulation after npm ci).
 if(fs.existsSync(path.join(qaDir,'server-sim-goldens.mjs')))commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs',args:[root]});
-// Animation inventory is archived pre-production evidence; current user stopped production.
+// Animation inventory counts verified sheets separately from planned motions.
 if(fs.existsSync(path.join(qaDir,'animation-inventory.mjs')))commands.push({file:path.join(qaDir,'animation-inventory.mjs'),relative:'qa/animation-inventory.mjs',args:[root]});
 if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.join(qaDir,'pacing-checks.mjs'),relative:'qa/pacing-checks.mjs',args:[root]});
 if(fs.existsSync(path.join(qaDir,'missile-checks.mjs')))commands.push({file:path.join(qaDir,'missile-checks.mjs'),relative:'qa/missile-checks.mjs',args:[root]});

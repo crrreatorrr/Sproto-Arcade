@@ -1,0 +1,229 @@
+{
+  "width": 256,
+  "height": 256,
+  "anchor": [
+    128,
+    128
+  ],
+  "scale": 0.5357142857142857,
+  "shared_boss_scale": 0.5357142857142857,
+  "facing": -1,
+  "facing_label": "left",
+  "boss": "sproto102",
+  "clip": "magnet-pulse-projectile",
+  "stem": "sproto102-p1-magnet-pulse-projectile-sheet-gpt25-v1",
+  "kind": "projectile",
+  "source": "/workspace/ken-games/concepts/arcade/attack-sheets/sproto102/projectiles/sproto102-p1-magnet-pulse-projectile-sheet-gpt25-v1.png",
+  "cols": 4,
+  "rows": 2,
+  "frame_count": 8,
+  "chroma_rule": {
+    "r_gt": 170,
+    "b_gt": 170,
+    "g_lt": 120
+  },
+  "bleed_px": 24,
+  "placement": "center",
+  "frames": [
+    {
+      "index": 0,
+      "file": "frames/00.png",
+      "url": "frames/00.png",
+      "bounds": [
+        28,
+        50,
+        227,
+        206
+      ],
+      "anchor": [
+        127,
+        128
+      ],
+      "source_size": [
+        375,
+        294
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 1,
+      "file": "frames/01.png",
+      "url": "frames/01.png",
+      "bounds": [
+        14,
+        48,
+        241,
+        208
+      ],
+      "anchor": [
+        127,
+        128
+      ],
+      "source_size": [
+        427,
+        303
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 2,
+      "file": "frames/02.png",
+      "url": "frames/02.png",
+      "bounds": [
+        15,
+        48,
+        241,
+        208
+      ],
+      "anchor": [
+        128,
+        128
+      ],
+      "source_size": [
+        426,
+        303
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 3,
+      "file": "frames/03.png",
+      "url": "frames/03.png",
+      "bounds": [
+        13,
+        47,
+        243,
+        208
+      ],
+      "anchor": [
+        128,
+        127
+      ],
+      "source_size": [
+        434,
+        305
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 4,
+      "file": "frames/04.png",
+      "url": "frames/04.png",
+      "bounds": [
+        14,
+        47,
+        242,
+        208
+      ],
+      "anchor": [
+        128,
+        127
+      ],
+      "source_size": [
+        430,
+        304
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 5,
+      "file": "frames/05.png",
+      "url": "frames/05.png",
+      "bounds": [
+        16,
+        47,
+        240,
+        208
+      ],
+      "anchor": [
+        128,
+        127
+      ],
+      "source_size": [
+        422,
+        304
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 6,
+      "file": "frames/06.png",
+      "url": "frames/06.png",
+      "bounds": [
+        9,
+        14,
+        247,
+        241
+      ],
+      "anchor": [
+        128,
+        127
+      ],
+      "source_size": [
+        448,
+        428
+      ],
+      "timing_ms": null,
+      "events": []
+    },
+    {
+      "index": 7,
+      "file": "frames/07.png",
+      "url": "frames/07.png",
+      "bounds": [
+        11,
+        47,
+        244,
+        208
+      ],
+      "anchor": [
+        127,
+        127
+      ],
+      "source_size": [
+        439,
+        304
+      ],
+      "timing_ms": null,
+      "events": []
+    }
+  ],
+  "clips": {
+    "magnet-pulse-projectile": {
+      "start": 0,
+      "end": 7,
+      "frame_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "loop": false,
+      "fps": null,
+      "timings_ms": null,
+      "note": "Placeholder range \u2014 Dude/Gameplay fills timings/hit frames."
+    }
+  },
+  "atlases": {
+    "png": "atlas-256.png",
+    "webp": "atlas-256.webp",
+    "raw_silhouettes": "atlas-raw-silhouettes.png",
+    "contact": "contact.png"
+  },
+  "gameplay": {
+    "pivots": null,
+    "event_markers": [],
+    "timings_ms": null,
+    "note": "Left null for Dude/Gameplay."
+  }
+}
