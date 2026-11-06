@@ -1,0 +1,27 @@
+{
+  "model": "GPT Image 2.5 Sunburst",
+  "quality": "Medium",
+  "aspect_ratio": "4:3",
+  "resolution": "2K",
+  "batch_size": 1,
+  "unlimited": true,
+  "credits": 0,
+  "generation_count": 1,
+  "job_id": null,
+  "asset_id": "38cf5559-d49d-44f6-bcde-bf12e20f706c",
+  "created_at": "2026-11-05T21:28:02Z",
+  "site_created_at": "2026-11-05T16:28:02-05:00",
+  "site_timezone": "America/Lima",
+  "dimensions_px": {
+    "width": 2336,
+    "height": 1744
+  },
+  "output_file": "/workspace/ken-games/concepts/arcade/attack-sheets/bront/bront-p2-valve-release-turn-sheet-gpt25-v1.png",
+  "source_download": "/home/box/Downloads/hf_20261105_212802_38cf5559-d49d-44f6-bcde-bf12e20f706c.png",
+  "references": [
+    "/workspace/ken-games/concepts/arcade/attack-sheets/bront/bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/composite-bront-press-dave.png",
+    "/workspace/ken-games/concepts/arcade/pilots/concept-bront-fat-head-dave-pilot-v2.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Dry Dock Press boss machine — same red-and-blue silhouette as the attached approved pressure-nozzle sheet. Sproto pilot LARGE and clearly readable filling the cockpit — not a tiny blob. Fat Head Dave is LARGE and clearly readable in the cockpit in every frame. Attack: a large valve hand-wheel on the machine UNLOCKS and SPINS when the release fires — show clear spoke rotation and steam from the valve stem; machine stays planted. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral valve locked (2) unlock click with spark (3) wheel begins turning with smear (4) fast spin peak (5) steam vent from valve stem at peak (6) spin slowing (7) nearly stopped last puff (8) return to neutral locked. Solid flat magenta background #FF00FF only. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, generous margins, no cropping, text, UI, logos, extra characters or detached parts. Match the attached approved pressure-nozzle sheet and pilot references exactly."
+}
