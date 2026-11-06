@@ -1,0 +1,53 @@
+{
+ "asset_id": "620d32ca-1227-4697-a72f-04a94ab3a832",
+ "sha256": "4e77cba1174614e187054bd21eb22e85074cf3f1e945e6fbf4b2ee499dbb8521",
+ "credits": 0,
+ "references": [
+  "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/composite-crapto-floodgate-large-pilot.png",
+  "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-crapto-floodgate-pump-v1.png",
+  "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-crapto-pilot-v6.png",
+  "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/03-mudline-p2.png",
+  "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/chroma-magenta-FF00FF.png"
+ ],
+ "prompt": "Pixel-art boss attack animation sprite sheet of the Floodgate Pump boss machine. CRITICAL: Sproto pilot Crapto must be HUGE and clearly readable \u2014 bright BLUE fur, yellow eyes, red mouth \u2014 face filling most of the cockpit window in EVERY frame, not a tiny blob. Floodgate Pump tall barrel tank \u2014 NOT Sludge Dredger. Attack: Pump belly vent petals open after the eligible release or dash counter \u2014 mechanical iris/petal vents on the belly open with steam/vent puff; dry mechanical motion. ABSOLUTELY NO full-height liquid curtain, NO green sludge jet, NO backflush pour in any frame \u2014 still liquid behind glass OK. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral vents closed (2) wind-up petals crack (3) loaded anticipation (4) petals snap open with smear (5) peak vents fully open with steam (6) follow-through (7) recovery vent puff (8) return to closed neutral. Solid flat magenta background #FF00FF only \u2014 no scenery, floor or gray. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and oversized pilot in every cell, generous margins, no cropping, text, UI, logos, extra characters or detached parts. Match the attached Floodgate and LARGE pilot references exactly.",
+ "created_at": "2026-11-06T00:46:07Z",
+ "site_created_at": "November 5, 2026 at 7:46 PM America/Lima",
+ "kind": "attack",
+ "boss": "crapto P2 pump-vent-expose",
+ "model": "GPT Image 2.5 Sunburst",
+ "settings": {
+  "quality": "Medium",
+  "aspect": "4:3",
+  "resolution": "2K",
+  "batch": 1,
+  "unlimited": true
+ },
+ "size": [
+  2336,
+  1744
+ ],
+ "corner_samples": {
+  "tl": [
+   246,
+   19,
+   248
+  ],
+  "tr": [
+   247,
+   24,
+   247
+  ],
+  "bl": [
+   247,
+   15,
+   247
+  ],
+  "br": [
+   248,
+   21,
+   247
+  ]
+ },
+ "upload_method": "library picker > Upload media (Recent tab), 5 fresh uploads after clearing leftover refs; website generation only",
+ "downloaded_file": "hf_20261106_004607_620d32ca-1227-4697-a72f-04a94ab3a832.png"
+}
