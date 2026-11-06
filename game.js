@@ -194,7 +194,8 @@ const boxes = {
   hammer:{w:35,h:22,color:'#ffd197'},
   star:{w:28,h:28,color:'#ff85c7'},
   needle:{w:14,h:33,color:'#ff6852'},
-  eye:{w:33,h:26,color:'#d9a6ff'}
+  eye:{w:33,h:26,color:'#d9a6ff'},
+  magnetPulse:{w:124,h:86,color:'#9be1ff'}
 };
 const playerImpacts = {
   spark:{art:'spit-impact',duration:7,opacity:.65},
@@ -546,7 +547,8 @@ function refreshHud() {
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
   const arenaTell=levelIndex!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
-  const message=arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
+  const collectorCue=collectorBoss() && boss.hp && (collectorExposed()?'DRIVE OPEN — FIRE THE CORE':(boss.sheetCue && boss.age<=boss.tell?boss.sheetCue:''));
+  const message=collectorBoss()?collectorCue:arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
     !boss.hp || !m || (sheetBoss()? !sheetExposed() : boss.age<=boss.tell+m.active)?'':'EXPOSED  ·  Jump to hit the weak spot';
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
 }
@@ -784,10 +786,112 @@ function drawSheetShot(shot) {
   if (image.naturalWidth) ctx.drawImage(image, Math.round(-box.w/2), Math.round(-box.h/2), box.w, box.h);
   else { ctx.fillStyle=box.color; ctx.fillRect(-box.w/2, -box.h/2, box.w, box.h); }
 }
+const collectorBoss=()=>levelIndex===4;
+function collectorClip(b=boss) {
+  const sheet=COLLECTOR_SHEET;
+  if (!b.hp && b.phase===2) return sheet.clips[sheet.defeat];
+  if (phaseShift) return sheet.clips[phaseShift<STAGE_BLAST?'magnet-claw-fire':'sign-elevation-shuffle'];
+  if (!b.move || b.move!=='sheet' || !b.sheetClip) return sheet.clips[sheet.intro];
+  return sheet.clips[b.sheetClip];
+}
+function collectorFrame(b=boss) {
+  const clip=collectorClip(b);
+  if (!b.hp && b.phase===2) return clip.frameCount-1;
+  if (!b.move || b.move!=='sheet' || phaseShift) return Math.floor(time/8)%clip.frameCount;
+  let cursor=0;
+  for (let i=0;i<clip.frameTicks.length;i++) {
+    cursor+=clip.frameTicks[i];
+    if (b.age<cursor) return i;
+  }
+  return clip.frameCount-1;
+}
+function collectorBox(b=boss) {
+  const [x0,y0,x1,y1]=collectorClip(b).boxes[collectorFrame(b)];
+  return {left:b.x+x0,right:b.x+x1,top:b.y+y0,bottom:b.y+y1};
+}
+function collectorHull(b=boss) {
+  const [x0,y0,x1,y1]=COLLECTOR_SHEET.hull;
+  return {left:b.x+x0,right:b.x+x1,top:b.y+y0,bottom:b.y+y1};
+}
+function collectorWeak(b=boss) {
+  const clip=collectorClip(b), box=clip.weak && clip.weak[collectorFrame(b)];
+  if (!box) return null;
+  return {left:b.x+box[0],right:b.x+box[2],top:b.y+box[1],bottom:b.y+box[3]};
+}
+const collectorExposed=b=>!!collectorWeak(b);
+const collectorLaneY=name=>FLOOR-COLLECTOR_SHEET.lanes[name];
+function startCollectorMove() {
+  const b=boss, sheet=COLLECTOR_SHEET, section=healthSection(b);
+  if (b.section!==section) { b.section=section; b.step=0; }
+  const pat=sheet.phases[b.phase][b.step++%sheet.phases[b.phase].length];
+  const clip=sheet.clips[pat.clip];
+  b.move='sheet';
+  b.age=0;
+  b.tell=clip.tell;
+  b.sheetActive=clip.active;
+  b.sheetRest=clip.rest;
+  b.sheetClip=pat.clip;
+  b.sheetCue=pat.cue||'';
+  b.sheetVolleys=pat.volleys||null;
+  b.lanes=[];
+  if (pat.lockAim) {
+    const center=player.y-playerHeight()/2;
+    b.sheetAim=center<FLOOR-140?collectorLaneY('high'):collectorLaneY('low');
+  }
+  if (pat.cue) announce(pat.cue, Math.max(clip.tell, 48));
+}
+function collectorMuzzle(b) {
+  const clip=COLLECTOR_SHEET.clips[b.sheetClip];
+  const box=clip.boxes[Math.min(clip.events.release, clip.boxes.length-1)];
+  return b.x+box[0]+10;
+}
+function fireCollectorVolley(b, volley) {
+  const y=volley.y==='aim'?(b.sheetAim||collectorLaneY('low')):collectorLaneY(volley.y);
+  fire(collectorMuzzle(b), y, volley.vx, 0, 'magnetPulse', false);
+  const shot=bullets[bullets.length-1];
+  shot.pulse='fly';
+  if (volley.returnAt) shot.returnAt=volley.returnAt;
+  puff(shot.x, y, '#9be1ff', 8);
+}
+function collectorMelee(b) {
+  const clip=COLLECTOR_SHEET.clips[b.sheetClip];
+  if (!clip || (clip.role!=='melee' && clip.role!=='deflect')) return;
+  if (!clip.hitFrames.includes(collectorFrame(b))) return;
+  const box=collectorBox(b);
+  const top=player.y-playerHeight(), bottom=player.y;
+  if (player.x+22>box.left && player.x-22<box.right && bottom>box.top && top<box.bottom && !player.dash) hurt(true);
+}
+function magnetPulseFrame(shot) {
+  if (shot.pulse==='impact') return shot.age<8?6:7;
+  return 2+Math.floor(shot.age/5)%4;
+}
+function magnetPulseBox(shot) {
+  const [x0,y0,x1,y1]=COLLECTOR_SHEET.clips['magnet-pulse-projectile'].boxes[magnetPulseFrame(shot)];
+  return {left:shot.x+x0,right:shot.x+x1,top:shot.y+y0,bottom:shot.y+y1};
+}
+function drawCollectorAtlas(clip, index, originX, originY, anchorX, anchorY, scale) {
+  const image=picture(clip.atlas);
+  const size=COLLECTOR_SHEET.cell*scale;
+  ctx.imageSmoothingEnabled=false;
+  if (image.naturalWidth) ctx.drawImage(image, index*COLLECTOR_SHEET.cell, 0, COLLECTOR_SHEET.cell, COLLECTOR_SHEET.cell, Math.round(originX-anchorX*scale), Math.round(originY-anchorY*scale), size, size);
+  else { ctx.fillStyle='#9be1ff'; ctx.fillRect(Math.round(originX-40), Math.round(originY-80), 80, 80); }
+}
+function drawCollectorBoss(b) {
+  const clip=collectorClip(b);
+  ctx.save();
+  ctx.translate(Math.round(b.x), Math.round(b.y));
+  if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
+  if (b.flash && b.hp) ctx.filter='brightness(1.7)';
+  drawCollectorAtlas(clip, collectorFrame(b), 0, 0, clip.pivot[0], clip.pivot[1], COLLECTOR_SHEET.scale);
+  ctx.restore();
+}
+function drawCollectorShot(shot) {
+  const clip=COLLECTOR_SHEET.clips['magnet-pulse-projectile'];
+  drawCollectorAtlas(clip, magnetPulseFrame(shot), 0, 0, clip.pivot[0], clip.pivot[1], COLLECTOR_SHEET.projectileScale);}
 
 function startMove() {
   const b=boss;
-  if (sheetBoss()) {
+  if (collectorBoss()) return startCollectorMove();  if (sheetBoss()) {
     const spec=sheetSpec();
     const section=healthSection(b);
     if (b.section!==section) { b.section=section; b.step=0; }
@@ -805,8 +909,7 @@ function startMove() {
     b.lanes=[];
     if (pat.cue) announce(pat.cue, Math.max(pat.tell, 50));
     return;
-  }
-  const groundMove=b.archetype===3?'rift':'eruption';
+  }  const groundMove=b.archetype===3?'rift':'eruption';
   const staticOrder=levelIndex===0?['arenaHazard',groundMove,...b.staticMoves]:[groundMove,...b.staticMoves];
   const section=healthSection(b);
   if (b.section!==section) {
@@ -1112,6 +1215,19 @@ function advanceBossMove(b) {
     if (++b.age>=36) startMove();
     return;
   }
+  if (b.move==='sheet' && collectorBoss()) {
+    if (b.phase===1) {
+      const target=BOSS_HOME+SimMath.sin(time*.035)*18;
+      b.x+=clamp(target-b.x,-3,3);
+    } else b.x+=clamp(BOSS_HOME-b.x,-4,4);
+    const t=b.age-b.tell;
+    if (t>=0 && t<b.sheetActive && b.sheetVolleys) {
+      for (const volley of b.sheetVolleys) if (t===volley.t) fireCollectorVolley(b, volley);
+    }
+    collectorMelee(b);
+    if (++b.age >= b.tell+b.sheetActive+b.sheetRest) startMove();
+    return;
+  }
   const m=moves[b.move], t=b.age-b.tell;
   if (!sheetBoss() && b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
     const target=BOSS_HOME+SimMath.sin(time*.035)*42;
@@ -1170,12 +1286,13 @@ function advanceStageShift() {
 }
 
 function keepPlayerLeft() {
+  const hull=collectorBoss()?collectorHull(boss):null;
   const body=sheetBoss()?sheetBody(boss):null;
-  const p=player, front=boss.x-(body?body.half+36:(hasMecha(boss)?170:BOSS_FRONT));
+  const p=player, front=hull?hull.left-28:boss.x-(body?body.half+36:(hasMecha(boss)?170:BOSS_FRONT));
   if (p.x<front) return;
   const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y;
-  const bossTop=body?body.top:hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
-  const bossBottom=body?body.bottom:hasMecha(boss)?mechaY(boss)+122:boss.y;
+  const bossTop=hull?hull.top:body?body.top:hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
+  const bossBottom=hull?hull.bottom:body?body.bottom:hasMecha(boss)?mechaY(boss)+122:boss.y;
   if (boss.hp && top<bossBottom && bottom>bossTop) {
     if (!ceilingSweepInProgress()) hurt(true);
     p.x=front-32;
@@ -1248,33 +1365,70 @@ function updateBullets() {
       }
       continue;
     }
+    if (shot.shape==='magnetPulse' && shot.pulse!=='impact') {
+      if (shot.returnAt && shot.vx<0 && shot.x<=shot.returnAt) {
+        shot.vx=-shot.vx;
+        shot.returnAt=0;
+        shot.returning=1;
+      }
+      if (shot.returning && shot.x>=b.x-40) {
+        shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0;
+      }
+    }
+    if (shot.pulse==='impact') {
+      if (shot.age>=16) shot.dead=true;
+      continue;
+    }
     if (shot.age>145 || shot.x<-55 || shot.x>W+55 || shot.y<-135 || shot.y>FLOOR+36) {
-      shot.dead=true;
+      if (shot.shape==='magnetPulse' && shot.pulse!=='impact') { shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0; }
+      else shot.dead=true;
       continue;
     }
     if (!shot.own) {
-      const box=boxes[shot.shape];
       const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
-      if (Math.abs(shot.x-p.x)<(flying?58:18)+box.w/2 && shot.y+box.h/2>top &&
-        shot.y-box.h/2<bottom && !p.dash) {
-        shot.dead=true;
+      const pulse=shot.shape==='magnetPulse'?magnetPulseBox(shot):null;
+      const box=boxes[shot.shape];
+      const overlaps=pulse
+        ?player.x+18>pulse.left && player.x-18<pulse.right && bottom>pulse.top && top<pulse.bottom
+        :Math.abs(shot.x-p.x)<(flying?58:18)+box.w/2 && shot.y+box.h/2>top && shot.y-box.h/2<bottom;
+      if (overlaps && !p.dash) {
+        if (pulse) { shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0; }
+        else shot.dead=true;
         hurt();
         if (!p.hp) break;
       }
       continue;
     }
     const mech=hasMecha(b);
-    const body=sheetBoss()?sheetBody(b):null;
-    const hitTop=body?body.top:isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
-    const hitBottom=body?body.bottom:mech?mechaY(b)+122:b.y-12;
-    const halfWidth=body?body.half:mech?106:147;
+    const sheet=sheetBoss()?sheetBody(b):null;
+    const collector=collectorBoss()?collectorBox(b):null;
+    const hitTop=collector?collector.top:sheet?sheet.top:isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
+    const hitBottom=collector?collector.bottom:sheet?sheet.bottom:mech?mechaY(b)+122:b.y-12;
+    const halfWidth=sheet?sheet.half:mech?106:147;
     const beam=shot.shape==='redLaser';
-    const inRange=beam
-      ?shot.x<=b.x+halfWidth && SAUCER_BEAM_END>=b.x-halfWidth
-      :Math.abs(shot.x-b.x)<=halfWidth;
+    const inRange=collector
+      ?shot.x>=collector.left && shot.x<=collector.right
+      :beam
+        ?shot.x<=b.x+halfWidth && SAUCER_BEAM_END>=b.x-halfWidth
+        :Math.abs(shot.x-b.x)<=halfWidth;
     if (beam) shot.dead=true;
     if (!b.hp || !inRange || shot.y<hitTop || shot.y>hitBottom) continue;
     if (beam) shot.x=Math.max(shot.x,b.x-halfWidth);
+    if (collector) {
+      const clip=collectorClip(b), frame=collectorFrame(b);
+      if (clip.role==='deflect' && clip.hitFrames.includes(frame)) {
+        shot.dead=true;
+        puff(shot.x, shot.y, '#ffe1a3', 10);
+        continue;
+      }
+      const drive=collectorWeak(b);
+      const aligned=drive && shot.y>=drive.top && shot.y<=drive.bottom;
+      const damage=shot.shape==='missile'?2:aligned?3:1;
+      hitBoss(shot, damage);
+      if (aligned) sound(750,970,.08,.035);
+      if (!b.hp) break;
+      continue;
+    }
     const m=b.move && moves[b.move];
     const exposed=sheetBoss()?sheetExposed(b):m && b.age>b.tell+m.active;
     const weak=exposed && Math.abs(shot.y-bossWeakY(b))<34;
@@ -1289,7 +1443,7 @@ function updateBullets() {
 function hitBoss(shot,damage) {
   shot.dead=true;
   let floor=0;
-  if (boss.phase===2 && !isCodebreak() && !sheetBoss()) {
+  if (boss.phase===2 && !isCodebreak() && !sheetBoss() && !collectorBoss()) {
     // Keep both shield tests reachable, even if damage outpaces the recharge.
     if (!boss.pulses.has(2)) floor=Math.floor(boss.max/4)+1;
     else if (!boss.pulses.has(3)) floor=1;
@@ -1519,6 +1673,31 @@ function renderBoss() {
     }
   }
   if (!b.hp && b.phase===2 && transition<12) return;
+  if (collectorBoss()) {
+    shadow(b.x, FLOOR, 96);
+    drawCollectorBoss(b);
+    const showLine=b.hp && !phaseShift && (b.sheetClip==='collector-lane-scan' || (b.sheetCue && b.age<=b.tell));
+    if (showLine) {
+      const y=b.sheetClip==='collector-lane-scan'?collectorLaneY(Math.floor(time/24)%2?'high':'low'):(b.sheetAim||collectorLaneY('low'));
+      ctx.save();
+      ctx.strokeStyle=b.sheetClip==='collector-lane-scan'?'#7dffe8':'#ffd56a';
+      ctx.globalAlpha=.7;
+      ctx.setLineDash([12,8]);
+      ctx.lineWidth=3;
+      ctx.beginPath();
+      ctx.moveTo(70, y);
+      ctx.lineTo(collectorMuzzle(b), y);
+      ctx.stroke();
+      ctx.restore();
+    }
+    const drive=collectorWeak(b);
+    if (drive && b.hp) {
+      ctx.strokeStyle='#ffe5a1';
+      ctx.lineWidth=3;
+      ctx.strokeRect(drive.left-6, drive.top-6, drive.right-drive.left+12, drive.bottom-drive.top+12);
+    }
+    return;
+  }
   if (sheetBoss()) {
     shadow(b.x, sheetSpec().feet?FLOOR:b.y+sheetSpec().drawH/2-8, 100);
     drawSheetBoss(b);
@@ -2088,7 +2267,9 @@ function render() {
       ctx.drawImage(flame,-26,-66,52,92);
     } else if (SHEET_DATA.shots[shot.shape]) {
       drawSheetShot(shot);
-    } else {
+} else if (shot.shape==='magnetPulse') {
+      if (shot.pulse==='impact') ctx.globalAlpha=Math.max(.25, 1-shot.age/16);
+      drawCollectorShot(shot);    } else {
       const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
       if (MECHA_ROCKETS.includes(shot.shape)) drawFlightFlame('orange',-w/2+23,0,30);
       ctx.drawImage(bossAttackImage(name),-Math.floor(w/2),-Math.floor(h/2),w,h);
@@ -2272,7 +2453,7 @@ function levelAssets(index) {
     images.push(...spriteFrames(acts[index].id));
     const sheetId=SHEET_DATA.byLevel[index];
     if (sheetId) for (const clip of Object.values(SHEET_DATA.bosses[sheetId].clips)) for (const frame of clip.frames) images.push(picture(frame));
-  }
+if (index===4) for (const clip of Object.values(COLLECTOR_SHEET.clips)) images.push(picture(clip.atlas));  }
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;
