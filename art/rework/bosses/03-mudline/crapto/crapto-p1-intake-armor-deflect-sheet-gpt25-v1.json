@@ -1,0 +1,35 @@
+{
+  "asset_id": "f6bd1340-9113-4340-97b6-f13e1054b543",
+  "sha256": "0e8892bf5de36b36f99f16dd4800465cece15e35dff32d9dfc2d9e5777d70a81",
+  "credits": 0,
+  "references": [
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-crapto-sludge-dredger-v1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-crapto-pilot-v6.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/03-mudline-p1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/chroma-magenta-FF00FF.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Sludge Dredger boss machine. Sproto pilot LARGE and clearly readable filling the cockpit \u2014 not a tiny blob. Crapto is LARGE and clearly readable in the cockpit in every frame. Attack: Intake rim absorbs a glancing shot with a brief mechanical kick. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral (2) wind-up (3) loaded anticipation (4) strike with smear (5) peak impact effect (6) follow-through (7) recovery vent puff (8) return to neutral. Solid flat magenta background #FF00FF only \u2014 no scenery, floor or gray. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, generous margins, no cropping, text, UI, logos, extra characters or detached parts. Match the attached machine and pilot references exactly.",
+  "created_at": "2026-11-05T23:48:33Z",
+  "site_created_at": "2026-11-05T18:48:33-05:00 America/Lima",
+  "kind": "attack",
+  "model": "GPT Image 2.5 Sunburst",
+  "settings": {
+    "quality": "Medium",
+    "aspect": "4:3",
+    "resolution": "2K",
+    "batch": 1,
+    "unlimited": true,
+    "button": "UNLIMITED"
+  },
+  "size": [
+    2336,
+    1744
+  ],
+  "corner_samples": {
+    "tl": "#F60FF6",
+    "tr": "#F812F7",
+    "bl": "#F50CF5",
+    "br": "#F80FF7"
+  },
+  "upload_method": "refs already attached in the site composer from prior session (same four, same order); not re-uploaded"
+}
