@@ -20,10 +20,11 @@ const commands=tests.map(file=>{
  }
  return {file,relative,args};
 });
-for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
 // Story replay goldens for the hub's server verifier (bundle always; source simulation after npm ci).
 if(fs.existsSync(path.join(qaDir,'server-sim-goldens.mjs')))commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs',args:[root]});
-// Animation inventory is archived pre-production evidence; current user stopped production.
+commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs (historical collision disabled)',args:[root,'--collision-disabled']});
+// Historical animation inventory remains archived pre-production evidence; active phase sheets have dedicated checks above.
 if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.join(qaDir,'pacing-checks.mjs'),relative:'qa/pacing-checks.mjs',args:[root]});
 if(fs.existsSync(path.join(qaDir,'missile-checks.mjs')))commands.push({file:path.join(qaDir,'missile-checks.mjs'),relative:'qa/missile-checks.mjs',args:[root]});
 const results=[];
@@ -35,5 +36,5 @@ for(const command of commands){
 const build=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 const dirty=execFileSync('git',['status','--short'],{cwd:root,encoding:'utf8'}).trim();
 const failed=results.filter(r=>r.status!=='passed').length;
-console.log(JSON.stringify({build,workingTree:dirty,kind:'deterministic-regression',status:failed?'failed':'passed',commands:results.length,failed,results,limitations:['Scripted fixture controllers are not human playtests.','Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.','Full gameplay balance and readability require human playtesting; animation production is stopped.']},null,2));
+console.log(JSON.stringify({build,workingTree:dirty,kind:'deterministic-regression',status:failed?'failed':'passed',commands:results.length,failed,results,limitations:['Scripted fixture controllers are not human playtests.','Run qa/ui-browser.mjs and qa/baseline-browser.mjs separately for actual file:// browser checks.','Full gameplay balance and readability require human playtesting. Controlled visual review is not an earned clear.']},null,2));
 if(failed)process.exitCode=1;

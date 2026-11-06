@@ -1,0 +1,135 @@
+{
+  "folder": "08-crown-alpha777",
+  "phase": 1,
+  "status": "accepted_copied",
+  "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/08-crown-alpha777-p1-concept.png",
+  "concept_job_id": "5e2d0df8-341c-40ff-9af9-a2a9b26834f9",
+  "concept_available": true,
+  "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/08-crown-alpha777-p1-guide.png",
+  "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+  "weapon_plan": [
+    {
+      "slot": "A",
+      "mechanism": "right-arm gold coin cannon",
+      "projectile": "small spinning gold casino coin, embossed crown and thick luminous gold rim",
+      "size_class": "small compact",
+      "extent_percent_of_cell": {
+        "width": 20,
+        "height": 20
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "B",
+      "mechanism": "left-arm ivory playing-card fan launcher",
+      "projectile": "ivory playing-card dart with red diamond suit, gold corner trim and a sharp turning edge",
+      "size_class": "long narrow",
+      "extent_percent_of_cell": {
+        "width": 45,
+        "height": 15
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "C",
+      "mechanism": "shoulder-mounted olive/brass capsule-chip launcher",
+      "projectile": "wide red casino-chip capsule with ivory rim blocks, olive/brass mechanical fins and gold crown center",
+      "size_class": "broad wide",
+      "extent_percent_of_cell": {
+        "width": 35,
+        "height": 27
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes",
+      "accepted_actual_body_job": "9176aee2-6757-4dcb-937d-4cb5dfb4231c"
+    },
+    {
+      "slot": "heavy",
+      "mechanism": "overcharged heavy token cartridge from shoulder-mounted olive/brass capsule-chip launcher",
+      "projectile": "large thick gold jackpot token with raised crown, engraved grooves and jewel-red center",
+      "size_class": "large heavy",
+      "extent_percent_of_cell": {
+        "width": 43,
+        "height": 40
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    }
+  ],
+  "simulation_changes": false,
+  "enabled_in_game": false,
+  "model_ui": "Nano Banana Pro",
+  "resolution": "2K",
+  "aspect_ratio": "1:1",
+  "billing": "Unlimited only; no paid fallback",
+  "sourceFacing": "right",
+  "guideFacing": "left",
+  "transform": "horizontal-flip",
+  "type": "phase_projectile_atlas",
+  "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: small spinning gold casino coin, embossed crown and thick luminous gold rim. Width about102pixels and height102pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: ivory playing-card dart with red diamond suit, gold corner trim and a sharp turning edge. Width about230pixels and height77pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: wide red casino-chip capsule with ivory rim blocks, olive/brass mechanical fins and gold crown center. Width about179pixels and height138pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: large thick gold jackpot token with raised crown, engraved grooves and jewel-red center. Width about220pixels and height205pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+  "rows_by_weapon": [
+    "A",
+    "B",
+    "C",
+    "heavy"
+  ],
+  "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/08-crown-alpha777-p1-projectiles.png",
+  "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/08-crown-alpha777/p1-projectiles.png",
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "width": 2048,
+    "height": 2048,
+    "cell_width": 512,
+    "cell_height": 512
+  },
+  "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: small spinning gold casino coin, embossed crown and thick luminous gold rim, fired from right-arm gold coin cannon. Keep its own relative size approximately 20% cell width by 20% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: ivory playing-card dart with red diamond suit, gold corner trim and a sharp turning edge, fired from left-arm ivory playing-card fan launcher. Keep its own relative size approximately 45% cell width by 15% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: wide red casino chip disc with alternating ivory rim blocks, dark red center and gold crown mark, fired from chest slot-reel red casino-chip disc launcher. Keep its own relative size approximately 35% cell width by 27% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: large thick gold jackpot token with raised crown, engraved grooves and jewel-red center, fired from overcharged heavy cartridge from chest slot-reel red casino-chip disc launcher. Keep its own relative size approximately 43% cell width by 40% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+  "reference_path": null,
+  "actual_weapon_override": "C visual mechanism is accepted shoulder-mounted olive/brass launcher; original requested chest slot firing was not realized. Original submitted prompts preserved.",
+  "job_id": "c3ba2bb1-edb8-4489-8e03-cebbdb981552",
+  "billing_verified": "Unlimited ON /submitUNLIMITED/2K1:1",
+  "reference_asset_id": null,
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_165321_c3ba2bb1-edb8-4489-8e03-cebbdb981552.png",
+  "finalSha256": "782d1f682551482fd9cd07b2bca50c3acbe4590907ec0214e230a299262630a6",
+  "facing": "left",
+  "nativeFacingNormalization": "Bcarddart/Cchipcapsule mirrored toLEFT, spinningcoinA/heavytokenD native",
+  "protectedCoresProfile": {
+    "stripGrid": 8,
+    "reason": "Native ruby/pink-red jewel and red chip/card pigment are foreground, not magenta spill. Preserve reviewed physical centers byte-exact; remove only verified edgeconnected field inside guards.",
+    "protectedCores": [
+      {
+        "row": 1,
+        "box": [
+          60,
+          150,
+          405,
+          220
+        ],
+        "reason": "Ivory card body and red diamond marks, allfour genuine turnposes",
+        "predicate": "red-pigment"
+      },
+      {
+        "row": 2,
+        "box": [
+          40,
+          100,
+          425,
+          330
+        ],
+        "reason": "Red/ivory casino chip face and olive/brass capsule body",
+        "predicate": "red-pigment"
+      },
+      {
+        "row": 3,
+        "box": [
+          190,
+          140,
+          200,
+          245
+        ],
+        "reason": "Native central ruby jewel and golden crown recess, allfour turnposes"
+      }
+    ],
+    "redPigmentPredicate": "R-G>20,R-B>20,B<160,G<140; prevents source pink/white/gold glow outside real red marks from being falsely protected"
+  },
+  "strictGridExpansionPixels": 8,
+  "physicalRepair": false
+}

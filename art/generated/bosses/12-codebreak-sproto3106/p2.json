@@ -1,0 +1,627 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-video-poses-with-explicit-flight-fx-separation",
+  "generationJob": "f177f802-0787-467d-9723-45fb9f7070c1",
+  "sourceSha256": "8e48a28e35f9bb08b77c45a779225a810e8bcd330a4bb52fa3813491991aaf7f",
+  "atlasSha256": "15272616771c6c4029253aae864bfa987b500c9a11c10f0db1834d39b16df12a",
+  "includesPilot": true,
+  "facing": "left",
+  "samples": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "timestamp": 0.4,
+      "sourceBounds": [
+        55,
+        38,
+        908,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "timestamp": 1.1,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "timestamp": 1.8,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "timestamp": 2.5,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "timestamp": 3.4,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "timestamp": 4.5,
+      "sourceBounds": [
+        55,
+        37,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "timestamp": 5.0,
+      "sourceBounds": [
+        52,
+        46,
+        910,
+        938
+      ],
+      "effectSeparation": "Free brass shot x<105 separated; complete recoiling metal barrel beginsx107. Retain native40px muzzle-side ignition arc at[92,620].",
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "timestamp": 5.8,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "timestamp": 6.1,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "timestamp": 7.0,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "timestamp": 7.5,
+      "sourceBounds": [
+        60,
+        47,
+        912,
+        938
+      ],
+      "effectSeparation": "Separate left-traveling badge beam in reviewed empty x<220,y280..509. Preserve both physical badges and native75px local star ignition around[250,390].",
+      "enclosedExactFieldPixels": 24746,
+      "enclosedFieldFringeUnmixPixels": 2470,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "timestamp": 8.5,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "timestamp": 9.1,
+      "sourceBounds": [
+        55,
+        31,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "timestamp": 9.5,
+      "sourceBounds": [
+        55,
+        20,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 16664,
+      "enclosedFieldFringeUnmixPixels": 1711,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "timestamp": 10.0,
+      "sourceBounds": [
+        55,
+        20,
+        906,
+        938
+      ],
+      "effectSeparation": "Separate long cyan claw-beam flight through the reviewed open gap between intact prongs; retain native50px ignition at[280,195] and full side-arm local jet.",
+      "enclosedExactFieldPixels": 16695,
+      "enclosedFieldFringeUnmixPixels": 1609,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "timestamp": 11.5,
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "effectSeparation": null,
+      "enclosedExactFieldPixels": 0,
+      "enclosedFieldFringeUnmixPixels": 0,
+      "physicalVehicleComplete": true
+    }
+  ],
+  "model": "Higgsfield Seedance2.5 website Unlimited720p",
+  "weaponMechanisms": [
+    "rotary brass cannon",
+    "twin shoulder sheriff-badge pulse launchers",
+    "overhead claw stun-lance emitter with auxiliary side-arm ion port"
+  ],
+  "physicalPolicy": "All selected complete hardware and native pilot unchanged outside explicit empty-space flight exclusions. No body repair or RGB painting.",
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      29,
+      22,
+      453,
+      478
+    ],
+    [
+      28,
+      21,
+      455,
+      479
+    ],
+    [
+      29,
+      22,
+      455,
+      478
+    ],
+    [
+      29,
+      12,
+      452,
+      487
+    ]
+  ],
+  "bounds": [
+    28,
+    12,
+    456,
+    488
+  ],
+  "unionCrop": [
+    52,
+    20,
+    912,
+    939
+  ],
+  "destinationSize": [
+    457,
+    488
+  ],
+  "offset": [
+    27,
+    12
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        55,
+        38,
+        908,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        482,
+        500
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        500
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        500
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        500
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        500
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        55,
+        37,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        21,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        52,
+        46,
+        910,
+        938
+      ],
+      "cellBounds": [
+        28,
+        26,
+        483,
+        499
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        939
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        60,
+        47,
+        912,
+        938
+      ],
+      "cellBounds": [
+        31,
+        26,
+        484,
+        499
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        55,
+        31,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        18,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        55,
+        20,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        12,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        55,
+        20,
+        906,
+        938
+      ],
+      "cellBounds": [
+        29,
+        12,
+        481,
+        499
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        55,
+        38,
+        907,
+        938
+      ],
+      "cellBounds": [
+        29,
+        22,
+        481,
+        499
+      ]
+    }
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "15272616771c6c4029253aae864bfa987b500c9a11c10f0db1834d39b16df12a"
+  }
+}

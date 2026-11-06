@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "kind": "approved-native-cockpit-composition",
+  "animationFramesGenerated": false,
+  "vehicleAnimationSource": "existing genuine input atlas, unchanged outside explicit masks",
+  "includesPilot": true,
+  "requiresVisualReview": true,
+  "productionEnabled": false,
+  "source": "outputs/boss-concepts/03-mudline-crapto-p1-concept.png",
+  "sourceSha256": "77f8ca8321eb5b2c6f6e5c3b46f2a2fde583f42a3128c0691413bc1bbf52a643",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "atlas": "work/art-production/cockpit-compositions/03-mudline-crapto-p1-normalized-left.png",
+  "atlasSha256": "88f3ef10a36ae92e81d38445b8c7922806bdc9630f1d439c9b7ebe35f1de9ea3",
+  "atlasDimensions": [
+    2048,
+    2048
+  ],
+  "specification": "work/art-production/cockpit-compositions/03-mudline-crapto-p1-placements.json",
+  "specificationSha256": "9939ec618dbd8881dfa05cac0669c167836df1240e508c66364c01f1d04a6bb1",
+  "polygon": [
+    [
+      950,
+      330
+    ],
+    [
+      1290,
+      330
+    ],
+    [
+      1350,
+      360
+    ],
+    [
+      1400,
+      410
+    ],
+    [
+      1450,
+      500
+    ],
+    [
+      1480,
+      650
+    ],
+    [
+      1480,
+      880
+    ],
+    [
+      1495,
+      900
+    ],
+    [
+      1495,
+      925
+    ],
+    [
+      930,
+      925
+    ],
+    [
+      850,
+      780
+    ],
+    [
+      850,
+      430
+    ]
+  ],
+  "sourceHorizontalFlip": true,
+  "sourceMaskBoundsAfterFlip": [
+    552,
+    330,
+    1198,
+    926
+  ],
+  "maskPolicy": "hard binary polygon intersected with opaque source alpha; no feather, blending, repaint or interpolation",
+  "transform": "cellLocalPixel = (horizontalFlip ? [sourceWidth-1-rawX, rawY] : rawConceptPixel) * uniformScale + translate; anchors refer to original unmirrored source",
+  "resampling": "nearest-neighbor",
+  "columns": 4,
+  "rows": 4,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.13,
+      "translate": [
+        118.88999999999999,
+        115.8
+      ],
+      "cellPatchBounds": [
+        191,
+        159,
+        275,
+        236
+      ],
+      "patchPixels": 5858,
+      "inverseAffine": [
+        7.692307692307692,
+        0,
+        -914.5384615384614,
+        0,
+        7.692307692307692,
+        -890.7692307692307
+      ],
+      "sourceAnchor": [
+        1000,
+        340
+      ],
+      "targetAnchor": [
+        255,
+        160
+      ]
+    }
+  ],
+  "checks": {
+    "outsideMaskRgbaByteExact": true,
+    "insideMaskMatchesNearestNativeSource": true,
+    "all16UniqueCells": true
+  },
+  "output": "work/art-production/cockpit-compositions/03-mudline-crapto-p1-composed-raw.png",
+  "outputSha256": "cbbd9cb3cffa94b9ddcb556f40ec40fdf8ab5d1e3fdd4036a575c64cc091fa1d",
+  "maskOutput": "work/art-production/cockpit-compositions/03-mudline-crapto-p1-native-mask.png",
+  "maskSha256": "bd1a0283f0c8d9fe89541506de8e78a21b872e28834e7b2d166b79e0c96f8d87"
+}

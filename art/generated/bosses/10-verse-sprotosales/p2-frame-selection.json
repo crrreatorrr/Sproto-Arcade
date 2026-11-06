@@ -1,0 +1,117 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestamps": [
+        0.4,
+        1.1,
+        1.8,
+        2.5
+      ],
+      "sourceTransform": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestamps": [
+        3.4,
+        4.0,
+        4.375,
+        5.5
+      ],
+      "sourceTransform": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "fxSeparation": {
+        "4.375": {
+          "protectSourceTime": 4.25,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              300,
+              180,
+              400
+            ]
+          ],
+          "keepCircles": [
+            [
+              62,
+              488,
+              25
+            ],
+            [
+              59,
+              538,
+              25
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestamps": [
+        6.2,
+        6.9,
+        7.125,
+        8.5
+      ],
+      "sourceTransform": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4",
+      "timestamps": [
+        0.5,
+        1.5,
+        2.25,
+        5.5
+      ],
+      "fxSeparation": {
+        "2.25": {
+          "protectSourceTime": 2.0,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              540,
+              220,
+              260
+            ]
+          ],
+          "keepCircles": [
+            [
+              130,
+              680,
+              100
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "releaseCuePolicy": "Real native source ignitions: A4.375 pairedredoutergunports; B7.125centralhubrubycharge-release; C2.25separateunfoldingcreambracebarrel. Only travelingFXoutsidephysicalprefireprotectionseparated. C source physicalringis~4%smaller, soonefixed0.96registrationapplieduniformlytoalloriginalclipframes, matchingring/hub/pilotanchorswithoutperframechanges.",
+  "generationJobs": [
+    "1bc65da0-8a54-49e4-a087-ce9edbad315f",
+    "38e97cea-d9bf-4e3f-bf70-df949c250612"
+  ]
+}

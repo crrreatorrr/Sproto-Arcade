@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "02-last-light-vela",
+  "phase": 1,
+  "assetKind": "boss",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "02-last-light-vela",
+    "phase": 1,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/02-last-light-vela-p1-concept.png",
+    "concept_job_id": "c34f0cf0-3f79-4892-a736-8ca34d861e98",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/02-last-light-vela-p1-guide-small-left.png",
+    "status": "root_visual_pass_waiting_in_game_QA",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "front central crystal-ray aperture",
+        "projectile": "faceted cyan-white narrow light lance",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "left side magenta optical-port cannon",
+        "projectile": "compact magenta refracted crystal shard",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "upper pivoting gold lens emitter",
+        "projectile": "wide amber-cyan concentric light pulse",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged prism aperture",
+        "projectile": "large cyan-magenta prismatic energy torpedo",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "boss_phase_atlas",
+    "prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: front central crystal-ray aperture: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY cyan-white muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: left side magenta optical-port cannon: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY magenta muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: upper pivoting gold lens emitter: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY gold-cyan muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "layout_guide_prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: front central crystal-ray aperture: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY cyan-white muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: left side magenta optical-port cannon: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY magenta muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: upper pivoting gold lens emitter: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY gold-cyan muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "reference_policy": "Sole validated fixed-layout guide; never combined board or rejected draft",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/02-last-light-vela-p1.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/02-last-light-vela/p1.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512,
+      "rows_by_state": [
+        "idle",
+        "attack-a",
+        "attack-b",
+        "attack-c"
+      ]
+    },
+    "prompt_original_long": "EDIT the attached exact 4x4 fixed-layout GUIDE IN PLACE. Preserve its exact 16 sprite positions, vehicle scale, center, anchor, baseline and proportions. The sole reference is a deterministic guide made from the validated single phase concept; keep its exact vehicle and Sproto identity. No enlarged reference, ghost image or duplicated guide inside any cell. ROW 1: four genuinely DISTINCT subtle idle machinery/pilot frames. ROW 2: front central crystal-ray aperture: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local faceted cyan-white narrow light lance birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 3: left side magenta optical-port cannon: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local compact magenta refracted crystal shard birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 4: upper pivoting gold lens emitter: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local wide amber-cyan concentric light pulse birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. THREE distinct physical mounted weapons SHOOTING in the three attack rows, with visible local weapon articulation and separate muzzle release origins; do not substitute whole-body bobbing or an identical generic flash. Pilot remains seated INSIDE the cockpit with both hands operating controls, exact face/costume/colors from the guide: vivid royal/electric BLUE skin; swept-back spiky BLUE head; two enormous GOLDEN-YELLOW eyes with very large BLACK pupils and tiny WHITE glints; broad thick RED smiling lips/muzzle and dark inner smile; tiny dark triangular nose; BLUE arms and BLUE hands; prominent RED BOW TIE centered on the upper chest; round bright YELLOW belly; robust blue limbs. No glare, reflection stripes or colored tint over the pilot. Keep all pixels including tiny flashes inside the central 55% width/height of each 512 cell, broad clear margins, nothing touches cell borders. Do not move, resize or rotate whole sprites. Premium crisp detailed pixel art, rich controlled palette and precise mechanisms. ALL background/gutters stay original flat pure #FF00FF magenta in every cell, no gray/white background, black grid lines, dividers, frames, numbers, labels, text, arrows, trajectories, diagrams or extra objects. No flying projectile leaving its local muzzle. Four rows of four meaningful ordered animation frames; do not merely repeat static guide copies. Same gameplay timing, paths, damage and attack count; artwork only.",
+    "reference_transform": "horizontal-mirror-entire-static-guide",
+    "normalized_facing": "left",
+    "background_request": "#FF00FF",
+    "job_id": "7d777ed8-a51e-4669-a349-af06d52115e7",
+    "submitted_prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: front central crystal-ray aperture: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY cyan-white muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: left side magenta optical-port cannon: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY magenta muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: upper pivoting gold lens emitter: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY gold-cyan muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "reference_media_id": "38e9ada4-f7ba-4c77-9c6f-681738a04cfc",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_131352_7d777ed8-a51e-4669-a349-af06d52115e7.png",
+    "rejected_attempts": [
+      {
+        "job_id": "2c5d0d89-ff16-4485-8f78-30d0ef6ea3df",
+        "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_130540_2c5d0d89-ff16-4485-8f78-30d0ef6ea3df.png",
+        "prompt": "Edit this exact 4x4 fixed-layout guide IN PLACE. Preserve ALL16 positions, vehicle scale, center, anchor, baseline, proportions and exact Sproto pilot from the guide. NO enlarged reference or ghost copy. Row1 FOUR DISTINCT idle machinery/pilot frames. Row 2: front central crystal-ray aperture visibly SHOOTS its own faceted cyan-white narrow light lance: four consecutive frames brace/charge, deploy/aim, tiny local muzzle release, recoil/recovery. Other weapons neutral. Row 3: left side magenta optical-port cannon visibly SHOOTS its own compact magenta refracted crystal shard: four consecutive frames brace/charge, deploy/aim, tiny local muzzle release, recoil/recovery. Other weapons neutral. Row 4: upper pivoting gold lens emitter visibly SHOOTS its own wide amber-cyan concentric light pulse: four consecutive frames brace/charge, deploy/aim, tiny local muzzle release, recoil/recovery. Other weapons neutral. Three DIFFERENT physical weapons shooting at their own muzzle origins; clear local articulation and recoil, not generic body bobbing. Preserve pilot exact face, eye colors, head spikes, muzzle, hands, costume and colors in EVERY frame, visibly seated inside cockpit with hands on controls. No reflection streak or color tint over face. Keep every sprite and tiny muzzle flash fully inside its own512cell, within central55%width/height, wide empty margins. No moving/resizing whole vehicle. High-quality crisp detailed32-bit pixel art. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, labels, numbers, text, arrows, diagrams, borders, floor or scenery. No flying projectile beyond local muzzle. Four meaningful successive frames per row, not repeated static copies. ONE2048square atlas, sixteen isolated complete animation frames.",
+        "raw_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/02-last-light-vela-p1-draft-clipped.png",
+        "reason": "Row2 col3 full light lance touches source cell edge; strict extractor rejected bounds(1,110,366,402)",
+        "background": "uniform pure magenta successful",
+        "pilot_identity": "preserved",
+        "animation": "three distinct weapons shooting"
+      }
+    ],
+    "reference_maximum_subject_size": 220,
+    "fidelity_repair": {
+      "method": "approved concept whole cockpit interior and brass rim; exact native RGB nearest-neighbor mirror/scale",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/02-last-light-vela-p1-concept.png",
+      "placement_spec": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/02-last-light-vela-p1-placements.json",
+      "composed_raw": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-test-0.16.png",
+      "prepared_prototype": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/02-last-light-vela-p1-composed-prototype.png",
+      "qa": "all16 exact pilot/cockpit aligned; weapons untouched; pale pink fringe refinement pending baseline",
+      "enabled_in_game": false
+    },
+    "includesPilot": true,
+    "processed_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/02-last-light-vela/p1.png",
+    "final_sha256": "10570004e482340f2e175205b9826aadbad9747c36ae74b587410750ed902f2e",
+    "visual_review": "Root visual pass: exactpilot naturally seated,3 distinct LEFT shooting physical weapons,no clipping or obscuration. Native cockpit protected, reviewed chroma cleanup. In-game QA pending."
+  },
+  "acceptedOutput": {
+    "path": "p1.png",
+    "sha256": "10570004e482340f2e175205b9826aadbad9747c36ae74b587410750ed902f2e",
+    "metadata": "p1.json",
+    "bounds": [
+      19,
+      12,
+      473,
+      488
+    ],
+    "rowBounds": [
+      [
+        150,
+        136,
+        315,
+        364
+      ],
+      [
+        19,
+        136,
+        433,
+        364
+      ],
+      [
+        40,
+        136,
+        415,
+        362
+      ],
+      [
+        135,
+        12,
+        357,
+        486
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

@@ -1,0 +1,65 @@
+{
+  "stripGrid": 12,
+  "reason": "Exact native Sheriff red/blue material guarded; edgeconnected/strong enclosed magenta backing removed, yellow/gold glow conservatively unmixed.",
+  "protectedCores": [
+    {
+      "row": 0,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 1,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 2,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 3,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    }
+  ],
+  "allowEnclosedStrongField": true,
+  "enclosedFieldRule": {
+    "minRB": 180,
+    "maxG": 150,
+    "minExcess": 70,
+    "maxBalance": 65
+  },
+  "graySmokeRegions": [
+    {
+      "row": 3,
+      "box": [
+        0,
+        140,
+        125,
+        220
+      ],
+      "reason": "Reviewed neutral gray smoke at capsule LEFT; recover only neutral smoke from magenta, a=1-(minRB-G)/255, fg gray=G/a. Native red/blue/brass core excluded."
+    }
+  ]
+}

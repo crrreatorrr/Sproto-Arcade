@@ -1,0 +1,47 @@
+{
+  "allowEnclosedChroma": true,
+  "enclosedChromaReason": "Source-compared Moonkeep P1 palette contains blue/gunmetal/gold/orange, white eyes and red muzzle/collar; NO genuine hot-magenta subject region. Remove alpha-only enclosed sky holes between horns/wings.",
+  "releaseCuePolicy": "Genuine contained mouth ignition2.65s and chest-barrel ignition1.5s retimed as gameplay release cues; separate authored game projectile supplies flight. Source off-frame traveling effects atA2.70+ andC1.75 excluded. No clipped vehicle repair, pose synthesis or duplicated frames.",
+  "rows": [
+    {
+      "state": "idle",
+      "source": "../raw-moonkeep-actions/p1-A.mp4",
+      "timestamps": [
+        0.1,
+        0.35,
+        0.6,
+        0.85
+      ]
+    },
+    {
+      "state": "attack-a",
+      "source": "../raw-moonkeep-actions/p1-A.mp4",
+      "timestamps": [
+        1.25,
+        1.75,
+        2.65,
+        3.75
+      ]
+    },
+    {
+      "state": "attack-b",
+      "source": "../raw-moonkeep-actions/p1-B.mp4",
+      "timestamps": [
+        0.75,
+        1.25,
+        2.5,
+        3.25
+      ]
+    },
+    {
+      "state": "attack-c",
+      "source": "../raw-moonkeep-actions/p1-C.mp4",
+      "timestamps": [
+        0.25,
+        1.25,
+        1.5,
+        3.75
+      ]
+    }
+  ]
+}

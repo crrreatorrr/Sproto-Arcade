@@ -1,0 +1,31 @@
+{
+  "pilot": "Big Swole",
+  "phase": 1,
+  "approvedConceptJob": "19dd1b97-5587-437d-a788-bc0adfe046a5",
+  "sourceHashes": {
+    "canonicalPilot": {
+      "file": "work/Sproto-Arcade/fighters/poses/bigswole/00-guard.png",
+      "sha256": "ad53a4e51b594b5e6b161d4ee48931d47859d462965cd4a74baa36c260413708"
+    },
+    "enlargedPilotReference": {
+      "file": "work/art-production/pilot-references/07-moonkeep-bigswole.png",
+      "sha256": "ef0fc305742ac69d6ffc019a19ee2e87a3ab6718e78acfad26ef9a13a2b1cbdd"
+    },
+    "approvedConcept": {
+      "file": "outputs/boss-concepts/07-moonkeep-bigswole-p1-concept.png",
+      "sha256": "fb378213012c2efe5d63ecbe49c0b97924183dc081945bb3d266e04c83519370"
+    },
+    "singleVehicleReference": {
+      "file": "work/art-production/video-references/07-moonkeep-bigswole-p1-single-left.png",
+      "sha256": "2c086cd297b906eaa78e6ace7cfad62c76c15801b76e507de6411e403f6aa030"
+    }
+  },
+  "generationJobs": [
+    "b5391101-fc27-43f9-a505-a6b769b31546",
+    "52a94d3e-20bf-4092-9b32-f8791e89cc41",
+    "bf4d60eb-ca69-40d1-a114-36bd7855470a"
+  ],
+  "derivation": "16 genuine selected frames from3 Unlimited Seedance2.5 clips; no invented/interpolated/repeated source/time selections. One common crop and nearest-neighbor scale. Source off-frame traveling effects excluded, not repaired. Contained ignition retimed to gameplay release while separate projectile supplies flight.",
+  "backgroundProcessing": "Conservative edge-connected key/despill, then reviewed07-only enclosed magenta background key (red/blue >=80, both45 above green, channel balance<=65). Removed background becomes transparent black; this additional profile does not repaint visible foregroundRGB.",
+  "visualReview": "Root reviewed four keyposes; sprite agent inspectedall16 whole-vehicle frames and canonical pilot. Root approved production copy; manifest readiness still root-owned."
+}

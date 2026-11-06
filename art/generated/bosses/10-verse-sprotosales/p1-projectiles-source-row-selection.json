@@ -1,0 +1,555 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/10-verse-sprotosales-p1-projectiles-text.png",
+  "sourceSha256": "ce9f237a6acd4e774e294b9dec18dda9d409c62fbc54305ac4aafd1d04c9f998",
+  "sourceLayout": "A/B256px subrows, C/D512px rows; D reverse-direction row1536..2048 selected for wider complete exhaust margins; first D row1024..1536 omitted",
+  "operation": "Only whole-cell native cropping and integer vertical padding; source A/B artwork never stretched; one genuine sourcecell peroutputframe, no duplication/invention",
+  "verifiedGridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 0,
+      "start": 0,
+      "end": 8,
+      "nearBlackCore": [
+        0,
+        3
+      ],
+      "rectangle": [
+        0,
+        0,
+        8,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 2048,
+      "start": 2044,
+      "end": 2048,
+      "nearBlackCore": [
+        2045,
+        2048
+      ],
+      "rectangle": [
+        2044,
+        0,
+        4,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 0,
+      "start": 0,
+      "end": 8,
+      "nearBlackCore": [
+        0,
+        3
+      ],
+      "rectangle": [
+        0,
+        0,
+        2048,
+        8
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1028
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1540
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 2048,
+      "start": 2040,
+      "end": 2048,
+      "nearBlackCore": [
+        2045,
+        2048
+      ],
+      "rectangle": [
+        0,
+        2040,
+        2048,
+        8
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 256,
+      "start": 244,
+      "end": 268,
+      "nearBlackCore": [
+        253,
+        259
+      ],
+      "rectangle": [
+        0,
+        244,
+        2048,
+        24
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "originalSourceRect": [
+        0,
+        0,
+        512,
+        256
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        244
+      ],
+      "standardizedUsable": [
+        8,
+        136,
+        504,
+        372
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "originalSourceRect": [
+        512,
+        0,
+        1024,
+        256
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        244
+      ],
+      "standardizedUsable": [
+        8,
+        136,
+        504,
+        372
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "originalSourceRect": [
+        1024,
+        0,
+        1536,
+        256
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        244
+      ],
+      "standardizedUsable": [
+        8,
+        136,
+        504,
+        372
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "originalSourceRect": [
+        1536,
+        0,
+        2048,
+        256
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        508,
+        244
+      ],
+      "standardizedUsable": [
+        8,
+        136,
+        508,
+        372
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "originalSourceRect": [
+        0,
+        256,
+        512,
+        512
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        12,
+        504,
+        248
+      ],
+      "standardizedUsable": [
+        8,
+        140,
+        504,
+        376
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "originalSourceRect": [
+        512,
+        256,
+        1024,
+        512
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        12,
+        504,
+        248
+      ],
+      "standardizedUsable": [
+        8,
+        140,
+        504,
+        376
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "originalSourceRect": [
+        1024,
+        256,
+        1536,
+        512
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        12,
+        504,
+        248
+      ],
+      "standardizedUsable": [
+        8,
+        140,
+        504,
+        376
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "originalSourceRect": [
+        1536,
+        256,
+        2048,
+        512
+      ],
+      "verticalPad": 128,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        12,
+        508,
+        248
+      ],
+      "standardizedUsable": [
+        8,
+        140,
+        508,
+        376
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "originalSourceRect": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "originalSourceRect": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "originalSourceRect": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "originalSourceRect": [
+        1536,
+        512,
+        2048,
+        1024
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        508,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        508,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "originalSourceRect": [
+        0,
+        1536,
+        512,
+        2048
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "originalSourceRect": [
+        512,
+        1536,
+        1024,
+        2048
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "originalSourceRect": [
+        1024,
+        1536,
+        1536,
+        2048
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        504,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "originalSourceRect": [
+        1536,
+        1536,
+        2048,
+        2048
+      ],
+      "verticalPad": 0,
+      "originalUsableAfterVerifiedGrid": [
+        8,
+        8,
+        508,
+        504
+      ],
+      "standardizedUsable": [
+        8,
+        8,
+        508,
+        504
+      ]
+    }
+  ],
+  "outputSha256": "e2a132923ced6a6e82ce556a483e55542fc0ce55a4a5fe0ad73414fab0e4a703"
+}

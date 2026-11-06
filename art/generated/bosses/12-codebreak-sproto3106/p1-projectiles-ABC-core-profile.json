@@ -1,0 +1,54 @@
+{
+  "stripGrid": 0,
+  "reason": "Native red/blue Sheriff projectile paint preserved byteexact, only source magenta field removed. Heavy incomplete source row excluded from acceptance.",
+  "protectedCores": [
+    {
+      "row": 0,
+      "box": [
+        130,
+        180,
+        250,
+        150
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 1,
+      "box": [
+        50,
+        175,
+        395,
+        175
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 2,
+      "box": [
+        150,
+        150,
+        210,
+        230
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 3,
+      "box": [
+        130,
+        180,
+        250,
+        150
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    }
+  ],
+  "allowEnclosedStrongField": true,
+  "nativeFramesDirectory": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC",
+  "enclosedFieldRule": {
+    "minRB": 180,
+    "maxG": 150,
+    "minExcess": 70,
+    "maxBalance": 65
+  }
+}

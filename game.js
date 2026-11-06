@@ -568,10 +568,59 @@ function hurt(contact = false, force = false) {
   if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', isChase()?'Retry chase':'Rematch boss');
 }
 
+// Numeric simulation-only geometry; render/image readiness never influences contact.
+function combatWeaponVariant() {
+  const id=LEVELS[levelIndex].id,kind=id===11?'chase':id===12?'codebreak':'regular';
+  return typeof spriteLegacyWeaponVariant==='function'?spriteLegacyWeaponVariant(boss.step,boss.attackIndex,kind):0;
+}
+function combatPhaseIndex() {
+  // Legacy Goldie's single chase encounter deliberately has no numeric phase field.
+  return boss.phase===2?1:0;
+}
+function bindCombatWeapon(shot) {
+  if(typeof spriteWeaponBinding==='function')Object.assign(shot,spriteWeaponBinding(combatPhaseIndex(),combatWeaponVariant()));
+  return shot;
+}
+function combatHitboxContext(kind,shot) {
+  const phase=shot&&(shot.weaponPhase===0||shot.weaponPhase===1)?shot.weaponPhase:combatPhaseIndex();
+  const variant=shot&&typeof shot.weaponVariant==='number'?shot.weaponVariant:combatWeaponVariant();
+  const row=['projectiles','beams'].includes(kind)&&typeof spriteWeaponRow==='function'?spriteWeaponRow(variant,shot):undefined;
+  return {phase,row};
+}
+function combatHitboxProfile(kind,key,shot) {
+  const c=combatHitboxContext(kind,shot);
+  return typeof spriteHitboxProfile==='function'?spriteHitboxProfile(LEVELS[levelIndex].id,c.phase,kind,key,c.row):null;
+}
+function combatHitbox(base,kind,key,shot) {
+  const c=combatHitboxContext(kind,shot);
+  if((kind==='projectiles'||kind==='beams'&&key==='vault')&&shot&&typeof spriteProjectileCoreRect==='function'){
+    const profile=combatHitboxProfile(kind,key,shot);
+    if(typeof spriteProjectileProfileValid==='function'&&spriteProjectileProfileValid(profile)){
+      const code=shot.attack&&typeof shot.angle==='number',column=key==='floor-column',vault=kind==='beams'&&key==='vault';
+      let center={x:code?shot.x:Math.round(shot.x),y:code?shot.y:Math.round(shot.y)},angle=code?shot.angle:SimMath.atan2(shot.vy,shot.vx),visualBox,layout;
+      if(column){const authoredHeight=floorHeight(shot);if(!(authoredHeight>0))return base;const height=Math.max(1,Math.ceil(authoredHeight));visualBox=[shot.w,height];center={x:Math.round(shot.x-shot.w/2)+shot.w/2,y:FLOOR-height/2};layout=spriteProjectileKind(shot,{w:shot.w,h:height});angle=layout==='ray'&&height>shot.w?Math.PI/2:0;}
+      if(vault){const front=vaultBeamFront(shot);visualBox=[Math.max(1,VAULT_MUZZLE-front),32];center={x:(front+VAULT_MUZZLE)/2,y:shot.y};layout='ray';angle=0;}
+      const projected=spriteProjectileCoreRect(profile,center,angle,visualBox,{kind:layout,shot});if(projected)return projected;
+    }
+  }
+  return typeof spriteHitboxRect==='function'?spriteHitboxRect(base,LEVELS[levelIndex].id,c.phase,kind,key,c.row):base;
+}
+function combatHitboxValue(base,kind,key,property,shot) {
+  const c=combatHitboxContext(kind,shot);
+  return typeof spriteHitboxValue==='function'?spriteHitboxValue(base,LEVELS[levelIndex].id,c.phase,kind,key,property,c.row):base;
+}
+function enemyShotContact(shot,halfWidth,top,bottom) {
+  const box=boxes[shot.shape],keys=[shot.laser?'laser':shot.shape,shot.shape];
+  if(!combatHitboxProfile('projectiles',keys,shot))return Math.abs(shot.x-player.x)<halfWidth+box.w/2&&shot.y+box.h/2>top&&shot.y-box.h/2<bottom;
+  const b=combatHitbox({x:shot.x-box.w/2,y:shot.y-box.h/2,w:box.w,h:box.h},'projectiles',keys,shot);
+  return player.x+halfWidth>b.x&&player.x-halfWidth<b.x+b.w&&b.y+b.h>top&&b.y<bottom;
+}
+
 function fire(x,y,vx,vy,shape,own,gravity=0,bounces=0,laser=false) {
   const rate=own?PLAYER_SHOT_RATE*(boxes[shape].speed??1):
     ENEMY_ATTACK_RATE*(isChase()?1:boss.shotRate*(boss.phase===2?1.12:1)*(1+boss.section*.07));
-  bullets.push({x,y,vx,vy,shape,own,gravity,bounces,laser,rate,age:0});
+  const shot={x,y,vx,vy,shape,own,gravity,bounces,laser,rate,age:0};
+  bullets.push(own?shot:bindCombatWeapon(shot));
 }
 
 function updateShield(p, canActivate) {
@@ -919,7 +968,7 @@ function attackBoss(t) {
     case 'arenaHazard':
       if (levelIndex===9) updateVerseGemLaser(t);
       if (levelIndex===0 && t===0) {
-        vaultBeam={y:arenaLaserY(),age:0};
+        vaultBeam=bindCombatWeapon({y:arenaLaserY(),age:0});
         sound(570,130,.24,.08);
       } else if (levelIndex!==0) {
         for (const [frame,edge,lane,vx,vy,shape,gravity,bounces] of PHASE_TWO_HAZARDS[levelIndex].shots) {
@@ -975,7 +1024,7 @@ function attackBoss(t) {
       const rift=b.move==='rift';
       for (const [i,x] of b.lanes.entries()) {
         if (t===i*groundLaneDelay(b.move)) {
-          hazards.push({x,w:rift?84:65,height:rift?384:190+b.archetype*28,age:0});
+          hazards.push(bindCombatWeapon({x,w:rift?84:65,height:rift?384:190+b.archetype*28,age:0}));
           sound(rift?380:138,65,.21,.07);
         }
       }
@@ -1037,8 +1086,9 @@ function updateVaultBeam() {
     return;
   }
   const {y,age}=vaultBeam;
-  if (age<32 && player.x+18>=vaultBeamFront(vaultBeam) && player.x-18<=VAULT_MUZZLE &&
-      player.y>y-14 && player.y-playerHeight()<y+14) hurt();
+  const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
+  if (age<32 && player.x+18>=r.x && player.x-18<=r.x+r.w &&
+      player.y>r.y && player.y-playerHeight()<r.y+r.h) hurt();
 }
 
 function startStageShift() {
@@ -1068,11 +1118,12 @@ function advanceStageShift() {
 }
 
 function keepPlayerLeft() {
-  const p=player, front=boss.x-(hasMecha(boss)?170:BOSS_FRONT);
+  const p=player;let front=boss.x-(hasMecha(boss)?170:BOSS_FRONT);
+  let bossTop=hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
+  let bossBottom=hasMecha(boss)?mechaY(boss)+122:boss.y;
+  if(combatHitboxProfile('boss','contact')){const r=combatHitbox({x:front,y:bossTop,w:(boss.x-front)*2,h:bossBottom-bossTop},'boss','contact');front=r.x;bossTop=r.y;bossBottom=r.y+r.h;}
   if (p.x<front) return;
   const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y;
-  const bossTop=hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
-  const bossBottom=hasMecha(boss)?mechaY(boss)+122:boss.y;
   if (boss.hp && top<bossBottom && bottom>bossTop) {
     if (!ceilingSweepInProgress()) hurt(true);
     p.x=front-32;
@@ -1140,7 +1191,7 @@ function updateBullets() {
       if (shot.y>=FLOOR-12) {
         shot.y=FLOOR-12;
         boxBlast(shot);
-        if (b?.hp && Math.abs(shot.x-b.x)<198 && b.y>=FLOOR-92) hitBoss(shot,4);
+        if (b?.hp && Math.abs(shot.x-b.x)<combatHitboxValue(198,'boss','splash','radius') && b.y>=FLOOR-92) hitBoss(shot,4);
         if (!b.hp) break;
       }
       continue;
@@ -1150,10 +1201,8 @@ function updateBullets() {
       continue;
     }
     if (!shot.own) {
-      const box=boxes[shot.shape];
       const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
-      if (Math.abs(shot.x-p.x)<(flying?58:18)+box.w/2 && shot.y+box.h/2>top &&
-        shot.y-box.h/2<bottom && !p.dash) {
+      if (enemyShotContact(shot,flying?58:18,top,bottom) && !p.dash) {
         shot.dead=true;
         hurt();
         if (!p.hp) break;
@@ -1161,16 +1210,19 @@ function updateBullets() {
       continue;
     }
     const mech=hasMecha(b);
-    const hitTop=isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
-    const hitBottom=mech?mechaY(b)+122:b.y-12;
+    let hitTop=isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
+    let hitBottom=mech?mechaY(b)+122:b.y-12;
     const halfWidth=mech?106:147;
+    let hitLeft=b.x-halfWidth,hitRight=b.x+halfWidth;
+    const profile=combatHitboxProfile('boss','damage');
+    if(profile){const r=combatHitbox({x:hitLeft,y:hitTop,w:halfWidth*2,h:hitBottom-hitTop},'boss','damage');hitLeft=r.x;hitRight=r.x+r.w;hitTop=r.y;hitBottom=r.y+r.h;}
     const beam=shot.shape==='redLaser';
     const inRange=beam
-      ?shot.x<=b.x+halfWidth && SAUCER_BEAM_END>=b.x-halfWidth
-      :Math.abs(shot.x-b.x)<=halfWidth;
+      ?shot.x<=hitRight && SAUCER_BEAM_END>=hitLeft
+      :profile?shot.x>=hitLeft&&shot.x<=hitRight:Math.abs(shot.x-b.x)<=halfWidth;
     if (beam) shot.dead=true;
     if (!b.hp || !inRange || shot.y<hitTop || shot.y>hitBottom) continue;
-    if (beam) shot.x=Math.max(shot.x,b.x-halfWidth);
+    if (beam) shot.x=Math.max(shot.x,hitLeft);
     const m=b.move && moves[b.move];
     const exposed=m && b.age>b.tell+m.active;
     const weak=exposed && Math.abs(shot.y-bossWeakY(b))<34;
@@ -1209,8 +1261,10 @@ function floorHeight(h) {
 function updateHazards() {
   for (const h of hazards) {
     h.age+=h.blast?1:ENEMY_ATTACK_RATE;
-    if (!h.blast && mode==='play' && Math.abs(player.x-h.x)<h.w/2+18 &&
-      player.y>FLOOR-floorHeight(h)) hurt();
+    const r=combatHitbox({x:h.x-h.w/2,y:FLOOR-floorHeight(h),w:h.w,h:floorHeight(h)},'projectiles','floor-column',h);
+    if (!h.blast && mode==='play' && (combatHitboxProfile('projectiles','floor-column',h)?
+      player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&player.y-playerHeight()<r.y+r.h:
+      Math.abs(player.x-h.x)<h.w/2+18&&player.y>FLOOR-floorHeight(h))) hurt();
   }
   hazards=hazards.filter(h=>h.age<(h.blast?13:35));
 }
@@ -1246,9 +1300,7 @@ function updateChaseAttacks() {
     shot.x+=shot.vx*shot.rate-CHASE_SCROLL;
     shot.y+=shot.vy*shot.rate;
     shot.vy+=shot.gravity*shot.rate;
-    const box=boxes[shot.shape];
-    if (Math.abs(shot.x-player.x)<18+box.w/2 && shot.y+box.h/2>player.y-playerHeight() &&
-        shot.y-box.h/2<player.y && !player.dash) {
+    if (enemyShotContact(shot,18,player.y-playerHeight(),player.y) && !player.dash) {
       shot.dead=true;
       hurt();
     }
@@ -1273,7 +1325,7 @@ function updateChase() {
   if (mode!=='play') return;
   if (p.dash) p.dash--;
   if (banner && --banner===0) ui.notice.hidden=true;
-  if (p.y>H+60 || boss.x+GOLDIE_CATCH_REACH>=p.x || p.x<55) {
+  if (p.y>H+60 || boss.x+combatHitboxValue(GOLDIE_CATCH_REACH,'boss','contact','reach')>=p.x || p.x<55) {
     p.hp=0;
     const reason=p.y>H+60?'You fell between the rooftops.':'Goldie caught you.';
     setOverlay('lost','Chase failed','Down for the count!',reason,'Retry chase');
@@ -1343,8 +1395,9 @@ function attackFrame(folder, index) {
 function drawColumn(h) {
   const height=Math.max(1,Math.ceil(floorHeight(h)));
   const x=Math.round(h.x-h.w/2);
-  ctx.drawImage(bossAttackImage('ground-eruption'),x,FLOOR-height,h.w,height);
-  if (h.age>=27) {
+  const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,h,{x,y:FLOOR-height,w:h.w,h:height},{phaseIndex:boss.phase-1,tick:time});
+  if(!themed)ctx.drawImage(bossAttackImage('ground-eruption'),x,FLOOR-height,h.w,height);
+  if (!themed && h.age>=27) {
     const frame=attackFrame(`hazards/${h.w}px/retract`,Math.floor((h.age-27)/2));
     ctx.drawImage(frame,x,FLOOR-frame.height);
   }
@@ -1436,8 +1489,14 @@ function renderBoss() {
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
   if (b.flash && b.hp) ctx.filter='brightness(1.38)';
-  if (hasMecha(b)) drawMecha(b);
-  else sprite(b.id,pose,b.x,b.y,-1,b.scale);
+  const sheetTop=hasMecha(b)?mechaY(b)-122:b.y-116*b.scale;
+  const sheetBottom=hasMecha(b)?mechaY(b)+122:b.y-12;
+  const sheetPose=globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
+  const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,{x:b.x-(hasMecha(b)?150:190),y:sheetTop,w:hasMecha(b)?300:380,h:sheetBottom-sheetTop});
+  if (!sheetDrawn) {
+    if (hasMecha(b)) drawMecha(b);
+    else sprite(b.id,pose,b.x,b.y,-1,b.scale);
+  }
   ctx.restore();
   if (exposed && b.hp) {
     ctx.strokeStyle='#ffe5a1';
@@ -1531,7 +1590,7 @@ function updateVerseGemLaser(t) {
   const dx=player.x-x,dy=player.y-playerHeight()/2-y;
   const ux=SimMath.cos(boss.gemAim),uy=SimMath.sin(boss.gemAim);
   const across=Math.abs(dx*uy-dy*ux);
-  const clearance=Math.abs(uy)*18+Math.abs(ux)*playerHeight()/2+10;
+  const clearance=Math.abs(uy)*18+Math.abs(ux)*playerHeight()/2+combatHitboxValue(10,'beams','verse-gem','halfWidth');
   if (dx*ux+dy*uy>0 && across<clearance && !player.shield && !player.inv && !player.dash) {
     boss.gemLaserHit=true;
     hurt();
@@ -1562,7 +1621,7 @@ function drawVerseGemLaser() {
     const beam=attackArt('boss/higgsfield/vault-laser/beam');
     ctx.rotate(boss.gemAim);
     ctx.filter='hue-rotate(68deg) saturate(1.35)';
-    ctx.drawImage(beam,0,-height/2,W,height);
+    if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,10,{laser:true,age,source:'verse-gem'},{x:0,y:-height/2,w:W,h:height},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss),tick:time}))ctx.drawImage(beam,0,-height/2,W,height);
   }
   ctx.restore();
 }
@@ -1625,11 +1684,12 @@ function drawVaultCannon() {
     const beam=attackArt('boss/higgsfield/vault-laser/beam');
     const tip=attackArt('boss/higgsfield/vault-laser/tip');
     ctx.globalAlpha=clamp((VAULT_BEAM_LIFE-vaultBeam.age)/8,0,1);
-    for (let start=x+32;start<VAULT_MUZZLE;start+=beam.width) {
+    const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,1,{original:vaultBeam,laser:true,age:vaultBeam.age},{x,y:y-16,w:Math.max(1,VAULT_MUZZLE-x),h:32},{phaseIndex:boss.phase-1,tick:time});
+    if(!themed){for (let start=x+32;start<VAULT_MUZZLE;start+=beam.width) {
       const width=Math.min(beam.width,VAULT_MUZZLE-start);
       ctx.drawImage(beam,0,0,width,beam.height,start,y-14,width,beam.height);
     }
-    ctx.drawImage(tip,x,y-16,Math.min(tip.width,VAULT_MUZZLE-x),32);
+    ctx.drawImage(tip,x,y-16,Math.min(tip.width,VAULT_MUZZLE-x),32);}
     ctx.globalAlpha=1;
   }
   const cannon=attackArt('boss/higgsfield/vault-laser/'+(firing?'cannon-fire':'cannon'));
@@ -1668,10 +1728,11 @@ function drawCeilingSweep() {
   const travel=Math.round(boss.age*23*SWEEP_SPEED)%W;
   const fade=1-clamp(elapsed/moves.ceilingSweep.active,0,1)*.54;
   ctx.globalAlpha=.48*fade;
-  ctx.drawImage(art,travel-W,-66,W,edge+65);
-  ctx.drawImage(art,travel,-66,W,edge+65);
+  const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,{source:'ceilingSweep',age:boss.age},{x:0,y:0,w:W,h:Math.max(1,edge)},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss),tick:time});
+  if(!themed){ctx.drawImage(art,travel-W,-66,W,edge+65);
+  ctx.drawImage(art,travel,-66,W,edge+65);}
   ctx.globalAlpha=.92*fade;
-  ctx.drawImage(art,0,edge-218+Math.round(pulse*20),W,218);
+  if(!themed)ctx.drawImage(art,0,edge-218+Math.round(pulse*20),W,218);
   ctx.restore();
 }
 
@@ -1688,7 +1749,7 @@ function drawShieldPulse() {
   ctx.save();
   ctx.imageSmoothingEnabled=false;
   ctx.globalAlpha=firing?Math.max(0,(32-elapsed)/32)*.80:.55+.29*charge;
-  ctx.drawImage(art,Math.round((W-width)/2),Math.round(340-height/2),width,height);
+  if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,{source:'shieldPulse',age:boss.age},{x:Math.round((W-width)/2),y:Math.round(340-height/2),w:width,h:height},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss),tick:time}))ctx.drawImage(art,Math.round((W-width)/2),Math.round(340-height/2),width,height);
   if (firing && elapsed<7) {
     ctx.globalAlpha=.16*(1-elapsed/7);
     ctx.fillStyle='#ffd7f4';
@@ -1851,6 +1912,8 @@ function goldieAttachment(x,y,pose) {
 }
 
 function drawGoldieJetpack() {
+  const sheetPose={row:1+(globalThis.ArcadeBossSheets?.legacyVariant(boss,'chase')||0),column:Math.floor((boss.attackAge||0)/6)%4};
+  if(globalThis.ArcadeBossSheets?.drawBoss(ctx,11,0,sheetPose,{x:boss.x-100,y:boss.y-100,w:200,h:200,flip:true}))return;
   const pose=goldiePose();
   const size=GOLDIE_FRAME_SIZE;
   ctx.save();
@@ -1923,8 +1986,10 @@ function drawChase() {
     const [name,w,h]=bossShotArt[shot.shape];
     ctx.save();
     ctx.translate(Math.round(shot.x),Math.round(shot.y));
-    if (shot.shape==='pumpkin') ctx.rotate(shot.age*.13);
-    ctx.drawImage(bossAttackImage(name),-w/2,-h/2,w,h);
+    if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,11,shot,{x:-w/2,y:-h/2,w,h},{phaseIndex:0,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})){
+      if (shot.shape==='pumpkin') ctx.rotate(shot.age*.13);
+      ctx.drawImage(bossAttackImage(name),-w/2,-h/2,w,h);
+    }
     ctx.restore();
   }
 }
@@ -1953,27 +2018,36 @@ function render() {
     ctx.save();
     ctx.translate(Math.round(shot.x),Math.round(shot.y));
     ctx.imageSmoothingEnabled=false;
-    if (shot.shape==='missile'||MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
-    else if ((shot.shape==='gear'||shot.shape==='saw'||shot.shape==='star')) ctx.rotate(shot.age*.17*Math.sign(shot.vx));
-    else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
+    const legacyShotPose=()=>{
+      if (shot.shape==='missile'||MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
+      else if ((shot.shape==='gear'||shot.shape==='saw'||shot.shape==='star')) ctx.rotate(shot.age*.17*Math.sign(shot.vx));
+      else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
+    };
+    const enemyArt=bossShotArt[shot.laser?'laser':shot.shape]||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
     if (shot.own) {
+      legacyShotPose();
       const {art,scale=1}=boxes[shot.shape];
       const sprite=shot.shape==='beachBall'
         ?attackFrame('player/higgsfield/saucer/ball-spin',Math.floor(shot.age/2)%16)
         :attackArt(art);
       const w=sprite.width*scale, h=sprite.height*scale;
       ctx.drawImage(sprite,-Math.floor(w/2),-Math.floor(h/2),w,h);
-    } else if (shot.shape==='bioBubble') {
-      const bubble=hatcheryFrame('bubble',Math.floor(shot.age/4)%4);
-      ctx.drawImage(bubble,-29,-29,58,58);
-    } else if (shot.shape==='barnFire') {
-      const flame=attackFrame('boss/higgsfield/barn-fire',Math.floor(shot.age/3)%4);
-      ctx.rotate(SimMath.atan2(-shot.vx,shot.vy)*.7);
-      ctx.drawImage(flame,-26,-66,52,92);
+    } else if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
+      // Themed enemy art uses the original visual size; collision remains in boxes.
     } else {
-      const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
-      if (MECHA_ROCKETS.includes(shot.shape)) drawFlightFlame('orange',-w/2+23,0,30);
-      ctx.drawImage(bossAttackImage(name),-Math.floor(w/2),-Math.floor(h/2),w,h);
+      legacyShotPose();
+      if (shot.shape==='bioBubble') {
+        const bubble=hatcheryFrame('bubble',Math.floor(shot.age/4)%4);
+        ctx.drawImage(bubble,-29,-29,58,58);
+      } else if (shot.shape==='barnFire') {
+        const flame=attackFrame('boss/higgsfield/barn-fire',Math.floor(shot.age/3)%4);
+        ctx.rotate(SimMath.atan2(-shot.vx,shot.vy)*.7);
+        ctx.drawImage(flame,-26,-66,52,92);
+      } else {
+        const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
+        if (MECHA_ROCKETS.includes(shot.shape)) drawFlightFlame('orange',-w/2+23,0,30);
+        ctx.drawImage(bossAttackImage(name),-Math.floor(w/2),-Math.floor(h/2),w,h);
+      }
     }
     ctx.restore();
   }
@@ -2057,9 +2131,12 @@ window.addEventListener('blur',()=>{
 ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
+  if(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&
+    (typeof globalThis.ArcadeBossSheets?.stageReady!=='function'||typeof globalThis.ArcadeBossSheets?.preloadStage!=='function')){location.reload();return;}
+  if (mode==='loading') { loadInitialLevel();return; }
   if (mode==='paused') setOverlay('play','','','','');
   else if (mode==='clear') whenReady(levelIndex+1,()=>begin(levelIndex+1,true));
-  else if (mode==='lost') begin(levelIndex); // Same level: its art is already drawn or loading.
+  else if (mode==='lost') whenReady(levelIndex,()=>begin(levelIndex)); // Decoded retry stays synchronous.
   else {
     const index=Number(levelSelect.value);
     whenReady(index,()=>begin(index));
@@ -2175,10 +2252,12 @@ function loadGroup(key,make) {
 const loadCore=()=>loadGroup('core',coreAssets);
 const loadLevel=index=>loadGroup('level:'+index,()=>levelAssets(index));
 const loadSproto=id=>loadGroup('sproto:'+id,()=>spriteFrames(id));
-const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id);
-const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id)]);
+const bossArtReady=index=>{const art=globalThis.ArcadeBossSheets;return typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function'?art.stageReady(LEVELS[index].id):!(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled);};
+const loadBossArt=index=>{const art=globalThis.ArcadeBossSheets;if(typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function')return art.preloadStage(LEVELS[index].id);return typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled?Promise.reject(Error('Boss art renderer could not load. Reload the game.')):Promise.resolve();};
+const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
+const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index)]);
 function prefetchLevel(index) {
-  if (index<LEVELS.length) loadLevel(index).catch(()=>{});
+  if (index<LEVELS.length) Promise.all([loadLevel(index),loadBossArt(index)]).catch(()=>{});
 }
 
 // Runs start once the level and Sproto groups are decoded; the button reads Loading… meanwhile.
@@ -2196,7 +2275,7 @@ function whenReady(index,start) {
   },()=>{
     if (ticket!==pendingStart) return;
     ui.start.disabled=false;
-    ui.start.textContent='Retry loading';
+    ui.start.textContent=typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&typeof globalThis.ArcadeBossSheets?.preloadStage!=='function'?'Reload game':'Retry loading';
   });
 }
 
@@ -2228,10 +2307,14 @@ if (new URLSearchParams(location.search).has('assetAudit')) {
   // Also every scrolling panel: drawBackground() requests panels past the first three only as the
   // camera reaches them, so tools/build-web.mjs needs them listed here to ship them.
   const allPanels=()=>LEVELS.flatMap((_,i)=>loopPanels(i)).map(([file])=>picture('art/'+file));
-  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
+  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...LEVELS.map((_,i)=>loadBossArt(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
 }
 
-loadFor(firstLevel).then(()=>{
+let initialLoad=null;
+function loadInitialLevel(){
+ if(initialLoad)return initialLoad;
+ ui.start.disabled=true;ui.start.textContent='Loading…';
+ initialLoad=loadFor(firstLevel).then(()=>{
   goldieHoverSheet=makeGoldieHoverSheet();
   camera=0;
   levelIndex=firstLevel;
@@ -2253,6 +2336,9 @@ loadFor(firstLevel).then(()=>{
   requestAnimationFrame(loop);
   prefetchLevel(firstLevel+1);
 }).catch(()=>{
-  ui.start.textContent='Art could not load';
-  ui.description.textContent='Extract the entire game folder before opening index.html.';
+  initialLoad=null;ui.start.disabled=false;ui.start.textContent=typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&typeof globalThis.ArcadeBossSheets?.preloadStage!=='function'?'Reload game':'Retry loading';
+  ui.description.textContent='Some game art could not load. Reload or retry loading to start.';
 });
+ return initialLoad;
+}
+loadInitialLevel();

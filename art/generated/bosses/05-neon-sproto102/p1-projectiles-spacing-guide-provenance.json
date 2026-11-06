@@ -1,0 +1,10 @@
+{
+  "guideOnly": true,
+  "animation": false,
+  "notForGameplay": true,
+  "purpose": "geometry/empty margin reference only, source motif shapes must change to Collector bronze bolt/iron shard/gear/ironboundpumpkin",
+  "source": "work/art-production/processed-phase-projectiles/04-ranch-zephyr-p2-projectiles-clean.png",
+  "sourceSha256": "3caab10aa076b90fa151ef9f1993f5f51c651e7ebff05deb300c2360391b557c",
+  "transform": "native firstcolumn eachrow full512cell scaled220 nearest, repeated4 eachrow, position146 in512cell",
+  "runtimeFramesGenerated": false
+}

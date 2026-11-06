@@ -1,0 +1,103 @@
+{
+  "kind": "approved-native-curved-anatomical-upper-red-eye-band-restoration",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/09-hatchery-highsproto/p1.png",
+  "sourceSha256": "2def95a7b66cd467b4fb173a94239576cd6c814294f0c588b7bf0719570969ca",
+  "sourceCell": 0,
+  "sourceReason": "Nine-row anatomical approved P1 upper-eye crops retain literal source red-band curved silhouettes, not a stretched one-row stripe. No source pupil/windowmullion/blueborder pixels selected.",
+  "target": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/09-hatchery-highsproto/p2.png",
+  "targetBeforeSha256": "1875ae3b3b1741958a6ace3d007d6751ae6372da6a8d65d8195da5952b7cdf55",
+  "eyes": [
+    {
+      "eye": "left",
+      "sourceAnatomicalCrop": [
+        199,
+        201,
+        223,
+        210
+      ],
+      "scale": 1.2,
+      "sourceAnchor": [
+        209,
+        205
+      ],
+      "targetAnchor": [
+        165,
+        291
+      ],
+      "targetClip": [
+        153,
+        288,
+        187,
+        298
+      ],
+      "derivedTranslation": [
+        -85.79999999999998,
+        45.0
+      ],
+      "sourceMaskShape": "literal source-native red anatomical band contour within nine-row crop; pupil/black/blue pixels excluded, no drawn targetshape"
+    },
+    {
+      "eye": "right",
+      "sourceAnatomicalCrop": [
+        227,
+        201,
+        252,
+        210
+      ],
+      "scale": 1.5,
+      "sourceAnchor": [
+        240,
+        205
+      ],
+      "targetAnchor": [
+        199,
+        291
+      ],
+      "targetClip": [
+        190,
+        288,
+        233,
+        298
+      ],
+      "derivedTranslation": [
+        -161.0,
+        -16.5
+      ],
+      "sourceMaskShape": "literal source-native red anatomical band contour within nine-row crop; pupil/black/blue pixels excluded, no drawn targetshape"
+    }
+  ],
+  "targetCells": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "targetMaskRule": "Native source red-band silhouette intersected with existing upper pale-yellow targeteye surfaces only. Current P2 pupils/bluebrows/lower eyes excluded.",
+  "resampling": "nearest-neighbor, one uniform scale+translation per eye; native literalRGBA unchanged, no handdrawncolor or contour",
+  "outsideMaskRgbaByteExact": true,
+  "alphaEntireAtlasByteExact": true,
+  "nativeSourceColorMembershipVerified": true,
+  "maskPixels": 2630,
+  "preserved": "P2 pupils,lower eye areas,brows,canopy,vehicle,body,beard,mouth,hands unchanged",
+  "output": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09-hatchery-highsproto-p2-red-eye-band-candidate.png",
+  "outputSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22",
+  "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09p2-native-red-eye-band-mask.png",
+  "maskSha256": "3fc1c9365668db9575e39820bc0ee963d080b14f49f603133fb6a5615ead15f3",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/repair-09p2-eye-bands.py",
+  "scriptSha256": "398689167d774d3657740e55b9d764d6dcf10ae64ab2b56f21c00243b2fb27b0",
+  "status": "root_independent_visual_pass_copied_to_repo",
+  "originalTargetBackup": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09-hatchery-highsproto-p2-before-red-eye-bands.png",
+  "acceptedAtlasSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22"
+}

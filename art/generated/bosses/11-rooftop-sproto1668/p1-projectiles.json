@@ -1,0 +1,396 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      125,
+      216,
+      363,
+      217
+    ],
+    [
+      33,
+      213,
+      452,
+      218
+    ],
+    [
+      25,
+      141,
+      459,
+      359
+    ],
+    [
+      12,
+      216,
+      488,
+      213
+    ]
+  ],
+  "bounds": [
+    12,
+    141,
+    488,
+    359
+  ],
+  "unionCrop": [
+    12,
+    74,
+    500,
+    433
+  ],
+  "destinationSize": [
+    488,
+    359
+  ],
+  "offset": [
+    12,
+    141
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        156,
+        204,
+        360,
+        308
+      ],
+      "cellBounds": [
+        156,
+        271,
+        360,
+        375
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        137,
+        179,
+        351,
+        334
+      ],
+      "cellBounds": [
+        137,
+        246,
+        351,
+        401
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        125,
+        149,
+        488,
+        366
+      ],
+      "cellBounds": [
+        125,
+        216,
+        488,
+        433
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        137,
+        204,
+        460,
+        308
+      ],
+      "cellBounds": [
+        137,
+        271,
+        460,
+        375
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        35,
+        236,
+        472,
+        275
+      ],
+      "cellBounds": [
+        35,
+        303,
+        472,
+        342
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        33,
+        181,
+        485,
+        330
+      ],
+      "cellBounds": [
+        33,
+        248,
+        485,
+        397
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        34,
+        146,
+        485,
+        364
+      ],
+      "cellBounds": [
+        34,
+        213,
+        485,
+        431
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        33,
+        181,
+        476,
+        330
+      ],
+      "cellBounds": [
+        33,
+        248,
+        476,
+        397
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        142,
+        163,
+        428,
+        346
+      ],
+      "cellBounds": [
+        142,
+        230,
+        428,
+        413
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        61,
+        139,
+        440,
+        370
+      ],
+      "cellBounds": [
+        61,
+        206,
+        440,
+        437
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        25,
+        74,
+        484,
+        433
+      ],
+      "cellBounds": [
+        25,
+        141,
+        484,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        120,
+        149,
+        438,
+        361
+      ],
+      "cellBounds": [
+        120,
+        216,
+        438,
+        428
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        14,
+        150,
+        403,
+        362
+      ],
+      "cellBounds": [
+        14,
+        217,
+        403,
+        429
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        14,
+        150,
+        463,
+        361
+      ],
+      "cellBounds": [
+        14,
+        217,
+        463,
+        428
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        14,
+        150,
+        500,
+        361
+      ],
+      "cellBounds": [
+        14,
+        217,
+        500,
+        428
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        12,
+        149,
+        491,
+        361
+      ],
+      "cellBounds": [
+        12,
+        216,
+        491,
+        428
+      ]
+    }
+  ],
+  "kind": "projectiles",
+  "facing": "left",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/11-rooftop-sproto1668-p1-projectiles-warm-glow-rgba.png",
+  "sourceSha256": "e24a01cbd95d7f81344a3a542cde90a50b4bca9dc832e95299499c96232cfc2c",
+  "matteProvenance": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/11-rooftop-sproto1668-p1-projectiles-warm-glow-rgba.json",
+  "sourceJobId": "c40b469c-c399-4cc3-b318-5ad98285b1d4",
+  "fixedFacingNormalization": {
+    "A": "leadingwhite/gold capsuleLEFT unchanged",
+    "B": "all4 exact nativecell horizontalmirror, leadingiontip LEFT and tail RIGHT",
+    "C": "orange/gold flame lobesLEFT frombluecore/nozzletailRIGHT unchanged",
+    "heavy": {
+      "rotationDegreesCounterclockwise": 135,
+      "sampling": "nearest-neighbor",
+      "sharedUnionCrop": [
+        75,
+        225,
+        702,
+        499
+      ],
+      "sharedScale": 0.7783094098883573,
+      "sharedDestinationSize": [
+        488,
+        213
+      ],
+      "sharedDestinationOffset": [
+        12,
+        149,
+        500,
+        362
+      ],
+      "all4SameTransform": true,
+      "sourceOrderUnchanged": true
+    }
+  },
+  "normalizationDoesNotInventArt": true,
+  "sourceRGBAColorValuesPreservedByNearestSampling": true,
+  "productionEnabled": true,
+  "outputSha256": "c88ca3a5b9eb6bca1ca543297c1b60a69d4857573dba747ff08d38c709fda4d1",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/normalize-11p1-projectiles.py",
+  "scriptSha256": "4c2032a33ddb069bef361831385326ee3a26aed806812bb79dc93da2f35b3357",
+  "status": "awaiting independent rootvisualreview",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "c88ca3a5b9eb6bca1ca543297c1b60a69d4857573dba747ff08d38c709fda4d1"
+  }
+}

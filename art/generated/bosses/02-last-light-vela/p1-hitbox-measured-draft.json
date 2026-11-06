@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "stage": 2,
+  "phaseIndex": 0,
+  "status": "measured-draft-awaiting-root-visual-review",
+  "enabled": false,
+  "asset": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/02p1-cleanup/02-last-light-vela-p1-clean.png",
+  "assetSha256": "10570004e482340f2e175205b9826aadbad9747c36ae74b587410750ed902f2e",
+  "sharedReferenceBounds": [
+    19,
+    12,
+    473,
+    488
+  ],
+  "measuredSolidBodyCorePixels": [
+    180,
+    145,
+    245,
+    350
+  ],
+  "selection": "Main cockpit/cab, armored hull and support legs excluding weapon extensions, top cannon, glow, vibration marks and outermost decorative fringe. Single conservative AABB includes leg gaps; does not claim per-pixel silhouette. Measured visually across all16 actual frames.",
+  "frameChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "opaqueCoverageOfAabb": 0.7841516034985423,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "opaqueCoverageOfAabb": 0.8007230320699709,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "opaqueCoverageOfAabb": 0.7888046647230321,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "opaqueCoverageOfAabb": 0.7845830903790088,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "opaqueCoverageOfAabb": 0.7911836734693878,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "opaqueCoverageOfAabb": 0.7966997084548105,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "opaqueCoverageOfAabb": 0.7903206997084549,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "opaqueCoverageOfAabb": 0.7883848396501457,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "opaqueCoverageOfAabb": 0.7959766763848396,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "opaqueCoverageOfAabb": 0.7961865889212828,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "opaqueCoverageOfAabb": 0.7964081632653062,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "opaqueCoverageOfAabb": 0.7960116618075802,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "opaqueCoverageOfAabb": 0.7863206997084549,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "opaqueCoverageOfAabb": 0.7865655976676384,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "opaqueCoverageOfAabb": 0.7856559766763849,
+      "emptyLegGapsIncludedByAabb": true
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "opaqueCoverageOfAabb": 0.7861924198250729,
+      "emptyLegGapsIncludedByAabb": true
+    }
+  ],
+  "modern": {
+    "drawBox": [
+      950,
+      300,
+      300,
+      300
+    ],
+    "transform": {
+      "uniformPreRoundingScale": 0.6147540983606558,
+      "drawDestination": [
+        955.0,
+        300.0,
+        291,
+        300
+      ],
+      "effectivePixelScale": [
+        0.6152219873150105,
+        0.6147540983606558
+      ]
+    },
+    "effectiveCoreWorld": [
+      1054.0507399577168,
+      381.7622950819672,
+      150.7293868921776,
+      215.1639344262295
+    ],
+    "unchangedTargetBase": [
+      1040,
+      490,
+      100,
+      110
+    ],
+    "profileRect": [
+      0.14050739957716815,
+      -0.9839791356184802,
+      1.5072938689217759,
+      1.9560357675111772
+    ],
+    "originalAimCenterInsideMeasuredCore": true,
+    "warning": "Authored colored iris circle remains at1090,530. Core rectangle expands to measured vehicle body; retain circle/open-state/return beam cues and HP/timing."
+  },
+  "legacy": {
+    "coordinateSpace": "relative to current boss.x,boss.y; Morelight P1 scale4.4 fixed",
+    "drawBox": [
+      -190,
+      -510.40000000000003,
+      380,
+      498.40000000000003
+    ],
+    "transform": {
+      "uniformPreRoundingScale": 0.8033826638477801,
+      "drawDestination": [
+        -190.0,
+        -404.20000000000005,
+        380,
+        392
+      ],
+      "effectivePixelScale": [
+        0.8033826638477801,
+        0.8032786885245902
+      ]
+    },
+    "effectiveCoreRelativeToBossXY": [
+      -60.6553911205074,
+      -297.36393442622955,
+      196.82875264270612,
+      281.1475409836066
+    ],
+    "damageProfileRect": [
+      0.2936891458486143,
+      0.42743993895218796,
+      0.6694855532064834,
+      0.564100202615583
+    ],
+    "contactProfileRect": [
+      0.352060021657299,
+      0.38561170573093073,
+      0.4800701283968442,
+      0.580883349139683
+    ],
+    "preserved": "boss x/y, scale, aim center, spawn anchors, damage3x weakpoint band, shell/open timing, movement, RNG, progression and contact wall correction semantics",
+    "splashRadiusUnchanged": 198
+  },
+  "proposedNumericProfileAtStages2Phase0": {
+    "targets": {
+      "light-iris": {
+        "rect": [
+          0.14050739957716815,
+          -0.9839791356184802,
+          1.5072938689217759,
+          1.9560357675111772
+        ]
+      }
+    },
+    "boss": {
+      "damage": {
+        "rect": [
+          0.2936891458486143,
+          0.42743993895218796,
+          0.6694855532064834,
+          0.564100202615583
+        ]
+      },
+      "contact": {
+        "rect": [
+          0.352060021657299,
+          0.38561170573093073,
+          0.4800701283968442,
+          0.580883349139683
+        ]
+      }
+    }
+  },
+  "projectileProfiles": "pending real phase-specific projectile atlas; do not author guessed extents",
+  "reviewRequired": [
+    "cleaned PNG identity/body/glow QA",
+    "body-core overlay all16 frames",
+    "world overlay at gameplay scale",
+    "existing iris/cover-return readability",
+    "root review before any global enable"
+  ],
+  "productionFlagsChanged": false
+}

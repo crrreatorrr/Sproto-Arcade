@@ -1,0 +1,28 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "10-verse-sprotosales",
+      "phase": 1,
+      "job_id": "0e122b2a-073c-4a5e-9bb7-3e96e1326b60",
+      "reference_asset_id": "ef154166-30e6-4c57-8127-e33046b59e38",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "0e122b2a-073c-4a5e-9bb7-3e96e1326b60",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedAtlasSha256": "96e871890b9d57b9b9356fc36a4235ade08a007cfa296f033963c1b704fd1994",
+  "identityReview": "Canonical Sproto pilot visibly seated inside vehicle; all16 full physical frames reviewed",
+  "simulationPolicy": "Weapon presentation only. Authored movement/patterns/timing/damage/counters unchanged; only measured collision geometry can change."
+}

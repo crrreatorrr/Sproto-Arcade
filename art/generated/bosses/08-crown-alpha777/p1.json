@@ -1,0 +1,670 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-cockpit-protected-reviewed-field-cleanup",
+  "sources": {
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png": "c46876c15299cf40945584301c73721fcbd79febb179a895ec49441160698d22",
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png": "50a68d833d5a6be8ab73c1306ef0a767417b2468b46747f6eea705e9d60f30fe",
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png": "a0eb57cb97a7f87ae7f0c67ecb42d87464c375068fb4ff6d779868e562930cb7",
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png": "7de85a86a212dc49082952798e2741f5d855d31dd04dda1f7bbd4d5511844d13"
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      145,
+      176,
+      349,
+      324
+    ],
+    [
+      96,
+      176,
+      404,
+      323
+    ],
+    [
+      12,
+      176,
+      482,
+      322
+    ],
+    [
+      59,
+      154,
+      435,
+      346
+    ]
+  ],
+  "bounds": [
+    12,
+    154,
+    488,
+    346
+  ],
+  "unionCrop": [
+    122,
+    280,
+    740,
+    718
+  ],
+  "destinationSize": [
+    488,
+    346
+  ],
+  "offset": [
+    12,
+    154
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        292,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        146,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png",
+      "sourceCell": 0,
+      "sourcePixelsSha256": "957da84985f671e69250c01da94eeb80f0bc4df3b54478b716475622513d1560",
+      "backgroundPixelsRemoved": 940099,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        292,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        146,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png",
+      "sourceCell": 1,
+      "sourcePixelsSha256": "eef8a2e844054abc6ca75bebfa922f196f96ab6bafd8e0db52f4c3455e63175b",
+      "backgroundPixelsRemoved": 940419,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        290,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        145,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png",
+      "sourceCell": 2,
+      "sourcePixelsSha256": "4505ccc93df54690f3965362284e720e5865eea353a479ccfa802e46b9bfb420",
+      "backgroundPixelsRemoved": 939777,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        290,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        145,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png",
+      "sourceCell": 3,
+      "sourcePixelsSha256": "a57eb3a5249627367a170f71e358a7cdb1b6809695ed625837f8f672d4d8ed56",
+      "backgroundPixelsRemoved": 941581,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        249,
+        308,
+        732,
+        717
+      ],
+      "cellBounds": [
+        112,
+        176,
+        494,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png",
+      "sourceCell": 0,
+      "sourcePixelsSha256": "9a249ac86a5445c5d037f8388825cd8be3e623d393f326cbf6dafc27d15e55e8",
+      "backgroundPixelsRemoved": 935601,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        292,
+        308,
+        732,
+        717
+      ],
+      "cellBounds": [
+        146,
+        176,
+        494,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png",
+      "sourceCell": 1,
+      "sourcePixelsSha256": "7812125c0a7fbbe449825f283b6f9951e58740850c2b742752e14483cadc5390",
+      "backgroundPixelsRemoved": 942974,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        228,
+        308,
+        732,
+        717
+      ],
+      "cellBounds": [
+        96,
+        176,
+        494,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png",
+      "sourceCell": 2,
+      "sourcePixelsSha256": "fdd835851d20784770cddd944cbc8e82adb200f73fe4f77747657f4ea96d0ae6",
+      "backgroundPixelsRemoved": 939060,
+      "freeProjectileRegions": [
+        [
+          160,
+          520,
+          40,
+          40
+        ]
+      ],
+      "freeProjectileReason": "Reviewed isolated flying coin component983pixels bbox163,522..198,558; remove only this freeflight gameprojectile from boss frame. Physical body/attachedmuzzle beginsx228 and remains unchanged.",
+      "fxExclusionMaskSha256": "395ccad74eca129a1631fcea8195f598eb5c6f04468b9a3a8019b15447b68cb6"
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        292,
+        308,
+        740,
+        717
+      ],
+      "cellBounds": [
+        146,
+        176,
+        500,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png",
+      "sourceCell": 3,
+      "sourcePixelsSha256": "fc18dfff94cefae421d4ad43b0791f73f4aed1b0c1972283d54a78d9215c7b73",
+      "backgroundPixelsRemoved": 942884,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        292,
+        308,
+        732,
+        716
+      ],
+      "cellBounds": [
+        146,
+        176,
+        494,
+        498
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png",
+      "sourceCell": 0,
+      "sourcePixelsSha256": "688a669a1c289a7727003bdb497242cf816b1ffa507a2654242523b4f62dc649",
+      "backgroundPixelsRemoved": 943091,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        220,
+        308,
+        686,
+        716
+      ],
+      "cellBounds": [
+        89,
+        176,
+        457,
+        498
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png",
+      "sourceCell": 1,
+      "sourcePixelsSha256": "bca2524f6edc0b2046de55987c686ef45e1f06bd384fe9fee889e63e5baeffa4",
+      "backgroundPixelsRemoved": 949231,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        122,
+        308,
+        728,
+        716
+      ],
+      "cellBounds": [
+        12,
+        176,
+        491,
+        498
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png",
+      "sourceCell": 2,
+      "sourcePixelsSha256": "6799a90fc7b8fa4d43c9b17fd38ced1ec9240c7bac5bb950b331c4c9278be9c1",
+      "backgroundPixelsRemoved": 936134,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        292,
+        308,
+        732,
+        716
+      ],
+      "cellBounds": [
+        146,
+        176,
+        494,
+        498
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png",
+      "sourceCell": 3,
+      "sourcePixelsSha256": "b3ab70e521aa7ec5809aa2e9febcf10516844e883ccc493a45261ad1d7793332",
+      "backgroundPixelsRemoved": 943146,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        290,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        145,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png",
+      "sourceCell": 0,
+      "sourcePixelsSha256": "bacaaf95390913e90083a6310d50ac2e98da32b2ff6f416af90ece6cc64eeb8e",
+      "backgroundPixelsRemoved": 933333,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        260,
+        280,
+        732,
+        718
+      ],
+      "cellBounds": [
+        121,
+        154,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png",
+      "sourceCell": 1,
+      "sourcePixelsSha256": "35c1e3babdce0e451c0f8b8142ebd8e6243fff901b467bbcb538096386506bc2",
+      "backgroundPixelsRemoved": 928923,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        182,
+        280,
+        732,
+        718
+      ],
+      "cellBounds": [
+        59,
+        154,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png",
+      "sourceCell": 2,
+      "sourcePixelsSha256": "3944001d4417252f3a11ee2a1745f85dd9805706b878661786429a6fe2ea7ea7",
+      "backgroundPixelsRemoved": 926418,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        282,
+        308,
+        732,
+        718
+      ],
+      "cellBounds": [
+        138,
+        176,
+        494,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png",
+      "sourceCell": 3,
+      "sourcePixelsSha256": "4da91f97b443c6ffab3b2b613d2d9d5819ca93acfc51238c9d30a6ceea75e445",
+      "backgroundPixelsRemoved": 931578,
+      "freeProjectileRegions": [],
+      "freeProjectileReason": null,
+      "fxExclusionMaskSha256": null
+    }
+  ],
+  "sampling": "Four genuine2x2 generated images; no invented or duplicated frames; one common crop/scale/baseline",
+  "atlasSha256": "77b94db829c72ceef5cc9342b96c2a328e916eff65b1fefd2002062c3e83ae8e",
+  "preCockpitAtlasSha256": "9d65260dda09722dc3a9c89f20760777a9975afcc79c279f3f0fb7b51735d0a0",
+  "nativeCockpitComposition": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/08-crown-alpha777-p1-composed.json",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/08-crown-alpha777-p1-composed.png",
+  "sourceSha256": "39ff85f3ffe0309df72c7fffb7da130eae8d02e8d4637863462e34c641aaa88c",
+  "nativeCockpitRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "strongFieldRule": "minRB>=225,G<=35,absRB<=40; no authored hotpink pigment; alpha-only, native cockpit excluded",
+  "strongFieldPixels": 230,
+  "explicitGapPolygonsIdleColumns012": [
+    [
+      [
+        396,
+        426
+      ],
+      [
+        399,
+        430
+      ],
+      [
+        402,
+        439
+      ],
+      [
+        409,
+        444
+      ],
+      [
+        414,
+        451
+      ],
+      [
+        412,
+        457
+      ],
+      [
+        409,
+        460
+      ],
+      [
+        410,
+        471
+      ],
+      [
+        406,
+        468
+      ],
+      [
+        403,
+        458
+      ],
+      [
+        401,
+        443
+      ]
+    ],
+    [
+      [
+        397,
+        430
+      ],
+      [
+        400,
+        436
+      ],
+      [
+        405,
+        440
+      ],
+      [
+        410,
+        446
+      ],
+      [
+        410,
+        451
+      ],
+      [
+        405,
+        454
+      ],
+      [
+        403,
+        448
+      ],
+      [
+        401,
+        439
+      ]
+    ],
+    [
+      [
+        395,
+        427
+      ],
+      [
+        399,
+        430
+      ],
+      [
+        403,
+        438
+      ],
+      [
+        411,
+        445
+      ],
+      [
+        414,
+        450
+      ],
+      [
+        413,
+        456
+      ],
+      [
+        409,
+        459
+      ],
+      [
+        410,
+        469
+      ],
+      [
+        405,
+        466
+      ],
+      [
+        402,
+        457
+      ],
+      [
+        400,
+        440
+      ]
+    ]
+  ],
+  "explicitGapRule": "only reviewed idle legtriangle region390,420..421,478; minRB-G>30,minRB>=75,absRB<=65; alpha-only; darker native purple joint pigment retained",
+  "explicitGapPixels": 660,
+  "muzzleUnmixRegions": [
+    [
+      1,
+      2,
+      [
+        85,
+        310,
+        200,
+        400
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        0,
+        295,
+        160,
+        410
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        110,
+        130,
+        210,
+        265
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        40,
+        130,
+        190,
+        265
+      ]
+    ]
+  ],
+  "muzzleUnmixPixels": 1906,
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha,clamped0..255",
+  "bodyJointPolicy": "Dark purple native joints outside explicit field polygons and muzzle-only regions untouched",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/clean-crown-p1.py",
+  "scriptSha256": "0a52ed4d5f6d558c8909c849e1b8f4e60cdcc4b79a1279b739424ca370d1ea27",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "77b94db829c72ceef5cc9342b96c2a328e916eff65b1fefd2002062c3e83ae8e"
+  }
+}

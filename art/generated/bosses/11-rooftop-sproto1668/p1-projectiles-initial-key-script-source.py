@@ -1,0 +1,23 @@
+"""Unmix reviewed magenta-only backdrop from projectile palettes with no authored magenta."""
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageOps
+import argparse, importlib.util, json, hashlib
+import numpy as np
+p=argparse.ArgumentParser();p.add_argument('source',type=Path);p.add_argument('output',type=Path);p.add_argument('--strip-grid',type=int,default=0);p.add_argument('--alpha-floor',type=int,default=10);p.add_argument('--note',default='Reviewed source palette has no authored magenta/purple; magenta excess is key contamination.');a=p.parse_args()
+s=importlib.util.spec_from_file_location('prep',Path(__file__).parent.parent/'Sproto-Arcade/tools/prepare-boss-atlas.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+original=Image.open(a.source).convert('RGBA');im,bands=m.strip_grid(original,a.strip_grid,'magenta');w,h=im.size
+if w!=h or w%4:raise ValueError('Expected square4x4 source atlas')
+arr=np.array(im);rgb=arr[:,:,:3].astype(float);r,g,b=rgb[:,:,0],rgb[:,:,1],rgb[:,:,2];low=np.minimum(r,b);excess=(low-g>18)&(arr[:,:,3]>0);alpha=np.maximum(g,255-low)/255;alpha=np.clip(alpha,.0001,1);out=arr.copy();fg=np.stack(((r-(1-alpha)*255)/alpha,g/alpha,(b-(1-alpha)*255)/alpha),axis=2);fg=np.clip(fg,0,255).round().astype('uint8');out[:,:,:3][excess]=fg[excess];out[:,:,3][excess]=np.round(alpha[excess]*arr[:,:,3][excess]).astype('uint8');candidate=Image.fromarray(((low>=180)&(low-g>=95)&(np.abs(r-b)<=65)).astype('uint8')*255);flood=ImageOps.expand(candidate,1,fill=255);ImageDraw.floodfill(flood,(0,0),128,thresh=0);known=np.array(flood.crop((1,1,w+1,h+1)).point(lambda q:255 if q==128 else 0))>0;removed=known|(excess&(out[:,:,3]<=a.alpha_floor));out[removed]=0
+assert np.array_equal(out[~excess],arr[~excess]);rgba=Image.fromarray(out);cell=w//4;frames=[];boxes=[];records=[]
+for i in range(16):
+ row,col=divmod(i,4);f=rgba.crop((col*cell,row*cell,(col+1)*cell,(row+1)*cell));box=f.getchannel('A').getbbox();usable=[0,0,cell,cell]
+ for band in bands:
+  axis=0 if band['axis']=='x' else 1;start=(col if axis==0 else row)*cell;end=start+cell
+  if band['start']<=start<band['end']:usable[axis]=max(usable[axis],band['end']-start)
+  if band['start']<end<=band['end']:usable[axis+2]=min(usable[axis+2],band['start']-start)
+ if not box or box[0]<=usable[0]+1 or box[1]<=usable[1]+1 or box[2]>=usable[2]-1 or box[3]>=usable[3]-1:raise ValueError(f'Frame{i} touches sourcecell/verifiedgrid boundary: {box}, usable{usable}')
+ frames.append(f);boxes.append(box);records.append({'row':row,'column':col,'sourceBounds':box,'usableAfterGridRemoval':usable})
+atlas,meta=m.shared.pack_frames(frames,boxes,512,12,('attack-a','attack-b','attack-c','heavy'));a.output.parent.mkdir(exist_ok=True,parents=True);atlas.save(a.output);raw=a.output.with_name(a.output.stem+'-source-keyed-rgba.png');rgba.save(raw);mask=a.output.with_name(a.output.stem+'-chroma-unmix-mask.png');Image.fromarray(excess.astype('uint8')*255).save(mask);bgmask=a.output.with_name(a.output.stem+'-background-key-mask.png');Image.fromarray(removed.astype('uint8')*255).save(bgmask);digest=lambda x:hashlib.sha256(x.read_bytes()).hexdigest();meta.update(kind='reviewed-magenta-projectile-alpha-unmix',assetKind='projectiles',source=str(a.source.resolve()),sourceSha256=digest(a.source),script=str(Path(__file__).resolve()),scriptSha256=digest(Path(__file__)),reviewedPalette=a.note,gridRemovalBands=bands,keyUnmix={'criterion':'min(R,B)-G>18','alpha':'max(G,255-min(R,B))/255; values <=floor settransparent','foreground':'[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255','alphaFloorByte':a.alpha_floor,'verifiedEdgeBackgroundRule':'minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule','outsideUnmixMaskRgbaByteExact':True,'pixels':int(excess.sum()),'removedPixels':int(removed.sum()),'mask':str(mask.resolve()),'backgroundMask':str(bgmask.resolve())},frameCutoffChecks=records,sampling='One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames',productionEnabled=False,outputSha256=digest(a.output),status='strict sourcecutoff pass; awaiting visual review');a.output.with_suffix('.json').write_text(json.dumps(meta,indent=2)+'\n')
+for label,color in [('black',(8,12,18)),('light',(230,235,240))]:
+ bg=Image.new('RGB',atlas.size,color);bg.paste(atlas,mask=atlas.getchannel('A'));bg.resize((1280,1280),Image.Resampling.NEAREST).save(a.output.with_name(a.output.stem+f'-{label}-review.png'))
+print(json.dumps({'output':str(a.output),'sha256':meta['outputSha256'],'bounds':meta['bounds'],'rows':meta['rowBounds']}))

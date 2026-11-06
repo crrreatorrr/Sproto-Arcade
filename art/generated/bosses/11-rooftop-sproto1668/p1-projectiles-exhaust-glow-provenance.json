@@ -1,0 +1,38 @@
+{
+  "kind": "localized-source-exhaust-matte-recovery",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/raw-phase-projectiles/11-rooftop-sproto1668-p1-projectiles.png",
+  "sourceSha256": "0060555d44c4e1329c46e9f1af2d328070d62c6f84e41c58b7fb97f42f660c20",
+  "inputKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/processed-phase-projectiles/11-rooftop-sproto1668-p1-projectiles-initial-source-keyed-rgba.png",
+  "inputKeyedSha256": "47c32a6873502f8933bf2feaf1376d374050abef63439db926409572db93f9aa",
+  "explicitRegion": {
+    "row": 0,
+    "column": 2,
+    "cellRect": [
+      280,
+      120,
+      221,
+      271
+    ]
+  },
+  "protectedNativeNozzleRect": [
+    280,
+    185,
+    75,
+    141
+  ],
+  "outsideExplicitMaskRgbaByteExact": true,
+  "protectedGoldNavyNozzleRgbaByteExact": true,
+  "blueIonAndAllOtherFramesRgbaByteExact": true,
+  "changedPixels": 51594,
+  "externalGlowAlpha": "squared recovered alpha only in explicit external warm emission ROI; opaque flame remains alpha1, no metal/blue pixels affected; suppresses baked field-plate bloom without repainting physical art",
+  "outerGlowRecovery": "original faint warm glow restored even where the earlier hard chroma threshold set alpha0; eliminates the truncated circular plate edge. Only R>=B-8 warm/native-field colors selected, blue ion pixels excluded; alpha<.03 compression noise becomes0",
+  "knownSourceBackdrop": [
+    255,
+    0,
+    255
+  ],
+  "recovery": "minimum physically valid alpha=max overchannels positive(C-B)/(255-B),negative(B-C)/B; foreground recovered from ORIGINAL native source rather than previously desaturated olive pixels; no invented art",
+  "outputSha256": "e24a01cbd95d7f81344a3a542cde90a50b4bca9dc832e95299499c96232cfc2c",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/refine-11p1-exhaust.py",
+  "scriptSha256": "12c750743f072fc8b5341151f9ee23baa2113df966be77bb5ea2bed993c6e881"
+}

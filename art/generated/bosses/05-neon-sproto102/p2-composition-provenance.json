@@ -1,0 +1,596 @@
+{
+  "schemaVersion": 1,
+  "kind": "approved-native-cockpit-composition",
+  "animationFramesGenerated": false,
+  "vehicleAnimationSource": "existing genuine input atlas, unchanged outside explicit masks",
+  "includesPilot": true,
+  "requiresVisualReview": true,
+  "productionEnabled": false,
+  "source": "outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
+  "sourceSha256": "85d297c4eef529b24d22e5b2ccd96d90bef043872dce3c59d2c1c388702d56d0",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "atlas": "work/art-production/raw-phase-atlases/05-neon-sproto102-p2.png",
+  "atlasSha256": "70ff630b1a096da983c9905c680043c4232ca0e92d018126af6ae67d0feab52f",
+  "atlasDimensions": [
+    2048,
+    2048
+  ],
+  "specification": "work/art-production/cockpit-compositions/05-neon-sproto102-p2-pilot-placements.json",
+  "specificationSha256": "38d5d7bf7f9803357528d3e0155e9cc949709c01f878ad925fce340c88c68d9a",
+  "polygon": [
+    [
+      855,
+      500
+    ],
+    [
+      1380,
+      500
+    ],
+    [
+      1380,
+      800
+    ],
+    [
+      1300,
+      960
+    ],
+    [
+      1120,
+      1050
+    ],
+    [
+      635,
+      1050
+    ],
+    [
+      655,
+      900
+    ],
+    [
+      725,
+      740
+    ],
+    [
+      790,
+      600
+    ]
+  ],
+  "sourceHorizontalFlip": false,
+  "sourceMaskBoundsAfterFlip": [
+    635,
+    500,
+    1381,
+    1051
+  ],
+  "maskPolicy": "hard binary polygon intersected with opaque source alpha; no feather, blending, repaint or interpolation",
+  "transform": "cellLocalPixel = (horizontalFlip ? [sourceWidth-1-rawX, rawY] : rawConceptPixel) * uniformScale + translate; anchors refer to original unmirrored source",
+  "resampling": "nearest-neighbor",
+  "columns": 4,
+  "rows": 4,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.12,
+      "translate": [
+        130.0,
+        127.0
+      ],
+      "cellPatchBounds": [
+        206,
+        187,
+        296,
+        253
+      ],
+      "patchPixels": 4944,
+      "inverseAffine": [
+        8.333333333333334,
+        0,
+        -1083.3333333333335,
+        0,
+        8.333333333333334,
+        -1058.3333333333335
+      ],
+      "sourceAnchor": [
+        1000,
+        650
+      ],
+      "targetAnchor": [
+        250,
+        205
+      ]
+    }
+  ],
+  "checks": {
+    "outsideMaskRgbaByteExact": true,
+    "insideMaskMatchesNearestNativeSource": true,
+    "all16UniqueCells": true
+  },
+  "output": "work/art-production/cockpit-compositions/05-neon-sproto102-p2-composed-raw.png",
+  "outputSha256": "0011082190c63bbf3ac3feeefda156a17ad01b3b8acc899aec1cc136ca35073b",
+  "maskOutput": "work/art-production/cockpit-compositions/05-neon-sproto102-p2-native-pilot-mask.png",
+  "maskSha256": "810d00538565a4af267afc2d14385546f1d5c0e1a0c62394ef28331160c7d8c7"
+}

@@ -1,0 +1,43 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "10-verse-sprotosales",
+      "phase": 2,
+      "job_id": "1bc65da0-8a54-49e4-a087-ce9edbad315f",
+      "reference_asset_id": "27574a0f-586a-476a-aa23-0eb3f6f74c6a",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    },
+    {
+      "folder": "10-verse-sprotosales",
+      "phase": 2,
+      "action": "C-correction",
+      "job_id": "38e97cea-d9bf-4e3f-bf70-df949c250612",
+      "reference_asset_id": "27574a0f-586a-476a-aa23-0eb3f6f74c6a",
+      "billing": "Unlimited website checked",
+      "duration": 6,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "38e97cea-d9bf-4e3f-bf70-df949c250612",
+      "status": "completed",
+      "visibleText": ""
+    },
+    {
+      "id": "1bc65da0-8a54-49e4-a087-ce9edbad315f",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedAtlasSha256": "0a40cdda74891d3bd0447c41cf2f2249e925337895cdde5df24259300bdae505",
+  "identityReview": "Canonical Sproto pilot visibly seated inside vehicle; all16 full physical frames reviewed",
+  "simulationPolicy": "Weapon presentation only. Authored movement/patterns/timing/damage/counters unchanged; only measured collision geometry can change."
+}

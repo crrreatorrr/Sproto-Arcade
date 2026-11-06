@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "04-ranch-zephyr",
+  "phase": 2,
+  "assetKind": "projectiles",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "04-ranch-zephyr",
+    "phase": 2,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/04-ranch-zephyr-p2-concept.png",
+    "concept_job_id": "e450492a-5355-4186-bda8-37273edf5d93",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/04-ranch-zephyr-p2-guide.png",
+    "status": "root_visual_pass_copied_to_repo",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "jack-o-lantern boiler-mouth cannon",
+        "projectile": "long orange fire-seed lance with golden core",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "short front-LEFT coal-ember mortar below cab floor",
+        "projectile": "small purple-orange hot coal ember with glowing cracks",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "bottom front-LEFT pumpkin-rind chute beside cowcatcher",
+        "projectile": "wide spinning crescent pumpkin-rind blade with amber edge",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "front locomotive seed-drum hatch",
+        "projectile": "large orange pumpkin shell with glowing carved face and iron-dark rind bands",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "phase_projectile_atlas",
+    "prompt": "Create ONE detailed pixel-art animation atlas of ONLY16 small PUMPKIN TRAIN PROJECTILE sprites in4 equal columns and4 equal rows,2048square. Each512cell has one complete centered sprite inside CENTRAL50%, huge empty margins, never touching boundaries. All empty background/gutters UNIFORMLY pure hot magenta #FF00FF, no grid lines, labels, text, scene, machinery, characters or reference copy. Crisp rich pixel clusters with hard stepped edges, no blur or broad glow haze. ROW1 LONG FIRE-SEED LANCE: elongated orange pumpkin seed with glowing pale-yellow leading tipLEFT, short red-orange flame trailRIGHT and tiny dark rind flecks, maximum210x50px; four genuine spark/stretch/pulse/settle frames. ROW2 SMALL COAL EMBER: compact jagged charcoal-black coal chunk with orange-red glowing cracks and tiny golden ember sparks, maximum85x80px; four meaningful tumble/flare frames. ROW3 WIDE PUMPKIN-RIND CRESCENT: curved orange pumpkin-rind blade with dark green outer skin, visible fibrous pale pulp edge and two tiny green stem flecks, leading cutting crestLEFT, maximum185x115px; four distinct rotation/flex frames. ROW4 HEAVY JACK-O-LANTERN SHELL: large chunky hollow orange pumpkin sphere with olive stem and glowing yellow triangular eyes/zigzag mouth, strong dark outline, maximum210x175px; four consecutive wobble/rotate/pulse/recover frames, face always readable and leadingLEFT. Keep the four motifs visibly different in shape and size. Only these16 isolated projectile sprites, same center anchor per cell, complete margins, flat magenta.",
+    "reference_policy": "Text only using inspected Halloween source theme and weapon materials; no uploaded vehicle image",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/04-ranch-zephyr-p2-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/04-ranch-zephyr/p2-projectiles.png",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "prompt_original_reference_context": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #FF00FF magenta background everywhere outside sprites. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 2: orange harvest locomotive with carved jack-o-lantern boiler face, purple smoke stack, square transparent driver cab, hay bales and pumpkin cargo. ROW 1, weapon A: long orange fire-seed lance with golden core, from jack-o-lantern boiler-mouth cannon. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small purple-orange hot coal ember with glowing cracks, from angled smokestack ember-launch tube. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide spinning crescent pumpkin-rind blade with amber edge, from side pumpkin-cargo feeder mortar. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large orange pumpkin shell with glowing carved face and iron-dark rind bands, from front locomotive seed-drum hatch. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "reference_input_count": 0,
+    "productionEnabled": false,
+    "job_id": "b9ee516e-20a3-42eb-b124-cc41f19f161a",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_155512_b9ee516e-20a3-42eb-b124-cc41f19f161a.png",
+    "submitted_prompt": "Create ONE detailed pixel-art animation atlas of ONLY16 small PUMPKIN TRAIN PROJECTILE sprites in4 equal columns and4 equal rows,2048square. Each512cell has one complete centered sprite inside CENTRAL50%, huge empty margins, never touching boundaries. All empty background/gutters UNIFORMLY pure hot magenta #FF00FF, no grid lines, labels, text, scene, machinery, characters or reference copy. Crisp rich pixel clusters with hard stepped edges, no blur or broad glow haze. ROW1 LONG FIRE-SEED LANCE: elongated orange pumpkin seed with glowing pale-yellow leading tipLEFT, short red-orange flame trailRIGHT and tiny dark rind flecks, maximum210x50px; four genuine spark/stretch/pulse/settle frames. ROW2 SMALL COAL EMBER: compact jagged charcoal-black coal chunk with orange-red glowing cracks and tiny golden ember sparks, maximum85x80px; four meaningful tumble/flare frames. ROW3 WIDE PUMPKIN-RIND CRESCENT: curved orange pumpkin-rind blade with dark green outer skin, visible fibrous pale pulp edge and two tiny green stem flecks, leading cutting crestLEFT, maximum185x115px; four distinct rotation/flex frames. ROW4 HEAVY JACK-O-LANTERN SHELL: large chunky hollow orange pumpkin sphere with olive stem and glowing yellow triangular eyes/zigzag mouth, strong dark outline, maximum210x175px; four consecutive wobble/rotate/pulse/recover frames, face always readable and leadingLEFT. Keep the four motifs visibly different in shape and size. Only these16 isolated projectile sprites, same center anchor per cell, complete margins, flat magenta."
+  },
+  "acceptedOutput": {
+    "path": "p2-projectiles.png",
+    "sha256": "3caab10aa076b90fa151ef9f1993f5f51c651e7ebff05deb300c2360391b557c",
+    "metadata": "p2-projectiles.json",
+    "bounds": [
+      12,
+      72,
+      488,
+      428
+    ],
+    "rowBounds": [
+      [
+        12,
+        207,
+        488,
+        184
+      ],
+      [
+        134,
+        139,
+        239,
+        284
+      ],
+      [
+        46,
+        139,
+        395,
+        305
+      ],
+      [
+        43,
+        72,
+        412,
+        428
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

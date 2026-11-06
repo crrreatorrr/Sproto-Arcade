@@ -1,0 +1,65 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "09-hatchery-highsproto",
+      "phase": 1,
+      "job_id": "4758233e-e505-4741-8c6a-666f02d03012",
+      "reference_asset_id": "034b417e-a1db-4a62-8c55-b71f4e75be09",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "rejected-physical-feet-cutoff-all-sampled-frames"
+    },
+    {
+      "folder": "09-hatchery-highsproto",
+      "phase": 1,
+      "action": "wide-framing-retry",
+      "job_id": "a955bd38-4275-4edc-b7ce-84334b1847b7",
+      "reference_asset_id": "36ee533b-f162-442a-93e0-5d4b34239d40",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    },
+    {
+      "folder": "09-hatchery-highsproto",
+      "phase": 1,
+      "action": "B-correction-left-gold-cone",
+      "job_id": "7741b076-9bb8-431d-9284-3f8951659cce",
+      "reference_asset_id": "36ee533b-f162-442a-93e0-5d4b34239d40",
+      "billing": "Unlimited website checked",
+      "duration": 6,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "7741b076-9bb8-431d-9284-3f8951659cce",
+      "status": "completed",
+      "visibleText": ""
+    },
+    {
+      "id": "a955bd38-4275-4edc-b7ce-84334b1847b7",
+      "status": "completed",
+      "visibleText": ""
+    },
+    {
+      "id": "4758233e-e505-4741-8c6a-666f02d03012",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedJobs": [
+    "a955bd38-4275-4edc-b7ce-84334b1847b7",
+    "7741b076-9bb8-431d-9284-3f8951659cce"
+  ],
+  "rejectedJobs": {
+    "4758233e-e505-4741-8c6a-666f02d03012": "Physical feet clipped; no poses used"
+  },
+  "acceptedAtlasSha256": "2def95a7b66cd467b4fb173a94239576cd6c814294f0c588b7bf0719570969ca",
+  "identityReview": "Canonical HighSproto visible in open cab, full tracks/claw/hardware in every frame; three genuine different firing mechanisms reviewed",
+  "simulationPolicy": "Presentation and measured hitboxes only; authored movement, timing, patterns, anchors, damage and counters unchanged"
+}

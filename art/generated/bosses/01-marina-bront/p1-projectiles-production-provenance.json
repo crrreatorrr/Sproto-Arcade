@@ -1,0 +1,46 @@
+{
+  "provider": "Higgsfield",
+  "billing": "Website Unlimited only; no paid fallback",
+  "model": "Nano Banana Pro",
+  "acceptedAtlasSha256": "596a3c8e4f3e83f9ec8c299a65088745928df1ff26df9ad7fed0deae61c51a34",
+  "sourceGenerationJob": "ac22868a-bfb0-4b9d-899d-f6973cc98298",
+  "sourceSha256": "a2eb53c7b4fac65d6167b6ccd3aa42594902520a8ed7cc902e0b53d031dec2c1",
+  "conversionMetadata": "p1-projectiles.json",
+  "identityReview": "Water/foam/steam motifs match corresponding phase mechanisms; varied silhouettes and left-facing flight reviewed",
+  "generationRequest": {
+    "folder": "01-marina-bront",
+    "phase": 1,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/01-marina-bront-p1-concept.png",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/01-marina-bront-p1-guide.png",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "weapon": "bow pressure-water cannon",
+        "projectile": "compact cyan seawater teardrop with white foam core",
+        "size": "small"
+      },
+      {
+        "slot": "B",
+        "weapon": "deck winch-fed water-lance launcher",
+        "projectile": "long spiralling cyan water spear",
+        "size": "long"
+      },
+      {
+        "slot": "C",
+        "weapon": "hull-side surge-pump nozzle",
+        "projectile": "broad crescent of white-blue foamy wake",
+        "size": "wide"
+      },
+      {
+        "slot": "heavy",
+        "weapon": "heavy pressure capsule tube",
+        "projectile": "large torpedo-shaped compressed seawater capsule with foam tail",
+        "size": "heavy"
+      }
+    ],
+    "billing": "Unlimited only; no paid credits",
+    "ready": false,
+    "type": "projectile_atlas",
+    "prompt": "Create a game PROJECTILE sprite sheet only; attached boat concept is material/color inspiration. No boats or pilots anywhere. Exact4columns by4rows,16equalcells,2048square. Row1 (A), small silhouette: compact cyan seawater teardrop with white foam core, from bow pressure-water cannon. Four distinct evolving animation frames, same center anchor. Row2 (B), long silhouette: long spiralling cyan water spear, from deck winch-fed water-lance launcher. Four distinct evolving animation frames, same center anchor. Row3 (C), wide silhouette: broad crescent of white-blue foamy wake, from hull-side surge-pump nozzle. Four distinct evolving animation frames, same center anchor. Row4 (heavy), heavy silhouette: large torpedo-shaped compressed seawater capsule with foam tail, from heavy pressure capsule tube. Four distinct evolving animation frames, same center anchor. All projectiles face LEFT. RowA small20%cell, B long45%cell, C broad40%cell, heavy large45%cell, preserve meaningful size differences. High-quality detailed crisp pixel art. All art stays inside central55%ofeachcell with wide empty margins, no clipping or overlapping. Pure flat #FF00FF background everywhere outside sprites, no gray, no dividers, no text. Match corresponding seawater/foam/steam muzzle colors/materials."
+  }
+}

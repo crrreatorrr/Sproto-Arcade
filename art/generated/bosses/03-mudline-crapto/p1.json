@@ -1,0 +1,399 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      199,
+      209,
+      261,
+      278
+    ],
+    [
+      51,
+      189,
+      449,
+      298
+    ],
+    [
+      12,
+      209,
+      455,
+      291
+    ],
+    [
+      40,
+      209,
+      417,
+      278
+    ]
+  ],
+  "bounds": [
+    12,
+    189,
+    488,
+    311
+  ],
+  "unionCrop": [
+    4,
+    129,
+    393,
+    377
+  ],
+  "destinationSize": [
+    488,
+    311
+  ],
+  "offset": [
+    12,
+    189
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        153,
+        145,
+        359,
+        367
+      ],
+      "cellBounds": [
+        199,
+        209,
+        457,
+        487
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        153,
+        145,
+        359,
+        367
+      ],
+      "cellBounds": [
+        199,
+        209,
+        457,
+        487
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        153,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        199,
+        209,
+        460,
+        487
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        153,
+        145,
+        359,
+        367
+      ],
+      "cellBounds": [
+        199,
+        209,
+        457,
+        487
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        119,
+        129,
+        393,
+        367
+      ],
+      "cellBounds": [
+        156,
+        189,
+        500,
+        487
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        113,
+        129,
+        393,
+        367
+      ],
+      "cellBounds": [
+        149,
+        189,
+        500,
+        487
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        35,
+        129,
+        393,
+        367
+      ],
+      "cellBounds": [
+        51,
+        189,
+        500,
+        487
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        108,
+        129,
+        393,
+        367
+      ],
+      "cellBounds": [
+        142,
+        189,
+        500,
+        487
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        88,
+        145,
+        367,
+        377
+      ],
+      "cellBounds": [
+        117,
+        209,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        88,
+        145,
+        367,
+        377
+      ],
+      "cellBounds": [
+        117,
+        209,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        4,
+        145,
+        367,
+        377
+      ],
+      "cellBounds": [
+        12,
+        209,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        88,
+        145,
+        366,
+        377
+      ],
+      "cellBounds": [
+        117,
+        209,
+        466,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        105,
+        145,
+        358,
+        367
+      ],
+      "cellBounds": [
+        139,
+        209,
+        456,
+        487
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        106,
+        145,
+        358,
+        367
+      ],
+      "cellBounds": [
+        140,
+        209,
+        456,
+        487
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        26,
+        145,
+        359,
+        367
+      ],
+      "cellBounds": [
+        40,
+        209,
+        457,
+        487
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        97,
+        145,
+        359,
+        367
+      ],
+      "cellBounds": [
+        129,
+        209,
+        457,
+        487
+      ]
+    }
+  ],
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-clear-pilot-raw.png",
+  "sourceSha256": "10e246929fd8f7182f998bdaf8ed8bad6316f279eb5fe2f1d0354d6843d55568",
+  "sourceKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/03-mudline-crapto-p1-clear-pilot-source-keyed-rgba.png",
+  "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/03-mudline-crapto-p1-clear-pilot-background-mask.png",
+  "keyRgb": [
+    114,
+    129,
+    134
+  ],
+  "maximumPerChannelDistance": 8,
+  "edgeConnectedOnly": true,
+  "foregroundRgbByteExact": true,
+  "nativeProtectedRgbaByteExact": true,
+  "backgroundRemovedPixels": 3567388,
+  "includesPilot": true,
+  "pilotOverlayRequired": false,
+  "enabledInGame": false,
+  "preparation": "one commoncrop/nearestscale/anchor; each sourcecell preserved; no generated/duplicate/reorderedframes; alpha-onlybackgroundremoval",
+  "provenanceFiles": [
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-clean-pilot-placements.json",
+      "sha256": "fcb2446bde18d19d8e19704ced0219eff2dd8767579e5e64cccb5e79161ce27b"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-clear-pilot-raw.json",
+      "sha256": "5cf98d27402f67d8e4a1524f93540dd8bd02ac7a62e930ea036448b652176e6e"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-composed-raw.json",
+      "sha256": "beb5b16f16e8bd0323e7dd068b1ead0e08e89b171126c73d2ac21329e14746b7"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-normalized-left.json",
+      "sha256": "4fda1d195d682ce63b35ca6b2cc1b2b212736cc10409bac0ab48781a21e647aa"
+    }
+  ],
+  "conversionScript": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-and-pack-reviewed-gray.py",
+  "conversionScriptSha256": "96c248ccbf98be5fd38a972f2cb43c997522bd78a187d4c6225c79ba52376770",
+  "outputSha256": "019de42e995588e278733531bacf49e1b68e55abb0eacb52bf3243a11c47499e",
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "productionEnabled": true,
+  "sourceJobId": "171eb4d2-f799-4d2d-93b8-480b67a9812c",
+  "pilotSourceConcept": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/03-mudline-crapto-p2-concept.png",
+  "pilotSourceReason": "Same canonical Crapto identity, unobscured phase2 approved head/torso/hands replaces phase1 glass-glare-obscured pilot; phase1 vehicle rim retained",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "019de42e995588e278733531bacf49e1b68e55abb0eacb52bf3243a11c47499e"
+  }
+}

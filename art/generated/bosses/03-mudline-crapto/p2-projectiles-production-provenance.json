@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "03-mudline-crapto",
+  "phase": 2,
+  "assetKind": "projectiles",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "03-mudline-crapto",
+    "phase": 2,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/03-mudline-crapto-p2-concept.png",
+    "concept_job_id": "c108f48a-8455-4154-8b4c-cae231290cac",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/03-mudline-crapto-p2-projectile-small-guide.png",
+    "status": "root_visual_pass_waiting_in_game_QA",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "upper bent pressure-tap barrel",
+        "projectile": "long yellow-olive backflush pressure stream",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "lower angled bronze floodgate nozzle",
+        "projectile": "small heavy brown backflush slug with amber bubbles",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "chain-operated front sluice spray hatch",
+        "projectile": "wide arcing olive-green floodwater crest",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "main lower pump emergency outlet",
+        "projectile": "large churning dark-olive sludge torpedo with bronze-colored sediment flecks",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "phase_projectile_atlas",
+    "prompt": "EDIT the attached tiny projectile-only fixed-layout GUIDE IN PLACE. Preserve all 16 centers, positions, anchors and tiny object scale. Every complete projectile stays under220px wide AND tall in its512cell with HUGE empty margins. Do not enlarge. This is a phase2 redesign of the four source motifs, each with four genuine consecutive animation frames. ROW1 transform the jet into an olive twisted BACKFLUSH STREAM with pale cream foamy ribs: stretch, twist, foam peak, settle. Leading foam bulb LEFT, thinning tail RIGHT. ROW2 transform the clod into a COMPACT cylindrical dark-brown MUD SLUG with olive seams: four rotation/squash frames. Keep it much smaller than the heavy. ROW3 transform the bubbles into a WIDE fan-shaped FLOOD CREST with pale cream foam, muddy olive waves and brown sediment: rise, curl, break, recover. Leading fan LEFT, trailing spray RIGHT. ROW4 transform the orb into a HEAVY elongated olive-brown SLUDGE TORPEDO with three copper sediment bands: twist, pulse, squash, recover. Rounded leading head LEFT, taper tail RIGHT. Crisp detailed pixel art with hard stepped edges. Only these 16 isolated projectile sprites, same relative size differences as guide; no other objects or reference copy. ALL background and gutters uniformly pure hot magenta #FF00FF, no visible grid lines, labels, text, scene or large glow haze. Keep sprites TINY at the exact guide positions and scale; nothing touches cell edges.",
+    "reference_policy": "Sole small static projectile-only guide derived from cleanP1 art; no vehicle image or rejectedclippedart",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/03-mudline-crapto-p2-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/03-mudline-crapto/p2-projectiles.png",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "prompt_original_reference_context": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #FF00FF magenta background everywhere outside sprites. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 2: tall riveted bronze floodgate-pump tank, cylindrical olive sludge reservoir, four bent tap outlets, orange upper window, valve wheels and dangling chains. ROW 1, weapon A: long yellow-olive backflush pressure stream, from upper bent pressure-tap barrel. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small heavy brown backflush slug with amber bubbles, from lower angled bronze floodgate nozzle. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide arcing olive-green floodwater crest, from chain-operated front sluice spray hatch. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large churning dark-olive sludge torpedo with bronze-colored sediment flecks, from main lower pump emergency outlet. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "reference_input_count": 1,
+    "submitted_prompt": "EDIT the attached tiny projectile-only fixed-layout GUIDE IN PLACE. Preserve all 16 centers, positions, anchors and tiny object scale. Every complete projectile stays under220px wide AND tall in its512cell with HUGE empty margins. Do not enlarge. This is a phase2 redesign of the four source motifs, each with four genuine consecutive animation frames. ROW1 transform the jet into an olive twisted BACKFLUSH STREAM with pale cream foamy ribs: stretch, twist, foam peak, settle. Leading foam bulb LEFT, thinning tail RIGHT. ROW2 transform the clod into a COMPACT cylindrical dark-brown MUD SLUG with olive seams: four rotation/squash frames. Keep it much smaller than the heavy. ROW3 transform the bubbles into a WIDE fan-shaped FLOOD CREST with pale cream foam, muddy olive waves and brown sediment: rise, curl, break, recover. Leading fan LEFT, trailing spray RIGHT. ROW4 transform the orb into a HEAVY elongated olive-brown SLUDGE TORPEDO with three copper sediment bands: twist, pulse, squash, recover. Rounded leading head LEFT, taper tail RIGHT. Crisp detailed pixel art with hard stepped edges. Only these 16 isolated projectile sprites, same relative size differences as guide; no other objects or reference copy. ALL background and gutters uniformly pure hot magenta #FF00FF, no visible grid lines, labels, text, scene or large glow haze. Keep sprites TINY at the exact guide positions and scale; nothing touches cell edges.",
+    "rejected_attempts": [
+      {
+        "job_id": "991ae1a9-f4ed-4502-be8b-38b57a16f6ae",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_143507_991ae1a9-f4ed-4502-be8b-38b57a16f6ae.png",
+        "prompt": "Create ONE detailed pixel-art animation atlas of ONLY 16 isolated SLUDGE PROJECTILE sprites in four equal columns and four equal rows, 2048x2048, each cell 512 square. The background and all gutters are one uninterrupted pure hot magenta #FF00FF field. No grid lines, labels, text, scene, machinery or other objects. Each complete sprite stays inside central 50% of its cell with huge empty margins. Crisp pixel clusters, hard stepped edges, limited olive-green, lime, muddy brown and pale foam palette; no blur or large glow haze. ROW 1: LONG BACKFLUSH STREAM, a narrow twisted olive liquid rope with pale foamy ribs and drips, round leading crest LEFT, thinning trailing droplets RIGHT, maximum 210x55px. Four consecutive frames of the stream twisting, foaming, peaking and narrowing around the same center. ROW 2: COMPACT MUD SLUG, a short chunky cylindrical dark-brown sludge capsule with olive seams, maximum 90x80px, four distinct squash/tumble frames at the same center. ROW 3: WIDE FLOOD CREST, a fan-shaped muddy-green crescent wave with layered lime foam and brown sediment flecks, leading fan LEFT and smaller spray trailing RIGHT, maximum 190x125px, four distinct rise/spread/compress/recovery frames. ROW 4: HEAVY SLUDGE TORPEDO, large armored olive-brown liquid capsule with three copper-colored sediment bands and tiny trailing foam, leading rounded head LEFT and tapering tail RIGHT, maximum 215x150px, four distinct twist/pulse/squash/recover frames. Preserve clear size differences between all four motifs. Same center anchor for every cell, nothing touches cell boundaries. Only these projectile sprites on flat magenta; no reference copy.",
+        "references": 0,
+        "reason": "model enlarged objects tocellboundaries; strictrow1col1 artbounds(8,137,504,382)touchusableborder",
+        "raw_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/03-mudline-crapto-p2-projectiles-draft-clipped.png"
+      }
+    ],
+    "job_id": "25b91d71-18ac-47cd-83e5-713f88db2036",
+    "reference_media_id": "6207e877-1547-4610-a9fb-22f2fea53d93",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_145242_25b91d71-18ac-47cd-83e5-713f88db2036.png",
+    "visual_review": "All16 strict isolated source cells; no grid. Source-themed cream/olive backflush, brown cylinders, flood waves, copper-banded heavy torpedoes. C/heavy nativecell mirrors normalizeLEFT; A/B unchanged. Magentainterior3pixels alphaonly removed. Awaitingrootvisualreview.",
+    "processed_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/03-mudline-crapto/p2-projectiles.png",
+    "facing_transform": "C/heavy rows mirrored native cells before one shared pack; A/B unchanged",
+    "final_sha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813"
+  },
+  "acceptedOutput": {
+    "path": "p2-projectiles.png",
+    "sha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813",
+    "metadata": "p2-projectiles.json",
+    "bounds": [
+      12,
+      147,
+      488,
+      353
+    ],
+    "rowBounds": [
+      [
+        13,
+        223,
+        487,
+        191
+      ],
+      [
+        122,
+        251,
+        266,
+        144
+      ],
+      [
+        12,
+        147,
+        487,
+        353
+      ],
+      [
+        13,
+        220,
+        485,
+        206
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

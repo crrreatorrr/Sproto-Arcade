@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "03-mudline-crapto",
+  "phase": 1,
+  "assetKind": "boss",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "03-mudline-crapto",
+    "phase": 1,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/03-mudline-crapto-p1-concept.png",
+    "concept_job_id": "2c5f72ad-c03d-4e78-9983-a1e1938c2306",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/03-mudline-crapto-p1-guide-small.png",
+    "status": "root_visual_pass_waiting_in_game_QA",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "left-facing upper elbow sludge nozzle",
+        "projectile": "long olive pressure-sludge jet with brown sediment",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "front scoop-mouth mud belcher hatch",
+        "projectile": "compact dense brown mud clod with wet olive seams",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "side compressor bulb spray gun",
+        "projectile": "wide bubbling green sludge splash fan",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "armored sludge reservoir outlet",
+        "projectile": "large spherical translucent olive sludge globule full of sediment",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "boss_phase_atlas",
+    "prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: left-facing upper elbow sludge nozzle: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY olive-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: front scoop-mouth mud belcher hatch: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY dark brown/amber muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: side compressor bulb spray gun: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY lime-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Pilot face, hands and cockpit remain visible and unobstructed in every frame. No weapon, bracket or flash can overlap the cockpit opening; mount weapons on the lower chassis or away from pilot. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "layout_guide_prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: left-facing upper elbow sludge nozzle: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY olive-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: front scoop-mouth mud belcher hatch: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY dark brown/amber muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: side compressor bulb spray gun: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY lime-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Pilot face, hands and cockpit remain visible and unobstructed in every frame. No weapon, bracket or flash can overlap the cockpit opening; mount weapons on the lower chassis or away from pilot. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "reference_policy": "Sole validated fixed-layout guide; never combined board or rejected draft",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/03-mudline-crapto-p1.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/03-mudline-crapto/p1.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512,
+      "rows_by_state": [
+        "idle",
+        "attack-a",
+        "attack-b",
+        "attack-c"
+      ]
+    },
+    "prompt_original_long": "EDIT the attached exact 4x4 fixed-layout GUIDE IN PLACE. Preserve its exact 16 sprite positions, vehicle scale, center, anchor, baseline and proportions. The sole reference is a deterministic guide made from the validated single phase concept; keep its exact vehicle and Sproto identity. No enlarged reference, ghost image or duplicated guide inside any cell. ROW 1: four genuinely DISTINCT subtle idle machinery/pilot frames. ROW 2: left-facing upper elbow sludge nozzle: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local long olive pressure-sludge jet with brown sediment birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 3: front scoop-mouth mud belcher hatch: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local compact dense brown mud clod with wet olive seams birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 4: side compressor bulb spray gun: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local wide bubbling green sludge splash fan birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. THREE distinct physical mounted weapons SHOOTING in the three attack rows, with visible local weapon articulation and separate muzzle release origins; do not substitute whole-body bobbing or an identical generic flash. Pilot remains seated INSIDE the cockpit with both hands operating controls, exact face/costume/colors from the guide: slender vivid electric-BLUE body and BLUE hands, thin long limbs, large BLUE head with sharp swept-back spikes; two enormous round GOLDEN-YELLOW goggle-like eye rings with saturated RED irises and dark pupils; tiny teal-green strip at the side of the eye rims; wide dark-RED flattened smiling lips/muzzle with a black inner smile and tiny dark nose; no clothing or invented costume. No glare, reflection stripes or colored tint over the pilot. Keep all pixels including tiny flashes inside the central 55% width/height of each 512 cell, broad clear margins, nothing touches cell borders. Do not move, resize or rotate whole sprites. Premium crisp detailed pixel art, rich controlled palette and precise mechanisms. ALL background/gutters stay original flat pure #FF00FF magenta in every cell, no gray/white background, black grid lines, dividers, frames, numbers, labels, text, arrows, trajectories, diagrams or extra objects. No flying projectile leaving its local muzzle. Four rows of four meaningful ordered animation frames; do not merely repeat static guide copies. Same gameplay timing, paths, damage and attack count; artwork only.",
+    "background_request": "#FF00FF",
+    "reference_maximum_subject_size": 220,
+    "job_id": "171eb4d2-f799-4d2d-93b8-480b67a9812c",
+    "submitted_prompt": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: left-facing upper elbow sludge nozzle: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY olive-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: front scoop-mouth mud belcher hatch: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY dark brown/amber muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: side compressor bulb spray gun: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY lime-green muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Pilot face, hands and cockpit remain visible and unobstructed in every frame. No weapon, bracket or flash can overlap the cockpit opening; mount weapons on the lower chassis or away from pilot. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "reference_media_id": "550bd488-4414-4413-8599-ab2b9130ab0d",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_134925_171eb4d2-f799-4d2d-93b8-480b67a9812c.png",
+    "visual_review": "Genuine3weapons, all16 unobstructed. Each512cell mirroredleft, then exact native approvedconceptcockpit composed and graykeyedalpha; directpackcandidate awaitingrootQA.",
+    "normalized_facing": "left",
+    "post_generation_transform": "native horizontalmirror each512cell, no reorder",
+    "fidelity_repair": {
+      "placement_spec": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-placements.json",
+      "composed_raw": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-composed-raw.png",
+      "native_mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-all-native-mask.png",
+      "gray_matte_provenance": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-gray-keyed.json",
+      "prepared_prototype": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/03-mudline-crapto-p1-clear-pilot.png",
+      "pilot_source_concept": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/03-mudline-crapto-p2-concept.png",
+      "pilot_source_phase": 2,
+      "pilot_source_reason": "Same canonical Crapto, unobscured source; P1 glass glare avoided without synthetic reconstruction",
+      "clean_pilot_placement_spec": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/03-mudline-crapto-p1-clean-pilot-placements.json"
+    },
+    "processed_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/03-mudline-crapto/p1.png",
+    "final_sha256": "019de42e995588e278733531bacf49e1b68e55abb0eacb52bf3243a11c47499e",
+    "pilot_source_phase": 2
+  },
+  "acceptedOutput": {
+    "path": "p1.png",
+    "sha256": "019de42e995588e278733531bacf49e1b68e55abb0eacb52bf3243a11c47499e",
+    "metadata": "p1.json",
+    "bounds": [
+      12,
+      189,
+      488,
+      311
+    ],
+    "rowBounds": [
+      [
+        199,
+        209,
+        261,
+        278
+      ],
+      [
+        51,
+        189,
+        449,
+        298
+      ],
+      [
+        12,
+        209,
+        455,
+        291
+      ],
+      [
+        40,
+        209,
+        417,
+        278
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

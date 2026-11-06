@@ -1,0 +1,12 @@
+{
+  "stripGrid": 12,
+  "allowEnclosedStrongField": true,
+  "enclosedFieldRule": {
+    "minRB": 180,
+    "maxG": 150,
+    "minExcess": 70,
+    "maxBalance": 65
+  },
+  "protectedCores": [],
+  "reason": "Goldie gold/navy metal, blue-white ions and orange exhaust contain no native magenta/purple pigments; remove source magenta field and recover pixel fringe only. Actual result inspected before conversion."
+}

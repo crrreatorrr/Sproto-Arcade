@@ -27,7 +27,7 @@
   draw(ctx,w){
    ctx.strokeStyle='#8f6fa8';ctx.lineWidth=3;for(let x=0;x<=end;x+=300){ctx.beginPath();ctx.moveTo(x,70);ctx.lineTo(x,650);ctx.stroke();label(ctx,String(x)+'m',x,680);}
    for(let i=0;i<fronts.length;i++){const x=fronts[i];ctx.fillStyle=i<w.data.crossings?'#68b992':'#e5b6ff';ctx.font='bold 40px system-ui';ctx.fillText('≫',x-100,340);ctx.fillText('≫',x+80,340);label(ctx,'RIFT '+(i+1),x-45,230);}
-   ctx.fillStyle='#433052';ctx.fillRect(4520,200,330,320);ctx.strokeStyle='#c7a1e3';ctx.strokeRect(4520,200,330,320);ctx.fillStyle='#161a2c';ctx.fillRect(4650,230,100,80);label(ctx,'SALES CARRIER',4540,560);label(ctx,'EXIT TO SHOWROOM',4250,120);
+   if(!globalThis.ArcadeBossSheets?.drawMachine(ctx,w)){ctx.fillStyle='#433052';ctx.fillRect(4520,200,330,320);ctx.strokeStyle='#c7a1e3';ctx.strokeRect(4520,200,330,320);ctx.fillStyle='#161a2c';ctx.fillRect(4650,230,100,80);}label(ctx,'SALES CARRIER',4540,560);label(ctx,'EXIT TO SHOWROOM',4250,120);
   }
  };
  function orbit(w){const c=w.phaseTick%480,side=Math.floor(c/120),angle=[Math.PI,Math.PI*1.5,0,Math.PI*.5][side];return{c,side,angle,x:640+Math.cos(angle)*250,y:[350,260,350,560][side]};}
@@ -60,8 +60,26 @@
   },
   draw(ctx,w){const o=orbit(w);ctx.save();
    ctx.strokeStyle='#ad8bc9';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(640,350,250,210,0,0,Math.PI*2);ctx.stroke();
-   ctx.fillStyle=w.data.centerWindow?'#3d6b65':'#513956';ctx.fillRect(565,245,150,200);ctx.strokeStyle='#eed4fc';ctx.strokeRect(565,245,150,200);ctx.fillStyle='#161a2c';ctx.fillRect(600,255,80,70);
-   for(let i=0;i<4;i++){const a=[Math.PI,Math.PI*1.5,0,Math.PI*.5][i],x=640+Math.cos(a)*250,y=[350,260,350,560][i];ctx.fillStyle=i===o.side?'#f8d486':'#5c4c70';ctx.fillRect(x-50,y-50,100,100);label(ctx,['LEFT','TOP','RIGHT','BOTTOM'][i],x-35,y-65);}
+   // The four authored orbit modules are separate machinery. Draw their solid
+   // hardware behind the central sheet so the top fixture cannot hide its pilot.
+   if(globalThis.ArcadeBossSheets?.phaseImage(w.stage.id,w.phaseIndex))for(let i=0;i<4;i++){
+    const a=[Math.PI,Math.PI*1.5,0,Math.PI*.5][i],x=640+Math.cos(a)*250,y=[350,260,350,560][i],active=i===o.side;
+    ctx.fillStyle='#253340';ctx.fillRect(x-50,y-50,100,100);
+    ctx.strokeStyle=active?'#f8d486':'#a28cb2';ctx.lineWidth=2;ctx.strokeRect(x-50,y-50,100,100);
+    ctx.fillStyle=active?'#907146':'#493a55';ctx.fillRect(x-37,y-30,74,60);
+    ctx.fillStyle='#15212e';for(let slat=0;slat<4;slat++)ctx.fillRect(x-29,y-20+slat*13,58,6);
+    ctx.fillStyle=active?'#ffdf8a':'#a18aaf';ctx.fillRect(x-7,y-7,14,14);
+    for(const bx of [-43,38])for(const by of [-43,38])ctx.fillRect(x+bx,y+by,5,5);
+   }
+   const generated=globalThis.ArcadeBossSheets?.drawMachine(ctx,w);
+   if(!generated){ctx.fillStyle=w.data.centerWindow?'#3d6b65':'#513956';ctx.fillRect(565,245,150,200);ctx.strokeStyle='#eed4fc';ctx.strokeRect(565,245,150,200);ctx.fillStyle='#161a2c';ctx.fillRect(600,255,80,70);
+   }
+   for(let i=0;i<4;i++){
+    const a=[Math.PI,Math.PI*1.5,0,Math.PI*.5][i],x=640+Math.cos(a)*250,y=[350,260,350,560][i];
+    ctx.fillStyle=i===o.side?'#f8d486':'#5c4c70';
+    if(generated){ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=2;ctx.strokeRect(x-50,y-50,100,100);}else ctx.fillRect(x-50,y-50,100,100);
+    label(ctx,['LEFT','TOP','RIGHT','BOTTOM'][i],x-35,y-65);
+   }
    label(ctx,w.data.centerWindow?'CENTER LANE OPEN':'CENTRAL CABIN — ORBIT AROUND',440,640);label(ctx,'BOT SALES · LIMITED-TIME OFFER',420,85);ctx.restore();
   }
  };

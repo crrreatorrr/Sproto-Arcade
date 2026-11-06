@@ -1,0 +1,69 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/12-codebreak-sproto3106-p1-wide-animation.mp4",
+      "timestamps": [
+        10.5,
+        10.875,
+        11.25,
+        11.75
+      ]
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/12-codebreak-sproto3106-p1-wide-animation.mp4",
+      "timestamps": [
+        3.5,
+        4.0,
+        4.666667,
+        5.5
+      ],
+      "fxSeparation": {
+        "4.666667": {
+          "protectSourceTime": 4.0,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              480,
+              150,
+              180
+            ]
+          ],
+          "keepCircles": [
+            [
+              130,
+              560,
+              45
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/12-codebreak-sproto3106-p1-wide-animation.mp4",
+      "timestamps": [
+        6.1,
+        6.5,
+        7.25,
+        8.5
+      ]
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/12-codebreak-sproto3106-p1-wide-animation.mp4",
+      "timestamps": [
+        9.0,
+        9.25,
+        9.416667,
+        10.25
+      ]
+    }
+  ],
+  "generationJobs": [
+    "897bc76c-24bf-4c26-8bff-37290413a077"
+  ],
+  "releaseCuePolicy": "Only complete native robot poses selected. Late10.5\u201311.75 genuine neutral idle avoids incorrect fleshy external-arm opening; brass armguns, full tracks/feet retained consistently. A4.666667 real twin brass cannon ignitionLEFT; B7.25 red shoulder capsule pods fire cyan-white local births; C9.416667 gold-star chest fires cyan star below clear pilot. Separate A free-flight ray only outside protected physical hardware; no RGB repair. Earlier entire first video94ea rejected physically clipped feet."
+}

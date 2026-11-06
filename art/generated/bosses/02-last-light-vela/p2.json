@@ -1,0 +1,372 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      167,
+      12,
+      305,
+      385
+    ],
+    [
+      45,
+      12,
+      427,
+      388
+    ],
+    [
+      38,
+      12,
+      434,
+      388
+    ],
+    [
+      145,
+      12,
+      329,
+      488
+    ]
+  ],
+  "bounds": [
+    38,
+    12,
+    436,
+    488
+  ],
+  "unionCrop": [
+    100,
+    145,
+    353,
+    428
+  ],
+  "destinationSize": [
+    436,
+    488
+  ],
+  "offset": [
+    38,
+    12
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        175,
+        145,
+        352,
+        368
+      ],
+      "cellBounds": [
+        167,
+        12,
+        472,
+        397
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        175,
+        145,
+        352,
+        368
+      ],
+      "cellBounds": [
+        167,
+        12,
+        472,
+        397
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        175,
+        145,
+        352,
+        368
+      ],
+      "cellBounds": [
+        167,
+        12,
+        472,
+        397
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        175,
+        145,
+        352,
+        368
+      ],
+      "cellBounds": [
+        167,
+        12,
+        472,
+        397
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        176,
+        145,
+        352,
+        370
+      ],
+      "cellBounds": [
+        169,
+        12,
+        472,
+        400
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        140,
+        145,
+        352,
+        370
+      ],
+      "cellBounds": [
+        107,
+        12,
+        472,
+        400
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        104,
+        145,
+        352,
+        369
+      ],
+      "cellBounds": [
+        45,
+        12,
+        472,
+        398
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        141,
+        145,
+        352,
+        369
+      ],
+      "cellBounds": [
+        109,
+        12,
+        472,
+        398
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        176,
+        145,
+        352,
+        370
+      ],
+      "cellBounds": [
+        169,
+        12,
+        472,
+        400
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        117,
+        145,
+        352,
+        370
+      ],
+      "cellBounds": [
+        67,
+        12,
+        472,
+        400
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        100,
+        145,
+        352,
+        369
+      ],
+      "cellBounds": [
+        38,
+        12,
+        472,
+        398
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        134,
+        146,
+        352,
+        370
+      ],
+      "cellBounds": [
+        97,
+        14,
+        472,
+        400
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        163,
+        145,
+        353,
+        374
+      ],
+      "cellBounds": [
+        147,
+        12,
+        474,
+        407
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        163,
+        145,
+        353,
+        400
+      ],
+      "cellBounds": [
+        147,
+        12,
+        474,
+        452
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        162,
+        145,
+        353,
+        428
+      ],
+      "cellBounds": [
+        145,
+        12,
+        474,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        163,
+        145,
+        353,
+        376
+      ],
+      "cellBounds": [
+        147,
+        12,
+        474,
+        410
+      ]
+    }
+  ],
+  "kind": "native-gray-matte-packed-atlas",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/02-last-light-vela-p2-gray-keyed-rgba.png",
+  "sourceSha256": "f2d9ddc6cfe361f24bc72326fcdee19e3f181ef2bb2994a44220820e494b29e8",
+  "outputSha256": "d0dbeeed256686f16ac21b8f8ca1d31ff4847f7e2ba93561b2a245ea9ca0fe2b",
+  "pilotProvenance": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/02-last-light-vela-p2-composed-raw.json",
+  "grayKeyProvenance": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/02-last-light-vela-p2-gray-keyed.json",
+  "conversion": "Existing conservative connected gray matte packed directly with nearest-neighbor; no second chroma/despill step or nativeRGB repaint",
+  "visualReview": {
+    "pilot": "Exact approved native pilot and cockpit rim, visible in every frame",
+    "weapons": "All three mechanisms below cockpit, fire left; no face obstruction",
+    "fringe": "At most one sourcepixel gray antialias remains on outer metal edges, also present in source. Preserved conservatively to protect native lightgray mechanical highlights."
+  },
+  "includesPilot": true,
+  "productionEnabled": true,
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "pilotOverlayRequired": false,
+  "sourceJobId": "a3bf942f-aefd-4de3-b330-80ba17d87abc",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "d0dbeeed256686f16ac21b8f8ca1d31ff4847f7e2ba93561b2a245ea9ca0fe2b"
+  }
+}

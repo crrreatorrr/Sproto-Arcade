@@ -1,0 +1,91 @@
+{
+  "folder": "07-moonkeep-bigswole",
+  "phase": 2,
+  "status": "accepted_all16_native_icy_source_motifs",
+  "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/07-moonkeep-bigswole-p2-concept.png",
+  "concept_job_id": "2f31f6de-2263-4ec0-a125-52a1d92f3ee0",
+  "concept_available": true,
+  "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/07-moonkeep-bigswole-p2-guide.png",
+  "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+  "weapon_plan": [
+    {
+      "slot": "A",
+      "mechanism": "orange-lit mouth dragonfire cannon",
+      "projectile": "long orange dragonfire lance enclosed by an ice-blue and white-hot edge",
+      "size_class": "long narrow",
+      "extent_percent_of_cell": {
+        "width": 49,
+        "height": 12
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "B",
+      "mechanism": "paired wing-root blue ice-fire ray emitters",
+      "projectile": "thin blue-white ice-fire bolt with paired angular winglike fins and orange glint",
+      "size_class": "long narrow",
+      "extent_percent_of_cell": {
+        "width": 43,
+        "height": 10
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "C",
+      "mechanism": "gold breastplate heavy siege-orb launcher",
+      "projectile": "broad ice-blue breastplate energy shell with orange furnace core and gold-orange vent slits",
+      "size_class": "broad wide",
+      "extent_percent_of_cell": {
+        "width": 39,
+        "height": 28
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "heavy",
+      "mechanism": "overcharged heavy cartridge from gold breastplate heavy siege-orb launcher",
+      "projectile": "heavy ice-blue armored siege capsule with swept horn ridge and orange furnace seams",
+      "size_class": "large heavy",
+      "extent_percent_of_cell": {
+        "width": 44,
+        "height": 34
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    }
+  ],
+  "simulation_changes": false,
+  "enabled_in_game": false,
+  "model_ui": "Nano Banana Pro",
+  "resolution": "2K",
+  "aspect_ratio": "1:1",
+  "billing": "Unlimited only; no paid fallback",
+  "type": "phase_projectile_atlas",
+  "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: slender ice-blue WHITE-hot dragonfire lance, orange-hot inner spark, bright pointed LEFT-leading head and tiny short trailing sparkRIGHT. Width230pixels,height55pixels, four changing flame poses. Row2: thin cyan/white icy light bolt with two angular ice fins, pointed LEFT-leading head and short tailRIGHT. Width200pixels,height40pixels, four changing ignition/flight poses. Row3: broad ice-blue armored energy shell, white/cyan furnace core, gunmetal vent slits matching icy chest cannon. Width180pixels,height130pixels, four successive turning/charged poses. Row4: HEAVY ice-blue armored siege capsule with swept horn ridge, gunmetal shell and white/cyan furnace seams. Width220pixels,height170pixels, four successive changing glow/turn poses. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+  "rows_by_weapon": [
+    "A",
+    "B",
+    "C",
+    "heavy"
+  ],
+  "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/07-moonkeep-bigswole-p2-projectiles.png",
+  "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/07-moonkeep-bigswole/p2-projectiles.png",
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "width": 2048,
+    "height": 2048,
+    "cell_width": 512,
+    "cell_height": 512
+  },
+  "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: long orange dragonfire lance enclosed by an ice-blue and white-hot edge, fired from orange-lit mouth dragonfire cannon. Keep its own relative size approximately 49% cell width by 12% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: thin blue-white ice-fire bolt with paired angular winglike fins and orange glint, fired from paired wing-root blue ice-fire ray emitters. Keep its own relative size approximately 43% cell width by 10% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: broad ice-blue breastplate energy shell with orange furnace core and gold-orange vent slits, fired from gold breastplate heavy siege-orb launcher. Keep its own relative size approximately 39% cell width by 28% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: heavy ice-blue armored siege capsule with swept horn ridge and orange furnace seams, fired from overcharged heavy cartridge from gold breastplate heavy siege-orb launcher. Keep its own relative size approximately 44% cell width by 34% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+  "reference_path": null,
+  "job_id": "9323b2b0-8c81-4b51-beb9-ab4c5c6a6414",
+  "billing_verified": "Unlimited ON / submitUNLIMITED /2K1:1",
+  "reference_asset_id": null,
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_162825_9323b2b0-8c81-4b51-beb9-ab4c5c6a6414.png",
+  "finalSha256": "d49e04956473518998baf5cb513f95044aaf644ef55abc7bb1de1ce5b6ce4cc9",
+  "facing": "left",
+  "nativeFacingNormalization": "B mirrored toLEFT; A/heavy alreadyLEFT; C native genuine tumbling energycapsule",
+  "strictGridExpansionPixels": 8,
+  "physicalRepair": false
+}

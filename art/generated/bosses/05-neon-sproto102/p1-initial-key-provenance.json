@@ -1,0 +1,383 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      175,
+      239,
+      283,
+      257
+    ],
+    [
+      12,
+      270,
+      435,
+      226
+    ],
+    [
+      62,
+      270,
+      385,
+      226
+    ],
+    [
+      54,
+      272,
+      446,
+      228
+    ]
+  ],
+  "bounds": [
+    12,
+    239,
+    488,
+    261
+  ],
+  "unionCrop": [
+    34,
+    145,
+    408,
+    345
+  ],
+  "destinationSize": [
+    488,
+    261
+  ],
+  "offset": [
+    12,
+    239
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        159,
+        145,
+        354,
+        342
+      ],
+      "cellBounds": [
+        175,
+        239,
+        430,
+        496
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        173,
+        145,
+        340,
+        342
+      ],
+      "cellBounds": [
+        193,
+        239,
+        411,
+        496
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        173,
+        145,
+        357,
+        342
+      ],
+      "cellBounds": [
+        193,
+        239,
+        433,
+        496
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        173,
+        146,
+        376,
+        342
+      ],
+      "cellBounds": [
+        193,
+        240,
+        458,
+        496
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        109,
+        170,
+        367,
+        342
+      ],
+      "cellBounds": [
+        110,
+        272,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        80,
+        169,
+        367,
+        342
+      ],
+      "cellBounds": [
+        72,
+        270,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        34,
+        169,
+        367,
+        342
+      ],
+      "cellBounds": [
+        12,
+        270,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        108,
+        169,
+        367,
+        342
+      ],
+      "cellBounds": [
+        109,
+        270,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        113,
+        170,
+        367,
+        342
+      ],
+      "cellBounds": [
+        115,
+        272,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        112,
+        169,
+        367,
+        342
+      ],
+      "cellBounds": [
+        114,
+        270,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        72,
+        170,
+        367,
+        342
+      ],
+      "cellBounds": [
+        62,
+        272,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        137,
+        170,
+        367,
+        342
+      ],
+      "cellBounds": [
+        146,
+        272,
+        447,
+        496
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        100,
+        170,
+        408,
+        345
+      ],
+      "cellBounds": [
+        98,
+        272,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        130,
+        170,
+        368,
+        342
+      ],
+      "cellBounds": [
+        137,
+        272,
+        448,
+        496
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        66,
+        170,
+        367,
+        345
+      ],
+      "cellBounds": [
+        54,
+        272,
+        447,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        138,
+        170,
+        393,
+        342
+      ],
+      "cellBounds": [
+        148,
+        272,
+        480,
+        496
+      ]
+    }
+  ],
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/05-neon-sproto102-p1-composed-raw.png",
+  "sourceSha256": "bfb6c8dcde3da59bff255f2344f4985ed84b252a303f5f34330cda32c69c73c8",
+  "sourceKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/05-neon-sproto102-p1-composed-prototype-source-keyed-rgba.png",
+  "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/05-neon-sproto102-p1-composed-prototype-background-mask.png",
+  "keyRgb": [
+    128,
+    128,
+    128
+  ],
+  "maximumPerChannelDistance": 8,
+  "alsoMagentaKey": false,
+  "edgeConnectedOnly": true,
+  "foregroundRgbByteExact": true,
+  "nativeProtectedRgbaByteExact": true,
+  "backgroundRemovedPixels": 3789523,
+  "includesPilot": true,
+  "pilotOverlayRequired": false,
+  "enabledInGame": false,
+  "preparation": "one commoncrop/nearestscale/anchor; each sourcecell preserved; no generated/duplicate/reorderedframes; alpha-onlybackgroundremoval",
+  "provenanceFiles": [
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/05-neon-sproto102-p1-cab-raw.json",
+      "sha256": "4ea8cfccae0f3049316827acf043449ddc32eeab5abade8893cf0932435b937c"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/05-neon-sproto102-p1-composed-raw.json",
+      "sha256": "515626ac8975dcd5b087ea49b9c843379f63f1dfe6d1b4c2d50aca899f32cc23"
+    }
+  ],
+  "conversionScript": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-and-pack-reviewed-gray.py",
+  "conversionScriptSha256": "6a924efc039bf7c71168c720b1d1896f7af648359ae84923e7b0d72940db0d7a",
+  "outputSha256": "10ce43118e9e22841701734b0dffbc9b6eb2462c91147bd2247c5e69a1c3974b",
+  "status": "awaiting root visual review"
+}

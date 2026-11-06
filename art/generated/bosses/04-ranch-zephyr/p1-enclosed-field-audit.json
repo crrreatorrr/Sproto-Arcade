@@ -1,0 +1,38 @@
+{
+  "colorReference": [
+    253,
+    1,
+    253
+  ],
+  "tolerance": 10,
+  "components": [
+    {
+      "pixels": 58,
+      "sourceBounds": [
+        766,
+        1855,
+        776,
+        1863
+      ],
+      "preview1280Bounds": [
+        478.75,
+        1159.375,
+        485.0,
+        1164.375
+      ],
+      "sourceRgbMin": [
+        244,
+        3,
+        243
+      ],
+      "sourceRgbMax": [
+        253,
+        11,
+        250
+      ]
+    }
+  ],
+  "pixels": 58,
+  "alphaOnly": true,
+  "nativeCockpitUnchanged": true
+}

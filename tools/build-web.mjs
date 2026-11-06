@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
+import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 const require=createRequire(import.meta.url);
@@ -78,6 +79,13 @@ async function exercise(origin){
 const literal=/["'`]((?:\.\/)?[A-Za-z0-9_\-./]+?\.(?:png|jpe?g|webp|svg))(?:\?[^"'`]*)?["'`]/g;
 function staticFiles(){
   const files=new Set([...PAGES,...EXTRA]);
+  // Sprite paths are assembled by the presentation manifest, rather than literal strings.
+  // Include every verified atlas even when its first attack occurs after the brief browser audit.
+  const sheetScope={};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sheets.js'),'utf8'),sheetScope);
+  for(const config of Object.values(sheetScope.ArcadeBossSheets.manifest)){
+    for(const asset of [...config.phases,...config.projectiles])if(asset.ready)files.add(asset.path);
+  }
   for(const page of PAGES){
     for(const [,src] of fs.readFileSync(path.join(root,page),'utf8').matchAll(/<script[^>]*\bsrc="([^"]+)"/g))files.add(src.split('?')[0]);
   }

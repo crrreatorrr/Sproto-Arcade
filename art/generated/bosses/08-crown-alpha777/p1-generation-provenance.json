@@ -1,0 +1,80 @@
+{
+  "folder": "08-crown-alpha777",
+  "phase": 1,
+  "model": "Nano Banana Pro",
+  "resolution": "2K",
+  "billing": "Unlimited verified at each submission; no paid fallback",
+  "rows": [
+    {
+      "folder": "08-crown-alpha777",
+      "phase": 1,
+      "action": "idle",
+      "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides-2x2/08-crown-alpha777-p1-chest-deployed-guide.png",
+      "status": "completed_valid_idle_mechanical_animation",
+      "prompt": "Edit ONLY tiny mechanical IDLE details in this exact2x2 guide. Preserve all FOUR complete robot sprites at their exact positions, exact440pixel scale, exact feet baseline. Preserve EVERY cockpit/pilot pixel unchanged: no new head, no face changes, no character expressions. Preserve entire vehicle shape/camera unchanged. Four genuinely different successive idle frames in reading order: small engine vent piston shifts slightly; gold/red indicator lamp brightens; engine vent piston returns; indicator lamp dims. Mechanical details only, not identical copies. All weapons inactive: no flash, firing or projectile. NO enlarged reference or ghost copy behind sprites. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all4cells. Absolutely no zoom, crops, resizing, moving whole robot, scene, checkerboard, text, lines or grid. Exactly2048square with four fully contained separate robot idle frames.",
+      "job_id": "8a177ede-7d36-4644-abb0-8a6756f675fd",
+      "reference_asset_id": "04234ee5-5405-4365-ab81-cd8616b13ace",
+      "billing_verified": "Unlimited ON / submitUNLIMITED",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_161349_8a177ede-7d36-4644-abb0-8a6756f675fd.png"
+    },
+    {
+      "folder": "08-crown-alpha777",
+      "phase": 1,
+      "action": "A",
+      "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides-2x2/08-crown-alpha777-p1-guide.png",
+      "prompt": "Edit this exact TWO-BY-TWO fixed-layout guide IN PLACE. Four complete same-scale casino mecha sprites remain at these exact four centers. Keep the WHOLE robot, both arms, legs, cockpit and pilot fully inside the central55% of each1024cell. Never enlarge, crop, zoom, resize or move the whole vehicle. All weapon barrels aim LEFT. Animate ONLY its gold coin cannon in reading order: upper-left anticipates/raises cannon, upper-right aims/charges, lower-left FIRES with a tiny attached gold muzzle flash MAX12pixels, lower-right recoils/recovers. Four distinct successive physical weapon poses, other card/chest weapons neutral. No travelling coins, projectile trail or free ray. Preserve exact pilot visibly seated inside cockpit; olive-GREEN spiky Sproto with BLUE goggle-like eye surrounds, large bright YELLOW eyes with black pupils, a large round RED nose, a long YELLOW grinning muzzle showing WHITE teeth, thick RED scarf, BLACK-and-WHITE horizontal striped shirt, dark trousers and RED shoes. The blue eye surrounds and yellow muzzle are essential. No glare or tint over face. Detailed crisp pixel art, exact original vehicle design and registration. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all4cells. NO black lines, grid, text, labels, borders or extra reference copies. ONE2048square image with exactly FOUR complete separated animation frames.",
+      "sourceFacing": "right",
+      "guideFacing": "left",
+      "transform": "horizontal-flip",
+      "guideSha256": "d5d8b4a4441ef99cd01ae55203899bb7a21716b805d2f9cfb13bed03cb45aaf7",
+      "status": "completed_valid_body_poses",
+      "job_id": "35d32b43-328e-4659-8442-1bece01e8b22",
+      "reference_asset_id": "9d0e2414-c692-4ca8-b21a-07bd7a21b8a3",
+      "billing_verified": "Unlimited switch ON / submit UNLIMITED / 2K / 1:1",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_153453_35d32b43-328e-4659-8442-1bece01e8b22.png"
+    },
+    {
+      "folder": "08-crown-alpha777",
+      "phase": 1,
+      "action": "B",
+      "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides-2x2/08-crown-alpha777-p1-guide.png",
+      "prompt": "Edit this exact2x2 guide IN PLACE. Four WHOLE casino robots, same440pixel size, exact centers and feet baseline. Animate ONLY the IVORY PLAYING-CARD FAN LAUNCHER held in the arm on imageRIGHT. Coin cannon on imageLEFT stays completely IDLE; NEVER fire coin cannon. Chest reels also idle. Upper-left: card-launcher arm begins lifting. Upper-right: ivory card launcher swings across body and aims LEFT. Lower-left: CARD LAUNCHER FIRES LEFT from the ivory cards with a tiny ivory/red attached flash; coin cannon remains dark and closed. Lower-right: card-launcher arm recoils and returns. Four different successive poses of this card weapon only. WHOLE vehicle stays complete, no zoom or resizing. Preserve exact cockpit pilot, face and all colors. No glare on face. Crisp detailed pixel art. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all4cells. ZERO checkerboard, scenery, lines, grid, text, labels, arrows or border. No flying cards or projectile trail; separate game projectile handles flight.",
+      "sourceFacing": "right",
+      "guideFacing": "left",
+      "transform": "horizontal-flip",
+      "guideSha256": "d5d8b4a4441ef99cd01ae55203899bb7a21716b805d2f9cfb13bed03cb45aaf7",
+      "status": "completed_valid_distinct_card_launcher_poses",
+      "reference_asset_id": "9d0e2414-c692-4ca8-b21a-07bd7a21b8a3",
+      "billing_verified": "Unlimited switch ON, UNLIMITEDsubmit,2K1:1",
+      "retry_of": "20884d37-63e6-4459-93b8-4f7d11f77a2d",
+      "job_id": "ff3104bb-5642-447d-b259-e3f2c3e21747",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_154614_ff3104bb-5642-447d-b259-e3f2c3e21747.png"
+    },
+    {
+      "folder": "08-crown-alpha777",
+      "phase": 1,
+      "action": "C",
+      "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides-2x2/08-crown-alpha777-p1-chest-deployed-guide.png",
+      "status": "completed_valid_third_weapon_shouldermount",
+      "prompt": "Edit this exact2x2 guide IN PLACE. Four whole robots, identical scale/centers/baselines. Animate ONLY the SMALL GUN DEPLOYED FROM CHEST REELS, above and behind the large arm coin cannon. Large ARM COIN CANNON has a SOLID CLOSED GOLD CAP: leave capped and dark in ALL4frames, NEVER shoot it. Card arm also stays neutral. Upper-left: chest gun braces; upper-right: CHEST gun tilts slightly UP-LEFT above the capped arm cannon and charges; lower-left: ONLY CHEST GUN FIRES a tiny attached RED/IVORY burst at its own small chest muzzle, ABOVE the capped arm cannon; lower-right: CHEST GUN recoils/retracts. Four genuine different chest mechanism poses. Whole machine/pilot stays complete, no resizing/zoom/movement. Exact pilot pixels, eyes, goggles, nose, scarf and colors unchanged; face unobscured. Detailed crisp pixel art. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all4cells. NO checkerboard, scenery, grid lines, text, arrows or borders. No traveling projectile or long ray. Show the chest gun firing clearly; capped arm cannon never flashes.",
+      "job_id": "9176aee2-6757-4dcb-937d-4cb5dfb4231c",
+      "reference_asset_id": "04234ee5-5405-4365-ab81-cd8616b13ace",
+      "billing_verified": "Unlimited ON / submitUNLIMITED",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_160653_9176aee2-6757-4dcb-937d-4cb5dfb4231c.png",
+      "actualAcceptedMechanism": "shoulder-mounted olive/brass capsule-chip launcher",
+      "qa": "Whole vehicle complete, canonical pilot clear, C physically unfolds/charges/firesLEFT from separate shoulder gun and recovers. Chest barrel does NOT fire; never described as chest firing. Parent accepted concept-inspired mechanismvariation."
+    }
+  ],
+  "actualWeapons": {
+    "A": "gold coin cannon",
+    "B": "ivory playing-card fan arm launcher",
+    "C": "shoulder-mounted olive/brass capsule-chip launcher"
+  },
+  "framePolicy": "16 unique genuine sourcecells; no duplicated/invented animation poses; one shared crop/scale/baseline",
+  "sourceConceptSha256": "985b40bd4fa289d73f5855b0997fceab6d04a68d5ab7e587b33d3f70a5156150",
+  "finalAtlasSha256": "77b94db829c72ceef5cc9342b96c2a328e916eff65b1fefd2002062c3e83ae8e",
+  "nativePilotPolicy": "Exact approved source hardpolygon mirrored/nearest-composited; bodypixels outsideexplicitmask unchanged",
+  "cleanupPolicy": "Reviewed saturatedfieldalpha-only andexplicitidlelegnegative-space alpha-only; conservative mu zzle-only keyunmix; protectednativecockpit byteexact",
+  "physicalVehicleRepair": false,
+  "sourceGuidesGuideOnly": true
+}

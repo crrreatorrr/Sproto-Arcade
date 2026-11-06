@@ -1,0 +1,90 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestamps": [
+        0.4,
+        1.1,
+        1.8,
+        2.5
+      ]
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestamps": [
+        3.1,
+        3.5,
+        4.0,
+        5.5
+      ],
+      "fxSeparation": {
+        "4.0": {
+          "protectSourceTime": 3.5,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              450,
+              80,
+              160
+            ]
+          ],
+          "keepCircles": [
+            [
+              48,
+              535,
+              30
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestamps": [
+        6.1,
+        6.5,
+        7.0,
+        8.5
+      ],
+      "fxSeparation": {
+        "7.0": {
+          "protectSourceTime": 6.5,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              625,
+              585,
+              170
+            ]
+          ],
+          "keepCircles": [
+            [
+              550,
+              700,
+              42
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestamps": [
+        9.1,
+        9.25,
+        9.5,
+        11.5
+      ]
+    }
+  ],
+  "generationJobs": [
+    "704b4cdf-bdac-4a24-8e00-0e57c4b2b7e5"
+  ],
+  "releaseCuePolicy": "Real native A4.0 pointed-nose gold ignition, B7.0 unfolding wingtip ion rail cyan ignition, C9.5 side-engine and underslung flare ports firing LEFT. Detached beam/outer nose star separated only outside complete protected prefire hardware; local ignition retained, no RGB repair or physical clipping."
+}

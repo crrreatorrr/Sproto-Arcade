@@ -1,0 +1,752 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      41,
+      76,
+      404,
+      406
+    ],
+    [
+      12,
+      134,
+      488,
+      284
+    ],
+    [
+      17,
+      71,
+      466,
+      419
+    ],
+    [
+      25,
+      59,
+      473,
+      441
+    ]
+  ],
+  "bounds": [
+    12,
+    59,
+    488,
+    441
+  ],
+  "unionCrop": [
+    35,
+    51,
+    488,
+    460
+  ],
+  "destinationSize": [
+    488,
+    441
+  ],
+  "offset": [
+    12,
+    59
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        129,
+        102,
+        381,
+        411
+      ],
+      "cellBounds": [
+        113,
+        114,
+        385,
+        447
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        117,
+        99,
+        394,
+        412
+      ],
+      "cellBounds": [
+        100,
+        111,
+        399,
+        448
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        84,
+        394,
+        420
+      ],
+      "cellBounds": [
+        97,
+        95,
+        399,
+        457
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        62,
+        67,
+        437,
+        443
+      ],
+      "cellBounds": [
+        41,
+        76,
+        445,
+        482
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        47,
+        220,
+        480,
+        290
+      ],
+      "cellBounds": [
+        21,
+        241,
+        487,
+        317
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        35,
+        194,
+        484,
+        316
+      ],
+      "cellBounds": [
+        16,
+        213,
+        500,
+        345
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        37,
+        121,
+        488,
+        384
+      ],
+      "cellBounds": [
+        12,
+        134,
+        498,
+        418
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        54,
+        181,
+        484,
+        330
+      ],
+      "cellBounds": [
+        16,
+        199,
+        480,
+        360
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        67,
+        115,
+        444,
+        397
+      ],
+      "cellBounds": [
+        46,
+        128,
+        453,
+        432
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        52,
+        105,
+        460,
+        406
+      ],
+      "cellBounds": [
+        30,
+        117,
+        470,
+        442
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        40,
+        62,
+        472,
+        451
+      ],
+      "cellBounds": [
+        17,
+        71,
+        483,
+        490
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        52,
+        92,
+        463,
+        420
+      ],
+      "cellBounds": [
+        30,
+        103,
+        473,
+        457
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        39,
+        119,
+        473,
+        393
+      ],
+      "cellBounds": [
+        28,
+        132,
+        496,
+        428
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        37,
+        108,
+        474,
+        405
+      ],
+      "cellBounds": [
+        27,
+        120,
+        498,
+        441
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        38,
+        82,
+        475,
+        431
+      ],
+      "cellBounds": [
+        26,
+        92,
+        497,
+        469
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        38,
+        51,
+        476,
+        460
+      ],
+      "cellBounds": [
+        25,
+        59,
+        497,
+        500
+      ]
+    }
+  ],
+  "kind": "reviewed-native-core-protected-magenta-recovery",
+  "source": "work/art-production/raw-phase-projectiles/09-hatchery-highsproto-p2-projectiles-text.png",
+  "sourceSha256": "fb57bc036fd9f47ec917b7e498830d5d2ee40542ecd8b37a47dc4eb1eede8951",
+  "profile": {
+    "stripGrid": 12,
+    "allowEnclosedStrongField": true,
+    "reason": "Pastel/shaded lavender and warm amberglass sourcepigments remain byteexact; saturatedhotmagenta only is field. Clear enclosedmeshnegative spaces alpha-only.",
+    "protectedCores": [
+      {
+        "row": 2,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "lavender-pigment",
+        "reason": "Native pastel lavender sporecloud and shellshade"
+      },
+      {
+        "row": 3,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "lavender-pigment",
+        "reason": "Native lavender broodpod armor/endplate paint"
+      },
+      {
+        "row": 0,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "amber-pigment",
+        "reason": "Native amberglass core remains exact; outer3pixels nexttoknownfield excludedfromguard so true magenta rimspill can be conservatively unmixed",
+        "insetFromField": 3
+      }
+    ],
+    "dividerRadiusReason": "Verified source has wider edge-spanning divider/fringe runs than priorphase;8px leaves black gridcorner residue in Acol4, actualprojectile is central and complete.",
+    "enclosedFieldRule": {
+      "minRB": 180,
+      "maxG": 60,
+      "minExcess": 95,
+      "maxBalance": 65
+    },
+    "enclosedFieldReason": "Reviewed dim compressed magenta negative-space wedges between eggbrace/mesh retain same two-channel field direction; pastel lavender/native amberglass has higherG or lowerRB and remains untouched"
+  },
+  "profileSha256": "3341d1d9b237f87878833961da37f51d53ac8f2aa85ba25ad2fb9896feb82ae6",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 500,
+      "end": 524,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        500,
+        0,
+        24,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1012,
+      "end": 1036,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1012,
+        0,
+        24,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1524,
+      "end": 1548,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1524,
+        0,
+        24,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 500,
+      "end": 524,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        500,
+        2048,
+        24
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1012,
+      "end": 1036,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        0,
+        1012,
+        2048,
+        24
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1524,
+      "end": 1548,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        0,
+        1524,
+        2048,
+        24
+      ]
+    }
+  ],
+  "protectedNativeCorePixels": 508692,
+  "protectedNativeCoreRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "unmixCriterion": "Outside explicit nativecore guards and knownfield: min(R,B)-G>18",
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha",
+  "unmixPixels": 77123,
+  "backgroundRemoved": 3134845,
+  "enclosedStrongFieldPixels": 1858,
+  "frameCutoffChecks": [
+    {
+      "sourceBounds": [
+        129,
+        102,
+        381,
+        411
+      ],
+      "usable": [
+        0,
+        0,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        117,
+        99,
+        394,
+        412
+      ],
+      "usable": [
+        12,
+        0,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        114,
+        84,
+        394,
+        420
+      ],
+      "usable": [
+        12,
+        0,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        62,
+        67,
+        437,
+        443
+      ],
+      "usable": [
+        12,
+        0,
+        512,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        47,
+        220,
+        480,
+        290
+      ],
+      "usable": [
+        0,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        35,
+        194,
+        484,
+        316
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        37,
+        121,
+        488,
+        384
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        54,
+        181,
+        484,
+        330
+      ],
+      "usable": [
+        12,
+        12,
+        512,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        67,
+        115,
+        444,
+        397
+      ],
+      "usable": [
+        0,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        52,
+        105,
+        460,
+        406
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        40,
+        62,
+        472,
+        451
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        52,
+        92,
+        463,
+        420
+      ],
+      "usable": [
+        12,
+        12,
+        512,
+        500
+      ]
+    },
+    {
+      "sourceBounds": [
+        39,
+        119,
+        473,
+        393
+      ],
+      "usable": [
+        0,
+        12,
+        500,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        37,
+        108,
+        474,
+        405
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        38,
+        82,
+        475,
+        431
+      ],
+      "usable": [
+        12,
+        12,
+        500,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        38,
+        51,
+        476,
+        460
+      ],
+      "usable": [
+        12,
+        12,
+        512,
+        512
+      ]
+    }
+  ],
+  "atlasSha256": "2e04489266535e82699d2dea28daf986830cedebb44242a0a0baade86e1e8154",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-protected-projectile-cores.py",
+  "scriptSha256": "94a468f7dd03e5e7892c0ac5de7973f4e73f8a349ed6a76bea4c8d8222365d01",
+  "productionEnabled": true,
+  "sourceBeforeFacing": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/09-hatchery-highsproto-p2-projectiles-clean.png",
+  "sourceBeforeFacingSha256": "3d174d45be5ed5772c7caeeaf9965365dff621b9ea29fd994744ec4b24e54bc3",
+  "facing": "left",
+  "facingOperation": "Seed dartB and heavy openingamberbroodcapsuleD originallyfrontRIGHT are mirroredLEFT. TumbledeggA is nondirectional; convexshellC alreadyLEFT. No RGB repaint/pose synthesis",
+  "outputSha256": "2e04489266535e82699d2dea28daf986830cedebb44242a0a0baade86e1e8154",
+  "job_id": "b5d82610-268d-4599-bc5b-5deaa1dcc8fb",
+  "billing": "Higgsfield Unlimited verified2K1:1",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "2e04489266535e82699d2dea28daf986830cedebb44242a0a0baade86e1e8154"
+  }
+}

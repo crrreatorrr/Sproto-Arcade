@@ -1,0 +1,73 @@
+{
+  "guideOnly": true,
+  "animation": false,
+  "notForGameplay": true,
+  "sourceSha256": "e0fb4dc5f4373374e5d1795e28fbd7ab57a5db1fb07ff6992c231b97ed4e3945",
+  "rows": [
+    {
+      "row": 0,
+      "referenceSourceColumn": 0,
+      "sourceCellCrop": [
+        120,
+        130,
+        400,
+        360
+      ],
+      "flipHorizontal": true,
+      "referenceSize": [
+        100,
+        62
+      ],
+      "guideOnlyRepeatedReference": true
+    },
+    {
+      "row": 1,
+      "referenceSourceColumn": 0,
+      "sourceCellCrop": [
+        10,
+        155,
+        500,
+        360
+      ],
+      "flipHorizontal": false,
+      "referenceSize": [
+        230,
+        65
+      ],
+      "guideOnlyRepeatedReference": true
+    },
+    {
+      "row": 2,
+      "referenceSourceColumn": 0,
+      "sourceCellCrop": [
+        50,
+        30,
+        500,
+        480
+      ],
+      "flipHorizontal": true,
+      "referenceSize": [
+        210,
+        185
+      ],
+      "guideOnlyRepeatedReference": true
+    },
+    {
+      "row": 3,
+      "referenceSourceColumn": 0,
+      "sourceCellCrop": [
+        8,
+        90,
+        502,
+        400
+      ],
+      "flipHorizontal": false,
+      "referenceSize": [
+        215,
+        109
+      ],
+      "guideOnlyRepeatedReference": true
+    }
+  ],
+  "guideSha256": "29683c10e4ad0c5e91158d790c8705616fec71370d08ac7bd40ead268e3d699e"
+}

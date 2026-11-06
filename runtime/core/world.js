@@ -4,6 +4,21 @@
   const clamp=A.clamp, EPS=1e-8;
   const box=p=>({x:p.x-16,y:p.y-52,w:32,h:52});
   const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
+  // Collision geometry is separate from authored bounds used by aiming, spawning and routes.
+  const hitbox=(w,kind,key,base,row,entity)=>{
+    if(kind==='projectiles'&&(['dash','shield'].includes((entity||base).rule)||/^carrier-debris-/.test((entity||base).source||'')))return base;
+    const shot=entity||base,index=row??(kind==='projectiles'&&typeof spriteWeaponRow==='function'?spriteWeaponRow(shot.weaponVariant,shot):undefined);
+    if(kind==='projectiles'&&typeof spriteProjectileCoreRect==='function'){
+      const profile=typeof spriteHitboxProfile==='function'?spriteHitboxProfile(w.stage.id,w.phaseIndex,kind,key,index):null;
+      if(spriteProjectileProfileValid(profile)){
+        const box={w:base.w,h:base.h},layout=profile.kind==='auto'?spriteProjectileKind(shot,box):profile.kind;
+        const angle=layout==='ray'&&box.h>box.w?((shot.vy||1)<0?-Math.PI/2:Math.PI/2):0;
+        const projected=spriteProjectileCoreRect(profile,{x:base.x+base.w/2,y:base.y+base.h/2},angle,[box.w,box.h],{kind:layout,shot,mirrorX:(shot.vx||1)<0});
+        if(projected)return projected;
+      }
+    }
+    return typeof spriteHitboxRect==='function'?spriteHitboxRect(base,w.stage.id,w.phaseIndex,kind,key,index):base;
+  };
   // Relative swept AABB, including overlap at either endpoint and zero-width fronts.
   function swept(a0,a1,b0,b1) {
     if(overlap(a0,b0)||overlap(a1,b1)) return true;
@@ -50,10 +65,13 @@
     cue(text,ticks=120){this.cueText=text;this.cueTicks=ticks;}
     platform(spec){return this.upsert(this.platforms,{h:20,...spec});}
     target(spec){return this.upsert(this.targets,{open:true,...spec,maxHp:spec.maxHp??spec.hp});}
+    collisionBounds(kind,key,base){return hitbox(this,kind,key,base);}
     upsert(array,item){const i=array.findIndex(v=>v.id===item.id);if(i<0)array.push(item);else array[i]=item;return item;}
     hazard(spec){
       const existing=this.hazards.find(h=>h.id===spec.id);if(existing)return existing;
       const h={source:spec.id,rule:'ordinary',vx:0,vy:0,windup:0,active:1,recovery:0,age:0,resolved:false,...spec};
+      if(typeof spriteWeaponBinding==='function')Object.assign(h,spriteWeaponBinding(this.phaseIndex,
+        spriteModernWeaponVariant(this.stage.id,this.phaseIndex,h.source,h.id,this.phaseTick,h.missile)));
       // Campaign pacing is phase-independent; unnumbered mechanics fixtures keep authored physics.
       if(Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=12){
         const speed=Math.hypot(h.vx,h.vy),cap=['dash','shield'].includes(h.rule)?8:6;
@@ -217,7 +235,8 @@
         }
         s.hit??=new Set();
         for(const t of this.targets){if(s.removed||s.hit.has(t.id)||t.hp<=0||t.removed)continue;
-          if(swept(old,{...old,x:s.x,y:s.y},t,t)){
+          const targetBox=hitbox(this,'targets',t.id,t);
+          if(swept(old,{...old,x:s.x,y:s.y},targetBox,targetBox)){
             if(s.type==='mine'){this.blast(s);break;}
             if(this.damageTarget(t,s.damage,s.id)){s.hit.add(t.id);if(!s.piercing)s.removed=true;}
           }
@@ -227,7 +246,7 @@
       this.shots=this.shots.filter(s=>!s.removed);
     }
     blast(s){if(s.removed)return;s.removed=true;const radius=s.radius||90;
-      for(const t of this.targets){const x=clamp(s.x,t.x,t.x+t.w),y=clamp(s.y,t.y,t.y+t.h);if(Math.hypot(x-s.x,y-s.y)<=radius)this.damageTarget(t,s.damage,s.id);}
+      for(const t of this.targets){const b=hitbox(this,'targets',t.id,t),x=clamp(s.x,b.x,b.x+b.w),y=clamp(s.y,b.y,b.y+b.h);if(Math.hypot(x-s.x,y-s.y)<=radius)this.damageTarget(t,s.damage,s.id);}
       for(const h of this.hazards)if(h.rule==='ordinary'&&Math.hypot(h.x-s.x,h.y-s.y)<=radius)h.removed=true;
       this.effects.push({type:'blast',x:s.x,y:s.y,radius,ttl:20});
     }
@@ -246,7 +265,9 @@
         const old={x:h.x,y:h.y,w:h.w,h:h.h};const active=h.age>=h.windup&&h.age<h.windup+h.active;
         if(active){h.x+=h.vx;h.y+=h.vy;
           if(h.missile&&(h.x+h.w<this.camera.x-160||h.x>this.camera.x+1440||h.y+h.h<this.camera.y-160||h.y>this.camera.y+880)){h.removed=true;continue;}
-          if(!h.resolved&&swept(p0,p1,old,h)){h.resolved=true;this.hit(h);}
+          const keys=[h.source,h.sprite],row=typeof spriteWeaponRow==='function'?spriteWeaponRow(h.weaponVariant,h):undefined;
+          const fixedFront=['dash','shield'].includes(h.rule),before=fixedFront?old:hitbox(this,'projectiles',keys,old,row,h),after=fixedFront?h:hitbox(this,'projectiles',keys,h,row);
+          if(!h.resolved&&swept(p0,p1,before,after)){h.resolved=true;this.hit(h);}
         }
         h.age++;if(h.age>=h.windup+h.active+h.recovery)h.removed=true;
       }

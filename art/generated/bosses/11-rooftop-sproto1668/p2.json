@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-video-poses-with-explicit-flight-fx-separation",
+  "generationJob": "6058d2a9-77b1-4bc2-9ee8-4e5e1e18e28b",
+  "sourceSha256": "2ddd8ed8e138feeb67279f33fbc9d55afbbc77b7c112420a773094e5f0b6e818",
+  "atlasSha256": "dea1af4f6e0a649c3b43591da65c770b6b43c1dce03425be72d8feb7b2f71f6c",
+  "includesPilot": true,
+  "facing": "left",
+  "samples": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "timestamp": 0.4,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "timestamp": 1.1,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "timestamp": 1.8,
+      "sourceBounds": [
+        245,
+        338,
+        714,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "timestamp": 2.5,
+      "sourceBounds": [
+        246,
+        339,
+        715,
+        623
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "timestamp": 2.6,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "timestamp": 2.85,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "timestamp": 3.0,
+      "sourceBounds": [
+        245,
+        339,
+        714,
+        660
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "timestamp": 4.0,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "timestamp": 6.0,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "timestamp": 6.6,
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "timestamp": 7.0,
+      "sourceBounds": [
+        220,
+        338,
+        716,
+        623
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "timestamp": 7.6,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "timestamp": 8.6,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "timestamp": 8.85,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "timestamp": 9.5,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        648
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": "Separate long cyan ion-flight beams outside complete prefire hardware silhouette expanded3px. Retain native60px local ignition bursts centered[310,480] and[395,590]. Never copy source RGB or reconstruct a physical wing."
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "timestamp": 11.5,
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "physicalVehicleComplete": true,
+      "effectSeparation": null
+    }
+  ],
+  "weaponMechanisms": [
+    "underside gold pulse emitter",
+    "twin gold-nacelle miniature rocket launchers",
+    "paired wing/underside blue ion beam ports"
+  ],
+  "retiming": "Native12s clip A fires at3s, B7s, C9.5s. Select actual mechanism anticipation/charge/release/recovery rather than arbitrary3s quarter samples.",
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      37,
+      183,
+      463,
+      281
+    ],
+    [
+      37,
+      183,
+      463,
+      317
+    ],
+    [
+      12,
+      183,
+      488,
+      281
+    ],
+    [
+      38,
+      183,
+      461,
+      305
+    ]
+  ],
+  "bounds": [
+    12,
+    183,
+    488,
+    317
+  ],
+  "unionCrop": [
+    220,
+    338,
+    716,
+    660
+  ],
+  "destinationSize": [
+    488,
+    317
+  ],
+  "offset": [
+    12,
+    183
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        245,
+        338,
+        714,
+        622
+      ],
+      "cellBounds": [
+        37,
+        183,
+        498,
+        463
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        246,
+        339,
+        715,
+        623
+      ],
+      "cellBounds": [
+        38,
+        184,
+        499,
+        464
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        463
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        245,
+        339,
+        714,
+        660
+      ],
+      "cellBounds": [
+        37,
+        184,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        246,
+        338,
+        716,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        500,
+        463
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        220,
+        338,
+        716,
+        623
+      ],
+      "cellBounds": [
+        12,
+        183,
+        500,
+        464
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        463
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        463
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        463
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        648
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        488
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        246,
+        338,
+        715,
+        622
+      ],
+      "cellBounds": [
+        38,
+        183,
+        499,
+        463
+      ]
+    }
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "dea1af4f6e0a649c3b43591da65c770b6b43c1dce03425be72d8feb7b2f71f6c"
+  }
+}

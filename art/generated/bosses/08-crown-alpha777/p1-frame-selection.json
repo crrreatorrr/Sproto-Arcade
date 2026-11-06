@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-idle-retry-2x2.png"
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-a-2x2.png",
+      "freeProjectileRegions": {
+        "2": [
+          [
+            160,
+            520,
+            40,
+            40
+          ]
+        ]
+      },
+      "freeProjectileReason": "Reviewed isolated flying coin component983pixels bbox163,522..198,558; remove only this freeflight gameprojectile from boss frame. Physical body/attachedmuzzle beginsx228 and remains unchanged."
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-b-retry-2x2.png"
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/08-crown-alpha777-p1-action-c-retry-2x2.png",
+      "actualMechanism": "shoulder-mounted olive/brass capsule-chip launcher"
+    }
+  ]
+}

@@ -1,0 +1,710 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-video-poses-with-explicit-flight-fx-separation",
+  "generationJob": "b4bdbace-3684-4c73-9a6d-f93562f632b7",
+  "sourceSha256": "a358e66e93ffffe353745e7556c9d8537fcd26c273b6ff3d2b69713bde65d4a0",
+  "atlasSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22",
+  "includesPilot": true,
+  "facing": "left",
+  "samples": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "timestamp": 0.4,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "timestamp": 1.1,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "timestamp": 1.8,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "timestamp": 2.5,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "timestamp": 3.4,
+      "sourceBounds": [
+        32,
+        168,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "timestamp": 4.1,
+      "sourceBounds": [
+        32,
+        168,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "timestamp": 4.5,
+      "sourceBounds": [
+        35,
+        64,
+        934,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "timestamp": 5.5,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "timestamp": 6.1,
+      "sourceBounds": [
+        20,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "timestamp": 6.3,
+      "sourceBounds": [
+        8,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "timestamp": 7.125,
+      "sourceBounds": [
+        81,
+        176,
+        937,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": "Alpha-separate free spore flight x<81; physical dark muzzle outline beginsx81 and is preserved. Source-coordinate review saved09p2-flight-hardware-boundary.png."
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "timestamp": 8.5,
+      "sourceBounds": [
+        33,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "timestamp": 9.3,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "timestamp": 10.0,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "timestamp": 10.5,
+      "sourceBounds": [
+        35,
+        180,
+        934,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "timestamp": 11.5,
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "physicalVehicleComplete": true,
+      "enclosedExactFieldPixels": 0,
+      "effectSeparation": null
+    }
+  ],
+  "selectionPolicy": "All selected physical hardware complete; discarded overextended6.5s barrel pose. Three distinct physical weapon releases; separate game projectiles supply travel.",
+  "chromaPolicy": "Edge-connected key plus saturated enclosed field min(R,B)>=225,G<=35,abs(R-B)<=45; native lavender/pink flash G>100 is preserved.",
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      25,
+      153,
+      472,
+      347
+    ],
+    [
+      25,
+      92,
+      473,
+      408
+    ],
+    [
+      12,
+      151,
+      488,
+      349
+    ],
+    [
+      25,
+      153,
+      473,
+      347
+    ]
+  ],
+  "bounds": [
+    12,
+    92,
+    488,
+    408
+  ],
+  "unionCrop": [
+    8,
+    64,
+    937,
+    840
+  ],
+  "destinationSize": [
+    488,
+    408
+  ],
+  "offset": [
+    12,
+    92
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        32,
+        168,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        147,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        32,
+        168,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        147,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        35,
+        64,
+        934,
+        840
+      ],
+      "cellBounds": [
+        26,
+        92,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        20,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        18,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        8,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        12,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        81,
+        176,
+        937,
+        840
+      ],
+      "cellBounds": [
+        50,
+        151,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        33,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        35,
+        180,
+        934,
+        840
+      ],
+      "cellBounds": [
+        26,
+        153,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        32,
+        180,
+        932,
+        840
+      ],
+      "cellBounds": [
+        25,
+        153,
+        497,
+        500
+      ]
+    }
+  ],
+  "preRedEyeBandRepairAtlasSha256": "1875ae3b3b1741958a6ace3d007d6751ae6372da6a8d65d8195da5952b7cdf55",
+  "nativeCanonicalRedEyeBandRepair": {
+    "kind": "approved-native-curved-anatomical-upper-red-eye-band-restoration",
+    "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/09-hatchery-highsproto/p1.png",
+    "sourceSha256": "2def95a7b66cd467b4fb173a94239576cd6c814294f0c588b7bf0719570969ca",
+    "sourceCell": 0,
+    "sourceReason": "Nine-row anatomical approved P1 upper-eye crops retain literal source red-band curved silhouettes, not a stretched one-row stripe. No source pupil/windowmullion/blueborder pixels selected.",
+    "target": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/09-hatchery-highsproto/p2.png",
+    "targetBeforeSha256": "1875ae3b3b1741958a6ace3d007d6751ae6372da6a8d65d8195da5952b7cdf55",
+    "eyes": [
+      {
+        "eye": "left",
+        "sourceAnatomicalCrop": [
+          199,
+          201,
+          223,
+          210
+        ],
+        "scale": 1.2,
+        "sourceAnchor": [
+          209,
+          205
+        ],
+        "targetAnchor": [
+          165,
+          291
+        ],
+        "targetClip": [
+          153,
+          288,
+          187,
+          298
+        ],
+        "derivedTranslation": [
+          -85.79999999999998,
+          45.0
+        ],
+        "sourceMaskShape": "literal source-native red anatomical band contour within nine-row crop; pupil/black/blue pixels excluded, no drawn targetshape"
+      },
+      {
+        "eye": "right",
+        "sourceAnatomicalCrop": [
+          227,
+          201,
+          252,
+          210
+        ],
+        "scale": 1.5,
+        "sourceAnchor": [
+          240,
+          205
+        ],
+        "targetAnchor": [
+          199,
+          291
+        ],
+        "targetClip": [
+          190,
+          288,
+          233,
+          298
+        ],
+        "derivedTranslation": [
+          -161.0,
+          -16.5
+        ],
+        "sourceMaskShape": "literal source-native red anatomical band contour within nine-row crop; pupil/black/blue pixels excluded, no drawn targetshape"
+      }
+    ],
+    "targetCells": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "targetMaskRule": "Native source red-band silhouette intersected with existing upper pale-yellow targeteye surfaces only. Current P2 pupils/bluebrows/lower eyes excluded.",
+    "resampling": "nearest-neighbor, one uniform scale+translation per eye; native literalRGBA unchanged, no handdrawncolor or contour",
+    "outsideMaskRgbaByteExact": true,
+    "alphaEntireAtlasByteExact": true,
+    "nativeSourceColorMembershipVerified": true,
+    "maskPixels": 2630,
+    "preserved": "P2 pupils,lower eye areas,brows,canopy,vehicle,body,beard,mouth,hands unchanged",
+    "output": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09-hatchery-highsproto-p2-red-eye-band-candidate.png",
+    "outputSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22",
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09p2-native-red-eye-band-mask.png",
+    "maskSha256": "3fc1c9365668db9575e39820bc0ee963d080b14f49f603133fb6a5615ead15f3",
+    "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/repair-09p2-eye-bands.py",
+    "scriptSha256": "398689167d774d3657740e55b9d764d6dcf10ae64ab2b56f21c00243b2fb27b0",
+    "status": "root_independent_visual_pass_copied_to_repo",
+    "originalTargetBackup": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/09-hatchery-highsproto-p2-before-red-eye-bands.png",
+    "acceptedAtlasSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22"
+  },
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "012e04cc6f50f2941679bbf3476ccd5d7a933cba7e7d16a9a0bfe6e2a4a23c22"
+  }
+}

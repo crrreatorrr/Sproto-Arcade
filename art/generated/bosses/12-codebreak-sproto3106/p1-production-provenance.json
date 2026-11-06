@@ -1,0 +1,57 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "12-codebreak-sproto3106",
+      "phase": 1,
+      "job_id": "94ea0965-fa77-46b0-a299-71af16603b4b",
+      "reference_asset_id": "7e6fae88-8e53-4d43-adf8-2315f450b60d",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "rejected",
+      "rejected": true,
+      "reason": "All selected source poses have physical lower tracks clipped by internal crop at source y747. Never repair or reuse physically incomplete poses."
+    },
+    {
+      "folder": "12-codebreak-sproto3106",
+      "phase": 1,
+      "action": "full-track-wide-framing-retry",
+      "job_id": "897bc76c-24bf-4c26-8bff-37290413a077",
+      "reference_asset_id": "0c3d380f-b3a9-4131-89fa-5139fbde4878",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "897bc76c-24bf-4c26-8bff-37290413a077",
+      "status": "in_progress",
+      "visibleText": "Generating"
+    },
+    {
+      "id": "897bc76c-24bf-4c26-8bff-37290413a077",
+      "status": "in_progress",
+      "visibleText": "Generating"
+    },
+    {
+      "id": "94ea0965-fa77-46b0-a299-71af16603b4b",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedJobs": [
+    "897bc76c-24bf-4c26-8bff-37290413a077"
+  ],
+  "rejectedJobs": {
+    "94ea0965-fa77-46b0-a299-71af16603b4b": "All physical lower tracks clipped; zero frames used"
+  },
+  "acceptedSelectionPolicy": "Only complete native robot poses with brass arm guns. Incorrect opening fleshy robot arms excluded; neutral late10.5\u201311.75 frames used as genuine idle. All16 full tread loops/cab/pilot reviewed independently.",
+  "acceptedAtlasSha256": "f90c78c717ce7920f5b57671ba3f13da32c28dfe5a8a0862f41feb11785cdf53",
+  "identityReview": "Exact RED canonical pilot/YELLOW eyes/CREAM upper arms/RED fists/BLACK shirt+GOLD star visibly inside cockpit; external robot arms brass/steel only",
+  "simulationPolicy": "Presentation and measured hitboxes only; authored movement/timing/patterns/aim/spawn/damage/counters unchanged"
+}

@@ -1,0 +1,485 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      88,
+      154,
+      288,
+      214
+    ],
+    [
+      12,
+      131,
+      488,
+      267
+    ],
+    [
+      25,
+      25,
+      437,
+      475
+    ],
+    [
+      99,
+      180,
+      364,
+      166
+    ]
+  ],
+  "bounds": [
+    12,
+    25,
+    488,
+    475
+  ],
+  "unionCrop": [
+    42,
+    35,
+    495,
+    476
+  ],
+  "destinationSize": [
+    488,
+    475
+  ],
+  "offset": [
+    12,
+    25
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        132,
+        186,
+        380,
+        326
+      ],
+      "cellBounds": [
+        109,
+        188,
+        376,
+        338
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        113,
+        173,
+        380,
+        338
+      ],
+      "cellBounds": [
+        88,
+        174,
+        376,
+        351
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        155,
+        380,
+        353
+      ],
+      "cellBounds": [
+        90,
+        154,
+        376,
+        368
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        132,
+        178,
+        380,
+        332
+      ],
+      "cellBounds": [
+        109,
+        179,
+        376,
+        345
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        44,
+        143,
+        452,
+        359
+      ],
+      "cellBounds": [
+        14,
+        141,
+        454,
+        374
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        61,
+        133,
+        458,
+        381
+      ],
+      "cellBounds": [
+        32,
+        131,
+        460,
+        398
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        42,
+        141,
+        459,
+        367
+      ],
+      "cellBounds": [
+        12,
+        139,
+        461,
+        383
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        61,
+        148,
+        495,
+        367
+      ],
+      "cellBounds": [
+        32,
+        147,
+        500,
+        383
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        54,
+        35,
+        460,
+        476
+      ],
+      "cellBounds": [
+        25,
+        25,
+        462,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        123,
+        179,
+        425,
+        333
+      ],
+      "cellBounds": [
+        99,
+        180,
+        425,
+        346
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        123,
+        179,
+        440,
+        333
+      ],
+      "cellBounds": [
+        99,
+        180,
+        441,
+        346
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        123,
+        179,
+        461,
+        333
+      ],
+      "cellBounds": [
+        99,
+        180,
+        463,
+        346
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        123,
+        179,
+        435,
+        333
+      ],
+      "cellBounds": [
+        99,
+        180,
+        435,
+        346
+      ]
+    }
+  ],
+  "kind": "sixteen-genuine-source-projectile-poses",
+  "facing": "left",
+  "facingOperation": "Native A brass round/B red-blue capsule LEFT; C badge non-directional; new heavy red noseLEFT and authoritative blue/orange exhaustRIGHT in all4. No mirroring required.",
+  "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3",
+  "heavyJobId": "82ce51df-1643-41c4-91a0-06181be67487",
+  "billing": "Website Unlimited verified forbothsourcejobs",
+  "sourceFrames": [
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-00.png",
+      "sha256": "fc6e765db5c5baa6762c68dc32ba4f419fba5b0a731188667198cc138d9d7507",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-01.png",
+      "sha256": "f0513a77aac10894e8cd5a0ef1bdd0d810886a9bb7e87e0c6ded64f558c7490a",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-02.png",
+      "sha256": "fa92a771fb40d500b5a5920f6cfee033bece52c44a4fcc7849011e7027a9d614",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-03.png",
+      "sha256": "07d976f5626c348d1ab3c837e18373ed784f859708409f5f521655e6ace06754",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-04.png",
+      "sha256": "a0c4fcb982f31970815f15b94fe081a46fd802a7d67372dc53869f5480fe2ec4",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-05.png",
+      "sha256": "9b53d609beb8e7b502b2acec91d71b59543dac91d88c21882eb94067267f5aa8",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-06.png",
+      "sha256": "ce817542aa132120cacf6de31fc54e0091c6436f198f8d144d804f57bd683688",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-07.png",
+      "sha256": "f66237e76a8003638a37a783550533eadefeda083f116779f15105f1de06a292",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-08.png",
+      "sha256": "be84f892cd7377c7dee88556e6503823fa5b0f2fd60c9941aad2f6a1aba8dba8",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-09.png",
+      "sha256": "80b7d4af1792cfce5df66ab1dd19e69a7ee65a69aaba2340c3069018b6a195a8",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-10.png",
+      "sha256": "e64805b51cb0821e06bbaf53b12a07cae1f75f4b6b57f012ea33f203cda673ec",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC/frame-11.png",
+      "sha256": "1c3caee9b69195f2b4e2ec9e72edf5879971f828f944edf854bdd129db39da7d",
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-heavy/frame-00.png",
+      "sha256": "8974d4bfd5ed708488bd7e5f73e6a8da599b9d331e4f22ef5ff0637a7c618001",
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-heavy/frame-01.png",
+      "sha256": "e162c1a1d1d0a566f9ffe073c0bb03ef71a481d49110c828fcd023841f8aeae5",
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-heavy/frame-02.png",
+      "sha256": "6ca3beba699c6dccc9e27b4d7b5027b825a4a0e0922e8548a3c2e779f8fc741c",
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-heavy/frame-03.png",
+      "sha256": "9e71137db4119b5b72770451356ee7c899d959b75fc394f0090a2ae50d4b71b6",
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487"
+    }
+  ],
+  "rejectedSource": "Original heavy row genuinely cut exhaust and omittedentirely. Temporary repeated converter-validation cells NEVERused in final16.",
+  "alphaRecoveryProvenance": [
+    "12p1-ABC-grid-removal.json",
+    "sheriff-p1-projectile-core-profile.json",
+    "sheriff-p1-heavy-matte-metadata.json"
+  ],
+  "atlasSha256": "41a823ecd08d4e10e5f6bcc363c0dd1c44a5834bdb57abb12c300ffca73cd69b",
+  "physicalRepair": false,
+  "productionEnabled": true,
+  "generationSources": [
+    {
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_181330_8b9bc082-4027-4a32-95f6-207f764247d3.png",
+      "selectedFrames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "websitePromptDetailVerified": true
+    },
+    {
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_182959_82ce51df-1643-41c4-91a0-06181be67487.png",
+      "selectedFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "websitePromptDetailVerified": true
+    }
+  ],
+  "assemblyScriptSha256": "8cc412a489c263bc8e0225ea2dc93f2149531d006b117a92c51dcccf7f47abb8",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "41a823ecd08d4e10e5f6bcc363c0dd1c44a5834bdb57abb12c300ffca73cd69b"
+  }
+}

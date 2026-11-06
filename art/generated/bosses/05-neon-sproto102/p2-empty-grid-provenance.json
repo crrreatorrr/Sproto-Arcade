@@ -1,0 +1,9 @@
+{
+  "source": "work/art-production/cockpit-compositions/05-neon-sproto102-p2-composed-raw.png",
+  "sourceSha256": "0011082190c63bbf3ac3feeefda156a17ad01b3b8acc899aec1cc136ca35073b",
+  "operation": "alpha-only removal of visually verified empty16px border inside each512cell; no RGB edits, no foreground inside documented bands",
+  "bandWidth": 16,
+  "pixels": 507904,
+  "nativePilotUntouched": true,
+  "review": "Full native4x4 reviewed; machines and firing flashes far inside16px bands; no boundary clipping in actual art."
+}

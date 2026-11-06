@@ -1,0 +1,740 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      162,
+      488,
+      260
+    ],
+    [
+      102,
+      96,
+      347,
+      354
+    ],
+    [
+      34,
+      99,
+      464,
+      371
+    ],
+    [
+      13,
+      101,
+      456,
+      399
+    ]
+  ],
+  "bounds": [
+    12,
+    96,
+    488,
+    404
+  ],
+  "unionCrop": [
+    16,
+    71,
+    477,
+    453
+  ],
+  "destinationSize": [
+    488,
+    404
+  ],
+  "offset": [
+    12,
+    96
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        16,
+        136,
+        476,
+        376
+      ],
+      "cellBounds": [
+        12,
+        165,
+        499,
+        419
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        17,
+        133,
+        477,
+        379
+      ],
+      "cellBounds": [
+        13,
+        162,
+        500,
+        422
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        16,
+        136,
+        477,
+        377
+      ],
+      "cellBounds": [
+        12,
+        165,
+        500,
+        420
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        19,
+        154,
+        477,
+        359
+      ],
+      "cellBounds": [
+        15,
+        184,
+        500,
+        401
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        103,
+        78,
+        429,
+        405
+      ],
+      "cellBounds": [
+        104,
+        103,
+        449,
+        449
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        101,
+        77,
+        426,
+        405
+      ],
+      "cellBounds": [
+        102,
+        102,
+        446,
+        449
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        102,
+        77,
+        429,
+        406
+      ],
+      "cellBounds": [
+        103,
+        102,
+        449,
+        450
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        102,
+        71,
+        422,
+        399
+      ],
+      "cellBounds": [
+        103,
+        96,
+        442,
+        443
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        37,
+        74,
+        474,
+        424
+      ],
+      "cellBounds": [
+        34,
+        99,
+        497,
+        469
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        37,
+        74,
+        474,
+        425
+      ],
+      "cellBounds": [
+        34,
+        99,
+        497,
+        470
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        38,
+        74,
+        475,
+        424
+      ],
+      "cellBounds": [
+        35,
+        99,
+        498,
+        469
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        39,
+        74,
+        475,
+        424
+      ],
+      "cellBounds": [
+        36,
+        99,
+        498,
+        469
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        45,
+        76,
+        472,
+        452
+      ],
+      "cellBounds": [
+        17,
+        101,
+        469,
+        499
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        48,
+        84,
+        472,
+        453
+      ],
+      "cellBounds": [
+        17,
+        110,
+        466,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        48,
+        76,
+        474,
+        452
+      ],
+      "cellBounds": [
+        15,
+        101,
+        466,
+        499
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        55,
+        84,
+        476,
+        452
+      ],
+      "cellBounds": [
+        13,
+        110,
+        459,
+        499
+      ]
+    }
+  ],
+  "kind": "reviewed-native-core-protected-magenta-recovery",
+  "source": "work/art-production/raw-phase-projectiles/08-crown-alpha777-p2-projectiles-text.png",
+  "sourceSha256": "334207c369c3a20c346f40a0ecfdfdeeaf0475416d5690898ea6acb9aef7823b",
+  "profile": {
+    "stripGrid": 8,
+    "reason": "Genuine red chips, ruby noses, jewels and red sparks remain native foreground; no magenta pigment in source. Coremask excludes pureedgeconnectedfield.",
+    "protectedCores": [
+      {
+        "row": 2,
+        "box": [
+          30,
+          80,
+          450,
+          360
+        ],
+        "predicate": "red-pigment",
+        "reason": "Native red casino chip face/shading"
+      },
+      {
+        "row": 3,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "red-pigment",
+        "reason": "Native red jewel and red effect sparks"
+      },
+      {
+        "row": 3,
+        "box": [
+          385,
+          140,
+          115,
+          245
+        ],
+        "reason": "Ruby leadingnose and all native jewel highlights"
+      }
+    ]
+  },
+  "profileSha256": "ad9ed56199b27b13574b81a103254f96a486ed36960fc4c103ab6f702e38368f",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    }
+  ],
+  "protectedNativeCorePixels": 366628,
+  "protectedNativeCoreRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "unmixCriterion": "Outside explicit nativecore guards and knownfield: min(R,B)-G>18",
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha",
+  "unmixPixels": 47433,
+  "backgroundRemoved": 3036106,
+  "frameCutoffChecks": [
+    {
+      "sourceBounds": [
+        16,
+        136,
+        476,
+        376
+      ],
+      "usable": [
+        0,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        17,
+        133,
+        477,
+        379
+      ],
+      "usable": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        16,
+        136,
+        477,
+        377
+      ],
+      "usable": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        19,
+        154,
+        477,
+        359
+      ],
+      "usable": [
+        8,
+        0,
+        512,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        103,
+        78,
+        429,
+        405
+      ],
+      "usable": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        101,
+        77,
+        426,
+        405
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        102,
+        77,
+        429,
+        406
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        102,
+        71,
+        422,
+        399
+      ],
+      "usable": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        37,
+        74,
+        474,
+        424
+      ],
+      "usable": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        37,
+        74,
+        474,
+        425
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        38,
+        74,
+        475,
+        424
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        39,
+        74,
+        475,
+        424
+      ],
+      "usable": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        45,
+        76,
+        472,
+        452
+      ],
+      "usable": [
+        0,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        48,
+        84,
+        472,
+        453
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        48,
+        76,
+        474,
+        452
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        55,
+        84,
+        476,
+        452
+      ],
+      "usable": [
+        8,
+        8,
+        512,
+        512
+      ]
+    }
+  ],
+  "atlasSha256": "75691ebdcca95d5afb94dda46e54a279adce706291289b0f9f8df403b35aee82",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-protected-projectile-cores.py",
+  "scriptSha256": "8f471fb18cd23bd3c9259686457820c6c5cc5d03a37a4eae13ccae172f145ad4",
+  "productionEnabled": true,
+  "sourceBeforeFacing": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/08-crown-alpha777-p2-projectiles-clean.png",
+  "sourceBeforeFacingSha256": "8f5e1fda70a9b6f23909b848366dc6984e733b37bd61bce99d3eb042e957fa0d",
+  "facing": "left",
+  "facingOperation": "HeavyD ruby leadingnose originallyRIGHT is mirroredLEFT. Alance alreadyLEFT; Bcrowncoincluster andCspinningflat chip retain native nondirectional animation poses. No RGB repaint/pose synthesis",
+  "outputSha256": "75691ebdcca95d5afb94dda46e54a279adce706291289b0f9f8df403b35aee82",
+  "job_id": "4ce4a437-a3aa-4ab4-95ea-ca6f84b7e8cd",
+  "billing": "Higgsfield Unlimited verified2K1:1",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "75691ebdcca95d5afb94dda46e54a279adce706291289b0f9f8df403b35aee82"
+  }
+}

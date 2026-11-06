@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "02-last-light-vela",
+  "phase": 1,
+  "assetKind": "projectiles",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "02-last-light-vela",
+    "phase": 1,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/02-last-light-vela-p1-concept.png",
+    "concept_job_id": "c34f0cf0-3f79-4892-a736-8ca34d861e98",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/02-last-light-vela-p1-guide.png",
+    "status": "visual_pass_facing_normalized_waiting_in_game_QA",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "front central crystal-ray aperture",
+        "projectile": "faceted cyan-white narrow light lance",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "left side magenta optical-port cannon",
+        "projectile": "compact magenta refracted crystal shard",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "upper pivoting gold lens emitter",
+        "projectile": "wide amber-cyan concentric light pulse",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged prism aperture",
+        "projectile": "large cyan-magenta prismatic energy torpedo",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "phase_projectile_atlas",
+    "prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. ALL background/gutters UNIFORMLY flat pure green #00FF00 everywhere outside sprites. Retain magenta/cyan/amber sprite colors exactly; no green illumination or glow. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: tall dark navy prism-projector tower with central cyan crystal prism, magenta light ports, gold-edged black upper cockpit and open truss legs. ROW 1, weapon A: faceted cyan-white narrow light lance, from front central crystal-ray aperture. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: compact magenta refracted crystal shard, from left side magenta optical-port cannon. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide amber-cyan concentric light pulse, from upper pivoting gold lens emitter. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large cyan-magenta prismatic energy torpedo, from overcharged prism aperture. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "reference_policy": "Sole approved phase concept as weapon/palette context; output ONLY projectile sprites",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/02-last-light-vela-p1-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/02-last-light-vela/p1-projectiles.png",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "background_request": "#00FF00",
+    "chroma_key": "green",
+    "preparation_arguments": [
+      "--kind",
+      "projectiles",
+      "--chroma-key",
+      "green"
+    ],
+    "job_id": "a12db5d0-60a6-4431-bd10-0b4a0148d00f",
+    "submitted_prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. ALL background/gutters UNIFORMLY flat pure green #00FF00 everywhere outside sprites. Retain magenta/cyan/amber sprite colors exactly; no green illumination or glow. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: tall dark navy prism-projector tower with central cyan crystal prism, magenta light ports, gold-edged black upper cockpit and open truss legs. ROW 1, weapon A: faceted cyan-white narrow light lance, from front central crystal-ray aperture. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: compact magenta refracted crystal shard, from left side magenta optical-port cannon. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide amber-cyan concentric light pulse, from upper pivoting gold lens emitter. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large cyan-magenta prismatic energy torpedo, from overcharged prism aperture. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "reference_media_id": "4013ebfb-2391-4d5d-bc88-215dbe291f4e",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_134210_a12db5d0-60a6-4431-bd10-0b4a0148d00f.png",
+    "visual_review": "Four actual motifsA/B/C/heavy source-themed and animated. Source dividergrid interpolation cleanup pending baseline; not enabled.",
+    "processed_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/02-last-light-vela/p1-projectiles.png",
+    "final_sha256": "36800d941e1ffb54b36fa6bf79ca198c67f87795887c3b716275ce70a5b42548",
+    "facing_transform": "heavy row all4sourceframes horizontallymirrored, A/B/C untouched byrootdecision"
+  },
+  "acceptedOutput": {
+    "path": "p1-projectiles.png",
+    "sha256": "36800d941e1ffb54b36fa6bf79ca198c67f87795887c3b716275ce70a5b42548",
+    "metadata": "p1-projectiles.json",
+    "bounds": [
+      12,
+      46,
+      488,
+      454
+    ],
+    "rowBounds": [
+      [
+        50,
+        162,
+        424,
+        220
+      ],
+      [
+        121,
+        120,
+        282,
+        305
+      ],
+      [
+        12,
+        46,
+        488,
+        454
+      ],
+      [
+        18,
+        59,
+        473,
+        427
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

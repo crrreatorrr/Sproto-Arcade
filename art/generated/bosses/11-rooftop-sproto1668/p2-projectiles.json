@@ -1,0 +1,621 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      155,
+      218,
+      192,
+      234
+    ],
+    [
+      21,
+      243,
+      469,
+      182
+    ],
+    [
+      12,
+      246,
+      457,
+      175
+    ],
+    [
+      53,
+      166,
+      447,
+      334
+    ]
+  ],
+  "bounds": [
+    12,
+    166,
+    488,
+    334
+  ],
+  "unionCrop": [
+    9,
+    94,
+    480,
+    416
+  ],
+  "destinationSize": [
+    488,
+    334
+  ],
+  "offset": [
+    12,
+    166
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        194,
+        193,
+        318,
+        326
+      ],
+      "cellBounds": [
+        180,
+        269,
+        308,
+        407
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        183,
+        192,
+        319,
+        331
+      ],
+      "cellBounds": [
+        179,
+        268,
+        320,
+        412
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        157,
+        144,
+        342,
+        370
+      ],
+      "cellBounds": [
+        155,
+        218,
+        347,
+        452
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        194,
+        192,
+        318,
+        326
+      ],
+      "cellBounds": [
+        180,
+        268,
+        308,
+        407
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        91,
+        168,
+        455,
+        344
+      ],
+      "cellBounds": [
+        38,
+        243,
+        415,
+        425
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        55,
+        168,
+        456,
+        344
+      ],
+      "cellBounds": [
+        37,
+        243,
+        452,
+        425
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        19,
+        168,
+        471,
+        344
+      ],
+      "cellBounds": [
+        21,
+        243,
+        490,
+        425
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        85,
+        168,
+        457,
+        344
+      ],
+      "cellBounds": [
+        36,
+        243,
+        421,
+        425
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        39,
+        198,
+        474,
+        315
+      ],
+      "cellBounds": [
+        18,
+        274,
+        469,
+        395
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        44,
+        188,
+        480,
+        324
+      ],
+      "cellBounds": [
+        12,
+        264,
+        464,
+        405
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        45,
+        171,
+        480,
+        340
+      ],
+      "cellBounds": [
+        12,
+        246,
+        463,
+        421
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        48,
+        190,
+        480,
+        322
+      ],
+      "cellBounds": [
+        12,
+        266,
+        460,
+        402
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        112,
+        116,
+        440,
+        393
+      ],
+      "cellBounds": [
+        53,
+        189,
+        393,
+        476
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        48,
+        116,
+        440,
+        393
+      ],
+      "cellBounds": [
+        53,
+        189,
+        460,
+        476
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        9,
+        94,
+        440,
+        416
+      ],
+      "cellBounds": [
+        53,
+        166,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        61,
+        116,
+        440,
+        393
+      ],
+      "cellBounds": [
+        53,
+        189,
+        446,
+        476
+      ]
+    }
+  ],
+  "kind": "reviewed-native-core-protected-magenta-recovery",
+  "source": "work/art-production/raw-phase-projectiles/11-rooftop-sproto1668-p2-projectiles.png",
+  "sourceSha256": "9fc015c2018489b564839cc76d1e9d02f9df19ff0f930506066596895fde8788",
+  "profile": {
+    "stripGrid": 12,
+    "allowEnclosedStrongField": true,
+    "enclosedFieldRule": {
+      "minRB": 180,
+      "maxG": 150,
+      "minExcess": 70,
+      "maxBalance": 65
+    },
+    "protectedCores": [],
+    "reason": "Goldie gold/navy metal, blue-white ions and orange exhaust contain no native magenta/purple pigments; remove source magenta field and recover pixel fringe only. Actual result inspected before conversion."
+  },
+  "profileSha256": "4819446a68864de0cd4c09da2ed0f0b27c1869c3d102051ad808771983c11d71",
+  "gridRemovalBands": [],
+  "protectedNativeCorePixels": 0,
+  "protectedNativeCoreRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "unmixCriterion": "Outside explicit nativecore guards and knownfield: min(R,B)-G>18",
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha",
+  "unmixPixels": 45788,
+  "backgroundRemoved": 3590085,
+  "enclosedStrongFieldPixels": 3309,
+  "frameCutoffChecks": [
+    {
+      "sourceBounds": [
+        194,
+        193,
+        318,
+        326
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        183,
+        192,
+        319,
+        331
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        157,
+        144,
+        342,
+        370
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        194,
+        192,
+        318,
+        326
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        91,
+        168,
+        455,
+        344
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        55,
+        168,
+        456,
+        344
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        19,
+        168,
+        471,
+        344
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        85,
+        168,
+        457,
+        344
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        39,
+        198,
+        474,
+        315
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        44,
+        188,
+        480,
+        324
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        45,
+        171,
+        480,
+        340
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        48,
+        190,
+        480,
+        322
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        112,
+        116,
+        440,
+        393
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        48,
+        116,
+        440,
+        393
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        9,
+        94,
+        440,
+        416
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        61,
+        116,
+        440,
+        393
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    }
+  ],
+  "atlasSha256": "0babcf14765b1df52f972a9998fcc602847c2f856ac1cc2e70fe7195c035a225",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-protected-projectile-cores.py",
+  "scriptSha256": "746484ef8c054b6aca06f964345a88e85224a812908f750b3950204644e60477",
+  "productionEnabled": true,
+  "sourceBeforeFacing": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/11-rooftop-sproto1668-p2-projectiles-clean.png",
+  "sourceBeforeFacingSha256": "48c47155b888b7a2130bfcac8eb14c8b0736f3cdcd15215b62ea5e1ecf8f3dea",
+  "facing": "left",
+  "facingOperation": "All native rows faceRIGHT: A optical goldcap, B white rocketnose and orange exhaustLEFT, C sharp ionheadRIGHT, heavy gold interceptor noseRIGHT/enginesLEFT. Wholecell mirrorALL16 makes every leadingheadLEFT and exhaustRIGHT, no RGB repaint or invented poses",
+  "outputSha256": "0babcf14765b1df52f972a9998fcc602847c2f856ac1cc2e70fe7195c035a225",
+  "job_id": "b1dfc0bf-9100-4cbd-8384-da71a802a457",
+  "billing": "Higgsfield Unlimited verified2K1:1",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "0babcf14765b1df52f972a9998fcc602847c2f856ac1cc2e70fe7195c035a225"
+  },
+  "checkedInScript": "p2-projectiles-source-conversion.py",
+  "checkedInScriptSha256": "c0b37da5f26823e47eeb402ebbf288dd39e55ec9bbc9caff8625d9ac18c5f12a",
+  "scriptFormattingNote": "Executed source hash above is retained; checked-in copy has trailing whitespace removed only. Conversion behavior and PNG pixels are unchanged."
+}

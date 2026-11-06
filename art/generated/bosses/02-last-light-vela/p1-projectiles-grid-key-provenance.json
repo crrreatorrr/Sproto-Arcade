@@ -1,0 +1,9 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/raw-phase-projectiles/02-last-light-vela-p1-projectiles.png",
+  "sourceSha256": "480093f1f1aac365fe31db672b82bc1cb7b9f2f80042548b6f26d0233e7dc3b3",
+  "rule": "g>=150 and g-max(r,b)>=85; edge-connected only, verified source has cyan/yellow/magenta actual art",
+  "backgroundPixelsReplaced": 2475331,
+  "outsideMaskNativeRgbaUnchanged": true,
+  "outputSha256": "2228cbb8b50a57969ad2efcc80cfe82795c70fb7b42ad7ae1aa3c9cfef215d3c",
+  "noCropping": true
+}
