@@ -24,21 +24,6 @@ window.addEventListener('keydown',e=>{if(/INPUT|SELECT/.test(e.target.tagName))r
 window.addEventListener('keyup',e=>held.delete(e.code));window.addEventListener('blur',()=>{held.clear();press.clear();if(['playing','transition'].includes(world?.state)&&!paused){paused=true;overlay('Paused','The game paused when this window lost focus.','Resume');}});
 function input(){const i={left:held.has('ArrowLeft')||held.has('KeyA'),right:held.has('ArrowRight')||held.has('KeyD'),up:held.has('ArrowUp')||held.has('KeyW'),down:held.has('ArrowDown')||held.has('KeyS'),dash:press.has(dashKey)||(dashKey==='ShiftLeft'&&press.has('ShiftRight'))};for(const [a,codes]of Object.entries(actions))i[a]=codes.some(c=>press.has(c));press.clear();return i;}
 function text(s,x,y,size=18,color='#fff1d0',align='left'){ctx.font=`700 ${size}px system-ui`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(String(s),x,y);}
-function sheetHazardClip(name){const info=typeof SHEET_DATA==='undefined'?null:SHEET_DATA.shots?.[name];return info?SHEET_DATA.bosses[info.boss].clips[info.clip]:null;}
-Arcade.drawSheetBoss=function(c,id,x,feet,height,clipName,u){
-  const spec=SHEET_DATA?.bosses?.[id],clip=spec?.clips?.[clipName];if(!clip)return;
-  const frame=Math.min(clip.frameCount-1,Math.max(0,Math.floor((u||0)*clip.frameCount)));
-  const image=img(clip.frames[frame]);if(!image)return;
-  const w=height*clip.frameSize[0]/clip.frameSize[1];
-  c.save();c.imageSmoothingEnabled=false;c.drawImage(image,Math.round(x-w/2),Math.round(feet-height),Math.round(w),Math.round(height));c.restore();};
-function collectorClipArt(name){return typeof COLLECTOR_SHEET==='undefined'?null:COLLECTOR_SHEET.clips[name];}
-Arcade.drawCollector=function(c,clipName,frame,x,feet){
-  const clip=collectorClipArt(clipName);if(!clip)return;
-  const image=img(clip.atlas);if(!image)return;
-  const scale=COLLECTOR_SHEET.scale,size=256*scale;
-  c.save();c.imageSmoothingEnabled=false;
-  c.drawImage(image,frame*256,0,256,256,Math.round(x-128*scale),Math.round(feet-240*scale),size,size);
-  c.restore();};
 function sprite(id,x,y,height=76,pose=0,facing=1){const a=ART.sprites[id],p=a?.poses?.[pose]||a?.poses?.[0],i=img(p?.[0]);if(i){const b=Arcade.spriteBounds?.[p[0]]||[0,0,i.naturalWidth,i.naturalHeight],w=height*b[2]/b[3];ctx.save();ctx.translate(x,y);ctx.imageSmoothingEnabled=false;ctx.scale(facing<0?-1:1,1);ctx.drawImage(i,b[0],b[1],b[2],b[3],-w/2,-height,w,height);ctx.restore();}else{ctx.fillStyle='#ffdb8a';ctx.fillRect(x-13,y-height,26,height);}}
 function chevrons(x,y,h){ctx.strokeStyle='#f4efe1';ctx.lineWidth=4;for(let yy=y+12;yy<y+h;yy+=32){ctx.beginPath();ctx.moveTo(x-8,yy-8);ctx.lineTo(x+3,yy);ctx.lineTo(x-8,yy+8);ctx.stroke();}}
 function render(){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);if(!world){text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase;
@@ -52,30 +37,13 @@ for(const h of w.hazards){
  const warning=h.age<(h.windup||0),recovery=h.age>=(h.windup||0)+(h.active||1);
  if(recovery)continue;
  const moving=Math.hypot(h.vx||0,h.vy||0)>0;
- const pulse=h.sprite==='magnetPulse'?collectorClipArt('magnet-pulse-projectile'):null;
- const sheet=sheetHazardClip(h.sprite);
- ctx.save();ctx.globalAlpha=warning ? (h.missile ? 0.65 : 0.35) : 0.95;
- if(sheet){
-  const frame=img(sheet.frames[Math.floor((h.age||0)/6)%sheet.frameCount]);
-  ctx.imageSmoothingEnabled=false;
-  if(frame&&h.h>220){
-    const tile=Math.max(36,Math.round(h.w*frame.naturalHeight/frame.naturalWidth));
-    for(let y=h.y;y<h.y+h.h;y+=tile)ctx.drawImage(frame,h.x,y,h.w,Math.min(tile,h.y+h.h-y));
-  }else if(frame)ctx.drawImage(frame,h.x,h.y,h.w,h.h);
-  else{ctx.fillStyle='#ffb482';ctx.fillRect(h.x,h.y,h.w,h.h);}
- }else if(pulse){
-  const image=img(pulse.atlas);
-  const frame=warning?0:(2+Math.floor((h.age||0)/6)%4);
-  ctx.imageSmoothingEnabled=false;
-  if(image)ctx.drawImage(image,frame*256,0,256,256,Math.round(h.x+h.w/2-128*COLLECTOR_SHEET.projectileScale),Math.round(h.y+h.h/2-128*COLLECTOR_SHEET.projectileScale),256*COLLECTOR_SHEET.projectileScale,256*COLLECTOR_SHEET.projectileScale);
-  else{ctx.fillStyle='#9be1ff';ctx.fillRect(h.x,h.y,h.w,h.h);}
-}else{
  const style=h.sprite||(h.rule==='ordinary'&&moving&&h.w<=128&&h.h<=128?'bolt':null);
- if(style&&h.rule==='ordinary'){  const asset=Arcade.projectileAssets?.[style],picture=img(asset?.path||'art/gameplay/projectiles/'+style+'.svg');
+ ctx.save();ctx.globalAlpha=warning ? (h.missile ? 0.65 : 0.35) : 0.95;
+ if(style&&h.rule==='ordinary'){
+  const asset=Arcade.projectileAssets?.[style],picture=img(asset?.path||'art/gameplay/projectiles/'+style+'.svg');
   if(picture){if(asset?.pixelArt)ctx.imageSmoothingEnabled=false;ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);if(asset?.crop)ctx.drawImage(picture,...asset.crop,-h.w/2,-h.h/2,h.w,h.h);else ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}
   else{ctx.fillStyle=h.pressure?'#a3e8d6':'#ffb482';ctx.fillRect(h.x,h.y,h.w,h.h);}
  }else{ctx.fillStyle=h.rule==='dash'?'#d488fe':h.rule==='shield'?'#79e4e2':'#ff977a';ctx.fillRect(h.x,h.y,h.w,h.h);}
- }
  ctx.restore();ctx.strokeStyle=warning?'#f6ddb5':h.pressure?'#b9f3df':'#fff0d5';ctx.lineWidth=warning?2:1;ctx.setLineDash(warning?[7,7]:[]);ctx.strokeRect(h.x,h.y,h.w,h.h);ctx.setLineDash([]);
  if(warning&&moving&&h.rule==='ordinary'){
   const n=Math.hypot(h.vx,h.vy)||1,dx=h.vx/n,dy=h.vy/n,cx=h.x+h.w/2,cy=h.y+h.h/2;

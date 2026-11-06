@@ -1,0 +1,23 @@
+{
+  "model": "GPT Image 2.5 Sunburst",
+  "quality": "Medium",
+  "aspect_ratio": "4:3",
+  "resolution": "2K",
+  "batch_size": 1,
+  "unlimited": true,
+  "credits": 0,
+  "generation_count": 1,
+  "job_id": "92897b30-a0a2-435e-b081-cca7b4bb695e",
+  "asset_id": "92897b30-a0a2-435e-b081-cca7b4bb695e",
+  "created_at": "2026-11-05T20:57:44.543Z",
+  "site_created_at": "November 5, 2026 at 3:57 PM (UTC-5)",
+  "dimensions_px": "2336x1744",
+  "output_file": "bront-p1-wheelhouse-entry-sheet-gpt25-v1.png",
+  "source_download": "hf_20261105_205745_92897b30-a0a2-435e-b081-cca7b4bb695e.png",
+  "references": [
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/composite-bront-tug-dave.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-bront-breakwater-tug-p1-v1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-bront-fat-head-dave-pilot-v2.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Breakwater Tug (bront-breakwater-tug-p1). Attack: wheelhouse entry — Fat Head Dave steps into the wheelhouse and takes the throttle. Sproto pilot Fat Head Dave must be LARGE and clearly readable — the star of this sheet: show him approaching/entering/settling at the wheel across frames, face and body filling the cockpit area, never a tiny blob. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) empty/near-empty wheelhouse hatch open (2) Dave appears at hatch (3) Dave climbs in (4) Dave reaches for wheel (5) hands on throttle (6) settles into seat (7) grips wheel firmly (8) ready at controls, slight steam idle. Machine matches Breakwater Tug reference. Solid flat magenta #FF00FF only. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and Dave in every cell, generous margins, no cropping, no text. Match attached machine and pilot references exactly."
+}

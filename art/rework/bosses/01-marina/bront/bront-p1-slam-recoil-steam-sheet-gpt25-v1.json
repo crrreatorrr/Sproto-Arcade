@@ -1,0 +1,23 @@
+{
+  "unlimited": true,
+  "credits": 0,
+  "job_id": "2e583f8a-de98-4289-80ee-5cbaecb68109",
+  "timestamp": "2026-11-05T20:52:12.742Z",
+  "saved_at": "2026-11-05T20:54:25.226742+00:00",
+  "model": "GPT Image 2.5 Sunburst",
+  "quality": "Medium",
+  "aspect_ratio": "4:3",
+  "resolution": "2K",
+  "dimensions": [
+    2336,
+    1744
+  ],
+  "batch": 1,
+  "generate_clicks": 1,
+  "references": [
+    "composite-bront-tug-dave.png",
+    "concept-bront-breakwater-tug-p1-v1.png",
+    "concept-bront-fat-head-dave-pilot-v2.png"
+  ],
+  "cost_evidence": "Unlimited mode checked; submit button displayed Unlimited, no numeric credit charge."
+}

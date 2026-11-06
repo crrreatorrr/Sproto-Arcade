@@ -4,25 +4,16 @@
   const ID='03-mudline';
   function live(w,id){return w.targets.find(t=>t.id===id&&!t.removed&&t.hp>0);}
   function text(ctx,s,x,y,color='#fff0c9'){ctx.fillStyle=color;ctx.font='bold 18px system-ui';ctx.fillText(s,x,y);}
-  function pose(w,pump){
-    const t=w.phaseTick, c=t%360, d=w.data, core=w.targets.find(x=>x.id==='pump-vent'&&!x.removed);
-    if(!pump){
-      if(c<70)return ['p1-dredger-saucer-arrival',c/70];
-      if(c<145)return ['p1-crapto-nozzle-trim',(c-70)/75];
-      if(c<200)return ['p1-sludge-nozzle-fire',(c-145)/55];
-      if(c<300)return ['p1-sludge-belch-release',(c-200)/100];
-      return ['p1-intake-armor-deflect',(c-300)/60];
-    }
-    if(core&&core.open)return ['p2-pump-vent-expose',(t%80)/80];
-    if(d.gateUnlocked&&!d.countered)return ['p2-backflush-pump-fire',(t%50)/50];
-    if(!d.gateUnlocked)return ['p2-lower-shutter-load',(t%70)/70];
-    return ['p2-shutter-route-release',(t%60)/60];
-  }
   function machine(ctx,w,pump){
     const d=w.data, t=w.phaseTick;
-    const [clip,u]=pose(w,pump);
-    if(A.drawSheetBoss)A.drawSheetBoss(ctx,'crapto',1040,560,280,clip,u);
-    ctx.save();
+    ctx.save();ctx.fillStyle=pump?'#32495b':'#4b5140';ctx.strokeStyle='#c9d9a4';ctx.lineWidth=5;
+    ctx.fillRect(905,180,245,350);ctx.strokeRect(905,180,245,350);
+    // The glass belly and intake carry over into the docked pump.
+    ctx.fillStyle='#122e34';ctx.fillRect(950,285,150,175);
+    ctx.fillStyle='#78ab4d';const fill=pump?110:Math.min(170,(t%360)/70*170);ctx.fillRect(956,455-fill,138,fill);
+    ctx.strokeStyle='#b5eee3';ctx.strokeRect(950,285,150,175);
+    ctx.fillStyle='#b0beb1';ctx.fillRect(835,340,120,40);
+    ctx.fillStyle='#172831';ctx.fillRect(1010,220,80,55);
     if(pump){
       ctx.strokeStyle='#aab7a5';ctx.lineWidth=24;ctx.beginPath();ctx.moveTo(1040,185);ctx.lineTo(1040,120);ctx.lineTo(1170,120);ctx.lineTo(1170,570);ctx.stroke();
       ctx.fillStyle=d.gateUnlocked?'#a7f5ba':'#774a45';ctx.fillRect(835,275,28,150);
@@ -42,10 +33,10 @@
     let target={x:w.player.x,y:d.aimY};
     if(w.redirectVolley){const volley=w.redirectVolley({eligibleAim:true,rule:'ordinary',x:origin.x,y:origin.y,targetX:target.x,targetY:target.y});target={x:volley.targetX??target.x,y:volley.targetY??target.y};}
     // Committed altitude remains fixed after the lock; no homing after release.
-    w.hazard({id:source,source:source.replace(/-\d+$/,''),rule:'ordinary',sprite:'sludgeBlob',x:800,y:target.y-28,w:72,h:52,vx:-9,active:110,windup:0,cue:'SLUDGE BELCH'});
+    w.hazard({id:source,source:source.replace(/-\d+$/,''),rule:'ordinary',x:820,y:target.y-25,w:70,h:50,vx:-9,active:110,windup:0,cue:'SLUDGE BELCH'});
   }
   const phase1={
-    drawsTargetLabels:true,drawsPilot:true,name:'Sludge Belch',machine:'Sludge Dredger',mode:'flight',camera:'fixed',
+    drawsTargetLabels:true,name:'Sludge Belch',machine:'Sludge Dredger',mode:'flight',camera:'fixed',
     objective:'Reposition after the nozzle locks, then punish the glass vent.',hudLabel:'VENT INTEGRITY',
     spawn:{x:220,y:360},practiceSpawn:{x:220,y:360},pilot:{x:1050,y:270},
     enter(w){
@@ -75,7 +66,7 @@
       else if(d.introduced){
         world.player.dashWait=0;
         world.cue('BROKEN CHEVRONS: flight dash through the pressure front (Shift)',180);
-        world.hazard({id:'backflush-'+d.round,source:'backflush-front',rule:'dash',sprite:'backflushSurge',x:1190,y:70,w:40,h:570,vx:-10,windup:90,active:130,recovery:10,cue:'≫  SHIFT THROUGH  ≫'});
+        world.hazard({id:'backflush-'+d.round,source:'backflush-front',rule:'dash',x:1190,y:70,w:28,h:570,vx:-10,windup:90,active:130,recovery:10,cue:'≫  SHIFT THROUGH  ≫'});
       }else{d.countered=false;world.cue('Pressure unstable: avoid damage and release one clean shutter cycle.',150);}
     };
     w.target({id:'latch-'+d.round,x:890,y:190,w:105,h:85,hp:4,maxHp:4,open:true,label:'UPPER LATCH · C BEAM',onDefeat:unlock});
@@ -83,7 +74,7 @@
     w.cue('SHUTTERS: fly high to beam the latch, or low to bounce into the intake',180);
   }
   const phase2={
-    drawsTargetLabels:true,drawsPilot:true,name:'Backflush',machine:'Floodgate Pump',mode:'flight',camera:'fixed',
+    drawsTargetLabels:true,name:'Backflush',machine:'Floodgate Pump',mode:'flight',camera:'fixed',
     objective:'Release a shutter, dash the marked front, then hit the glass vent.',hudLabel:'PUMP INTEGRITY',
     spawn:{x:220,y:345},practiceSpawn:{x:220,y:345},pilot:{x:1050,y:270},
     enter(w){

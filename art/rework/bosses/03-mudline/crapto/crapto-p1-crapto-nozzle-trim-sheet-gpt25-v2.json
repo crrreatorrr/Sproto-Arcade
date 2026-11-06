@@ -1,0 +1,49 @@
+{
+ "asset_id": "348e4212-7ff7-4d76-971c-408c534b16c8",
+ "sha256": "44fd31a4717d7f7db859a55f4ea2c034f64a8d05d225a4c9706240b32e1815d0",
+ "credits": 0,
+ "references": [
+  "concept-crapto-sludge-dredger-v1.png",
+  "concept-crapto-pilot-v6.png",
+  "03-mudline-p1.png",
+  "chroma-magenta-FF00FF.png"
+ ],
+ "prompt": "Pixel-art boss attack animation sprite sheet of the Sludge Dredger boss machine. ... (cockpit lever trim only, no-spray lock, 8 frames 4x2, magenta #FF00FF)",
+ "created_at": "2026-11-05T19:12:00-05:00",
+ "site_created_at": "November 5, 2026 at 7:12 PM America/Lima",
+ "kind": "attack",
+ "remake_of": "v1 WRONG-sludge-spray",
+ "model": "GPT Image 2.5 Sunburst",
+ "settings": {
+  "quality": "Medium",
+  "aspect": "4:3",
+  "resolution": "2K",
+  "batch": 1,
+  "unlimited": true,
+  "size": "2336x1744"
+ },
+ "corner_samples": {
+  "tl": [
+   245,
+   8,
+   248
+  ],
+  "tr": [
+   247,
+   14,
+   248
+  ],
+  "bl": [
+   249,
+   7,
+   250
+  ],
+  "br": [
+   245,
+   12,
+   248
+  ]
+ },
+ "upload_method": "library picker > Upload media > Recent tab, 4 fresh uploads after clearing leftovers",
+ "downloaded_file": "hf_20261106_001203_348e4212-7ff7-4d76-971c-408c534b16c8.png"
+}

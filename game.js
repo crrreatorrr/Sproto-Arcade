@@ -154,7 +154,6 @@ const moves = {
   needleFall:{tell:30,active:58,rest:27},
   eyeShot:{tell:36,active:55,rest:26},
   shieldPulse:{tell:84,active:32,rest:28},
-  sheet:{tell:1,active:1,rest:1},
   ceilingSweep:{tell:78,active:Math.round(28/SWEEP_SPEED),rest:30},
   airMechaMissiles:{tell:43,active:67,rest:35}
 };
@@ -194,8 +193,7 @@ const boxes = {
   hammer:{w:35,h:22,color:'#ffd197'},
   star:{w:28,h:28,color:'#ff85c7'},
   needle:{w:14,h:33,color:'#ff6852'},
-  eye:{w:33,h:26,color:'#d9a6ff'},
-  magnetPulse:{w:124,h:86,color:'#9be1ff'}
+  eye:{w:33,h:26,color:'#d9a6ff'}
 };
 const playerImpacts = {
   spark:{art:'spit-impact',duration:7,opacity:.65},
@@ -239,15 +237,12 @@ for (const [name,[w,h,color]] of Object.entries(signatureArt)) {
   boxes[name]={w:Math.round(w*.72),h:Math.round(h*.72),color};
   bossShotArt[name]=['signatures/'+name,w,h];
 }
-for (const [name,shot] of Object.entries(SHEET_DATA.shots)) boxes[name]={w:shot.w,h:shot.h,color:shot.color};
 const bossAttackImage=name=>picture(`art/attacks/boss/higgsfield/${name}.png`);
 const isFlying=()=>Boolean(LEVELS[levelIndex]?.flight);
 const isChase=()=>Boolean(LEVELS[levelIndex]?.chase);
-const sheetBoss=()=>levelIndex===0||levelIndex===2||levelIndex===3;
-const sheetSpec=()=>SHEET_DATA.bosses[SHEET_DATA.byLevel[levelIndex]];
-const hasMecha=b=>isFlying() && b.phase===2 && !sheetBoss();
+const hasMecha=b=>isFlying() && b.phase===2;
 const mechaY=b=>b.y-210;
-const bossWeakY=b=>sheetBoss()?b.y-sheetSpec().weak:hasMecha(b)?mechaY(b)-58:b.y-222;
+const bossWeakY=b=>hasMecha(b)?mechaY(b)-58:b.y-222;
 const shieldDuration=()=>isFlying()?SAUCER_SHIELD_DURATION:SHIELD_DURATION;
 const shieldPulseWindup=()=>isFlying()?204:84;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -482,11 +477,6 @@ function startBoss() {
   const kit=acts[levelIndex];
   boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:FLOOR,hp:PHASE_ONE_HEALTH,max:PHASE_ONE_HEALTH,phaseTwoHealth:Math.ceil(kit.hp/2),scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
-  if (sheetBoss()) {
-    const spec=sheetSpec();
-    boss.sheetAim=isFlying()?340:FLOOR-80;
-    if (spec.anchor) { boss.x=spec.anchor.x; boss.y=spec.anchor.y; boss.startX=boss.x; }
-  }
   player.hp=MAX_HP;
   player.inv=35;
   bullets=[];
@@ -547,9 +537,8 @@ function refreshHud() {
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
   const arenaTell=levelIndex!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
-  const collectorCue=collectorBoss() && boss.hp && (collectorExposed()?'DRIVE OPEN — FIRE THE CORE':(boss.sheetCue && boss.age<=boss.tell?boss.sheetCue:''));
-  const message=collectorBoss()?collectorCue:arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
-    !boss.hp || !m || (sheetBoss()? !sheetExposed() : boss.age<=boss.tell+m.active)?'':'EXPOSED  ·  Jump to hit the weak spot';
+  const message=arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
+    !boss.hp || !m || boss.age<=boss.tell+m.active?'':'EXPOSED  ·  Jump to hit the weak spot';
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
 }
 
@@ -723,193 +712,9 @@ function ceilingSweepInProgress() {
   return boss.hp && boss.move==='ceilingSweep' && boss.age<boss.tell+moves.ceilingSweep.active;
 }
 
-function sheetBody(b=boss) {
-  const spec=sheetSpec();
-  return {half:spec.hurt.half, top:b.y-spec.hurt.top, bottom:b.y+spec.hurt.bottom};
-}
-function sheetExposed(b=boss) {
-  return !!(b.sheetExposed && b.move==='sheet' && b.age>=b.tell+b.sheetActive);
-}
-function sheetClipId(b=boss) {
-  const spec=sheetSpec();
-  if (!b.hp && b.phase===2) return spec.defeat;
-  if (phaseShift) return phaseShift<STAGE_BLAST?spec.phases[1].at(-1).clip:spec.phases[2][0].clip;
-  if (b.flash && spec.hurtClip && b.move==='sheet' && b.age<b.tell) return spec.hurtClip;
-  if (!b.move || !b.sheetClip) return spec.intro;
-  return b.sheetClip;
-}
-function sheetFrameIndex(b, clip) {
-  const ev=clip.events, count=clip.frameCount;
-  const pick=(from, to, u)=>{
-    if (to<=from) return Math.min(count-1, from);
-    if (u>=1) return Math.min(count-1, to-1);
-    return Math.min(count-1, from+Math.floor(u*(to-from)));
-  };
-  if (!b.move || b.move!=='sheet' || phaseShift || !b.hp) return Math.floor(time/8)%count;
-  if (b.age<b.tell) return pick(ev.telegraph, ev.release, b.tell?b.age/b.tell:0);
-  if (b.age<b.tell+b.sheetActive) return pick(ev.release, Math.max(ev.release+1, ev.recovery), b.sheetActive?(b.age-b.tell)/b.sheetActive:0);
-  return pick(ev.recovery, count, b.sheetRest?(b.age-b.tell-b.sheetActive)/b.sheetRest:1);
-}
-function fireSheet(b) {
-  const shot=b.sheetShot;
-  if (!shot) return;
-  const body=sheetBody(b);
-  const x=b.x-body.half-8;
-  const y=shot.aim?b.sheetAim:shot.yOff!=null?FLOOR-shot.yOff:shot.y;
-  fire(x, y, shot.vx, 0, shot.shape, false);
-  puff(x, y, boxes[shot.shape].color, 8);
-}
-function drawSheetBoss(b) {
-  const spec=sheetSpec();
-  const clip=spec.clips[sheetClipId(b)];
-  const image=picture(clip.frames[sheetFrameIndex(b, clip)]);
-  const scale=spec.drawH/clip.frameSize[1];
-  const w=clip.frameSize[0]*scale, h=spec.drawH;
-  const anchorY=spec.feet?b.y:b.y+h/2;
-  ctx.save();
-  ctx.translate(Math.round(b.x), Math.round(anchorY));
-  ctx.imageSmoothingEnabled=false;
-  if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  if (b.flash && b.hp) ctx.filter='brightness(1.7)';
-  if (image.naturalWidth) ctx.drawImage(image, Math.round(-w/2), Math.round(-h), Math.round(w), Math.round(h));
-  else { ctx.fillStyle=b.color; ctx.fillRect(-w/2, -h, w, h); }
-  ctx.restore();
-}
-function drawSheetShot(shot) {
-  const info=SHEET_DATA.shots[shot.shape];
-  const clip=SHEET_DATA.bosses[info.boss].clips[info.clip];
-  const loop=Math.min(clip.frameCount-1, 2+Math.floor(shot.age/5)%Math.max(1, clip.events.release-2));
-  const index=shot.age<6?Math.min(1, shot.age):shot.age>90?clip.frameCount-1:loop;
-  const image=picture(clip.frames[index]);
-  const box=boxes[shot.shape];
-  ctx.imageSmoothingEnabled=false;
-  if (image.naturalWidth) ctx.drawImage(image, Math.round(-box.w/2), Math.round(-box.h/2), box.w, box.h);
-  else { ctx.fillStyle=box.color; ctx.fillRect(-box.w/2, -box.h/2, box.w, box.h); }
-}
-const collectorBoss=()=>levelIndex===4;
-function collectorClip(b=boss) {
-  const sheet=COLLECTOR_SHEET;
-  if (!b.hp && b.phase===2) return sheet.clips[sheet.defeat];
-  if (phaseShift) return sheet.clips[phaseShift<STAGE_BLAST?'magnet-claw-fire':'sign-elevation-shuffle'];
-  if (!b.move || b.move!=='sheet' || !b.sheetClip) return sheet.clips[sheet.intro];
-  return sheet.clips[b.sheetClip];
-}
-function collectorFrame(b=boss) {
-  const clip=collectorClip(b);
-  if (!b.hp && b.phase===2) return clip.frameCount-1;
-  if (!b.move || b.move!=='sheet' || phaseShift) return Math.floor(time/8)%clip.frameCount;
-  let cursor=0;
-  for (let i=0;i<clip.frameTicks.length;i++) {
-    cursor+=clip.frameTicks[i];
-    if (b.age<cursor) return i;
-  }
-  return clip.frameCount-1;
-}
-function collectorBox(b=boss) {
-  const [x0,y0,x1,y1]=collectorClip(b).boxes[collectorFrame(b)];
-  return {left:b.x+x0,right:b.x+x1,top:b.y+y0,bottom:b.y+y1};
-}
-function collectorHull(b=boss) {
-  const [x0,y0,x1,y1]=COLLECTOR_SHEET.hull;
-  return {left:b.x+x0,right:b.x+x1,top:b.y+y0,bottom:b.y+y1};
-}
-function collectorWeak(b=boss) {
-  const clip=collectorClip(b), box=clip.weak && clip.weak[collectorFrame(b)];
-  if (!box) return null;
-  return {left:b.x+box[0],right:b.x+box[2],top:b.y+box[1],bottom:b.y+box[3]};
-}
-const collectorExposed=b=>!!collectorWeak(b);
-const collectorLaneY=name=>FLOOR-COLLECTOR_SHEET.lanes[name];
-function startCollectorMove() {
-  const b=boss, sheet=COLLECTOR_SHEET, section=healthSection(b);
-  if (b.section!==section) { b.section=section; b.step=0; }
-  const pat=sheet.phases[b.phase][b.step++%sheet.phases[b.phase].length];
-  const clip=sheet.clips[pat.clip];
-  b.move='sheet';
-  b.age=0;
-  b.tell=clip.tell;
-  b.sheetActive=clip.active;
-  b.sheetRest=clip.rest;
-  b.sheetClip=pat.clip;
-  b.sheetCue=pat.cue||'';
-  b.sheetVolleys=pat.volleys||null;
-  b.lanes=[];
-  if (pat.lockAim) {
-    const center=player.y-playerHeight()/2;
-    b.sheetAim=center<FLOOR-140?collectorLaneY('high'):collectorLaneY('low');
-  }
-  if (pat.cue) announce(pat.cue, Math.max(clip.tell, 48));
-}
-function collectorMuzzle(b) {
-  const clip=COLLECTOR_SHEET.clips[b.sheetClip];
-  const box=clip.boxes[Math.min(clip.events.release, clip.boxes.length-1)];
-  return b.x+box[0]+10;
-}
-function fireCollectorVolley(b, volley) {
-  const y=volley.y==='aim'?(b.sheetAim||collectorLaneY('low')):collectorLaneY(volley.y);
-  fire(collectorMuzzle(b), y, volley.vx, 0, 'magnetPulse', false);
-  const shot=bullets[bullets.length-1];
-  shot.pulse='fly';
-  if (volley.returnAt) shot.returnAt=volley.returnAt;
-  puff(shot.x, y, '#9be1ff', 8);
-}
-function collectorMelee(b) {
-  const clip=COLLECTOR_SHEET.clips[b.sheetClip];
-  if (!clip || (clip.role!=='melee' && clip.role!=='deflect')) return;
-  if (!clip.hitFrames.includes(collectorFrame(b))) return;
-  const box=collectorBox(b);
-  const top=player.y-playerHeight(), bottom=player.y;
-  if (player.x+22>box.left && player.x-22<box.right && bottom>box.top && top<box.bottom && !player.dash) hurt(true);
-}
-function magnetPulseFrame(shot) {
-  if (shot.pulse==='impact') return shot.age<8?6:7;
-  return 2+Math.floor(shot.age/5)%4;
-}
-function magnetPulseBox(shot) {
-  const [x0,y0,x1,y1]=COLLECTOR_SHEET.clips['magnet-pulse-projectile'].boxes[magnetPulseFrame(shot)];
-  return {left:shot.x+x0,right:shot.x+x1,top:shot.y+y0,bottom:shot.y+y1};
-}
-function drawCollectorAtlas(clip, index, originX, originY, anchorX, anchorY, scale) {
-  const image=picture(clip.atlas);
-  const size=COLLECTOR_SHEET.cell*scale;
-  ctx.imageSmoothingEnabled=false;
-  if (image.naturalWidth) ctx.drawImage(image, index*COLLECTOR_SHEET.cell, 0, COLLECTOR_SHEET.cell, COLLECTOR_SHEET.cell, Math.round(originX-anchorX*scale), Math.round(originY-anchorY*scale), size, size);
-  else { ctx.fillStyle='#9be1ff'; ctx.fillRect(Math.round(originX-40), Math.round(originY-80), 80, 80); }
-}
-function drawCollectorBoss(b) {
-  const clip=collectorClip(b);
-  ctx.save();
-  ctx.translate(Math.round(b.x), Math.round(b.y));
-  if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  if (b.flash && b.hp) ctx.filter='brightness(1.7)';
-  drawCollectorAtlas(clip, collectorFrame(b), 0, 0, clip.pivot[0], clip.pivot[1], COLLECTOR_SHEET.scale);
-  ctx.restore();
-}
-function drawCollectorShot(shot) {
-  const clip=COLLECTOR_SHEET.clips['magnet-pulse-projectile'];
-  drawCollectorAtlas(clip, magnetPulseFrame(shot), 0, 0, clip.pivot[0], clip.pivot[1], COLLECTOR_SHEET.projectileScale);}
-
 function startMove() {
   const b=boss;
-  if (collectorBoss()) return startCollectorMove();  if (sheetBoss()) {
-    const spec=sheetSpec();
-    const section=healthSection(b);
-    if (b.section!==section) { b.section=section; b.step=0; }
-    const order=spec.phases[b.phase];
-    const pat=order[b.step++%order.length];
-    b.move='sheet';
-    b.age=0;
-    b.tell=pat.tell;
-    b.sheetActive=pat.active;
-    b.sheetRest=pat.rest;
-    b.sheetClip=pat.clip;
-    b.sheetShot=pat.shot||null;
-    b.sheetExposed=!!pat.exposed;
-    if (pat.lockAim) b.sheetAim=player.y+(isFlying()?SAUCER_MUZZLE_Y:0);
-    b.lanes=[];
-    if (pat.cue) announce(pat.cue, Math.max(pat.tell, 50));
-    return;
-  }  const groundMove=b.archetype===3?'rift':'eruption';
+  const groundMove=b.archetype===3?'rift':'eruption';
   const staticOrder=levelIndex===0?['arenaHazard',groundMove,...b.staticMoves]:[groundMove,...b.staticMoves];
   const section=healthSection(b);
   if (b.section!==section) {
@@ -976,10 +781,6 @@ function launchMechaRocket(index, targetY) {
 
 function attackBoss(t) {
   const b=boss, x=b.x-146, hard=b.phase>=2;
-  if (b.move==='sheet') {
-    if (t===0) fireSheet(b);
-    return;
-  }
   const flight=FLIGHT_PATTERNS[b.move];
   if (flight) {
     for (const [frame,side,offset,vx,vy,shape] of flight) {
@@ -1192,11 +993,7 @@ function updateBoss() {
   const b=boss;
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
-  if (sheetBoss() && sheetSpec().anchor) {
-    const a=sheetSpec().anchor;
-    b.y=a.y+SimMath.sin(time*.03)*(a.bob||0);
-    b.x+=clamp(a.x-b.x,-6,6);
-  } else if (hasMecha(b)) {
+  if (hasMecha(b)) {
     const target=FLOOR-72+SimMath.sin(time*.042)*76;
     b.y+=clamp(target-b.y,-5,5);
   } else if (isFlying()) {
@@ -1215,29 +1012,14 @@ function advanceBossMove(b) {
     if (++b.age>=36) startMove();
     return;
   }
-  if (b.move==='sheet' && collectorBoss()) {
-    if (b.phase===1) {
-      const target=BOSS_HOME+SimMath.sin(time*.035)*18;
-      b.x+=clamp(target-b.x,-3,3);
-    } else b.x+=clamp(BOSS_HOME-b.x,-4,4);
-    const t=b.age-b.tell;
-    if (t>=0 && t<b.sheetActive && b.sheetVolleys) {
-      for (const volley of b.sheetVolleys) if (t===volley.t) fireCollectorVolley(b, volley);
-    }
-    collectorMelee(b);
-    if (++b.age >= b.tell+b.sheetActive+b.sheetRest) startMove();
-    return;
-  }
   const m=moves[b.move], t=b.age-b.tell;
-  if (!sheetBoss() && b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
+  if (b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
     const target=BOSS_HOME+SimMath.sin(time*.035)*42;
     b.x+=clamp(target-b.x,-8,8);
   }
   if (t===0) b.startX=b.x;
-  const active=b.move==='sheet'?b.sheetActive:m.active;
-  const rest=b.move==='sheet'?b.sheetRest:Math.max(9,m.rest-(b.phase-1)*13-b.section*2);
-  if (t>=0 && t<active) attackBoss(t);
-  if (++b.age >= b.tell+active+rest) startMove();
+  if (t>=0 && t<m.active) attackBoss(t);
+  if (++b.age >= b.tell+m.active+Math.max(9,m.rest-(b.phase-1)*13-b.section*2)) startMove();
 }
 
 function arenaLaserY() {
@@ -1286,13 +1068,11 @@ function advanceStageShift() {
 }
 
 function keepPlayerLeft() {
-  const hull=collectorBoss()?collectorHull(boss):null;
-  const body=sheetBoss()?sheetBody(boss):null;
-  const p=player, front=hull?hull.left-28:boss.x-(body?body.half+36:(hasMecha(boss)?170:BOSS_FRONT));
+  const p=player, front=boss.x-(hasMecha(boss)?170:BOSS_FRONT);
   if (p.x<front) return;
   const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y;
-  const bossTop=hull?hull.top:body?body.top:hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
-  const bossBottom=hull?hull.bottom:body?body.bottom:hasMecha(boss)?mechaY(boss)+122:boss.y;
+  const bossTop=hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
+  const bossBottom=hasMecha(boss)?mechaY(boss)+122:boss.y;
   if (boss.hp && top<bossBottom && bottom>bossTop) {
     if (!ceilingSweepInProgress()) hurt(true);
     p.x=front-32;
@@ -1365,72 +1145,34 @@ function updateBullets() {
       }
       continue;
     }
-    if (shot.shape==='magnetPulse' && shot.pulse!=='impact') {
-      if (shot.returnAt && shot.vx<0 && shot.x<=shot.returnAt) {
-        shot.vx=-shot.vx;
-        shot.returnAt=0;
-        shot.returning=1;
-      }
-      if (shot.returning && shot.x>=b.x-40) {
-        shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0;
-      }
-    }
-    if (shot.pulse==='impact') {
-      if (shot.age>=16) shot.dead=true;
-      continue;
-    }
     if (shot.age>145 || shot.x<-55 || shot.x>W+55 || shot.y<-135 || shot.y>FLOOR+36) {
-      if (shot.shape==='magnetPulse' && shot.pulse!=='impact') { shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0; }
-      else shot.dead=true;
+      shot.dead=true;
       continue;
     }
     if (!shot.own) {
-      const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
-      const pulse=shot.shape==='magnetPulse'?magnetPulseBox(shot):null;
       const box=boxes[shot.shape];
-      const overlaps=pulse
-        ?player.x+18>pulse.left && player.x-18<pulse.right && bottom>pulse.top && top<pulse.bottom
-        :Math.abs(shot.x-p.x)<(flying?58:18)+box.w/2 && shot.y+box.h/2>top && shot.y-box.h/2<bottom;
-      if (overlaps && !p.dash) {
-        if (pulse) { shot.pulse='impact'; shot.age=0; shot.vx=0; shot.vy=0; }
-        else shot.dead=true;
+      const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
+      if (Math.abs(shot.x-p.x)<(flying?58:18)+box.w/2 && shot.y+box.h/2>top &&
+        shot.y-box.h/2<bottom && !p.dash) {
+        shot.dead=true;
         hurt();
         if (!p.hp) break;
       }
       continue;
     }
     const mech=hasMecha(b);
-    const sheet=sheetBoss()?sheetBody(b):null;
-    const collector=collectorBoss()?collectorBox(b):null;
-    const hitTop=collector?collector.top:sheet?sheet.top:isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
-    const hitBottom=collector?collector.bottom:sheet?sheet.bottom:mech?mechaY(b)+122:b.y-12;
-    const halfWidth=sheet?sheet.half:mech?106:147;
+    const hitTop=isCodebreak()?FLOOR-CODE_BOSS_HEIGHT:mech?mechaY(b)-122:b.y-116*b.scale;
+    const hitBottom=mech?mechaY(b)+122:b.y-12;
+    const halfWidth=mech?106:147;
     const beam=shot.shape==='redLaser';
-    const inRange=collector
-      ?shot.x>=collector.left && shot.x<=collector.right
-      :beam
-        ?shot.x<=b.x+halfWidth && SAUCER_BEAM_END>=b.x-halfWidth
-        :Math.abs(shot.x-b.x)<=halfWidth;
+    const inRange=beam
+      ?shot.x<=b.x+halfWidth && SAUCER_BEAM_END>=b.x-halfWidth
+      :Math.abs(shot.x-b.x)<=halfWidth;
     if (beam) shot.dead=true;
     if (!b.hp || !inRange || shot.y<hitTop || shot.y>hitBottom) continue;
     if (beam) shot.x=Math.max(shot.x,b.x-halfWidth);
-    if (collector) {
-      const clip=collectorClip(b), frame=collectorFrame(b);
-      if (clip.role==='deflect' && clip.hitFrames.includes(frame)) {
-        shot.dead=true;
-        puff(shot.x, shot.y, '#ffe1a3', 10);
-        continue;
-      }
-      const drive=collectorWeak(b);
-      const aligned=drive && shot.y>=drive.top && shot.y<=drive.bottom;
-      const damage=shot.shape==='missile'?2:aligned?3:1;
-      hitBoss(shot, damage);
-      if (aligned) sound(750,970,.08,.035);
-      if (!b.hp) break;
-      continue;
-    }
     const m=b.move && moves[b.move];
-    const exposed=sheetBoss()?sheetExposed(b):m && b.age>b.tell+m.active;
+    const exposed=m && b.age>b.tell+m.active;
     const weak=exposed && Math.abs(shot.y-bossWeakY(b))<34;
     const damage=shot.shape==='beachBall'?4:shot.shape==='missile'||shot.shape==='redLaser'?2:weak?3:1;
     hitBoss(shot,damage);
@@ -1443,7 +1185,7 @@ function updateBullets() {
 function hitBoss(shot,damage) {
   shot.dead=true;
   let floor=0;
-  if (boss.phase===2 && !isCodebreak() && !sheetBoss() && !collectorBoss()) {
+  if (boss.phase===2 && !isCodebreak()) {
     // Keep both shield tests reachable, even if damage outpaces the recharge.
     if (!boss.pulses.has(2)) floor=Math.floor(boss.max/4)+1;
     else if (!boss.pulses.has(3)) floor=1;
@@ -1673,43 +1415,6 @@ function renderBoss() {
     }
   }
   if (!b.hp && b.phase===2 && transition<12) return;
-  if (collectorBoss()) {
-    shadow(b.x, FLOOR, 96);
-    drawCollectorBoss(b);
-    const showLine=b.hp && !phaseShift && (b.sheetClip==='collector-lane-scan' || (b.sheetCue && b.age<=b.tell));
-    if (showLine) {
-      const y=b.sheetClip==='collector-lane-scan'?collectorLaneY(Math.floor(time/24)%2?'high':'low'):(b.sheetAim||collectorLaneY('low'));
-      ctx.save();
-      ctx.strokeStyle=b.sheetClip==='collector-lane-scan'?'#7dffe8':'#ffd56a';
-      ctx.globalAlpha=.7;
-      ctx.setLineDash([12,8]);
-      ctx.lineWidth=3;
-      ctx.beginPath();
-      ctx.moveTo(70, y);
-      ctx.lineTo(collectorMuzzle(b), y);
-      ctx.stroke();
-      ctx.restore();
-    }
-    const drive=collectorWeak(b);
-    if (drive && b.hp) {
-      ctx.strokeStyle='#ffe5a1';
-      ctx.lineWidth=3;
-      ctx.strokeRect(drive.left-6, drive.top-6, drive.right-drive.left+12, drive.bottom-drive.top+12);
-    }
-    return;
-  }
-  if (sheetBoss()) {
-    shadow(b.x, sheetSpec().feet?FLOOR:b.y+sheetSpec().drawH/2-8, 100);
-    drawSheetBoss(b);
-    if (sheetExposed(b) && b.hp) {
-      ctx.strokeStyle='#ffe5a1';
-      ctx.lineWidth=3;
-      ctx.beginPath();
-      ctx.arc(b.x-40, bossWeakY(b), 18+SimMath.sin(time*.18)*3, 0, Math.PI*2);
-      ctx.stroke();
-    }
-    return;
-  }
   // The teleport atlas supplies the mecha silhouette until it resolves into the live sprite.
   if (isFlying() && phaseShift>=STAGE_BLAST) return;
   const frames=ART.sprites[b.id], art=frames.poses;
@@ -2265,11 +1970,7 @@ function render() {
       const flame=attackFrame('boss/higgsfield/barn-fire',Math.floor(shot.age/3)%4);
       ctx.rotate(SimMath.atan2(-shot.vx,shot.vy)*.7);
       ctx.drawImage(flame,-26,-66,52,92);
-    } else if (SHEET_DATA.shots[shot.shape]) {
-      drawSheetShot(shot);
-} else if (shot.shape==='magnetPulse') {
-      if (shot.pulse==='impact') ctx.globalAlpha=Math.max(.25, 1-shot.age/16);
-      drawCollectorShot(shot);    } else {
+    } else {
       const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
       if (MECHA_ROCKETS.includes(shot.shape)) drawFlightFlame('orange',-w/2+23,0,30);
       ctx.drawImage(bossAttackImage(name),-Math.floor(w/2),-Math.floor(h/2),w,h);
@@ -2451,9 +2152,7 @@ function levelAssets(index) {
   if (index<acts.length) {
     for (let i=0;i<4;i++) images.push(stageEffectFrame(index,i));
     images.push(...spriteFrames(acts[index].id));
-    const sheetId=SHEET_DATA.byLevel[index];
-    if (sheetId) for (const clip of Object.values(SHEET_DATA.bosses[sheetId].clips)) for (const frame of clip.frames) images.push(picture(frame));
-if (index===4) for (const clip of Object.values(COLLECTOR_SHEET.clips)) images.push(picture(clip.atlas));  }
+  }
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;
