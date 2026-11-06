@@ -1,0 +1,677 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      262,
+      488,
+      175
+    ],
+    [
+      119,
+      215,
+      262,
+      233
+    ],
+    [
+      132,
+      144,
+      269,
+      356
+    ],
+    [
+      33,
+      196,
+      444,
+      277
+    ]
+  ],
+  "bounds": [
+    12,
+    144,
+    488,
+    356
+  ],
+  "unionCrop": [
+    47,
+    92,
+    466,
+    398
+  ],
+  "destinationSize": [
+    488,
+    356
+  ],
+  "offset": [
+    12,
+    144
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        185,
+        207,
+        337,
+        330
+      ],
+      "cellBounds": [
+        173,
+        278,
+        350,
+        421
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        101,
+        193,
+        410,
+        344
+      ],
+      "cellBounds": [
+        75,
+        262,
+        435,
+        437
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        47,
+        196,
+        466,
+        342
+      ],
+      "cellBounds": [
+        12,
+        265,
+        500,
+        435
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        62,
+        211,
+        450,
+        330
+      ],
+      "cellBounds": [
+        29,
+        282,
+        481,
+        421
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        216,
+        215,
+        296,
+        296
+      ],
+      "cellBounds": [
+        209,
+        287,
+        302,
+        381
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        151,
+        160,
+        364,
+        342
+      ],
+      "cellBounds": [
+        133,
+        223,
+        381,
+        435
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        139,
+        153,
+        352,
+        353
+      ],
+      "cellBounds": [
+        119,
+        215,
+        367,
+        448
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        185,
+        184,
+        328,
+        328
+      ],
+      "cellBounds": [
+        173,
+        251,
+        339,
+        419
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        195,
+        176,
+        318,
+        343
+      ],
+      "cellBounds": [
+        184,
+        242,
+        328,
+        436
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        168,
+        124,
+        346,
+        381
+      ],
+      "cellBounds": [
+        153,
+        181,
+        360,
+        480
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        150,
+        92,
+        381,
+        398
+      ],
+      "cellBounds": [
+        132,
+        144,
+        401,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        156,
+        122,
+        358,
+        398
+      ],
+      "cellBounds": [
+        139,
+        179,
+        374,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        146,
+        204,
+        367,
+        309
+      ],
+      "cellBounds": [
+        127,
+        274,
+        385,
+        396
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        91,
+        137,
+        419,
+        375
+      ],
+      "cellBounds": [
+        63,
+        196,
+        445,
+        473
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        65,
+        150,
+        446,
+        372
+      ],
+      "cellBounds": [
+        33,
+        211,
+        477,
+        470
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        91,
+        179,
+        419,
+        334
+      ],
+      "cellBounds": [
+        63,
+        245,
+        445,
+        426
+      ]
+    }
+  ],
+  "kind": "green-keyed-projectile-native-facing-normalization",
+  "assetKind": "projectiles",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/06-circuit-rune-p2-projectiles.png",
+  "sourceSha256": "48731ba4f99ef95212455b992b9c5b064b05d81fb15e55cdb5a4772de9e2c15e",
+  "sourceJobId": "8be5e799-466a-4be4-8098-e80e95b7efb6",
+  "backgroundKey": "green G>=180 and G-max(R,B)>=95, ONLY edgeconnected",
+  "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/06p2-projectiles-background-key-mask.png",
+  "foregroundRgbByteExactBeforeFacing": true,
+  "strictEnclosedFieldRule": "G>=230,R<=45,B<=45 only outside native purple hull scanline envelope in heavyrow",
+  "innerFieldRemovedPixels": 3780,
+  "nativeGreenBandProtection": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/06p2-projectiles-native-green-band-protection.png",
+  "actualInternalGreenPreservedByClosedOpaquePurpleOutlines": true,
+  "nativeGreenBandRgbaByteExact": true,
+  "nativeGreenBandPixels": 10045,
+  "hullEnvelopeBackgroundJudgment": "Source overlay audit06p2-green-envelope-cleared-audit.png: cleared keylike pixels within broadscanlineenvelope occur outside actual hull in fin-to-body negative gaps, not internal bandglyphs.",
+  "frameCutoffChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        175,
+        207,
+        327,
+        330
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        185,
+        207,
+        337,
+        330
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        102,
+        193,
+        411,
+        344
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        101,
+        193,
+        410,
+        344
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        46,
+        196,
+        465,
+        342
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        47,
+        196,
+        466,
+        342
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        62,
+        211,
+        450,
+        330
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        62,
+        211,
+        450,
+        330
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        216,
+        215,
+        296,
+        296
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        216,
+        215,
+        296,
+        296
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        151,
+        160,
+        364,
+        342
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        151,
+        160,
+        364,
+        342
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        139,
+        153,
+        352,
+        353
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        139,
+        153,
+        352,
+        353
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        185,
+        184,
+        328,
+        328
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        185,
+        184,
+        328,
+        328
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        195,
+        176,
+        318,
+        343
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        195,
+        176,
+        318,
+        343
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        168,
+        124,
+        346,
+        381
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        168,
+        124,
+        346,
+        381
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        150,
+        92,
+        381,
+        398
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        150,
+        92,
+        381,
+        398
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        156,
+        122,
+        358,
+        398
+      ],
+      "horizontalMirror": false,
+      "normalizedBounds": [
+        156,
+        122,
+        358,
+        398
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        145,
+        204,
+        366,
+        309
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        146,
+        204,
+        367,
+        309
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        93,
+        137,
+        421,
+        375
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        91,
+        137,
+        419,
+        375
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        66,
+        150,
+        447,
+        372
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        65,
+        150,
+        446,
+        372
+      ],
+      "sourceCutoffPass": true
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        93,
+        179,
+        421,
+        334
+      ],
+      "horizontalMirror": true,
+      "normalizedBounds": [
+        91,
+        179,
+        419,
+        334
+      ],
+      "sourceCutoffPass": true
+    }
+  ],
+  "facing": {
+    "A": "All4 horizontal mirrors: white energyhead LEFT, violetcollar and short tail RIGHT",
+    "B": "neutral roundorb unchanged",
+    "C": "convex crescent head LEFT unchanged",
+    "heavy": "All4 horizontal mirrors: pointednose LEFT/fins RIGHT"
+  },
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/matte-06p2-projectiles-initial.py",
+  "scriptSha256": "78eceb3c7f7bfe62ccc7b921d154be4798aeacde6f45041ce542b42369bfb6f2",
+  "productionEnabled": true,
+  "outputSha256": "2f3589c01a4321f3388b2289133c91758c873a22ef2eb57952c68974fcb2bf99",
+  "status": "root_visual_pass_native_green_energy_preserved",
+  "finalFringeJudgment": "Keep source-native subtle electricalgreen contour; safely separating source neon glow from physical green on purple hull is ambiguous. Root accepted this subtle source energyglow. No semantic recolor or wholeasset despill.",
+  "reviewFiles": [
+    "06p2-projectiles-initial-black-review.png",
+    "06p2-projectiles-initial-light-review.png",
+    "06p2-green-envelope-cleared-audit.png"
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "2f3589c01a4321f3388b2289133c91758c873a22ef2eb57952c68974fcb2bf99"
+  }
+}

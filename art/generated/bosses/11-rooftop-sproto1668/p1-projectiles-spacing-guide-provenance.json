@@ -1,0 +1,15 @@
+{
+  "guideOnly": true,
+  "animation": false,
+  "notForGameplay": true,
+  "source": "work/art-production/processed-phase-projectiles/03-mudline-crapto-p2-projectiles.png",
+  "sourceSha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813",
+  "sourceRows": [
+    1,
+    0,
+    2,
+    3
+  ],
+  "transform": "native firstcolumn full512cell scaled220 nearest and repeated4perrow atoffset146in512",
+  "purpose": "Only positions/spacing/relative sizes; allbrown/cream mud motifs must be replaced by specifiedGoldie gold/navy/blue ammunition"
+}

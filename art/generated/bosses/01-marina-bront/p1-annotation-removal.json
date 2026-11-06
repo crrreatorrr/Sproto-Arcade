@@ -1,0 +1,133 @@
+{
+  "sourceSha256": "0acba8efafda84c933e674233529e8a3f2eff704f96ee233b7dd5e3021975330",
+  "outputSha256": "b92ece39b691deb03bbd17808ed211dc48027f6225d7762a0b21bbd06be7de19",
+  "annotations": [
+    {
+      "row": 2,
+      "column": 0,
+      "polygonCellCoordinates": [
+        [
+          160,
+          209
+        ],
+        [
+          172,
+          219
+        ],
+        [
+          153,
+          231
+        ],
+        [
+          153,
+          224
+        ],
+        [
+          146,
+          231
+        ],
+        [
+          142,
+          244
+        ],
+        [
+          142,
+          253
+        ],
+        [
+          151,
+          264
+        ],
+        [
+          144,
+          273
+        ],
+        [
+          136,
+          262
+        ],
+        [
+          131,
+          252
+        ],
+        [
+          131,
+          239
+        ],
+        [
+          136,
+          224
+        ],
+        [
+          148,
+          213
+        ],
+        [
+          155,
+          214
+        ],
+        [
+          156,
+          209
+        ]
+      ],
+      "reason": "explicit detached yellow rotation-arrow UI annotation, polygon excludes physical gun, winch and rope fender"
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "polygonCellCoordinates": [
+        [
+          131,
+          205
+        ],
+        [
+          150,
+          205
+        ],
+        [
+          151,
+          226
+        ],
+        [
+          143,
+          224
+        ],
+        [
+          146,
+          236
+        ],
+        [
+          154,
+          243
+        ],
+        [
+          166,
+          245
+        ],
+        [
+          166,
+          255
+        ],
+        [
+          154,
+          254
+        ],
+        [
+          143,
+          249
+        ],
+        [
+          135,
+          239
+        ],
+        [
+          130,
+          227
+        ]
+      ],
+      "reason": "explicit detached yellow rotation-arrow UI annotation, polygon excludes physical gun, winch and rope fender"
+    }
+  ],
+  "outsideMaskUnchanged": true
+}

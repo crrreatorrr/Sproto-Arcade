@@ -1,0 +1,81 @@
+{
+  "allowEnclosedChroma": true,
+  "enclosedChromaReason": "Source-compared Moonkeep P2 palette is blue/cyan/gunmetal/gold with white eyes, red nose/muzzle/collar; NO genuine hot-magenta subject region. Alpha-only removal of enclosed sky holes between horns and wings.",
+  "releaseCuePolicy": "Genuine contained mouth ignition A1.75s and chest cannon local muzzle flare C3.0s serve gameplay release cues. B1.75s separates only free traveling beam outside prefire physical silhouette, preserving native gun hardware and local muzzle bursts. No physical vehicle clipping repair, RGB reconstruction, invented poses, duplicated source timestamps or interpolation.",
+  "rows": [
+    {
+      "state": "idle",
+      "source": "../raw-moonkeep-actions/p2-A.mp4",
+      "timestamps": [
+        0.1,
+        0.35,
+        0.6,
+        0.85
+      ]
+    },
+    {
+      "state": "attack-a",
+      "source": "../raw-moonkeep-actions/p2-A.mp4",
+      "timestamps": [
+        1.25,
+        1.5,
+        1.75,
+        3.75
+      ]
+    },
+    {
+      "state": "attack-b",
+      "source": "../raw-moonkeep-actions/p2-B.mp4",
+      "timestamps": [
+        0.75,
+        1.25,
+        1.75,
+        3.75
+      ],
+      "fxSeparation": {
+        "1.75": {
+          "protectSourceTime": 1.25,
+          "protectPadding": 2,
+          "rectangles": [
+            [
+              0,
+              210,
+              570,
+              150
+            ]
+          ],
+          "keepCircles": [
+            [
+              435,
+              266,
+              30
+            ],
+            [
+              560,
+              288,
+              30
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-c",
+      "source": "../raw-moonkeep-actions/p2-C.mp4",
+      "timestamps": [
+        0.75,
+        1.75,
+        3.0,
+        3.75
+      ],
+      "sourceTransform": {
+        "scale": 0.48,
+        "translate": [
+          249,
+          258
+        ],
+        "reason": "One fixed clip-wide nearest-neighbor registration: C neutral hardware is874x823 versus A432x393; normalize genuine C video subject to matching A/B body scale and baseline, never per-frame fit."
+      }
+    }
+  ]
+}

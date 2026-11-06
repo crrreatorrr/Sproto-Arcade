@@ -2,7 +2,7 @@
  "level": 11,
  "title": "Rooftop Breakaway",
  "bossId": "goldie",
- "source": "tools/story-bot.mjs",
+ "source": "tools/story-bot.mjs; historical legal inputs re-verified against reviewed collision geometry",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "goldie",
   "godMode": false,
   "ticks": 7061,
-  "endHash": "607bea6f2e8cb9c4"
+  "endHash": "3c7ac46145227594"
  },
  "log": {
   "schema": 1,
-  "simVersion": "fd91f34f14a64f8d",
+  "simVersion": "90bc20c852f51a0c",
   "seed": 24311,
   "rules": {
    "mode": "story",

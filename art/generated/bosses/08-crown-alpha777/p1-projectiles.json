@@ -1,0 +1,805 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      109,
+      105,
+      313,
+      310
+    ],
+    [
+      18,
+      111,
+      460,
+      300
+    ],
+    [
+      20,
+      37,
+      470,
+      456
+    ],
+    [
+      16,
+      12,
+      480,
+      488
+    ]
+  ],
+  "bounds": [
+    16,
+    12,
+    480,
+    488
+  ],
+  "unionCrop": [
+    24,
+    12,
+    488,
+    484
+  ],
+  "destinationSize": [
+    480,
+    488
+  ],
+  "offset": [
+    16,
+    12
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        124,
+        102,
+        411,
+        385
+      ],
+      "cellBounds": [
+        119,
+        105,
+        416,
+        398
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        116,
+        110,
+        404,
+        402
+      ],
+      "cellBounds": [
+        111,
+        113,
+        409,
+        415
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        168,
+        128,
+        376,
+        382
+      ],
+      "cellBounds": [
+        165,
+        132,
+        380,
+        395
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        151,
+        416,
+        396
+      ],
+      "cellBounds": [
+        109,
+        156,
+        422,
+        409
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        48,
+        132,
+        486,
+        376
+      ],
+      "cellBounds": [
+        18,
+        136,
+        471,
+        388
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        56,
+        120,
+        468,
+        387
+      ],
+      "cellBounds": [
+        37,
+        124,
+        463,
+        400
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        41,
+        122,
+        460,
+        385
+      ],
+      "cellBounds": [
+        45,
+        126,
+        478,
+        398
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        51,
+        108,
+        462,
+        398
+      ],
+      "cellBounds": [
+        43,
+        111,
+        468,
+        411
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        59,
+        484,
+        454
+      ],
+      "cellBounds": [
+        20,
+        61,
+        490,
+        469
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        50,
+        52,
+        463,
+        462
+      ],
+      "cellBounds": [
+        42,
+        53,
+        469,
+        477
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        45,
+        36,
+        462,
+        476
+      ],
+      "cellBounds": [
+        43,
+        37,
+        474,
+        492
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        41,
+        37,
+        469,
+        477
+      ],
+      "cellBounds": [
+        36,
+        38,
+        478,
+        493
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        66,
+        28,
+        447,
+        484
+      ],
+      "cellBounds": [
+        59,
+        29,
+        454,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        45,
+        12,
+        470,
+        484
+      ],
+      "cellBounds": [
+        38,
+        12,
+        477,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        30,
+        28,
+        482,
+        484
+      ],
+      "cellBounds": [
+        22,
+        29,
+        490,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        24,
+        29,
+        488,
+        484
+      ],
+      "cellBounds": [
+        16,
+        30,
+        496,
+        500
+      ]
+    }
+  ],
+  "kind": "reviewed-native-core-protected-magenta-recovery",
+  "source": "work/art-production/raw-phase-projectiles/08-crown-alpha777-p1-projectiles-text.png",
+  "sourceSha256": "1e5bffb4274ff6d1786346284e9ac2db7c733948958aa5a5451957962d0116ef",
+  "profile": {
+    "stripGrid": 8,
+    "reason": "Native ruby/pink-red jewel and red chip/card pigment are foreground, not magenta spill. Preserve reviewed physical centers byte-exact; remove only verified edgeconnected field inside guards.",
+    "protectedCores": [
+      {
+        "row": 1,
+        "box": [
+          60,
+          150,
+          405,
+          220
+        ],
+        "reason": "Ivory card body and red diamond marks, allfour genuine turnposes",
+        "predicate": "red-pigment"
+      },
+      {
+        "row": 2,
+        "box": [
+          40,
+          100,
+          425,
+          330
+        ],
+        "reason": "Red/ivory casino chip face and olive/brass capsule body",
+        "predicate": "red-pigment"
+      },
+      {
+        "row": 3,
+        "box": [
+          190,
+          140,
+          200,
+          245
+        ],
+        "reason": "Native central ruby jewel and golden crown recess, allfour turnposes"
+      }
+    ],
+    "redPigmentPredicate": "R-G>20,R-B>20,B<160,G<140; prevents source pink/white/gold glow outside real red marks from being falsely protected"
+  },
+  "profileSha256": "a81649afea6c0661441594b6d4d30f1f84b0ea866161bfced3618a2b2162d336",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 0,
+      "start": 0,
+      "end": 8,
+      "nearBlackCore": [
+        0,
+        5
+      ],
+      "rectangle": [
+        0,
+        0,
+        8,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 2048,
+      "start": 2040,
+      "end": 2048,
+      "nearBlackCore": [
+        2043,
+        2048
+      ],
+      "rectangle": [
+        2040,
+        0,
+        8,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 0,
+      "start": 0,
+      "end": 8,
+      "nearBlackCore": [
+        0,
+        5
+      ],
+      "rectangle": [
+        0,
+        0,
+        2048,
+        8
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 2048,
+      "start": 2040,
+      "end": 2048,
+      "nearBlackCore": [
+        2043,
+        2048
+      ],
+      "rectangle": [
+        0,
+        2040,
+        2048,
+        8
+      ]
+    }
+  ],
+  "protectedNativeCorePixels": 504307,
+  "protectedNativeCoreRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "unmixCriterion": "Outside explicit nativecore guards and knownfield: min(R,B)-G>18",
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha",
+  "unmixPixels": 51573,
+  "backgroundRemoved": 2626882,
+  "frameCutoffChecks": [
+    {
+      "sourceBounds": [
+        124,
+        102,
+        411,
+        385
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        116,
+        110,
+        404,
+        402
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        168,
+        128,
+        376,
+        382
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        114,
+        151,
+        416,
+        396
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        48,
+        132,
+        486,
+        376
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        56,
+        120,
+        468,
+        387
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        41,
+        122,
+        460,
+        385
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        51,
+        108,
+        462,
+        398
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        30,
+        59,
+        484,
+        454
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        50,
+        52,
+        463,
+        462
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        45,
+        36,
+        462,
+        476
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        41,
+        37,
+        469,
+        477
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        66,
+        28,
+        447,
+        484
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        45,
+        12,
+        470,
+        484
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        30,
+        28,
+        482,
+        484
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "sourceBounds": [
+        24,
+        29,
+        488,
+        484
+      ],
+      "usable": [
+        8,
+        8,
+        504,
+        504
+      ]
+    }
+  ],
+  "atlasSha256": "782d1f682551482fd9cd07b2bca50c3acbe4590907ec0214e230a299262630a6",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-protected-projectile-cores.py",
+  "scriptSha256": "8f471fb18cd23bd3c9259686457820c6c5cc5d03a37a4eae13ccae172f145ad4",
+  "productionEnabled": true,
+  "sourceBeforeFacing": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/08-crown-alpha777-p1-projectiles-clean.png",
+  "sourceBeforeFacingSha256": "d25015cc6553e9d559eb6943d52eb70d0263e408fabfb185f4392d4c51df516e",
+  "facing": "left",
+  "facingOperation": "CarddartB andchipcapsuleC frontsRIGHT are natively mirroredLEFT. Acoin andheavyjackpottoken retain native nondirectional spinning poses. No RGB repaint/pose synthesis",
+  "outputSha256": "782d1f682551482fd9cd07b2bca50c3acbe4590907ec0214e230a299262630a6",
+  "job_id": "c3ba2bb1-edb8-4489-8e03-cebbdb981552",
+  "billing": "Higgsfield Unlimited verified2K1:1",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "782d1f682551482fd9cd07b2bca50c3acbe4590907ec0214e230a299262630a6"
+  }
+}

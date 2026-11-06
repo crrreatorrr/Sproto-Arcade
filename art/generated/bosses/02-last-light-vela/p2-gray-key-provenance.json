@@ -1,0 +1,19 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/02-last-light-vela-p2-composed-raw.png",
+  "sourceSha256": "2f9adaeb1c67ce5c1935523deb96181aec9e9f6dcc5ae1c873a7d2a090ff3b5c",
+  "backgroundRgb": [
+    159,
+    168,
+    167
+  ],
+  "maximumPerChannelDistance": 8,
+  "edgeConnectedOnly": true,
+  "foregroundRgbUntouched": true,
+  "nativeCockpitProtectedPixelsByteExact": true,
+  "removedPixels": 3714684,
+  "nativeProtectionMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/02-last-light-vela-p2-native-mask.png",
+  "conversionScript": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/matte-02p2.py",
+  "scriptSha256": "cd2fd56ae68af36ecb4d98cd45e38b41245cc12eac1cf74847c2b3b236a6716d",
+  "outputRgbaSha256": "f2d9ddc6cfe361f24bc72326fcdee19e3f181ef2bb2994a44220820e494b29e8",
+  "status": "technical candidate; original antialias retained without shape reconstruction"
+}

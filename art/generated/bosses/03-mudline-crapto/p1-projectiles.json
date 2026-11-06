@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "projectiles",
+  "source": "03-mudline-crapto-p1-projectiles.png",
+  "sourceSha256": "4132ae85e15831aa6ae0064f7fcbe6821d5228e166727aa25b7584504baa4f92",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "sourceFrameDimensions": [
+    512,
+    512
+  ],
+  "gridRemoval": {
+    "maximumBoundaryDistance": 8,
+    "nearBlackMaximumChannel": 45,
+    "maximumInterpolationFringe": 8,
+    "bands": [
+      {
+        "axis": "x",
+        "boundary": 512,
+        "start": 504,
+        "end": 520,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          504,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1024,
+        "start": 1016,
+        "end": 1032,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          1016,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1536,
+        "start": 1528,
+        "end": 1544,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          1528,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 512,
+        "start": 504,
+        "end": 520,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          0,
+          504,
+          2048,
+          16
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1024,
+        "start": 1016,
+        "end": 1032,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          0,
+          1016,
+          2048,
+          16
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1536,
+        "start": 1528,
+        "end": 1544,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          0,
+          1528,
+          2048,
+          16
+        ]
+      }
+    ]
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      20,
+      129,
+      471,
+      249
+    ],
+    [
+      110,
+      112,
+      290,
+      289
+    ],
+    [
+      23,
+      92,
+      469,
+      335
+    ],
+    [
+      26,
+      12,
+      461,
+      488
+    ]
+  ],
+  "bounds": [
+    20,
+    12,
+    472,
+    488
+  ],
+  "unionCrop": [
+    18,
+    10,
+    495,
+    503
+  ],
+  "destinationSize": [
+    472,
+    488
+  ],
+  "offset": [
+    20,
+    12
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        65,
+        193,
+        448,
+        316
+      ],
+      "cellBounds": [
+        67,
+        193,
+        445,
+        315
+      ],
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 235355
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        18,
+        193,
+        494,
+        316
+      ],
+      "cellBounds": [
+        20,
+        193,
+        491,
+        315
+      ],
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 232890
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        38,
+        128,
+        473,
+        380
+      ],
+      "cellBounds": [
+        40,
+        129,
+        470,
+        378
+      ],
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 230109
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        54,
+        179,
+        459,
+        330
+      ],
+      "cellBounds": [
+        56,
+        179,
+        456,
+        329
+      ],
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 242145
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        116,
+        112,
+        391,
+        402
+      ],
+      "cellBounds": [
+        117,
+        113,
+        389,
+        400
+      ],
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 204962
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        109,
+        113,
+        396,
+        403
+      ],
+      "cellBounds": [
+        110,
+        114,
+        394,
+        401
+      ],
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 204339
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        111,
+        118,
+        402,
+        391
+      ],
+      "cellBounds": [
+        112,
+        119,
+        400,
+        389
+      ],
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 205547
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        122,
+        111,
+        395,
+        402
+      ],
+      "cellBounds": [
+        123,
+        112,
+        393,
+        400
+      ],
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 205393
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        32,
+        141,
+        480,
+        372
+      ],
+      "cellBounds": [
+        34,
+        142,
+        477,
+        370
+      ],
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 207426
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        21,
+        106,
+        495,
+        409
+      ],
+      "cellBounds": [
+        23,
+        107,
+        492,
+        407
+      ],
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 187595
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        84,
+        156,
+        429,
+        358
+      ],
+      "cellBounds": [
+        85,
+        157,
+        427,
+        356
+      ],
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 221556
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        47,
+        91,
+        466,
+        429
+      ],
+      "cellBounds": [
+        49,
+        92,
+        463,
+        427
+      ],
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 198020
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        29,
+        32,
+        483,
+        482
+      ],
+      "cellBounds": [
+        31,
+        34,
+        480,
+        479
+      ],
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 100963
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        85,
+        10,
+        429,
+        503
+      ],
+      "cellBounds": [
+        86,
+        12,
+        427,
+        500
+      ],
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 128423
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        46,
+        46,
+        466,
+        467
+      ],
+      "cellBounds": [
+        48,
+        48,
+        463,
+        464
+      ],
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 120852
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        24,
+        112,
+        490,
+        402
+      ],
+      "cellBounds": [
+        26,
+        113,
+        487,
+        400
+      ],
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 155506
+    }
+  ],
+  "sampling": "one-to-one source cells; no interpolation or frame duplication; nearest-neighbor scale",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected conservative chroma with boundary despill",
+    "minimumBackgroundFraction": 0.2
+  },
+  "atlasSha256": "863d3013f793e41dfec07b85db82ea79fe0998cca5db483baaa0579ff5df17be",
+  "sourceJobId": "776fd272-28b6-417c-8e1c-632b1c433f31",
+  "sourceReferences": 0,
+  "referencePolicy": "Text only after ghost vehicle rejection; source weapon themes specified from inspected concept",
+  "facing": "LEFT leading bulb and foamy crest; clod spins; heavy round symmetrical",
+  "productionEnabled": true,
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "interiorBackgroundCleanup": {
+    "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/03-mudline-crapto-p1-projectiles-before-interior-key.png",
+    "sourceSha256": "fff35a3fb1f0c07c67649cc622fd01ce9b5e3c3472fa8b2372a1fd7ef6cadb5c",
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/03-mudline-crapto-p1-projectiles-interior-key-mask.png",
+    "maskSha256": "b8a269349557da83f74e368812a776a068bec60be4e8052c281b821e8b858120",
+    "reason": "Reviewed green/brown projectile source has no authored magenta; enclosed true magenta jet slit is backdrop, not a projectile color",
+    "criterion": "opaque min(R,B)>=180 and min(R,B)-G>=95 and abs(R-B)<=65",
+    "pixelsRemoved": 236,
+    "foregroundRgbUnchanged": true
+  },
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "863d3013f793e41dfec07b85db82ea79fe0998cca5db483baaa0579ff5df17be"
+  }
+}

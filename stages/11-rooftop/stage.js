@@ -30,6 +30,7 @@
     w.hazard({id:source+'.'+w.phaseTick,source,rule:'ordinary',x:origin.x,y:origin.y,w:28,h:20,vx:dx/len*8,vy:dy/len*8,windup:75,active:130,recovery:10,cue:fromRight?'Goldie banks back — intercept from ahead':'Goldie aims his arm — burst from behind'});
   }
   function machine(ctx,w,glider){
+    if(globalThis.ArcadeBossSheets?.drawMachine(ctx,w))return;
     const p=w.player,x=p.x+(glider?440:-260),y=300+Math.sin(w.phaseTick/45)*22;
     ctx.save();ctx.translate(x,y);ctx.fillStyle='#664a36';ctx.fillRect(-48,-25,96,63);ctx.strokeStyle=theme.gold;ctx.lineWidth=5;ctx.strokeRect(-48,-25,96,63);
     if(glider){ctx.beginPath();ctx.moveTo(-40,0);ctx.lineTo(-170,45);ctx.lineTo(-100,-35);ctx.lineTo(0,-18);ctx.lineTo(100,-35);ctx.lineTo(170,45);ctx.lineTo(40,0);ctx.closePath();ctx.fillStyle='#9687ac';ctx.fill();}

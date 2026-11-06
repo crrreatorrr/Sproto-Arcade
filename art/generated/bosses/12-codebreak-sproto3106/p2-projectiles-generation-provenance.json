@@ -1,0 +1,97 @@
+{
+  "request": {
+    "folder": "12-codebreak-sproto3106",
+    "phase": 2,
+    "status": "completed_candidate_pending_independent_QA",
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/12-codebreak-sproto3106-p2-concept.png",
+    "concept_job_id": "dbf81db7-9eac-40ed-926d-131209ae3cd6",
+    "concept_available": true,
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/12-codebreak-sproto3106-p2-guide.png",
+    "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "heavy rotary brass round cannon",
+        "projectile": "long heavy brass rotary-cannon slug with hot gold tip and red warning bands",
+        "size_class": "long narrow",
+        "extent_percent_of_cell": {
+          "width": 43,
+          "height": 15
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "B",
+        "mechanism": "shoulder-mounted gold sheriff-badge pulse launcher",
+        "projectile": "broad gold sheriff-badge pulse with red inner face and blue stun arcs",
+        "size_class": "broad wide",
+        "extent_percent_of_cell": {
+          "width": 36,
+          "height": 34
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "C",
+        "mechanism": "overhead-claw blue-white stun-lance emitter",
+        "projectile": "long blue-white stun lance with segmented gold bands and red warning pixels",
+        "size_class": "long narrow",
+        "extent_percent_of_cell": {
+          "width": 50,
+          "height": 11
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged heavy cartridge from overhead-claw blue-white stun-lance emitter",
+        "projectile": "large chunky red-and-blue lockdown capsule with brass rotary bands and gold stabilizers",
+        "size_class": "large heavy",
+        "extent_percent_of_cell": {
+          "width": 46,
+          "height": 30
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "billing": "Unlimited only; no paid fallback",
+    "sourceFacing": "right",
+    "guideFacing": "left",
+    "transform": "horizontal-flip",
+    "type": "phase_projectile_atlas",
+    "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: long heavy brass rotary-cannon slug with hot gold tip and red warning bands. Width about220pixels and height77pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: broad gold sheriff-badge pulse with red inner face and blue stun arcs. Width about184pixels and height174pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: long blue-white stun lance with segmented gold bands and red warning pixels. Width about240pixels and height56pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: large chunky red-and-blue lockdown capsule with brass rotary bands and gold stabilizers. Width about236pixels and height154pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/12-codebreak-sproto3106-p2-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/12-codebreak-sproto3106/p2-projectiles.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: long heavy brass rotary-cannon slug with hot gold tip and red warning bands, fired from heavy rotary brass round cannon. Keep its own relative size approximately 43% cell width by 15% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: broad gold sheriff-badge pulse with red inner face and blue stun arcs, fired from shoulder-mounted gold sheriff-badge pulse launcher. Keep its own relative size approximately 36% cell width by 34% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: long blue-white stun lance with segmented gold bands and red warning pixels, fired from overhead-claw blue-white stun-lance emitter. Keep its own relative size approximately 50% cell width by 11% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: large chunky red-and-blue lockdown capsule with brass rotary bands and gold stabilizers, fired from overcharged heavy cartridge from overhead-claw blue-white stun-lance emitter. Keep its own relative size approximately 46% cell width by 30% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+    "reference_path": null,
+    "promptSizingNote": "Capped future requested width to240px so no row contradicts250px totalextentlimit; submitted past prompts unchanged.",
+    "job_id": "ebdd3dd7-85b7-461e-b4fa-54e4dfea713f",
+    "websitePromptDetailVerified": true,
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_182145_ebdd3dd7-85b7-461e-b4fa-54e4dfea713f.png"
+  },
+  "job_id": "ebdd3dd7-85b7-461e-b4fa-54e4dfea713f",
+  "billing": "Verified website Unlimited 2K",
+  "finalSha256": "5c181c731bb19f4d97d94d8d7550a579af165539ad77ec0900d68c802dfe8c6f",
+  "physicalRepair": false,
+  "nativeCoreByteExact": true,
+  "facing": "Native A brass slug and C stun lance pointRIGHT and mirroredLEFT; B gold badge pulse non-directional; heavy capsule mirrored uniformly so native exhaust trailsRIGHT and blue rounded leading capLEFT; final flame direction is authoritative. No artwork repaint or pose synthesis."
+}

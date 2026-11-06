@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boss animation review · Sproto Arcade</title>
+<style>
+:root{color-scheme:dark;font:15px system-ui;background:#101925;color:#edf2ec}body{max-width:1200px;margin:auto;padding:28px}a{color:#b9e3ff}h1{margin-bottom:8px}p{color:#adbdc6;line-height:1.5}header{position:sticky;top:0;padding:16px 0;background:#101925f5;z-index:1;display:flex;gap:18px;align-items:center;flex-wrap:wrap}select,button{font:inherit;background:#273b4d;color:#fff;border:1px solid #7395ac;border-radius:4px;padding:8px}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}article{border:1px solid #3a5265;border-radius:8px;padding:16px;background:#172635}h2{font-size:18px;margin:0 0 12px}.phases{display:flex;gap:10px}.phase{flex:1;min-width:0}canvas{width:100%;aspect-ratio:1;image-rendering:pixelated;background:repeating-conic-gradient(#263642 0 25%,#31424c 0 50%) 0/20px 20px;border-radius:4px}.projectile{aspect-ratio:2.56/1}.state{font-size:12px;color:#f2cd89;min-height:32px}.label{display:block;font-size:12px;margin-bottom:5px;color:#c6d6dc}footer{margin-top:30px;color:#b6c4cc}
+</style>
+<h1>Boss animation review</h1>
+<p>Inspect both phases at a shared scale. Every frame must keep the Sproto pilot visible in the vehicle. Pending sheets retain the existing game artwork; a planned entry does not count as a generated animation.</p>
+<header><label>Animation <select id="animation"><option value="0">Idle</option><option value="1">Attack A</option><option value="2">Attack B</option><option value="3">Attack C</option></select></label><label>Projectile <select id="projectile"><option value="0">Weapon A</option><option value="1">Weapon B</option><option value="2">Weapon C</option><option value="3">Heavy</option></select></label><button id="pause">Pause</button><span id="frame"></span><a href="index.html">Machine Trials</a><a href="legacy.html">Story campaign</a><a href="controlled-stage-review.html">Controlled phase review</a></header>
+<main id="bosses"></main><footer>Attack frames: anticipation → lock → actual weapon firing → recoil. Each phase has its own A/B/C/heavy projectile atlas. Projectile previews use illustrative varied bounds; gameplay uses its authored dimensions. Attack timing, movement and counter rules stay authored; collision cores are measured from the approved sprites.</footer>
+<script src="sprite-hitboxes.js?v=boss-collision-active-20261106"></script><script src="boss-sheets.js?v=boss-release-20261106"></script>
+<script>
+const views=[];let paused=false,tick=0,last=0;
+const titles=['Fat Head Dave','Morelight','Crapto','Halloween 2008','Collector','Bongraker','Big Swole','Alpha 777','High Sproto','Bot Sales','Goldie','Bitcoin Sheriff'];
+for(const [id,config]of Object.entries(ArcadeBossSheets.manifest)){
+ const card=document.createElement('article'),title=document.createElement('h2'),phases=document.createElement('div');title.textContent=String(id).padStart(2,'0')+' · '+titles[Number(id)-1];card.append(title,phases);phases.className='phases';
+ for(const phase of [0,1]){const projectile=document.createElement('canvas'),projectileState=document.createElement('p');projectile.width=256;projectile.height=100;projectile.className='projectile';projectileState.className='state';const block=document.createElement('div'),label=document.createElement('span'),canvas=document.createElement('canvas'),state=document.createElement('p');block.className='phase';label.className='label';label.textContent='PHASE '+(phase+1);canvas.width=canvas.height=256;state.className='state';block.append(label,canvas,state,projectile,projectileState);phases.append(block);views.push({id,phase,canvas,state,projectile,projectileState,config});}
+ document.getElementById('bosses').append(card);
+}
+document.getElementById('animation').onchange=()=>{const row=Number(document.getElementById('animation').value);if(row)document.getElementById('projectile').value=String(row-1);};
+document.getElementById('pause').onclick=()=>{paused=!paused;document.getElementById('pause').textContent=paused?'Play':'Pause';};
+function draw(now){
+ if(!paused)tick+=Math.min(100,now-last||0);last=now;
+ const column=Math.floor(tick/100)%4,row=Number(document.getElementById('animation').value),motif=Number(document.getElementById('projectile').value);
+ document.getElementById('frame').textContent='Frame '+(column+1)+' / 4';
+ for(const view of views){
+  const c=view.canvas.getContext('2d');c.clearRect(0,0,256,256);
+  const shown=ArcadeBossSheets.drawBoss(c,view.id,view.phase,{row,column},{x:0,y:0,w:256,h:256});
+  view.state.textContent=shown?'Ready · check pilot, alignment and weapon':view.config.phases[view.phase].ready?'Loading or unavailable · original game art retained':'Boss sheet pending generation and visual QA';
+  const pc=view.projectile.getContext('2d');pc.clearRect(0,0,256,100);
+  const [w,h]=[[48,32],[128,28],[90,64],[112,48]][motif];
+  const projectileShown=ArcadeBossSheets.drawProjectile(pc,view.id,{age:column*5,missile:motif===3},{x:(256-w)/2,y:(100-h)/2,w,h},{phaseIndex:view.phase,variant:Math.min(motif,2)});
+  view.projectileState.textContent=projectileShown?'Phase '+(view.phase+1)+' · '+(motif===3?'heavy':'weapon '+['A','B','C'][motif])+' projectile':view.config.projectiles[view.phase].ready?'Projectile loading or unavailable':'Phase projectile sheet pending generation and visual QA';
+ }
+ requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</html>

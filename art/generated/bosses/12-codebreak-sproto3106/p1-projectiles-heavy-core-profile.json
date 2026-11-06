@@ -1,0 +1,54 @@
+{
+  "stripGrid": 0,
+  "reason": "Native red nose/blue body/brassstar/fins preserved; generatedfourcompleteLEFTrockets keyed/despilledonlybacking. No physical silhouette repair.",
+  "protectedCores": [
+    {
+      "row": 0,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 1,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 2,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    },
+    {
+      "row": 3,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "sheriff-red-blue-pigment"
+    }
+  ],
+  "allowEnclosedStrongField": true,
+  "enclosedFieldRule": {
+    "minRB": 180,
+    "maxG": 150,
+    "minExcess": 70,
+    "maxBalance": 65
+  },
+  "nativeFramesDirectory": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-heavy"
+}

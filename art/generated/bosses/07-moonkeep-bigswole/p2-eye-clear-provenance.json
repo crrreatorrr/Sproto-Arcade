@@ -1,0 +1,73 @@
+{
+  "kind": "native-approved-same-atlas-face-occlusion-repair",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/07-moonkeep-bigswole/p2.png",
+  "sourceSha256": "c8878f8da067f9405c0e5a6cbd592da357d10af9bde0b3b698a5c0111964de21",
+  "sourceCell": {
+    "row": 0,
+    "column": 0,
+    "index": 0,
+    "reason": "Same canonical approved fully visible BigSwole pilot inside samecanopy; sourceeyes/brow unobstructed"
+  },
+  "targets": [
+    {
+      "row": 1,
+      "column": 1,
+      "index": 5
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "index": 6
+    }
+  ],
+  "polygonCellLocal": [
+    [
+      175,
+      253
+    ],
+    [
+      181,
+      253
+    ],
+    [
+      184,
+      257
+    ],
+    [
+      184,
+      270
+    ],
+    [
+      181,
+      272
+    ],
+    [
+      174,
+      270
+    ],
+    [
+      172,
+      266
+    ],
+    [
+      172,
+      260
+    ]
+  ],
+  "transform": "identity: same native source/target cell-local coordinates; no scaling, rotation, resampling, color edits, invented pixels or horn/body reconstruction",
+  "nativePixelsByteExact": true,
+  "outsideMaskRgbaByteExact": true,
+  "allOther14CellsByteExact": true,
+  "scope": "Only pilot left brow and left-eye region. All genuine weapon/horn pixels outside this face polygon remain byte-exact.",
+  "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07p2-eye-clear-native-mask.png",
+  "maskSha256": "ccafcd8529e75cb028b75524d6019e9db0d1bba4e0716b541876ca0853541fdb",
+  "output": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07-moonkeep-bigswole-p2-eye-clear-candidate.png",
+  "outputSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/repair-07p2-eye-obstruction.py",
+  "scriptSha256": "7f80fc7d48b8ce87eda12cb7996abe2053148c084975bccffff6465e867b1fa6",
+  "productionEnabled": false,
+  "status": "root_independent_visual_pass_copied_to_repo",
+  "originalAtlasBackup": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07-moonkeep-bigswole-p2-pre-eye-repair.png",
+  "alphaEntireAtlasByteExact": true,
+  "acceptedAtlasSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82"
+}

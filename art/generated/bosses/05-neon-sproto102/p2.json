@@ -1,0 +1,485 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      122,
+      56,
+      378,
+      444
+    ],
+    [
+      12,
+      106,
+      488,
+      394
+    ],
+    [
+      33,
+      106,
+      465,
+      394
+    ],
+    [
+      40,
+      106,
+      460,
+      394
+    ]
+  ],
+  "bounds": [
+    12,
+    56,
+    488,
+    444
+  ],
+  "unionCrop": [
+    87,
+    117,
+    362,
+    367
+  ],
+  "destinationSize": [
+    488,
+    444
+  ],
+  "offset": [
+    12,
+    56
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        146,
+        361,
+        366
+      ],
+      "cellBounds": [
+        124,
+        108,
+        498,
+        498
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        149,
+        117,
+        362,
+        367
+      ],
+      "cellBounds": [
+        122,
+        56,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        146,
+        361,
+        366
+      ],
+      "cellBounds": [
+        124,
+        108,
+        498,
+        498
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        149,
+        117,
+        362,
+        367
+      ],
+      "cellBounds": [
+        122,
+        56,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        148,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        120,
+        106,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        108,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        49,
+        106,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        87,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        12,
+        106,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        148,
+        146,
+        362,
+        367
+      ],
+      "cellBounds": [
+        120,
+        108,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        149,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        122,
+        106,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        149,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        122,
+        106,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        99,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        33,
+        106,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        149,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        122,
+        106,
+        498,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        149,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        122,
+        106,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        103,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        40,
+        106,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        108,
+        145,
+        362,
+        366
+      ],
+      "cellBounds": [
+        49,
+        106,
+        500,
+        498
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        149,
+        145,
+        362,
+        367
+      ],
+      "cellBounds": [
+        122,
+        106,
+        500,
+        500
+      ]
+    }
+  ],
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/05-neon-sproto102-p2-composed-raw.png",
+  "sourceSha256": "0011082190c63bbf3ac3feeefda156a17ad01b3b8acc899aec1cc136ca35073b",
+  "inputKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/processed-phase-atlases/05-neon-sproto102-p2-composed-prototype-source-keyed-rgba.png",
+  "inputKeyedSha256": "f0be4c9d887fd3f840f502a29142cddc0f172aa63362ee0846597b1b7f6ce5c8",
+  "nativeProtectedMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/05-neon-sproto102-p2-native-pilot-mask.png",
+  "nativeProtectedRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "cellBackgroundRgb": [
+    [
+      254,
+      0,
+      254
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      254,
+      0,
+      254
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      96,
+      126,
+      128
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      105,
+      115,
+      125
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      118,
+      104,
+      129
+    ],
+    [
+      118,
+      104,
+      129
+    ]
+  ],
+  "cyanGlowRegions": [
+    [
+      1,
+      2,
+      [
+        82,
+        165,
+        140,
+        220
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        98,
+        235,
+        153,
+        300
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        106,
+        235,
+        156,
+        298
+      ]
+    ]
+  ],
+  "cyanGlowPixels": 4479,
+  "magentaBoundaryPixels": 2750,
+  "magentaBoundaryRule": "only two-pixel alpha boundary, cells0/2, minRB>=70,minRB-G>=40,absR-B<=40; native cockpit excluded",
+  "alphaRecovery": "minimum physically valid alpha using documented per-cell backdrop, nativeRGB unmix only explicit VFX regions; no generated art",
+  "includesPilot": true,
+  "productionEnabled": true,
+  "outputSha256": "686fdf27c3e46458e9eb529eaf93e099f04af6559630ac7cc060307253052640",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/refine-05p2-glows.py",
+  "scriptSha256": "d88d01198565cc7c377f6560fef0ef77f43314e4b600de27de60f0de472428e4",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "686fdf27c3e46458e9eb529eaf93e099f04af6559630ac7cc060307253052640"
+  }
+}

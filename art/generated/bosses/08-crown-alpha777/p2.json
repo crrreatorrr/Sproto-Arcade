@@ -1,0 +1,607 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-video-poses-with-explicit-flight-fx-separation",
+  "generationJob": "34943f31-8fa8-4694-b719-23b073ede1ad",
+  "sourceSha256": "aefbded7b6e263b0701b3d1a70e0583f12e038082ecf616cbd1f131f2d7aaa02",
+  "atlasSha256": "abebc17f4b2591c53cd6824ecfd6bbfd6502c12d00b44d94c63d9ea0647b5d20",
+  "includesPilot": true,
+  "samples": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "timestamp": 0.4,
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "timestamp": 1.1,
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "timestamp": 1.8,
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "timestamp": 2.5,
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "timestamp": 3.4,
+      "sourceBounds": [
+        42,
+        144,
+        932,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "timestamp": 3.8,
+      "sourceBounds": [
+        45,
+        144,
+        932,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "timestamp": 4.041667,
+      "sourceBounds": [
+        158,
+        142,
+        940,
+        867
+      ],
+      "effectSeparation": "Separate detached traveling lance shot in x<150; complete recoiling physical cannon starts at x162. Game projectile atlas supplies flight.",
+      "exclusionPixels": 144000,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "timestamp": 4.5,
+      "sourceBounds": [
+        29,
+        144,
+        932,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "timestamp": 6.1,
+      "sourceBounds": [
+        29,
+        54,
+        933,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "timestamp": 6.5,
+      "sourceBounds": [
+        29,
+        28,
+        933,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "timestamp": 7.0,
+      "sourceBounds": [
+        29,
+        15,
+        933,
+        867
+      ],
+      "effectSeparation": "Separate outer crown-mortar firing rays beyond local55px muzzle radius; protect full prefire physical hardware alpha expanded3px. No source RGB copied or hardware reconstructed.",
+      "exclusionPixels": 26717,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "timestamp": 7.5,
+      "sourceBounds": [
+        29,
+        98,
+        933,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "timestamp": 9.2,
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "timestamp": 9.7,
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "timestamp": 10.25,
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "timestamp": 11.5,
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        868
+      ],
+      "effectSeparation": null,
+      "exclusionPixels": 0,
+      "physicalVehicleComplete": true
+    }
+  ],
+  "facing": "left",
+  "enclosedKeyPolicy": "Palette reviewed: no native magenta; field-only alpha removal inside coil gaps.",
+  "releaseRetiming": "A4.041667s is genuine cannon recoil/shot-release; detached shot separated. B7s and C10.25s retain native local firing bursts.",
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      12,
+      112,
+      484,
+      387
+    ],
+    [
+      12,
+      111,
+      488,
+      388
+    ],
+    [
+      12,
+      43,
+      484,
+      456
+    ],
+    [
+      12,
+      112,
+      484,
+      387
+    ]
+  ],
+  "bounds": [
+    12,
+    43,
+    488,
+    456
+  ],
+  "unionCrop": [
+    29,
+    15,
+    940,
+    868
+  ],
+  "destinationSize": [
+    488,
+    457
+  ],
+  "offset": [
+    12,
+    43
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        42,
+        144,
+        932,
+        868
+      ],
+      "cellBounds": [
+        19,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        45,
+        144,
+        932,
+        867
+      ],
+      "cellBounds": [
+        21,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        158,
+        142,
+        940,
+        867
+      ],
+      "cellBounds": [
+        81,
+        111,
+        500,
+        499
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        29,
+        144,
+        932,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        29,
+        54,
+        933,
+        868
+      ],
+      "cellBounds": [
+        12,
+        64,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        29,
+        28,
+        933,
+        868
+      ],
+      "cellBounds": [
+        12,
+        50,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        29,
+        15,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        43,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        29,
+        98,
+        933,
+        868
+      ],
+      "cellBounds": [
+        12,
+        87,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        29,
+        144,
+        933,
+        868
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        867
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        29,
+        143,
+        933,
+        868
+      ],
+      "cellBounds": [
+        12,
+        112,
+        496,
+        499
+      ]
+    }
+  ],
+  "boundsPolicy": "Actual output alpha union; destinationSize retains allocated nearest-neighbor crop.",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "abebc17f4b2591c53cd6824ecfd6bbfd6502c12d00b44d94c63d9ea0647b5d20"
+  }
+}

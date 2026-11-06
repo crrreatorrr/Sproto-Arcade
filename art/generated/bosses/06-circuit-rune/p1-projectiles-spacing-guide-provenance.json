@@ -1,0 +1,10 @@
+{
+  "guideOnly": true,
+  "animation": false,
+  "notForGameplay": true,
+  "purpose": "positions/spacing/relative motif sizes only; sourcecream/olive mud colors and shapes must change to requested actual machine ammunition",
+  "source": "work/art-production/processed-phase-projectiles/03-mudline-crapto-p2-projectiles.png",
+  "sourceSha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813",
+  "transform": "native firstcolumn/row full512cell scaled220 nearest, repeated4perrow, offset146in512",
+  "runtimeFramesGenerated": false
+}

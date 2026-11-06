@@ -1,0 +1,384 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      156,
+      150,
+      311,
+      350
+    ],
+    [
+      46,
+      150,
+      421,
+      350
+    ],
+    [
+      87,
+      12,
+      380,
+      488
+    ],
+    [
+      44,
+      150,
+      423,
+      350
+    ]
+  ],
+  "bounds": [
+    44,
+    12,
+    423,
+    488
+  ],
+  "unionCrop": [
+    87,
+    58,
+    354,
+    366
+  ],
+  "destinationSize": [
+    423,
+    488
+  ],
+  "offset": [
+    44,
+    12
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        158,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        156,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        158,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        156,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        158,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        156,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        158,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        156,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        153,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        149,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        88,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        46,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        114,
+        68,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        28,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        114,
+        62,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        18,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        114,
+        58,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        12,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        114,
+        72,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        34,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        114,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        114,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        87,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        44,
+        150,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        114,
+        145,
+        354,
+        366
+      ],
+      "cellBounds": [
+        87,
+        150,
+        467,
+        500
+      ]
+    }
+  ],
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/06-circuit-rune-p1-composed-raw.png",
+  "sourceSha256": "a88e2670178b4c1d545f6ea32b35a63c9f50ff7e219a339a9984bea0ffe47518",
+  "sourceKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/06-circuit-rune-p1-composed-prototype-source-keyed-rgba.png",
+  "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/06-circuit-rune-p1-composed-prototype-background-mask.png",
+  "keyRgb": [
+    255,
+    0,
+    255
+  ],
+  "cellBackgroundRgbs": null,
+  "maximumPerChannelDistance": 8,
+  "alsoMagentaKey": true,
+  "edgeConnectedOnly": true,
+  "foregroundRgbByteExact": true,
+  "nativeProtectedRgbaByteExact": true,
+  "backgroundRemovedPixels": 3761334,
+  "includesPilot": true,
+  "pilotOverlayRequired": false,
+  "enabledInGame": false,
+  "preparation": "one commoncrop/nearestscale/anchor; each sourcecell preserved; no generated/duplicate/reorderedframes; alpha-onlybackgroundremoval",
+  "provenanceFiles": [
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/06-circuit-rune-p1-composed-raw.json",
+      "sha256": "d46cad11fc025fec4c9f5fd853a81506de702ce0c5b89719205eb0b065d0999a"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/06-native-pilot-cutout-audit.json",
+      "sha256": "14de61e13511aeacf6802881bd37716e14597f06e6416565d9e6b5625514fe5a"
+    }
+  ],
+  "conversionScript": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-and-pack-reviewed-gray.py",
+  "conversionScriptSha256": "2444ca0a15cb53512cd0327b071a9b31db8a8dbff91944e0ad524f12204d36c6",
+  "outputSha256": "f8681e2bf3241f011594cebf20735358b0f1b80ef4c0fd5cb0d30d41453a51a1",
+  "status": "awaiting root visual review"
+}

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "folder": "11-rooftop-sproto1668",
+    "phase": 2,
+    "status": "completed_candidate_pending_independent_QA",
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/11-rooftop-sproto1668-p2-concept.png",
+    "concept_job_id": "034e27b2-105e-4536-ac3d-5e346fd58a3b",
+    "concept_available": true,
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/11-rooftop-sproto1668-p2-guide.png",
+    "reference_policy": "One tiny projectile-only layout guide for fixed centers/margins/relative size; exact prompt specifies Goldie gold/navy/blue materials and weapons. No vehicle or pilot reference.",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "underside gold pulse emitter",
+        "projectile": "compact golden pulse capsule with a blue-white core and dark navy rim",
+        "size_class": "small compact",
+        "extent_percent_of_cell": {
+          "width": 22,
+          "height": 16
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "B",
+        "mechanism": "twin gold-nacelle miniature rocket launchers",
+        "projectile": "gold-nacelle rocket with navy winglets, white nose and twin orange exhaust points",
+        "size_class": "long capsule",
+        "extent_percent_of_cell": {
+          "width": 43,
+          "height": 19
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "C",
+        "mechanism": "triangular-wing blue ion beam ports",
+        "projectile": "long blue ion beam with pale gold edge rails and an angular leading tip",
+        "size_class": "long narrow",
+        "extent_percent_of_cell": {
+          "width": 50,
+          "height": 10
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged heavy cartridge from triangular-wing blue ion beam ports",
+        "projectile": "heavy triangular navy-and-gold interceptor capsule with twin orange engine ports",
+        "size_class": "large heavy",
+        "extent_percent_of_cell": {
+          "width": 46,
+          "height": 29
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "billing": "Unlimited only; no paid fallback",
+    "type": "phase_projectile_atlas",
+    "prompt": "Use this exact tiny4x4 projectile layout guide ONLY for fixed centers, empty margins and relative sizes. Replace ALL brown/cream mud art with Goldie aircraft ammunition below, goldmetal and darknavy machinery with blueion and orangeexhaust. Exactly16 isolated detailed crisp HARD-EDGED PIXELART sprites,2048square,512pxcells. ROW1: FOUR successive birth/charge/fireglow/settle frames of one compact golden pulse capsule with a blue-white core and dark navy rim. Fixed center, smallcompact100px maximum. ROW2: FOUR successive birth/charge/fireglow/settle frames of one gold-nacelle rocket with navy winglets, white nose and twin orange exhaust points. Fixed center, mediumlong190px maximum. ROW3: FOUR successive birth/charge/fireglow/settle frames of one long blue ion beam with pale gold edge rails and an angular leading tip. Fixed center, longnarrow220px maximum. ROW4: FOUR successive birth/charge/fireglow/settle frames of one heavy triangular navy-and-gold interceptor capsule with twin orange engine ports. Fixed center, heavy200px maximum. Every leadinghead/pointednose facesLEFT, tiny tail/exhaust onRIGHT. Allcomplete motifs+attached sparks fit central45% of eachcell, maximum220px in anydimension. LONGRAYS MUST END INSIDE220px and have empty magentaaftertheirRIGHTtail; never touch cellbounds. Huge empty margins. Restrained attached glints only, no longtrails,smokeclouds,explosions or expandedbursts. Keep gold/navy physicalmetal and blue-white energy crisp, preserve distinct sizes. Uniformpuremagenta#FF00FF outsideart. No vehicle,pilot,gunbody,character,referencecopy,text,labels,arrows,gridlines,borders,floor,scene,softpainting or airbrush. All16 are genuinely different successive poses, not static duplicates.",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/11-rooftop-sproto1668-p2-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/11-rooftop-sproto1668/p2-projectiles.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: compact golden pulse capsule with a blue-white core and dark navy rim, fired from underside gold pulse emitter. Keep its own relative size approximately 22% cell width by 16% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: gold-nacelle rocket with navy winglets, white nose and twin orange exhaust points, fired from twin gold-nacelle miniature rocket launchers. Keep its own relative size approximately 43% cell width by 19% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: long blue ion beam with pale gold edge rails and an angular leading tip, fired from triangular-wing blue ion beam ports. Keep its own relative size approximately 50% cell width by 10% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: heavy triangular navy-and-gold interceptor capsule with twin orange engine ports, fired from overcharged heavy cartridge from triangular-wing blue ion beam ports. Keep its own relative size approximately 46% cell width by 29% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+    "reference_path": "work/art-production/layout-guides/11-rooftop-sproto1668-p2-projectile-small-guide.png",
+    "promptSizingNote": "Capped future requested width to240px so no row contradicts250px totalextentlimit; submitted past prompts unchanged.",
+    "assignedTo": "sprite_integration",
+    "handoffSource": "work/art-production/text-projectile-requests-07-12.json",
+    "handoffSourceSha256": "f16ab319cb8d476ae529ddd1afe0834e0bc61dd57e2c4693411192dd883a2bae",
+    "reference_input_count": 1,
+    "submittedBySiblingBeforeHandoff": false,
+    "previous_text_prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: compact golden pulse capsule with a blue-white core and dark navy rim. Width about113pixels and height82pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: gold-nacelle rocket with navy winglets, white nose and twin orange exhaust points. Width about220pixels and height97pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: long blue ion beam with pale gold edge rails and an angular leading tip. Width about240pixels and height51pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: heavy triangular navy-and-gold interceptor capsule with twin orange engine ports. Width about236pixels and height148pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+    "reference_media_id": "e9d499ee-5633-45b2-bc1c-bf0eb0de69b9",
+    "uploadedGuidePixelExact": true,
+    "guideSha256": "c5803af2ced6b57c739cce6536113ef2fda5742fac530cff7bc732742f41f2b2",
+    "submitted_prompt": "Use this exact tiny4x4 projectile layout guide ONLY for fixed centers, empty margins and relative sizes. Replace ALL brown/cream mud art with Goldie aircraft ammunition below, goldmetal and darknavy machinery with blueion and orangeexhaust. Exactly16 isolated detailed crisp HARD-EDGED PIXELART sprites,2048square,512pxcells. ROW1: FOUR successive birth/charge/fireglow/settle frames of one compact golden pulse capsule with a blue-white core and dark navy rim. Fixed center, smallcompact100px maximum. ROW2: FOUR successive birth/charge/fireglow/settle frames of one gold-nacelle rocket with navy winglets, white nose and twin orange exhaust points. Fixed center, mediumlong190px maximum. ROW3: FOUR successive birth/charge/fireglow/settle frames of one long blue ion beam with pale gold edge rails and an angular leading tip. Fixed center, longnarrow220px maximum. ROW4: FOUR successive birth/charge/fireglow/settle frames of one heavy triangular navy-and-gold interceptor capsule with twin orange engine ports. Fixed center, heavy200px maximum. Every leadinghead/pointednose facesLEFT, tiny tail/exhaust onRIGHT. Allcomplete motifs+attached sparks fit central45% of eachcell, maximum220px in anydimension. LONGRAYS MUST END INSIDE220px and have empty magentaaftertheirRIGHTtail; never touch cellbounds. Huge empty margins. Restrained attached glints only, no longtrails,smokeclouds,explosions or expandedbursts. Keep gold/navy physicalmetal and blue-white energy crisp, preserve distinct sizes. Uniformpuremagenta#FF00FF outsideart. No vehicle,pilot,gunbody,character,referencecopy,text,labels,arrows,gridlines,borders,floor,scene,softpainting or airbrush. All16 are genuinely different successive poses, not static duplicates.",
+    "unlimitedVerified": true,
+    "job_id": "b1dfc0bf-9100-4cbd-8384-da71a802a457",
+    "websitePromptDetailVerified": true,
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_184451_b1dfc0bf-9100-4cbd-8384-da71a802a457.png"
+  },
+  "job_id": "b1dfc0bf-9100-4cbd-8384-da71a802a457",
+  "billing": "Verified website Unlimited 2K",
+  "finalSha256": "0babcf14765b1df52f972a9998fcc602847c2f856ac1cc2e70fe7195c035a225",
+  "physicalRepair": false,
+  "nativeCoreByteExact": true,
+  "facing": "All native rows faceRIGHT: A optical goldcap, B white rocketnose and orange exhaustLEFT, C sharp ionheadRIGHT, heavy gold interceptor noseRIGHT/enginesLEFT. Wholecell mirrorALL16 makes every leadingheadLEFT and exhaustRIGHT, no RGB repaint or invented poses"
+}

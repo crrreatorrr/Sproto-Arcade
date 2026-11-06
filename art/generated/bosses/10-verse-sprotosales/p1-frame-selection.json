@@ -1,0 +1,69 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p1-animation.mp4",
+      "timestamps": [
+        0.4,
+        1.1,
+        1.8,
+        2.5
+      ]
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p1-animation.mp4",
+      "timestamps": [
+        3.4,
+        4.1,
+        4.5,
+        5.5
+      ],
+      "fxSeparation": {
+        "4.5": {
+          "protectSourceTime": 4.1,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              430,
+              200,
+              290
+            ]
+          ],
+          "keepCircles": [
+            [
+              110,
+              590,
+              60
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p1-animation.mp4",
+      "timestamps": [
+        6.1,
+        6.6,
+        7.0,
+        8.5
+      ]
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p1-animation.mp4",
+      "timestamps": [
+        9.1,
+        9.5,
+        10.0,
+        11.5
+      ]
+    }
+  ],
+  "generationJobs": [
+    "0e122b2a-073c-4a5e-9bb7-3e96e1326b60"
+  ],
+  "releaseCuePolicy": "RealnativeA4.5frontplasmamuzzlewith60pxlocalpinkstarretainedandouterfreeFXseparatedoutsideprotectedprefirehardware; B7.0TWOforwardpylonguns; C10.0separatesidegoldrefractiongun. Cnativebeamstaysfullycontainedwithinoriginalhullspanandispreserved, nohiddenhullreconstruction."
+}

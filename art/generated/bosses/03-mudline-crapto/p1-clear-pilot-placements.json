@@ -1,0 +1,313 @@
+{
+  "purpose": "Unobscured same canonical Crapto pilot from approved phase2 replaces glass-obscured pilot pixels in P1; P1 cockpit rim and genuine machine frames retained",
+  "polygon": [
+    [
+      970,
+      330
+    ],
+    [
+      1360,
+      330
+    ],
+    [
+      1360,
+      520
+    ],
+    [
+      1305,
+      540
+    ],
+    [
+      1320,
+      620
+    ],
+    [
+      1320,
+      750
+    ],
+    [
+      1280,
+      790
+    ],
+    [
+      800,
+      790
+    ],
+    [
+      800,
+      730
+    ],
+    [
+      790,
+      690
+    ],
+    [
+      820,
+      640
+    ],
+    [
+      880,
+      635
+    ],
+    [
+      920,
+      650
+    ],
+    [
+      970,
+      635
+    ],
+    [
+      980,
+      610
+    ],
+    [
+      960,
+      595
+    ],
+    [
+      950,
+      565
+    ],
+    [
+      950,
+      535
+    ],
+    [
+      965,
+      525
+    ],
+    [
+      960,
+      510
+    ],
+    [
+      950,
+      495
+    ],
+    [
+      950,
+      450
+    ],
+    [
+      960,
+      430
+    ],
+    [
+      970,
+      415
+    ]
+  ],
+  "sourceHorizontalFlip": false,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.13,
+      "sourceAnchor": [
+        900,
+        310
+      ],
+      "targetAnchor": [
+        204,
+        164
+      ]
+    }
+  ],
+  "selection_note": "Pilot/head/torso/hands and adjacent navy interior only; avoid phase2 copper window pillar/outer rim and seat back"
+}

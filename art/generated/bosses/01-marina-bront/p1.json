@@ -1,0 +1,454 @@
+{
+  "schemaVersion": 1,
+  "assetKind": "boss",
+  "kind": "composed-and-keyed-native-animation-atlas",
+  "sourceSha256": "b9c9642b01c05b476e3179123f7c2515b599d1ffa7c23205da74f2867745cbab",
+  "atlasSha256": "12a1c3f0ada7b52dd3829997c7b9e0e571eda41c1ce1c2c6b2577ae56f65933e",
+  "generationJob": "a7dcc1fa-579a-48c4-8e0a-e48e02fa2e6c",
+  "model": "Higgsfield website Nano Banana Pro / Unlimited2K",
+  "includesPilot": true,
+  "pilotOverlayRequired": false,
+  "nativeApprovedCockpitProtected": true,
+  "composition": "16 genuine generated vehicle/weapon cells; exact approved cockpit source patch; explicit UI arrows removed with recorded masks",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected key; two-pixel boundary-only known-magenta alpha unmix; native cockpit protected",
+    "genuineMagentaInBossPalette": false,
+    "mask": "marina-p1-chroma-unmix-mask.png"
+  },
+  "cleanupCells": [
+    {
+      "cell": 0,
+      "backgroundRemoved": 235779,
+      "edgePixelsUnmixed": 1534
+    },
+    {
+      "cell": 1,
+      "backgroundRemoved": 235794,
+      "edgePixelsUnmixed": 1478
+    },
+    {
+      "cell": 2,
+      "backgroundRemoved": 235780,
+      "edgePixelsUnmixed": 1498
+    },
+    {
+      "cell": 3,
+      "backgroundRemoved": 235785,
+      "edgePixelsUnmixed": 1514
+    },
+    {
+      "cell": 4,
+      "backgroundRemoved": 235481,
+      "edgePixelsUnmixed": 1508
+    },
+    {
+      "cell": 5,
+      "backgroundRemoved": 234115,
+      "edgePixelsUnmixed": 1808
+    },
+    {
+      "cell": 6,
+      "backgroundRemoved": 234056,
+      "edgePixelsUnmixed": 1842
+    },
+    {
+      "cell": 7,
+      "backgroundRemoved": 234666,
+      "edgePixelsUnmixed": 1785
+    },
+    {
+      "cell": 8,
+      "backgroundRemoved": 235165,
+      "edgePixelsUnmixed": 1514
+    },
+    {
+      "cell": 9,
+      "backgroundRemoved": 234151,
+      "edgePixelsUnmixed": 1873
+    },
+    {
+      "cell": 10,
+      "backgroundRemoved": 234088,
+      "edgePixelsUnmixed": 1792
+    },
+    {
+      "cell": 11,
+      "backgroundRemoved": 235127,
+      "edgePixelsUnmixed": 1507
+    },
+    {
+      "cell": 12,
+      "backgroundRemoved": 233999,
+      "edgePixelsUnmixed": 1834
+    },
+    {
+      "cell": 13,
+      "backgroundRemoved": 235120,
+      "edgePixelsUnmixed": 1655
+    },
+    {
+      "cell": 14,
+      "backgroundRemoved": 232408,
+      "edgePixelsUnmixed": 2239
+    },
+    {
+      "cell": 15,
+      "backgroundRemoved": 235433,
+      "edgePixelsUnmixed": 1583
+    }
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      153,
+      179,
+      345,
+      299
+    ],
+    [
+      71,
+      179,
+      427,
+      299
+    ],
+    [
+      12,
+      179,
+      486,
+      299
+    ],
+    [
+      50,
+      179,
+      450,
+      321
+    ]
+  ],
+  "bounds": [
+    12,
+    179,
+    488,
+    321
+  ],
+  "unionCrop": [
+    55,
+    160,
+    367,
+    365
+  ],
+  "destinationSize": [
+    488,
+    321
+  ],
+  "offset": [
+    12,
+    179
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        121,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        115,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        93,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        71,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        138,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        142,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        55,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        12,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        93,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        71,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        153,
+        179,
+        498,
+        478
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        146,
+        160,
+        367,
+        365
+      ],
+      "cellBounds": [
+        154,
+        179,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        146,
+        160,
+        366,
+        356
+      ],
+      "cellBounds": [
+        154,
+        179,
+        498,
+        486
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        79,
+        160,
+        366,
+        352
+      ],
+      "cellBounds": [
+        50,
+        179,
+        498,
+        480
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        146,
+        160,
+        366,
+        351
+      ],
+      "cellBounds": [
+        154,
+        179,
+        498,
+        478
+      ]
+    }
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "12a1c3f0ada7b52dd3829997c7b9e0e571eda41c1ce1c2c6b2577ae56f65933e"
+  }
+}

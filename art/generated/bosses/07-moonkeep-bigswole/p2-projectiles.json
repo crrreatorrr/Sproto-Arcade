@@ -1,0 +1,741 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      14,
+      164,
+      486,
+      211
+    ],
+    [
+      14,
+      165,
+      486,
+      212
+    ],
+    [
+      26,
+      46,
+      454,
+      454
+    ],
+    [
+      22,
+      60,
+      474,
+      418
+    ]
+  ],
+  "bounds": [
+    14,
+    46,
+    486,
+    454
+  ],
+  "unionCrop": [
+    14,
+    32,
+    500,
+    484
+  ],
+  "destinationSize": [
+    488,
+    454
+  ],
+  "offset": [
+    12,
+    46
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        16,
+        171,
+        492,
+        341
+      ],
+      "cellBounds": [
+        14,
+        186,
+        492,
+        356
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        18,
+        149,
+        494,
+        359
+      ],
+      "cellBounds": [
+        16,
+        164,
+        494,
+        374
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        16,
+        156,
+        492,
+        343
+      ],
+      "cellBounds": [
+        14,
+        171,
+        492,
+        358
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        19,
+        150,
+        500,
+        360
+      ],
+      "cellBounds": [
+        17,
+        165,
+        500,
+        375
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        14,
+        162,
+        496,
+        348
+      ],
+      "cellBounds": [
+        16,
+        177,
+        500,
+        363
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        22,
+        152,
+        493,
+        360
+      ],
+      "cellBounds": [
+        19,
+        167,
+        492,
+        375
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        23,
+        150,
+        496,
+        362
+      ],
+      "cellBounds": [
+        16,
+        165,
+        491,
+        377
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        40,
+        188,
+        498,
+        324
+      ],
+      "cellBounds": [
+        14,
+        203,
+        474,
+        339
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        38,
+        35,
+        476,
+        477
+      ],
+      "cellBounds": [
+        36,
+        49,
+        476,
+        493
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        46,
+        33,
+        467,
+        479
+      ],
+      "cellBounds": [
+        44,
+        47,
+        467,
+        495
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        48,
+        32,
+        465,
+        479
+      ],
+      "cellBounds": [
+        46,
+        46,
+        465,
+        495
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        28,
+        51,
+        480,
+        484
+      ],
+      "cellBounds": [
+        26,
+        65,
+        480,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        26,
+        66,
+        482,
+        459
+      ],
+      "cellBounds": [
+        24,
+        80,
+        482,
+        475
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        25,
+        57,
+        483,
+        450
+      ],
+      "cellBounds": [
+        23,
+        71,
+        483,
+        466
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        25,
+        56,
+        486,
+        462
+      ],
+      "cellBounds": [
+        23,
+        70,
+        486,
+        478
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        24,
+        46,
+        496,
+        462
+      ],
+      "cellBounds": [
+        22,
+        60,
+        496,
+        478
+      ]
+    }
+  ],
+  "kind": "reviewed-magenta-projectile-alpha-unmix",
+  "assetKind": "projectiles",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/07-moonkeep-bigswole-p2-projectiles-text.png",
+  "sourceSha256": "2d83f54aef48362351b1e92a2b05cffbf35a7ccc65a1232336ba92cc3f39615a",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
+  "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
+  "reviewedPalette": "Moonkeep P2 cyan/iceblue/white/orange/gunmetal source projectile palette; no hot magenta pigment. All16 checked against verified actual divider boundaries.",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    }
+  ],
+  "keyUnmix": {
+    "criterion": "min(R,B)-G>18",
+    "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
+    "foreground": "[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255",
+    "alphaFloorByte": 10,
+    "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
+    "outsideUnmixMaskRgbaByteExact": true,
+    "pixels": 3068628,
+    "removedPixels": 3009569,
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/07-moonkeep-bigswole-p2-projectiles-text-clean-chroma-unmix-mask.png",
+    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/07-moonkeep-bigswole-p2-projectiles-text-clean-background-key-mask.png"
+  },
+  "frameCutoffChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        16,
+        171,
+        492,
+        341
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        18,
+        149,
+        494,
+        359
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        16,
+        156,
+        492,
+        343
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        19,
+        150,
+        500,
+        360
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        14,
+        162,
+        496,
+        348
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        22,
+        152,
+        493,
+        360
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        23,
+        150,
+        496,
+        362
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        40,
+        188,
+        498,
+        324
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        38,
+        35,
+        476,
+        477
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        46,
+        33,
+        467,
+        479
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        48,
+        32,
+        465,
+        479
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        28,
+        51,
+        480,
+        484
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        26,
+        66,
+        482,
+        459
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        25,
+        57,
+        483,
+        450
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        25,
+        56,
+        486,
+        462
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        24,
+        46,
+        496,
+        462
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        512
+      ]
+    }
+  ],
+  "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
+  "productionEnabled": true,
+  "outputSha256": "d49e04956473518998baf5cb513f95044aaf644ef55abc7bb1de1ce5b6ce4cc9",
+  "status": "strict sourcecutoff pass; awaiting visual review",
+  "sourceBeforeFacing": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/07-moonkeep-bigswole-p2-projectiles-text-clean.png",
+  "sourceBeforeFacingSha256": "bd68237a1caeef8df91579ab4bf8d9784a0f593f402f537fdb86fe6acf39548f",
+  "facing": "left",
+  "facingOperation": "RowB originally pointsRIGHT and is mirrored toLEFT. A dragonfire and heavy crystalnose alreadyLEFT remain native. C is a nondirectional spinning energy shield/pod retaining its genuine native turn poses. No RGB repaint/pose synthesis",
+  "atlasSha256": "d49e04956473518998baf5cb513f95044aaf644ef55abc7bb1de1ce5b6ce4cc9",
+  "job_id": "9323b2b0-8c81-4b51-beb9-ab4c5c6a6414",
+  "billing": "Higgsfield Unlimited verified2K1:1",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "d49e04956473518998baf5cb513f95044aaf644ef55abc7bb1de1ce5b6ce4cc9"
+  }
+}

@@ -2,7 +2,9 @@
 
 ## Current priority
 
-Boss animation production and Higgsfield boss-animation generation are STOPPED at the user’s direction. Authorized static gameplay projectile art may be supplied and integrated without restarting boss animation production. The earlier30+boss-animation requirement is superseded. Work on core gameplay, readable attacks and reaction windows. Phase2 retains corrected base projectile speed and increases density/variety through slow, visually distinct projectiles. No animation approval is needed to continue gameplay implementation or QA. Preserve historical art/reference records as archived material.
+Boss art covers all twelve bosses in both phases, with 24 accepted boss sheets and 24 accepted phase projectile sheets. For further art changes, create concepts before animation sheets. Keep each level's canonical checked-in Sproto identity exact and clearly visible inside the vehicle; supplied vehicle concepts are inspiration. Preserve the liked enemy ship designs. Each phase needs distinct weapon-firing animations and attack-specific, source-themed projectiles with varied sizes. Use Higgsfield website Unlimited only for this production scope. The user has waived repeated design approvals and authorized a PR followed by merge to GitHub main after the complete change passes review and checks.
+
+Gameplay changes are limited to boss and projectile collision hitboxes needed to fit the new artwork. Preserve authored attack timing, trajectories, movement, damage, RNG, progression, armor/open-state rules, and reaction windows. Keep collision geometry separate from the anchors used for aiming and spawning. The earlier30+boss-animation requirement remains superseded. Preserve historical art/reference records as archived material; rejected or pending artwork must never be enabled or reported as complete.
 
 
 - Integrate completed, verified project work into local `main` as it is finished. The user now also authorizes pushing completed verified tasks to GitHub main after local integration. Verify the repository destination, current remote state and CI, preserve concurrent work, and never force push.
@@ -14,7 +16,7 @@ Boss animation production and Higgsfield boss-animation generation are STOPPED a
 
 ## Art generation
 
-Follow `docs/higgsfield-workflow-guide.md`. This repo uses the **sprite sheet** workflow. If the owner says to skip approvals, follow that section of the guide. The stop on boss animation production above still applies.
+Follow `docs/higgsfield-workflow-guide.md`. This repo uses the **sprite sheet** workflow. For the current authorized production scope, follow its skip-approvals workflow, keep the spending limit at zero credits, and verify actual Unlimited eligibility in the website. A missing allowance does not authorize paid generation. Inspect pilot identity and frame quality before enabling any asset.
 
 ## Checks
 

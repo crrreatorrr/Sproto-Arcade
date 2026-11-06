@@ -1,0 +1,28 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "12-codebreak-sproto3106",
+      "phase": 2,
+      "job_id": "f177f802-0787-467d-9723-45fb9f7070c1",
+      "reference_asset_id": "7108da7e-e00c-454c-b113-e57bc2fb06b2",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "f177f802-0787-467d-9723-45fb9f7070c1",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedAtlasSha256": "15272616771c6c4029253aae864bfa987b500c9a11c10f0db1834d39b16df12a",
+  "identityReview": "Canonical Sproto pilot visibly seated inside vehicle; all16 full physical frames reviewed",
+  "simulationPolicy": "Weapon presentation only. Authored movement/patterns/timing/damage/counters unchanged; only measured collision geometry can change."
+}

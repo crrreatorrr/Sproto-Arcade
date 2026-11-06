@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-generated-frames-alpha-keyed",
+  "assetKind": "projectiles",
+  "generationJob": "ac22868a-bfb0-4b9d-899d-f6973cc98298",
+  "sourceSha256": "a2eb53c7b4fac65d6167b6ccd3aa42594902520a8ed7cc902e0b53d031dec2c1",
+  "atlasSha256": "596a3c8e4f3e83f9ec8c299a65088745928df1ff26df9ad7fed0deae61c51a34",
+  "facing": "left",
+  "background": {
+    "rgb": [
+      96,
+      139,
+      130
+    ],
+    "edgeTolerance": 12,
+    "method": "edge-connected RGB key estimated from all source-cell boundary samples; foreground RGB unchanged"
+  },
+  "cells": [
+    {
+      "index": 0,
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        204,
+        224,
+        294,
+        288
+      ],
+      "backgroundPixelsRemoved": 258160
+    },
+    {
+      "index": 1,
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        205,
+        224,
+        307,
+        288
+      ],
+      "backgroundPixelsRemoved": 257916
+    },
+    {
+      "index": 2,
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        204,
+        225,
+        310,
+        288
+      ],
+      "backgroundPixelsRemoved": 257907
+    },
+    {
+      "index": 3,
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        204,
+        224,
+        309,
+        288
+      ],
+      "backgroundPixelsRemoved": 257900
+    },
+    {
+      "index": 4,
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        140,
+        221,
+        372,
+        289
+      ],
+      "backgroundPixelsRemoved": 252848
+    },
+    {
+      "index": 5,
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        140,
+        221,
+        371,
+        289
+      ],
+      "backgroundPixelsRemoved": 252668
+    },
+    {
+      "index": 6,
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        140,
+        221,
+        371,
+        289
+      ],
+      "backgroundPixelsRemoved": 252723
+    },
+    {
+      "index": 7,
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        140,
+        221,
+        372,
+        289
+      ],
+      "backgroundPixelsRemoved": 252757
+    },
+    {
+      "index": 8,
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        149,
+        161,
+        363,
+        349
+      ],
+      "backgroundPixelsRemoved": 239676
+    },
+    {
+      "index": 9,
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        150,
+        161,
+        362,
+        349
+      ],
+      "backgroundPixelsRemoved": 239081
+    },
+    {
+      "index": 10,
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        149,
+        161,
+        363,
+        349
+      ],
+      "backgroundPixelsRemoved": 239250
+    },
+    {
+      "index": 11,
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        149,
+        161,
+        362,
+        349
+      ],
+      "backgroundPixelsRemoved": 239780
+    },
+    {
+      "index": 12,
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        147,
+        199,
+        364,
+        311
+      ],
+      "backgroundPixelsRemoved": 246188
+    },
+    {
+      "index": 13,
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        147,
+        199,
+        368,
+        317
+      ],
+      "backgroundPixelsRemoved": 245456
+    },
+    {
+      "index": 14,
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        147,
+        199,
+        373,
+        321
+      ],
+      "backgroundPixelsRemoved": 244620
+    },
+    {
+      "index": 15,
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "sourceBounds": [
+        147,
+        199,
+        379,
+        327
+      ],
+      "backgroundPixelsRemoved": 243723
+    }
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      143,
+      245,
+      216,
+      130
+    ],
+    [
+      12,
+      239,
+      474,
+      138
+    ],
+    [
+      30,
+      116,
+      437,
+      384
+    ],
+    [
+      26,
+      194,
+      474,
+      261
+    ]
+  ],
+  "bounds": [
+    12,
+    116,
+    488,
+    384
+  ],
+  "unionCrop": [
+    140,
+    161,
+    379,
+    349
+  ],
+  "destinationSize": [
+    488,
+    384
+  ],
+  "offset": [
+    12,
+    116
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        204,
+        224,
+        294,
+        288
+      ],
+      "cellBounds": [
+        143,
+        245,
+        326,
+        375
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        205,
+        224,
+        307,
+        288
+      ],
+      "cellBounds": [
+        145,
+        245,
+        353,
+        375
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        204,
+        225,
+        310,
+        288
+      ],
+      "cellBounds": [
+        143,
+        247,
+        359,
+        375
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        204,
+        224,
+        309,
+        288
+      ],
+      "cellBounds": [
+        143,
+        245,
+        357,
+        375
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        140,
+        221,
+        372,
+        289
+      ],
+      "cellBounds": [
+        12,
+        239,
+        486,
+        377
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        140,
+        221,
+        371,
+        289
+      ],
+      "cellBounds": [
+        12,
+        239,
+        484,
+        377
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        140,
+        221,
+        371,
+        289
+      ],
+      "cellBounds": [
+        12,
+        239,
+        484,
+        377
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        140,
+        221,
+        372,
+        289
+      ],
+      "cellBounds": [
+        12,
+        239,
+        486,
+        377
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        149,
+        161,
+        363,
+        349
+      ],
+      "cellBounds": [
+        30,
+        116,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        150,
+        161,
+        362,
+        349
+      ],
+      "cellBounds": [
+        32,
+        116,
+        465,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        149,
+        161,
+        363,
+        349
+      ],
+      "cellBounds": [
+        30,
+        116,
+        467,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        149,
+        161,
+        362,
+        349
+      ],
+      "cellBounds": [
+        30,
+        116,
+        465,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        147,
+        199,
+        364,
+        311
+      ],
+      "cellBounds": [
+        26,
+        194,
+        469,
+        422
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        147,
+        199,
+        368,
+        317
+      ],
+      "cellBounds": [
+        26,
+        194,
+        478,
+        435
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        147,
+        199,
+        373,
+        321
+      ],
+      "cellBounds": [
+        26,
+        194,
+        488,
+        443
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        147,
+        199,
+        379,
+        327
+      ],
+      "cellBounds": [
+        26,
+        194,
+        500,
+        455
+      ]
+    }
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "596a3c8e4f3e83f9ec8c299a65088745928df1ff26df9ad7fed0deae61c51a34"
+  }
+}

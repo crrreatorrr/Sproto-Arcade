@@ -1,0 +1,406 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      270,
+      488,
+      107
+    ],
+    [
+      136,
+      245,
+      257,
+      157
+    ],
+    [
+      52,
+      146,
+      404,
+      354
+    ],
+    [
+      77,
+      235,
+      354,
+      180
+    ]
+  ],
+  "bounds": [
+    12,
+    146,
+    488,
+    354
+  ],
+  "unionCrop": [
+    22,
+    84,
+    495,
+    427
+  ],
+  "destinationSize": [
+    488,
+    354
+  ],
+  "offset": [
+    12,
+    146
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        56,
+        204,
+        459,
+        308
+      ],
+      "cellBounds": [
+        47,
+        270,
+        463,
+        377
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        22,
+        204,
+        494,
+        308
+      ],
+      "cellBounds": [
+        12,
+        270,
+        499,
+        377
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        22,
+        204,
+        495,
+        308
+      ],
+      "cellBounds": [
+        12,
+        270,
+        500,
+        377
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        22,
+        204,
+        494,
+        308
+      ],
+      "cellBounds": [
+        12,
+        270,
+        499,
+        377
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        183,
+        204,
+        340,
+        308
+      ],
+      "cellBounds": [
+        178,
+        270,
+        340,
+        377
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        142,
+        180,
+        391,
+        332
+      ],
+      "cellBounds": [
+        136,
+        245,
+        393,
+        402
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        157,
+        184,
+        379,
+        328
+      ],
+      "cellBounds": [
+        151,
+        249,
+        380,
+        398
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        157,
+        188,
+        380,
+        324
+      ],
+      "cellBounds": [
+        151,
+        253,
+        381,
+        394
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        155,
+        153,
+        359,
+        358
+      ],
+      "cellBounds": [
+        149,
+        217,
+        360,
+        429
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        83,
+        108,
+        430,
+        404
+      ],
+      "cellBounds": [
+        75,
+        171,
+        433,
+        476
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        61,
+        84,
+        452,
+        427
+      ],
+      "cellBounds": [
+        52,
+        146,
+        456,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        76,
+        154,
+        437,
+        359
+      ],
+      "cellBounds": [
+        68,
+        218,
+        440,
+        430
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        85,
+        170,
+        428,
+        342
+      ],
+      "cellBounds": [
+        77,
+        235,
+        431,
+        412
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        85,
+        171,
+        427,
+        342
+      ],
+      "cellBounds": [
+        77,
+        236,
+        430,
+        412
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        85,
+        170,
+        428,
+        345
+      ],
+      "cellBounds": [
+        77,
+        235,
+        431,
+        415
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        85,
+        171,
+        428,
+        342
+      ],
+      "cellBounds": [
+        77,
+        236,
+        431,
+        412
+      ]
+    }
+  ],
+  "kind": "projectiles",
+  "facing": "left",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/raw-phase-projectiles/05-neon-sproto102-p2-projectiles.png",
+  "sourceSha256": "53332e009cefb3b7e4de152bc63bf6256fbbe62a6bbd016d676f667f8c0e3c70",
+  "backgroundRule": "edge-connected union of magenta(minRB>=180,minRB-G>=60,absR-B<=50) and diagonal pastel field(R>=180,G>=150,B>=180); closed white/cyan native cores not connected to border remain opaque",
+  "backgroundRemovedPixels": 3497897,
+  "externalGlowRegionsAndProtectedHardware": [
+    {
+      "row": 1,
+      "column": 2,
+      "nativeHardwareBox": [
+        164,
+        195,
+        369,
+        316
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "nativeHardwareBox": [
+        164,
+        195,
+        370,
+        316
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "nativeHardwareBox": [
+        86,
+        171,
+        427,
+        342
+      ]
+    }
+  ],
+  "nativeProtectedHardwareRgbaByteExact": true,
+  "hardwareProtection": "native body rectangle inset2px, source white cores and all interior detail unchanged; only proven magenta-dominant edge pixels in3px alpha boundary may be unmixed",
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "alphaOnlyBackgroundNativeRgbByteExact": true,
+  "externalCyanGlowUnmixPixels": 9019,
+  "magentaBoundaryUnmixPixels": 16621,
+  "openTailNativeWhiteCoreProtectedPixels": 100083,
+  "whiteCoreRule": "nativeG/B>=240 inside convex envelope of unambiguous teal body in C rows only; sourceRGBA unchanged, protects open-tail core from pastel flood key",
+  "glowRecovery": "minimum physically valid alpha from original magenta backdrop, only outside native dark-teal hardware rectangles; no generated art",
+  "productionEnabled": true,
+  "outputSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/matte-05p2-projectiles.py",
+  "scriptSha256": "3155cc3c1057112bd5a877d88ce2f5679f4b7aaa5694102a0c9be8a2476874f2",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b"
+  }
+}

@@ -34,6 +34,12 @@
   }
   function segment(ctx,a,b,width,color){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
   function summitRig(ctx,w){
+    if(globalThis.ArcadeBossSheets?.drawMachine(ctx,w)){
+      const p=summitPose(w);ctx.save();
+      ctx.strokeStyle=w.phaseTick<w.data.openUntil?'#ffdc83':'#59636f';ctx.lineWidth=2;ctx.strokeRect(1050,490,105,100);
+      for(let i=0;i<5;i++){ctx.fillStyle=w.phaseTick<w.data.openUntil?'#ffd786':'#303a4e';ctx.fillRect(1055+p.open*43,500+i*17,95*(1-p.open),2);}
+      ctx.strokeStyle=p.scannerState==='release'?'#fff1ac':'#b7e7ff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(p.emitterX,p.emitterY,10+8*p.unfold,0,Math.PI*2);ctx.stroke();ctx.restore();return;
+    }
     const p=summitPose(w);ctx.save();ctx.lineCap='round';
     // Anchored feet remain on the physical floor while the upper cab settles.
     for(const foot of p.feet){const hip={x:p.x+(foot.x<p.x?-55:55),y:p.y+32},knee={x:(hip.x+foot.x)/2+(foot.x<p.x?-14:14),y:(hip.y+foot.y)/2-5};segment(ctx,hip,knee,18,'#766b69');segment(ctx,knee,foot,12,'#d5af69');ctx.fillStyle='#505569';ctx.fillRect(foot.x-27,592,54,8);}
@@ -83,7 +89,7 @@
       for(let y=700;y>SUMMIT-300;y-=90){ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(40,y-65);ctx.moveTo(1240,y);ctx.lineTo(1240,y-65);ctx.stroke();}
       ctx.fillStyle='#dce6ff';ctx.font='bold 18px system-ui';ctx.fillText('SUMMIT →',LEDGES[17].x+100,SUMMIT-30);
       LEDGES.forEach((p,i)=>{if(i%4===1||i%4===3)chevrons(ctx,p.x+20,p.y-35);});
-      rig(ctx,1120,w.player.y-180,false,w.phaseTick);ctx.restore();
+      if(!globalThis.ArcadeBossSheets?.drawMachine(ctx,w))rig(ctx,1120,w.player.y-180,false,w.phaseTick);ctx.restore();
     }
   },{
     name:'Summit lockdown',machine:'Summit Lockdown',mode:'fixed',camera:'fixed',hudLabel:'CORE',objective:'Dash through the scanner, then shoot the vent',spawn:{x:260,y:600},practiceSpawn:{x:260,y:600},pilot:w=>{const p=summitPose(w);return {x:p.x,y:p.y+2};},pilotHeight:45,pose:summitPose,

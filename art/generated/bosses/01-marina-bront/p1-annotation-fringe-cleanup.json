@@ -1,0 +1,114 @@
+{
+  "sourceSha256": "f050edd0d37386fa1d0da47f06dfcf985bad10b2cb516e93760c6371b5c078a6",
+  "outputSha256": "b9c9642b01c05b476e3179123f7c2515b599d1ffa7c23205da74f2867745cbab",
+  "components": [
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        151,
+        210,
+        156,
+        214
+      ],
+      "pixelsRemoved": 17,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        163,
+        225,
+        164,
+        226
+      ],
+      "pixelsRemoved": 1,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        151,
+        226,
+        153,
+        228
+      ],
+      "pixelsRemoved": 2,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        159,
+        227,
+        161,
+        229
+      ],
+      "pixelsRemoved": 2,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        154,
+        229,
+        158,
+        232
+      ],
+      "pixelsRemoved": 4,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        131,
+        253,
+        143,
+        272
+      ],
+      "pixelsRemoved": 35,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        150,
+        262,
+        152,
+        264
+      ],
+      "pixelsRemoved": 2,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "bounds": [
+        150,
+        266,
+        151,
+        267
+      ],
+      "pixelsRemoved": 1,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "bounds": [
+        144,
+        225,
+        149,
+        227
+      ],
+      "pixelsRemoved": 6,
+      "reason": "isolated residual antialias pixels from explicit rotation-arrow annotation; physical boat is separate main component"
+    }
+  ]
+}

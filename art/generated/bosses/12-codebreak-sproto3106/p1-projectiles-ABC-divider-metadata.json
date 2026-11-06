@@ -1,0 +1,7 @@
+{
+  "reviewedSeparatorOnly": true,
+  "width": 12,
+  "allPixelsValidatedBlackMagentaOrDarkFieldFringe": true,
+  "removedPixels": 288000,
+  "temporaryDuplicateFourthRowNeverShipped": true
+}

@@ -5,15 +5,16 @@
   function live(w,id){return w.targets.find(t=>t.id===id&&!t.removed&&t.hp>0);}
   function text(ctx,s,x,y,color='#fff0c9'){ctx.fillStyle=color;ctx.font='bold 18px system-ui';ctx.fillText(s,x,y);}
   function machine(ctx,w,pump){
-    const d=w.data, t=w.phaseTick;
+    const d=w.data, t=w.phaseTick,generated=globalThis.ArcadeBossSheets?.drawMachine(ctx,w);
     ctx.save();ctx.fillStyle=pump?'#32495b':'#4b5140';ctx.strokeStyle='#c9d9a4';ctx.lineWidth=5;
-    ctx.fillRect(905,180,245,350);ctx.strokeRect(905,180,245,350);
+    if(!generated){ctx.fillRect(905,180,245,350);ctx.strokeRect(905,180,245,350);
     // The glass belly and intake carry over into the docked pump.
     ctx.fillStyle='#122e34';ctx.fillRect(950,285,150,175);
     ctx.fillStyle='#78ab4d';const fill=pump?110:Math.min(170,(t%360)/70*170);ctx.fillRect(956,455-fill,138,fill);
     ctx.strokeStyle='#b5eee3';ctx.strokeRect(950,285,150,175);
     ctx.fillStyle='#b0beb1';ctx.fillRect(835,340,120,40);
     ctx.fillStyle='#172831';ctx.fillRect(1010,220,80,55);
+    }
     if(pump){
       ctx.strokeStyle='#aab7a5';ctx.lineWidth=24;ctx.beginPath();ctx.moveTo(1040,185);ctx.lineTo(1040,120);ctx.lineTo(1170,120);ctx.lineTo(1170,570);ctx.stroke();
       ctx.fillStyle=d.gateUnlocked?'#a7f5ba':'#774a45';ctx.fillRect(835,275,28,150);
@@ -22,7 +23,7 @@
       text(ctx,d.gateUnlocked?'SHUTTER RELEASED':'SHUTTER LOCKED',870,630);
     }else{
       const c=t%360;
-      ctx.fillStyle=c>=70&&c<145?'#ffe294':'#75846d';ctx.fillRect(805,345,70,30);
+      ctx.fillStyle=c>=70&&c<145?'#ffe294':'#75846d';if(generated){ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=2;ctx.strokeRect(805,345,70,30);}else ctx.fillRect(805,345,70,30);
       text(ctx,c<70?'GLASS FILLING':c<145?'NOZZLE LOCKED':c<300?'VENT OPEN':'RESEAL',925,575);
       if(c>=70&&c<145){ctx.strokeStyle='#ffe294';ctx.setLineDash([12,8]);ctx.beginPath();ctx.moveTo(60,d.aimY);ctx.lineTo(850,d.aimY);ctx.stroke();ctx.setLineDash([]);text(ctx,'LOCKED ALTITUDE — MOVE',220,d.aimY-32);}
     }

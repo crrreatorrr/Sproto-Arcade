@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "folder": "05-neon-sproto102",
+  "phase": 2,
+  "assetKind": "boss",
+  "provider": "Higgsfield website",
+  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
+  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
+  "generation": {
+    "folder": "05-neon-sproto102",
+    "phase": 2,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
+    "concept_job_id": "9666e089-7ad1-43c9-9055-59af6e0026e8",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/05-neon-sproto102-p2-guide-small.png",
+    "status": "root_visual_pass_copied_to_repo",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "billboard-corner twin digital lance cannons",
+        "projectile": "long cyan rectangular data-packet lance",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "robot chest battery-cap launcher",
+        "projectile": "small teal capacitor cell with white charge core",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "left claw-mounted neon coil pulse gun",
+        "projectile": "wide cyan stepped-pixel glitch wave",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "lower billboard transformer outlet",
+        "projectile": "large dark-teal battery capsule with luminous cyan display stripes",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "boss_phase_atlas",
+    "prompt": "Animate this exact fixed 4x4 guide IN PLACE:16 complete isolated teal walker sprites,2048 square,512px cells. Keep every machine at identical position,UPRIGHT angle and exact220px maximum size. Huge pure #FF00FF empty background. Keep exact visible pilot seated in open cab,face and hands clear in every cell. All weapon mechanisms are OUTSIDE the cab. Row1 four subtle idle frames. Row2 top LEFT twin cannon: short barrel extends,cyan chamber charges,ONE tiny8px pinflash attached to LEFT muzzle,barrel retracts. Row3 LOWER chest battery launcher BELOW pilot hands and BELOW cab: small lower hatch opens,teal battery chamber glows,ONE tiny8px pinflash at LEFT lower nozzle,hatch closes. Never open any cover across the face or hands. Row4 LEFT lower coil gun BELOW cab:coil extends,cyan coils charge,ONE tiny8px pinflash at LEFT coil tip,retract. Each row four genuine distinct chronological brace/charge/fire/recover poses,other weapons neutral. Show mechanism articulation. All flash pixels stay within machine silhouette or8px outside muzzle. Absolutely no beams,no rays,no flame streams,no travelling ammunition. Those are separate assets. Every sprite plus effect fits central55% of its own cell; nothing touches cell edges. Detailed crisp pixel art. Pure magenta background uniformly everywhere outside sprites. No text,labels,arrows,grid lines,separators or large reference.",
+    "layout_guide_prompt": "Animate this EXACT tiny fixed-layout guide IN PLACE. Every complete vehicle including legs, wheels, antennae and chains stays at its input position, proportions and scale, maximum 220px tall or wide inside each 512px cell. Preserve HUGE empty gaps. The whole body and cockpit remain UPRIGHT at the identical angle in all16 cells; never rotate, tilt or shift the complete machine. Only local weapon mechanisms articulate. Every active weapon muzzle and attached spark points toward CANVAS LEFT, mounted away from the pilot. Never enlarge whole vehicles. Every sprite and effect fits central 55% of its cell; nothing touches an edge. Preserve the exact visible Sproto pilot seated inside the cockpit, face and hands unobstructed in ALL 16 frames. Never place a weapon, mask, flash or tint across the face or cockpit opening. Mount new mechanisms below the cockpit or on side chassis away from the pilot. ROW 1: four subtle idle mechanism frames. ROW 2: animate the billboard-corner twin digital lance cannons: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches long cyan rectangular data-packet lance colors/material and remains attached to the muzzle, maximum 15px. ROW 3: animate the robot chest battery-cap launcher: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches small teal capacitor cell with white charge core colors/material and remains attached to the muzzle, maximum 15px. ROW 4: animate the left claw-mounted neon coil pulse gun: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches wide cyan stepped-pixel glitch wave colors/material and remains attached to the muzzle, maximum 15px. Three DISTINCT physical mechanisms genuinely deploy and shoot in their respective attack rows. Other weapons stay neutral. No detached travelling projectiles or long beams; those are separate assets. Exactly four rows of four isolated complete sprites, 2048 square. Detailed crisp high-quality pixel art. Keep ALL empty background and gutters UNIFORMLY pure hot magenta #FF00FF. No grid lines, labels, text, arrows, scenery or enlarged reference. Match input 220px subject size exactly.",
+    "reference_policy": "Sole validated fixed-layout guide; never combined board or rejected draft",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/05-neon-sproto102-p2.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/05-neon-sproto102/p2.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512,
+      "rows_by_state": [
+        "idle",
+        "attack-a",
+        "attack-b",
+        "attack-c"
+      ]
+    },
+    "prompt_original_long": "EDIT the attached exact 4x4 fixed-layout GUIDE IN PLACE. Preserve its exact 16 sprite positions, vehicle scale, center, anchor, baseline and proportions. The sole reference is a deterministic guide made from the validated single phase concept; keep its exact vehicle and Sproto identity. No enlarged reference, ghost image or duplicated guide inside any cell. ROW 1: four genuinely DISTINCT subtle idle machinery/pilot frames. ROW 2: billboard-corner twin digital lance cannons: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local long cyan rectangular data-packet lance birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 3: robot chest battery-cap launcher: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local small teal capacitor cell with white charge core birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 4: left claw-mounted neon coil pulse gun: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local wide cyan stepped-pixel glitch wave birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. THREE distinct physical mounted weapons SHOOTING in the three attack rows, with visible local weapon articulation and separate muzzle release origins; do not substitute whole-body bobbing or an identical generic flash. Pilot remains seated INSIDE the cockpit with both hands operating controls, exact face/costume/colors from the guide: large LIGHT-BLUE spiky head with darker blue edge shadows, thick arched blue brow shapes, two enormous bright YELLOW eyes with BLACK pupils, round RED nose, wide RED smiling lips with orange inner mouth; visible small ORANGE ear; ORANGE hands; bright YELLOW sleeves and YELLOW legs; dark BLACK/GREEN sleeveless top with a small RED neck detail; black shoes with yellow soles. Preserve this exact light-blue head, red round nose, orange hands and black-on-yellow costume; no headset, goggles, helmet or green vest. No glare, reflection stripes or colored tint over the pilot. Keep all pixels including tiny flashes inside the central 55% width/height of each 512 cell, broad clear margins, nothing touches cell borders. Do not move, resize or rotate whole sprites. Premium crisp detailed pixel art, rich controlled palette and precise mechanisms. ALL background/gutters stay original flat pure #FF00FF magenta in every cell, no gray/white background, black grid lines, dividers, frames, numbers, labels, text, arrows, trajectories, diagrams or extra objects. No flying projectile leaving its local muzzle. Four rows of four meaningful ordered animation frames; do not merely repeat static guide copies. Same gameplay timing, paths, damage and attack count; artwork only.",
+    "background_request": "#FF00FF",
+    "reference_maximum_subject_size": 220,
+    "prompt_previous_before_short_retry_strategy": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: billboard-corner twin digital lance cannons: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY hot amber muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: robot chest battery-cap launcher: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY steel-white muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: left claw-mounted neon coil pulse gun: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY neon cyan muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Pilot face, hands and cockpit remain visible and unobstructed in every frame. No weapon, bracket or flash can overlap the cockpit opening; mount weapons on the lower chassis or away from pilot. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
+    "final_pilot_source_concept": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
+    "final_pilot_source_phase": 2,
+    "final_pilot_selection_reason": "Exact approved same-phase pilot with unobscured face/hands",
+    "final_vehicle_source_concept": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
+    "baked_pilot_only": true,
+    "job_id": "19f970d4-77c6-49e2-9ecd-e259e6a1a1d7",
+    "submitted_prompt": "Animate this exact fixed 4x4 guide IN PLACE:16 complete isolated teal walker sprites,2048 square,512px cells. Keep every machine at identical position,UPRIGHT angle and exact220px maximum size. Huge pure #FF00FF empty background. Keep exact visible pilot seated in open cab,face and hands clear in every cell. All weapon mechanisms are OUTSIDE the cab. Row1 four subtle idle frames. Row2 top LEFT twin cannon: short barrel extends,cyan chamber charges,ONE tiny8px pinflash attached to LEFT muzzle,barrel retracts. Row3 LOWER chest battery launcher BELOW pilot hands and BELOW cab: small lower hatch opens,teal battery chamber glows,ONE tiny8px pinflash at LEFT lower nozzle,hatch closes. Never open any cover across the face or hands. Row4 LEFT lower coil gun BELOW cab:coil extends,cyan coils charge,ONE tiny8px pinflash at LEFT coil tip,retract. Each row four genuine distinct chronological brace/charge/fire/recover poses,other weapons neutral. Show mechanism articulation. All flash pixels stay within machine silhouette or8px outside muzzle. Absolutely no beams,no rays,no flame streams,no travelling ammunition. Those are separate assets. Every sprite plus effect fits central55% of its own cell; nothing touches cell edges. Detailed crisp pixel art. Pure magenta background uniformly everywhere outside sprites. No text,labels,arrows,grid lines,separators or large reference.",
+    "reference_media_id": "65104d16-3913-465f-b86b-1787d88f64b5",
+    "rejected_drafts": [
+      {
+        "job_id": "bb39a9ae-8533-4ef2-a888-8d0d5ad202e2",
+        "prompt": "Animate this EXACT tiny fixed-layout guide IN PLACE. Every complete vehicle including legs, wheels, antennae and chains stays at its input position, proportions and scale, maximum 220px tall or wide inside each 512px cell. Preserve HUGE empty gaps. The whole body and cockpit remain UPRIGHT at the identical angle in all16 cells; never rotate, tilt or shift the complete machine. Only local weapon mechanisms articulate. Every active weapon muzzle and attached spark points toward CANVAS LEFT, mounted away from the pilot. Never enlarge whole vehicles. Every sprite and effect fits central 55% of its cell; nothing touches an edge. Preserve the exact visible Sproto pilot seated inside the cockpit, face and hands unobstructed in ALL 16 frames. Never place a weapon, mask, flash or tint across the face or cockpit opening. Mount new mechanisms below the cockpit or on side chassis away from the pilot. ROW 1: four subtle idle mechanism frames. ROW 2: animate the billboard-corner twin digital lance cannons: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches long cyan rectangular data-packet lance colors/material and remains attached to the muzzle, maximum 15px. ROW 3: animate the robot chest battery-cap launcher: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches small teal capacitor cell with white charge core colors/material and remains attached to the muzzle, maximum 15px. ROW 4: animate the left claw-mounted neon coil pulse gun: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches wide cyan stepped-pixel glitch wave colors/material and remains attached to the muzzle, maximum 15px. Three DISTINCT physical mechanisms genuinely deploy and shoot in their respective attack rows. Other weapons stay neutral. No detached travelling projectiles or long beams; those are separate assets. Exactly four rows of four isolated complete sprites, 2048 square. Detailed crisp high-quality pixel art. Keep ALL empty background and gutters UNIFORMLY pure hot magenta #FF00FF. No grid lines, labels, text, arrows, scenery or enlarged reference. Match input 220px subject size exactly.",
+        "reason": "C fire beam clips native cell LEFT border; B hatch obscures pilot",
+        "path": "raw-phase-atlases/05-neon-sproto102-p2-rejected-clipped-beam.png"
+      }
+    ],
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_163028_19f970d4-77c6-49e2-9ecd-e259e6a1a1d7.png",
+    "visual_review": "Prompt detail verified. Corrected complete genuine16 isolated weapon frames; exact native whole approved same-phase cockpit/pilot composition; all weapons LEFT and below/above cab. Per-cell mixed background alpha-only matte and empty16px gridband removal, strict16 cutoff checks pass; baseline fringe/flash polish pending.",
+    "composition_scope": "Whole native same-phase approved cockpit interior and rim, including clear pilot and controls; preserves all moving weapon mechanisms outside mask.",
+    "composition_provenance": "cockpit-compositions/05-neon-sproto102-p2-composed-raw.json",
+    "background_provenance": "cockpit-compositions/05-neon-sproto102-p2-empty-grid-provenance.json",
+    "cell_backgrounds": "05p2-reviewed-cell-backgrounds.json",
+    "final_output_sha256": "686fdf27c3e46458e9eb529eaf93e099f04af6559630ac7cc060307253052640"
+  },
+  "acceptedOutput": {
+    "path": "p2.png",
+    "sha256": "686fdf27c3e46458e9eb529eaf93e099f04af6559630ac7cc060307253052640",
+    "metadata": "p2.json",
+    "bounds": [
+      12,
+      56,
+      488,
+      444
+    ],
+    "rowBounds": [
+      [
+        122,
+        56,
+        378,
+        444
+      ],
+      [
+        12,
+        106,
+        488,
+        394
+      ],
+      [
+        33,
+        106,
+        465,
+        394
+      ],
+      [
+        40,
+        106,
+        460,
+        394
+      ]
+    ]
+  },
+  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
+  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
+  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+}

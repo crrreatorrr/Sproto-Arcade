@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "kind": "approved-native-cockpit-composition",
+  "animationFramesGenerated": false,
+  "vehicleAnimationSource": "existing genuine input atlas, unchanged outside explicit masks",
+  "includesPilot": true,
+  "requiresVisualReview": true,
+  "productionEnabled": false,
+  "source": "work/art-production/layout-guides/06-circuit-rune-p2-cutout-video.png",
+  "sourceSha256": "613004d0789f6a43de373af0ac72174a1bb5ec385595c480e646646dcdc0f2f6",
+  "sourceDimensions": [
+    960,
+    960
+  ],
+  "atlas": "work/art-production/raw-phase-atlases/06-circuit-rune-p2.png",
+  "atlasSha256": "c2764f0f037da46a29bfc0f128b1b5d87e7436c46e3671a5bbff17fdcd018ae0",
+  "atlasDimensions": [
+    2048,
+    2048
+  ],
+  "specification": "work/art-production/cockpit-compositions/06-circuit-rune-p2-placements.json",
+  "specificationSha256": "459999fb3b7bfa001e17ae351179d5380db1c2179c1ba70a21ca8d88545ea085",
+  "polygon": [
+    [
+      310,
+      70
+    ],
+    [
+      530,
+      70
+    ],
+    [
+      590,
+      145
+    ],
+    [
+      600,
+      205
+    ],
+    [
+      630,
+      220
+    ],
+    [
+      630,
+      380
+    ],
+    [
+      580,
+      445
+    ],
+    [
+      290,
+      445
+    ],
+    [
+      290,
+      320
+    ],
+    [
+      330,
+      280
+    ],
+    [
+      330,
+      160
+    ]
+  ],
+  "sourceHorizontalFlip": false,
+  "sourceMaskBoundsAfterFlip": [
+    290,
+    87,
+    631,
+    446
+  ],
+  "maskPolicy": "hard binary polygon intersected with opaque source alpha; no feather, blending, repaint or interpolation",
+  "transform": "cellLocalPixel = (horizontalFlip ? [sourceWidth-1-rawX, rawY] : rawConceptPixel) * uniformScale + translate; anchors refer to original unmirrored source",
+  "resampling": "nearest-neighbor",
+  "columns": 4,
+  "rows": 4,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.29,
+      "translate": [
+        111.80000000000001,
+        116.0
+      ],
+      "cellPatchBounds": [
+        196,
+        141,
+        295,
+        245
+      ],
+      "patchPixels": 7778,
+      "inverseAffine": [
+        3.4482758620689657,
+        0,
+        -385.5172413793104,
+        0,
+        3.4482758620689657,
+        -400.0
+      ],
+      "sourceAnchor": [
+        480,
+        200
+      ],
+      "targetAnchor": [
+        251,
+        174
+      ]
+    }
+  ],
+  "checks": {
+    "outsideMaskRgbaByteExact": true,
+    "insideMaskMatchesNearestNativeSource": true,
+    "all16UniqueCells": true
+  },
+  "output": "work/art-production/cockpit-compositions/06-circuit-rune-p2-composed-raw.png",
+  "outputSha256": "6ee9e4d8eda4c817609d0821a34ff4bd631e33099f040f22694218710abcc61a",
+  "maskOutput": "work/art-production/cockpit-compositions/06-circuit-rune-p2-native-cockpit-mask.png",
+  "maskSha256": "541018e992e8366e086055518a9a3f0e9b2143bb62af8835a247873f99d257e2"
+}

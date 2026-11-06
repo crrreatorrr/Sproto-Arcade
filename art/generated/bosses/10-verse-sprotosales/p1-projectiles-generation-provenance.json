@@ -1,0 +1,702 @@
+{
+  "folder": "10-verse-sprotosales",
+  "phase": 1,
+  "status": "accepted_copied",
+  "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/10-verse-sprotosales-p1-concept.png",
+  "concept_job_id": "d696a7e7-ce9b-4bb8-8888-8f1d26744dd4",
+  "concept_available": true,
+  "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/10-verse-sprotosales-p1-guide.png",
+  "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+  "weapon_plan": [
+    {
+      "slot": "A",
+      "mechanism": "wedge-bow crimson plasma cannon",
+      "projectile": "long crimson plasma bolt with hot orange core and angular burgundy luminous casing",
+      "size_class": "long narrow",
+      "extent_percent_of_cell": {
+        "width": 50,
+        "height": 11
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "B",
+      "mechanism": "forward-pylon ruby token launchers",
+      "projectile": "small burgundy-and-gold ruby sales-token disc matching the carrier emblem",
+      "size_class": "small compact",
+      "extent_percent_of_cell": {
+        "width": 21,
+        "height": 21
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "C",
+      "mechanism": "armored side gold-refraction shard emitter",
+      "projectile": "wide gold refraction-shard spray with burgundy wedge edges and ruby highlights",
+      "size_class": "broad wide",
+      "extent_percent_of_cell": {
+        "width": 42,
+        "height": 27
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    },
+    {
+      "slot": "heavy",
+      "mechanism": "overcharged heavy cartridge from armored side gold-refraction shard emitter",
+      "projectile": "heavy burgundy-and-navy armored capsule with paired orange thruster ports",
+      "size_class": "large heavy",
+      "extent_percent_of_cell": {
+        "width": 46,
+        "height": 29
+      },
+      "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+    }
+  ],
+  "simulation_changes": false,
+  "enabled_in_game": false,
+  "model_ui": "Nano Banana Pro",
+  "resolution": "2K",
+  "aspect_ratio": "1:1",
+  "billing": "Unlimited only; no paid fallback",
+  "type": "phase_projectile_atlas",
+  "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: long crimson plasma bolt with hot orange core and angular burgundy luminous casing. Width about256pixels and height56pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: small burgundy-and-gold ruby sales-token disc matching the carrier emblem. Width about108pixels and height108pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: wide gold refraction-shard spray with burgundy wedge edges and ruby highlights. Width about215pixels and height138pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: heavy burgundy-and-navy armored capsule with paired orange thruster ports. Width about236pixels and height148pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+  "rows_by_weapon": [
+    "A",
+    "B",
+    "C",
+    "heavy"
+  ],
+  "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/10-verse-sprotosales-p1-projectiles.png",
+  "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/10-verse-sprotosales/p1-projectiles.png",
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "width": 2048,
+    "height": 2048,
+    "cell_width": 512,
+    "cell_height": 512
+  },
+  "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: long crimson plasma bolt with hot orange core and angular burgundy luminous casing, fired from wedge-bow crimson plasma cannon. Keep its own relative size approximately 50% cell width by 11% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: small burgundy-and-gold ruby sales-token disc matching the carrier emblem, fired from forward-pylon ruby token launchers. Keep its own relative size approximately 21% cell width by 21% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: wide gold refraction-shard spray with burgundy wedge edges and ruby highlights, fired from armored side gold-refraction shard emitter. Keep its own relative size approximately 42% cell width by 27% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: heavy burgundy-and-navy armored capsule with paired orange thruster ports, fired from overcharged heavy cartridge from armored side gold-refraction shard emitter. Keep its own relative size approximately 46% cell width by 29% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+  "reference_path": null,
+  "job_id": "3183ac9b-fffb-47dd-8056-cf4ad2f43323",
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_173239_3183ac9b-fffb-47dd-8056-cf4ad2f43323.png",
+  "jobDetailPromptVerified": true,
+  "billing_verified": "Unlimited ON /submitUNLIMITED/2K1:1",
+  "finalSha256": "9bceff436f59451c253e269b662ef704f9f5de89e8319fc7834cc801f31ed2f4",
+  "facing": "left",
+  "nativeFacingNormalization": "A/C nativeLEFT; B token nondirectional; selected complete alternate D row mirroredLEFT",
+  "sourceRowSelection": {
+    "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/10-verse-sprotosales-p1-projectiles-text.png",
+    "sourceSha256": "ce9f237a6acd4e774e294b9dec18dda9d409c62fbc54305ac4aafd1d04c9f998",
+    "sourceLayout": "A/B256px subrows, C/D512px rows; D reverse-direction row1536..2048 selected for wider complete exhaust margins; first D row1024..1536 omitted",
+    "operation": "Only whole-cell native cropping and integer vertical padding; source A/B artwork never stretched; one genuine sourcecell peroutputframe, no duplication/invention",
+    "verifiedGridRemovalBands": [
+      {
+        "axis": "x",
+        "boundary": 0,
+        "start": 0,
+        "end": 8,
+        "nearBlackCore": [
+          0,
+          3
+        ],
+        "rectangle": [
+          0,
+          0,
+          8,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 512,
+        "start": 504,
+        "end": 520,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          504,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1024,
+        "start": 1016,
+        "end": 1032,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          1016,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1536,
+        "start": 1528,
+        "end": 1544,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          1528,
+          0,
+          16,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 2048,
+        "start": 2044,
+        "end": 2048,
+        "nearBlackCore": [
+          2045,
+          2048
+        ],
+        "rectangle": [
+          2044,
+          0,
+          4,
+          2048
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 0,
+        "start": 0,
+        "end": 8,
+        "nearBlackCore": [
+          0,
+          3
+        ],
+        "rectangle": [
+          0,
+          0,
+          2048,
+          8
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 512,
+        "start": 504,
+        "end": 520,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          0,
+          504,
+          2048,
+          16
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1024,
+        "start": 1016,
+        "end": 1032,
+        "nearBlackCore": [
+          1021,
+          1028
+        ],
+        "rectangle": [
+          0,
+          1016,
+          2048,
+          16
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1536,
+        "start": 1528,
+        "end": 1544,
+        "nearBlackCore": [
+          1533,
+          1540
+        ],
+        "rectangle": [
+          0,
+          1528,
+          2048,
+          16
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 2048,
+        "start": 2040,
+        "end": 2048,
+        "nearBlackCore": [
+          2045,
+          2048
+        ],
+        "rectangle": [
+          0,
+          2040,
+          2048,
+          8
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 256,
+        "start": 244,
+        "end": 268,
+        "nearBlackCore": [
+          253,
+          259
+        ],
+        "rectangle": [
+          0,
+          244,
+          2048,
+          24
+        ]
+      }
+    ],
+    "frames": [
+      {
+        "row": 0,
+        "column": 0,
+        "originalSourceRect": [
+          0,
+          0,
+          512,
+          256
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          244
+        ],
+        "standardizedUsable": [
+          8,
+          136,
+          504,
+          372
+        ]
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "originalSourceRect": [
+          512,
+          0,
+          1024,
+          256
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          244
+        ],
+        "standardizedUsable": [
+          8,
+          136,
+          504,
+          372
+        ]
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "originalSourceRect": [
+          1024,
+          0,
+          1536,
+          256
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          244
+        ],
+        "standardizedUsable": [
+          8,
+          136,
+          504,
+          372
+        ]
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "originalSourceRect": [
+          1536,
+          0,
+          2048,
+          256
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          508,
+          244
+        ],
+        "standardizedUsable": [
+          8,
+          136,
+          508,
+          372
+        ]
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "originalSourceRect": [
+          0,
+          256,
+          512,
+          512
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          12,
+          504,
+          248
+        ],
+        "standardizedUsable": [
+          8,
+          140,
+          504,
+          376
+        ]
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "originalSourceRect": [
+          512,
+          256,
+          1024,
+          512
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          12,
+          504,
+          248
+        ],
+        "standardizedUsable": [
+          8,
+          140,
+          504,
+          376
+        ]
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "originalSourceRect": [
+          1024,
+          256,
+          1536,
+          512
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          12,
+          504,
+          248
+        ],
+        "standardizedUsable": [
+          8,
+          140,
+          504,
+          376
+        ]
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "originalSourceRect": [
+          1536,
+          256,
+          2048,
+          512
+        ],
+        "verticalPad": 128,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          12,
+          508,
+          248
+        ],
+        "standardizedUsable": [
+          8,
+          140,
+          508,
+          376
+        ]
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "originalSourceRect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "originalSourceRect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "originalSourceRect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "originalSourceRect": [
+          1536,
+          512,
+          2048,
+          1024
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          508,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          508,
+          504
+        ]
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "originalSourceRect": [
+          0,
+          1536,
+          512,
+          2048
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "originalSourceRect": [
+          512,
+          1536,
+          1024,
+          2048
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "originalSourceRect": [
+          1024,
+          1536,
+          1536,
+          2048
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          504,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          504,
+          504
+        ]
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "originalSourceRect": [
+          1536,
+          1536,
+          2048,
+          2048
+        ],
+        "verticalPad": 0,
+        "originalUsableAfterVerifiedGrid": [
+          8,
+          8,
+          508,
+          504
+        ],
+        "standardizedUsable": [
+          8,
+          8,
+          508,
+          504
+        ]
+      }
+    ],
+    "outputSha256": "e2a132923ced6a6e82ce556a483e55542fc0ce55a4a5fe0ad73414fab0e4a703"
+  },
+  "protectedCoresProfile": {
+    "stripGrid": 0,
+    "sourceRegistrationMetadata": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/10-verse-sprotosales-p1-projectiles-standardized.json",
+    "reason": "Source has real burgundy/crimson/navy paint and ruby highlights. Coreguards preserve these intrinsic pigments; identical magenta field fails allcolor predicates. Irregular native rows were padded only, no artwork scaling or invented poses.",
+    "protectedCores": [
+      {
+        "row": 0,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "burgundy-navy-pigment"
+      },
+      {
+        "row": 1,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "burgundy-navy-pigment"
+      },
+      {
+        "row": 1,
+        "box": [
+          190,
+          185,
+          135,
+          145
+        ],
+        "reason": "Ruby token center and all actual jewel highlights"
+      },
+      {
+        "row": 2,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "burgundy-navy-pigment"
+      },
+      {
+        "row": 3,
+        "box": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "predicate": "burgundy-navy-pigment"
+      }
+    ]
+  },
+  "physicalRepair": false
+}

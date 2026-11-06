@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "projectiles",
+  "source": "03-mudline-crapto-p2-projectiles-left-source.png",
+  "sourceSha256": "197b8e38133f589ad71faeb6a774d4307cb7f776567a0bd8101256dbaebd7fe2",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "sourceFrameDimensions": [
+    512,
+    512
+  ],
+  "gridRemoval": {
+    "maximumBoundaryDistance": 0,
+    "nearBlackMaximumChannel": 45,
+    "maximumInterpolationFringe": 0,
+    "bands": []
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      13,
+      223,
+      487,
+      191
+    ],
+    [
+      122,
+      251,
+      266,
+      144
+    ],
+    [
+      12,
+      147,
+      487,
+      353
+    ],
+    [
+      13,
+      220,
+      485,
+      206
+    ]
+  ],
+  "bounds": [
+    12,
+    147,
+    488,
+    353
+  ],
+  "unionCrop": [
+    23,
+    87,
+    490,
+    425
+  ],
+  "destinationSize": [
+    488,
+    353
+  ],
+  "offset": [
+    12,
+    147
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        24,
+        170,
+        490,
+        343
+      ],
+      "cellBounds": [
+        13,
+        234,
+        500,
+        414
+      ],
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 221437
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        57,
+        204,
+        456,
+        332
+      ],
+      "cellBounds": [
+        48,
+        269,
+        464,
+        403
+      ],
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 228323
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        25,
+        160,
+        486,
+        318
+      ],
+      "cellBounds": [
+        14,
+        223,
+        496,
+        388
+      ],
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 227884
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        37,
+        208,
+        478,
+        305
+      ],
+      "cellBounds": [
+        27,
+        273,
+        487,
+        375
+      ],
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 234619
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        130,
+        194,
+        382,
+        316
+      ],
+      "cellBounds": [
+        124,
+        259,
+        387,
+        386
+      ],
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 234809
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        131,
+        187,
+        381,
+        324
+      ],
+      "cellBounds": [
+        125,
+        251,
+        386,
+        395
+      ],
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 232655
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        136,
+        187,
+        376,
+        324
+      ],
+      "cellBounds": [
+        130,
+        251,
+        381,
+        395
+      ],
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 234201
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        128,
+        210,
+        383,
+        300
+      ],
+      "cellBounds": [
+        122,
+        275,
+        388,
+        369
+      ],
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 241806
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        24,
+        87,
+        488,
+        425
+      ],
+      "cellBounds": [
+        13,
+        147,
+        498,
+        500
+      ],
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 157168
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        23,
+        87,
+        489,
+        425
+      ],
+      "cellBounds": [
+        12,
+        147,
+        499,
+        500
+      ],
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 162430
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        23,
+        112,
+        489,
+        425
+      ],
+      "cellBounds": [
+        12,
+        173,
+        499,
+        500
+      ],
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 161198
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        23,
+        119,
+        489,
+        425
+      ],
+      "cellBounds": [
+        12,
+        180,
+        499,
+        500
+      ],
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 182662
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        24,
+        173,
+        488,
+        339
+      ],
+      "cellBounds": [
+        13,
+        237,
+        498,
+        410
+      ],
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 208109
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        44,
+        157,
+        468,
+        354
+      ],
+      "cellBounds": [
+        34,
+        220,
+        477,
+        426
+      ],
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 197799
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        75,
+        178,
+        437,
+        334
+      ],
+      "cellBounds": [
+        66,
+        242,
+        445,
+        405
+      ],
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 213672
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        30,
+        173,
+        482,
+        339
+      ],
+      "cellBounds": [
+        19,
+        237,
+        492,
+        410
+      ],
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 200267
+    }
+  ],
+  "sampling": "one-to-one source cells; no interpolation or frame duplication; nearest-neighbor scale",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected conservative chroma with boundary despill",
+    "minimumBackgroundFraction": 0.2
+  },
+  "atlasSha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813",
+  "sourceJobId": "25b91d71-18ac-47cd-83e5-713f88db2036",
+  "facingTransformProvenance": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/03-mudline-crapto-p2-projectiles-left-source.json",
+  "productionEnabled": true,
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "interiorBackgroundCleanup": {
+    "rule": "Palette contains olive/brown/cream/copper; no authoredmagenta. Remove any enclosed truekey pixel usingalphaonly minRB180,minRB-G95,absRB65",
+    "pixelsRemoved": 3,
+    "foregroundRgbUnchanged": true
+  },
+  "sourceReferenceGuide": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/03-mudline-crapto-p2-projectile-small-guide.png",
+  "sourceReferenceGuideSha256": "08229267856dadb3d82893fda07f925c1becf85e76215eaefbc244cacd60be92",
+  "sourceReferenceMediaId": "6207e877-1547-4610-a9fb-22f2fea53d93",
+  "visualReview": "Root visual pass: all4 source-themed motifs LEFT, strict16 isolated frames, native authored flat flood-wave base is not a cell crop. C/heavy percell mirrors only, no frame fabrication.",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "c923fcf8a072b0780b70339bf42a05a9ab0b4cdba0bad9a13499dfca028ca813"
+  }
+}

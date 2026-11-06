@@ -1,0 +1,98 @@
+{
+  "request": {
+    "folder": "10-verse-sprotosales",
+    "phase": 2,
+    "status": "completed_pending_qa",
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/10-verse-sprotosales-p2-concept.png",
+    "concept_job_id": "bbc4ebb6-19e8-4c6e-848b-7947d8df23be",
+    "concept_available": true,
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/10-verse-sprotosales-p2-guide.png",
+    "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "outer-ring crimson ray emitter",
+        "projectile": "thin segmented crimson ray with gold core and cream brace-like bands",
+        "size_class": "long narrow",
+        "extent_percent_of_cell": {
+          "width": 49,
+          "height": 10
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "B",
+        "mechanism": "bright red central-hub ruby shard cannon",
+        "projectile": "broad ruby-red faceted hub shard with hot orange internal light and gold edge sparks",
+        "size_class": "broad wide",
+        "extent_percent_of_cell": {
+          "width": 35,
+          "height": 27
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "C",
+        "mechanism": "cream-brace armored energy-capsule launcher",
+        "projectile": "burgundy armored energy cartridge with cream mechanical endcaps and red warning core",
+        "size_class": "compact capsule",
+        "extent_percent_of_cell": {
+          "width": 31,
+          "height": 21
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged heavy cartridge from cream-brace armored energy-capsule launcher",
+        "projectile": "large spiked burgundy energy core with four distinctive cream braces and a ruby center",
+        "size_class": "large heavy",
+        "extent_percent_of_cell": {
+          "width": 43,
+          "height": 39
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "billing": "Unlimited only; no paid fallback",
+    "sourceFacing": "right",
+    "guideFacing": "left",
+    "transform": "horizontal-flip",
+    "type": "phase_projectile_atlas",
+    "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: thin segmented crimson ray with gold core and cream brace-like bands. Width about240pixels and height51pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: broad ruby-red faceted hub shard with hot orange internal light and gold edge sparks. Width about179pixels and height138pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: burgundy armored energy cartridge with cream mechanical endcaps and red warning core. Width about159pixels and height108pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: large spiked burgundy energy core with four distinctive cream braces and a ruby center. Width about220pixels and height200pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/10-verse-sprotosales-p2-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/10-verse-sprotosales/p2-projectiles.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: thin segmented crimson ray with gold core and cream brace-like bands, fired from outer-ring crimson ray emitter. Keep its own relative size approximately 49% cell width by 10% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: broad ruby-red faceted hub shard with hot orange internal light and gold edge sparks, fired from bright red central-hub ruby shard cannon. Keep its own relative size approximately 35% cell width by 27% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: burgundy armored energy cartridge with cream mechanical endcaps and red warning core, fired from cream-brace armored energy-capsule launcher. Keep its own relative size approximately 31% cell width by 21% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: large spiked burgundy energy core with four distinctive cream braces and a ruby center, fired from overcharged heavy cartridge from cream-brace armored energy-capsule launcher. Keep its own relative size approximately 43% cell width by 39% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+    "reference_path": null,
+    "promptSizingNote": "Capped future requested width to240px so no row contradicts250px totalextentlimit; submitted past prompts unchanged.",
+    "job_id": "1a2ce5ba-f5a1-4ba2-a153-0e40fdb41a80",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_174642_1a2ce5ba-f5a1-4ba2-a153-0e40fdb41a80.png",
+    "jobDetailPromptVerified": true,
+    "billing_verified": "Unlimited ON /submitUNLIMITED/2K1:1"
+  },
+  "job_id": "1a2ce5ba-f5a1-4ba2-a153-0e40fdb41a80",
+  "billing": "Verified website Unlimited 2K",
+  "finalSha256": "e0c16e5ffb37f14f5c263ae0c0356e2a3f2acd524d219e4f5f7646a3f9dadc4d",
+  "physicalRepair": false,
+  "nativeCoreByteExact": true,
+  "facing": "All native A segmented crimson ray, B ruby shard and C cream-capped energy cartridge face LEFT. Heavy ruby core spins nondirectionally. No mirroring, artwork repaint or pose synthesis."
+}

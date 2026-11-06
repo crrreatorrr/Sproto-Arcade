@@ -1,0 +1,28 @@
+{
+  "provider": "Higgsfield",
+  "model": "Seedance 2.5",
+  "billing": "Website Unlimited checked; no paid fallback",
+  "resolution": "720p",
+  "quality": "High",
+  "jobs": [
+    {
+      "folder": "11-rooftop-sproto1668",
+      "phase": 2,
+      "job_id": "6058d2a9-77b1-4bc2-9ee8-4e5e1e18e28b",
+      "reference_asset_id": "744f16d2-3193-4ab6-83a4-2b876775a380",
+      "billing": "Unlimited website checked",
+      "duration": 12,
+      "status": "completed"
+    }
+  ],
+  "visibleHistory": [
+    {
+      "id": "6058d2a9-77b1-4bc2-9ee8-4e5e1e18e28b",
+      "status": "completed",
+      "visibleText": ""
+    }
+  ],
+  "acceptedAtlasSha256": "dea1af4f6e0a649c3b43591da65c770b6b43c1dce03425be72d8feb7b2f71f6c",
+  "identityReview": "Canonical Sproto pilot visibly seated inside vehicle; all16 full physical frames reviewed",
+  "simulationPolicy": "Weapon presentation only. Authored movement/patterns/timing/damage/counters unchanged; only measured collision geometry can change."
+}

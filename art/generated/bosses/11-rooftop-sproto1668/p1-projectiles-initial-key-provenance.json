@@ -1,0 +1,729 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      126,
+      147,
+      374,
+      211
+    ],
+    [
+      24,
+      137,
+      469,
+      226
+    ],
+    [
+      22,
+      63,
+      476,
+      372
+    ],
+    [
+      12,
+      40,
+      461,
+      460
+    ]
+  ],
+  "bounds": [
+    12,
+    40,
+    488,
+    460
+  ],
+  "unionCrop": [
+    15,
+    52,
+    486,
+    496
+  ],
+  "destinationSize": [
+    488,
+    460
+  ],
+  "offset": [
+    12,
+    40
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        156,
+        204,
+        360,
+        308
+      ],
+      "cellBounds": [
+        158,
+        197,
+        369,
+        305
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        137,
+        179,
+        351,
+        334
+      ],
+      "cellBounds": [
+        138,
+        172,
+        360,
+        332
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        125,
+        155,
+        486,
+        359
+      ],
+      "cellBounds": [
+        126,
+        147,
+        500,
+        358
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        137,
+        204,
+        460,
+        308
+      ],
+      "cellBounds": [
+        138,
+        197,
+        473,
+        305
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        40,
+        236,
+        477,
+        275
+      ],
+      "cellBounds": [
+        38,
+        231,
+        491,
+        271
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        27,
+        181,
+        479,
+        330
+      ],
+      "cellBounds": [
+        24,
+        174,
+        493,
+        328
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        27,
+        146,
+        478,
+        364
+      ],
+      "cellBounds": [
+        24,
+        137,
+        492,
+        363
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        36,
+        181,
+        479,
+        330
+      ],
+      "cellBounds": [
+        34,
+        174,
+        493,
+        328
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        142,
+        163,
+        428,
+        346
+      ],
+      "cellBounds": [
+        144,
+        155,
+        440,
+        345
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        61,
+        139,
+        440,
+        370
+      ],
+      "cellBounds": [
+        60,
+        130,
+        452,
+        369
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        25,
+        74,
+        484,
+        433
+      ],
+      "cellBounds": [
+        22,
+        63,
+        498,
+        435
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        120,
+        149,
+        438,
+        361
+      ],
+      "cellBounds": [
+        121,
+        140,
+        450,
+        360
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        93,
+        52,
+        458,
+        414
+      ],
+      "cellBounds": [
+        93,
+        40,
+        471,
+        415
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        49,
+        52,
+        458,
+        464
+      ],
+      "cellBounds": [
+        47,
+        40,
+        471,
+        467
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        15,
+        52,
+        459,
+        496
+      ],
+      "cellBounds": [
+        12,
+        40,
+        472,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        22,
+        52,
+        460,
+        488
+      ],
+      "cellBounds": [
+        19,
+        40,
+        473,
+        492
+      ]
+    }
+  ],
+  "kind": "reviewed-magenta-projectile-alpha-unmix",
+  "assetKind": "projectiles",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/11-rooftop-sproto1668-p1-projectiles.png",
+  "sourceSha256": "0060555d44c4e1329c46e9f1af2d328070d62c6f84e41c58b7fb97f42f660c20",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
+  "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
+  "reviewedPalette": "Goldie actual sourceweapon palette: gold/navy compacttracer, palegold-cored blue ionrail, orange/gold/blue engineflare, heavygold/navy rocket. No authored magenta/violet. Native LEFT normalization handled separately after safe sourcecutoff check.",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        509,
+        515
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1021,
+        1027
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1533,
+        1539
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    }
+  ],
+  "keyUnmix": {
+    "criterion": "min(R,B)-G>18",
+    "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
+    "foreground": "[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255",
+    "alphaFloorByte": 10,
+    "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
+    "outsideUnmixMaskRgbaByteExact": true,
+    "pixels": 3518933,
+    "removedPixels": 3464394,
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/11-rooftop-sproto1668-p1-projectiles-initial-chroma-unmix-mask.png",
+    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/11-rooftop-sproto1668-p1-projectiles-initial-background-key-mask.png"
+  },
+  "frameCutoffChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        156,
+        204,
+        360,
+        308
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        137,
+        179,
+        351,
+        334
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        125,
+        155,
+        486,
+        359
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        137,
+        204,
+        460,
+        308
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        40,
+        236,
+        477,
+        275
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        27,
+        181,
+        479,
+        330
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        27,
+        146,
+        478,
+        364
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        36,
+        181,
+        479,
+        330
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        142,
+        163,
+        428,
+        346
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        61,
+        139,
+        440,
+        370
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        25,
+        74,
+        484,
+        433
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        120,
+        149,
+        438,
+        361
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        93,
+        52,
+        458,
+        414
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        49,
+        52,
+        458,
+        464
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        15,
+        52,
+        459,
+        496
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        22,
+        52,
+        460,
+        488
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        512
+      ]
+    }
+  ],
+  "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
+  "productionEnabled": false,
+  "outputSha256": "90c7d25af12152be9dfc87418bfc2d85cb2727be94a8d1c22b8ba88a6ae1fd9f",
+  "status": "strict sourcecutoff pass; awaiting visual review"
+}

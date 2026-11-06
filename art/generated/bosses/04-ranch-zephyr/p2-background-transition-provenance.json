@@ -1,0 +1,11 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/04-ranch-zephyr-p2-composed-raw.png",
+  "sourceSha256": "64f6c8ca73344c3d2073b4d64c0cf8326d7109fc48f348bc2300b8b809830eb0",
+  "outputSha256": "1c9d91a776e63a3142a54bab63f78956d33c4cffa36f323e5269cc67305cbd76",
+  "purpose": "Only field transition interpolation and darkmatte seam between firstcell magenta and surrounding graypurple, within verified empty gutters farfromallart. No motif crop.",
+  "emptyRegions": "firstcell x500..523,y0..523 OR y500..523,x0..523. Actual firstcell train x145..375,y169..340; adjacentcell art has >100px gap from these strips.",
+  "colorRule": "Known backgroundblend line tolerance12 OR magenta-hue minRB>=30,minRB-G>=18,absRB<=15 OR blackmaxRGB45; restricted to verified empty strips",
+  "alphaOnlyRgbUnchanged": true,
+  "nativePilotUntouched": true,
+  "pixels": 24576
+}

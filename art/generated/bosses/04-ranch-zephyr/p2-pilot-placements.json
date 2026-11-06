@@ -1,0 +1,364 @@
+{
+  "purpose": "Same canonical Halloween2008 clear approved P1 pilot only inside P2 train cab, retaining P2 generated window rim/machinery; avoid P2 source glassglare",
+  "polygon": [
+    [
+      1015,
+      550
+    ],
+    [
+      940,
+      625
+    ],
+    [
+      1095,
+      645
+    ],
+    [
+      1035,
+      690
+    ],
+    [
+      1100,
+      760
+    ],
+    [
+      1040,
+      750
+    ],
+    [
+      1050,
+      800
+    ],
+    [
+      1015,
+      825
+    ],
+    [
+      1020,
+      860
+    ],
+    [
+      1055,
+      920
+    ],
+    [
+      1060,
+      1040
+    ],
+    [
+      1035,
+      1075
+    ],
+    [
+      800,
+      1075
+    ],
+    [
+      790,
+      990
+    ],
+    [
+      730,
+      1000
+    ],
+    [
+      700,
+      1005
+    ],
+    [
+      690,
+      1015
+    ],
+    [
+      630,
+      1015
+    ],
+    [
+      625,
+      950
+    ],
+    [
+      645,
+      930
+    ],
+    [
+      650,
+      910
+    ],
+    [
+      675,
+      910
+    ],
+    [
+      690,
+      935
+    ],
+    [
+      720,
+      935
+    ],
+    [
+      740,
+      915
+    ],
+    [
+      770,
+      900
+    ],
+    [
+      775,
+      880
+    ],
+    [
+      790,
+      860
+    ],
+    [
+      770,
+      810
+    ],
+    [
+      750,
+      780
+    ],
+    [
+      745,
+      750
+    ],
+    [
+      730,
+      735
+    ],
+    [
+      735,
+      700
+    ],
+    [
+      750,
+      650
+    ],
+    [
+      790,
+      615
+    ],
+    [
+      830,
+      590
+    ],
+    [
+      900,
+      575
+    ]
+  ],
+  "sourceHorizontalFlip": false,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.085,
+      "sourceAnchor": [
+        850,
+        730
+      ],
+      "targetAnchor": [
+        256,
+        201
+      ]
+    }
+  ]
+}

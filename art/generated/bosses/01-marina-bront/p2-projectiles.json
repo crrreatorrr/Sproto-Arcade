@@ -1,0 +1,637 @@
+{
+  "schemaVersion": 1,
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "projectiles",
+  "source": "01-marina-bront-p2-projectiles.png",
+  "sourceSha256": "901a277931c47e9dcdb23a1a258fa5520b22bcb25f37253e6f44373e535edede",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "sourceFrameDimensions": [
+    512,
+    512
+  ],
+  "gridRemoval": {
+    "maximumBoundaryDistance": 12,
+    "nearBlackMaximumChannel": 45,
+    "maximumInterpolationFringe": 12,
+    "bands": [
+      {
+        "axis": "x",
+        "boundary": 512,
+        "start": 500,
+        "end": 524,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          500,
+          0,
+          24,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1024,
+        "start": 1012,
+        "end": 1036,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          1012,
+          0,
+          24,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1536,
+        "start": 1524,
+        "end": 1548,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          1524,
+          0,
+          24,
+          2048
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 512,
+        "start": 500,
+        "end": 524,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          0,
+          500,
+          2048,
+          24
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1024,
+        "start": 1012,
+        "end": 1036,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          0,
+          1012,
+          2048,
+          24
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1536,
+        "start": 1524,
+        "end": 1548,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          0,
+          1524,
+          2048,
+          24
+        ]
+      }
+    ]
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      192,
+      488,
+      179
+    ],
+    [
+      81,
+      105,
+      357,
+      345
+    ],
+    [
+      18,
+      63,
+      477,
+      437
+    ],
+    [
+      23,
+      104,
+      471,
+      338
+    ]
+  ],
+  "bounds": [
+    12,
+    63,
+    488,
+    437
+  ],
+  "unionCrop": [
+    14,
+    38,
+    497,
+    471
+  ],
+  "destinationSize": [
+    488,
+    437
+  ],
+  "offset": [
+    12,
+    63
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        14,
+        174,
+        494,
+        334
+      ],
+      "cellBounds": [
+        15,
+        200,
+        500,
+        362
+      ],
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 231226,
+      "postPackHorizontalMirror": true
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        19,
+        181,
+        492,
+        326
+      ],
+      "cellBounds": [
+        17,
+        207,
+        495,
+        354
+      ],
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 230480,
+      "postPackHorizontalMirror": true
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        20,
+        166,
+        493,
+        343
+      ],
+      "cellBounds": [
+        16,
+        192,
+        494,
+        371
+      ],
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 210824,
+      "postPackHorizontalMirror": true
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        19,
+        182,
+        497,
+        334
+      ],
+      "cellBounds": [
+        12,
+        208,
+        495,
+        362
+      ],
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 222960,
+      "postPackHorizontalMirror": true
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        144,
+        147,
+        365,
+        369
+      ],
+      "cellBounds": [
+        143,
+        173,
+        367,
+        397
+      ],
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 223194,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        133,
+        110,
+        413,
+        391
+      ],
+      "cellBounds": [
+        132,
+        136,
+        415,
+        419
+      ],
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 200247,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        82,
+        94,
+        425,
+        421
+      ],
+      "cellBounds": [
+        81,
+        120,
+        427,
+        450
+      ],
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 210371,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        148,
+        80,
+        436,
+        383
+      ],
+      "cellBounds": [
+        147,
+        105,
+        438,
+        411
+      ],
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 205169,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        106,
+        68,
+        372,
+        441
+      ],
+      "cellBounds": [
+        105,
+        93,
+        374,
+        470
+      ],
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 194806,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        26,
+        38,
+        484,
+        471
+      ],
+      "cellBounds": [
+        24,
+        63,
+        487,
+        500
+      ],
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 153000,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        20,
+        106,
+        492,
+        402
+      ],
+      "cellBounds": [
+        18,
+        132,
+        495,
+        430
+      ],
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 185296,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        109,
+        143,
+        404,
+        372
+      ],
+      "cellBounds": [
+        108,
+        169,
+        406,
+        400
+      ],
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 211962,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        37,
+        102,
+        472,
+        414
+      ],
+      "cellBounds": [
+        35,
+        128,
+        475,
+        442
+      ],
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 154030,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        26,
+        102,
+        486,
+        414
+      ],
+      "cellBounds": [
+        24,
+        128,
+        489,
+        442
+      ],
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 160175,
+      "postPackHorizontalMirror": false
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        20,
+        79,
+        486,
+        406
+      ],
+      "cellBounds": [
+        23,
+        104,
+        494,
+        434
+      ],
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 153791,
+      "postPackHorizontalMirror": true
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        26,
+        109,
+        491,
+        414
+      ],
+      "cellBounds": [
+        24,
+        135,
+        494,
+        442
+      ],
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 167452,
+      "postPackHorizontalMirror": false
+    }
+  ],
+  "sampling": "one-to-one source cells; no interpolation or frame duplication; nearest-neighbor scale",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected conservative chroma with boundary despill",
+    "minimumBackgroundFraction": 0.2
+  },
+  "atlasSha256": "d065040bfa4368dff51e250656ec34bf3c5f5fd29fa8c508bfd54339456ce77a",
+  "parentAtlasSha256": "a526b280013c15e764c0b0e91bff0d2a48aa58c84929a79206005b696765d19b",
+  "generationJob": "369c8b01-ce94-4962-b460-c37a2dbffc14",
+  "facing": "left",
+  "postPackNormalization": {
+    "horizontalCellMirrors": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "reason": "FoamheadleadingLEFT/tailRIGHT; native pixels mirrored after verified grid/key removal",
+    "enclosedMagentaBackgroundPixelsCleared": 691,
+    "paletteReview": "water/steam has no genuine magenta; no RGB repaint"
+  },
+  "review": "All16isolated, physicalwater/steam source motifs and varied sizes; darkbackground reviewed",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "d065040bfa4368dff51e250656ec34bf3c5f5fd29fa8c508bfd54339456ce77a"
+  }
+}

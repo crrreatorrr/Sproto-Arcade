@@ -1,0 +1,117 @@
+{
+  "rows": [
+    {
+      "state": "idle",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestamps": [
+        0.4,
+        1.1,
+        1.8,
+        2.5
+      ],
+      "sourceTransform": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      }
+    },
+    {
+      "state": "attack-a",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestamps": [
+        3.1,
+        4.0,
+        4.75,
+        5.5
+      ],
+      "sourceTransform": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      }
+    },
+    {
+      "state": "attack-b",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4",
+      "timestamps": [
+        0.8,
+        1.8,
+        2.25,
+        4.5
+      ],
+      "sourceTransform": {
+        "scale": 0.86,
+        "translate": [
+          40,
+          94
+        ]
+      }
+    },
+    {
+      "state": "attack-c",
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestamps": [
+        9.1,
+        9.25,
+        9.5,
+        11.5
+      ],
+      "sourceTransform": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "fxSeparation": {
+        "9.5": {
+          "protectSourceTime": 9.1,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              650,
+              190,
+              160
+            ]
+          ],
+          "keepCircles": [
+            [
+              235,
+              730,
+              58
+            ]
+          ]
+        },
+        "9.25": {
+          "protectSourceTime": 9.1,
+          "protectPadding": 3,
+          "rectangles": [
+            [
+              0,
+              650,
+              190,
+              160
+            ]
+          ],
+          "keepCircles": [
+            [
+              235,
+              730,
+              58
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "generationJobs": [
+    "a955bd38-4275-4edc-b7ce-84334b1847b7",
+    "7741b076-9bb8-431d-9284-3f8951659cce"
+  ],
+  "releaseCuePolicy": "Actual wide-source full tracks/claw A4.75 amber egg release DOWNLEFT, C9.5 lavender honeycomb dischargeLEFT. Corrected B2.25 GOLD CONE shoots LIME puffLEFT with rear green vent quiet and face unobscured. Two fixed clip-wide complete-canvas nearest registrations align tracks/cockpit; no per-frame warping. Detached C streak separated outside protected physical hardware; original clipped-foot first attempt rejected entirely."
+}

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-higgsfield-unlimited-asset-import",
+  "generation": {
+    "folder": "06-circuit-rune",
+    "phase": 1,
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/06-circuit-rune-p1-concept.png",
+    "concept_job_id": "0d871ff1-d52a-4ec9-9e32-ff5d1ccf717e",
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/06-circuit-rune-p1-guide.png",
+    "status": "root_visual_pass_copied_to_repo",
+    "billing": "Website Unlimited only; no paid fallback",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "green front-core capacitor cannon",
+        "projectile": "long lime-white circuit lightning lance",
+        "size_class": "long narrow",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 48,
+          "height": 11
+        }
+      },
+      {
+        "slot": "B",
+        "mechanism": "purple shoulder twin-prong arc gun",
+        "projectile": "small violet electrical dart with green forked sparks",
+        "size_class": "small compact",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 21,
+          "height": 21
+        }
+      },
+      {
+        "slot": "C",
+        "mechanism": "lower belly circuit-disc emitter",
+        "projectile": "wide lime circuit-ring pulse with violet corner arcs",
+        "size_class": "broad wide",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 38,
+          "height": 28
+        }
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "reinforced central relay outlet",
+        "projectile": "large indigo relay capsule with luminous lime circuit traces",
+        "size_class": "large heavy",
+        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 34
+        }
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "type": "phase_projectile_atlas",
+    "prompt": "Use this tiny4x4 projectile spacing guide ONLY for positions, empty margins and relative sizes. Replace ALL cream/olive mud motifs with machine ammunition specified below. Exactly16 isolated high-quality detailed HARD-EDGED PIXEL ART sprites,2048 square,512px cells. No soft painting or airbrush. Each motif stays at guide scale:longdart220px maximum,compactcell/orb100px,widepulse180px,heavycapsule200px. Huge empty gaps. ROW1: four sequential evolving animation frames of one long LIME-WHITE CIRCUIT LIGHTNING LANCE with violet conductive collar, leading white tip LEFT, from green front cannon:birth,charge/rotate,peak,settle. Fixed cell center. ROW2: four sequential evolving animation frames of one small BLUE-WHITE ELECTRICAL FORK SPARK with short violet conductive core, from upper violet fork gun:birth,charge/rotate,peak,settle. Fixed cell center. ROW3: four sequential evolving animation frames of one wide AMBER/ORANGE CIRCUIT CRESCENT with white-hot inner arc, matching actual lower belly-disc emission:birth,charge/rotate,peak,settle. Fixed cell center. ROW4: four sequential evolving animation frames of one large INDIGO RELAY CAPSULE with luminous LIME circuit traces and metallic ends:birth,charge/rotate,peak,settle. Fixed cell center. All directional sprites point LEFT, leading tip LEFT and tiny trail RIGHT. Preserve large size differences between rows. Each complete motif plus particles max220px inside central45% of its own cell. Only short attached glints. No explosions,smokeclouds,longtrails,expandedbursts,vehicles,pilots,characters,text,labels,gridlines,arrows,scenery or enlarged reference. Uniform pure green#00FF00 background outside sprites. Actual green energy is fully enclosed by crisp dark physical outline and remains disconnected from background; preserve lime-green projectile bands/cores. All16 frames must have safe empty margins; nothing touches cell borders.",
+    "reference_policy": "Sole validated phase concept as palette/weapon context, never draw the vehicle or pilot",
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/06-circuit-rune-p1-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/06-circuit-rune/p1-projectiles.png",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "previous_concept_context_prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #FF00FF magenta background everywhere outside sprites. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: dark indigo two-legged relay walker with bright green cockpit, etched circuit-board armor, purple antennae, green core and thick jointed mechanical feet. ROW 1, weapon A: long lime-white circuit lightning lance, from green front-core capacitor cannon. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small violet electrical dart with green forked sparks, from purple shoulder twin-prong arc gun. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide lime circuit-ring pulse with violet corner arcs, from lower belly circuit-disc emitter. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large indigo relay capsule with luminous lime circuit traces, from reinforced central relay outlet. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "reference_input_count": 1,
+    "reference_mode": "tiny_projectile_spacing_reference_only",
+    "key_color": "green",
+    "accepted_actual_weapon_palette": {
+      "A": "lime/white front capacitor lance",
+      "B": "blue-white discharge from violet fork",
+      "C": "amber/orange sweeping circuit crescent",
+      "heavy": "indigo shell/lime traces"
+    },
+    "previous_long_projectile_prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. Use this textual machine description only as source context for materials, colors and weapon motifs. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #00FF00 pure green background everywhere outside sprites. Preserve actual lime-green circuit motifs inside fully outlined projectile bodies; keep those outlined bodies disconnected from background. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: dark indigo two-legged relay walker with bright green cockpit, etched circuit-board armor, purple antennae, green core and thick jointed mechanical feet. ROW 1, weapon A: long lime-white circuit lightning lance, from green front-core capacitor cannon. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small blue-white electrical fork spark with a short violet conductive core, from upper violet twin-prong arc gun. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide AMBER/ORANGE circuit crescent pulse with a white-hot inner arc matching the actual belly-disc emission, from unfolding lower belly circuit-disc emitter. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large indigo relay capsule with luminous lime circuit traces, from reinforced central relay outlet. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
+    "guide_path": "work/art-production/layout-guides/06-circuit-rune-p1-projectile-small-guide.png",
+    "job_id": "fb14f32e-af46-4002-9e18-fee4fd7349be",
+    "submitted_prompt": "Use this tiny4x4 projectile spacing guide ONLY for positions, empty margins and relative sizes. Replace ALL cream/olive mud motifs with machine ammunition specified below. Exactly16 isolated high-quality detailed HARD-EDGED PIXEL ART sprites,2048 square,512px cells. No soft painting or airbrush. Each motif stays at guide scale:longdart220px maximum,compactcell/orb100px,widepulse180px,heavycapsule200px. Huge empty gaps. ROW1: four sequential evolving animation frames of one long LIME-WHITE CIRCUIT LIGHTNING LANCE with violet conductive collar, leading white tip LEFT, from green front cannon:birth,charge/rotate,peak,settle. Fixed cell center. ROW2: four sequential evolving animation frames of one small BLUE-WHITE ELECTRICAL FORK SPARK with short violet conductive core, from upper violet fork gun:birth,charge/rotate,peak,settle. Fixed cell center. ROW3: four sequential evolving animation frames of one wide AMBER/ORANGE CIRCUIT CRESCENT with white-hot inner arc, matching actual lower belly-disc emission:birth,charge/rotate,peak,settle. Fixed cell center. ROW4: four sequential evolving animation frames of one large INDIGO RELAY CAPSULE with luminous LIME circuit traces and metallic ends:birth,charge/rotate,peak,settle. Fixed cell center. All directional sprites point LEFT, leading tip LEFT and tiny trail RIGHT. Preserve large size differences between rows. Each complete motif plus particles max220px inside central45% of its own cell. Only short attached glints. No explosions,smokeclouds,longtrails,expandedbursts,vehicles,pilots,characters,text,labels,gridlines,arrows,scenery or enlarged reference. Uniform pure green#00FF00 background outside sprites. Actual green energy is fully enclosed by crisp dark physical outline and remains disconnected from background; preserve lime-green projectile bands/cores. All16 frames must have safe empty margins; nothing touches cell borders.",
+    "reference_media_id": "efce7e27-757f-45dd-bcc3-933fc038915a",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_173351_fb14f32e-af46-4002-9e18-fee4fd7349be.png",
+    "visual_review": "Root and own full16 independent visualpass, strictsourcecutoff, native actualgreenenergy/bandprotected, Camberemissionmatchesactualbellydisc.",
+    "final_output_sha256": "e359988afa54b4d3c2f42b3f2992817f111cdcde8c5eb5fb2198b5739aa9605f",
+    "facing": "A all4 fixed135degCCW nearest +one shared union/scale/anchor toLEFT; BnucleusLEFTunchanged; CconvexLEFTunchanged; heavyneutralunchanged"
+  },
+  "acceptedOutput": {
+    "path": "p1-projectiles.png",
+    "sha256": "e359988afa54b4d3c2f42b3f2992817f111cdcde8c5eb5fb2198b5739aa9605f",
+    "bounds": [
+      12,
+      83,
+      488,
+      417
+    ],
+    "rowBounds": [
+      [
+        12,
+        215,
+        488,
+        155
+      ],
+      [
+        153,
+        216,
+        260,
+        152
+      ],
+      [
+        63,
+        83,
+        383,
+        417
+      ],
+      [
+        71,
+        108,
+        367,
+        365
+      ]
+    ]
+  },
+  "provider": "Higgsfield website Nano Banana Pro2K",
+  "billingMode": "Unlimited switch checked/native UNLIMITED submit verified",
+  "runtimeFlagsOwnedBy": "root"
+}

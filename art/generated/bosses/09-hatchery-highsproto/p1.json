@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "kind": "multiple-video-action-frame-atlas",
+  "sources": {
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4": {
+      "sha256": "e4b89ba5883b70d8e622ab7b183e75857deba22225dad75affa6860c5b52db24",
+      "durationSeconds": 12.041667,
+      "frameRate": "24/1"
+    },
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4": {
+      "sha256": "6e9d953870dc773390d5a51932283a3ecb305e443a1d31cd1936100143ad667f",
+      "durationSeconds": 6.041667,
+      "frameRate": "24/1"
+    }
+  },
+  "sourceDimensions": [
+    960,
+    960
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      40,
+      39,
+      460,
+      461
+    ],
+    [
+      12,
+      39,
+      488,
+      461
+    ],
+    [
+      31,
+      44,
+      448,
+      455
+    ],
+    [
+      40,
+      39,
+      460,
+      461
+    ]
+  ],
+  "bounds": [
+    12,
+    39,
+    488,
+    461
+  ],
+  "unionCrop": [
+    119,
+    171,
+    790,
+    805
+  ],
+  "destinationSize": [
+    488,
+    461
+  ],
+  "offset": [
+    12,
+    39
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 0.4,
+      "sourcePixelsSha256": "e0014ea886a7a596f24b4d72a9f820b4ccd8e0b188cb122e75508649e4c97a4d",
+      "derivedFramePixelsSha256": "9d69bc700acc8d52c18516ca1e883fc414e8d547e960c35a00422207fb3ad732",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 640894
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 1.1,
+      "sourcePixelsSha256": "0a79ac4997c4ff0e0cf7ffed294508f34d4406cac2c7546bd9d7b58b1cb055f4",
+      "derivedFramePixelsSha256": "feefe7246dcf228e34c144b327e0e36dd23fd9477100af47fa21528e465ea0fb",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 640866
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 1.8,
+      "sourcePixelsSha256": "002ffd7858b794abc93e75898392701278cbe921bbc00ce5000c706e4b3ca5e5",
+      "derivedFramePixelsSha256": "fac5c0d7869e207dac9171b9439552d376566562df04f828d7ba6b2dfe8c8f3a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 641416
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 2.5,
+      "sourcePixelsSha256": "4cccfb9ac885db73681f3397799f19f3b36db02f95045d7c61747cbdcd9b7b11",
+      "derivedFramePixelsSha256": "d15c9df4821653bf765dd8df1a11bc0cfe3bbfc8122cdcc0109f13e113c1c0fd",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 640994
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        126,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        17,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 3.1,
+      "sourcePixelsSha256": "079ca70eb0577ca545198e2a742c18fb3ad951cf6f9be17d2179ab2b393f5d8e",
+      "derivedFramePixelsSha256": "67635793d806b59dcb66a17085d5f3e721fbfcb961395fd0e1d5598aff8e58fa",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 637887
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        120,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        13,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 4.0,
+      "sourcePixelsSha256": "cb4d254e6d25547e2e4c692bfc3706a795255623345e56737afc23f06ef9a5c8",
+      "derivedFramePixelsSha256": "6c1f4cdb4a84a9b8e7252452b6915736be3650102b438ed83024fb65147c7594",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 632245
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        119,
+        171,
+        789,
+        805
+      ],
+      "cellBounds": [
+        12,
+        39,
+        499,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 4.75,
+      "sourcePixelsSha256": "5980d815bda9c3eff2fba1d8176cd6ed73139ea2b4a793219688b029ae79bb80",
+      "derivedFramePixelsSha256": "453bea13d6f5754ff4f9cc5d768f06305b64e6f81645e9a42e0eb91dbdff2cbb",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 632083
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        150,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        35,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 5.5,
+      "sourcePixelsSha256": "d5f6c7968980933c3ee81b7a2d0489881289e12e66b40afbb8910ba19ec72944",
+      "derivedFramePixelsSha256": "fc0d0d9f5aba863e6f038d2de3dd696261de76feec71da6f967c59aafea7df2b",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 645164
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        182,
+        740,
+        803
+      ],
+      "cellBounds": [
+        31,
+        47,
+        464,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4",
+      "timestampSeconds": 0.8,
+      "sourcePixelsSha256": "8e25d86faf4c4b14130b9f34dc4fbe7b0dfa3d13d15066afe9c9fb0c828a77e8",
+      "derivedFramePixelsSha256": "bbe6606c0ba3951741637747c20a365ffa4c6ea5d19cab15718ce3fb87515964",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.86,
+        "translate": [
+          40,
+          94
+        ]
+      },
+      "backgroundPixelsRemoved": 663129
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        182,
+        740,
+        803
+      ],
+      "cellBounds": [
+        31,
+        47,
+        464,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4",
+      "timestampSeconds": 1.8,
+      "sourcePixelsSha256": "5684291412a51c1d557f79d288a668537dca98563eefe50387c572b4e1499b84",
+      "derivedFramePixelsSha256": "562ba3ad906e55a892849b280d8c5eccf0bcf30925677cb1aad8fbd2b1113359",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.86,
+        "translate": [
+          40,
+          94
+        ]
+      },
+      "backgroundPixelsRemoved": 663152
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        159,
+        178,
+        761,
+        803
+      ],
+      "cellBounds": [
+        41,
+        44,
+        479,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4",
+      "timestampSeconds": 2.25,
+      "sourcePixelsSha256": "441d32394af4f5bbaa78d0a23a0605a55381274366d45f955fb7b9a71b525960",
+      "derivedFramePixelsSha256": "a9b18d5eaa51ae95c6c95a9748556bcce704a23a8b4a5ff49d4da8c6e4ff17b2",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.86,
+        "translate": [
+          40,
+          94
+        ]
+      },
+      "backgroundPixelsRemoved": 660042
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        182,
+        740,
+        803
+      ],
+      "cellBounds": [
+        31,
+        47,
+        464,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-gold-cone-animation.mp4",
+      "timestampSeconds": 4.5,
+      "sourcePixelsSha256": "fa358fa1905ed41cb855c103b404c92a6795e9f19595326e792989d84a77be06",
+      "derivedFramePixelsSha256": "2646449ddb484694699fee8c2019d91080f71aa9f9e8b1aa8042c16868972653",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.86,
+        "translate": [
+          40,
+          94
+        ]
+      },
+      "backgroundPixelsRemoved": 662977
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 9.1,
+      "sourcePixelsSha256": "fed085d921810cb8f4860e189fd7d2b888a6957043c6d0dd04126c35e762d08a",
+      "derivedFramePixelsSha256": "1e3cf52c4e5a601aa32d6dbe9e20c12fc77105ba6c090862bb5b3ccc7b81b85a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 645716
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 9.25,
+      "sourcePixelsSha256": "8846ebc3a6bfd69a9680f2944cd75c3160d69b821a1cdacd22a45189d924432d",
+      "derivedFramePixelsSha256": "1417c1b42816d04c1f7aaa0005450c721e1525e9ba44d8b636aaff1045fb54f6",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 9.1,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            650,
+            190,
+            160
+          ]
+        ],
+        "keepCircles": [
+          [
+            235,
+            730,
+            58
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "fed085d921810cb8f4860e189fd7d2b888a6957043c6d0dd04126c35e762d08a",
+        "exclusionMaskSha256": "dbe8b7eb2aef9e62f2ce1f017ea5b85ee887f026a239d09263c4a4a08a7e0460",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 644258
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 9.5,
+      "sourcePixelsSha256": "c47a69c84f51b4ccebd4adc4b3d42e97edebd7eff2026b7174a9d78137f5bdf1",
+      "derivedFramePixelsSha256": "d0d23eb710fc8a849f1f3947389e801444d9a9c0e73917664db92335ce75309e",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 9.1,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            650,
+            190,
+            160
+          ]
+        ],
+        "keepCircles": [
+          [
+            235,
+            730,
+            58
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "fed085d921810cb8f4860e189fd7d2b888a6957043c6d0dd04126c35e762d08a",
+        "exclusionMaskSha256": "dbe8b7eb2aef9e62f2ce1f017ea5b85ee887f026a239d09263c4a4a08a7e0460",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 645775
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        157,
+        171,
+        790,
+        805
+      ],
+      "cellBounds": [
+        40,
+        39,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/09-hatchery-highsproto-p1-wide-animation.mp4",
+      "timestampSeconds": 11.5,
+      "sourcePixelsSha256": "a3944fc5faaa331e530a3e2c57c066ed1cb55318254e726c5ef819322bbf1623",
+      "derivedFramePixelsSha256": "d99c471a2a0c8c5e39cd6ee151e512fffb672e11624406a3fced25576686f01a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.9,
+        "translate": [
+          20,
+          20
+        ]
+      },
+      "backgroundPixelsRemoved": 645940
+    }
+  ],
+  "sampling": "16 unique source video/timestamp selections; no invented, duplicated or interpolated frames; one common nearest-neighbor crop/scale",
+  "releaseCuePolicy": "Actual wide-source full tracks/claw A4.75 amber egg release DOWNLEFT, C9.5 lavender honeycomb dischargeLEFT. Corrected B2.25 GOLD CONE shoots LIME puffLEFT with rear green vent quiet and face unobscured. Two fixed clip-wide complete-canvas nearest registrations align tracks/cockpit; no per-frame warping. Detached C streak separated outside protected physical hardware; original clipped-foot first attempt rejected entirely.",
+  "enclosedChromaProfile": null,
+  "atlasSha256": "2def95a7b66cd467b4fb173a94239576cd6c814294f0c588b7bf0719570969ca",
+  "eggGlowChromaUnmix": {
+    "inputAtlasSha256": "23d7900b7d674d7c3419a0cba7cc4277d6f715fe5cfe4ac7bae8ce416dd79079",
+    "maskSha256": "0c7dc19344bad6abfd9514b09317d42de6fdce5554a24a59bd9363a17c0c1079",
+    "pixels": 4194,
+    "nativeRoi": [
+      70,
+      330,
+      305,
+      540
+    ],
+    "frames": [
+      5,
+      6
+    ],
+    "policy": "Magenta backing unmix only within native amber egg glow. Saturated gold payload, claw, pilot and all pixels outside explicit mask byte exact. No invented pose or hardware repair."
+  },
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "2def95a7b66cd467b4fb173a94239576cd6c814294f0c588b7bf0719570969ca"
+  }
+}

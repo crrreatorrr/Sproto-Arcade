@@ -1,0 +1,387 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      186,
+      182,
+      314,
+      317
+    ],
+    [
+      12,
+      186,
+      478,
+      313
+    ],
+    [
+      112,
+      182,
+      378,
+      317
+    ],
+    [
+      43,
+      260,
+      447,
+      240
+    ]
+  ],
+  "bounds": [
+    12,
+    182,
+    488,
+    318
+  ],
+  "unionCrop": [
+    18,
+    112,
+    375,
+    345
+  ],
+  "destinationSize": [
+    488,
+    318
+  ],
+  "offset": [
+    12,
+    182
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        169,
+        367,
+        344
+      ],
+      "cellBounds": [
+        186,
+        260,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        115,
+        375,
+        344
+      ],
+      "cellBounds": [
+        186,
+        186,
+        500,
+        499
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        143,
+        374,
+        344
+      ],
+      "cellBounds": [
+        186,
+        224,
+        499,
+        499
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        145,
+        112,
+        368,
+        344
+      ],
+      "cellBounds": [
+        186,
+        182,
+        490,
+        499
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        36,
+        145,
+        368,
+        344
+      ],
+      "cellBounds": [
+        37,
+        227,
+        490,
+        499
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        18,
+        119,
+        368,
+        344
+      ],
+      "cellBounds": [
+        12,
+        192,
+        490,
+        499
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        78,
+        115,
+        367,
+        344
+      ],
+      "cellBounds": [
+        94,
+        186,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        111,
+        131,
+        367,
+        344
+      ],
+      "cellBounds": [
+        139,
+        208,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        144,
+        169,
+        368,
+        344
+      ],
+      "cellBounds": [
+        184,
+        260,
+        490,
+        499
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        103,
+        121,
+        367,
+        344
+      ],
+      "cellBounds": [
+        128,
+        194,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        91,
+        112,
+        367,
+        344
+      ],
+      "cellBounds": [
+        112,
+        182,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        145,
+        169,
+        367,
+        344
+      ],
+      "cellBounds": [
+        186,
+        260,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        122,
+        169,
+        367,
+        345
+      ],
+      "cellBounds": [
+        154,
+        260,
+        489,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        120,
+        169,
+        367,
+        344
+      ],
+      "cellBounds": [
+        151,
+        260,
+        489,
+        499
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        41,
+        169,
+        368,
+        344
+      ],
+      "cellBounds": [
+        43,
+        260,
+        490,
+        499
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        128,
+        169,
+        368,
+        344
+      ],
+      "cellBounds": [
+        162,
+        260,
+        490,
+        499
+      ]
+    }
+  ],
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/04-ranch-zephyr-p2-bg-transition-cleared.png",
+  "sourceSha256": "1c9d91a776e63a3142a54bab63f78956d33c4cffa36f323e5269cc67305cbd76",
+  "sourceKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/04-ranch-zephyr-p2-composed-prototype-source-keyed-rgba.png",
+  "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-atlases/04-ranch-zephyr-p2-composed-prototype-background-mask.png",
+  "keyRgb": [
+    99,
+    76,
+    96
+  ],
+  "maximumPerChannelDistance": 8,
+  "alsoMagentaKey": true,
+  "edgeConnectedOnly": true,
+  "foregroundRgbByteExact": true,
+  "nativeProtectedRgbaByteExact": true,
+  "backgroundRemovedPixels": 3648404,
+  "includesPilot": true,
+  "pilotOverlayRequired": false,
+  "enabledInGame": false,
+  "preparation": "one commoncrop/nearestscale/anchor; each sourcecell preserved; no generated/duplicate/reorderedframes; alpha-onlybackgroundremoval",
+  "provenanceFiles": [
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/04-ranch-zephyr-p2-clear-pilot-placements.json",
+      "sha256": "01a07a78d445f50b523a7dec88a1dde977e4a46e37357e00f0fe1779a36621f3"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/04-ranch-zephyr-p2-composed-raw.json",
+      "sha256": "f8f69ca87ea46b21b31740afa7a01623e602f4aac4609db10fd70822e47b8519"
+    },
+    {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/cockpit-compositions/04-ranch-zephyr-p2-bg-transition.json",
+      "sha256": "73c898ad9ce1541c0ba58b65364e25032e8bcf22229fea3bd4bba7a23837a612"
+    }
+  ],
+  "conversionScript": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-and-pack-reviewed-gray.py",
+  "conversionScriptSha256": "6a924efc039bf7c71168c720b1d1896f7af648359ae84923e7b0d72940db0d7a",
+  "outputSha256": "9bf91e19b18f935faa9865d5f02212233d022eb391733fedfbe2e33bda8c2f87",
+  "status": "awaiting root visual review"
+}

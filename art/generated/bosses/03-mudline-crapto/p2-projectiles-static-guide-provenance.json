@@ -1,0 +1,10 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/03-mudline-crapto-p1-projectiles.png",
+  "sourceSha256": "863d3013f793e41dfec07b85db82ea79fe0998cca5db483baaa0579ff5df17be",
+  "derivativePurpose": "fixed-layout static reference only, not final animation",
+  "referenceFrames": "row0..3 column0 repeated4times, each complete512cell scaled220px nearest, centered146offset",
+  "maximumSubjectPixels": 220,
+  "staticGuideOnly": true,
+  "enabledInGame": false,
+  "outputSha256": "08229267856dadb3d82893fda07f925c1becf85e76215eaefbc244cacd60be92"
+}

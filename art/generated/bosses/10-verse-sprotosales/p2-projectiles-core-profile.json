@@ -1,0 +1,77 @@
+{
+  "stripGrid": 8,
+  "reason": "Preserve native burgundy navy crimson and ruby paint; only magenta backing is keyed/unmixed.",
+  "protectedCores": [
+    {
+      "row": 0,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "burgundy-navy-pigment"
+    },
+    {
+      "row": 1,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "burgundy-navy-pigment"
+    },
+    {
+      "row": 2,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "burgundy-navy-pigment"
+    },
+    {
+      "row": 3,
+      "box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "predicate": "burgundy-navy-pigment"
+    },
+    {
+      "row": 1,
+      "box": [
+        120,
+        120,
+        270,
+        280
+      ],
+      "reason": "Native ruby jewel faces and highlights"
+    },
+    {
+      "row": 2,
+      "box": [
+        200,
+        170,
+        120,
+        180
+      ],
+      "reason": "Native red warning window"
+    },
+    {
+      "row": 3,
+      "box": [
+        150,
+        150,
+        220,
+        220
+      ],
+      "reason": "Native ruby heavy core"
+    }
+  ],
+  "allowEnclosedStrongField": true
+}

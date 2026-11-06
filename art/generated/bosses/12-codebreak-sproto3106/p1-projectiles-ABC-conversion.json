@@ -1,0 +1,651 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      88,
+      154,
+      288,
+      214
+    ],
+    [
+      12,
+      131,
+      488,
+      267
+    ],
+    [
+      25,
+      25,
+      437,
+      475
+    ],
+    [
+      88,
+      154,
+      288,
+      214
+    ]
+  ],
+  "bounds": [
+    12,
+    25,
+    488,
+    475
+  ],
+  "unionCrop": [
+    42,
+    35,
+    495,
+    476
+  ],
+  "destinationSize": [
+    488,
+    475
+  ],
+  "offset": [
+    12,
+    25
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        132,
+        186,
+        380,
+        326
+      ],
+      "cellBounds": [
+        109,
+        188,
+        376,
+        338
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        113,
+        173,
+        380,
+        338
+      ],
+      "cellBounds": [
+        88,
+        174,
+        376,
+        351
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        114,
+        155,
+        380,
+        353
+      ],
+      "cellBounds": [
+        90,
+        154,
+        376,
+        368
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        132,
+        178,
+        380,
+        332
+      ],
+      "cellBounds": [
+        109,
+        179,
+        376,
+        345
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        44,
+        143,
+        452,
+        359
+      ],
+      "cellBounds": [
+        14,
+        141,
+        454,
+        374
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        61,
+        133,
+        458,
+        381
+      ],
+      "cellBounds": [
+        32,
+        131,
+        460,
+        398
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        42,
+        141,
+        459,
+        367
+      ],
+      "cellBounds": [
+        12,
+        139,
+        461,
+        383
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        61,
+        148,
+        495,
+        367
+      ],
+      "cellBounds": [
+        32,
+        147,
+        500,
+        383
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "cellBounds": [
+        30,
+        25,
+        455,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        54,
+        35,
+        460,
+        476
+      ],
+      "cellBounds": [
+        25,
+        25,
+        462,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        132,
+        186,
+        380,
+        326
+      ],
+      "cellBounds": [
+        109,
+        188,
+        376,
+        338
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        113,
+        173,
+        380,
+        338
+      ],
+      "cellBounds": [
+        88,
+        174,
+        376,
+        351
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        114,
+        155,
+        380,
+        353
+      ],
+      "cellBounds": [
+        90,
+        154,
+        376,
+        368
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        132,
+        178,
+        380,
+        332
+      ],
+      "cellBounds": [
+        109,
+        179,
+        376,
+        345
+      ]
+    }
+  ],
+  "kind": "reviewed-native-core-protected-magenta-recovery",
+  "source": "work/art-production/raw-phase-projectiles/12p1-ABC-only-validation-temporary.png",
+  "sourceSha256": "ba5b70cd68ebe54a4425e9faa680ce4ec692fd169a78c6985bd682672e50b39b",
+  "profile": {
+    "stripGrid": 0,
+    "reason": "Native red/blue Sheriff projectile paint preserved byteexact, only source magenta field removed. Heavy incomplete source row excluded from acceptance.",
+    "protectedCores": [
+      {
+        "row": 0,
+        "box": [
+          130,
+          180,
+          250,
+          150
+        ],
+        "predicate": "sheriff-red-blue-pigment"
+      },
+      {
+        "row": 1,
+        "box": [
+          50,
+          175,
+          395,
+          175
+        ],
+        "predicate": "sheriff-red-blue-pigment"
+      },
+      {
+        "row": 2,
+        "box": [
+          150,
+          150,
+          210,
+          230
+        ],
+        "predicate": "sheriff-red-blue-pigment"
+      },
+      {
+        "row": 3,
+        "box": [
+          130,
+          180,
+          250,
+          150
+        ],
+        "predicate": "sheriff-red-blue-pigment"
+      }
+    ],
+    "allowEnclosedStrongField": true,
+    "nativeFramesDirectory": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/sheriff-p1-native-ABC",
+    "enclosedFieldRule": {
+      "minRB": 180,
+      "maxG": 150,
+      "minExcess": 70,
+      "maxBalance": 65
+    }
+  },
+  "profileSha256": "cba05190feb7299bf9c5204dbf8654f076075f695db67c5ae8eb73969f3cc54a",
+  "gridRemovalBands": [],
+  "protectedNativeCorePixels": 422440,
+  "protectedNativeCoreRgbaByteExact": true,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "unmixCriterion": "Outside explicit nativecore guards and knownfield: min(R,B)-G>18",
+  "alphaFormula": "max(G,255-minRB)/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha",
+  "unmixPixels": 57452,
+  "backgroundRemoved": 3223268,
+  "enclosedStrongFieldPixels": 15426,
+  "frameCutoffChecks": [
+    {
+      "sourceBounds": [
+        132,
+        186,
+        380,
+        326
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        113,
+        173,
+        380,
+        338
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        114,
+        155,
+        380,
+        353
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        132,
+        178,
+        380,
+        332
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        44,
+        143,
+        452,
+        359
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        61,
+        133,
+        458,
+        381
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        42,
+        141,
+        459,
+        367
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        61,
+        148,
+        495,
+        367
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        59,
+        35,
+        453,
+        476
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        54,
+        35,
+        460,
+        476
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        132,
+        186,
+        380,
+        326
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        113,
+        173,
+        380,
+        338
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        114,
+        155,
+        380,
+        353
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "sourceBounds": [
+        132,
+        178,
+        380,
+        332
+      ],
+      "usable": [
+        0,
+        0,
+        512,
+        512
+      ]
+    }
+  ],
+  "atlasSha256": "a4219436bd1107c3b556323774c528a3fb6ac54d7b8094a8e2ee28d6b64730c7",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-protected-projectile-cores.py",
+  "scriptSha256": "746484ef8c054b6aca06f964345a88e85224a812908f750b3950204644e60477",
+  "productionEnabled": false,
+  "checkedInScript": "p1-projectiles-source-conversion.py",
+  "checkedInScriptSha256": "c0b37da5f26823e47eeb402ebbf288dd39e55ec9bbc9caff8625d9ac18c5f12a",
+  "scriptFormattingNote": "Executed source hash above is retained; checked-in copy has trailing whitespace removed only. Conversion behavior and PNG pixels are unchanged."
+}

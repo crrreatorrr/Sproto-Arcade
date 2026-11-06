@@ -1,0 +1,140 @@
+{
+  "request": {
+    "folder": "12-codebreak-sproto3106",
+    "phase": 1,
+    "status": "ABC_native_complete_heavy_rejected_correction_prepared",
+    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/12-codebreak-sproto3106-p1-concept.png",
+    "concept_job_id": "1481264e-dc68-416d-899f-5eba2dfa5a6f",
+    "concept_available": true,
+    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/12-codebreak-sproto3106-p1-guide.png",
+    "reference_policy": "Text-only, precise approved source weapon/material descriptions; no copied craft",
+    "weapon_plan": [
+      {
+        "slot": "A",
+        "mechanism": "twin heavy-arm brass round cannons",
+        "projectile": "small brass sheriff round with bright gold tip, dark red shading and a black rim",
+        "size_class": "small compact",
+        "extent_percent_of_cell": {
+          "width": 24,
+          "height": 12
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "B",
+        "mechanism": "red shoulder warning-capsule missile pods",
+        "projectile": "red-and-blue shoulder-pod warning capsule with brass mechanical endcaps",
+        "size_class": "long capsule",
+        "extent_percent_of_cell": {
+          "width": 44,
+          "height": 23
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "C",
+        "mechanism": "gold sheriff-star chest blue-white stun emitter",
+        "projectile": "wide six-point gold sheriff-badge pulse with red center and blue electrical outline",
+        "size_class": "broad wide",
+        "extent_percent_of_cell": {
+          "width": 35,
+          "height": 35
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      },
+      {
+        "slot": "heavy",
+        "mechanism": "overcharged heavy cartridge from gold sheriff-star chest blue-white stun emitter",
+        "projectile": "heavy blue-red shoulder rocket with brass star band and gold mechanical fins",
+        "size_class": "large heavy",
+        "extent_percent_of_cell": {
+          "width": 47,
+          "height": 28
+        },
+        "animation": "specific weapon anticipation, charge/aim, visible muzzle shooting, recoil/recovery; no simulation changes"
+      }
+    ],
+    "simulation_changes": false,
+    "enabled_in_game": false,
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "billing": "Unlimited only; no paid fallback",
+    "type": "phase_projectile_atlas",
+    "prompt": "Detailed crisp premium pixel-art PROJECTILE sprite atlas ONLY. Exactly2048square, FOUR equal columns and FOUR equal rows,16cells512square. Row1: small brass sheriff round with bright gold tip, dark red shading and a black rim. Width about123pixels and height61pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row2: red-and-blue shoulder-pod warning capsule with brass mechanical endcaps. Width about225pixels and height118pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row3: wide six-point gold sheriff-badge pulse with red center and blue electrical outline. Width about179pixels and height179pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. Row4: heavy blue-red shoulder rocket with brass star band and gold mechanical fins. Width about240pixels and height143pixels, fixed center, FOUR distinct successive changing glow/rotation/shape frames of same motif. All front/nose/leading heads point LEFT, tails/exhaust RIGHT. Different sizes and shapes BETWEEN rows, no normalization. Every COMPLETE projectile including tiny sparks fits central50%cell, maximum250pixels total extent. Restrained attached effects ONLY, no long trails. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, arrows, borders, vehicle, pilot, character, gun, floor or scenery. Four genuinely different successive frames per row. No object touches cell boundaries.",
+    "rows_by_weapon": [
+      "A",
+      "B",
+      "C",
+      "heavy"
+    ],
+    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/12-codebreak-sproto3106-p1-projectiles.png",
+    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/12-codebreak-sproto3106/p1-projectiles.png",
+    "grid": {
+      "columns": 4,
+      "rows": 4,
+      "width": 2048,
+      "height": 2048,
+      "cell_width": 512,
+      "cell_height": 512
+    },
+    "short_prompt": "Create a detailed crisp pixel-art PROJECTILE-ONLY atlas, exactly 2048 square, FOUR equal columns and FOUR equal rows, sixteen isolated 512-square cells. Attached phase concept is ONLY palette/material/weapon context. DO NOT draw any vehicle, pilot, character, gun body or copy of the reference. Show only its four named flying projectile motifs. Every projectile faces LEFT; fixed center in every cell. Row 1: small brass sheriff round with bright gold tip, dark red shading and a black rim, fired from twin heavy-arm brass round cannons. Keep its own relative size approximately 24% cell width by 12% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 2: red-and-blue shoulder-pod warning capsule with brass mechanical endcaps, fired from red shoulder warning-capsule missile pods. Keep its own relative size approximately 44% cell width by 23% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 3: wide six-point gold sheriff-badge pulse with red center and blue electrical outline, fired from gold sheriff-star chest blue-white stun emitter. Keep its own relative size approximately 35% cell width by 35% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Row 4: heavy blue-red shoulder rocket with brass star band and gold mechanical fins, fired from overcharged heavy cartridge from gold sheriff-star chest blue-white stun emitter. Keep its own relative size approximately 47% cell width by 28% height. Four meaningful evolving animation frames of the SAME projectile motif; fixed center. Preserve different sizes and aspect ratios BETWEEN rows; never make everything the same shape or normalize size. All pixels fit the central 55% of each cell with wide empty margins. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all16cells. NO black lines, grid, text, labels, arrows, borders, ground, scenery, shadows or ghost reference. One compact readable core plus restrained source-themed highlights, premium detailed hard pixel clusters. No clipping, no traveling between cells. Exactly four frames per row and sixteen sprites.",
+    "reference_path": null,
+    "promptSizingNote": "Capped future requested width to240px so no row contradicts250px totalextentlimit; submitted past prompts unchanged.",
+    "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_181330_8b9bc082-4027-4a32-95f6-207f764247d3.png",
+    "websitePromptDetailVerified": true
+  },
+  "heavyCorrectionRequest": {
+    "kind": "heavy-only-correction",
+    "folder": "12-codebreak-sproto3106",
+    "phase": 1,
+    "prompt": "Detailed premium crisp PIXEL ART animation, exactly FOUR frames in a 2 by 2 grid. Canvas2048square, each cell1024square. One identical-design SMALL heavy blue-red shoulder rocket with BRASS sheriff-star band, GOLD mechanical fins, pointed RED nose LEFT, blue center and small brass exhaust cap RIGHT. Four genuine successive flame and glow animation poses; same center and scale. Whole rocket including tiny exhaust fits central20percent of each cell: total width ONLY200pixels, height120pixels, enormous empty margins. Tail flame ONLY20pixels long attached to exhaust, never a long trail. All four complete rocket silhouettes including every fin/exhaust pixel must remain far from cell edges. No cropping. Outside sprites keep ALL background/gutters UNIFORMLY flat pure hot magenta #FF00FF in all4cells. NO black lines, grid, text, labels, arrows, vehicles, characters, guns or scenery. Exactly four isolated SMALL sprites, 2rows and2columns.",
+    "reference_path": null,
+    "billing": "Unlimited only",
+    "replaces": "Rejected incomplete heavyrow of8b9bc082; A/B/C remain source-native unchanged",
+    "status": "waiting",
+    "job_id": "82ce51df-1643-41c4-91a0-06181be67487",
+    "model_ui": "Nano Banana Pro",
+    "resolution": "2K",
+    "aspect_ratio": "1:1",
+    "unlimitedVerifiedBeforeSubmit": true
+  },
+  "generationSources": [
+    {
+      "job_id": "8b9bc082-4027-4a32-95f6-207f764247d3",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_181330_8b9bc082-4027-4a32-95f6-207f764247d3.png",
+      "selectedFrames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "websitePromptDetailVerified": true
+    },
+    {
+      "job_id": "82ce51df-1643-41c4-91a0-06181be67487",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_182959_82ce51df-1643-41c4-91a0-06181be67487.png",
+      "selectedFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "websitePromptDetailVerified": true
+    }
+  ],
+  "finalSha256": "41a823ecd08d4e10e5f6bcc363c0dd1c44a5834bdb57abb12c300ffca73cd69b",
+  "physicalRepair": false,
+  "nativeSourceFramesUnique": 16,
+  "temporaryConverterRepeatedCellsIncludedInFinal": false,
+  "wholeHeavyCellNearestScale": 0.5
+}

@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 1,
+  "kind": "genuine-video-frames-with-explicit-projectile-separation",
+  "assetKind": "boss",
+  "generationJob": "5c1625e6-6e06-4ecc-8aa0-bb5c7abe3f06",
+  "model": "Higgsfield Seedance2.5 Unlimited720p",
+  "sourceSha256": "f3002e0fcc416836a16d979784e4c2dea5a3f28c1633ed4fd22bb3d128d4453f",
+  "atlasSha256": "eee526d69cb38f5a78bdb3bc309c065e580747d32fdff5b835feb4037d396eeb",
+  "includesPilot": true,
+  "sourceContainsOffFrameTravelingProjectiles": true,
+  "physicalVehicleComplete": true,
+  "samples": [
+    {
+      "index": 0,
+      "timestamp": 0.4,
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 1,
+      "timestamp": 1.1,
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 2,
+      "timestamp": 1.8,
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 3,
+      "timestamp": 2.5,
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 4,
+      "timestamp": 3.1,
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        150,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 5,
+      "timestamp": 3.4,
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        130,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 6,
+      "timestamp": 4.1,
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        115,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [
+        {
+          "rect": [
+            0,
+            330,
+            205,
+            200
+          ],
+          "circle": [
+            205,
+            470,
+            90
+          ]
+        },
+        {
+          "rect": [
+            0,
+            530,
+            175,
+            35
+          ],
+          "circle": [
+            205,
+            470,
+            90
+          ]
+        }
+      ],
+      "bodyClipping": false,
+      "reason": "Separate off-frame traveling water/steam particles from the complete physical boss; retain local muzzle ignition and native body pixels"
+    },
+    {
+      "index": 7,
+      "timestamp": 5.5,
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 8,
+      "timestamp": 6.1,
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 9,
+      "timestamp": 6.4,
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 10,
+      "timestamp": 7.1,
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 11,
+      "timestamp": 8.5,
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 12,
+      "timestamp": 9.1,
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        96,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 13,
+      "timestamp": 9.4,
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        75,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    },
+    {
+      "index": 14,
+      "timestamp": 10.1,
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        40,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [
+        {
+          "rect": [
+            0,
+            500,
+            75,
+            220
+          ],
+          "circle": [
+            78,
+            596,
+            40
+          ]
+        }
+      ],
+      "bodyClipping": false,
+      "reason": "Separate off-frame traveling water/steam particles from the complete physical boss; retain local muzzle ignition and native body pixels"
+    },
+    {
+      "index": 15,
+      "timestamp": 11.5,
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        130,
+        170,
+        787,
+        790
+      ],
+      "travelingProjectileSeparation": [],
+      "bodyClipping": false,
+      "reason": "Native genuine video pose, sampled to align anticipation/charge/release/recovery"
+    }
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      98,
+      95,
+      402,
+      405
+    ],
+    [
+      61,
+      95,
+      439,
+      405
+    ],
+    [
+      98,
+      95,
+      402,
+      405
+    ],
+    [
+      12,
+      95,
+      488,
+      405
+    ]
+  ],
+  "bounds": [
+    12,
+    95,
+    488,
+    405
+  ],
+  "unionCrop": [
+    40,
+    170,
+    787,
+    790
+  ],
+  "destinationSize": [
+    488,
+    405
+  ],
+  "offset": [
+    12,
+    95
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        150,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        84,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        130,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        71,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        115,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        61,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        172,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        98,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        96,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        49,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        75,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        35,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        40,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        12,
+        95,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        130,
+        170,
+        787,
+        790
+      ],
+      "cellBounds": [
+        71,
+        95,
+        500,
+        500
+      ]
+    }
+  ],
+  "review": "Root and independent sprite agent visual pass: native pilot/vehicle complete; explicit traveling-projectile FX separation only.",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "eee526d69cb38f5a78bdb3bc309c065e580747d32fdff5b835feb4037d396eeb"
+  }
+}

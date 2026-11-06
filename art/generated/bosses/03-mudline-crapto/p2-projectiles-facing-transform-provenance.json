@@ -1,0 +1,13 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/03-mudline-crapto-p2-projectiles.png",
+  "sourceSha256": "e30ff64b556cb95ef635d25a879af18d63be6cdbc60025acd770deeb4bfe1e5b",
+  "sourceJob": "25b91d71-18ac-47cd-83e5-713f88db2036",
+  "transform": "exact horizontal mirror within each512cell of rows C and heavy only; roworder unchanged",
+  "rowsMirroredZeroBased": [
+    2,
+    3
+  ],
+  "reason": "Wave curl/foam fall faces LEFT; heavy rounded large head LEFT, narrow taper RIGHT. RowA foamy head alreadyLEFT retained; rowB cylinder tumble retained.",
+  "nativePixelsUnchanged": true,
+  "outputSha256": "197b8e38133f589ad71faeb6a774d4307cb7f776567a0bd8101256dbaebd7fe2"
+}

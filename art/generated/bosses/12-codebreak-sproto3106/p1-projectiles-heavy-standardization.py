@@ -1,0 +1,10 @@
+from pathlib import Path
+from PIL import Image
+import numpy as np,json,hashlib
+b=Path(__file__).resolve().parent;src=b/'raw-phase-projectiles/12p1-heavy-correction-2x2.png';im=Image.open(src).convert('RGBA');a=np.array(im);yy,xx=np.indices(a.shape[:2]);edge=(xx%1024<12)|(xx%1024>=1012)|(yy%1024<12)|(yy%1024>=1012);r,g,bb=a[:,:,0].astype(int),a[:,:,1].astype(int),a[:,:,2].astype(int);safe=(np.maximum(np.maximum(r,g),bb)<=50)|((abs(r-bb)<=70)&(g<=80)&(np.minimum(r,bb)-g>=15));assert not (edge&~safe).any(),'Divider contains colored sourceart; reject';a[edge]=[255,0,255,255];im=Image.fromarray(a);out=Image.new('RGBA',(2048,2048),(255,0,255,255));frames=[]
+for i in range(4):
+ row,col=divmod(i,2);f=im.crop((col*1024,row*1024,(col+1)*1024,(row+1)*1024)).resize((512,512),Image.Resampling.NEAREST);frames.append(f)
+for row in range(4):
+ for col,f in enumerate(frames):out.paste(f,(col*512,row*512))
+out.save(b/'raw-phase-projectiles/12p1-heavy-only-converter-validation.png');Image.fromarray(edge.astype('uint8')*255).save(b/'12p1-heavy-reviewed-divider-mask.png');meta={'source':str(src),'sourceSha256':hashlib.sha256(src.read_bytes()).hexdigest(),'grid':'Genuine2x2fourframes1024cells','verifiedDividerOnly':True,'dividerWidth':12,'wholeCellNearestScale':0.5,'reason':'Normalize1024sourcecells tosame512canvasunits as12originalABCframes. Every complete hardware/flame pixel remains in sourcecell. Repeated temporary convertervalidation rows NEVERused in finalatlas. Finalselectsonlyfouruniqueframes.'};(b/'sheriff-p1-heavy-matte-metadata.json').write_text(json.dumps(meta,indent=2))
+p=b/'sheriff-p1-heavy-core-profile.json';x=json.loads((b/'sheriff-p2-projectile-core-profile.json').read_text());x['stripGrid']=0;x.pop('graySmokeRegions',None);x['nativeFramesDirectory']=str(b/'sheriff-p1-native-heavy');x['reason']='Native red nose/blue body/brassstar/fins preserved; generatedfourcompleteLEFTrockets keyed/despilledonlybacking. No physical silhouette repair.';p.write_text(json.dumps(x,indent=2))

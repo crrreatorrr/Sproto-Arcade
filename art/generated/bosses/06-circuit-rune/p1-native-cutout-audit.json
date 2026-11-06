@@ -1,0 +1,28 @@
+[
+  {
+    "phase": 1,
+    "concept": "outputs/boss-concepts/06-circuit-rune-p1-concept.png",
+    "conceptSha256": "7ce8326e1f46f2517dd162986d0b74e8ddb1a0d735336216e6204a271fb281a4",
+    "nativeCutout": "work/art-production/layout-guides/06-circuit-rune-p1-cutout.png",
+    "nativeCutoutSha256": "86d218f5d9e85fc61dbd3d868b35ee95610d83b07013a829cadd1b3485285e2f",
+    "sameDimensions": true,
+    "allNativeRgbByteExact": true,
+    "alphaLevels": [
+      0,
+      255
+    ]
+  },
+  {
+    "phase": 2,
+    "concept": "outputs/boss-concepts/06-circuit-rune-p2-concept.png",
+    "conceptSha256": "feabe221c3d2992b2edf273e8a842769700c7bfe5003d2e599a8ce07832c58bb",
+    "nativeCutout": "work/art-production/layout-guides/06-circuit-rune-p2-cutout-video.png",
+    "nativeCutoutSha256": "613004d0789f6a43de373af0ac72174a1bb5ec385595c480e646646dcdc0f2f6",
+    "sameDimensions": true,
+    "allNativeRgbByteExact": true,
+    "alphaLevels": [
+      0,
+      255
+    ]
+  }
+]

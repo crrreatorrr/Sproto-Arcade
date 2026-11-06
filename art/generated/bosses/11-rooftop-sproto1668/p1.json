@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 1,
+  "kind": "multiple-video-action-frame-atlas",
+  "sources": {
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4": {
+      "sha256": "3b4862d4ec5d03817a1c4e970f1c4619651586c97c3db89d847e4b413d97fd69",
+      "durationSeconds": 12.041667,
+      "frameRate": "24/1"
+    }
+  },
+  "sourceDimensions": [
+    960,
+    960
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      18,
+      212,
+      482,
+      264
+    ],
+    [
+      12,
+      211,
+      488,
+      265
+    ],
+    [
+      18,
+      211,
+      482,
+      289
+    ],
+    [
+      18,
+      212,
+      482,
+      264
+    ]
+  ],
+  "bounds": [
+    12,
+    211,
+    488,
+    289
+  ],
+  "unionCrop": [
+    18,
+    228,
+    947,
+    778
+  ],
+  "destinationSize": [
+    488,
+    289
+  ],
+  "offset": [
+    12,
+    211
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 0.4,
+      "sourcePixelsSha256": "a5db18bec94d3d94a1c5c30f705d6b98a18357be9a1e235d79c2c7d9979492bc",
+      "derivedFramePixelsSha256": "a5db18bec94d3d94a1c5c30f705d6b98a18357be9a1e235d79c2c7d9979492bc",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658883
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 1.1,
+      "sourcePixelsSha256": "79b167ee583b6e45692eb7fa6293c4c10234edbde164f38d48eff4d795d325ba",
+      "derivedFramePixelsSha256": "79b167ee583b6e45692eb7fa6293c4c10234edbde164f38d48eff4d795d325ba",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658916
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 1.8,
+      "sourcePixelsSha256": "ed310bf1329901794e0db648a44ce4a90128c08aa00fbf61527bdf3c69349872",
+      "derivedFramePixelsSha256": "ed310bf1329901794e0db648a44ce4a90128c08aa00fbf61527bdf3c69349872",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658539
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 2.5,
+      "sourcePixelsSha256": "008b1be4fbbc81afe7a6b7f9cd3f04dbb00494f29e67da4e9a00e59a2f511b92",
+      "derivedFramePixelsSha256": "008b1be4fbbc81afe7a6b7f9cd3f04dbb00494f29e67da4e9a00e59a2f511b92",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658735
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        211,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 3.1,
+      "sourcePixelsSha256": "276af620733dad14884ed7cf0450d12bca20be973b1dc880bcc3de13503f7faf",
+      "derivedFramePixelsSha256": "276af620733dad14884ed7cf0450d12bca20be973b1dc880bcc3de13503f7faf",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658778
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        28,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        17,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 3.5,
+      "sourcePixelsSha256": "b60665e4c67a79fe42108d8c591868c548857233205267299dc24cbc85c5d0af",
+      "derivedFramePixelsSha256": "b60665e4c67a79fe42108d8c591868c548857233205267299dc24cbc85c5d0af",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658554
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        18,
+        228,
+        947,
+        732
+      ],
+      "cellBounds": [
+        12,
+        211,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 4.0,
+      "sourcePixelsSha256": "88e87e7a90ee1a7e861f27f8bdc8f4fd805373be6ba68debcddc80b3fee4f001",
+      "derivedFramePixelsSha256": "97df205973a726337688450feb0449928e852c2383cd48e7ffe3597c20f74e91",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 3.5,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            450,
+            80,
+            160
+          ]
+        ],
+        "keepCircles": [
+          [
+            48,
+            535,
+            30
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "b60665e4c67a79fe42108d8c591868c548857233205267299dc24cbc85c5d0af",
+        "exclusionMaskSha256": "c17bb64fb3169479a5ed9c9fabce4b4704587e624bb6d2cb087b7e6e79e7de5a",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 657384
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 5.5,
+      "sourcePixelsSha256": "265fa6d037f47fa95649bda3ee0872bc32b99eceb582d8fe9003903aed318398",
+      "derivedFramePixelsSha256": "265fa6d037f47fa95649bda3ee0872bc32b99eceb582d8fe9003903aed318398",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658890
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        768
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        495
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 6.1,
+      "sourcePixelsSha256": "f02963a616ddcd82f1c9a6b3bbd2d32163bc375c56ba3fe12c7797c4e8880a5a",
+      "derivedFramePixelsSha256": "f02963a616ddcd82f1c9a6b3bbd2d32163bc375c56ba3fe12c7797c4e8880a5a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 653377
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        778
+      ],
+      "cellBounds": [
+        18,
+        211,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 6.5,
+      "sourcePixelsSha256": "567ac60f36cc36d4c0c3c33edd3d596e3e4ec35f4326585959e024df4c5fc680",
+      "derivedFramePixelsSha256": "567ac60f36cc36d4c0c3c33edd3d596e3e4ec35f4326585959e024df4c5fc680",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 650317
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        778
+      ],
+      "cellBounds": [
+        18,
+        211,
+        500,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 7.0,
+      "sourcePixelsSha256": "8468d98bb40d50348d79eca71c7114967c5065703db74fbc93eae69f1fe00441",
+      "derivedFramePixelsSha256": "e9f55834eefc4d6c6311e7806133c513f4d192af14b37deb9bafde274e7cd8d9",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 6.5,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            625,
+            585,
+            170
+          ]
+        ],
+        "keepCircles": [
+          [
+            550,
+            700,
+            42
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "567ac60f36cc36d4c0c3c33edd3d596e3e4ec35f4326585959e024df4c5fc680",
+        "exclusionMaskSha256": "9d9fea9066b5c34f0f51e85343eeb0362a0cbeb6d1003535a2520d1306ae31cc",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 648850
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        752
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        486
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 8.5,
+      "sourcePixelsSha256": "8aff73dae35db770f00b137b6732a02324dcab6141d5d24e87d55f7fab47fb74",
+      "derivedFramePixelsSha256": "8aff73dae35db770f00b137b6732a02324dcab6141d5d24e87d55f7fab47fb74",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 656486
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        229,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 9.1,
+      "sourcePixelsSha256": "b383f75db594b6c0a898b6ae673f61b3c5ca08eb6d3e131026fdca5617f12a8b",
+      "derivedFramePixelsSha256": "b383f75db594b6c0a898b6ae673f61b3c5ca08eb6d3e131026fdca5617f12a8b",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658973
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 9.25,
+      "sourcePixelsSha256": "14a36dc24c9ce7bc99f8d2ac1cd8b1f5029a7b7e9c47a584ee9f2465b16e5c17",
+      "derivedFramePixelsSha256": "14a36dc24c9ce7bc99f8d2ac1cd8b1f5029a7b7e9c47a584ee9f2465b16e5c17",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658679
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 9.5,
+      "sourcePixelsSha256": "97f885846bd5fc849d79c90ef48f086fe1d7fc03ee8155727a6ea037c50af421",
+      "derivedFramePixelsSha256": "97f885846bd5fc849d79c90ef48f086fe1d7fc03ee8155727a6ea037c50af421",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 652050
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        228,
+        947,
+        732
+      ],
+      "cellBounds": [
+        18,
+        212,
+        500,
+        476
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/11-rooftop-sproto1668-p1-animation.mp4",
+      "timestampSeconds": 11.5,
+      "sourcePixelsSha256": "b303608cff23b6a80fdb7a1b57b4500067a4f94c0e503f87dba0da3bc4046117",
+      "derivedFramePixelsSha256": "b303608cff23b6a80fdb7a1b57b4500067a4f94c0e503f87dba0da3bc4046117",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 658737
+    }
+  ],
+  "sampling": "16 unique source video/timestamp selections; no invented, duplicated or interpolated frames; one common nearest-neighbor crop/scale",
+  "releaseCuePolicy": "Real native A4.0 pointed-nose gold ignition, B7.0 unfolding wingtip ion rail cyan ignition, C9.5 side-engine and underslung flare ports firing LEFT. Detached beam/outer nose star separated only outside complete protected prefire hardware; local ignition retained, no RGB repair or physical clipping.",
+  "enclosedChromaProfile": null,
+  "atlasSha256": "12c158f255215369376a553f46faf314ae2a6d0f3269fc531219f3b19016e7ee",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "12c158f255215369376a553f46faf314ae2a6d0f3269fc531219f3b19016e7ee"
+  }
+}

@@ -1,0 +1,637 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      234,
+      488,
+      158
+    ],
+    [
+      176,
+      235,
+      135,
+      137
+    ],
+    [
+      36,
+      101,
+      401,
+      399
+    ],
+    [
+      76,
+      136,
+      319,
+      324
+    ]
+  ],
+  "bounds": [
+    12,
+    101,
+    488,
+    399
+  ],
+  "unionCrop": [
+    53,
+    76,
+    494,
+    437
+  ],
+  "destinationSize": [
+    488,
+    399
+  ],
+  "offset": [
+    12,
+    101
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        60,
+        215,
+        494,
+        320
+      ],
+      "cellBounds": [
+        20,
+        255,
+        500,
+        371
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        61,
+        208,
+        494,
+        326
+      ],
+      "cellBounds": [
+        21,
+        247,
+        500,
+        377
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        61,
+        200,
+        494,
+        333
+      ],
+      "cellBounds": [
+        21,
+        238,
+        500,
+        385
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        53,
+        196,
+        494,
+        339
+      ],
+      "cellBounds": [
+        12,
+        234,
+        500,
+        392
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        203,
+        208,
+        304,
+        313
+      ],
+      "cellBounds": [
+        178,
+        247,
+        290,
+        363
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        201,
+        211,
+        302,
+        321
+      ],
+      "cellBounds": [
+        176,
+        250,
+        288,
+        372
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        202,
+        210,
+        323,
+        312
+      ],
+      "cellBounds": [
+        177,
+        249,
+        311,
+        362
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        209,
+        197,
+        310,
+        314
+      ],
+      "cellBounds": [
+        185,
+        235,
+        296,
+        364
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        75,
+        76,
+        436,
+        437
+      ],
+      "cellBounds": [
+        36,
+        101,
+        436,
+        500
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        76,
+        76,
+        436,
+        437
+      ],
+      "cellBounds": [
+        37,
+        101,
+        436,
+        500
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        75,
+        76,
+        437,
+        437
+      ],
+      "cellBounds": [
+        36,
+        101,
+        437,
+        500
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        75,
+        76,
+        436,
+        437
+      ],
+      "cellBounds": [
+        36,
+        101,
+        436,
+        500
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        124,
+        121,
+        388,
+        390
+      ],
+      "cellBounds": [
+        91,
+        151,
+        383,
+        448
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        116,
+        113,
+        394,
+        398
+      ],
+      "cellBounds": [
+        82,
+        142,
+        389,
+        457
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        124,
+        121,
+        388,
+        390
+      ],
+      "cellBounds": [
+        91,
+        151,
+        383,
+        448
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        111,
+        108,
+        399,
+        401
+      ],
+      "cellBounds": [
+        76,
+        136,
+        395,
+        460
+      ]
+    }
+  ],
+  "kind": "reviewed-magenta-projectile-alpha-unmix",
+  "assetKind": "projectiles",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/05-neon-sproto102-p1-projectiles.png",
+  "sourceSha256": "e51697da260c5535ce7a0b379197423d9019acb05c5f55d42a2375f9a174b312",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
+  "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
+  "reviewedPalette": "Source-specific reviewed palette: bronze/iron/orange bolt LEFT, dark iron slag shard, orange iron-toothed gear, iron-bound orange pumpkin. No authored magenta/violet. Gear center holes are pure magenta field, alpha-cleared by documented key-unmix.",
+  "gridRemovalBands": [],
+  "keyUnmix": {
+    "criterion": "min(R,B)-G>18",
+    "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
+    "foreground": "[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255",
+    "alphaFloorByte": 10,
+    "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
+    "outsideUnmixMaskRgbaByteExact": true,
+    "pixels": 3579360,
+    "removedPixels": 3502725,
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-chroma-unmix-mask.png",
+    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-background-key-mask.png"
+  },
+  "frameCutoffChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        60,
+        215,
+        494,
+        320
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        61,
+        208,
+        494,
+        326
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        61,
+        200,
+        494,
+        333
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        53,
+        196,
+        494,
+        339
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        203,
+        208,
+        304,
+        313
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        201,
+        211,
+        302,
+        321
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        202,
+        210,
+        323,
+        312
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        209,
+        197,
+        310,
+        314
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        75,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        76,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        75,
+        76,
+        437,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        75,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        124,
+        121,
+        388,
+        390
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        116,
+        113,
+        394,
+        398
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        124,
+        121,
+        388,
+        390
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        111,
+        108,
+        399,
+        401
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    }
+  ],
+  "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
+  "productionEnabled": true,
+  "outputSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
+  "status": "strict sourcecutoff pass; awaiting visual review",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
+  }
+}

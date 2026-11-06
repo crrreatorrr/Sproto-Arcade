@@ -1,0 +1,8 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/03-mudline-crapto-p1.png",
+  "sourceSha256": "09024976cc695c40c5138724db5ae99eb0057c4f89b726175f73350f72813c42",
+  "transform": "horizontal mirror each of16 512x512 sourcecells; no reordering",
+  "reason": "source machinery generated facingright; weapons mustshootleft",
+  "nativePixelsUnchanged": true,
+  "outputSha256": "88f3ef10a36ae92e81d38445b8c7922806bdc9630f1d439c9b7ebe35f1de9ea3"
+}

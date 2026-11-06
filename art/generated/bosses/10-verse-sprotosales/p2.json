@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "kind": "multiple-video-action-frame-atlas",
+  "sources": {
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4": {
+      "sha256": "feec6cd3105039fbffb72b61a8d3bd5c2c1349b6708335effe653655cb87c360",
+      "durationSeconds": 12.041667,
+      "frameRate": "24/1"
+    },
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4": {
+      "sha256": "63fa02278191789c3ba4b8734e5b66047b341daa22c2cb7cedfb32c0b606b91d",
+      "durationSeconds": 6.041667,
+      "frameRate": "24/1"
+    }
+  },
+  "sourceDimensions": [
+    960,
+    960
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      47,
+      46,
+      453,
+      438
+    ],
+    [
+      12,
+      48,
+      488,
+      437
+    ],
+    [
+      35,
+      47,
+      465,
+      437
+    ],
+    [
+      17,
+      49,
+      480,
+      451
+    ]
+  ],
+  "bounds": [
+    12,
+    46,
+    488,
+    454
+  ],
+  "unionCrop": [
+    22,
+    76,
+    889,
+    883
+  ],
+  "destinationSize": [
+    488,
+    454
+  ],
+  "offset": [
+    12,
+    46
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        85,
+        82,
+        889,
+        853
+      ],
+      "cellBounds": [
+        47,
+        49,
+        500,
+        483
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 0.4,
+      "sourcePixelsSha256": "a20be725d53084aa3ff176f370bc2623ba4f04197b610dcd3e5988353fd86094",
+      "derivedFramePixelsSha256": "4e33160b81a2fd82a20cd6e67c414df5c72bacd5207721dd77f416293ba91c20",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540606
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        85,
+        76,
+        889,
+        847
+      ],
+      "cellBounds": [
+        47,
+        46,
+        500,
+        480
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 1.1,
+      "sourcePixelsSha256": "6cfb68249a42b8f2a94cd67a37c06103dd78014980b80599de1f44a8bc8670b6",
+      "derivedFramePixelsSha256": "5b2208aa8f10c65537796c2272284658a0cb8b8a77bdd6452253126fe5acd44f",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540507
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        85,
+        84,
+        889,
+        855
+      ],
+      "cellBounds": [
+        47,
+        51,
+        500,
+        484
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 1.8,
+      "sourcePixelsSha256": "c45bcc47b325f9939ff8f0f4944256c632e7a750ddb18226e8e06d3f2e7143aa",
+      "derivedFramePixelsSha256": "51122729ee44508adfe1e98883a83fd0e6a2a84ea2380a948930cd44e7b72935",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540551
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        85,
+        82,
+        889,
+        853
+      ],
+      "cellBounds": [
+        47,
+        49,
+        500,
+        483
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 2.5,
+      "sourcePixelsSha256": "7ced988f66f75cd93f7a353bcc4e38e8958abdab2de4b51fe2579fb14377016b",
+      "derivedFramePixelsSha256": "b2860c8ab72c76f6579386c3e86d3a485bb8c3d5a8f47bf59ed8e294e40af38b",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540570
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        48,
+        79,
+        889,
+        850
+      ],
+      "cellBounds": [
+        27,
+        48,
+        500,
+        481
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 3.4,
+      "sourcePixelsSha256": "75c812a57dde00c17c03991769662047d44073ad8d24b87c5d0ab5667bdbe8bc",
+      "derivedFramePixelsSha256": "a86c5eab3971a750d2e00739a6fafc961c6548e84f105665ebe876121bbe701c",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 532732
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        25,
+        86,
+        889,
+        857
+      ],
+      "cellBounds": [
+        14,
+        52,
+        500,
+        485
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 4.0,
+      "sourcePixelsSha256": "e338bfd7eff8c9c4be6190d1cad2581f84a03a3b980f19477f12127c0eb5ea7d",
+      "derivedFramePixelsSha256": "4a82f00c2a0f6f31b7aabbb2ecd1e0eb0fb22d1c960f6a2010f51e2ca03bbe15",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 527465
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        22,
+        83,
+        889,
+        854
+      ],
+      "cellBounds": [
+        12,
+        50,
+        500,
+        484
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 4.375,
+      "sourcePixelsSha256": "674aa7373ad5da58ba952a18e3d4ab07c0e65c212ea5ef21d48b25a93c7cf9fc",
+      "derivedFramePixelsSha256": "7e4e1261fa690b112566a057620ef145945ae8d5221e96f0b9a0d9436ae6f755",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 4.25,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            300,
+            180,
+            400
+          ]
+        ],
+        "keepCircles": [
+          [
+            62,
+            488,
+            25
+          ],
+          [
+            59,
+            538,
+            25
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "5138600bb5fd58e2f0c0e8bfb4d9546f136dc13e9f27d28daaabe90ac5e65ebb",
+        "exclusionMaskSha256": "a81cd47b40298c95cb26e3e934758bb71faaeefc92387d5fc5842751984ee56e",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 526965
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        31,
+        82,
+        889,
+        853
+      ],
+      "cellBounds": [
+        17,
+        49,
+        500,
+        483
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 5.5,
+      "sourcePixelsSha256": "d218c71c3a95351a13c127e6da9a2b95488ef4099d08ef08ff8b1045611e51d1",
+      "derivedFramePixelsSha256": "02dae6673dede49ec8685c5944b929675fd6f288915ee959d3e92dce75e273bb",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 528843
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        86,
+        80,
+        889,
+        850
+      ],
+      "cellBounds": [
+        48,
+        48,
+        500,
+        481
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 6.2,
+      "sourcePixelsSha256": "dcd44e386dd7f4c452d1d6354cc711039ce88c19351eee52a9e922e384664b63",
+      "derivedFramePixelsSha256": "1e58d7f1978891cc49e0c18fcd3273291c8b0fa734635efc5defb77b65234c78",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540612
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        86,
+        82,
+        889,
+        852
+      ],
+      "cellBounds": [
+        48,
+        49,
+        500,
+        483
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 6.9,
+      "sourcePixelsSha256": "46aefa7f46769740b11134ce0e8b433b7a2bcf59f5b05e0e77967f1a81aed5f5",
+      "derivedFramePixelsSha256": "1939d4cacac1fef71e720c518b7cbfb15bfdb634c9b6aec7a8d7cb937f24dbc1",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540635
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        63,
+        84,
+        889,
+        855
+      ],
+      "cellBounds": [
+        35,
+        51,
+        500,
+        484
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 7.125,
+      "sourcePixelsSha256": "2c1323e5d5cf0fc5c24772161de2e39e79ca4923b7816ef906c276802c25a265",
+      "derivedFramePixelsSha256": "3eeed98ddcb7dd31137efc702bd3865d849c25d5e998f18ae36011486d92e3e1",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 525756
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        86,
+        77,
+        889,
+        848
+      ],
+      "cellBounds": [
+        48,
+        47,
+        500,
+        480
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-animation.mp4",
+      "timestampSeconds": 8.5,
+      "sourcePixelsSha256": "dc9e00b9bbcb6071a7038dfc94e1c515373488eb6517d6a283fb5da66984b31c",
+      "derivedFramePixelsSha256": "9c919beded0dc7f8fc1bfbb15a0fe4c7d9c4d341c07da7c427d2a75128daca02",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.96,
+        "translate": [
+          0,
+          3
+        ]
+      },
+      "backgroundPixelsRemoved": 540642
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        82,
+        81,
+        884,
+        883
+      ],
+      "cellBounds": [
+        46,
+        49,
+        497,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4",
+      "timestampSeconds": 0.5,
+      "sourcePixelsSha256": "383f0bc74bcf374a109fcf1cc8a5fe6a59c5aad663231a4bac11295d5e37f4a2",
+      "derivedFramePixelsSha256": "383f0bc74bcf374a109fcf1cc8a5fe6a59c5aad663231a4bac11295d5e37f4a2",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 527329
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        82,
+        81,
+        884,
+        858
+      ],
+      "cellBounds": [
+        46,
+        49,
+        497,
+        486
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4",
+      "timestampSeconds": 1.5,
+      "sourcePixelsSha256": "1f5610af9a8b6f5e95562ec89df7276c008d5c8766f3818664f84c1020086206",
+      "derivedFramePixelsSha256": "1f5610af9a8b6f5e95562ec89df7276c008d5c8766f3818664f84c1020086206",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 526751
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        30,
+        81,
+        884,
+        858
+      ],
+      "cellBounds": [
+        17,
+        49,
+        497,
+        486
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4",
+      "timestampSeconds": 2.25,
+      "sourcePixelsSha256": "49e2f2806f361d1be9d4daf7ca992c218ca0bf903df9d1121c09db97b276b255",
+      "derivedFramePixelsSha256": "84673291e36a2dc3dcca5aa73924bc425a4b595f227add8ef82bfe1b426c952b",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 2.0,
+        "protectPadding": 3,
+        "rectangles": [
+          [
+            0,
+            540,
+            220,
+            260
+          ]
+        ],
+        "keepCircles": [
+          [
+            130,
+            680,
+            100
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "abf03dd95b320c1506bd76811f22436581c1cf1c1b832dd98ac06a4a06970878",
+        "exclusionMaskSha256": "04b529dcd88614e094589e25fdcb68e4ccf38445c13b1e34e06f7187be647d77",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 511508
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        82,
+        81,
+        884,
+        858
+      ],
+      "cellBounds": [
+        46,
+        49,
+        497,
+        486
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-atlases/10-verse-sprotosales-p2-C-correction.mp4",
+      "timestampSeconds": 5.5,
+      "sourcePixelsSha256": "ec8ff4593883ca14b007a8e65de805f1271ba1ccb7e23158d835d5da0151de83",
+      "derivedFramePixelsSha256": "ec8ff4593883ca14b007a8e65de805f1271ba1ccb7e23158d835d5da0151de83",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 537174
+    }
+  ],
+  "sampling": "16 unique source video/timestamp selections; no invented, duplicated or interpolated frames; one common nearest-neighbor crop/scale",
+  "releaseCuePolicy": "Real native source ignitions: A4.375 pairedredoutergunports; B7.125centralhubrubycharge-release; C2.25separateunfoldingcreambracebarrel. Only travelingFXoutsidephysicalprefireprotectionseparated. C source physicalringis~4%smaller, soonefixed0.96registrationapplieduniformlytoalloriginalclipframes, matchingring/hub/pilotanchorswithoutperframechanges.",
+  "enclosedChromaProfile": null,
+  "atlasSha256": "0a40cdda74891d3bd0447c41cf2f2249e925337895cdde5df24259300bdae505",
+  "includesPilot": true,
+  "facing": "left",
+  "generationJobs": [
+    "1bc65da0-8a54-49e4-a087-ce9edbad315f",
+    "38e97cea-d9bf-4e3f-bf70-df949c250612"
+  ],
+  "model": "Higgsfield Seedance2.5 website Unlimited720p",
+  "weaponMechanisms": [
+    "outer-ring crimson rotary-port ray emitter",
+    "central-hub ruby shard cannon",
+    "unfolding lower cream-brace capsule cannon"
+  ],
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "0a40cdda74891d3bd0447c41cf2f2249e925337895cdde5df24259300bdae505"
+  }
+}

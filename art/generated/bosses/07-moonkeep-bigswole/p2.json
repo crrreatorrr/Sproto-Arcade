@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "kind": "multiple-video-action-frame-atlas",
+  "sources": {
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4": {
+      "sha256": "41e5da1626bef491c42cf72cde8fd8fee33f664c7e6c725b26c47e5f7b7019bb",
+      "durationSeconds": 6.041667,
+      "frameRate": "24/1"
+    },
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-B.mp4": {
+      "sha256": "1206aa23754401e956d1377f49752216096eb239ea5b17d847952c6dc03f9456",
+      "durationSeconds": 6.041667,
+      "frameRate": "24/1"
+    },
+    "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-C.mp4": {
+      "sha256": "13b9f4be54efe437fa948dfa35210d9ba9e4f0c8402ce0d66bc9c9982286358f",
+      "durationSeconds": 6.041667,
+      "frameRate": "24/1"
+    }
+  },
+  "sourceDimensions": [
+    960,
+    960
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      14,
+      199,
+      331,
+      300
+    ],
+    [
+      12,
+      199,
+      332,
+      300
+    ],
+    [
+      14,
+      118,
+      486,
+      381
+    ],
+    [
+      18,
+      198,
+      322,
+      302
+    ]
+  ],
+  "bounds": [
+    12,
+    118,
+    488,
+    382
+  ],
+  "unionCrop": [
+    262,
+    179,
+    898,
+    677
+  ],
+  "destinationSize": [
+    488,
+    382
+  ],
+  "offset": [
+    12,
+    118
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        264,
+        284,
+        696,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        345,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 0.1,
+      "sourcePixelsSha256": "0b0f9f14c9204f2b35eb89e53043e163a7160b79502f163f026387b2399d851a",
+      "derivedFramePixelsSha256": "0b0f9f14c9204f2b35eb89e53043e163a7160b79502f163f026387b2399d851a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812217
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        264,
+        284,
+        696,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        345,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 0.35,
+      "sourcePixelsSha256": "7a7c028b476b71b4336e33397ff9102c7e46784005f3ca99e07a9fb90349bcf4",
+      "derivedFramePixelsSha256": "7a7c028b476b71b4336e33397ff9102c7e46784005f3ca99e07a9fb90349bcf4",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812247
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        264,
+        284,
+        696,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        345,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 0.6,
+      "sourcePixelsSha256": "15c49d3cbd282f1b69690002ca6b8679562ef00aff2c534bd7aece2f82b22779",
+      "derivedFramePixelsSha256": "15c49d3cbd282f1b69690002ca6b8679562ef00aff2c534bd7aece2f82b22779",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812297
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        264,
+        284,
+        696,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        345,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 0.85,
+      "sourcePixelsSha256": "e23f1b01221b1ee6779acf28a51be7b0914bc0dd32768162164c5de0849a90c3",
+      "derivedFramePixelsSha256": "e23f1b01221b1ee6779acf28a51be7b0914bc0dd32768162164c5de0849a90c3",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812354
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        262,
+        284,
+        695,
+        676
+      ],
+      "cellBounds": [
+        12,
+        199,
+        344,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 1.25,
+      "sourcePixelsSha256": "ef70eebb5ce824938e0deb2438e57f362cd2ef9da41090141fef25c785af648a",
+      "derivedFramePixelsSha256": "ef70eebb5ce824938e0deb2438e57f362cd2ef9da41090141fef25c785af648a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812171
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        262,
+        297,
+        695,
+        676
+      ],
+      "cellBounds": [
+        12,
+        209,
+        344,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 1.5,
+      "sourcePixelsSha256": "e49762d9cabc2c521ca89f8bf614cfa78af7c055c3f49d4ea7a2ac653aacbae1",
+      "derivedFramePixelsSha256": "e49762d9cabc2c521ca89f8bf614cfa78af7c055c3f49d4ea7a2ac653aacbae1",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 813112
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        262,
+        297,
+        695,
+        676
+      ],
+      "cellBounds": [
+        12,
+        209,
+        344,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 1.75,
+      "sourcePixelsSha256": "df04573e65de9148304dc23763dd19fbeb6c4a60e38d914c2d4e95ef12eabcf1",
+      "derivedFramePixelsSha256": "df04573e65de9148304dc23763dd19fbeb6c4a60e38d914c2d4e95ef12eabcf1",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812617
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        264,
+        284,
+        695,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        344,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-A.mp4",
+      "timestampSeconds": 3.75,
+      "sourcePixelsSha256": "214bac5aab20ba78d2ce800e4512b4800194560117e5e474848cfd1bbbc7619d",
+      "derivedFramePixelsSha256": "214bac5aab20ba78d2ce800e4512b4800194560117e5e474848cfd1bbbc7619d",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 812571
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        264,
+        284,
+        734,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        374,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-B.mp4",
+      "timestampSeconds": 0.75,
+      "sourcePixelsSha256": "8367cb1147edfdab6d695b5bf133fb996ed81bb73fafd738c2fe7eb806f95459",
+      "derivedFramePixelsSha256": "8367cb1147edfdab6d695b5bf133fb996ed81bb73fafd738c2fe7eb806f95459",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 807827
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        265,
+        179,
+        898,
+        676
+      ],
+      "cellBounds": [
+        14,
+        118,
+        500,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-B.mp4",
+      "timestampSeconds": 1.25,
+      "sourcePixelsSha256": "adf0b50edd360e96589487b0ae453335a2a13024a7fba4fdc66156f853db4106",
+      "derivedFramePixelsSha256": "adf0b50edd360e96589487b0ae453335a2a13024a7fba4fdc66156f853db4106",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 759331
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        265,
+        179,
+        898,
+        676
+      ],
+      "cellBounds": [
+        14,
+        118,
+        500,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-B.mp4",
+      "timestampSeconds": 1.75,
+      "sourcePixelsSha256": "ee6e41ed4ec928e10dd3c51af4dc478daa2f34ce769be9fd3e9e06b1222810fa",
+      "derivedFramePixelsSha256": "2ad5b4722be4e5ec8f9290ca05aabfb990c22fef0834a1042cd5a974918c9aab",
+      "freeProjectileFxSeparation": {
+        "protectSourceTime": 1.25,
+        "protectPadding": 2,
+        "rectangles": [
+          [
+            0,
+            210,
+            570,
+            150
+          ]
+        ],
+        "keepCircles": [
+          [
+            435,
+            266,
+            30
+          ],
+          [
+            560,
+            288,
+            30
+          ]
+        ],
+        "sourcePhysicalFramePixelsSha256": "adf0b50edd360e96589487b0ae453335a2a13024a7fba4fdc66156f853db4106",
+        "exclusionMaskSha256": "ca12e687cca83a876410d5d47035440c0a309981b58945e9e9d8d7d2938b3aa8",
+        "protectedHardwareUnchanged": true,
+        "referenceRGBPixelsCopied": false,
+        "purpose": "Free traveling projectile FX separation; all physical hardware protected; local muzzle ignition retained"
+      },
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 758695
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        265,
+        285,
+        776,
+        676
+      ],
+      "cellBounds": [
+        14,
+        199,
+        406,
+        499
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-B.mp4",
+      "timestampSeconds": 3.75,
+      "sourcePixelsSha256": "f51aba33aec3d114bf8dd79c21274a1caecceadbe9b0c48a208aa9aa5da1317d",
+      "derivedFramePixelsSha256": "f51aba33aec3d114bf8dd79c21274a1caecceadbe9b0c48a208aa9aa5da1317d",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": null,
+      "backgroundPixelsRemoved": 802798
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        271,
+        283,
+        689,
+        677
+      ],
+      "cellBounds": [
+        19,
+        198,
+        340,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-C.mp4",
+      "timestampSeconds": 0.75,
+      "sourcePixelsSha256": "d11d19dad4b1224e18abddfd72ac0f7d2cc123813a499003bc8ee977af29ab05",
+      "derivedFramePixelsSha256": "a9abf8eb90630caa750f1f6b7d47a5f155c4721285075aad108f27db42f9687a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.48,
+        "translate": [
+          249,
+          258
+        ],
+        "reason": "One fixed clip-wide nearest-neighbor registration: C neutral hardware is874x823 versus A432x393; normalize genuine C video subject to matching A/B body scale and baseline, never per-frame fit."
+      },
+      "backgroundPixelsRemoved": 814632
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        271,
+        283,
+        689,
+        677
+      ],
+      "cellBounds": [
+        19,
+        198,
+        340,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-C.mp4",
+      "timestampSeconds": 1.75,
+      "sourcePixelsSha256": "297a701c39dc5711e0bb2c3a8f1927e9a70d2be70c67d1ed5b18a221035a897d",
+      "derivedFramePixelsSha256": "caa0bf1249009e5fdcb7c1bfdf173aa62b2e44030b096fdd1b6bfea9ca2aa7d5",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.48,
+        "translate": [
+          249,
+          258
+        ],
+        "reason": "One fixed clip-wide nearest-neighbor registration: C neutral hardware is874x823 versus A432x393; normalize genuine C video subject to matching A/B body scale and baseline, never per-frame fit."
+      },
+      "backgroundPixelsRemoved": 813631
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        270,
+        283,
+        689,
+        677
+      ],
+      "cellBounds": [
+        18,
+        198,
+        340,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-C.mp4",
+      "timestampSeconds": 3.0,
+      "sourcePixelsSha256": "9bce588acb74f825f45ae2ebeb1fb8e32357deec5586a1873331110eb47e5a01",
+      "derivedFramePixelsSha256": "47a4e1d66142feb418d6a0acfac4d9058271c788dee8dd590c8c01ca3bba3568",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.48,
+        "translate": [
+          249,
+          258
+        ],
+        "reason": "One fixed clip-wide nearest-neighbor registration: C neutral hardware is874x823 versus A432x393; normalize genuine C video subject to matching A/B body scale and baseline, never per-frame fit."
+      },
+      "backgroundPixelsRemoved": 811853
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        271,
+        283,
+        689,
+        677
+      ],
+      "cellBounds": [
+        19,
+        198,
+        340,
+        500
+      ],
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-moonkeep-actions/p2-C.mp4",
+      "timestampSeconds": 3.75,
+      "sourcePixelsSha256": "7519b3e06106ac2be9da04d3450a6ebd6b165341a1414444bedaf2b44be01412",
+      "derivedFramePixelsSha256": "127efc5c90b612a11a5f87f078fd321f35f9f4150cbcfcb41ce93f1038e5a02a",
+      "freeProjectileFxSeparation": null,
+      "sourceRegistration": {
+        "scale": 0.48,
+        "translate": [
+          249,
+          258
+        ],
+        "reason": "One fixed clip-wide nearest-neighbor registration: C neutral hardware is874x823 versus A432x393; normalize genuine C video subject to matching A/B body scale and baseline, never per-frame fit."
+      },
+      "backgroundPixelsRemoved": 814652
+    }
+  ],
+  "sampling": "16 unique source video/timestamp selections; no invented, duplicated or interpolated frames; one common nearest-neighbor crop/scale",
+  "releaseCuePolicy": "Genuine contained mouth ignition A1.75s and chest cannon local muzzle flare C3.0s serve gameplay release cues. B1.75s separates only free traveling beam outside prefire physical silhouette, preserving native gun hardware and local muzzle bursts. No physical vehicle clipping repair, RGB reconstruction, invented poses, duplicated source timestamps or interpolation.",
+  "enclosedChromaProfile": "Source-compared Moonkeep P2 palette is blue/cyan/gunmetal/gold with white eyes, red nose/muzzle/collar; NO genuine hot-magenta subject region. Alpha-only removal of enclosed sky holes between horns and wings.",
+  "atlasSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82",
+  "preEyeRepairAtlasSha256": "c8878f8da067f9405c0e5a6cbd592da357d10af9bde0b3b698a5c0111964de21",
+  "nativePilotEyeRepair": {
+    "kind": "native-approved-same-atlas-face-occlusion-repair",
+    "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/07-moonkeep-bigswole/p2.png",
+    "sourceSha256": "c8878f8da067f9405c0e5a6cbd592da357d10af9bde0b3b698a5c0111964de21",
+    "sourceCell": {
+      "row": 0,
+      "column": 0,
+      "index": 0,
+      "reason": "Same canonical approved fully visible BigSwole pilot inside samecanopy; sourceeyes/brow unobstructed"
+    },
+    "targets": [
+      {
+        "row": 1,
+        "column": 1,
+        "index": 5
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "index": 6
+      }
+    ],
+    "polygonCellLocal": [
+      [
+        175,
+        253
+      ],
+      [
+        181,
+        253
+      ],
+      [
+        184,
+        257
+      ],
+      [
+        184,
+        270
+      ],
+      [
+        181,
+        272
+      ],
+      [
+        174,
+        270
+      ],
+      [
+        172,
+        266
+      ],
+      [
+        172,
+        260
+      ]
+    ],
+    "transform": "identity: same native source/target cell-local coordinates; no scaling, rotation, resampling, color edits, invented pixels or horn/body reconstruction",
+    "nativePixelsByteExact": true,
+    "outsideMaskRgbaByteExact": true,
+    "allOther14CellsByteExact": true,
+    "scope": "Only pilot left brow and left-eye region. All genuine weapon/horn pixels outside this face polygon remain byte-exact.",
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07p2-eye-clear-native-mask.png",
+    "maskSha256": "ccafcd8529e75cb028b75524d6019e9db0d1bba4e0716b541876ca0853541fdb",
+    "output": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07-moonkeep-bigswole-p2-eye-clear-candidate.png",
+    "outputSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82",
+    "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/repair-07p2-eye-obstruction.py",
+    "scriptSha256": "7f80fc7d48b8ce87eda12cb7996abe2053148c084975bccffff6465e867b1fa6",
+    "productionEnabled": false,
+    "status": "root_independent_visual_pass_copied_to_repo",
+    "originalAtlasBackup": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/final-pilot-identity-audit/07-moonkeep-bigswole-p2-pre-eye-repair.png",
+    "alphaEntireAtlasByteExact": true,
+    "acceptedAtlasSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82"
+  },
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "86cb38b3295dd8e709fc894fd04cd96661e089797b34ad5854f786c7be6e5e82"
+  }
+}

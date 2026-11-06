@@ -1,0 +1,77 @@
+[
+  {
+    "folder": "07-moonkeep-bigswole",
+    "phase": 1,
+    "action": "A",
+    "job_id": "b5391101-fc27-43f9-a505-a6b769b31546",
+    "status": "completed_valid_selected_poses",
+    "model_ui": "Seedance 2.5",
+    "resolution": "720p",
+    "duration": 6,
+    "ratio": "1:1",
+    "billing": "Unlimited verified nativeAXGenerate",
+    "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/video-references/07-moonkeep-bigswole-p1-single-left.png",
+    "reference_id": "06d26a1c-3b27-44c2-8d5a-75bdade0b47a",
+    "prompt": "Animate ONLY ONE weapon action on this EXACT approved complete left-facing pixel-art siege dragon and its visible seated Big Swole pilot. Preserve the exact whole vehicle design, armor, wings, curled tail, cockpit, scale, position and source pixels. Camera absolutely LOCKED: no zoom, orbit, pan, cut or whole-vehicle movement. Entire dragon and all effects remain within the reference central45%of frame with wide empty margins. Pilot remains physically seated INSIDE the cockpit, never fused into dragon anatomy: exact royal-blue muscular Sproto, WHITE eyes, RED round nose/muzzle/collar, GOLD hoop, BLUE arms/hands. No human, hood, helmet, recoloring or redesign. SIX SECONDS:0\u20131s neutral machinery idle;1\u20132s existing skull-mouth cannon braces, jaw opens slightly and orange charge builds inside mouth;2\u20133s cannon SHOOTS toward the LEFT with one TINY ATTACHED orange muzzle spark MAX12pixels long, no traveling projectile or beam;3\u20134s jaw and mechanism recoil then recover;4\u20136s return to the exact neutral pose. ONLY the dragon mouth weapon fires. Forearms/chest weapons remain neutral. All flashes remain attached at the LEFT-facing mouth; nothing fires RIGHT. No flame trail, distant explosion, long ray, cloud or particles leaving the silhouette. Outside sprite keep ALL background UNIFORMLY flat pure hot magenta #FF00FF throughout. Premium detailed crisp pixel art, no scenery, floor, shadows, text, grid or arrows. Single complete vehicle, one exact pilot, locked registration.",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_133851_b5391101-fc27-43f9-a505-a6b769b31546.mp4",
+    "selectedIdleTimestamps": [
+      0.1,
+      0.35,
+      0.6,
+      0.85
+    ],
+    "selectedAttackTimestamps": [
+      1.25,
+      1.75,
+      2.65,
+      3.75
+    ],
+    "qa": "retimed contained mouth ignition at2.65s used as gameplay release cue; source fullbeam at2.70+excluded; no clippedwing repair"
+  },
+  {
+    "folder": "07-moonkeep-bigswole",
+    "phase": 1,
+    "action": "B",
+    "job_id": "52a94d3e-20bf-4092-9b32-f8791e89cc41",
+    "status": "completed_valid_selected_poses",
+    "model_ui": "Seedance 2.5",
+    "resolution": "720p",
+    "duration": 6,
+    "ratio": "1:1",
+    "billing": "Unlimited verified nativeAXGenerate",
+    "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/video-references/07-moonkeep-bigswole-p1-single-left.png",
+    "reference_id": "06d26a1c-3b27-44c2-8d5a-75bdade0b47a",
+    "prompt": "Animate ONE small forearm-weapon firing action on this EXACT approved complete left-facing pixel-art siege dragon and its seated blue Big Swole pilot. Use a strictly STATIC full-body game-sprite camera: NO zoom, push-in, orbit, reframing, cut or change of scale. Keep the complete dragon, wings, horns, feet, tail and cockpit inside the central45%of the frame. Wings, tail, torso, head and vehicle position remain completely FROZEN. ONLY the two existing FOREARM weapon mechanisms may articulate. Preserve exact blue Sproto pilot inside original cockpit: WHITE eyes, RED round nose/muzzle/collar, GOLD hoop, muscular BLUE arms/hands. No human/hood/helmet or fused dragon anatomy. Six seconds:0\u20131s neutral pose;1\u20132s compact forearm barrel ports open and small orange lamps charge;2\u20133s wrist cannons briefly SHOOT LEFT using tiny attached orange ignition sparks, each MAX12pixels long at its barrel lip;3\u20134s wrist mechanisms recoil and close;4\u20136s neutral pose. NO travelling projectile, fireball, ray, laser, flame breath, beam, stream or long trail. All sparks remain attached to the LEFT-facing wrist ports, never right. Mouth and gold chest vents stay neutral and closed. Maintain detailed crisp pixel art and exact source design, no cinematic effects. Outside sprite keep ALL background UNIFORMLY flat pure hot magenta #FF00FF throughout. No floor, shadow, scenery, text, grid, arrows or camera movement. Entire original vehicle fully contained in EVERY frame.",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_135137_52a94d3e-20bf-4092-9b32-f8791e89cc41.mp4",
+    "selectedAttackTimestamps": [
+      0.75,
+      1.25,
+      2.5,
+      3.25
+    ],
+    "qa": "Whole vehicle and seated canonical pilot valid at12sampletimes; forearms physically deploy cannon ports, shoot LEFT, retract."
+  },
+  {
+    "folder": "07-moonkeep-bigswole",
+    "phase": 1,
+    "action": "C",
+    "job_id": "bf4d60eb-ca69-40d1-a114-36bd7855470a",
+    "status": "completed_valid_selected_poses",
+    "model_ui": "Seedance 2.5",
+    "resolution": "720p",
+    "duration": 6,
+    "ratio": "1:1",
+    "billing": "Unlimited verified nativeAXGenerate",
+    "reference_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/video-references/07-moonkeep-bigswole-p1-single-left.png",
+    "reference_id": "06d26a1c-3b27-44c2-8d5a-75bdade0b47a",
+    "prompt": "Animate ONE gold chest-vent weapon action on this EXACT approved complete left-facing pixel-art siege dragon and its seated blue Big Swole pilot. Strictly STATIC full-body game-sprite camera: NO zoom, push-in, orbit, reframing, cut or scale change. Keep entire dragon, wings, horns, feet, curled tail and cockpit inside the central 45% of frame. Wings, tail, forearms, head and vehicle position stay FROZEN. ONLY the existing GOLD CHEST-VENT firing mechanism articulates. Preserve exact blue Sproto pilot physically INSIDE original cockpit: WHITE eyes, RED round nose/muzzle/collar, GOLD hoop, muscular BLUE arms/hands. Never human, hood, helmet or fused dragon anatomy. SIX SECONDS: 0\u20131s neutral pose; 1\u20132s gold chest-vent shutters slide open, compact internal nozzle aims LEFT and orange furnace light charges inside; 2\u20133s chest nozzle visibly SHOOTS toward LEFT with a small attached white-orange ignition puff at the vent lip; 3\u20134s chest mechanism recoils, shutters close; 4\u20136s exact neutral pose. Forearm guns stay closed, mouth stays closed and neutral. No traveling projectile, fireball, ray, laser, breath beam, stream, distant explosion or trail. Keep the local ignition maximum 12 pixels from the LEFT-facing chest outlet, never shoot right. Detailed crisp pixel art, exact original body and cockpit design, no cinematic effects. Outside sprite keep ALL background UNIFORMLY flat pure hot magenta #FF00FF throughout. No floor, shadow, scenery, text, grid or arrows. Complete original vehicle with generous empty margins in every frame.",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_140122_bf4d60eb-ca69-40d1-a114-36bd7855470a.mp4",
+    "selectedAttackTimestamps": [
+      0.25,
+      1.25,
+      1.5,
+      3.75
+    ],
+    "qa": "Complete vehicle and pilot preserved. Real deployed chest-barrel ignition1.5s is retimed as release cue; excluded off-frame traveling puff1.75s, no clipped vehicle repaired."
+  }
+]

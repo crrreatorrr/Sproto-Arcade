@@ -1,0 +1,644 @@
+{
+  "schemaVersion": 1,
+  "kind": "approved-native-cockpit-composition",
+  "animationFramesGenerated": false,
+  "vehicleAnimationSource": "existing genuine input atlas, unchanged outside explicit masks",
+  "includesPilot": true,
+  "requiresVisualReview": true,
+  "productionEnabled": false,
+  "source": "outputs/boss-concepts/02-last-light-vela-p1-concept.png",
+  "sourceSha256": "fa649750bc389ed5fe9e4a4c446a72fd1581d34f6a2fd597ce0f7857687f4dbf",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "atlas": "work/art-production/raw-phase-atlases/02-last-light-vela-p1.png",
+  "atlasSha256": "db73efcaedc858c2194d4a38a49af277da19029fd526c3dbfa5f4dced9747a78",
+  "atlasDimensions": [
+    2048,
+    2048
+  ],
+  "specification": "work/art-production/cockpit-test-0.16-spec.json",
+  "specificationSha256": "921e9dc958414d64614bdf46198981619b59c045033f1fcaab60b63f6c2ae62b",
+  "polygon": [
+    [
+      1000,
+      270
+    ],
+    [
+      1385,
+      270
+    ],
+    [
+      1385,
+      440
+    ],
+    [
+      1410,
+      465
+    ],
+    [
+      1440,
+      515
+    ],
+    [
+      1440,
+      570
+    ],
+    [
+      1410,
+      600
+    ],
+    [
+      1410,
+      650
+    ],
+    [
+      1440,
+      660
+    ],
+    [
+      1480,
+      660
+    ],
+    [
+      1480,
+      650
+    ],
+    [
+      1510,
+      650
+    ],
+    [
+      1510,
+      675
+    ],
+    [
+      1540,
+      690
+    ],
+    [
+      1560,
+      725
+    ],
+    [
+      1560,
+      780
+    ],
+    [
+      1585,
+      815
+    ],
+    [
+      1585,
+      865
+    ],
+    [
+      1080,
+      865
+    ],
+    [
+      900,
+      715
+    ],
+    [
+      900,
+      390
+    ]
+  ],
+  "sourceHorizontalFlip": true,
+  "sourceMaskBoundsAfterFlip": [
+    462,
+    270,
+    1148,
+    866
+  ],
+  "maskPolicy": "hard binary polygon intersected with opaque source alpha; no feather, blending, repaint or interpolation",
+  "transform": "cellLocalPixel = (horizontalFlip ? [sourceWidth-1-rawX, rawY] : rawConceptPixel) * uniformScale + translate; anchors refer to original unmirrored source",
+  "resampling": "nearest-neighbor",
+  "columns": 4,
+  "rows": 4,
+  "placements": [
+    {
+      "row": 0,
+      "column": 0,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "scale": 0.16,
+      "translate": [
+        95.47999999999999,
+        106.0
+      ],
+      "cellPatchBounds": [
+        169,
+        149,
+        279,
+        245
+      ],
+      "patchPixels": 8108,
+      "inverseAffine": [
+        6.25,
+        0,
+        -596.7499999999999,
+        0,
+        6.25,
+        -662.5
+      ],
+      "sourceAnchor": [
+        1000,
+        300
+      ],
+      "targetAnchor": [
+        263,
+        154
+      ]
+    }
+  ],
+  "checks": {
+    "outsideMaskRgbaByteExact": true,
+    "insideMaskMatchesNearestNativeSource": true,
+    "all16UniqueCells": true
+  },
+  "output": "work/art-production/cockpit-test-0.16.png",
+  "outputSha256": "a29c0f8fc8b215ecaea848139b0038a84e3ba32e69dfbb705ba703dfb5fe2575",
+  "maskOutput": null,
+  "maskSha256": null
+}

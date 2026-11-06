@@ -1,0 +1,9 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/12p1-heavy-correction-2x2.png",
+  "sourceSha256": "d7c9c5945452385365df37fd5c860a1b94f52aca93c0f787bae423aa94871769",
+  "grid": "Genuine2x2fourframes1024cells",
+  "verifiedDividerOnly": true,
+  "dividerWidth": 12,
+  "wholeCellNearestScale": 0.5,
+  "reason": "Normalize1024sourcecells tosame512canvasunits as12originalABCframes. Every complete hardware/flame pixel remains in sourcecell. Repeated temporary convertervalidation rows NEVERused in finalatlas. Finalselectsonlyfouruniqueframes."
+}
