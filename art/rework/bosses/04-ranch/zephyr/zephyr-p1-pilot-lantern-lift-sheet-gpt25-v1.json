@@ -1,0 +1,67 @@
+{
+  "asset_id": "2e3fc9d3-5ea5-41f5-9bf3-133483d4bf6b",
+  "sha256": "165b4244589003c26f0d5339647a3705371c2d83a6f68f9a72dfc4cdbf626182",
+  "credits": 0,
+  "references": [
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/composite-zephyr-lantern-large-pilot.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-zephyr-lantern-harvester-v1.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/concept-zephyr-halloween-pilot-v2.png",
+    "/workspace/ken-games/concepts/arcade/batch-prep/attack-sheets/refs/04-ranch-p1.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Lantern Harvester boss machine. Sproto pilot LARGE and clearly readable filling the cockpit — not a tiny blob. Halloween is LARGE and clearly readable in the cockpit in every frame. Attack: Halloween lifts the lantern from the cab to call the attack. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral (2) wind-up (3) loaded anticipation (4) strike with smear (5) peak impact effect (6) follow-through (7) recovery vent puff (8) return to neutral. Solid flat magenta background #FF00FF only — no scenery, floor or gray. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, generous margins, no cropping, text, UI, logos, extra characters or detached parts. Match the attached machine and pilot references exactly.",
+  "created_at": "2026-11-06T01:40:36.108293+00:00",
+  "site_created_at": "2026-11-05T20:36:47-05:00",
+  "site_created_at_timezone": "America/Lima",
+  "site_created_at_display": "November 5, 2026 at 8:36 PM",
+  "site_created_at_precision_note": "Seconds inferred from downloaded filename UTC timestamp.",
+  "kind": "attack",
+  "boss": "zephyr",
+  "attack": "pilot-lantern-lift",
+  "model": "GPT Image 2.5 Sunburst",
+  "settings": {
+    "quality": "Medium",
+    "unlimited": true,
+    "aspect_ratio": "4:3",
+    "resolution": "2K",
+    "batch": 1,
+    "background": "Auto"
+  },
+  "dimensions": [
+    2336,
+    1744
+  ],
+  "corner_samples": {
+    "top_left": [
+      234,
+      59,
+      227
+    ],
+    "top_right": [
+      238,
+      67,
+      228
+    ],
+    "bottom_left": [
+      234,
+      76,
+      221
+    ],
+    "bottom_right": [
+      236,
+      69,
+      222
+    ]
+  },
+  "upload_method": "library picker > Upload media > Recent; selected composite, machine, pilot, ranch in that order",
+  "note": "large-pilot-composite-first-gen",
+  "self_check": {
+    "large_readable_pilot_every_frame": true,
+    "lantern_lift_visible": true,
+    "eight_cells_4_by_2": true,
+    "flat_exact_ff00ff_background": false,
+    "facing_left": "Left-oriented three-quarter view, not strict side view",
+    "credits": 0,
+    "overall": "Generated asset retained unmodified; exact #FF00FF background and strict side-view requirements not met."
+  },
+  "resume_note": "Reload revealed prior submission processing. Waited for its completion rather than creating a duplicate. No additional Generate click on resume."
+}

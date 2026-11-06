@@ -1,0 +1,36 @@
+{
+  "asset_id": "5572b4a9-c219-4ea4-a92c-8121e6962aa8",
+  "sha256": "ad0fb8b953904b4dfb25d36ec18b147851047677e1696e374ee21a49e67b1b55",
+  "credits": 0,
+  "references": [
+    "attack-sheets/zephyr/zephyr-p2-engine-linkage-expose-sheet-gpt25-v1.png",
+    "attack-sheets/zephyr/zephyr-p1-harvest-roll-release-sheet-gpt25-v1.png",
+    "batch-prep/attack-sheets/refs/composite-zephyr-express-large-pilot.png",
+    "batch-prep/attack-sheets/refs/chroma-magenta-FF00FF.png"
+  ],
+  "prompt": "Pixel-art boss attack animation sprite sheet of the Harvest Express boss machine (steam engine + wagon, jack-o-lantern boiler \u2014 NOT the tall Lantern Harvester kiosk). Sproto pilot LARGE and clearly readable filling the cockpit \u2014 not a tiny blob. Halloween is LARGE and clearly readable in the cockpit in every frame. Attack identity LOCK \u2014 DIFFERENT from linkage expose/guard: an engine-mounted feeder trough on the Express EJECTS a round rolling ground-hazard LEFT (familiar roller launch reprise from P1, remounted on Express). No linkage rods swinging out, no side guard panel focus. No text or lettering. Exactly 8 ordered poses in a clean 4-column by 2-row grid, left to right then top to bottom, equal cells, same scale, locked side-view camera facing left. Frame order: (1) neutral roller seated in Express feeder (2) wind-up feeder compresses (3) anticipation launch ready (4) strike smear \u2014 roller fires left (5) peak \u2014 rolling hazard left of engine with motion lines (6) follow-through trough empty (7) recovery vent puff (8) return to neutral. Solid flat pure magenta background #FF00FF only \u2014 flat even fill, no gradients, scenery, floor or gray. Generous margins \u2014 nothing clips. Crisp Neo Geo HD pixel art, hard aliased pixels, thick black outline, limited palette, Sproto Arcade style. Complete machine and pilot in every cell, no cropping, text, UI, logos, words on glass, extra characters or detached parts. Match the attached Harvest Express machine; use the roller-eject sheet only for the projectile action, not machine identity.",
+  "created_at": "2026-11-05T21:28:28.147781-05:00",
+  "site_created_at": "November 5, 2026 at 9:24 PM (America/Lima)",
+  "kind": "attack",
+  "boss": "zephyr",
+  "phase": "p2",
+  "attack": "harvest-roll-reprise",
+  "machine": "harvest-express",
+  "model": "GPT Image 2.5 Sunburst",
+  "settings": {
+    "quality": "Medium",
+    "aspect_ratio": "4:3",
+    "resolution": "2K",
+    "batch": 1,
+    "unlimited": true,
+    "size": "2336x1744"
+  },
+  "corner_samples": {
+    "tl": "#F633EF",
+    "tr": "#F83EF0",
+    "bl": "#F838EF",
+    "br": "#F83CEF"
+  },
+  "upload_method": "library picker -> Upload media -> Recent tab; leftover refs cleared first",
+  "note": "express-roller-eject-reprise-not-linkage"
+}
