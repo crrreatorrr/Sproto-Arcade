@@ -10,19 +10,17 @@ for(const pack of context.Arcade.assets.values()){
  assert.equal(pack.productionApproved,false);assert.equal(pack.actualVerifiedClipCount,pack.clips.length);assert.equal(pack.generationIds.length,0);
  const phases={};for(const phase of [1,2]){const count=list.filter(c=>c.phase===phase).length;assert(count>0);const coverage=pack.phaseCoverage[String(phase)];assert.equal(coverage.planned,count);assert.equal(coverage.actualVerified,pack.clips.filter(c=>c.phase===phase).length);assert.equal(coverage.timingReview,'pending');assert.equal(coverage.criticalPoseReview,'pending');assert.equal(coverage.bothRequiredBeforeGeneration,true);phases[phase]=count;}
  for(const clip of pack.clips){
-  assert.equal(clip.verifiedDistinct,true,clip.id);assert.equal(clip.productionStatus,'verified');
-  assert.ok(clip.assetPath&&fs.existsSync(path.join(root,clip.assetPath.split('#')[0])),clip.id);
-  assert.equal(clip.frameTicks.length,clip.frameCount);assert.ok(clip.frameCount>=2);
+  assert.equal(clip.verifiedDistinct,true,clip.id);assert.equal(clip.productionStatus,'verified');assert.ok(clip.assetPath&&fs.existsSync(path.join(root,clip.assetPath)),clip.id);
+  assert.equal(clip.frames.length,clip.frameCount);assert.ok(clip.frameCount>=2);assert.equal(clip.frameTicks.length,clip.frameCount);
   assert.equal(clip.frameTicks.reduce((a,b)=>a+b,0),clip.durationTicks);assert.ok(clip.durationTicks>0);
   assert.equal(clip.pivot.length,2);assert.ok(clip.pivot[0]>=0&&clip.pivot[0]<=clip.frameSize[0]&&clip.pivot[1]>=0&&clip.pivot[1]<=clip.frameSize[1]);
   const ev=clip.events;assert.ok(ev&&ev.telegraph<=ev.release&&ev.release<=ev.recovery&&ev.recovery<clip.frameCount,clip.id+' markers');
-  assert.equal(clip.eventDeltas.length,clip.frameCount-1,clip.id+' deltas');assert.equal(String(clip.eventBasis).includes('measured'),true);
-  if(clip.atlas)assert.ok(fs.existsSync(path.join(root,clip.atlas)),clip.atlas);
-  else for(const frame of clip.frames)assert.ok(fs.existsSync(path.join(root,frame)),frame);
-  if(clip.attackTicks)assert.equal(clip.attackTicks.tell+clip.attackTicks.active+clip.attackTicks.rest,clip.durationTicks);
+  assert.equal(clip.eventDeltas.length,clip.frameCount-1,clip.id+' deltas');assert.equal(clip.eventBasis.includes('measured'),true);
+  for(const frame of clip.frames)assert.ok(fs.existsSync(path.join(root,frame)),frame);
+  if(clip.attackTicks)assert.equal(clip.attackTicks.tell+clip.attackTicks.active+clip.attackTicks.rest,clip.frameTicks.reduce((a,b)=>a+b,0));
  }
  for(const clip of list){assert(clip.id&&clip.role&&clip.motionBrief&&clip.distinctActionKey&&clip.timingReference);assert.equal(clip.productionStatus,'planned');assert.equal(clip.assetPath,null);assert.equal(clip.sourceGenerationIds.length,0);assert.equal(clip.verifiedDistinct,false);}
  const terminal=list.find(c=>c.id===pack.terminalClipId);assert(terminal,'terminal must reference a planned clip');assert.equal(terminal.phase,'defeat');assert(!terminalIds.has(pack.terminalClipId));terminalIds.add(pack.terminalClipId);assert.equal(pack.terminalOutcome,pack.stage==='11-rooftop'?'escape':'machine-defeat');assert.equal(pack.terminalClipStatus,'planned-not-produced');assert.equal(pack.terminalAcceptance.actualTerminalClipVerified,false);assert.equal(pack.terminalAcceptance.operatorDeathImplied,false);
  planned+=list.length;actual+=pack.clips.length;rows.push({stage:pack.stage,planned:list.length,uniquePlannedIds:new Set(list.map(c=>c.id)).size,phases,actualClips:pack.clips.length,actualVerified:pack.actualVerifiedClipCount,productionApproved:pack.productionApproved,terminalOutcome:pack.terminalOutcome,terminalClipId:pack.terminalClipId,actualTerminalVerified:pack.terminalAcceptance.actualTerminalClipVerified});
 }
-console.log(JSON.stringify({build:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),workingTree:execFileSync('git',['status','--short'],{cwd:root,encoding:'utf8'}).trim(),status:'passed',kind:'planned-versus-actual-animation-audit',bosses:rows.length,totalPlanned:planned,totalActual:actual,productionRequirementMet:false,humanSignoff:false,rows,limitations:['A verified clip has real frames or an atlas, a measured release frame, a pivot and a duration taken from the attack clock.','Contact frames follow the approved pose order and are not a human playtest.','Planned motions without those fields stay unverified. Full thirty-clip coverage and terminal sequences are still open.']},null,2));
+console.log(JSON.stringify({build:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),workingTree:execFileSync('git',['status','--short'],{cwd:root,encoding:'utf8'}).trim(),status:'passed',kind:'planned-versus-actual-animation-audit',bosses:rows.length,totalPlanned:planned,totalActual:actual,productionRequirementMet:false,humanSignoff:false,rows,limitations:['A verified clip has real frame files, a measured release frame, a pivot and a duration taken from the attack clock.','Planned motions without those fields stay unverified.','Full thirty-clip coverage, terminal sequences and pack-level timing signoff are still open.']},null,2));
