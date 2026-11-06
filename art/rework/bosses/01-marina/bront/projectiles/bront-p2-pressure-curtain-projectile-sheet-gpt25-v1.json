@@ -1,0 +1,15 @@
+{
+  "model": "GPT Image 2.5 Sunburst",
+  "quality": "Medium",
+  "aspect_ratio": "4:3",
+  "resolution": "2K",
+  "batch": 1,
+  "unlimited": true,
+  "credits": 0,
+  "job_id": "1207b88e-83f5-46f8-a4d1-1cea444fe9c5",
+  "asset_id": "1207b88e-83f5-46f8-a4d1-1cea444fe9c5",
+  "refs": [
+    "/workspace/ken-games/concepts/arcade/attack-sheets/bront/bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png"
+  ],
+  "timestamp": "2026-11-05T20:40:19Z"
+}
