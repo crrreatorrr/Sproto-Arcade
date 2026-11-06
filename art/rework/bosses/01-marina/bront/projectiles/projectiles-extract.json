@@ -1,0 +1,254 @@
+[
+ {
+  "file": "pressure-curtain-01.png",
+  "source": "bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png",
+  "cell": 3,
+  "sourceCrop": [
+   1168,
+   456,
+   1250,
+   584
+  ],
+  "trim": [
+   15,
+   28,
+   82,
+   121
+  ],
+  "size": [
+   67,
+   93
+  ]
+ },
+ {
+  "file": "pressure-curtain-02.png",
+  "source": "bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png",
+  "cell": 4,
+  "sourceCrop": [
+   1752,
+   447,
+   1852,
+   593
+  ],
+  "trim": [
+   7,
+   24,
+   100,
+   134
+  ],
+  "size": [
+   93,
+   110
+  ]
+ },
+ {
+  "file": "pressure-curtain-03.png",
+  "source": "bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png",
+  "cell": 5,
+  "sourceCrop": [
+   0,
+   871,
+   164,
+   1642
+  ],
+  "trim": [
+   0,
+   2,
+   164,
+   771
+  ],
+  "size": [
+   164,
+   769
+  ]
+ },
+ {
+  "file": "pressure-curtain-04.png",
+  "source": "bront-p2-pressure-nozzle-fire-sheet-gpt25-v1.png",
+  "cell": 6,
+  "sourceCrop": [
+   581,
+   871,
+   734,
+   1642
+  ],
+  "trim": [
+   3,
+   136,
+   153,
+   771
+  ],
+  "size": [
+   150,
+   635
+  ]
+ },
+ {
+  "file": "slam-wake-01.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 5,
+  "sourceCrop": [
+   0,
+   1460,
+   584,
+   1574
+  ],
+  "trim": [
+   34,
+   0,
+   584,
+   100
+  ],
+  "size": [
+   550,
+   100
+  ]
+ },
+ {
+  "file": "slam-wake-02.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 6,
+  "sourceCrop": [
+   584,
+   1460,
+   1168,
+   1574
+  ],
+  "trim": [
+   0,
+   0,
+   583,
+   100
+  ],
+  "size": [
+   583,
+   100
+  ]
+ },
+ {
+  "file": "slam-wake-03.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 7,
+  "sourceCrop": [
+   1168,
+   1460,
+   1752,
+   1574
+  ],
+  "trim": [
+   28,
+   5,
+   533,
+   100
+  ],
+  "size": [
+   505,
+   95
+  ]
+ },
+ {
+  "file": "slam-wake-04.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 8,
+  "sourceCrop": [
+   1752,
+   1460,
+   2336,
+   1574
+  ],
+  "trim": [
+   5,
+   0,
+   551,
+   100
+  ],
+  "size": [
+   546,
+   100
+  ]
+ },
+ {
+  "file": "slam-steam-01.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 5,
+  "sourceCrop": [
+   365,
+   1072,
+   547,
+   1186
+  ],
+  "trim": [
+   37,
+   15,
+   146,
+   114
+  ],
+  "size": [
+   109,
+   99
+  ]
+ },
+ {
+  "file": "slam-steam-02.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 6,
+  "sourceCrop": [
+   866,
+   969,
+   1140,
+   1277
+  ],
+  "trim": [
+   17,
+   16,
+   243,
+   308
+  ],
+  "size": [
+   226,
+   292
+  ]
+ },
+ {
+  "file": "slam-steam-03.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 7,
+  "sourceCrop": [
+   1505,
+   855,
+   1665,
+   1049
+  ],
+  "trim": [
+   13,
+   10,
+   148,
+   192
+  ],
+  "size": [
+   135,
+   182
+  ]
+ },
+ {
+  "file": "slam-steam-04.png",
+  "source": "bront-p1-breakwater-slam-release-sheet-gpt25-v1.png",
+  "cell": 8,
+  "sourceCrop": [
+   2075,
+   1095,
+   2224,
+   1220
+  ],
+  "trim": [
+   26,
+   18,
+   124,
+   125
+  ],
+  "size": [
+   98,
+   107
+  ]
+ }
+]
