@@ -46,7 +46,7 @@
     enter(w){
       floor(w);w.data.rewarded=false;w.progress=0;
       w.target({id:'marina-vent',...VENT,hp:18,maxHp:18,open:false,label:'Steam vent',onDefeat(world){world.cue('Tug docks: wheelhouse and piston connect to pressure pipes.',90);world.advancePhase();}});
-      w.cue('Dave raises the piston. Jump the wake, then shoot the steaming vent.',180);
+      w.cue('Fat Head Dave raises the piston. Jump the wake, then shoot the steaming vent.',180);
     },
     update(w){
       const t=w.phaseTick%CYCLE,cycle=Math.floor(w.phaseTick/CYCLE),vent=w.targets.find(x=>x.id==='marina-vent');
