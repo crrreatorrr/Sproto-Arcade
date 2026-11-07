@@ -29,7 +29,7 @@
       label(ctx,'RELEASE VALVE',790,485,valve&&valve.open?'#a9ffce':'#9aa5ab');
       label(ctx,'≫  SHIFT THROUGH PRESSURE  ≫',270,310,'#ffdb92');
     }
-    label(ctx,press?'DRY DOCK PRESS':'BREAKWATER TUG',950,315);
+    label(ctx,w.stage.number===13?(press?'RED SIEGE CRUISER':'RED INTERCEPTOR'):(press?'DRY DOCK PRESS':'BREAKWATER TUG'),950,315);
     label(ctx,vent&&vent.open?'STEAM: VENT OPEN':'VENT ARMORED',985,635,vent&&vent.open?'#eaffad':'#afb3b7');
   }
   const phase1={

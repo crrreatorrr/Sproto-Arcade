@@ -1,7 +1,7 @@
 /* Real-runtime pressure audit; idle legal inputs, no world/HP/objective mutation. */
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),runtimeRoot=process.argv[2]||root,c=vm.createContext({console});
-for(const f of [path.join(root,'runtime/contract.js'),path.join(runtimeRoot,'runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c);
+for(const f of [path.join(root,'density-attacks.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),path.join(runtimeRoot,'runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c);
 const stage=c.Arcade.stages.get('08-crown'),w=new c.Arcade.World(stage,{phase:1,practice:true,seed:17});
 assert.equal(typeof w.pressure,'function','pressure runtime required');
 // Isolate the older background-pressure lesson from the separately audited missiles.

@@ -39,6 +39,7 @@ const LEVELS = [
   {
     "title": "Moonkeep Castle",
     "id": 7,
+    "flight": true,
     "art": "art/level-07.jpg",
     "foot": 0.88
   },
@@ -61,8 +62,15 @@ const LEVELS = [
     "foot": 0.875
   },
   {title:"Rooftop Breakaway",id:11,chase:true},
-  {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84}
+  {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84},
+  {title:"Redkev's Marina",id:13,mechanics:1,art:"art/level-01.jpg",foot:.913}
 ];
+// Stable IDs/indexes preserve saved progress; campaign placement is independent.
+const REDKEV_READY=true;
+const mechanicsIndex=index=>LEVELS[index]?.mechanics?LEVELS.findIndex(l=>l.id===LEVELS[index].mechanics):index;
+const campaignLevelIndices=()=>REDKEV_READY?[0,12,1,2,3,4,5,6,7,8,9,10,11]:[0,1,2,3,4,5,6,7,8,9,10,11];
+const nextCampaignLevel=index=>{const order=campaignLevelIndices();return order[order.indexOf(index)+1]??-1;};
+const campaignLevelNumber=index=>campaignLevelIndices().indexOf(index)+1;
 
 // Generated panoramas share the same pixels on each side of a baked join.
 const GENERATED_LOOPS = [

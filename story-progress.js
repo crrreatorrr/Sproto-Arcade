@@ -4,7 +4,7 @@
 (function (root) {
   'use strict';
   const STORAGE_KEY = 'sproto-arcade-story-v1';
-  const LEVEL_COUNT = 12;
+  const LEVEL_COUNT = 13;
 
   // Every Sproto not listed here is open from the start, as before this change.
   // Each locked Sproto opens by clearing one level or by owning one Relic from another hub game.

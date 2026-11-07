@@ -2,7 +2,7 @@
  "level": 12,
  "title": "Codebreak Ascent",
  "bossId": "bitcoin_sheriff",
- "source": "tools/story-bot.mjs; existing legal input run ends at actual reviewed-geometry clear tick",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "bitcoin_sheriff",
   "godMode": false,
   "ticks": 7619,
-  "endHash": "fd3a9acd61f0c179"
+  "endHash": "d8ab130a67e87768"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24312,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 12,
    "bossId": "bitcoin_sheriff",
-   "ticks": 7619
+   "ticks": 7619,
+   "endHash": "d8ab130a67e87768"
   },
   "godMode": false
  }

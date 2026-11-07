@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.resolve(__dirname,'../..');
 const scope=vm.createContext({});
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
-for(const file of ['sprite-hitboxes.js','runtime/contract.js','runtime/core/world.js'])vm.runInContext(read(file),scope,{filename:file});
+for(const file of ['sprite-hitboxes.js','density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/core/world.js'])vm.runInContext(read(file),scope,{filename:file});
 const H=vm.runInContext('({config:SPRITE_HITBOXES,rect:spriteHitboxRect,value:spriteHitboxValue,cycle:spriteWeaponCycle,variant:spriteModernWeaponVariant,row:spriteWeaponRow})',scope);
 const base={x:100,y:200,w:80,h:40};
 assert.equal(typeof H.config.enabled,'boolean','production geometry has an explicit deterministic activation flag');

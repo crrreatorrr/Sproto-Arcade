@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 1,
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "projectiles",
+  "source": "redkev-p2-projectiles-native.png",
+  "sourceSha256": "75b83e440abd853e601c71c84cc0f2299a04ea070c62f7e53d563cb858bbcd88",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "sourceFrameDimensions": [
+    512,
+    512
+  ],
+  "gridRemoval": {
+    "maximumBoundaryDistance": 10,
+    "nearBlackMaximumChannel": 45,
+    "maximumInterpolationFringe": 10,
+    "bands": [
+      {
+        "axis": "x",
+        "boundary": 0,
+        "start": 0,
+        "end": 10,
+        "nearBlackCore": [
+          0,
+          5
+        ],
+        "rectangle": [
+          0,
+          0,
+          10,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 512,
+        "start": 502,
+        "end": 522,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          502,
+          0,
+          20,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1024,
+        "start": 1014,
+        "end": 1034,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          1014,
+          0,
+          20,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 1536,
+        "start": 1526,
+        "end": 1546,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          1526,
+          0,
+          20,
+          2048
+        ]
+      },
+      {
+        "axis": "x",
+        "boundary": 2048,
+        "start": 2038,
+        "end": 2048,
+        "nearBlackCore": [
+          2043,
+          2048
+        ],
+        "rectangle": [
+          2038,
+          0,
+          10,
+          2048
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 0,
+        "start": 0,
+        "end": 10,
+        "nearBlackCore": [
+          0,
+          5
+        ],
+        "rectangle": [
+          0,
+          0,
+          2048,
+          10
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 512,
+        "start": 502,
+        "end": 522,
+        "nearBlackCore": [
+          509,
+          515
+        ],
+        "rectangle": [
+          0,
+          502,
+          2048,
+          20
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1024,
+        "start": 1014,
+        "end": 1034,
+        "nearBlackCore": [
+          1021,
+          1027
+        ],
+        "rectangle": [
+          0,
+          1014,
+          2048,
+          20
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 1536,
+        "start": 1526,
+        "end": 1546,
+        "nearBlackCore": [
+          1533,
+          1539
+        ],
+        "rectangle": [
+          0,
+          1526,
+          2048,
+          20
+        ]
+      },
+      {
+        "axis": "y",
+        "boundary": 2048,
+        "start": 2038,
+        "end": 2048,
+        "nearBlackCore": [
+          2043,
+          2048
+        ],
+        "rectangle": [
+          0,
+          2038,
+          2048,
+          10
+        ]
+      }
+    ]
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      142,
+      239,
+      225,
+      155
+    ],
+    [
+      13,
+      238,
+      485,
+      154
+    ],
+    [
+      71,
+      133,
+      367,
+      367
+    ],
+    [
+      12,
+      191,
+      488,
+      248
+    ]
+  ],
+  "bounds": [
+    12,
+    133,
+    488,
+    367
+  ],
+  "unionCrop": [
+    16,
+    75,
+    499,
+    438
+  ],
+  "destinationSize": [
+    488,
+    367
+  ],
+  "offset": [
+    12,
+    133
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        163,
+        180,
+        349,
+        333
+      ],
+      "cellBounds": [
+        161,
+        239,
+        348,
+        394
+      ],
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 238876
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        163,
+        180,
+        349,
+        332
+      ],
+      "cellBounds": [
+        161,
+        239,
+        348,
+        393
+      ],
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 238859
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        145,
+        180,
+        367,
+        333
+      ],
+      "cellBounds": [
+        142,
+        239,
+        367,
+        394
+      ],
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 237877
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        155,
+        180,
+        349,
+        332
+      ],
+      "cellBounds": [
+        152,
+        239,
+        348,
+        393
+      ],
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 238771
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        18,
+        188,
+        494,
+        324
+      ],
+      "cellBounds": [
+        14,
+        247,
+        495,
+        385
+      ],
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 222303
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        18,
+        188,
+        495,
+        324
+      ],
+      "cellBounds": [
+        14,
+        247,
+        496,
+        385
+      ],
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 222227
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        18,
+        188,
+        496,
+        324
+      ],
+      "cellBounds": [
+        14,
+        247,
+        497,
+        385
+      ],
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 218130
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        17,
+        179,
+        497,
+        331
+      ],
+      "cellBounds": [
+        13,
+        238,
+        498,
+        392
+      ],
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 214718
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        74,
+        75,
+        438,
+        438
+      ],
+      "cellBounds": [
+        71,
+        133,
+        438,
+        500
+      ],
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 188889
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        74,
+        75,
+        438,
+        438
+      ],
+      "cellBounds": [
+        71,
+        133,
+        438,
+        500
+      ],
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 188966
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        74,
+        75,
+        438,
+        438
+      ],
+      "cellBounds": [
+        71,
+        133,
+        438,
+        500
+      ],
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 189022
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        74,
+        75,
+        438,
+        438
+      ],
+      "cellBounds": [
+        71,
+        133,
+        438,
+        500
+      ],
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 183542
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        17,
+        132,
+        437,
+        378
+      ],
+      "cellBounds": [
+        13,
+        191,
+        437,
+        439
+      ],
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 203113
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        17,
+        132,
+        470,
+        378
+      ],
+      "cellBounds": [
+        13,
+        191,
+        471,
+        439
+      ],
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 201305
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        17,
+        132,
+        498,
+        378
+      ],
+      "cellBounds": [
+        13,
+        191,
+        499,
+        439
+      ],
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 200073
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        16,
+        132,
+        499,
+        378
+      ],
+      "cellBounds": [
+        12,
+        191,
+        500,
+        439
+      ],
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 198496
+    }
+  ],
+  "sampling": "one-to-one source cells; no interpolation or frame duplication; nearest-neighbor scale",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected conservative chroma with boundary despill",
+    "minimumBackgroundFraction": 0.2
+  },
+  "atlasSha256": "735eb0e8b8b0554ec8899b44df1c852867e062fc838202350feb95e0c8954c17",
+  "facing": "left",
+  "status": "root-visual-reviewed-active",
+  "sourceFile": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/redkev-animation-sources/redkev-p2-projectiles-native.png",
+  "outputSha256": "735eb0e8b8b0554ec8899b44df1c852867e062fc838202350feb95e0c8954c17",
+  "generationProvenance": "generation-provenance.json",
+  "generationAssetId": "4eb1ba07-98a3-4b34-9955-ea12b6fdc880",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "root-approved identity, full-frame alpha, native attack motion, source-hashed anchor/core overlays"
+  }
+}

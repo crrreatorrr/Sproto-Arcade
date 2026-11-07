@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify the actual enabled boss/projectile pixels for every phase.
 
-Run with --require-complete before releasing the finished 24-phase art set.
+Run with --require-complete before releasing the complete configured boss art set.
 Requires Pillow and Node. This reads the production manifest without a browser.
 """
 import argparse
@@ -20,7 +20,7 @@ manifest = json.loads(subprocess.check_output([
     'node', '-e', "require('./boss-sheets.js');console.log(JSON.stringify(ArcadeBossSheets.manifest))"
 ], cwd=root))
 errors, pending, records = [], [], []
-assert len(manifest) == 12
+assert set(map(str, range(1, 13))).issubset(manifest), 'Original boss identities must remain present'
 for number, config in manifest.items():
     for group in ['phases', 'projectiles']:
         assert len(config[group]) == 2
@@ -63,6 +63,6 @@ for number, config in manifest.items():
                             'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
 if args.require_complete and pending:
     errors.extend(f'Pending: {label}' for label in pending)
-print(json.dumps({'approvedFiles': len(records), 'expectedFiles': 48,
+print(json.dumps({'approvedFiles': len(records), 'expectedFiles': len(manifest)*4,
                   'pending': pending, 'errors': errors, 'assets': records}, indent=2))
 raise SystemExit(1 if errors else 0)

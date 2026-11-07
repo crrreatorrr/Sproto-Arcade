@@ -2,7 +2,7 @@
 // Independent synthetic contract checks. These are not campaign clears.
 import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';import assert from 'node:assert/strict';import {fileURLToPath} from 'node:url';
 const root=path.resolve(process.argv[2]||path.join(path.dirname(fileURLToPath(import.meta.url)),'..'));
-const c=vm.createContext({console});for(const f of ['runtime/contract.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c,{filename:f});
+const c=vm.createContext({console});for(const f of ['density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c,{filename:f});
 const phase={mode:'fixed',spawn:{x:260,y:600},enter(w){w.platform({id:'floor',x:0,y:600,w:1280});},update(){}};
 const stage={id:'missile-fixture',number:8,phases:[phase,phase]};const create=(p=1,mode='fixed')=>new c.Arcade.World({...stage,phases:[{...phase,mode},{...phase,mode}]},{phase:p});
 const request={id:'qa-missile',start:180,period:480,speed:1.1,windup:90};const at=(w,t,extra={})=>{w.phaseTick=t;return w.slowMissile({...request,...extra});};const near=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);let passed=0;function test(name,fn){fn();passed++;console.log('PASS '+name);}

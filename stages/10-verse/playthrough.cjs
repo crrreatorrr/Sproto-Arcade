@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(process.argv[2]||'.'),ctx={};vm.createContext(ctx);
-for(const f of ['runtime/contract.js','runtime/weapons/weapons.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
+for(const f of ['density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/weapons/weapons.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
 vm.runInContext(fs.readFileSync(path.join(__dirname,'stage.js'),'utf8'),ctx);
 const stage=ctx.Arcade.stages.get('10-verse');
 function run(){const w=new ctx.Arcade.World(stage,{seed:41}),log={ticks:0,riftCounters:0,hits:0,moduleSides:new Set(),collected:false};

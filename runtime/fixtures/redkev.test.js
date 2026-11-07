@@ -1,0 +1,11 @@
+/* Stable campaign IDs, hidden-until-ready placement, and real legacy ID13 mechanics. */
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict'),root=path.resolve(__dirname,'../..');
+function config(ready){const s=vm.createContext({});vm.runInContext(fs.readFileSync(path.join(root,'levels.js'),'utf8').replace(/const REDKEV_READY=(?:true|false);/,'const REDKEV_READY='+ready+';')+';globalThis.config={LEVELS,mechanicsIndex,order:campaignLevelIndices(),nextCampaignLevel,campaignLevelNumber};',s);return s.config;}
+const pending=config(false),live=config(true);assert.deepEqual(Array.from(pending.order),[0,1,2,3,4,5,6,7,8,9,10,11]);assert.deepEqual(Array.from(live.order),[0,12,1,2,3,4,5,6,7,8,9,10,11]);assert.equal(live.nextCampaignLevel(0),12);assert.equal(live.nextCampaignLevel(12),1);assert.equal(live.nextCampaignLevel(11),-1);assert.equal(live.campaignLevelNumber(12),2);assert.equal(live.LEVELS[12].id,13);assert.equal(live.mechanicsIndex(12),0);for(let i=0;i<12;i++){assert.equal(live.LEVELS[i].id,i+1);assert.equal(live.mechanicsIndex(i),i);}
+(async()=>{
+ const {loadSourceSim}=await import(path.join(root,'tools/build-server-sim.mjs')),sim=loadSourceSim({dev:true}),d=sim._dev;
+ d.reset(0,'rivet',0,37);const original=d.state().boss;d.reset(12,'rivet',0,37);const red=d.state().boss;
+ assert.equal(red.id,'redkev');assert.equal(red.name,'Redkev');for(const key of ['hp','max','phaseTwoHealth','archetype','cadence','shotRate','scale','phase','move','tell'])assert.deepEqual(red[key],original[key],key+' inherits Marina gameplay');
+ const log={schema:1,simVersion:sim.ARCADE_SIM_VERSION,seed:37,rules:{mode:'story',level:13,shieldWait:0},loadout:{pilot:'rivet'},ticks:1,inputs:sim.encodeInputs([0]),claimed:{kind:'boss',stage:13,bossId:'redkev',ticks:1},godMode:false};const r=sim.verifyClear(log);assert.equal(r.ok,false);assert.match(r.error,/no clear within/,'ID13 resolves in actual server verifier but no clear is fabricated');assert.equal(r.stage,13);assert.equal(r.bossId,'redkev');
+ console.log('PASS gated Redkev campaign1→13→2, stable prior12IDs/unlocks, Marina legacy mechanics and real serverID13 validation');
+})().catch(e=>{console.error(e);process.exitCode=1;});

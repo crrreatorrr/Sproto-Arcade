@@ -12,48 +12,48 @@
   "rowBounds": [
     [
       12,
-      197,
+      234,
       488,
-      192
+      158
     ],
     [
-      148,
-      155,
-      214,
-      232
+      176,
+      235,
+      135,
+      137
     ],
     [
-      19,
-      161,
-      469,
-      276
+      36,
+      101,
+      401,
+      399
     ],
     [
-      51,
-      97,
-      405,
-      403
+      76,
+      136,
+      319,
+      324
     ]
   ],
   "bounds": [
     12,
-    97,
+    101,
     488,
-    403
+    399
   ],
   "unionCrop": [
-    22,
-    61,
-    495,
-    452
+    53,
+    76,
+    494,
+    437
   ],
   "destinationSize": [
     488,
-    403
+    399
   ],
   "offset": [
     12,
-    97
+    101
   ],
   "baseline": 500,
   "padding": 12,
@@ -64,16 +64,16 @@
       "column": 0,
       "state": "attack-a",
       "sourceBounds": [
-        22,
-        196,
-        492,
-        311
+        60,
+        215,
+        494,
+        320
       ],
       "cellBounds": [
-        12,
-        236,
-        497,
-        355
+        20,
+        255,
+        500,
+        371
       ]
     },
     {
@@ -82,16 +82,16 @@
       "column": 1,
       "state": "attack-a",
       "sourceBounds": [
-        78,
-        162,
-        462,
-        344
+        61,
+        208,
+        494,
+        326
       ],
       "cellBounds": [
-        70,
-        201,
-        466,
-        389
+        21,
+        247,
+        500,
+        377
       ]
     },
     {
@@ -100,16 +100,16 @@
       "column": 2,
       "state": "attack-a",
       "sourceBounds": [
-        37,
-        158,
-        476,
-        339
+        61,
+        200,
+        494,
+        333
       ],
       "cellBounds": [
-        27,
-        197,
-        480,
-        384
+        21,
+        238,
+        500,
+        385
       ]
     },
     {
@@ -118,16 +118,16 @@
       "column": 3,
       "state": "attack-a",
       "sourceBounds": [
-        24,
-        197,
-        495,
-        310
+        53,
+        196,
+        494,
+        339
       ],
       "cellBounds": [
-        14,
-        237,
+        12,
+        234,
         500,
-        354
+        392
       ]
     },
     {
@@ -136,16 +136,16 @@
       "column": 0,
       "state": "attack-b",
       "sourceBounds": [
-        154,
-        139,
-        360,
-        335
+        203,
+        208,
+        304,
+        313
       ],
       "cellBounds": [
-        148,
-        177,
-        361,
-        379
+        178,
+        247,
+        290,
+        363
       ]
     },
     {
@@ -154,16 +154,16 @@
       "column": 1,
       "state": "attack-b",
       "sourceBounds": [
-        175,
-        117,
-        361,
-        342
+        201,
+        211,
+        302,
+        321
       ],
       "cellBounds": [
-        170,
-        155,
-        362,
-        387
+        176,
+        250,
+        288,
+        372
       ]
     },
     {
@@ -172,16 +172,16 @@
       "column": 2,
       "state": "attack-b",
       "sourceBounds": [
-        176,
-        173,
-        342,
-        341
+        202,
+        210,
+        323,
+        312
       ],
       "cellBounds": [
-        171,
-        212,
-        342,
-        386
+        177,
+        249,
+        311,
+        362
       ]
     },
     {
@@ -190,16 +190,16 @@
       "column": 3,
       "state": "attack-b",
       "sourceBounds": [
-        185,
-        183,
-        334,
-        334
+        209,
+        197,
+        310,
+        314
       ],
       "cellBounds": [
-        180,
-        223,
-        334,
-        378
+        185,
+        235,
+        296,
+        364
       ]
     },
     {
@@ -208,16 +208,16 @@
       "column": 0,
       "state": "attack-c",
       "sourceBounds": [
-        29,
-        123,
-        483,
-        390
+        75,
+        76,
+        436,
+        437
       ],
       "cellBounds": [
-        19,
-        161,
-        488,
-        436
+        36,
+        101,
+        436,
+        500
       ]
     },
     {
@@ -226,16 +226,16 @@
       "column": 1,
       "state": "attack-c",
       "sourceBounds": [
-        49,
-        123,
-        476,
-        375
+        76,
+        76,
+        436,
+        437
       ],
       "cellBounds": [
-        40,
-        161,
-        480,
-        421
+        37,
+        101,
+        436,
+        500
       ]
     },
     {
@@ -244,16 +244,16 @@
       "column": 2,
       "state": "attack-c",
       "sourceBounds": [
-        67,
-        133,
-        460,
-        373
+        75,
+        76,
+        437,
+        437
       ],
       "cellBounds": [
-        58,
-        171,
-        464,
-        419
+        36,
+        101,
+        437,
+        500
       ]
     },
     {
@@ -262,16 +262,16 @@
       "column": 3,
       "state": "attack-c",
       "sourceBounds": [
-        51,
-        133,
-        471,
-        391
+        75,
+        76,
+        436,
+        437
       ],
       "cellBounds": [
-        42,
-        171,
-        475,
-        437
+        36,
+        101,
+        436,
+        500
       ]
     },
     {
@@ -280,16 +280,16 @@
       "column": 0,
       "state": "heavy",
       "sourceBounds": [
-        100,
-        76,
-        410,
-        436
+        124,
+        121,
+        388,
+        390
       ],
       "cellBounds": [
-        92,
-        112,
-        412,
-        484
+        91,
+        151,
+        383,
+        448
       ]
     },
     {
@@ -298,16 +298,16 @@
       "column": 1,
       "state": "heavy",
       "sourceBounds": [
-        61,
-        61,
-        452,
-        452
+        116,
+        113,
+        394,
+        398
       ],
       "cellBounds": [
-        52,
-        97,
-        456,
-        500
+        82,
+        142,
+        389,
+        457
       ]
     },
     {
@@ -316,16 +316,16 @@
       "column": 2,
       "state": "heavy",
       "sourceBounds": [
-        61,
-        61,
-        452,
-        451
+        124,
+        121,
+        388,
+        390
       ],
       "cellBounds": [
-        52,
-        97,
-        456,
-        499
+        91,
+        151,
+        383,
+        448
       ]
     },
     {
@@ -334,124 +334,27 @@
       "column": 3,
       "state": "heavy",
       "sourceBounds": [
-        60,
-        61,
-        452,
-        452
+        111,
+        108,
+        399,
+        401
       ],
       "cellBounds": [
-        51,
-        97,
-        456,
-        500
+        76,
+        136,
+        395,
+        460
       ]
     }
   ],
   "kind": "reviewed-magenta-projectile-alpha-unmix",
   "assetKind": "projectiles",
-  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/04-ranch-zephyr-p1-projectiles.png",
-  "sourceSha256": "27b957121a6ba030d67e2ab8db441bcad3823e5b0dd2ae1b1685607b5ee1e3e5",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/05-neon-sproto102-p1-projectiles.png",
+  "sourceSha256": "e51697da260c5535ce7a0b379197423d9019acb05c5f55d42a2375f9a174b312",
   "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
   "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
-  "reviewedPalette": "Inspected harvest ammunition palette: amber seed, orange/charcoal ember, green leaf, gold lantern orb; no authored magenta or purple.",
-  "gridRemovalBands": [
-    {
-      "axis": "x",
-      "boundary": 512,
-      "start": 504,
-      "end": 520,
-      "nearBlackCore": [
-        507,
-        517
-      ],
-      "rectangle": [
-        504,
-        0,
-        16,
-        2048
-      ]
-    },
-    {
-      "axis": "x",
-      "boundary": 1024,
-      "start": 1016,
-      "end": 1032,
-      "nearBlackCore": [
-        1019,
-        1029
-      ],
-      "rectangle": [
-        1016,
-        0,
-        16,
-        2048
-      ]
-    },
-    {
-      "axis": "x",
-      "boundary": 1536,
-      "start": 1528,
-      "end": 1544,
-      "nearBlackCore": [
-        1531,
-        1541
-      ],
-      "rectangle": [
-        1528,
-        0,
-        16,
-        2048
-      ]
-    },
-    {
-      "axis": "y",
-      "boundary": 512,
-      "start": 504,
-      "end": 520,
-      "nearBlackCore": [
-        507,
-        517
-      ],
-      "rectangle": [
-        0,
-        504,
-        2048,
-        16
-      ]
-    },
-    {
-      "axis": "y",
-      "boundary": 1024,
-      "start": 1016,
-      "end": 1032,
-      "nearBlackCore": [
-        1019,
-        1029
-      ],
-      "rectangle": [
-        0,
-        1016,
-        2048,
-        16
-      ]
-    },
-    {
-      "axis": "y",
-      "boundary": 1536,
-      "start": 1528,
-      "end": 1544,
-      "nearBlackCore": [
-        1531,
-        1541
-      ],
-      "rectangle": [
-        0,
-        1528,
-        2048,
-        16
-      ]
-    }
-  ],
+  "reviewedPalette": "Source-specific reviewed palette: bronze/iron/orange bolt LEFT, dark iron slag shard, orange iron-toothed gear, iron-bound orange pumpkin. No authored magenta/violet. Gear center holes are pure magenta field, alpha-cleared by documented key-unmix.",
+  "gridRemovalBands": [],
   "keyUnmix": {
     "criterion": "min(R,B)-G>18",
     "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
@@ -459,233 +362,233 @@
     "alphaFloorByte": 10,
     "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
     "outsideUnmixMaskRgbaByteExact": true,
-    "pixels": 3419822,
-    "removedPixels": 3354432,
-    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/04-ranch-zephyr-p1-projectiles-clean-chroma-unmix-mask.png",
-    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/04-ranch-zephyr-p1-projectiles-clean-background-key-mask.png"
+    "pixels": 3579360,
+    "removedPixels": 3502725,
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-chroma-unmix-mask.png",
+    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-background-key-mask.png"
   },
   "frameCutoffChecks": [
     {
       "row": 0,
       "column": 0,
       "sourceBounds": [
-        22,
-        196,
-        492,
-        311
+        60,
+        215,
+        494,
+        320
       ],
       "usableAfterGridRemoval": [
         0,
         0,
-        504,
-        504
+        512,
+        512
       ]
     },
     {
       "row": 0,
       "column": 1,
       "sourceBounds": [
-        78,
-        162,
-        462,
-        344
+        61,
+        208,
+        494,
+        326
       ],
       "usableAfterGridRemoval": [
-        8,
         0,
-        504,
-        504
+        0,
+        512,
+        512
       ]
     },
     {
       "row": 0,
       "column": 2,
       "sourceBounds": [
-        37,
-        158,
-        476,
-        339
+        61,
+        200,
+        494,
+        333
       ],
       "usableAfterGridRemoval": [
-        8,
         0,
-        504,
-        504
+        0,
+        512,
+        512
       ]
     },
     {
       "row": 0,
       "column": 3,
       "sourceBounds": [
-        24,
-        197,
-        495,
-        310
+        53,
+        196,
+        494,
+        339
       ],
       "usableAfterGridRemoval": [
-        8,
+        0,
         0,
         512,
-        504
+        512
       ]
     },
     {
       "row": 1,
       "column": 0,
       "sourceBounds": [
-        154,
-        139,
-        360,
-        335
+        203,
+        208,
+        304,
+        313
       ],
       "usableAfterGridRemoval": [
         0,
-        8,
-        504,
-        504
+        0,
+        512,
+        512
       ]
     },
     {
       "row": 1,
       "column": 1,
       "sourceBounds": [
-        175,
-        117,
-        361,
-        342
+        201,
+        211,
+        302,
+        321
       ],
       "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
-        504
+        0,
+        0,
+        512,
+        512
       ]
     },
     {
       "row": 1,
       "column": 2,
       "sourceBounds": [
-        176,
-        173,
-        342,
-        341
+        202,
+        210,
+        323,
+        312
       ],
       "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
-        504
+        0,
+        0,
+        512,
+        512
       ]
     },
     {
       "row": 1,
       "column": 3,
       "sourceBounds": [
-        185,
-        183,
-        334,
-        334
+        209,
+        197,
+        310,
+        314
       ],
       "usableAfterGridRemoval": [
-        8,
-        8,
+        0,
+        0,
         512,
-        504
+        512
       ]
     },
     {
       "row": 2,
       "column": 0,
       "sourceBounds": [
-        29,
-        123,
-        483,
+        75,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        76,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        75,
+        76,
+        437,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        75,
+        76,
+        436,
+        437
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        124,
+        121,
+        388,
         390
       ],
       "usableAfterGridRemoval": [
         0,
-        8,
-        504,
-        504
-      ]
-    },
-    {
-      "row": 2,
-      "column": 1,
-      "sourceBounds": [
-        49,
-        123,
-        476,
-        375
-      ],
-      "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
-        504
-      ]
-    },
-    {
-      "row": 2,
-      "column": 2,
-      "sourceBounds": [
-        67,
-        133,
-        460,
-        373
-      ],
-      "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
-        504
-      ]
-    },
-    {
-      "row": 2,
-      "column": 3,
-      "sourceBounds": [
-        51,
-        133,
-        471,
-        391
-      ],
-      "usableAfterGridRemoval": [
-        8,
-        8,
+        0,
         512,
-        504
+        512
       ]
     },
     {
       "row": 3,
-      "column": 0,
+      "column": 1,
       "sourceBounds": [
-        100,
-        76,
-        410,
-        436
+        116,
+        113,
+        394,
+        398
       ],
       "usableAfterGridRemoval": [
         0,
-        8,
-        504,
-        512
-      ]
-    },
-    {
-      "row": 3,
-      "column": 1,
-      "sourceBounds": [
-        61,
-        61,
-        452,
-        452
-      ],
-      "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
+        0,
+        512,
         512
       ]
     },
@@ -693,15 +596,15 @@
       "row": 3,
       "column": 2,
       "sourceBounds": [
-        61,
-        61,
-        452,
-        451
+        124,
+        121,
+        388,
+        390
       ],
       "usableAfterGridRemoval": [
-        8,
-        8,
-        504,
+        0,
+        0,
+        512,
         512
       ]
     },
@@ -709,14 +612,14 @@
       "row": 3,
       "column": 3,
       "sourceBounds": [
-        60,
-        61,
-        452,
-        452
+        111,
+        108,
+        399,
+        401
       ],
       "usableAfterGridRemoval": [
-        8,
-        8,
+        0,
+        0,
         512,
         512
       ]
@@ -724,14 +627,20 @@
   ],
   "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
   "productionEnabled": true,
-  "outputSha256": "942b81a8172e94aa789f88de13c9b65423fd289c4a0a80258c05b76aee09f915",
-  "status": "root_visual_pass_waiting_in_game_QA",
-  "sourceJobId": "55438e9f-68d9-4820-8fab-39da431d58a1",
-  "referenceInputCount": 0,
-  "facing": "All A whiteflare headsLEFT with spark trailsRIGHT, Cleaf pointLEFT, Bcoal and heavyorb symmetric/tumbling",
+  "outputSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
+  "status": "strict sourcecutoff pass; awaiting visual review",
   "releaseAcceptance": {
     "ready": true,
-    "visualReview": "passed",
-    "atlasSha256": "942b81a8172e94aa789f88de13c9b65423fd289c4a0a80258c05b76aee09f915"
+    "visualReview": "unchanged-reviewed-05P1-ammunition-transferred-by-user-request",
+    "atlasSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
+  },
+  "atlasSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
+  "sourceTransfer": {
+    "fromStage": 5,
+    "fromPhase": 0,
+    "archivedPackedSource": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles.png",
+    "packedSourceSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
+    "allRgbaPixelsByteExact": true,
+    "framesInventedOrReordered": false
   }
 }

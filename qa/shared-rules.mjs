@@ -4,7 +4,7 @@ import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';i
 const root=path.resolve(process.argv[2]||path.join(path.dirname(fileURLToPath(import.meta.url)),'..'));
 const context=vm.createContext({console});
 const load=file=>vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
-load('runtime/contract.js');
+load('density-attacks.js');load('phase-powerups.js');load('runtime/contract.js');
 for(const file of fs.readdirSync(path.join(root,'runtime/weapons')).filter(f=>f.endsWith('.js')&&!/test|fixture/.test(f)).sort())load('runtime/weapons/'+file);
 load('runtime/core/world.js');
 const A=context.Arcade;

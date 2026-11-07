@@ -11,7 +11,7 @@ const P = ctx.ArcadeProgress;
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
 assert.deepEqual(plain(P.normalize(null)), { v: 1, cleared: [], unlocked: [], updatedAt: 0 });
-assert.deepEqual(plain(P.normalize({ cleared: [3, 3, -1, 12, 1.5, 'x', 0], unlocked: ['morelight', 'rivet', 'nope', 'morelight'], updatedAt: 5 })),
+assert.deepEqual(plain(P.normalize({ cleared: [3, 3, -1, 13, 1.5, 'x', 0], unlocked: ['morelight', 'rivet', 'nope', 'morelight'], updatedAt: 5 })),
   { v: 1, cleared: [0, 3], unlocked: ['morelight'], updatedAt: 5 });
 
 // The first clear records level 0 and opens nothing; level 2 (index 1) opens Morelight.
@@ -54,3 +54,5 @@ assert.deepEqual(plain(P.load(storage)), plain(P.empty()));
 P.store({ setItem() { throw new Error('quota'); } }, a);
 assert.deepEqual(plain(P.load(null)), plain(P.empty()));
 console.log(JSON.stringify({ status: 'passed', kind: 'story-progress' }));
+
+assert.deepEqual(plain(P.recordClear(P.empty(),12,10).save.cleared),[12], 'new ID13 saves at appended index12 without renumbering prior clears');

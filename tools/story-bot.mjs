@@ -4,7 +4,7 @@
 // simulation (the ES2020 source loaded by tools/build-server-sim.mjs), not a human playtest:
 // every few ticks it tries a set of short actions, plays each forward with a few follow-ups and
 // keeps the one that loses the least health and makes the most progress.
-//   node tools/story-bot.mjs [levelNumber ...]   write qa/golden/story-<NN>.json (default: all 12)
+//   node tools/story-bot.mjs [levelNumber ...]   write qa/golden/story-<NN>.json (default: all 13)
 import fs from 'node:fs';
 import path from 'node:path';
 import {loadSourceSim,root} from './build-server-sim.mjs';
@@ -31,7 +31,7 @@ function actions(kind) {
 const masksOf=(a,n)=>Array.from({length:n},(_,i)=>a.held|(i===0?a.tap:0));
 
 function kindOf(level,state) {
-  if (level===2) return 'flight';
+  if (level===2 || level===6) return 'flight';
   if (level===10) return 'chase';
   if (level===11) return state.boss.phase===1?'climb':'boss';
   return 'boss';
@@ -99,7 +99,7 @@ function encode(masks) {
 
 if (process.argv[1] && path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname)) {
   const wanted=process.argv.slice(2).map(Number).filter(Boolean);
-  const levels=(wanted.length?wanted:Array.from({length:12},(_,i)=>i+1)).map(n=>n-1);
+  const levels=(wanted.length?wanted:Array.from({length:sim.levels.length},(_,i)=>i+1)).map(n=>n-1);
   fs.mkdirSync(path.join(root,'qa/golden'),{recursive:true});
   for (const level of levels) {
     const t0=Date.now();

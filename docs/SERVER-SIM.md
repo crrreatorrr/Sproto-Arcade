@@ -228,10 +228,19 @@ If a gameplay change is intended, the golden end hashes change too. Run `node
 tools/story-bot.mjs` to record new clears, then `node qa/server-sim-goldens.mjs . --write-fuzz`
 to refresh `qa/golden/fuzz.json`.
 
+Moonkeep (level 7) now uses user-authorized UFO flight and vertical dragon patrols.
+Its production clear is earned again with the flight controller. Historical
+`qa/golden-disabled` files remain unchanged: `--collision-disabled` explicitly disables sprite hitboxes,
+density barrages, and phase powerups before replaying those historical rules. It
+excludes level 7's old grounded clear and its two stored fuzz hashes, while
+retaining exact checks for the other eleven levels. The original fixture order
+and RNG stream are preserved. All 24 fuzz runs still check determinism and
+source/bundle agreement; production mode requires all thirteen current clears
+and all stored fuzz hashes.
+
 ## Tests
 
-The goldens are 12 levels, one bot clear each, with no god mode and no damage-free requirement;
-the bot finishes with 3 to 5 HP. Each golden is checked:
+Current production goldens cover 13 levels, one legal-input bot clear each, with no god mode or damage-free requirement. The historical forced-disabled lane checks 11 original clears: the original Moonkeep7 grounded clear remains archived and is deliberately excluded after its authorized flight replacement. Redkev13 belongs to the current production lane. Each production golden is checked:
 
 - as a `boss` report and as a `clear` report;
 - with a correct claimed hash and with a wrong one;
@@ -252,13 +261,11 @@ Shared cases:
 - a determinism fuzz of 24 random input logs, each replayed twice. Their hashes must match the
   Node-recorded `qa/golden/fuzz.json`, so goja is held to the same bits.
 
-These cases are 86 checks in all. Every check passes on the source sim and the bundle in Node and
-in goja. In Chromium, all 12 goldens replayed through `legacy.html` produce the identical log and
-`endHash`.
+The original 12-level checkpoint recorded 86 checks passing on the source sim and bundle in Node and goja, with all 12 Chromium replays matching their logs and `endHash`. That is historical evidence. Current candidate reports and CI must separately establish all 13 production clears and the deliberate 11-clear historical forced-disabled lane.
 
-## Sizes
+## Historical sizes (original 12-level checkpoint)
 
-These logs come from the golden bot, which changes input up to every 6 ticks. That is much busier
+These recorded logs come from the golden bot, which changes input up to every 6 ticks. That is much busier
 than a human player.
 
 | Level | Ticks | `inputs` (bytes) | Log JSON (bytes) | 4096-byte chunks |

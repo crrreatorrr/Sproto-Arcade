@@ -1,0 +1,116 @@
+{
+  "service": "Higgsfield website",
+  "model": "Nano Banana Pro",
+  "resolution": "2K",
+  "aspect_ratio": "1:1",
+  "unlimited_mode": true,
+  "credit_baseline": 169.6,
+  "user_approved_concepts": true,
+  "user_approved_animations": true,
+  "all_projectiles_red": true,
+  "canonical_pilot": "../redkev-concepts/redkev-fighter-reference.png",
+  "layout_guides_are_static_source_only": true,
+  "boss_layout": "4x4,512px cells; row0idle,row1attackA,row2attackB,row3attackC",
+  "boss_reference_scale": 250,
+  "phase1_weapons": [
+    "twin forward red cannons",
+    "lower red energy launcher",
+    "side golden-eye reactor port emitting red ember beam"
+  ],
+  "phase2_weapons": [
+    "twin forward red plasma cannons",
+    "dorsal red torpedo pods",
+    "lower wide golden-core red energy mortar"
+  ],
+  "projectile_layout": "4x4,512px cells; 4sequential frames per motif; varied extents acrossrows; allleftfacinghorizontal",
+  "phase1_projectile_motifs": [
+    "small red cannonplasma capsule",
+    "long narrow red emberbeam lance",
+    "broad red spiky explosive orb",
+    "heavy crimson rocket"
+  ],
+  "pipeline": "Native generated weapon motion retained; alpha and registration cleanup handled by projectile_visibility agent",
+  "native_outputs": {
+    "phase1_boss": {
+      "asset_id": "a3d34e3c-81d0-4402-9f1c-4ba2815fc8a0",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_032602_a3d34e3c-81d0-4402-9f1c-4ba2815fc8a0.png"
+    },
+    "phase1_projectiles": {
+      "asset_id": "1a13e5a6-7ef8-4251-9dc9-393a31526c4f",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_033328_1a13e5a6-7ef8-4251-9dc9-393a31526c4f.png",
+      "direction_review": "Generated directional ammo points RIGHT; root informed for deterministic per-cell mirror approval",
+      "direction_acceptance": "Root approved native RIGHT using assetFacing:right runtime metadata; no pixel mirroring or regeneration"
+    },
+    "phase2_projectiles": {
+      "asset_id": "4eb1ba07-98a3-4b34-9955-ea12b6fdc880",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_033446_4eb1ba07-98a3-4b34-9955-ea12b6fdc880.png",
+      "direction_review": "LEFT horizontal correct"
+    },
+    "phase2_boss": {
+      "status": "root-visual-reviewed-active",
+      "references": [
+        "redkev-p2-layout-guide-200.png",
+        "approved full phase2 concept",
+        "canonical Fighter guest09 sprite"
+      ],
+      "instructions": "Maximum230px complete extent per512cell,130px empty margins,15px complete short rear flames; true4x4 weapon animations",
+      "cause": "Previous identity-correct native clipped rear exhaust on right global canvas edge and was not enabled",
+      "file": "redkev-p2-boss-native-margin.png",
+      "asset_id": "e0a6f1cd-e2da-4728-83c6-2fee114c0413",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_035345_e0a6f1cd-e2da-4728-83c6-2fee114c0413.png",
+      "rightmost_global_edge_nonmagenta_pixels": 0,
+      "edge_gate": "r>180 and b>180 and g<100 considered magenta; strict pipeline QA separate"
+    },
+    "phase2_boss_clipped_review": {
+      "asset_id": "dd20e391-810b-4c4b-8e0c-f03b916b8e7f",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_034250_dd20e391-810b-4c4b-8e0c-f03b916b8e7f.png",
+      "identity_review": "Approved reference identity/vehicle preserved on retry; strict cell boundary QA still required by pipeline",
+      "enabled": false,
+      "reason": "Rejected global canvas-right rear-exhaust cutoff"
+    },
+    "phase2_boss_clipped_not_enabled": {
+      "file": "redkev-p2-boss-native-margin.png",
+      "asset_id": "e0a6f1cd-e2da-4728-83c6-2fee114c0413",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_035345_e0a6f1cd-e2da-4728-83c6-2fee114c0413.png",
+      "review": "Root passed strict global clip, whole-component recovery, packing, all16alpha and native identity review",
+      "repository_processing": "Documented uniform nearest-neighbor0.988 scale after complete-component recovery; native genuine weapon motion and clear pilot retained"
+    }
+  },
+  "credits_after_phase1_boss": 169.6,
+  "rejected_attempts": [
+    {
+      "phase": 2,
+      "file": "redkev-p2-boss-native-review.png",
+      "asset_id": "de227a78-618e-4e1b-a545-a70878d32b58",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_032721_de227a78-618e-4e1b-a545-a70878d32b58.png",
+      "reason": "Pilot head/eyes/mouth/shirt and vehicle camera/silhouette drifted from approved reference",
+      "enabled": false
+    }
+  ],
+  "credits_after_both_projectile_sheets": 169.6,
+  "phase2_retry": {
+    "references": [
+      "approved full phase2 concept",
+      "canonical guest09 Fighter sprite"
+    ],
+    "reason": "Full concept/detail identity lock replaces guide-only interpretation after first rejected attempt",
+    "status": "submitted genuine website Unlimited"
+  },
+  "credits_after_phase2_retry": 169.6,
+  "phase2_margin_repair": {
+    "status": "PASSED by root; final Redkev P2 native source accepted",
+    "references": [
+      "redkev-p2-layout-guide-200.png",
+      "approved full phase2 concept",
+      "canonical Fighter guest09 sprite"
+    ],
+    "instructions": "Maximum230px complete extent per512cell,130px empty margins,15px complete short rear flames; true4x4 weapon animations",
+    "cause": "Previous identity-correct native clipped rear exhaust on right global canvas edge and was not enabled",
+    "file": "redkev-p2-boss-native-margin.png",
+    "asset_id": "e0a6f1cd-e2da-4728-83c6-2fee114c0413",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_035345_e0a6f1cd-e2da-4728-83c6-2fee114c0413.png",
+    "rightmost_global_edge_nonmagenta_pixels": 0,
+    "edge_gate": "r>180 and b>180 and g<100 considered magenta; strict pipeline QA separate"
+  },
+  "rootAcceptance": "All four prepared assets and source-derived numeric geometry reviewed; genuine Unlimited source frames retained."
+}

@@ -2,7 +2,7 @@
    stage guards + runtime emissions/travel. Existing basekit/verify files earn clears. */
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),runtimeRoot=process.argv[2]||root,c=vm.createContext({console});
-for(const f of ['runtime/contract.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c);
+for(const f of ['density-attacks.js','phase-powerups.js','runtime/contract.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c);
 vm.runInContext(fs.readFileSync(path.join(runtimeRoot,'runtime/core/world.js'),'utf8'),c);
 const cases=[
  ['01-marina',400,w=>{w.data.unlocked=true;w.data.valveBroken=true;w.data.ventUntil=550;},w=>{w.data.ventUntil=w.phaseTick+210;}],

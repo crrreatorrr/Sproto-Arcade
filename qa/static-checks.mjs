@@ -7,8 +7,8 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(process.argv[2]||path.join(path.dirname(fileURLToPath(import.meta.url)),'..'));
 const context=vm.createContext({console});
 vm.runInContext(fs.readFileSync(path.join(root,'levels.js'),'utf8')+';globalThis.QA_LEVELS=LEVELS;',context);
-assert.equal(context.QA_LEVELS.length,12);
-assert.equal(new Set(context.QA_LEVELS.map(s=>s.id)).size,12);
+assert.equal(context.QA_LEVELS.length,13);
+assert.equal(new Set(context.QA_LEVELS.map(s=>s.id)).size,13);
 let scriptCount=0;
 for(const entry of ['index.html','legacy.html']){
  const text=fs.readFileSync(path.join(root,entry),'utf8');
@@ -27,4 +27,4 @@ function visit(value){
 }
 visit(context.QA_ART);
 assert.deepEqual(missing,[],'Missing fighter frames');
-console.log(JSON.stringify({status:'passed',stages:12,localScriptReferences:scriptCount,fighterFrameReferences:assetCount,kind:'static-reference-check'},null,2));
+console.log(JSON.stringify({status:'passed',stages:13,localScriptReferences:scriptCount,fighterFrameReferences:assetCount,kind:'static-reference-check'},null,2));

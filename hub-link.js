@@ -226,6 +226,8 @@
     P.store(storage, save, saveKey());
     // Only clears made during a hub session are sent. Offline clears still count for local progress.
     if (connected()) {
+      // ID13 is locally playable; the external hub still accepts the original12.
+      if(level>=12){queue(pushSave);emit();return opened;}
       const rows = [];
       if (level === FIRST_BOSS.level && !state.relics.includes(RELIC)) {
         const log = claimed(replay, 'boss');

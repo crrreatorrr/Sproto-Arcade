@@ -2,7 +2,7 @@
  "level": 9,
  "title": "The Hatchery",
  "bossId": "highsproto",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "highsproto",
   "godMode": false,
   "ticks": 7397,
-  "endHash": "aa1d895a45fd81ae"
+  "endHash": "1338987977d92ca6"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24309,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 9,
    "bossId": "highsproto",
-   "ticks": 7397
+   "ticks": 7397,
+   "endHash": "1338987977d92ca6"
   },
   "godMode": false
  }

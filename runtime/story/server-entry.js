@@ -17,7 +17,7 @@ var clearedAt = -1, clearedHash = '';
 function clearLevel() {
   clearedAt = time;
   clearedHash = ArcadeReplay.hashState(simState());
-  mode = levelIndex + 1 === LEVELS.length ? 'won' : 'clear';
+  mode = nextCampaignLevel(levelIndex)<0 ? 'won' : 'clear';
 }
 
 // ---- API

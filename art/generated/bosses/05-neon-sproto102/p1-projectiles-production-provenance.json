@@ -1,109 +1,22 @@
 {
   "schemaVersion": 1,
-  "kind": "reviewed-higgsfield-unlimited-asset-import",
-  "generation": {
-    "folder": "05-neon-sproto102",
-    "phase": 1,
-    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p1-concept.png",
-    "concept_job_id": "57668df4-4fad-4390-b728-802bf5fa2f5a",
-    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/05-neon-sproto102-p1-guide.png",
-    "status": "root_visual_pass_copied_to_repo",
-    "billing": "Website Unlimited only; no paid fallback",
-    "model_ui": "Nano Banana Pro",
-    "resolution": "2K",
-    "aspect_ratio": "1:1",
-    "weapon_plan": [
-      {
-        "slot": "A",
-        "mechanism": "left crane-claw bolt-launch barrel",
-        "projectile": "long jagged bronze salvage-bolt dart",
-        "size_class": "long narrow",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 48,
-          "height": 11
-        }
-      },
-      {
-        "slot": "B",
-        "mechanism": "front grinder shredder-spit cannon",
-        "projectile": "small angular dark iron scrap shard with orange hot edge",
-        "size_class": "small compact",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 21,
-          "height": 21
-        }
-      },
-      {
-        "slot": "C",
-        "mechanism": "side pumpkin-weight feeder launcher",
-        "projectile": "wide spinning orange salvage gear with dark iron teeth",
-        "size_class": "broad wide",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 38,
-          "height": 28
-        }
-      },
-      {
-        "slot": "heavy",
-        "mechanism": "reinforced crane boom launcher",
-        "projectile": "large iron-bracketed pumpkin wrecking orb matching the crane weight",
-        "size_class": "large heavy",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 44,
-          "height": 34
-        }
-      }
-    ],
-    "simulation_changes": false,
-    "enabled_in_game": false,
-    "type": "phase_projectile_atlas",
-    "prompt": "Use this tiny4x4 projectile layout guide ONLY for positions, empty margins and relative sizes. Replace every motif with Collector salvage-crane ammunition below. Exactly16 isolated high-quality detailed HARD-EDGED PIXEL ART sprites,2048square,512px cells. Each sprite stays at guide scale:maximum220px for long dart,110px for compact shard,180px gear,190px heavy orb. Huge empty magenta gaps. ROW1 four frames of one LEFT-pointing jagged BRONZE METAL BOLT dart:orange hot tip atLEFT,short glint,flight vibration,recover glow. Its iron fins and short trail are onRIGHT. ROW2 four rotating compact DARK IRON SCRAP SHARDS with tiny orange hot edges. ROW3 four spinning broad ORANGE SALVAGE GEARS with DARK IRON TEETH and open center hole; different tooth angle perframe,short localized amber glints. ROW4 four heavy IRON-BRACKETED PUMPKIN WRECKING ORBS matching orange crane weight:turn,pulse jack-o-lantern face,turn,recover. Preserve sizevariation:shards smallest,dartlongthin,gearwide,pumpkinheavy. Every complete motif plus particles max220px in central45% of its own cell. Tiny attached glints only. No explosions,smokeclouds,longtrails or expandedbursts. No pilot,vehicle,referencecopy,text,labels,gridlines,arrows,softpaint,airbrush or scene. Uniform puremagenta#FF00FF outside sprites. All16 must have safe empty margins; nothing touches cell borders.",
-    "reference_policy": "Sole validated phase concept as palette/weapon context, never draw the vehicle or pilot",
-    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/05-neon-sproto102-p1-projectiles.png",
-    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/05-neon-sproto102/p1-projectiles.png",
-    "rows_by_weapon": [
-      "A",
-      "B",
-      "C",
-      "heavy"
-    ],
-    "grid": {
-      "columns": 4,
-      "rows": 4,
-      "width": 2048,
-      "height": 2048,
-      "cell_width": 512,
-      "cell_height": 512
-    },
-    "previous_concept_context_prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. The attached VALIDATED PHASE CONCEPT is SOURCE CONTEXT ONLY for materials, colors and weapons. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #FF00FF magenta background everywhere outside sprites. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: orange tracked salvage crane with angular excavator cab, swinging jack-o-lantern crane weight, striped bumper, broad drive wheels and amber boiler. ROW 1, weapon A: long jagged bronze salvage-bolt dart, from left crane-claw bolt-launch barrel. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small angular dark iron scrap shard with orange hot edge, from front grinder shredder-spit cannon. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide spinning orange salvage gear with dark iron teeth, from side pumpkin-weight feeder launcher. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large iron-bracketed pumpkin wrecking orb matching the crane weight, from reinforced crane boom launcher. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
-    "reference_input_count": 1,
-    "reference_mode": "tiny_projectile_spacing_reference_only",
-    "job_id": "ff8f17ea-fe1a-4965-999d-d330f7bd9131",
-    "submitted_prompt": "Use this tiny4x4 projectile layout guide ONLY for positions, empty margins and relative sizes. Replace every motif with Collector salvage-crane ammunition below. Exactly16 isolated high-quality detailed HARD-EDGED PIXEL ART sprites,2048square,512px cells. Each sprite stays at guide scale:maximum220px for long dart,110px for compact shard,180px gear,190px heavy orb. Huge empty magenta gaps. ROW1 four frames of one LEFT-pointing jagged BRONZE METAL BOLT dart:orange hot tip atLEFT,short glint,flight vibration,recover glow. Its iron fins and short trail are onRIGHT. ROW2 four rotating compact DARK IRON SCRAP SHARDS with tiny orange hot edges. ROW3 four spinning broad ORANGE SALVAGE GEARS with DARK IRON TEETH and open center hole; different tooth angle perframe,short localized amber glints. ROW4 four heavy IRON-BRACKETED PUMPKIN WRECKING ORBS matching orange crane weight:turn,pulse jack-o-lantern face,turn,recover. Preserve sizevariation:shards smallest,dartlongthin,gearwide,pumpkinheavy. Every complete motif plus particles max220px in central45% of its own cell. Tiny attached glints only. No explosions,smokeclouds,longtrails or expandedbursts. No pilot,vehicle,referencecopy,text,labels,gridlines,arrows,softpaint,airbrush or scene. Uniform puremagenta#FF00FF outside sprites. All16 must have safe empty margins; nothing touches cell borders.",
-    "rejected_drafts": [
-      {
-        "job_id": "6209d95b-aa77-4490-9234-ace7669f8053",
-        "prompt": "Create ONE 2048x2048 production PROJECTILE ANIMATION ATLAS: exact FOUR equal columns and FOUR equal rows, 16 cells of 512x512 pixels. Use this textual machine description only as source context for materials, colors and weapon motifs. Render ONLY the specified projectile sprites, NO pilot, character or vehicle body, reference copy, labels, text, arrows, grid lines, separators, borders, background scene, floor or shadows. Premium detailed crisp hard-aliased 32-bit pixel art. Flat exact #FF00FF magenta background everywhere outside sprites. Each sprite isolated centered in its cell, LEFT-pointing, full motif and particles fit inside central 55% width AND height, at least22.5% empty margin on every side, no boundary contact or overflow. Preserve size differences between rows, never enlarge every motif to equal size. Source phase 1: orange tracked salvage crane with angular excavator cab, swinging jack-o-lantern crane weight, striped bumper, broad drive wheels and amber boiler. ROW 1, weapon A: long jagged bronze salvage-bolt dart, from left crane-claw bolt-launch barrel. Visibly long narrow, approximate extent 48% cell width and 11% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 2, weapon B: small angular dark iron scrap shard with orange hot edge, from front grinder shredder-spit cannon. Visibly small compact, approximate extent 21% cell width and 21% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 3, weapon C: wide spinning orange salvage gear with dark iron teeth, from side pumpkin-weight feeder launcher. Visibly broad wide, approximate extent 38% cell width and 28% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. ROW 4, weapon heavy: large iron-bracketed pumpkin wrecking orb matching the crane weight, from reinforced crane boom launcher. Visibly large heavy, approximate extent 44% cell width and 34% cell height. Four meaningful evolving frames of SAME motif: birth/brighten, rotate/expand, peak/compress, settle/return. Fixed cell center anchor. The corresponding boss weapon A/B/C muzzle birth must match that row colors, shape and material. No translation across cells. Different projectile sizes are artwork fitted to existing game hazard bounds; keep original timing, speed, paths, damage and count.",
-        "reason": "Wholecell fills: A trail and heavy explosions cross nativeedges; painterlysoft texture; nofinalasset",
-        "path": "raw-phase-projectiles/05-neon-sproto102-p1-projectiles-rejected-clipped.png"
-      }
-    ],
-    "guide_path": "work/art-production/layout-guides/05-neon-sproto102-p1-projectile-small-guide.png",
-    "reference_media_id": "f4728a40-7c6b-4e34-a883-db0f4fa15fd6",
-    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_171410_ff8f17ea-fe1a-4965-999d-d330f7bd9131.png",
-    "visual_review": "Promptverified. Source-only tinyprojectile spacing guide; finalgenuine16new sprites, bronzeLEFTdart/ironfragment/orangegear/ironboundpumpkin, allisolatedstrictcutoffpass. Pixelcrisp shape and sizevariation. Magentabackground/gearholes alpha-cleared and actualwarmglow unmixed, no authoredmagenta. Root visual review requested.",
-    "final_output_sha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
-  },
-  "acceptedOutput": {
-    "path": "p1-projectiles.png",
-    "sha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
-  },
-  "provider": "Higgsfield website Nano Banana Pro2K",
-  "billingMode": "Unlimited verified switch checked and native UNLIMITED submit",
-  "referencePolicy": "Static repeated tiny guide only provided spacing, never used as runtime frames; all16finalposes genuinely Higgsfield generated",
-  "runtimeFlagsOwnedBy": "root"
+  "folder": "05-neon-sproto102",
+  "phase": 1,
+  "provider": "Higgsfield website Unlimited",
+  "kind": "exact-reviewed-phase2-ammo-reuse",
+  "source": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/collector-neon-p1-boss-native.png",
+  "sourceSha256": "fa9ea3c19e07e35b6944a238f679b22a97a43e783274b13c3aaa40502bd06245",
+  "nativeFrames": 16,
+  "framesInventedDuplicatedInterpolatedOrReordered": false,
+  "preparationScript": "tools/prepare-redkev-atlas.py",
+  "preparationScriptSha256": "8cfd75f895948abe8277673bda2b405dbc2d83e90e70c8d493c279d6cab62c5e",
+  "preservedIntentionalNeonPink": true,
+  "rootVisualReview": "accepted-all16-pilot-identity-palette-alpha-real-distinct-weapons-and-registered-poses",
+  "rootNumericReview": "accepted-actual-core-coverage-fixed-aim-centers-and-5x5-opaque-neighborhoods",
+  "productionEnabled": true,
+  "assetKind": "projectiles",
+  "generationPerformedForAmmoReuse": false,
+  "finalSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+  "sourcePackedPath": "art/generated/bosses/05-neon-sproto102/p2-projectiles.png",
+  "sourcePackedSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b"
 }

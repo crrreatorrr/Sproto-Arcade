@@ -1,0 +1,143 @@
+{
+  "status": "candidate-awaiting-root-review",
+  "candidate": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/ranch-transfer/p1-candidate.png",
+  "candidateSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876",
+  "original05P1Sha256BeforeAndAfter": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e",
+  "approvedHalloweenConceptSha256": "b4bb8104a3fbb48658c51ff97a320fa18176723eac4d5440db6c76e303aa5efe",
+  "outsideMaskRgbaByteExact": true,
+  "insideMaskNearestNativeSourceExact": true,
+  "animationFramesGenerated": false,
+  "all16OriginalCellsPreservedOutsideCab": true,
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "cabMaskPixels": 8289,
+      "changedPixels": 8246,
+      "outsideCabMaskRgbaByteExact": true,
+      "frameContentReusedFromSameOriginalCell": true
+    }
+  ],
+  "production4Or5EnabledOrOverwritten": false,
+  "proofs": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/phase-update-proof"
+}

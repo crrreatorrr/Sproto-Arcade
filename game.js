@@ -50,7 +50,7 @@ const STAGE_BLAST=54, STAGE_BLACKOUT=82, STAGE_SHIFT_END=96;
 const VERSE_GEM_CHARGE=22, VERSE_GEM_FIRE=46, VERSE_GEM_END=64;
 const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75;
 const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
-const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel));
+const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel&&(level.id!==13||REDKEV_READY)));
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d', { alpha: false });
 const ui = Object.fromEntries(['hearts','god-mode','shield-status','count','location','boss','cue','dash','missile-status','bomb-status','notice','eyebrow','title','description','start'].map(id => [id, document.getElementById(id)]));
@@ -107,8 +107,9 @@ for (const fighter of playable) {
   portraits.append(button);
 }
 paintSprotoLocks();
-for (const [index,level] of LEVELS.entries()) {
-  levelSelect.add(new Option(String(index+1).padStart(2,'0')+' · '+level.title,index));
+for (const index of campaignLevelIndices()) {
+  const level=LEVELS[index];
+  levelSelect.add(new Option(String(campaignLevelNumber(index)).padStart(2,'0')+' · '+level.title,index));
 }
 levelSelect.value = String(firstLevel);
 const pictures = new Map(), keys = new Set(), pressed = new Set();
@@ -122,7 +123,9 @@ const acts = [
   {id:'bigswole',name:'Big Swole',tag:'The Walking Wall',hp:333,color:'#87d7ff',moves:['rush', 'drop', 'bankShot', 'crossfire', 'quake'],staticMoves:['slabGates', 'arenaHazard', 'splitArc']},
   {id:'alpha777',name:'Alpha 777',tag:'The Jackpot',hp:344,color:'#eff5ae',moves:['rain', 'skimmer', 'slabs', 'quake', 'ricochet'],staticMoves:['gearPincer', 'arenaHazard', 'fan']},
   {id:'highsproto',name:'High Sproto',tag:'The Smoke Signal',hp:355,color:'#a5c4ff',moves:['crossfire', 'bankShot', 'sweep', 'fan', 'rush'],staticMoves:['lanternShower', 'arenaHazard', 'skimmer']},
-  {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']}
+  {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']},
+  null,null,
+  {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['quake','bankShot','rush','slabs','drop'],staticMoves:['gearPincer','skimmer']}
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const moves = {
@@ -240,7 +243,7 @@ for (const [name,[w,h,color]] of Object.entries(signatureArt)) {
 const bossAttackImage=name=>picture(`art/attacks/boss/higgsfield/${name}.png`);
 const isFlying=()=>Boolean(LEVELS[levelIndex]?.flight);
 const isChase=()=>Boolean(LEVELS[levelIndex]?.chase);
-const hasMecha=b=>isFlying() && b.phase===2;
+const hasMecha=b=>isFlying() && b.phase===2 && LEVELS[levelIndex].id!==7;
 const mechaY=b=>b.y-210;
 const bossWeakY=b=>hasMecha(b)?mechaY(b)-58:b.y-222;
 const shieldDuration=()=>isFlying()?SAUCER_SHIELD_DURATION:SHIELD_DURATION;
@@ -261,7 +264,7 @@ function readKeyboardFrame() {
   };
 }
 let inputFrame=NO_INPUT;
-let replayRecorder=null;
+let replayRecorder=null,phaseCheckpointRun=false,phasePowerupsState=null,runAttempt=0;
 // Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
 function seededRandom(seed) {
   let state=seed>>>0;
@@ -278,6 +281,7 @@ let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infi
 let godUsed=false;
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
+let densityShots=[],densityLane=null,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1;
 const tileCache=new Map();
 
 function picture(path) {
@@ -291,9 +295,9 @@ function picture(path) {
 
 function loopPanels(index) {
   const level=LEVELS[index];
-  return GENERATED_LOOPS[index]?.panels ?? [
+  return GENERATED_LOOPS[mechanicsIndex(index)]?.panels ?? [
     [level.art.slice(4),level.foot],
-    ...LEVEL_EXTENSIONS[index].map(name=>[name+'.jpg',.83])
+    ...LEVEL_EXTENSIONS[mechanicsIndex(index)].map(name=>[name+'.jpg',.83])
   ];
 }
 
@@ -316,14 +320,14 @@ function sceneryTile([file,foot],width) {
 function drawBackground() {
   if (isCodebreak()) return drawCodebreakBackground();
   if (mode!=='title' && mode!=='won' && boss?.phase===2) {
-    const tile=sceneryTile(STATIC_ARENAS[levelIndex],W);
+    const tile=sceneryTile(STATIC_ARENAS[mechanicsIndex(levelIndex)],W);
     if (tile) {
       ctx.drawImage(tile,0,0);
       return;
     }
   }
   const panels=loopPanels(levelIndex);
-  const generated=GENERATED_LOOPS[levelIndex];
+  const generated=GENERATED_LOOPS[mechanicsIndex(levelIndex)];
   const width=generated?GENERATED_PANEL_WIDTH:PANEL_WIDTH;
   const blend=generated?.overlap??128, stride=width-blend;
   const first=Math.max(0,Math.floor((camera-blend)/stride));
@@ -350,8 +354,8 @@ function drawBackground() {
 
 function drawArenaMotion() {
   if (boss.phase===2) {
-    drawPhaseTwoAtmosphere(ctx,levelIndex,time);
-  } else if (levelIndex===0) {
+    drawPhaseTwoAtmosphere(ctx,mechanicsIndex(levelIndex),time);
+  } else if (mechanicsIndex(levelIndex)===0) {
     ctx.save();
     ctx.globalCompositeOperation='screen';
     drawBackdropSprite(ctx,0,time,[230,260,660,37,112,4,.033,.28]);
@@ -428,7 +432,8 @@ function showLevelControls() {
   document.querySelector('#tracking-auto-fire').hidden=!isCodebreak();
 }
 
-function begin(index = firstLevel, carryShield = false) {
+function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, seedOverride = null) {
+  if(LEVELS[index]?.id===13&&!REDKEV_READY)return;
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
   godUsed=godMode;
@@ -438,20 +443,30 @@ function begin(index = firstLevel, carryShield = false) {
   gameScreen.classList.remove('stage-blackout');
   hud.hidden = false;
   setOverlay('play','','','','');
-  const seed=0x5eed+index;
+  const seed=(seedOverride??window.crypto?.getRandomValues(new Uint32Array(1))[0]??(0x5eed+index+runAttempt++))>>>0;
   resetRun(index,selectedSproto.id,shieldWait,seed);
+  phaseCheckpointRun=checkpointPhase===2;
+  if(phaseCheckpointRun){
+    if(isCodebreak())startCodebreakArena();
+    else if(!isChase()){
+      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;boss.step=0;startMove();
+      announce(PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+    }
+  }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
-  replayRecorder=window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  replayRecorder=phaseCheckpointRun?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
   refreshHud();
   prefetchLevel(index);
-  prefetchLevel(index+1);
+  if(nextCampaignLevel(index)>=0)prefetchLevel(nextCampaignLevel(index));
 }
 
 // The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
 function resetRun(index, pilot, shieldWait, seed) {
   levelIndex = index;
+  phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0})}:null;
   cosmeticRandom=seededRandom(seed);
   inputFrame=NO_INPUT;
+  densityShots=[];densityLane=null;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;
   time = 0;
   camera = 0;
   shake = 0;
@@ -468,14 +483,15 @@ function resetRun(index, pilot, shieldWait, seed) {
 
 // Everything the simulation carries between ticks; the replay end-state hash covers all of it.
 function simState() {
-  return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,
+  return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,...(phasePowerupsState?{phasePowerupsState}:{}),
+    ...(ArcadeDensityAttacks.enabled?{densityShots,densityLane,densityPhaseClock,densityPhaseKey,densityLastCycle}:{}),
     bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
 function startBoss() {
-  const [archetype,cadence,shotRate]=BOSS_PROFILES[levelIndex];
+  const [archetype,cadence,shotRate]=BOSS_PROFILES[mechanicsIndex(levelIndex)];
   const kit=acts[levelIndex];
-  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:FLOOR,hp:PHASE_ONE_HEALTH,max:PHASE_ONE_HEALTH,phaseTwoHealth:Math.ceil(kit.hp/2),scale:kit.id==='sprotosales'?4.65:4.40,
+  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-70:FLOOR,hp:PHASE_ONE_HEALTH,max:PHASE_ONE_HEALTH,phaseTwoHealth:Math.ceil(kit.hp/2),scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
   player.inv=35;
@@ -488,7 +504,7 @@ function startBoss() {
 
 // Hub report ids for each level's boss (docs/SERVER-SIM.md): the acts ids, then Goldie and the
 // Bitcoin Sheriff. Only `bront` is confirmed by the hub so far.
-const STORY_BOSS_IDS=[...acts.map(act=>act.id),'goldie','bitcoin_sheriff'];
+const STORY_BOSS_IDS=LEVELS.map(l=>l.id===11?'goldie':l.id===12?'bitcoin_sheriff':acts[l.id-1].id);
 
 function clearLevel() {
   // Replay log of this run, claiming the clear at this tick with this end state.
@@ -496,13 +512,13 @@ function clearLevel() {
   const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
   replayRecorder=null;
   // Hub link: progress, the first-boss Relic and Tickets. A no-op offline.
-  const opened=window.ArcadeHub?.levelCleared(levelIndex,godUsed,replay)??[];
+  const opened=phaseCheckpointRun?[]:window.ArcadeHub?.levelCleared(levelIndex,godUsed,replay)??[];
   if (opened.length) paintSprotoLocks();
-  if (levelIndex+1===LEVELS.length) {
+  if (nextCampaignLevel(levelIndex)<0) {
     levelSelect.value=String(firstLevel);
     setOverlay('won','Campaign clear','That’s all, Sproto!',isChase()?'You escaped across the rooftops.':'The last giant is down.','Play again');
   } else {
-    setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[levelIndex+1].title,'Next level');
+    setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[nextCampaignLevel(levelIndex)].title,'Next level');
   }
   if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
 }
@@ -511,7 +527,7 @@ function refreshHud() {
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
   ui.hearts.textContent = '♥'.repeat(player.hp) + '♡'.repeat(MAX_HP-player.hp);
-  ui.count.textContent = 'LEVEL ' + (levelIndex+1) + ' / ' + LEVELS.length;
+  ui.count.textContent = 'LEVEL ' + campaignLevelNumber(levelIndex) + ' / ' + campaignLevelIndices().length;
   ui.location.textContent = LEVELS[levelIndex].title;
   ui.boss.hidden = !boss;
   if (player.shield) ui['shield-status'].textContent='Active';
@@ -536,8 +552,8 @@ function refreshHud() {
   const m = boss?.move && moves[boss.move];
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
-  const arenaTell=levelIndex!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
-  const message=arenaTell?(PHASE_TWO_HAZARDS[levelIndex]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
+  const arenaTell=mechanicsIndex(levelIndex)!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
+  const message=arenaTell?(PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
     !boss.hp || !m || boss.age<=boss.tell+m.active?'':'EXPOSED  ·  Jump to hit the weak spot';
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
 }
@@ -554,8 +570,30 @@ function puff(x,y,color,count=9) {
   }
 }
 
+function updatePhasePowerups(){
+  if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!player.hp)return;
+  const phase=boss?.phase===2?1:0;
+  if(phasePowerupsState.phase!==phase){const seed=phasePowerupsState.seed;phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase})};}
+  const tick=++phasePowerupsState.tick,flying=isFlying(),bounds={x:80,y:200,w:650,h:350},delta=camera-(phasePowerupsState.camera??camera);
+  phasePowerupsState.camera=camera;
+  for(const item of phasePowerupsState.items.pickups){if(isChase())item.x-=delta;else if(isCodebreakClimb())item.y+=delta;}
+  let surfaces=flying?null:[{x:80,y:FLOOR,w:650}];
+  if(isChase())surfaces=chasePlatforms.map(p=>({x:p.x-camera,y:p.y,w:p.width}));
+  else if(isCodebreakClimb())surfaces=Array.from({length:Math.ceil(CODE_LOOP/CODE_SPACING)+5},(_,i)=>codePlatform(i)).filter(Boolean).map(p=>({x:p.x,y:p.y,w:p.width}));
+  if(surfaces)surfaces=surfaces.filter(p=>Math.abs(p.y-player.y)<=150&&p.x+p.w>60&&p.x<820).map(p=>({x:Math.max(60,p.x),y:p.y,w:Math.min(820,p.x+p.w)-Math.max(60,p.x)})).filter(p=>p.w>=64);
+  const events=ArcadePhasePowerups.step(phasePowerupsState.items,{tick,ready:true,player:{x:player.x-18,y:player.y-(flying?31:playerHeight()),w:36,h:flying?62:playerHeight()},bounds,surfaces});
+  for(const e of events)if(e.type==='collect'&&e.kind==='life'&&player.hp<MAX_HP)player.hp++;
+}
+
+function drawLegacyPhasePowerups(){
+  if(!phasePowerupsState||!player)return;
+  const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
+  globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,{x:player.x-diameter/2,y:player.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+}
+
 function hurt(contact = false, force = false) {
   if (player.shield || !player.hp || (!force && (player.inv || (!contact && player.dash)))) return;
+  if(phasePowerupsState&&ArcadePhasePowerups.absorb(phasePowerupsState.items,phasePowerupsState.tick,{mandatory:force})){player.inv=71;return;}
   player.inv=71;
   if (godMode) {
     godHits++;
@@ -764,7 +802,7 @@ function ceilingSweepInProgress() {
 function startMove() {
   const b=boss;
   const groundMove=b.archetype===3?'rift':'eruption';
-  const staticOrder=levelIndex===0?['arenaHazard',groundMove,...b.staticMoves]:[groundMove,...b.staticMoves];
+  const staticOrder=mechanicsIndex(levelIndex)===0?['arenaHazard',groundMove,...b.staticMoves]:[groundMove,...b.staticMoves];
   const section=healthSection(b);
   if (b.section!==section) {
     b.section=section;
@@ -772,12 +810,12 @@ function startMove() {
   }
   const flight=isFlying()?FLIGHT_POOLS[b.phase-1]:null;
   const base=flight?.base ?? (b.phase===1?b.moves:staticOrder);
-  const unlocked=(flight?.unlocks ?? BOSS_SECTION_ATTACKS[levelIndex][b.phase-1]).slice(0,section+1);
-  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,BOSS_SIGNATURES[levelIndex][b.phase-1]);
+  const unlocked=(flight?.unlocks ?? BOSS_SECTION_ATTACKS[mechanicsIndex(levelIndex)][b.phase-1]).slice(0,section+1);
+  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,BOSS_SIGNATURES[mechanicsIndex(levelIndex)][b.phase-1]);
   const order=section===0?[base[0],...unlocked,...base.slice(1)]:
     [unlocked.at(-1),...base,...unlocked.slice(0,-1)];
   if (!flight && section===b.phase) {
-    const signature=BOSS_SIGNATURES[levelIndex][b.phase-1];
+    const signature=BOSS_SIGNATURES[mechanicsIndex(levelIndex)][b.phase-1];
     order.splice(order.indexOf(signature),1);
     order.unshift(signature);
   }
@@ -785,7 +823,7 @@ function startMove() {
   if (flight && b.phase===2) order.splice(2,0,'arenaHazard');
   const pulse=b.phase===2 && section>=2 && !b.pulses.has(section) && player.shieldWait<=shieldPulseWindup()-30;
   b.move=pulse?'shieldPulse':order[b.step++%order.length];
-  if (levelIndex===0 && b.move==='arenaHazard') b.laserCycle++;
+  if (mechanicsIndex(levelIndex)===0 && b.move==='arenaHazard') b.laserCycle++;
   b.age=0;
   const rate=bossAttackRate(b);
   b.tell=moves[b.move].tell;
@@ -797,7 +835,7 @@ function startMove() {
     bullets=bullets.filter(shot=>shot.own);
     hazards=[];
     vaultBeam=null;
-  } else if (levelIndex===0 && b.move==='arenaHazard') b.tell=Math.round(VAULT_WARNING_FRAMES*rate)-1;
+  } else if (mechanicsIndex(levelIndex)===0 && b.move==='arenaHazard') b.tell=Math.round(VAULT_WARNING_FRAMES*rate)-1;
   else if (b.move==='arenaHazard') b.tell=Math.ceil(44*rate);
   else if (isGroundColumn(b.move)) b.tell=Math.max(b.tell,Math.ceil(GROUND_WARNING_FRAMES*rate));
   b.startX=b.x;
@@ -966,16 +1004,16 @@ function attackBoss(t) {
       if (t===24) fire(-15,FLOOR-148,9.2,-2.8,'orb',false,.12);
       break;
     case 'arenaHazard':
-      if (levelIndex===9) updateVerseGemLaser(t);
-      if (levelIndex===0 && t===0) {
+      if (mechanicsIndex(levelIndex)===9) updateVerseGemLaser(t);
+      if (mechanicsIndex(levelIndex)===0 && t===0) {
         vaultBeam=bindCombatWeapon({y:arenaLaserY(),age:0});
         sound(570,130,.24,.08);
-      } else if (levelIndex!==0) {
-        for (const [frame,edge,lane,vx,vy,shape,gravity,bounces] of PHASE_TWO_HAZARDS[levelIndex].shots) {
+      } else if (mechanicsIndex(levelIndex)!==0) {
+        for (const [frame,edge,lane,vx,vy,shape,gravity,bounces] of PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)].shots) {
           if (t!==frame) continue;
           const [x,y]=arenaHazardOrigin(edge,lane);
           fire(x,y,vx,vy,shape,false,gravity,bounces);
-          puff(x,y,PHASE_TWO_HAZARDS[levelIndex].color,7);
+          puff(x,y,PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)].color,7);
           sound(380+levelIndex*35,140,.15,.035);
         }
       }
@@ -1042,7 +1080,10 @@ function updateBoss() {
   const b=boss;
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
-  if (hasMecha(b)) {
+  if (LEVELS[levelIndex].id===7) {
+    // Moonkeep's two dragon forms patrol vertically while the player flies.
+    b.y=FLOOR-70+SimMath.sin(time*.025)*(b.phase===1?54:70);
+  } else if (hasMecha(b)) {
     const target=FLOOR-72+SimMath.sin(time*.042)*76;
     b.y+=clamp(target-b.y,-5,5);
   } else if (isFlying()) {
@@ -1094,7 +1135,7 @@ function updateVaultBeam() {
 function startStageShift() {
   phaseShift=1;
   boss.move=null;
-  boss.y=FLOOR;
+  boss.y=LEVELS[levelIndex].id===7?FLOOR-70:FLOOR;
   boss.moving=false;
   bullets=[];
   hazards=[];
@@ -1114,7 +1155,7 @@ function advanceStageShift() {
   boss.hp=boss.max=boss.phaseTwoHealth;
   boss.step=0;
   startMove();
-  announce(PHASE_TWO_NAMES[levelIndex],85);
+  announce(PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
 }
 
 function keepPlayerLeft() {
@@ -1335,7 +1376,36 @@ function updateChase() {
   refreshHud();
 }
 
-function update() {
+// Called after every legacy stage branch, including Chase and Codebreak.
+function updateLegacyDensity(){
+  if(!ArcadeDensityAttacks.enabled)return;
+  const phase=boss?.phase===2?1:0,key=LEVELS[levelIndex].id+':'+phase;
+  if(key!==densityPhaseKey){densityPhaseKey=key;densityPhaseClock=0;densityLastCycle=-1;densityShots=[];densityLane=null;}
+  if(mode!=='play'||!player.hp||phaseShift||transition||boss?.shift||boss?.wreck||boss?.hp===0){densityShots=[];densityLane=null;return;}
+  densityPhaseClock++;
+  const move=boss.move,m=moves[move];
+  const mandatory=m&&['ceilingSweep','shieldPulse','arenaHazard'].includes(move)&&boss.age<boss.tell+m.active;
+  const codeBeam=isCodebreak()&&Boolean(attackForCodebreak().beam);
+  const blocked=Boolean(mandatory||codeBeam||vaultBeam);
+  const plan=ArcadeDensityAttacks.plan({stage:LEVELS[levelIndex].id,phase,tick:densityPhaseClock,
+    arena:{left:0,top:140,right:W,bottom:FLOOR},player:{x:player.x,y:isFlying()?player.y:player.y-45},
+    blocked,enabled:true,liveCount:densityShots.length,lastCycle:densityLastCycle});
+  if(plan?.clear){densityShots=[];densityLane=null;return;}
+  if(plan?.shots.length){densityShots.push(...plan.shots);densityLane=plan.lane;densityLastCycle=plan.cycle;}
+  for(const shot of densityShots){
+    if(shot.age>=shot.windup){
+      shot.x+=shot.vx;shot.y+=shot.vy;
+      const core=ArcadeDensityAttacks.damageRect(shot);
+      const top=isFlying()?player.y-31:player.y-playerHeight(),bottom=isFlying()?player.y+31:player.y;
+      if(!shot.dead&&player.x+18>core.x&&player.x-18<core.x+core.w&&bottom>core.y&&top<core.y+core.h){shot.dead=true;hurt();}
+    }
+    shot.age++;
+  }
+  densityShots=densityShots.filter(s=>!s.dead&&s.age<s.windup+s.active);
+  if(densityLane&&densityPhaseClock>=densityLane.until)densityLane=null;
+}
+function update(){updateLegacyStage();updateLegacyDensity();updatePhasePowerups();}
+function updateLegacyStage() {
   time++;
   if (isCodebreak()) return updateCodebreak();
   if (isChase()) {
@@ -1470,7 +1540,7 @@ function renderBoss() {
   if (!b.hp && b.phase===2 && transition<12) return;
   // The teleport atlas supplies the mecha silhouette until it resolves into the live sprite.
   if (isFlying() && phaseShift>=STAGE_BLAST) return;
-  const frames=ART.sprites[b.id], art=frames.poses;
+  const frames=ART.sprites[b.id]??ART.sprites[acts[mechanicsIndex(levelIndex)].id], art=frames.poses;
   const strike=m && b.age>=b.tell && b.age<b.tell+m.active;
   const exposed=m && b.age>=b.tell+m.active;
   let pose=art[time%48<24?0:1];
@@ -1522,18 +1592,18 @@ const STAGE_EFFECTS = [
 ];
 
 function stageEffectFrame(index, frame) {
-  return attackFrame('boss/higgsfield/stage-effects/'+(index+1),frame);
+  return attackFrame('boss/higgsfield/stage-effects/'+(mechanicsIndex(index)+1),frame);
 }
 
 function drawStageShift() {
 
-  const [targetX,targetY,travel,lift,twist,radius,color]=STAGE_EFFECTS[levelIndex];
+  const [targetX,targetY,travel,lift,twist,radius,color]=STAGE_EFFECTS[mechanicsIndex(levelIndex)];
   const cut=phaseShift>=STAGE_BLAST;
   const charge=clamp((phaseShift-1)/(STAGE_BLAST-1),0,1);
   const burst=clamp((phaseShift-STAGE_BLAST)/(STAGE_BLACKOUT-STAGE_BLAST),0,1);
   const mouthX=player.x+44, mouthY=player.y-(player.crouch?74:109);
   const fromX=travel===1?mouthX:travel===-1?W+65:targetX;
-  const fromY=travel===1?mouthY:levelIndex===6||levelIndex===8?FLOOR+65:targetY;
+  const fromY=travel===1?mouthY:mechanicsIndex(levelIndex)===6||mechanicsIndex(levelIndex)===8?FLOOR+65:targetY;
   const point=t=>{
     const arc=SimMath.sin(t*Math.PI);
     return [
@@ -1543,7 +1613,7 @@ function drawStageShift() {
   };
   const [x,y]=cut?[targetX,targetY]:point(charge);
   const atlas=stageEffectFrame(levelIndex,cut?(burst<.29?2:3):(charge<.57?0:1));
-  const sprite=levelIndex===0 && !cut?attackFrame('boss/higgsfield/transition',Math.floor(phaseShift/6)%2):atlas;
+  const sprite=mechanicsIndex(levelIndex)===0 && !cut?attackFrame('boss/higgsfield/transition',Math.floor(phaseShift/6)%2):atlas;
   const alpha=cut?1-burst*.95:1;
   const size=cut?radius*(1.10+burst*1.22):74+charge*(travel?117:260);
 
@@ -1598,7 +1668,7 @@ function updateVerseGemLaser(t) {
 }
 
 function drawVerseGemLaser() {
-  if (levelIndex!==9 || !boss.hp || boss.move!=='arenaHazard' || boss.gemAim===null) return;
+  if (mechanicsIndex(levelIndex)!==9 || !boss.hp || boss.move!=='arenaHazard' || boss.gemAim===null) return;
   const age=boss.age-boss.tell;
   if (age>=VERSE_GEM_END) return;
   const [x,y]=VERSE_GEM;
@@ -1633,7 +1703,7 @@ function arenaHazardOrigin(edge,lane) {
 }
 
 function drawArenaHazardWarning() {
-  const hazard=PHASE_TWO_HAZARDS[levelIndex];
+  const hazard=PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)];
   if (!hazard || !boss.hp || boss.move!=='arenaHazard') return;
   const age=boss.age-boss.tell;
   ctx.save();
@@ -1674,7 +1744,7 @@ function drawArenaHazardWarning() {
 }
 
 function drawVaultCannon() {
-  if (levelIndex!==0 || boss.phase!==2) return;
+  if (mechanicsIndex(levelIndex)!==0 || boss.phase!==2) return;
   const y=vaultBeam?.y ?? arenaLaserY();
   const firing=Boolean(vaultBeam);
   ctx.save();
@@ -1684,7 +1754,7 @@ function drawVaultCannon() {
     const beam=attackArt('boss/higgsfield/vault-laser/beam');
     const tip=attackArt('boss/higgsfield/vault-laser/tip');
     ctx.globalAlpha=clamp((VAULT_BEAM_LIFE-vaultBeam.age)/8,0,1);
-    const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,1,{original:vaultBeam,laser:true,age:vaultBeam.age},{x,y:y-16,w:Math.max(1,VAULT_MUZZLE-x),h:32},{phaseIndex:boss.phase-1,tick:time});
+    const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,{original:vaultBeam,laser:true,age:vaultBeam.age},{x,y:y-16,w:Math.max(1,VAULT_MUZZLE-x),h:32},{phaseIndex:boss.phase-1,tick:time});
     if(!themed){for (let start=x+32;start<VAULT_MUZZLE;start+=beam.width) {
       const width=Math.min(beam.width,VAULT_MUZZLE-start);
       ctx.drawImage(beam,0,0,width,beam.height,start,y-14,width,beam.height);
@@ -1994,7 +2064,21 @@ function drawChase() {
   }
 }
 
-function render() {
+function drawLegacyDensity(){
+  if(!ArcadeDensityAttacks.enabled||!densityLane||!['play','paused'].includes(mode)||phaseShift||boss?.shift)return;
+  ctx.save();ctx.imageSmoothingEnabled=false;
+  ctx.fillStyle='#64ffad12';ctx.fillRect(densityLane.x,densityLane.top,densityLane.width,densityLane.bottom-densityLane.top);
+  ctx.strokeStyle='#a2ffd2';ctx.lineWidth=2;ctx.setLineDash([12,8]);
+  for(const y of [densityLane.top,densityLane.bottom]){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  ctx.setLineDash([]);ctx.fillStyle='#c5ffe3';ctx.font='bold 15px system-ui';ctx.textAlign='center';
+  ctx.fillText('SLOW BARRAGE · GREEN LANE STAYS CLEAR',W/2,densityLane.top+20);
+  for(const shot of densityShots){ctx.save();if(shot.age<shot.windup)ctx.globalAlpha=.28;
+    ctx.translate(shot.x+shot.w/2,shot.y+shot.h/2);ctx.scale((shot.vx||1)<0?-1:1,1);
+    globalThis.ArcadeBossSheets?.drawDensityMissile?.(ctx,shot,{x:-shot.w/2,y:-shot.h/2,w:shot.w,h:shot.h},time);ctx.restore();}
+  ctx.restore();
+}
+function render(){renderLegacyScene();drawLegacyDensity();drawLegacyPhasePowerups();}
+function renderLegacyScene() {
   if (isCodebreak()) return drawCodebreak();
   if (phaseShift>=STAGE_BLACKOUT) {
     ctx.fillStyle='#000';
@@ -2080,7 +2164,14 @@ function pause() {
   else if (mode==='paused') setOverlay('play','','','','');
 }
 
+function retryCurrentPhase(){
+  const checkpoint=(!isChase()&&boss?.phase===2)?2:1;
+  keys.clear();pressed.clear();
+  whenReady(levelIndex,()=>begin(levelIndex,false,checkpoint));
+}
+
 window.addEventListener('keydown',e=>{
+  if(e.code==='KeyR'&&mode==='lost'&&!e.repeat){e.preventDefault();retryCurrentPhase();return;}
   if (e.code==='Digit9' || e.code==='Numpad9') {
     if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
     if (mode==='play') e.preventDefault();
@@ -2135,8 +2226,8 @@ ui.start.addEventListener('click',()=>{
     (typeof globalThis.ArcadeBossSheets?.stageReady!=='function'||typeof globalThis.ArcadeBossSheets?.preloadStage!=='function')){location.reload();return;}
   if (mode==='loading') { loadInitialLevel();return; }
   if (mode==='paused') setOverlay('play','','','','');
-  else if (mode==='clear') whenReady(levelIndex+1,()=>begin(levelIndex+1,true));
-  else if (mode==='lost') whenReady(levelIndex,()=>begin(levelIndex)); // Decoded retry stays synchronous.
+  else if (mode==='clear') {const next=nextCampaignLevel(levelIndex);if(next>=0)whenReady(next,()=>begin(next,true));}
+  else if (mode==='lost') retryCurrentPhase(); // Decoded retry stays synchronous.
   else {
     const index=Number(levelSelect.value);
     whenReady(index,()=>begin(index));
@@ -2224,10 +2315,10 @@ function coreAssets() {
 
 function levelAssets(index) {
   const level=LEVELS[index];
-  const images=[loopPanels(index)[0],...(GENERATED_LOOPS[index]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
-  if (STATIC_ARENAS[index]) images.push(picture('art/'+STATIC_ARENAS[index][0]));
-  if (index<acts.length) {
-    for (let i=0;i<4;i++) images.push(stageEffectFrame(index,i));
+  const images=[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
+  if (STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
+  if (acts[index]) {
+    for (let i=0;i<4;i++) images.push(stageEffectFrame(mechanicsIndex(index),i));
     images.push(...spriteFrames(acts[index].id));
   }
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
@@ -2334,7 +2425,7 @@ function loadInitialLevel(){
   ui.start.disabled=false;
   ui.start.textContent='Start level';
   requestAnimationFrame(loop);
-  prefetchLevel(firstLevel+1);
+  if(nextCampaignLevel(firstLevel)>=0)prefetchLevel(nextCampaignLevel(firstLevel));
 }).catch(()=>{
   initialLoad=null;ui.start.disabled=false;ui.start.textContent=typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&typeof globalThis.ArcadeBossSheets?.preloadStage!=='function'?'Reload game':'Retry loading';
   ui.description.textContent='Some game art could not load. Reload or retry loading to start.';

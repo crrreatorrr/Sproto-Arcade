@@ -1,0 +1,60 @@
+{
+  "service": "Higgsfield website",
+  "model": "Nano Banana Pro",
+  "resolution": "2K",
+  "unlimited_mode": true,
+  "layout": "2048x2048, 4x4 grid,512px cells,4frames per boss row",
+  "background": "#FF00FF",
+  "animation": "fixed body, short flame flicker",
+  "sheets": {
+    "A": [
+      "Fat Head Dave waterjet torpedo",
+      "Morelight prism missile",
+      "Crapto sludge torpedo",
+      "Halloween2008 jack-o-lantern pumpkin missile"
+    ],
+    "B": [
+      "Collector neon city capsule",
+      "Bongraker circuit capacitor",
+      "Big Swole firefang dragonhead",
+      "Alpha777 coin roulette rocket"
+    ],
+    "C": [
+      "High Sproto egg spore seedpod",
+      "Bot Sales bothead hologram capsule",
+      "Goldie goldbar rocket",
+      "Bitcoin Sheriff badge bullet"
+    ]
+  },
+  "credit_check_baseline": {
+    "credits": 169.6,
+    "subscription_plan_type": "ultra",
+    "timing": "after Redkev concepts completed; while missile C and powerup sheets queued",
+    "before_concepts_unknown": true
+  },
+  "credit_check_after_C_pickups": 169.6,
+  "native_output": {
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_031020_2e3c7a4d-29d2-46a7-bc33-9309658f9344.png",
+    "asset_id": "2e3c7a4d-29d2-46a7-bc33-9309658f9344"
+  },
+  "credit_check_after_A_B": 169.6,
+  "native_outputs_A_B": {
+    "A": {
+      "asset_id": "188decae-9452-4d4f-80a8-0e445ee841bf",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_031820_188decae-9452-4d4f-80a8-0e445ee841bf.png"
+    },
+    "B": {
+      "asset_id": "db2e4dd2-901c-4b84-b4f0-080e82354ba7",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_031830_db2e4dd2-901c-4b84-b4f0-080e82354ba7.png"
+    }
+  },
+  "rejected_correction": {
+    "file": "missiles-c-correction-rejected.png",
+    "asset_id": "8d03e4c1-d0fb-4f4c-acaf-9f7ad7bb9f8e",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_034408_8d03e4c1-d0fb-4f4c-acaf-9f7ad7bb9f8e.png",
+    "reason": "Model copied wrong diagonal reference for11/12 despite horizontal edit instruction",
+    "enabled": false
+  },
+  "credits_after_correction": 169.6,
+  "final_direction_handling": "Root approved source-preserving Canvas sprite rotation metadata -135 degrees for original native C rows11/12; no further C generation"
+}

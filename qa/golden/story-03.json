@@ -2,7 +2,7 @@
  "level": 3,
  "title": "Mudline Trenches",
  "bossId": "crapto",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "crapto",
   "godMode": false,
   "ticks": 7735,
-  "endHash": "e737d973c6940994"
+  "endHash": "bbf956fd8277700a"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24303,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 3,
    "bossId": "crapto",
-   "ticks": 7735
+   "ticks": 7735,
+   "endHash": "bbf956fd8277700a"
   },
   "godMode": false
  }

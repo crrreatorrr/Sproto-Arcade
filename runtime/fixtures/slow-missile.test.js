@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),ctx=vm.createContext({console});
-for(const p of ['runtime/contract.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,p),'utf8'),ctx,{filename:p});
+for(const p of ['density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,p),'utf8'),ctx,{filename:p});
 const A=ctx.Arcade,phase={mode:'flight',spawn:{x:120,y:600},update(){}};
 const world=(pi=1)=>new A.World({id:'missile-fixture',number:1,phases:[phase,phase]},{phase:pi,seed:93});
 const emit=w=>w.slowMissile({id:'missile'}),check=(name,fn)=>{fn();console.log('PASS '+name);};

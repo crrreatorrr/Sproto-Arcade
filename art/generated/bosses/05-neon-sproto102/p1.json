@@ -1,4 +1,14 @@
 {
+  "schemaVersion": 1,
+  "status": "root-visual-reviewed-active",
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "boss",
+  "source": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/collector-neon-p1-boss-native.png",
+  "sourceSha256": "fa9ea3c19e07e35b6944a238f679b22a97a43e783274b13c3aaa40502bd06245",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
   "columns": 4,
   "rows": 4,
   "frameWidth": 512,
@@ -9,71 +19,82 @@
     "attack-b",
     "attack-c"
   ],
+  "bounds": [
+    3,
+    40,
+    506,
+    469
+  ],
   "rowBounds": [
     [
-      175,
-      239,
-      283,
-      257
+      16,
+      64,
+      489,
+      442
     ],
     [
-      12,
-      270,
-      435,
-      226
+      3,
+      46,
+      504,
+      453
     ],
     [
-      62,
-      270,
-      385,
-      226
+      6,
+      41,
+      503,
+      466
     ],
     [
-      54,
-      272,
-      446,
-      228
+      7,
+      40,
+      501,
+      469
     ]
   ],
-  "bounds": [
-    12,
-    239,
-    488,
-    261
-  ],
   "unionCrop": [
-    34,
-    145,
-    408,
-    345
+    14,
+    13,
+    525,
+    487
   ],
   "destinationSize": [
-    488,
-    261
+    506,
+    469
+  ],
+  "uniformSourceScale": 0.9902152641878669,
+  "nearestRasterScale": [
+    0.9902152641878669,
+    0.989451476793249
   ],
   "offset": [
-    12,
-    239
+    3,
+    40
   ],
-  "baseline": 500,
-  "padding": 12,
+  "padding": 3,
+  "baseline": 509,
   "frames": [
     {
       "index": 0,
       "row": 0,
       "column": 0,
       "state": "idle",
-      "sourceBounds": [
-        159,
-        145,
-        354,
-        342
+      "sourceWindow": [
+        -16,
+        0,
+        544,
+        512
       ],
       "cellBounds": [
-        175,
-        239,
-        430,
-        496
+        25,
+        64,
+        505,
+        506
+      ],
+      "sourceBounds": [
+        36,
+        37,
+        521,
+        484
       ]
     },
     {
@@ -81,17 +102,23 @@
       "row": 0,
       "column": 1,
       "state": "idle",
-      "sourceBounds": [
-        173,
-        145,
-        340,
-        342
+      "sourceWindow": [
+        496,
+        0,
+        544,
+        512
       ],
       "cellBounds": [
-        193,
-        239,
-        411,
-        496
+        22,
+        64,
+        501,
+        506
+      ],
+      "sourceBounds": [
+        33,
+        37,
+        517,
+        484
       ]
     },
     {
@@ -99,17 +126,23 @@
       "row": 0,
       "column": 2,
       "state": "idle",
-      "sourceBounds": [
-        173,
-        145,
-        357,
-        342
+      "sourceWindow": [
+        1008,
+        0,
+        544,
+        512
       ],
       "cellBounds": [
-        193,
-        239,
-        433,
-        496
+        22,
+        64,
+        503,
+        506
+      ],
+      "sourceBounds": [
+        33,
+        37,
+        519,
+        484
       ]
     },
     {
@@ -117,17 +150,23 @@
       "row": 0,
       "column": 3,
       "state": "idle",
-      "sourceBounds": [
-        173,
-        146,
-        376,
-        342
+      "sourceWindow": [
+        1520,
+        0,
+        544,
+        512
       ],
       "cellBounds": [
-        193,
-        240,
-        458,
-        496
+        16,
+        64,
+        495,
+        506
+      ],
+      "sourceBounds": [
+        27,
+        37,
+        511,
+        484
       ]
     },
     {
@@ -135,17 +174,23 @@
       "row": 1,
       "column": 0,
       "state": "attack-a",
-      "sourceBounds": [
-        109,
-        170,
-        367,
-        342
+      "sourceWindow": [
+        -16,
+        512,
+        544,
+        512
       ],
       "cellBounds": [
-        110,
-        272,
-        447,
-        496
+        20,
+        46,
+        507,
+        499
+      ],
+      "sourceBounds": [
+        31,
+        19,
+        523,
+        477
       ]
     },
     {
@@ -153,17 +198,23 @@
       "row": 1,
       "column": 1,
       "state": "attack-a",
-      "sourceBounds": [
-        80,
-        169,
-        367,
-        342
+      "sourceWindow": [
+        496,
+        512,
+        544,
+        512
       ],
       "cellBounds": [
-        72,
-        270,
-        447,
-        496
+        12,
+        46,
+        504,
+        499
+      ],
+      "sourceBounds": [
+        23,
+        19,
+        520,
+        477
       ]
     },
     {
@@ -171,17 +222,23 @@
       "row": 1,
       "column": 2,
       "state": "attack-a",
-      "sourceBounds": [
-        34,
-        169,
-        367,
-        342
+      "sourceWindow": [
+        1008,
+        512,
+        544,
+        512
       ],
       "cellBounds": [
-        12,
-        270,
-        447,
-        496
+        3,
+        46,
+        503,
+        499
+      ],
+      "sourceBounds": [
+        14,
+        19,
+        519,
+        477
       ]
     },
     {
@@ -189,17 +246,23 @@
       "row": 1,
       "column": 3,
       "state": "attack-a",
-      "sourceBounds": [
-        108,
-        169,
-        367,
-        342
+      "sourceWindow": [
+        1520,
+        512,
+        544,
+        512
       ],
       "cellBounds": [
-        109,
-        270,
-        447,
-        496
+        9,
+        46,
+        497,
+        499
+      ],
+      "sourceBounds": [
+        20,
+        19,
+        513,
+        477
       ]
     },
     {
@@ -207,17 +270,23 @@
       "row": 2,
       "column": 0,
       "state": "attack-b",
-      "sourceBounds": [
-        113,
-        170,
-        367,
-        342
+      "sourceWindow": [
+        -16,
+        1024,
+        544,
+        512
       ],
       "cellBounds": [
-        115,
-        272,
-        447,
-        496
+        14,
+        41,
+        509,
+        507
+      ],
+      "sourceBounds": [
+        25,
+        14,
+        525,
+        485
       ]
     },
     {
@@ -225,17 +294,23 @@
       "row": 2,
       "column": 1,
       "state": "attack-b",
-      "sourceBounds": [
-        112,
-        169,
-        367,
-        342
+      "sourceWindow": [
+        496,
+        1024,
+        544,
+        512
       ],
       "cellBounds": [
-        114,
-        270,
-        447,
-        496
+        11,
+        42,
+        506,
+        507
+      ],
+      "sourceBounds": [
+        22,
+        15,
+        522,
+        485
       ]
     },
     {
@@ -243,17 +318,23 @@
       "row": 2,
       "column": 2,
       "state": "attack-b",
-      "sourceBounds": [
-        72,
-        170,
-        367,
-        342
+      "sourceWindow": [
+        1008,
+        1024,
+        544,
+        512
       ],
       "cellBounds": [
-        62,
-        272,
-        447,
-        496
+        10,
+        42,
+        505,
+        507
+      ],
+      "sourceBounds": [
+        21,
+        15,
+        521,
+        485
       ]
     },
     {
@@ -261,17 +342,23 @@
       "row": 2,
       "column": 3,
       "state": "attack-b",
-      "sourceBounds": [
-        137,
-        170,
-        367,
-        342
+      "sourceWindow": [
+        1520,
+        1024,
+        544,
+        512
       ],
       "cellBounds": [
-        146,
-        272,
-        447,
-        496
+        6,
+        41,
+        499,
+        507
+      ],
+      "sourceBounds": [
+        17,
+        14,
+        515,
+        485
       ]
     },
     {
@@ -279,17 +366,23 @@
       "row": 3,
       "column": 0,
       "state": "attack-c",
-      "sourceBounds": [
-        100,
-        170,
-        408,
-        345
+      "sourceWindow": [
+        -16,
+        1536,
+        544,
+        512
       ],
       "cellBounds": [
-        98,
-        272,
-        500,
-        500
+        14,
+        40,
+        508,
+        509
+      ],
+      "sourceBounds": [
+        25,
+        13,
+        524,
+        487
       ]
     },
     {
@@ -297,17 +390,23 @@
       "row": 3,
       "column": 1,
       "state": "attack-c",
-      "sourceBounds": [
-        130,
-        170,
-        368,
-        342
+      "sourceWindow": [
+        496,
+        1536,
+        544,
+        512
       ],
       "cellBounds": [
-        137,
-        272,
-        448,
-        496
+        11,
+        40,
+        503,
+        509
+      ],
+      "sourceBounds": [
+        22,
+        13,
+        519,
+        487
       ]
     },
     {
@@ -315,17 +414,23 @@
       "row": 3,
       "column": 2,
       "state": "attack-c",
-      "sourceBounds": [
-        66,
-        170,
-        367,
-        345
+      "sourceWindow": [
+        1008,
+        1536,
+        544,
+        512
       ],
       "cellBounds": [
-        54,
-        272,
-        447,
-        500
+        11,
+        40,
+        505,
+        509
+      ],
+      "sourceBounds": [
+        22,
+        13,
+        521,
+        487
       ]
     },
     {
@@ -333,213 +438,377 @@
       "row": 3,
       "column": 3,
       "state": "attack-c",
-      "sourceBounds": [
-        138,
-        170,
-        393,
-        342
+      "sourceWindow": [
+        1520,
+        1536,
+        544,
+        512
       ],
       "cellBounds": [
-        148,
-        272,
-        480,
-        496
+        7,
+        41,
+        500,
+        509
+      ],
+      "sourceBounds": [
+        18,
+        14,
+        516,
+        487
       ]
     }
   ],
-  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/05-neon-sproto102-p1-composed-raw.png",
-  "sourceSha256": "bfb6c8dcde3da59bff255f2344f4985ed84b252a303f5f34330cda32c69c73c8",
-  "inputKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/processed-phase-atlases/05-neon-sproto102-p1-composed-prototype-source-keyed-rgba.png",
-  "inputKeyedSha256": "0809e8214dbba9780eec2b6a3015005a1ea22f3bf02d336274b2ae4e324a8a8c",
-  "nativeProtectedMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/05-neon-sproto102-p1-all-native-mask.png",
-  "nativeProtectedRgbaByteExact": true,
-  "outsideDocumentedChangesRgbaByteExact": true,
-  "backgroundRgb": [
-    128,
-    128,
-    128
-  ],
-  "explicitGlowPolygons": [
-    [
-      1,
-      2,
-      [
-        [
-          86,
-          174
+  "sampling": "one shared uniform nearest-neighbor downscale across16 actual source frames; no invented, reordered or duplicated frames",
+  "recovery": {
+    "maximumHorizontalBleed": 16,
+    "minimumMajorityOwnership": 0.95,
+    "components": [
+      {
+        "owner": 0,
+        "sourceBounds": [
+          20,
+          37,
+          505,
+          484
         ],
-        [
-          141,
-          174
+        "pixels": 134634,
+        "nominalCellPixelCounts": {
+          "0": 134634
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 1,
+        "sourceBounds": [
+          529,
+          37,
+          1013,
+          484
         ],
-        [
-          141,
-          207
+        "pixels": 134586,
+        "nominalCellPixelCounts": {
+          "1": 134586
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 2,
+        "sourceBounds": [
+          1041,
+          37,
+          1527,
+          484
         ],
-        [
-          117,
-          207
+        "pixels": 134594,
+        "nominalCellPixelCounts": {
+          "2": 134594
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 3,
+        "sourceBounds": [
+          1547,
+          37,
+          2031,
+          484
         ],
-        [
-          117,
-          231
+        "pixels": 134740,
+        "nominalCellPixelCounts": {
+          "3": 134740
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 4,
+        "sourceBounds": [
+          15,
+          531,
+          507,
+          989
         ],
-        [
-          136,
-          241
+        "pixels": 139481,
+        "nominalCellPixelCounts": {
+          "4": 139481
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 5,
+        "sourceBounds": [
+          519,
+          531,
+          1016,
+          989
         ],
-        [
-          88,
-          245
-        ]
-      ]
+        "pixels": 141627,
+        "nominalCellPixelCounts": {
+          "5": 141627
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 6,
+        "sourceBounds": [
+          1022,
+          531,
+          1527,
+          989
+        ],
+        "pixels": 144060,
+        "nominalCellPixelCounts": {
+          "6": 144006,
+          "5": 54
+        },
+        "recoveredPixels": 54
+      },
+      {
+        "owner": 7,
+        "sourceBounds": [
+          1540,
+          531,
+          2033,
+          989
+        ],
+        "pixels": 140151,
+        "nominalCellPixelCounts": {
+          "7": 140151
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 6,
+        "sourceBounds": [
+          1049,
+          738,
+          1060,
+          753
+        ],
+        "pixels": 126,
+        "nominalCellPixelCounts": {
+          "6": 126
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 8,
+        "sourceBounds": [
+          9,
+          1038,
+          509,
+          1509
+        ],
+        "pixels": 145478,
+        "nominalCellPixelCounts": {
+          "8": 145478
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 11,
+        "sourceBounds": [
+          1537,
+          1038,
+          2035,
+          1509
+        ],
+        "pixels": 145644,
+        "nominalCellPixelCounts": {
+          "11": 145644
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 9,
+        "sourceBounds": [
+          518,
+          1039,
+          1018,
+          1509
+        ],
+        "pixels": 146811,
+        "nominalCellPixelCounts": {
+          "9": 146811
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 10,
+        "sourceBounds": [
+          1029,
+          1039,
+          1529,
+          1509
+        ],
+        "pixels": 145737,
+        "nominalCellPixelCounts": {
+          "10": 145737
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 9,
+        "sourceBounds": [
+          1005,
+          1269,
+          1006,
+          1270
+        ],
+        "pixels": 1,
+        "nominalCellPixelCounts": {
+          "9": 1
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 9,
+        "sourceBounds": [
+          996,
+          1270,
+          997,
+          1271
+        ],
+        "pixels": 1,
+        "nominalCellPixelCounts": {
+          "9": 1
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 12,
+        "sourceBounds": [
+          9,
+          1549,
+          508,
+          2023
+        ],
+        "pixels": 145745,
+        "nominalCellPixelCounts": {
+          "12": 145745
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 13,
+        "sourceBounds": [
+          518,
+          1549,
+          1015,
+          2023
+        ],
+        "pixels": 145695,
+        "nominalCellPixelCounts": {
+          "13": 145695
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 14,
+        "sourceBounds": [
+          1030,
+          1549,
+          1529,
+          2023
+        ],
+        "pixels": 150953,
+        "nominalCellPixelCounts": {
+          "14": 150953
+        },
+        "recoveredPixels": 0
+      },
+      {
+        "owner": 15,
+        "sourceBounds": [
+          1538,
+          1550,
+          2036,
+          2023
+        ],
+        "pixels": 145696,
+        "nominalCellPixelCounts": {
+          "15": 145696
+        },
+        "recoveredPixels": 0
+      }
     ],
-    [
-      2,
-      2,
-      [
-        [
-          116,
-          195
-        ],
-        [
-          170,
-          195
-        ],
-        [
-          170,
-          220
-        ],
-        [
-          144,
-          220
-        ],
-        [
-          144,
-          251
-        ],
-        [
-          163,
-          265
-        ],
-        [
-          119,
-          276
-        ]
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        [
-          121,
-          205
-        ],
-        [
-          169,
-          205
-        ],
-        [
-          169,
-          226
-        ],
-        [
-          149,
-          226
-        ],
-        [
-          149,
-          264
-        ],
-        [
-          166,
-          282
-        ],
-        [
-          121,
-          282
-        ],
-        [
-          121,
-          252
-        ],
-        [
-          124,
-          246
-        ],
-        [
-          124,
-          228
-        ]
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        [
-          155,
-          205
-        ],
-        [
-          193,
-          205
-        ],
-        [
-          193,
-          224
-        ],
-        [
-          185,
-          224
-        ],
-        [
-          185,
-          252
-        ],
-        [
-          198,
-          254
-        ],
-        [
-          198,
-          276
-        ],
-        [
-          156,
-          276
-        ],
-        [
-          156,
-          251
-        ],
-        [
-          171,
-          251
-        ],
-        [
-          171,
-          226
-        ],
-        [
-          155,
-          226
-        ]
-      ]
-    ]
-  ],
-  "colorGate": "R-B>=8 and G>=B only inside explicit VFX polygons; physical gray/silver machinery and smoke remain native",
-  "glowRecoveryPixels": 5992,
-  "alphaRecovery": "minimum physically valid alpha=max overchannels positive(C-B)/(255-B),negative(B-C)/B; RGB=(native-(1-alpha)*B)/alpha; no generated art",
-  "includesPilot": true,
+    "recoveredPixelCount": 54,
+    "sourceForegroundPixels": 2275760,
+    "outputForegroundPixels": 2230295,
+    "sourceForegroundPixelsInOwnerBuffers": 2275760,
+    "allMattedRGBAPixelsCopiedExactlyOnce": true,
+    "pixelConservationScope": "post-documented-keying in source-owner buffers, before optional shared nearest-downscale and separately recorded final-boundary-unmix if enabled"
+  },
+  "chroma": {
+    "method": "outside-connected actual-field flood only; intentional neon pink protected",
+    "sourceKeying": {
+      "fieldRGB": [
+        251,
+        0,
+        253
+      ],
+      "nearFieldChannelTolerance": 28,
+      "minimumChromaChannel": 190,
+      "hollowShieldSeeds": [],
+      "enclosedPickupFieldComponents": [],
+      "pickupOnlyAllNearFieldComponents": false,
+      "preserveEnclosedChroma": true,
+      "gridSeparatorRectangles": [],
+      "gridFringePixels": 0,
+      "gridFringeRadiusPixels": 0,
+      "gridFringeMaxFrameBoundaryDistance": 0,
+      "floodConnectivity": 4,
+      "floodedPixels": 1907423,
+      "enclosedPureMagentaPixels": 0,
+      "changedAlphaPixels": 1907423,
+      "allRGBPreservedByteExact": true,
+      "unmaskedRGBAPreservedByteExact": true
+    },
+    "sourceKeyMaskSha256": "e9c7fbf6d28012dc5c9202abda70209e112938292d6bed8017322deb803c659b",
+    "extraOutsideMatte": {
+      "method": "edge/background-connected balanced near-magenta white-halo extension only",
+      "redMinimum": 230,
+      "blueMinimum": 230,
+      "maximumRedBlueDifference": 30,
+      "greenMaximum": 120,
+      "minimumRedBlueMinusGreen": 110,
+      "extraSourcePixels": 11121,
+      "protectedCabinCellBox": [
+        180,
+        80,
+        360,
+        280
+      ],
+      "protectedCabinCandidatePixelsPreserved": 0,
+      "allSourceRGBByteExact": true,
+      "enclosedOrGlobalHueKey": false,
+      "maskSha256": "95075b5f986df393b840913e6dafce3df8bdd250083ce7af4ea61896d7c3a858",
+      "allNonKeyedRGBAByteExact": true
+    }
+  },
+  "edgeUnmixSkipped": "Protected intentional neon-pink palette; all non-keyed source RGBA byte exact",
+  "atlasSha256": "a903906ebd52c4d57b55aee1747dcbe96568ebd786c6265bb8218e3ce6e3b33e",
   "productionEnabled": true,
-  "outputSha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e",
-  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/refine-05p1-glows.py",
-  "scriptSha256": "687d28a66d6ecc479ef75257a77e75e404b868036fb28a02f5618b669b0c6fb7",
+  "outputSha256": "a903906ebd52c4d57b55aee1747dcbe96568ebd786c6265bb8218e3ce6e3b33e",
   "releaseAcceptance": {
     "ready": true,
-    "visualReview": "passed",
-    "atlasSha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e"
+    "visualReview": "root-accepted-all16-pilot-palette-real-weapons-alpha-and-registered-geometry",
+    "atlasSha256": "a903906ebd52c4d57b55aee1747dcbe96568ebd786c6265bb8218e3ce6e3b33e"
+  },
+  "numericRegistration": {
+    "legacyOffset": [
+      -73,
+      0
+    ],
+    "legacyScale": [
+      1.2,
+      1
+    ],
+    "modernBox": [
+      4595,
+      260,
+      400,
+      340
+    ],
+    "rootReviewed": true
   }
 }

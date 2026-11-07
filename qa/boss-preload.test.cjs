@@ -5,20 +5,32 @@ class Image{
  constructor(){this.complete=false;this.naturalWidth=this.naturalHeight=0;this.promise=new Promise((resolve,reject)=>{this.resolve=(width=2048,height=2048)=>{this.complete=true;this.naturalWidth=width;this.naturalHeight=height;resolve();};this.reject=()=>{this.complete=true;reject(Error('network'));};});created.push(this);}
  decode(){return this.promise;}
 }
-const scope=vm.createContext({Image,console});
+const scope=vm.createContext({Image,console,pickupAttempt:0});
 for(const file of ['sprite-hitboxes.js','boss-sheets.js'])vm.runInContext(fs.readFileSync(file,'utf8'),scope,{filename:file});
 const art=scope.ArcadeBossSheets;
 for(const config of Object.values(art.manifest))for(const asset of [...config.phases,...config.projectiles])asset.ready=false;
+art.pickupAsset.ready=false;for(const asset of Object.values(art.missileAssets))asset.ready=false;
 const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.projectiles])a.ready=true;};
 (async()=>{
  approve(1);assert.equal(art.stageReady(1),false);assert.equal(created.length,0,'readiness check does not request images');
  const first=art.preloadStage(1);assert.equal(art.preloadStage(1),first,'simultaneous start/prefetch shares one in-flight stage load');assert.equal(created.length,4);
+ const profiles=vm.runInContext('SPRITE_HITBOXES.stages[1]',scope);
+ for(let phase=0;phase<2;phase++){
+  assert.equal(created[phase].src,art.manifest[1].phases[phase].path+'?v='+profiles[phase].provenance.bossSha256.slice(0,16),'boss requests pin the accepted source pixels');
+  assert.equal(created[phase+2].src,art.manifest[1].projectiles[phase].path+'?v='+profiles[phase].provenance.projectilesSha256.slice(0,16),'projectile replacements invalidate the prior cached atlas');
+ }
  for(const image of created.slice(0,3))image.resolve();await Promise.resolve();assert.equal(art.stageReady(1),false);created[3].resolve();await first;assert.equal(art.stageReady(1),true);
  await art.preloadStage(1);assert.equal(created.length,4,'warm retry makes no new requests');
  approve(2);let before=created.length,failed=art.preloadStage(2);const group=created.slice(before);group.slice(0,3).forEach(i=>i.resolve());group[3].reject();await assert.rejects(failed);assert.equal(art.stageReady(2),false);
  before=created.length;const retry=art.preloadStage(2);assert.equal(created.length-before,1,'only failed image is evicted/refetched');created.at(-1).resolve();await retry;assert.equal(art.stageReady(2),true);
  approve(3);before=created.length;const invalid=art.preloadStage(3);const bad=created.slice(before);bad[0].resolve(1024,2048);bad.slice(1).forEach(i=>i.resolve());await assert.rejects(invalid,/2048/);assert.equal(art.stageReady(3),false);
  const fixed=art.preloadStage(3);created.at(-1).resolve();await fixed;assert.equal(art.stageReady(3),true);
+ // Bonus art participates in the same start gate, with a shared item atlas and
+ // a stage-specific 2048x512 missile strip rather than a square boss atlas.
+ art.pickupAsset.ready=true;before=created.length;const items=art.preloadStage(1);assert.equal(created.length-before,1);assert.equal(art.stageReady(1),false);created.at(-1).resolve();await items;
+ before=created.length;await art.preloadStage(2);assert.equal(created.length,before,'shared pickup art decodes once across encounters');
+ art.missileAssets[1].ready=true;const wrongStrip=art.preloadStage(1);created.at(-1).resolve();await assert.rejects(wrongStrip,/2048/);assert.equal(art.stageReady(1),false);
+ const strip=art.preloadStage(1);created.at(-1).resolve(2048,512);await strip;assert.equal(art.stageReady(1),true);
  // Execute the actual modern start functions, with only DOM/world construction mocked.
  const elements=new Map(),el=id=>{if(!elements.has(id))elements.set(id,{value:'',textContent:id==='start'?'Start run':'',disabled:false,selectedOptions:[{dataset:{}}]});return elements.get(id);};el('stage').value='04-ranch';el('entry').value='0';el('pilot').value='rivet';el('seed').value='777';
  scope.$=el;scope.constructed=0;scope.Arcade={stages:new Map([['04-ranch',{id:'04-ranch'}],['05-neon',{id:'05-neon'}]]),World:class{constructor(stage,options){scope.constructed++;this.stage=stage;this.options=options;this.tick=0;}}};
@@ -38,5 +50,5 @@ const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.pro
  const legacyGate=vm.runInContext('({ready:bossArtReady,load:loadBossArt})',scope);const beforeMissing=scope.constructed;scope.ArcadeBossSheets=undefined;
  vm.runInContext('SPRITE_HITBOXES.enabled=false',scope);assert.equal(scope.start(),undefined);assert.equal(scope.constructed,beforeMissing+1);assert.equal(legacyGate.ready(0),true);await legacyGate.load(0);
  vm.runInContext('SPRITE_HITBOXES.enabled=true',scope);const protectedWorld=scope.world;scope.start();assert.equal(scope.constructed,beforeMissing+1,'enabled geometry cannot start without the renderer');assert.equal(scope.world,protectedWorld);assert.match(el('start').textContent,/Reload/);assert.equal(legacyGate.ready(0),false);await assert.rejects(legacyGate.load(0),/Reload/);let missingStarted=false;scope.whenReady(0,()=>{missingStarted=true;});await new Promise(setImmediate);assert.equal(missingStarted,false);assert.match(el('start').textContent,/Reload/);scope.ArcadeBossSheets=art;vm.runInContext('SPRITE_HITBOXES.enabled=false',scope);
- console.log('PASS stage-scoped four-sheet decode gate, shared loads, retryable failures, invalid dimensions, modern/legacy no pre-start world/ticks and synchronous warm retry');
+ console.log('PASS stage-scoped boss/missile/shared-pickup decode gate, shared loads, retryable failures, invalid dimensions, modern/legacy no pre-start world/ticks and synchronous warm retry');
 })().catch(error=>{console.error(error);process.exitCode=1;});

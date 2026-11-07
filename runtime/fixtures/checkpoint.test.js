@@ -1,0 +1,28 @@
+/* Current-phase death retries exercise actual runtime and browser retry functions. */
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict'),acorn=require('acorn');
+const root=path.resolve(__dirname,'../..'),scope=vm.createContext({});
+for(const f of ['density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/core/world.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),scope);
+const A=scope.Arcade,stage={id:'checkpoint',phases:[0,1].map(n=>({mode:'flight',spawn:{x:100+n*100,y:350},enter(w){w.target({id:'core',x:900,y:350,w:80,h:80,hp:10});}}))};
+let w=new A.World(stage);w.player.hp=0;w.lose('test');w.step({retry:true});assert.equal(w.phaseIndex,0);assert.equal(w.player.hp,5);assert.equal(w.checkpointRetry,false);
+w.enterPhase(1,true);w.player.hp=0;w.hazard({id:'stale',x:10,y:10,w:20,h:20});w.lose('test');w.step({retry:true});assert.equal(w.phaseIndex,1);assert.equal(w.player.hp,5);assert.equal(w.player.x,200);assert.equal(w.hazards.length,0);assert.equal(w.phaseTick,0);assert.equal(w.checkpointRetry,true);assert.equal(w.practice,false);
+const modern=fs.readFileSync(path.join(root,'rework.js'),'utf8');
+vm.runInContext(modern.match(/function recordKey\(w\)\{[^\n]+/)[0],scope);scope.w=w;assert.equal(vm.runInContext('recordKey(w)',scope),'checkpoint:checkpoint:phase1');w.clear();assert.equal(w.checkpointRetry,true);w.restart();assert.equal(w.phaseIndex,0);assert.equal(w.checkpointRetry,false);
+const practice=new A.World(stage,{phase:1,practice:true});practice.lose('test');practice.restart();scope.w=practice;assert.equal(practice.phaseIndex,1);assert.equal(practice.practice,true);assert.equal(vm.runInContext('recordKey(w)',scope),'checkpoint:practice:phase1:sector0');
+// Extract real legacy browser functions; only their environment is mocked.
+const legacy=fs.readFileSync(path.join(root,'game.js'),'utf8'),ast=acorn.parse(legacy,{ecmaVersion:'latest'}),names=['begin','retryCurrentPhase','clearLevel'];
+const s=vm.createContext({firstLevel:0,levelIndex:0,runAttempt:0,mechanicsIndex:i=>i,nextCampaignLevel:i=>i+1,godMode:false,player:{shieldWait:0},selectedSproto:{id:'rivet'},LEVELS:Array.from({length:12},(_,i)=>({id:i+1,title:'L'+i})),levelSelect:{},document:{},gameScreen:{classList:{remove(){}}},hud:{},window:{ArcadeReplay:{recorder(){return{finish(){return{valid:true}}}},hashState(){return'hash'}},ArcadeHub:{levelCleared(){s.reports++;return[]}}},reports:0,keys:new Set(),pressed:new Set(),PHASE_TWO_NAMES:[],STORY_BOSS_IDS:[],simState(){return{}},showLevelControls(){},setOverlay(){},refreshHud(){},prefetchLevel(){},announce(){},startMove(){s.moves++},moves:0,isCodebreak(){return s.levelIndex===11},isChase(){return s.levelIndex===10},startCodebreakArena(){s.boss.phase=2},whenReady(i,fn){fn()},resetRun(index){s.levelIndex=index;s.player={hp:5,shieldWait:0};s.boss={phase:1,phaseTwoHealth:77,hp:1};s.time=0}});
+for(const n of ast.body)if(n.type==='FunctionDeclaration'&&names.includes(n.id.name))vm.runInContext(legacy.slice(n.start,n.end),s);
+s.boss={phase:2};vm.runInContext('retryCurrentPhase()',s);assert.equal(s.boss.phase,2);assert.equal(s.boss.hp,77);assert.equal(s.player.hp,5);assert.equal(s.phaseCheckpointRun,true);assert.equal(s.replayRecorder,null);vm.runInContext('clearLevel()',s);assert.equal(s.reports,0,'partial checkpoint clear cannot submit full-run hub rewards');
+s.boss={phase:1};vm.runInContext('retryCurrentPhase()',s);assert.equal(s.boss.phase,1);assert.equal(s.phaseCheckpointRun,false);vm.runInContext('clearLevel()',s);assert.equal(s.reports,1);
+s.levelIndex=11;s.boss={phase:2};vm.runInContext('retryCurrentPhase()',s);assert.equal(s.boss.phase,2,'Codebreak retries its arena phase');
+assert.match(legacy,/KeyR'&&mode==='lost'[^\n]+retryCurrentPhase/);assert.match(legacy,/mode==='lost'\) retryCurrentPhase/);assert.match(modern,/world\?\.state==='lost'\)\{world.restart\(\)/);
+console.log('PASS phase1/phase2 death checkpoints, fresh kit/hazards, separate checkpoint records, legacy keyboard/button wiring and no partial-run hub claims');
+// Execute the actual result button callback, not just World.restart directly.
+const walk=require('acorn-walk');let resume;
+walk.simple(acorn.parse(modern,{ecmaVersion:'latest'}),{AssignmentExpression(n){if(modern.slice(n.left.start,n.left.end)==="$('resume').onclick")resume=modern.slice(n.right.start,n.right.end);}});
+assert.ok(resume,'actual Retry button handler exists');
+const elements=new Map(),buttonScope=vm.createContext({world:new A.World(stage),paused:false,visibleState:'lost',soundTick:99,render:{lastCue:'old'},held:new Set(['KeyR']),press:new Set(['KeyR']),acc:100,starts:0,$(id){if(!elements.has(id))elements.set(id,{});return elements.get(id);},start(){buttonScope.starts++;}});
+buttonScope.world.enterPhase(1,true);buttonScope.world.lose('test');const sameWorld=buttonScope.world;
+vm.runInContext('var retryButton='+resume+';retryButton()',buttonScope);
+assert.equal(buttonScope.world,sameWorld);assert.equal(buttonScope.world.phaseIndex,1);assert.equal(buttonScope.world.player.hp,5);assert.equal(buttonScope.world.checkpointRetry,true);assert.equal(buttonScope.starts,0,'Retry button must not call fresh full-run Start');assert.equal(elements.get('curtain').hidden,true);assert.equal(buttonScope.held.size,0);assert.equal(buttonScope.press.size,0);assert.equal(buttonScope.visibleState,'');assert.equal(buttonScope.acc,0);assert.equal(buttonScope.render.lastCue,'');
+console.log('PASS actual result Retry button retains P2 World and checkpoint record eligibility, clears input and resets UI state');
