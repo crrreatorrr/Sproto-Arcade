@@ -14,10 +14,10 @@ for(const id of [11,12]){
  assert.equal(meta.rotation,-3*Math.PI/4);assert.deepEqual(meta.rotationMatrix,[-Math.SQRT1_2,-Math.SQRT1_2]);
  const original=D.missileGeometry[id];D.missileGeometry[id]={bounds:meta.bounds,core:meta.core,rotation:meta.rotation,rotationMatrix:meta.rotationMatrix,orientedBounds:meta.orientedBounds,sourceSha256:meta.outputSha256};
  Object.assign(art.missileAssets[id],{ready:true,bounds:meta.bounds});
- for(const size of [32,38,44])for(const vx of [-1.5,1.5])for(let frame=0;frame<4;frame++){
+ for(const size of [32,38,44])for(const vx of [-1.5,1.5,0])for(let frame=0;frame<4;frame++){
   let matrix=[1,0,0,1,0,0],stack=[],draw;
   const ctx={filter:'none',save(){stack.push([...matrix]);},restore(){matrix=stack.pop();},translate(x,y){matrix=multiply(matrix,[1,0,0,1,x,y]);},scale(x,y){matrix=multiply(matrix,[x,0,0,y,0,0]);},rotate(a){matrix=multiply(matrix,[Math.cos(a),Math.sin(a),-Math.sin(a),Math.cos(a),0,0]);},drawImage(img,...args){draw={matrix:[...matrix],args};}};
-  const shot={stage:id,source:`boss-density-${id}`,density:true,x:200,y:300,w:size,h:size,vx};
+  const shot={stage:id,source:`boss-density-${id}`,density:true,x:200,y:300,w:size,h:size,vx,vertical:vx===0};
   ctx.save();ctx.translate(shot.x+size/2,shot.y+size/2);ctx.scale(vx<0?-1:1,1);
   assert.ok(art.drawDensityMissile(ctx,shot,{x:-size/2,y:-size/2,w:size,h:size},frame*7));ctx.restore();
   const [sx,sy,sw,sh,dx,dy,dw,dh]=draw.args,core=D.damageRect(shot),native=meta.core;
@@ -27,9 +27,10 @@ for(const id of [11,12]){
    const sourceX=(sx%512)+(x-dx)*sw/dw,sourceY=sy+(y-dy)*sh/dh;
    assert.ok(sourceX>=native[0]-1e-8&&sourceX<=native[0]+native[2]+1e-8&&sourceY>=native[1]-1e-8&&sourceY<=native[1]+native[3]+1e-8,'every safe-square sample stays in native opaque core after actual Canvas transform');
   }
-  // Native up-right nose vector (+1,-1) must become horizontal travel direction.
+  // Native up-right nose vector (+1,-1) must point along the shot's travel.
   const noseX=draw.matrix[0]-draw.matrix[2],noseY=draw.matrix[1]-draw.matrix[3];
-  assert.equal(Math.sign(noseX),Math.sign(vx));assert.ok(Math.abs(noseY)<1e-12,'corrected nose is horizontal');
+  if(shot.vertical){assert.ok(Math.abs(noseX)<1e-12);assert.ok(noseY>0,'falling missile points down');}
+  else{assert.equal(Math.sign(noseX),Math.sign(vx));assert.ok(Math.abs(noseY)<1e-12,'corrected nose is horizontal');}
   const transform=D.missileTransform(D.missileGeometry[id],shot),o=meta.orientedBounds;
   assert.ok(o[2]*transform.scale<=size+1e-9&&o[3]*transform.scale<=size+1e-9,'actual oriented pixels fit game-size box without squeezing');
   cases++;
@@ -43,4 +44,4 @@ for(let id=1;id<=13;id++)if(![11,12].includes(id)){
   assert.deepEqual(JSON.parse(JSON.stringify(D.damageRect(shot))),{x:26+(120+115-12-225)*s*sign-230*s/2,y:30+(90+65-40-115)*s-130*s/2,w:230*s,h:130*s});}
  if(before)D.missileGeometry[id]=before;else delete D.missileGeometry[id];
 }
-console.log(`PASS ${cases} actual C11/12 size/frame/direction Canvas transforms;3888 opaque-core sample containment checks; horizontal noses, actual-alpha fitting, source hashes and all11 nonrotated geometry preservation`);
+console.log(`PASS ${cases} actual C11/12 Canvas transforms, ${cases*81} opaque-core checks, horizontal and falling noses, and unchanged upright geometry`);

@@ -160,7 +160,16 @@
     if(id===8){const c=t%(phase?600:420),source=w.data.rule==='dash'?'crown.royal-joust.front':'crown.jackpot-pulse.shield';return sequence(variantAt(source,t-c+90),c,30,90,150,180);}
     return null;
   }
+  function barragePose(shots,tick,scheduled=false){
+    let latest=null,age=24;
+    for(const shot of shots){
+      const sinceLaunch=shot.age-(scheduled?shot.delay:0);
+      if(sinceLaunch>=0&&sinceLaunch<age){latest=shot;age=sinceLaunch;}
+    }
+    return latest?{row:1+latest.weaponVariant,column:age<12?2:3}:{row:0,column:Math.floor(tick/6)%4};
+  }
   function attackPose(w){
+    if(w.densityBarrage)return barragePose(w.hazards.filter(h=>h.density&&!h.removed),w.tick);
     const authored=authoredPose(w);if(authored)return authored;
     const live=(w.hazards||[]).filter(h=>!h.removed&&h.age<(h.windup||0)+(h.active||1)&&attackRow(w.stage.id,h));
     const main=live.filter(h=>!h.pressure&&!h.missile),pool=main.length?main:live;
@@ -286,7 +295,9 @@
     const column=Math.floor(tick/7)%4,[sx,sy,sw,sh]=bounds,size=transform.scale,w=sw*size,h=sh*size;
     ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(box.x+box.w/2,box.y+box.h/2);
     // Correct native source angle to LEFT, then retain the caller's +X frame.
-    ctx.scale(-1,1);ctx.filter='drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
+    if(shot.vertical)ctx.rotate(-Math.PI/2);
+    else ctx.scale(-1,1);
+    ctx.filter='drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
     if(transform.rotation){ctx.translate(-transform.offsetX*size,-transform.offsetY*size);ctx.rotate(transform.rotation);}
     ctx.drawImage(img,column*(img.naturalWidth/4)+sx,sy,sw,sh,-w/2,-h/2,w,h);ctx.restore();return true;
   }
@@ -354,5 +365,5 @@
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,stageReady,preloadStage,loadEverything};
 })(globalThis);

@@ -2,7 +2,8 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(__dirname,'../..');
 const c=vm.createContext({console});
-for(const f of [path.join(root,'density-attacks.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),process.argv[2]||path.join(root,'runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
+// Isolate the authored encounter contract; qa/density-modern.test.cjs covers the barrage.
+for(const f of [path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),process.argv[2]||path.join(root,'runtime/core/world.js'),path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});
 const A=c.Arcade,stage=A.stages.get('11-rooftop');
 const originalHazard=A.World.prototype.hazard;A.World.prototype.hazard=function(spec){const existed=this.hazards.some(h=>h.id===spec.id),h=originalHazard.call(this,spec);if(spec.pressure&&!existed){this.pressureEvidence??=[];this.pressureEvidence.push({tick:this.phaseTick,sprite:h.sprite});}return h;};
 function gapWorld(){return new A.World({id:'gap-fixture',phases:[0,1].map(()=>({mode:'horizontal',spawn:{x:3500,y:600},enter(w){w.platform({id:'launch',x:0,y:600,w:3800});w.platform({id:'land',x:4280,y:600,w:1000});},update(){}}))});}

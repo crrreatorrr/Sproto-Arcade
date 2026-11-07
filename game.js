@@ -281,7 +281,7 @@ let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infi
 let godUsed=false;
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
-let densityShots=[],densityLane=null,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1;
+let densityShots=[],densityPausedTicks=0,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1;
 const tileCache=new Map();
 
 function picture(path) {
@@ -466,7 +466,7 @@ function resetRun(index, pilot, shieldWait, seed) {
   phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0})}:null;
   cosmeticRandom=seededRandom(seed);
   inputFrame=NO_INPUT;
-  densityShots=[];densityLane=null;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;
+  densityShots=[];densityPausedTicks=0;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;
   time = 0;
   camera = 0;
   shake = 0;
@@ -484,7 +484,7 @@ function resetRun(index, pilot, shieldWait, seed) {
 // Everything the simulation carries between ticks; the replay end-state hash covers all of it.
 function simState() {
   return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,...(phasePowerupsState?{phasePowerupsState}:{}),
-    ...(ArcadeDensityAttacks.enabled?{densityShots,densityLane,densityPhaseClock,densityPhaseKey,densityLastCycle}:{}),
+    ...(ArcadeDensityAttacks.enabled?{densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle}:{}),
     bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
@@ -535,7 +535,7 @@ function refreshHud() {
   if (isChase()) {
     ui.boss.firstElementChild.textContent='GOLDIE · ROOFTOP CHASE';
     ui.boss.querySelector('progress').value=clamp((camera+player.x)/CHASE_FINISH,0,1);
-    ui.cue.textContent=time<110?'KEEP MOVING · JUMP THE GAPS':boss.attackAge<45?CHASE_ATTACKS[boss.attackIndex].name:'';
+    ui.cue.textContent=densityShots.length?'':authoredTime()<110?'KEEP MOVING · JUMP THE GAPS':boss.attackAge<45?CHASE_ATTACKS[boss.attackIndex].name:'';
     ui.dash.textContent=player.dashWait?'DASH RECHARGING':'DASH READY';
     ui.dash.classList.toggle('ready',!player.dashWait);
     return;
@@ -549,6 +549,7 @@ function refreshHud() {
   showCooldown(ui['missile-status'],player.missileWait);
   showCooldown(ui['bomb-status'],player.bombWait);
   if (isCodebreak()) return refreshCodebreakHud();
+  if (densityShots.length) { ui.cue.textContent='';return; }
   const m = boss?.move && moves[boss.move];
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
@@ -671,16 +672,17 @@ function updateShield(p, canActivate) {
   }
 }
 
-function movePlayer() {
+function movePlayer(firing=true) {
   const p=player;
   if (p.inv) p.inv--;
   if (p.dashWait) p.dashWait--;
-  if (p.missileWait) p.missileWait--;
-  if (p.bombWait) p.bombWait--;
-  updateShield(p, boss.hp>0);
+  if (firing && p.missileWait) p.missileWait--;
+  if (firing && p.bombWait) p.bombWait--;
+  updateShield(p, isChase()||boss.hp>0);
   const dx=Number(inputFrame.right)-Number(inputFrame.left);
   if (isFlying()) moveSaucer(p,dx);
   else moveGround(p,dx);
+  if (!firing) return;
   if (godMode && !godFire) {
     p.shot=4;
     return;
@@ -1077,20 +1079,20 @@ const playerHeight=()=>(player.crouch?72:110)*(isCodebreak()?CODE_CHARACTER_SCAL
 const bossAttackRate=b=>ENEMY_ATTACK_RATE*b.cadence*(1+b.section*.08);
 
 function updateBoss() {
-  const b=boss;
+  const b=boss, tick=authoredTime();
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
   if (LEVELS[levelIndex].id===7) {
     // Moonkeep's two dragon forms patrol vertically while the player flies.
-    b.y=FLOOR-70+SimMath.sin(time*.025)*(b.phase===1?54:70);
+    b.y=FLOOR-70+SimMath.sin(tick*.025)*(b.phase===1?54:70);
   } else if (hasMecha(b)) {
-    const target=FLOOR-72+SimMath.sin(time*.042)*76;
+    const target=FLOOR-72+SimMath.sin(tick*.042)*76;
     b.y+=clamp(target-b.y,-5,5);
   } else if (isFlying()) {
-    b.y=FLOOR-28-SimMath.sin(time*.032)*26;
+    b.y=FLOOR-28-SimMath.sin(tick*.032)*26;
   }
   const rate=bossAttackRate(b);
-  const ticks=Math.floor(time*rate)-Math.floor((time-1)*rate);
+  const ticks=Math.floor(tick*rate)-Math.floor((tick-1)*rate);
   for (let i=0;i<ticks;i++) advanceBossMove(b);
   if (hasMecha(b) && b.move!=='shieldPulse' && b.move!=='arenaHazard' && ++b.rocketClock%22===0 && b.rocketFlash<8) {
     launchMechaRocket(b.rocketIndex++,player.y);
@@ -1104,7 +1106,7 @@ function advanceBossMove(b) {
   }
   const m=moves[b.move], t=b.age-b.tell;
   if (b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
-    const target=BOSS_HOME+SimMath.sin(time*.035)*42;
+    const target=BOSS_HOME+SimMath.sin(authoredTime()*.035)*42;
     b.x+=clamp(target-b.x,-8,8);
   }
   if (t===0) b.startX=b.x;
@@ -1158,7 +1160,7 @@ function advanceStageShift() {
   announce(PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
 }
 
-function keepPlayerLeft() {
+function keepPlayerLeft(contact=true) {
   const p=player;let front=boss.x-(hasMecha(boss)?170:BOSS_FRONT);
   let bossTop=hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
   let bossBottom=hasMecha(boss)?mechaY(boss)+122:boss.y;
@@ -1166,7 +1168,7 @@ function keepPlayerLeft() {
   if (p.x<front) return;
   const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y;
   if (boss.hp && top<bossBottom && bottom>bossTop) {
-    if (!ceilingSweepInProgress()) hurt(true);
+    if (contact && !ceilingSweepInProgress()) hurt(true);
     p.x=front-32;
     p.vx=-7;
     p.dash=0;
@@ -1321,7 +1323,7 @@ function startChase() {
 
 function updateChaseAttacks() {
   const b=boss;
-  if (time>=100) {
+  if (authoredTime()>=100) {
     if (b.attackAge===0) b.aimY=player.y-70;
     for (const [frame,offset,vx,vy,shape,gravity] of CHASE_ATTACKS[b.attackIndex].shots) {
       if (b.attackAge!==frame) continue;
@@ -1361,7 +1363,7 @@ function updateChase() {
   const lead=p.x-boss.x;
   const pace=4.25+1.12*clamp(camera/CHASE_FINISH,0,1)+clamp((lead-305)*.035,0,6);
   boss.x=clamp(boss.x+pace-CHASE_SCROLL,GOLDIE_START_X,GOLDIE_MAX_X);
-  boss.y=390+SimMath.sin(time*.035)*24+SimMath.sin(time*.019)*9;
+  boss.y=390+SimMath.sin(authoredTime()*.035)*24+SimMath.sin(authoredTime()*.019)*9;
   updateChaseAttacks();
   if (mode!=='play') return;
   if (p.dash) p.dash--;
@@ -1376,37 +1378,90 @@ function updateChase() {
   refreshHud();
 }
 
-// Called after every legacy stage branch, including Chase and Codebreak.
+// Replay time counts all input frames. Authored patterns and scrolling stop
+// for the duration of the special attack, then resume at their original beat.
+const authoredTime=()=>time-densityPausedTicks;
+
+function barrageRecovery(){
+  if(isChase())return boss.attackAge>Math.max(45,...CHASE_ATTACKS[boss.attackIndex].shots.map(shot=>shot[0]));
+  if(isCodebreak()){
+    const attack=attackForCodebreak();
+    return boss.age>Math.max(...attack.frames) && !codeBeamLanes(attack).length;
+  }
+  const move=moves[boss.move];
+  return Boolean(move && boss.age>=boss.tell+move.active && !vaultBeam);
+}
+
 function updateLegacyDensity(){
-  if(!ArcadeDensityAttacks.enabled)return;
-  const phase=boss?.phase===2?1:0,key=LEVELS[levelIndex].id+':'+phase;
-  if(key!==densityPhaseKey){densityPhaseKey=key;densityPhaseClock=0;densityLastCycle=-1;densityShots=[];densityLane=null;}
-  if(mode!=='play'||!player.hp||phaseShift||transition||boss?.shift||boss?.wreck||boss?.hp===0){densityShots=[];densityLane=null;return;}
-  densityPhaseClock++;
-  const move=boss.move,m=moves[move];
-  const mandatory=m&&['ceilingSweep','shieldPulse','arenaHazard'].includes(move)&&boss.age<boss.tell+m.active;
-  const codeBeam=isCodebreak()&&Boolean(attackForCodebreak().beam);
-  const blocked=Boolean(mandatory||codeBeam||vaultBeam);
-  const plan=ArcadeDensityAttacks.plan({stage:LEVELS[levelIndex].id,phase,tick:densityPhaseClock,
-    arena:{left:0,top:140,right:W,bottom:FLOOR},player:{x:player.x,y:isFlying()?player.y:player.y-45},
-    blocked,enabled:true,liveCount:densityShots.length,lastCycle:densityLastCycle});
-  if(plan?.clear){densityShots=[];densityLane=null;return;}
-  if(plan?.shots.length){densityShots.push(...plan.shots);densityLane=plan.lane;densityLastCycle=plan.cycle;}
+  if(!ArcadeDensityAttacks.enabled || mode!=='play')return false;
+  const phase=boss.phase===2?1:0,stage=LEVELS[levelIndex].id,key=stage+':'+phase;
+  if(key!==densityPhaseKey){
+    densityPhaseKey=key;
+    densityPhaseClock=0;
+    densityLastCycle=-1;
+    densityShots=[];
+  }
+  if(phaseShift||transition||boss.shift||boss.wreck||boss.hp===0)return false;
+  if(!densityShots.length){
+    densityPhaseClock++;
+    if(densityPhaseClock<ArcadeDensityAttacks.START || densityLastCycle>=0 ||
+       (!isFlying()&&!player.grounded) || !barrageRecovery())return false;
+    const vertical=isCodebreakClimb(),flying=isFlying(),scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+    const plan=ArcadeDensityAttacks.plan({
+      stage,phase,tick:densityPhaseClock,enabled:true,lastCycle:densityLastCycle,
+      flight:flying,vertical,standingHeight:110*scale,crouchHeight:72*scale,
+      arena:{left:0,right:W,top:vertical?0:flying?51:140,bottom:vertical?H:flying?FLOOR-7:FLOOR,floor:player.y},
+      player
+    });
+    if(!plan)return false;
+    densityShots=plan.shots;
+    densityLastCycle=plan.cycle;
+    // A completed move can leave spent projectiles in the arena.
+    // The barrage owns the arena until its final missile leaves the screen.
+    bullets=[];
+    hazards=[];
+    if(isCodebreak())codeShots=[];
+    banner=0;
+    ui.notice.hidden=true;
+  }
+  densityPausedTicks++;
+  movePlayer(false);
+  if(isCodebreak()&&!isCodebreakClimb())player.x=Math.min(player.x,boss.x-200*CODE_MECHA_SCALE);
+  else if(!isChase()&&!isCodebreak())keepPlayerLeft(false);
+  if((isChase()||isCodebreakClimb())&&player.y>H+60){
+    player.hp=0;
+    setOverlay('lost','Barrage failed','Down for the count!','You fell.','Retry level');
+  }
+  const halfWidth=18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
+  const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
   for(const shot of densityShots){
-    if(shot.age>=shot.windup){
-      shot.x+=shot.vx;shot.y+=shot.vy;
+    if(mode!=='play')break;
+    if(shot.age>=shot.delay){
+      shot.x+=shot.vx;
+      shot.y+=shot.vy;
       const core=ArcadeDensityAttacks.damageRect(shot);
-      const top=isFlying()?player.y-31:player.y-playerHeight(),bottom=isFlying()?player.y+31:player.y;
-      if(!shot.dead&&player.x+18>core.x&&player.x-18<core.x+core.w&&bottom>core.y&&top<core.y+core.h){shot.dead=true;hurt();}
+      if(player.x+halfWidth>core.x&&player.x-halfWidth<core.x+core.w&&bottom>core.y&&top<core.y+core.h){
+        shot.dead=true;
+        hurt();
+      }
     }
     shot.age++;
   }
-  densityShots=densityShots.filter(s=>!s.dead&&s.age<s.windup+s.active);
-  if(densityLane&&densityPhaseClock>=densityLane.until)densityLane=null;
+  densityShots=mode==='play'?densityShots.filter(s=>!s.dead&&s.age<s.delay+s.active):[];
+  if(player.dash)player.dash--;
+  sparks=sparks.filter(s=>--s.life>0);
+  impacts=impacts.filter(impact=>++impact.age<impact.duration);
+  if(shake)shake--;
+  refreshHud();
+  return true;
 }
-function update(){updateLegacyStage();updateLegacyDensity();updatePhasePowerups();}
-function updateLegacyStage() {
+
+function update(){
   time++;
+  if(!updateLegacyDensity())updateLegacyStage();
+  updatePhasePowerups();
+}
+function updateLegacyStage() {
   if (isCodebreak()) return updateCodebreak();
   if (isChase()) {
     updateChase();
@@ -1500,13 +1555,13 @@ function drawMecha(b) {
 function renderBoss() {
   const b=boss,m=b.move && moves[b.move];
   const telling=m && b.age<b.tell && b.hp;
-  if (b.hp && isGroundColumn(b.move)) {
+  if (b.hp && !densityShots.length && isGroundColumn(b.move)) {
     const width=b.move==='rift'?84:65;
-    const rate=bossAttackRate(b), tick=Math.floor(time*rate);
+    const rate=bossAttackRate(b), tick=Math.floor(authoredTime()*rate);
     for (const [i,x] of b.lanes.entries()) {
       const ticksToLaunch=b.tell+i*groundLaneDelay(b.move)-b.age+1;
       if (ticksToLaunch<=0) continue;
-      const remaining=Math.ceil((tick+ticksToLaunch)/rate)-time;
+      const remaining=Math.ceil((tick+ticksToLaunch)/rate)-authoredTime();
       if (remaining>GROUND_WARNING_FRAMES) continue;
       const progress=1-remaining/GROUND_WARNING_FRAMES;
       const frame=attackFrame(`hazards/${width}px/warning`,Math.floor(progress*3));
@@ -1561,14 +1616,14 @@ function renderBoss() {
   if (b.flash && b.hp) ctx.filter='brightness(1.38)';
   const sheetTop=hasMecha(b)?mechaY(b)-122:b.y-116*b.scale;
   const sheetBottom=hasMecha(b)?mechaY(b)+122:b.y-12;
-  const sheetPose=globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
+  const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
   const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,{x:b.x-(hasMecha(b)?150:190),y:sheetTop,w:hasMecha(b)?300:380,h:sheetBottom-sheetTop});
   if (!sheetDrawn) {
     if (hasMecha(b)) drawMecha(b);
     else sprite(b.id,pose,b.x,b.y,-1,b.scale);
   }
   ctx.restore();
-  if (exposed && b.hp) {
+  if (exposed && b.hp && !densityShots.length) {
     ctx.strokeStyle='#ffe5a1';
     ctx.lineWidth=3;
     ctx.beginPath();
@@ -1963,10 +2018,10 @@ function makeGoldieHoverSheet() {
 function goldiePose() {
   const frame=Math.floor(time/3)%GOLDIE_HOVER_FRAMES;
   const age=boss.attackAge;
-  const lean=time>=100?Math.min(clamp((age-21)/24,0,1),clamp((88-age)/22,0,1)):0;
+  const lean=authoredTime()>=100?Math.min(clamp((age-21)/24,0,1),clamp((88-age)/22,0,1)):0;
   const easedLean=lean*lean*(3-2*lean);
   let recoil=0;
-  if (time>=100) {
+  if (authoredTime()>=100) {
     for (const [shotAge] of CHASE_ATTACKS[boss.attackIndex].shots) {
       const progress=clamp((age-shotAge)/16,0,1);
       recoil+=SimMath.sin(Math.PI*progress)**2*(1-progress);
@@ -1982,7 +2037,7 @@ function goldieAttachment(x,y,pose) {
 }
 
 function drawGoldieJetpack() {
-  const sheetPose={row:1+(globalThis.ArcadeBossSheets?.legacyVariant(boss,'chase')||0),column:Math.floor((boss.attackAge||0)/6)%4};
+  const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||{row:1+(globalThis.ArcadeBossSheets?.legacyVariant(boss,'chase')||0),column:Math.floor((boss.attackAge||0)/6)%4};
   if(globalThis.ArcadeBossSheets?.drawBoss(ctx,11,0,sheetPose,{x:boss.x-100,y:boss.y-100,w:200,h:200,flip:true}))return;
   const pose=goldiePose();
   const size=GOLDIE_FRAME_SIZE;
@@ -2001,7 +2056,7 @@ function drawGoldieJetpack() {
   ctx.drawImage(goldieHoverSheet,pose.frame%6*size,Math.floor(pose.frame/6)*size,size,size,-size/2,-size/2,size,size);
   ctx.restore();
   const chargeAge=boss.attackAge-21;
-  const charge=time>=100 && chargeAge>0 && chargeAge<25?SimMath.sin(Math.PI*chargeAge/25):0;
+  const charge=authoredTime()>=100 && chargeAge>0 && chargeAge<25?SimMath.sin(Math.PI*chargeAge/25):0;
   if (charge>0) {
     const glow=attackArt('player/higgsfield/saucer/muzzle');
     const [x,y]=goldieAttachment(...GOLDIE_MUZZLE,pose);
@@ -2065,17 +2120,20 @@ function drawChase() {
 }
 
 function drawLegacyDensity(){
-  if(!ArcadeDensityAttacks.enabled||!densityLane||!['play','paused'].includes(mode)||phaseShift||boss?.shift)return;
-  ctx.save();ctx.imageSmoothingEnabled=false;
-  ctx.fillStyle='#64ffad12';ctx.fillRect(densityLane.x,densityLane.top,densityLane.width,densityLane.bottom-densityLane.top);
-  ctx.strokeStyle='#a2ffd2';ctx.lineWidth=2;ctx.setLineDash([12,8]);
-  for(const y of [densityLane.top,densityLane.bottom]){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
-  ctx.setLineDash([]);ctx.fillStyle='#c5ffe3';ctx.font='bold 15px system-ui';ctx.textAlign='center';
-  ctx.fillText('SLOW BARRAGE · GREEN LANE STAYS CLEAR',W/2,densityLane.top+20);
-  for(const shot of densityShots){ctx.save();if(shot.age<shot.windup)ctx.globalAlpha=.28;
-    ctx.translate(shot.x+shot.w/2,shot.y+shot.h/2);ctx.scale((shot.vx||1)<0?-1:1,1);
-    globalThis.ArcadeBossSheets?.drawDensityMissile?.(ctx,shot,{x:-shot.w/2,y:-shot.h/2,w:shot.w,h:shot.h},time);ctx.restore();}
-  ctx.restore();
+  if(!densityShots.length||!['play','paused'].includes(mode))return;
+  for(const shot of densityShots){
+    if(shot.age<=shot.delay)continue;
+    ctx.save();
+    ctx.translate(shot.x+shot.w/2,shot.y+shot.h/2);
+    if(shot.vx<0)ctx.scale(-1,1);
+    const drawn=globalThis.ArcadeBossSheets?.drawDensityMissile?.(ctx,shot,{x:-shot.w/2,y:-shot.h/2,w:shot.w,h:shot.h},time);
+    ctx.restore();
+    if(!drawn){
+      const core=ArcadeDensityAttacks.damageRect(shot);
+      ctx.fillStyle='#fff0a8';
+      ctx.fillRect(core.x,core.y,core.w,core.h);
+    }
+  }
 }
 function render(){renderLegacyScene();drawLegacyDensity();drawLegacyPhasePowerups();}
 function renderLegacyScene() {
