@@ -1,86 +1,113 @@
-/* Exercise real swept contacts across every campaign phase and escape altitude. */
-const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+/* Check the real missile cores against the crouch and jump routes. */
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
 const scope=vm.createContext({});
-for(const file of ['runtime/contract.js','runtime/core/world.js','density-attacks.js'])vm.runInContext(fs.readFileSync(file,'utf8'),scope);
-const D=scope.ArcadeDensityAttacks,swept=scope.Arcade.sweptContact;
-const arena={left:0,top:180,right:1280,bottom:700};
-let cases=0,missiles=0;
-for(let stage=1;stage<=13;stage++)for(const phase of [0,1])for(const x of [80,640,1200])for(const y of [180,240,390,650,700]){
- const input={stage,phase,tick:D.START,arena,player:{x,y},enabled:true,liveCount:0};
- const original=JSON.stringify(input),a=D.plan(input),b=D.plan(input);
- assert.equal(JSON.stringify(a),JSON.stringify(b),'repeat calls produce byte-identical schedules');
- assert.equal(JSON.stringify(input),original,'planner never mutates player, bounds or caller state');
- assert.ok(a.shots.length>=12&&a.shots.length<=36,'a substantial, bounded curtain is emitted');
- assert.equal(a.shots.length%D.WAVES,0);assert.ok(a.lane.bottom-a.lane.top>=180);
- const escapeY=Math.max(a.lane.top+36,Math.min(a.lane.bottom-36,y));
- const body={x:x-20,y:escapeY-32,w:40,h:64};
- for(const s of a.shots){
-  assert.equal(s.vy,0);assert.ok(Math.abs(s.vx)>=1.25&&Math.abs(s.vx)<=1.65+1e-9);
-  assert.ok(s.w>=32&&s.w<=44);assert.equal(s.w,s.h);assert.equal(s.coreScale,.65);
-  assert.ok(s.windup>=100);assert.ok(Math.abs(s.x+s.w/2-x)>=360);
-  assert.ok(s.y+s.h<=a.lane.top||s.y>=a.lane.bottom,'even full art stays out of the green corridor');
-  // Analytical swept test over the complete lifetime is stricter than
-  // individual fixed ticks, and includes the full sprite rather than core.
-  const end={...s,x:s.x+s.vx*s.active};
-  assert.equal(swept(body,body,s,end),false,'standing in the marked gap avoids the entire committed trajectory');
-  const originalBody={x:x-20,y:y-32,w:40,h:64};
-  assert.equal(swept(originalBody,originalBody,s,end),false,'initial committed player altitude is safe even at arena boundaries');
-  assert.ok(s.artPath.includes(`/missiles/${String(stage).padStart(2,'0')}/`));
-  missiles++;
- }
- assert.ok(a.shots.some(s=>s.windup===100)&&a.shots.some(s=>s.windup===152),'three distinct slow waves');
- assert.ok(a.lane.until<=D.START+D.PERIOD,'next scheduled volley cannot stack with this one');
- cases++;
-}
-for(const phase of [0,1])for(let stage=1;stage<=13;stage++){
- const opts={stage,phase,tick:D.START,arena,player:{x:200,y:450},enabled:true};
- assert.equal(D.plan({...opts,blocked:true}).clear,true,'mandatory fronts clear and suppress density');
- assert.equal(D.plan({...opts,enabled:false}).clear,true,'unfinished art cannot enable an attack');
- assert.equal(D.plan({...opts,liveCount:1}),null,'existing missiles prevent stacking');
- assert.equal(D.plan({...opts,tick:D.START-1}),null);assert.ok(D.plan({...opts,tick:D.START+1}).shots.length,'a blocked due tick retries at the first legal opening');
- assert.equal(D.plan({...opts,tick:D.START+1,lastCycle:0}),null,'consumed cycle cannot repeat after clearing a front');
- const later=D.plan({...opts,tick:D.START+D.PERIOD});assert.ok(later.shots.length);
- assert.notEqual(later.shots[0].id,D.plan(opts).shots[0].id);
-}
-// Scrolling camera origins translate the schedule exactly without drifting lanes.
-const base={stage:7,phase:1,tick:D.START,arena,player:{x:200,y:390},enabled:true};
-const a=D.plan(base),dx=4700,dy=-1200,b=D.plan({...base,arena:{left:dx,top:arena.top+dy,right:1280+dx,bottom:arena.bottom+dy},player:{x:200+dx,y:390+dy}});
-for(let i=0;i<a.shots.length;i++){assert.ok(Math.abs((b.shots[i].x-a.shots[i].x)-dx)<1e-9);assert.ok(Math.abs((b.shots[i].y-a.shots[i].y)-dy)<1e-9);}
-assert.equal(D.plan({...base,arena:{left:0,top:0,right:400,bottom:720}}),null,'small arenas defer instead of spawning point blank');
-assert.equal(D.plan({...base,stage:14}),null);assert.equal(D.plan({...base,phase:2}),null);
-console.log(`PASS ${cases} all-boss/phase/edge-altitude deterministic barrage cases; ${missiles} full-sprite swept escape proofs; warning, speed, density, front suppression and camera translation`);
+vm.runInContext(fs.readFileSync('density-attacks.js','utf8'),scope);
+const D=scope.ArcadeDensityAttacks;
+const arena={left:0,top:140,right:1280,bottom:604,floor:604};
+const options={phase:0,tick:D.START,arena,player:{x:240,y:604},enabled:true};
 
-// Execute the actual legacy hook with the gate flipped only inside this VM.
-const source=fs.readFileSync('game.js','utf8'),hook=source.slice(source.indexOf('function updateLegacyDensity('),source.indexOf('function update(){'));
-let legacyCases=0;
-for(let stage=1;stage<=13;stage++)for(const phase of [1,2]){
- const legacy=vm.createContext({});
- vm.runInContext(fs.readFileSync('density-attacks.js','utf8').replace('enabled:false','enabled:true'),legacy);
- vm.runInContext(`var W=1280,FLOOR=604,LEVELS=[{id:${stage}}],levelIndex=0,mode='play',phaseShift=0,transition=0,vaultBeam=null;
- var boss={phase:${phase},hp:100,move:'idle',age:0,tell:0},player={x:200,y:560,hp:5},moves={},densityShots=[],densityLane=null,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1,hits=0;
- function isFlying(){return ${stage===7};}function isCodebreak(){return ${stage===12};}function attackForCodebreak(){return{beam:false};}function playerHeight(){return 110;}function hurt(){hits++;}
- `+hook,legacy);
- for(let tick=0;tick<240;tick++)vm.runInContext('updateLegacyDensity()',legacy);
- assert.ok(vm.runInContext('densityShots.length',legacy)>=12,'legacy hook emits for every boss and both phases');
- for(let tick=0;tick<170;tick++)vm.runInContext('updateLegacyDensity()',legacy);
- assert.ok(vm.runInContext('densityShots.some(s=>s.age>145)',legacy),'separate density pool survives legacy ordinary-bullet timeout');
- assert.equal(vm.runInContext('hits',legacy),0,'actual legacy full-height body remains in committed escape lane');
- vm.runInContext("moves.ceilingSweep={active:120};boss.move='ceilingSweep';boss.age=0;boss.tell=90;updateLegacyDensity()",legacy);
- assert.equal(vm.runInContext('densityShots.length',legacy),0,'actual mandatory-front hook clears density immediately');
- assert.equal(vm.runInContext('densityLane',legacy),null);
- vm.runInContext("boss.move='idle';boss.phase=boss.phase===1?2:1;updateLegacyDensity()",legacy);
- assert.equal(vm.runInContext('densityPhaseClock',legacy),1,'phase checkpoint starts a fresh local clock');
- vm.runInContext("mode='lost';updateLegacyDensity()",legacy);assert.equal(vm.runInContext('densityShots.length',legacy),0);
- legacyCases++;
+let previousSpeed=0,previousWaves=0;
+for(const stage of [1,13,2,3,4,5,6,7,8,9,10,11,12]){
+ const phaseOne=D.plan({...options,stage});
+ const firstSpeed=Math.abs(phaseOne.shots[0].vx);
+ const waves=new Set(phaseOne.shots.map(s=>s.id.split('-').at(-2))).size;
+ assert.ok(firstSpeed>=previousSpeed && waves>=previousWaves,'difficulty follows campaign order');
+ previousSpeed=firstSpeed;
+ previousWaves=waves;
+ for(const phase of [0,1])for(const [standingHeight,crouchHeight] of [[110,72],[52,30]]){
+  const input={...options,stage,phase,standingHeight,crouchHeight};
+  const volley=D.plan(input);
+  assert.equal(JSON.stringify(D.plan(input)),JSON.stringify(volley));
+  assert.ok(volley.shots.length>=25 && volley.shots[0].delay===0);
+  assert.ok(Math.max(...volley.shots.map(s=>s.delay))>=290,'fire continues for multiple seconds');
+  let middle=0,floor=0;
+  for(const shot of volley.shots){
+   assert.equal(shot.windup,0);
+   assert.equal(shot.vy,0);
+   const core=D.damageRect(shot);
+   if(core.y+core.h/2>arena.floor-crouchHeight){
+    assert.ok(core.y+core.h<arena.floor,'floor missiles have an airborne escape');
+    floor++;
+   }else if(core.y+core.h>arena.floor-standingHeight){
+    assert.ok(core.y+core.h<arena.floor-crouchHeight,'a full tuck clears the actual opaque middle-row core');
+    middle++;
+   }
+  }
+  assert.ok(middle>0 && floor>0,'each ground barrage has both dodge types');
+ }
 }
-const wrappers=vm.createContext({});
-vm.runInContext(`var updates=0,renders=0,powerUpdates=0,powerRenders=0;
- function updateLegacyStage(){return;}function updateLegacyDensity(){updates++;}function updatePhasePowerups(){powerUpdates++;}
- function renderLegacyScene(){return;}function drawLegacyDensity(){renders++;}function drawLegacyPhasePowerups(){powerRenders++;}
- `+source.slice(source.indexOf('function update(){'),source.indexOf('function updateLegacyStage()'))+
- source.slice(source.indexOf('function render(){'),source.indexOf('function renderLegacyScene()')),wrappers);
-vm.runInContext('update();render();',wrappers);
-assert.equal(vm.runInContext('updates',wrappers),1,'stage early return still runs density simulation');
-assert.equal(vm.runInContext('renders',wrappers),1,'render early return still draws density');
-assert.equal(vm.runInContext('powerUpdates+powerRenders',wrappers),2,'wrappers preserve adjacent powerup hooks');
-console.log(`PASS ${legacyCases} actual legacy phase hooks, long lifetime, full-height body avoidance, front cleanup, phase reset and shared stage/render wrappers`);
+const opts={...options,stage:1};
+for(const change of [{tick:D.START-1},{blocked:true},{enabled:false},{liveCount:1},{lastCycle:0},{stage:14}]){
+ assert.equal(D.plan({...opts,...change}),null);
+}
+for(const vertical of [false,true]){
+ const player={x:640,y:380};
+ const plan=D.plan({...options,stage:12,phase:1,player,flight:!vertical,vertical});
+ assert.equal(plan.shots[0].vertical,vertical);
+ const first=plan.shots.filter(s=>s.delay===0);
+ for(const shot of first){
+  const core=D.damageRect(shot);
+  assert.ok(vertical?Math.abs(core.x+core.w/2-player.x)>55:Math.abs(core.y+core.h/2-player.y)>55,'the first moving wall has a reachable opening');
+ }
+ assert.notEqual(plan.shots.filter(s=>s.delay===0).length,0);
+ assert.ok(plan.shots.some(s=>s.delay>300));
+}
+console.log('PASS both crouch-height scales, floor rows, flight and climb openings, 26 phased patterns, progressive speed and staggered immediate launches');
+
+(async()=>{
+ const {loadSourceSim}=await import('../tools/build-server-sim.mjs');
+ const sim=loadSourceSim({dev:true}),dev=sim._dev;
+ for(let level=0;level<13;level++){
+  dev.reset(level,'rivet',0,5);
+  const snap=dev.snapshot(),s=snap.s,phase=0;
+  s.densityPhaseKey=sim.levels[level].stage+':'+phase;
+  s.densityPhaseClock=D.START-1;
+  if(level===10)s.boss.attackAge=105;
+  else if(level===11)s.boss.age=80;
+  else Object.assign(s.boss,{move:'rush',age:66,tell:37});
+  s.bullets=[{own:false,x:200,y:400}];
+  s.time=500;
+  dev.restore(snap);
+  dev.step(0);
+  const started=dev.state();
+  assert.ok(started.densityShots.length,'barrage begins in a safe recovery for '+sim.levels[level].stage);
+  assert.equal(started.time,501);
+  assert.equal(started.densityPausedTicks,1);
+  assert.equal(started.boss.age,s.boss.age);
+  assert.equal(started.boss.attackAge,s.boss.attackAge);
+  assert.equal(started.camera,s.camera);
+  assert.equal(started.bullets.length,0);
+  assert.equal(started.codeShots.length,0);
+  assert.equal(started.hazards.length,0);
+  const startedSnapshot=dev.snapshot();
+  dev.step(0);
+  const second=JSON.stringify(dev.state());
+  dev.restore(startedSnapshot);
+  dev.step(0);
+  assert.equal(JSON.stringify(dev.state()),second,'restored replay keeps barrage timing');
+ }
+ // Actual movement and collision paths for both ground lanes.
+ dev.reset(0,'rivet',0,5);
+ const snap=dev.snapshot();
+ const s=snap.s;
+ s.time=500;
+ Object.assign(s,{densityPhaseKey:'1:0',densityPhaseClock:D.START,densityLastCycle:0});
+ const wave=D.plan(opts).shots;
+ function contact(shot,mask,steps=1){
+  const missile={...shot,delay:0,x:s.player.x-shot.w/2-shot.vx*steps};
+  s.densityShots=[missile];
+  s.player.inv=0;
+  dev.restore(snap);
+  dev.step(mask);
+  for(let i=1;i<steps;i++)dev.step(mask&32);
+  return dev.state().player.hp;
+ }
+ assert.equal(contact(wave[0],0),4,'standing player is struck by the middle row');
+ assert.equal(contact(wave[0],8),5,'tuck clears the middle row');
+ const floor=wave.find(shot=>shot.delay===74);
+ assert.equal(contact(floor,8),4,'tuck cannot avoid the floor row');
+ assert.equal(contact(floor,16|32,12),5,'jump clears the floor-row core');
+ console.log('PASS actual Story barrage start and attack isolation for all 13 bosses, replay restore, and crouch/jump contacts');
+})().catch(error=>{console.error(error);process.exitCode=1;});

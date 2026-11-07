@@ -23,7 +23,7 @@ function actions(kind) {
     const dirs=[0,L,R,U,D,U|L,U|R,D|L,D|R];
     return [...dirs.map(d=>act(d,fire)),act(U,DASH|fire),act(D,DASH|fire),act(L,DASH|fire),act(0,SHIELD|fire)];
   }
-  if (kind==='chase') return [act(0),act(R),act(L),act(HOLD,JUMP),act(R|HOLD,JUMP),act(L|HOLD,JUMP),act(R,DASH),act(0,SHIELD)];
+  if (kind==='chase') return [act(0),act(R),act(L),act(HOLD,JUMP),act(R|HOLD,JUMP),act(L|HOLD,JUMP),act(R,DASH),act(D),act(0,SHIELD)];
   if (kind==='climb') return [act(0,fire),act(L,fire),act(R,fire),act(HOLD,JUMP|fire),act(L|HOLD,JUMP|fire),act(R|HOLD,JUMP|fire),act(L|HOLD,DASH),act(R|HOLD,DASH),act(0,SHIELD)];
   return [act(0,fire),act(L,fire),act(R,fire),act(HOLD,JUMP|fire),act(L|HOLD,JUMP|fire),act(R|HOLD,JUMP|fire),act(D,fire),
     act(L,DASH|fire),act(R,DASH|fire),act(0,SHIELD|fire)];
@@ -58,7 +58,7 @@ function playLevel(level) {
     const base=dev.snapshot(), start=dev.state();
     const kind=kindOf(level,start), options=actions(kind);
     // Follow-ups: stand, step either way, jump, crouch (ground bosses: the ceiling sweep) or shield.
-    const follow=[options[0],options[1],options[2],options[3],...(kind==='boss'?[options[6]]:[]),options[options.length-1]]
+    const follow=[options[0],options[1],options[2],options[3],...(kind==='boss'||kind==='chase'?[options[6]]:[]),options[options.length-1]]
       .map(f=>Array.from({length:LOOK},(_,i)=>i%SEG===0?f.held|f.tap:f.held));
     // Climbing: jumps with the air jump near the top of the arc, drifting either way or not.
     if (kind==='climb') for (const side of [0,L,R]) for (const second of [10,16,22]) {

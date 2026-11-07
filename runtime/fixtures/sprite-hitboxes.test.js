@@ -124,7 +124,7 @@ SPRITE_HITBOXES.stages[1][0].boss={damage:{rect:[.25,.25,.5,.5]}};bullets=[{x:11
 assert.equal(legacy.damaged,0,'boss fringe outside the new core must miss');
 vm.runInContext(`bullets=[{x:200,y:350,vx:0,vy:0,rate:1,gravity:0,bounces:0,age:0,own:true,shape:'spark'}];updateBullets()`,legacy);
 assert.equal(legacy.damaged,3,'exposed weakpoint damage multiplier remains unchanged');
-vm.runInContext(`LEVELS[0].id=11;var GOLDIE_START_X=90,CHASE_SCROLL=5.4,time=0;function announce(){}function isChase(){return true;}
+vm.runInContext(`LEVELS[0].id=11;var GOLDIE_START_X=90,CHASE_SCROLL=5.4,time=0;function authoredTime(){return time;}function announce(){}function isChase(){return true;}
 SPRITE_HITBOXES.stages[11]={'0':{projectiles:{'orb@0':{rect:[.25,.25,.5,.5]},'orb@1':{rect:[0,0,1,1]}},boss:{contact:{reach:19}}}};
 SPRITE_HITBOXES.enabled=true;hits=0;player.x=132;player.y=530;startChase();fire(100,500,5.4,0,'orb',false);`,legacy);
 assert.equal(Object.hasOwn(legacy.boss,'phase'),false,'fixture uses the real legacy chase object without a phase field');

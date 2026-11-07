@@ -72,7 +72,7 @@ function refreshCodebreakHud() {
   ui.boss.firstElementChild.textContent='BITCOIN SHERIFF · PHASE '+boss.phase+'/2'+
     (climbing?' · '+(boss.section+1)+'/'+CODE_ATTACK_SIDES.length:'');
   ui.boss.querySelector('progress').value=climbing?clamp(camera/CODE_LOOP,0,1):boss.hp/boss.max;
-  ui.cue.textContent=boss.wreck?'':boss.shift?'SUMMIT REACHED':time<110&&climbing?'JUMP TO THE NEXT PLATFORM':
+  ui.cue.textContent=densityShots.length?'':boss.wreck?'':boss.shift?'SUMMIT REACHED':authoredTime()<110&&climbing?'JUMP TO THE NEXT PLATFORM':
     boss.age>19&&boss.age<attackForCodebreak().frames[0]?attackForCodebreak().name.toUpperCase():'';
 }
 
@@ -248,14 +248,14 @@ function updateCodePlayerShots() {
 }
 
 function updateCodebreak() {
-  const b=boss,p=player;
+  const b=boss,p=player,tick=authoredTime();
   if (b.shift) {
     if (++b.shift===80) startCodebreakArena();
   } else if (b.wreck) {
     if (++b.wreck===115) clearLevel();
     return;
   } else if (b.phase===1) {
-    const nextCamera=Math.min(CODE_LOOP,time*CODE_SCROLL);
+    const nextCamera=Math.min(CODE_LOOP,tick*CODE_SCROLL);
     p.y+=nextCamera-camera;
     camera=nextCamera;
     movePlayer();
@@ -266,11 +266,11 @@ function updateCodebreak() {
     }
     b.section=section;
     const sideX=W*CODE_ATTACK_SIDES[b.section];
-    const targetX=sideX+SimMath.sin(time*.031)*54;
+    const targetX=sideX+SimMath.sin(tick*.031)*54;
     b.x+=clamp((targetX-b.x)*.08,-10,10);
-    const flightY=clamp(p.y+259,H-138,H-70)+SimMath.sin(time*.034)*5;
+    const flightY=clamp(p.y+259,H-138,H-70)+SimMath.sin(tick*.034)*5;
     b.y+=clamp((flightY-b.y)*.09,-10,10);
-    if (time>110 && Math.abs(b.x-sideX)<100) updateCodeAttack();
+    if (tick>110 && Math.abs(b.x-sideX)<100) updateCodeAttack();
     updateCodeShots();
     if (mode==='play') updateCodePlayerShots();
     if (mode==='play' && p.y>H+46) {
@@ -407,6 +407,7 @@ function drawCodeMecha(frame,x,y,height,facing=1) {
 }
 
 function drawCodebreak() {
+  const barragePose=densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true);
   if (boss.shift>=53) {
     ctx.fillStyle='#000';
     ctx.fillRect(0,0,W,H);
@@ -414,8 +415,8 @@ function drawCodebreak() {
   }
   drawCodebreakBackground();
   const b=boss, attack=attackForCodebreak();
-  const fireFrame=b.age>=attack.frames[0] && b.age<=attack.frames.at(-1)+(attack.sweep?CODE_SWEEP_DURATION-1:5);
-  const frame=fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attack.frames.at(-1)+5 && b.age<attack.frames.at(-1)+23?3:0;
+  const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attack.frames.at(-1)+(attack.sweep?CODE_SWEEP_DURATION-1:5);
+  const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attack.frames.at(-1)+5 && b.age<attack.frames.at(-1)+23?3:0;
   if (b.phase===1) {
     drawCodePlatforms();
     const pose=frame?attack.sprite===3?1:attack.sprite===2?3:attack.sprite===1?2:1:0;
@@ -428,7 +429,7 @@ function drawCodebreak() {
       const y=b.y+(footY-320)*CODE_MECHA_SCALE;
       ctx.drawImage(flame,Math.round(x-width/2),Math.round(y),width,height);
     }
-    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,0,{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-160*CODE_MECHA_SCALE,y:b.y-320*CODE_MECHA_SCALE,w:320*CODE_MECHA_SCALE,h:320*CODE_MECHA_SCALE,flip:facing<0}))drawCodeMecha(codeFrame('fly',pose),b.x,b.y,320*CODE_MECHA_SCALE,facing);
+    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,0,barragePose||{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-160*CODE_MECHA_SCALE,y:b.y-320*CODE_MECHA_SCALE,w:320*CODE_MECHA_SCALE,h:320*CODE_MECHA_SCALE,flip:facing<0}))drawCodeMecha(codeFrame('fly',pose),b.x,b.y,320*CODE_MECHA_SCALE,facing);
     if (!attack.beam && (frame===1 || fireFrame)) {
       const [x,y]=codeAttackMuzzle(attack.sprite);
       ctx.globalAlpha=fireFrame?.88:.3+SimMath.sin(time*.65)*.15;
@@ -438,7 +439,7 @@ function drawCodebreak() {
   } else {
     const wreckFrame=b.wreck?Math.min(3,Math.floor(b.wreck/13)):0;
     const sprite=b.wreck?codeFrame('wreck',wreckFrame):codeFrame('attack'+(attack.beam?4:b.attackIndex),frame);
-    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,1,{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT}))drawCodeMecha(sprite,b.x,FLOOR,CODE_BOSS_HEIGHT);
+    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,1,barragePose||{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT}))drawCodeMecha(sprite,b.x,FLOOR,CODE_BOSS_HEIGHT);
     if (b.wreck>=25) {
       const t=b.wreck-25;
       ctx.save();

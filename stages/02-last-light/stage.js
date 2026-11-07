@@ -10,7 +10,7 @@ function draw(c,w,mirror){
  const iris=w.targets.find(t=>t.id==='light-iris');c.fillStyle=iris?.open?'#fff7be':'#4a4a65';c.beginPath();c.arc(1090,530,48,0,Math.PI*2);if(generated){c.strokeStyle=iris?.open?'#fff7be':'#9ca5ad';c.lineWidth=2;c.stroke();}else c.fill();
  if(mirror){c.strokeStyle='#9f98bd';c.lineWidth=14;c.beginPath();c.moveTo(740,280);c.lineTo(1250,280);c.moveTo(1080,280);c.lineTo(1080,340);c.stroke();c.strokeStyle='#c9f2ff';c.lineWidth=12;c.beginPath();c.moveTo(650,600);c.lineTo(695,500);c.stroke();text(c,'BAIT BEAM HERE →',345,485);text(c,'MIRROR / REAR HOUSING',740,320);}
  else{c.fillStyle='#805c70';c.fillRect(480,480,100,120);c.strokeStyle='#ffd69d';c.strokeRect(480,480,100,120);text(c,'COVER ←',300,468);}
- if(w.data.lockY){c.setLineDash([10,10]);c.strokeStyle='#ffe5ba';c.lineWidth=3;c.beginPath();c.moveTo(1060,w.data.lockY);c.lineTo(w.data.lockX,w.data.lockY);c.stroke();c.setLineDash([]);}
+ if(!w.densityBarrage&&w.data.lockY){c.setLineDash([10,10]);c.strokeStyle='#ffe5ba';c.lineWidth=3;c.beginPath();c.moveTo(1060,w.data.lockY);c.lineTo(w.data.lockX,w.data.lockY);c.stroke();c.setLineDash([]);}
  if(w.data.reflectedUntil>w.phaseTick){c.strokeStyle='#fff5b7';c.lineWidth=7;c.beginPath();c.moveTo(mirror?675:530,w.data.lockY);c.lineTo(1090,530);c.stroke();}text(c,iris?.open?'IRIS OPEN':'IRIS ARMORED',985,630);text(c,mirror?'MIRROR GANTRY':'PRISM PROJECTOR',970,305);
 }
 function core(w,hp,next){w.target({id:'light-iris',x:1040,y:490,w:100,h:110,hp,maxHp:hp,open:false,label:'Iris housing',onDefeat(z){next?z.advancePhase():z.clear();}});}

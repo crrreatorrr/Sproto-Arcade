@@ -212,7 +212,7 @@ const DEV_TAIL=`api._dev = {
     mode = s.mode; time = s.time; levelIndex = s.levelIndex; camera = s.camera; shake = s.shake; banner = s.banner;
     transition = s.transition; phaseShift = s.phaseShift; vaultBeam = s.vaultBeam; player = s.player; boss = s.boss;
     bullets = s.bullets; hazards = s.hazards; sparks = s.sparks; impacts = s.impacts; codeShots = s.codeShots;
-    densityShots=s.densityShots||[];densityLane=s.densityLane||null;densityPhaseClock=s.densityPhaseClock||0;densityPhaseKey=s.densityPhaseKey||'';densityLastCycle=Number.isInteger(s.densityLastCycle)?s.densityLastCycle:-1;
+    densityShots=s.densityShots||[];densityPausedTicks=s.densityPausedTicks||0;densityPhaseClock=s.densityPhaseClock||0;densityPhaseKey=s.densityPhaseKey||'';densityLastCycle=Number.isInteger(s.densityLastCycle)?s.densityLastCycle:-1;
     phasePowerupsState=s.phasePowerupsState||null;
     inputFrame = c.inputFrame; clearedAt = c.clearedAt; clearedHash = c.clearedHash;
   }
