@@ -47,6 +47,9 @@ async function open(page){
   return errors;
 }
 const locked=page=>page.evaluate(()=>[...document.querySelectorAll('#sproto-portraits button:disabled')].map(b=>b.dataset.fighter).sort());
+// Release pages pin scripts to content hashes; stub the SDK with or without
+// that query suffix while leaving every other script on the real browser path.
+const sdkScript=/\/vendor\/hub-sdk\/hub-sdk\.iife\.js(?:\?[^#]*)?$/;
 // Clear a level the way play does: begin() then the game's own clearLevel().
 const clear=(page,level,god)=>page.evaluate(([level,god])=>{godMode=god;begin(level);clearLevel();godMode=false;return window.ArcadeHub.state.save;},[level,god]);
 try{
@@ -69,7 +72,7 @@ try{
   }
   { // 2. Hub session with the recording stub.
     const page=await browser.newPage();
-    await page.route('**/vendor/hub-sdk/hub-sdk.iife.js',r=>r.fulfill({contentType:'text/javascript',body:STUB}));
+    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:STUB}));
     const errors=await open(page);
     await page.waitForFunction(()=>window.ArcadeHub.state.status==='online');
     const state=await page.evaluate(()=>window.ArcadeHub.state);
@@ -123,7 +126,7 @@ try{
     await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});
     await page.evaluate(()=>window.ArcadeHub.ready);
     await clear(page,2,false); // offline, before any sign-in
-    await page.route('**/vendor/hub-sdk/hub-sdk.iife.js',r=>r.fulfill({contentType:'text/javascript',body:STUB}));
+    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:STUB}));
     await page.reload();await page.waitForFunction(()=>window.ArcadeHub?.state.status==='online',null,{timeout:60000});
     assert.deepEqual(await page.evaluate(()=>window.ArcadeHub.state.save.cleared),[2,4],'first account takes over the guest progress');
     await clear(page,5,false);
