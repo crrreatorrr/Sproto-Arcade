@@ -2,7 +2,7 @@
  "level": 2,
  "title": "Last Light Bar",
  "bossId": "vela",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "vela",
   "godMode": false,
   "ticks": 7576,
-  "endHash": "e3cd5482ee2f20c0"
+  "endHash": "158ae3ce4c3e9262"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24302,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 2,
    "bossId": "vela",
-   "ticks": 7576
+   "ticks": 7576,
+   "endHash": "158ae3ce4c3e9262"
   },
   "godMode": false
  }

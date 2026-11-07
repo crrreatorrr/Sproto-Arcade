@@ -1,0 +1,187 @@
+{
+  "status": "historical-originals-preserved-before-approved-phase4P1-transfer",
+  "originalSourceHashes": [
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1.png",
+      "sha256": "0dd9cbd20d91a49b8ba65478a98c1099b1e72307210f18b2c2962d6d08dba316"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1.json",
+      "sha256": "cf2af3139b12aba4c78e771034471d51c786b4c8063f8f05cb1f0b2db49abfa5"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-production-provenance.json",
+      "sha256": "76fa7a437bbdf43b8150a5f2257b71a708309c1b2dfe1c324527b92cc9b371ea"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-projectiles.png",
+      "sha256": "942b81a8172e94aa789f88de13c9b65423fd289c4a0a80258c05b76aee09f915"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-projectiles.json",
+      "sha256": "0f644d9f070ffd26a080837e94078b4eb09a150d9d94284700ba755d535eb3dd"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-projectiles-production-provenance.json",
+      "sha256": "ab131f2cf1b374b5a70c07e671edcb2fd8c2cce86be01bd2ef3d3aba5abb4c87"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-composition-provenance.json",
+      "sha256": "1dd1073485793574272debfd1166944a1e2d72d49411ea7c5730598b4dfbcba0"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-cockpit-placements.json",
+      "sha256": "964dc0c10bd99d82d716cfe1485269ae33857fd5861e2f38da8fedc46a1cffe5"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1.png",
+      "sha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1.json",
+      "sha256": "7dc82bd4b9cb67c61f2c535611652f31045f6f2289af087faee36bb21b58df45"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-production-provenance.json",
+      "sha256": "9399c2d58109e1708c070be054b742622184e60c0d5b59c5fb1398795de2969e"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles.png",
+      "sha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles.json",
+      "sha256": "49e430289299e05c5a33fc3c7dd96aa4c5ca2cf76ff5cf28d3e27611a091d34a"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles-production-provenance.json",
+      "sha256": "81e2e3134010571a53d3526d29b5421985e5e5e02605f71da8639408bf139067"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-cab-composition-provenance.json",
+      "sha256": "4ea8cfccae0f3049316827acf043449ddc32eeab5abade8893cf0932435b937c"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-clear-pilot-composition-provenance.json",
+      "sha256": "515626ac8975dcd5b087ea49b9c843379f63f1dfe6d1b4c2d50aca899f32cc23"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-cab-placements.json",
+      "sha256": "38fb00dfbabce022d3b5b9020dfeb8f69dc703768459f51d78e299fbc5b2e9aa"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-clear-pilot-placements.json",
+      "sha256": "6d44d26722dfea3e051b46794f14384f2f466f39e473890457400ad4043c0cf3"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/approved-halloween-concept.png",
+      "sha256": "b4bb8104a3fbb48658c51ff97a320fa18176723eac4d5440db6c76e303aa5efe"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/cab-placements.json",
+      "sha256": "a6871c7704d9f3627a028ad764327845e424a710a378d950a589f47534ef0467"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/cab-mask.png",
+      "sha256": "70aadcbec20360afa282ec8e8ac2f4aa7d78b881887c757eac8b62ac4d7c63f4"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/transfer-proof.json",
+      "sha256": "1cec246d12dc753cae17153a2d501de9fa39262233ade75cb906dba6d73fde8c"
+    },
+    {
+      "path": "art/reference/archive/20261106-ranch-neon-p1/original-04-ranch/p1-native-cockpit-mask.png",
+      "sha256": "073bf889a025b079fc9fffc009f8921cec621c9ef888199c31bb1eaec727f97b",
+      "recoveredFromVerifiedGitBlob": "HEAD:art/generated/bosses/04-ranch-zephyr/p1-native-cockpit-mask.png"
+    }
+  ],
+  "replacementBossSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876",
+  "replacementProjectilesSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
+  "otherPhasesAndOriginal05ProductionUntouched": true,
+  "reproduction": "python3 tools/transfer-ranch-pilot.py --concept art/reference/archive/20261106-ranch-neon-p1/replacement-source/approved-halloween-concept.png --source-atlas art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1.png --output-dir <scratch> --proof-dir <proof>",
+  "collectorReplacement": {
+    "status": "root-approved-new-05P1-installed",
+    "bossSha256": "a903906ebd52c4d57b55aee1747dcbe96568ebd786c6265bb8218e3ce6e3b33e",
+    "ammoSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+    "nativeSource": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/collector-neon-p1-boss-native.png",
+    "nativeSourceSha256": "fa9ea3c19e07e35b6944a238f679b22a97a43e783274b13c3aaa40502bd06245",
+    "unchangedPhase2SourceAmmo": "art/generated/bosses/05-neon-sproto102/p2-projectiles.png",
+    "obsoleteP1SidecarsArchived": [
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-all-native-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-all-native-mask.png",
+        "sha256": "eaaba0461b4725a0b44e65a006ab87d6affe91c9e4996fb9c1a50b86035260c8"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-background-key-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-background-key-mask.png",
+        "sha256": "fcae2171659a0efc65ec129de8308877e775c0e2622cfc0fb9e69c469bc82a80"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-cab-composition-provenance.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-cab-composition-provenance.json",
+        "sha256": "4ea8cfccae0f3049316827acf043449ddc32eeab5abade8893cf0932435b937c"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-cab-placements.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-cab-placements.json",
+        "sha256": "38fb00dfbabce022d3b5b9020dfeb8f69dc703768459f51d78e299fbc5b2e9aa"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-clear-pilot-composition-provenance.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-clear-pilot-composition-provenance.json",
+        "sha256": "515626ac8975dcd5b087ea49b9c843379f63f1dfe6d1b4c2d50aca899f32cc23"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-clear-pilot-placements.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-clear-pilot-placements.json",
+        "sha256": "6d44d26722dfea3e051b46794f14384f2f466f39e473890457400ad4043c0cf3"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-initial-key-provenance.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-initial-key-provenance.json",
+        "sha256": "e3678527e4f9c4cdf81bb5da37fef9c3cbaa42ae37b0cc49ad92f23339c51f6e"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-matte-script-source.py",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-matte-script-source.py",
+        "sha256": "687d28a66d6ecc479ef75257a77e75e404b868036fb28a02f5618b669b0c6fb7"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-native-cab-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-native-cab-mask.png",
+        "sha256": "4f380baf505bd9bc54c2cefad6b4acdf6f6b2df158d8aab32ef5dbf168a7a715"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-native-pilot-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-native-pilot-mask.png",
+        "sha256": "452bd86a9bef9476a8ca2a05fe4c2d3f62b83209f7627fc176b3b80e49dd27ab"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-projectiles-background-key-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles-background-key-mask.png",
+        "sha256": "5bd0e04f5242e13e0b12ba00a3adf887dbdfe81484771eb85a677ca6232da84e"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-projectiles-chroma-unmix-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles-chroma-unmix-mask.png",
+        "sha256": "d96632d4e6f2491bd711714b9a621bf263019339b499aa27e5c0e2ae297f6514"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-projectiles-matte-script-source.py",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles-matte-script-source.py",
+        "sha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-projectiles-spacing-guide-provenance.json",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-projectiles-spacing-guide-provenance.json",
+        "sha256": "c0c878a2fbb1c269a6d1406813f9bbc78d34dcbfba236f15b3422d252b26d733"
+      },
+      {
+        "oldActivePath": "art/generated/bosses/05-neon-sproto102/p1-warm-glow-unmix-mask.png",
+        "archive": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1-warm-glow-unmix-mask.png",
+        "sha256": "c22d749a6857bd996e13bf37045aa75376ae9b003e5d1fb07a3baf58e2888b31"
+      }
+    ]
+  }
+}

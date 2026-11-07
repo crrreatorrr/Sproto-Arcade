@@ -1,0 +1,975 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "idle",
+    "attack-a",
+    "attack-b",
+    "attack-c"
+  ],
+  "rowBounds": [
+    [
+      188,
+      155,
+      312,
+      301
+    ],
+    [
+      12,
+      155,
+      488,
+      318
+    ],
+    [
+      86,
+      155,
+      414,
+      302
+    ],
+    [
+      68,
+      155,
+      432,
+      345
+    ]
+  ],
+  "bounds": [
+    12,
+    155,
+    488,
+    345
+  ],
+  "unionCrop": [
+    31,
+    145,
+    361,
+    378
+  ],
+  "destinationSize": [
+    488,
+    345
+  ],
+  "offset": [
+    12,
+    155
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        188,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        145,
+        361,
+        347
+      ],
+      "cellBounds": [
+        188,
+        155,
+        500,
+        454
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        145,
+        361,
+        347
+      ],
+      "cellBounds": [
+        188,
+        155,
+        500,
+        454
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "idle",
+      "sourceBounds": [
+        150,
+        145,
+        361,
+        347
+      ],
+      "cellBounds": [
+        188,
+        155,
+        500,
+        454
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        74,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        76,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        51,
+        145,
+        361,
+        360
+      ],
+      "cellBounds": [
+        42,
+        155,
+        500,
+        473
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        31,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        12,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        74,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        76,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        121,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        145,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        97,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        110,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        81,
+        145,
+        361,
+        349
+      ],
+      "cellBounds": [
+        86,
+        155,
+        500,
+        457
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        120,
+        145,
+        361,
+        348
+      ],
+      "cellBounds": [
+        144,
+        155,
+        500,
+        456
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        92,
+        145,
+        361,
+        378
+      ],
+      "cellBounds": [
+        102,
+        155,
+        500,
+        500
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        119,
+        145,
+        361,
+        367
+      ],
+      "cellBounds": [
+        142,
+        155,
+        500,
+        484
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        69,
+        145,
+        361,
+        360
+      ],
+      "cellBounds": [
+        68,
+        155,
+        500,
+        473
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        140,
+        145,
+        361,
+        347
+      ],
+      "cellBounds": [
+        173,
+        155,
+        500,
+        454
+      ]
+    }
+  ],
+  "kind": "native-cockpit-protected-conservative-chroma-recovery",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/04-ranch-zephyr-p1-composed-raw.png",
+  "sourceSha256": "4661b3f9f3655732fbf1cb9e4c1e2848d4b89e0a61be90e92c7bc7c6844f35e0",
+  "nativeCockpitMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/04-ranch-zephyr-p1-native-mask.png",
+  "nativeCockpitMaskSha256": "073bf889a025b079fc9fffc009f8921cec621c9ef888199c31bb1eaec727f97b",
+  "nativeCockpitRgbaByteExact": true,
+  "backgroundRule": "edgeconnected min(R,B)>=230,G<=32,abs(R-B)<=25",
+  "backgroundPixels": 3734818,
+  "enclosedFieldPixels": 58,
+  "enclosedRule": "inside or exterior: max absolute RGB distance from sampled backdrop[253,1,253]<=10, exact nativecockpit excluded; alpha-only removal, intentional differentlycolored wires preserved",
+  "unmixRegions": [
+    [
+      1,
+      1,
+      [
+        55,
+        205,
+        355,
+        375
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        25,
+        235,
+        130,
+        335
+      ]
+    ],
+    [
+      2,
+      1,
+      [
+        95,
+        205,
+        355,
+        380
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        55,
+        175,
+        180,
+        350
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        100,
+        210,
+        355,
+        405
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        45,
+        260,
+        190,
+        390
+      ]
+    ]
+  ],
+  "explicitAlphaOnlyKeyGapRegions": [
+    [
+      0,
+      0,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      0,
+      0,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      0,
+      0,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      0,
+      1,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      0,
+      1,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      0,
+      1,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      0,
+      2,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      0,
+      2,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      0,
+      2,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      0,
+      3,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      0,
+      3,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      0,
+      3,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      1,
+      0,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      1,
+      0,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      1,
+      0,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      1,
+      1,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      1,
+      1,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      1,
+      1,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      1,
+      3,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      1,
+      3,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      1,
+      3,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      2,
+      0,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      2,
+      0,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      2,
+      0,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      2,
+      1,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      2,
+      1,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      2,
+      1,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      2,
+      3,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      2,
+      3,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      2,
+      3,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      3,
+      0,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      3,
+      0,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      3,
+      0,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      3,
+      3,
+      [
+        267,
+        166,
+        281,
+        189
+      ]
+    ],
+    [
+      3,
+      3,
+      [
+        326,
+        232,
+        339,
+        248
+      ]
+    ],
+    [
+      3,
+      3,
+      [
+        310,
+        290,
+        330,
+        308
+      ]
+    ],
+    [
+      3,
+      0,
+      [
+        175,
+        277,
+        220,
+        300
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        175,
+        277,
+        220,
+        300
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        175,
+        277,
+        220,
+        300
+      ]
+    ],
+    [
+      3,
+      3,
+      [
+        175,
+        277,
+        220,
+        300
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        175,
+        215,
+        240,
+        262
+      ]
+    ]
+  ],
+  "explicitKeyGapPredicate": "native min(R,B)-G>18 and min(R,B)>=55, protectednativecockpit excluded; differentlycoloredbrass/wires haveB<=G and remain unchanged",
+  "explicitKeyGapPixels": 5496,
+  "outerFringeMaxDistance": 3,
+  "unmixCriterion": "only documentedglow/outerfringe with min(R,B)-G>18; nativecockpit excluded",
+  "alphaFormula": "max(G,255-min(R,B))/255",
+  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha,clamped0..255",
+  "unmixPixels": 65304,
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "includesPilot": true,
+  "productionEnabled": true,
+  "outputSha256": "0dd9cbd20d91a49b8ba65478a98c1099b1e72307210f18b2c2962d6d08dba316",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/matte-04p1-native.py",
+  "scriptSha256": "5f56ee770daa2e60310eac6892e166bfc9360773492b2759995a3f1ece667cd2",
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "pilotOverlayRequired": false,
+  "sourceJobId": "cf5e0dbb-21b7-4c9a-8e2f-dd908013d0fe",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "0dd9cbd20d91a49b8ba65478a98c1099b1e72307210f18b2c2962d6d08dba316"
+  }
+}

@@ -1,0 +1,9 @@
+# Redkev's Marina — stable ID13, campaign position2
+
+Redkev's approved concepts define a distinct pilot, vehicle and red projectile art. Gameplay inherits both original Marina phases without changing their authored timings, target health, mandatory pressure-front dash, valve gate, vent opening, or baseline player controller. The stage reuses Marina's background and stage atmosphere. Its modern phase functions are shared with `01-marina`; legacy uses an explicit mechanics alias while sheet/projectile/hitbox identity remains13.
+
+The new level is appended internally so original IDs1–12 and saved progress indices0–11 remain stable. Campaign order is1→13→2→…→12. The legacy `REDKEV_READY` constant controls activation in both game UIs. Until all four accepted phase boss/projectile sheets and fitted geometry are installed, it stays hidden and cannot be started from the legacy UI.
+
+`node stages/13-redkev/test.cjs` completes the real modern stage with movement, jump, dash and baseline autofire only: full clear1913ticks, HP5,3dash counters,0hits; phase2practice1222ticks, HP5. Repeating the full clear produces the same result. New `runtime/fixtures/redkev.test.js` verifies hidden/active campaign placement, unchanged prior IDs, inherited legacy initial combat configuration and actual source server acceptance of ID13 without fabricating a clear. These checks run before final art activation and final fitted-art collision/replay checks.
+
+Local story progress accepts appended index12. The current external hub is configured for the original twelve levels: ID13 is saved locally but no unrecognized ID13 ticket/relic claim is submitted. Existing original-level claims and unlock indices retain their behavior. This limitation must be revisited with the hub owner before claiming cloud reward support.

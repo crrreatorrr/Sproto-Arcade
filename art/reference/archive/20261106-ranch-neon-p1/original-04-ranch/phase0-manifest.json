@@ -1,0 +1,53 @@
+{
+  "boss": {
+    "path": "art/generated/bosses/04-ranch-zephyr/p1.png",
+    "ready": true,
+    "bounds": [
+      12,
+      155,
+      488,
+      345
+    ],
+    "legacyOffset": [
+      -73,
+      0
+    ]
+  },
+  "projectiles": {
+    "path": "art/generated/bosses/04-ranch-zephyr/p1-projectiles.png",
+    "ready": true,
+    "bounds": [
+      12,
+      97,
+      488,
+      403
+    ],
+    "rowBounds": [
+      [
+        12,
+        197,
+        488,
+        192
+      ],
+      [
+        148,
+        155,
+        214,
+        232
+      ],
+      [
+        19,
+        161,
+        469,
+        276
+      ],
+      [
+        51,
+        97,
+        405,
+        403
+      ]
+    ],
+    "facing": "left"
+  }
+}

@@ -287,8 +287,8 @@ function drawVerseMotion(ctx,time) {
 }
 
 const MARINA_TURBINES = [
-  [-3,283,123,153,0,399,.039],
-  [284,294,105,129,245,404,-.028]
+  [-3,283,123,153,.039],
+  [284,294,105,129,-.028]
 ];
 const MARINA_TANKS = [[499,594],[635,730],[771,867]];
 
@@ -300,9 +300,27 @@ function drawMarinaEngineMotion(ctx,time) {
   const rotor=picture('art/backdrop-motion/marina/turbine.png');
   ctx.save();
   ctx.imageSmoothingEnabled=false;
-  for (const [x,y,rx,ry,left,bottom,rate] of MARINA_TURBINES) {
+  for (const [i,[x,y,rx,ry,rate]] of MARINA_TURBINES.entries()) {
     ctx.save();
-    ctx.beginPath();ctx.rect(left,0,rx*3,bottom);ctx.clip();
+    // Follow the circular face instead of slicing the spinning blades at a
+    // rectangular bottom/left edge. The native foreground remains visible.
+    ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.clip();
+    if (i===1) {
+      // The rear wheel passes behind the curved housing of the front engine.
+      ctx.beginPath();ctx.rect(0,0,1280,720);
+      ctx.ellipse(40,283,225,175,0,0,Math.PI*2);ctx.clip('evenodd');
+    }
+    // Keep the two lamp stands and the lower pipe ledge in front of the rotors.
+    // Separate clips prevent overlapping foreground masks cancelling out.
+    for (const points of [
+      [[42,434],[43,408],[50,398],[58,396],[54,383],[60,379],[71,396],[85,399],[96,410],[98,434]],
+      [[208,434],[210,409],[218,399],[226,396],[222,384],[229,380],[240,397],[252,400],[263,411],[265,434]]
+    ]) {
+      ctx.beginPath();ctx.rect(0,0,1280,720);
+      ctx.moveTo(...points[0]);for (const point of points.slice(1)) ctx.lineTo(...point);
+      ctx.closePath();ctx.clip('evenodd');
+    }
+    ctx.beginPath();ctx.rect(0,0,1280,434);ctx.clip();
     ctx.translate(x,y);
     ctx.scale(1,ry/rx);
     ctx.rotate(time*rate);

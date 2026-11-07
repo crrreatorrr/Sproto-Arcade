@@ -1,0 +1,107 @@
+{
+  "service": "Higgsfield website",
+  "model": "Nano Banana Pro",
+  "resolution": "2K",
+  "unlimited_mode": true,
+  "credit_baseline": 169.6,
+  "refs": {
+    "transfer_ship": {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p1-concept.png",
+      "sha256": "dbfe551f712969b414ce2a3923001450a2e89831c86671718a21e2c67d381035"
+    },
+    "neon_phase2_style": {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
+      "sha256": "85d297c4eef529b24d22e5b2ccd96d90bef043872dce3c59d2c1c388702d56d0"
+    },
+    "halloween_pilot": {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/fighters/poses/zephyr/00-guard.png",
+      "sha256": "62a870f5dafb2376212e846ceca22a9b84546d5ab54007ecacc6ffd727bd562b"
+    },
+    "collector_pilot": {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/fighters/poses/sproto102/00.png",
+      "sha256": "5ca4b00fd26ad95677350c0f3bb0237766765a7846795f4e512ec4c93239a8d9"
+    },
+    "neon_background": {
+      "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/level-05.jpg",
+      "sha256": "ae10e3a64700cff34485833f3e72938b36c6c553ac2d82792d01b957038006fc"
+    }
+  },
+  "scope": [
+    "Halloween ranch phase1 exact orange crane vehicle with canonical Halloween pilot only replacement",
+    "Collector new NeonTomorrow phase1 concept matching level5 and phase2 style"
+  ],
+  "phase2s_unchanged": true,
+  "animation_requires_concept_review": true,
+  "native_outputs": {
+    "halloween_transfer": {
+      "file": "halloween-ranch-p1-transfer-concept.png",
+      "asset_id": "9b9297ad-e20e-42d2-a0e9-8bda083484b2",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_035007_9b9297ad-e20e-42d2-a0e9-8bda083484b2.png"
+    },
+    "collector_first_review": {
+      "file": "collector-neon-p1-concept-review.png",
+      "asset_id": "cc5516bb-1757-412c-acb8-52d5d095b12c",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_035725_cc5516bb-1757-412c-acb8-52d5d095b12c.png",
+      "vehicle_review": "Good smaller NeonTomorrow teal/cyan/pink hover rig matches P2design family",
+      "pilot_review": "Rejected tallupward starspikes/simplemouth; correction requested to exact enlarged canonical reference"
+    },
+    "collector_corrected": {
+      "file": "collector-neon-p1-concept.png",
+      "asset_id": "aeaacd47-e509-49ff-8405-1afd9eb8508b",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_040654_aeaacd47-e509-49ff-8405-1afd9eb8508b.png",
+      "review": "Root viewed, approved canonical likeness and vehicle, presented inline before animation"
+    }
+  },
+  "credits_after_halloween_transfer": 169.6,
+  "credits_after_collector_first_concept": 169.6,
+  "enlarged_canonical_reference": {
+    "path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/pilot-references/05-neon-sproto102.png",
+    "sha256": "e47328af762935c138d0c89680747fcd9243e9bd4d4b976d90615ab3cd53cada"
+  },
+  "collector_animation_authorized": {
+    "count": 1,
+    "layout": "4x4,2048x2048,512pxcells",
+    "rows": [
+      "idle",
+      "cyan data-lance cannon",
+      "cyan capacitor launcher",
+      "cyan hologram shard/pulse emitter"
+    ],
+    "reuse_ammo": "existing05P2projectiles unchanged",
+    "compact_static_guide": "collector-neon-p1-layout-guide-200.png",
+    "guide_not_for_gameplay": true,
+    "status": "submitted genuine website Unlimited, only current job",
+    "strict_identity": "Same corrected concept and enlarged canonical Fighter reference; rounded head and sideways swept-back hair, no crown spikes; hugeeyes, broadgrin, blackvest/redtie/yellowarms/orangehands",
+    "registration": "Guide200px; request complete all16subjects includingflashes<=250px in512cells,120pxmagenta margins, same center/camera/scale",
+    "attack_frame_order": [
+      "anticipation",
+      "charge",
+      "release with local muzzleflash and mechanical recoil",
+      "recovery"
+    ]
+  },
+  "collector_animation_first_attempt": {
+    "file": "collector-neon-p1-boss-native-review.png",
+    "asset_id": "6ee83f87-e590-4ebe-9571-9240a8527ce2",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_041623_6ee83f87-e590-4ebe-9571-9240a8527ce2.png",
+    "accepted": false,
+    "reason": "Rows2/3 flip vehicleRIGHT; detached giant duplicateclaw/hoverpod overlapscells; sourcecamera/margin failure",
+    "pilot_likeness": "Canonical identity preserved"
+  },
+  "credits_after_collector_animation_first_attempt": 169.6,
+  "collector_animation_final": {
+    "file": "collector-neon-p1-boss-native.png",
+    "asset_id": "e6db6805-cdd1-404e-abd6-4db81af35816",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_042615_e6db6805-cdd1-404e-abd6-4db81af35816.png",
+    "sha256": "fa9ea3c19e07e35b6944a238f679b22a97a43e783274b13c3aaa40502bd06245",
+    "visual_review": "All16 sameLEFTcamera andapprovedhull/cockpit/canonicalpilot; distinct nativecyan cannon/capacitor/LCD cycles; no detached props",
+    "global_edge_nonmagenta": {
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "bottom": 0
+    },
+    "strict_pipeline_acceptance": "pending root component recovery/packing and per-frame native review"
+  },
+  "credits_after_final_animation": 169.6
+}

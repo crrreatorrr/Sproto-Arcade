@@ -20,7 +20,14 @@ const commands=tests.map(file=>{
  }
  return {file,relative,args};
 });
-for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs','projectile-visibility.test.cjs','density-attacks.test.cjs','density-modern.test.cjs','density-rotation.test.cjs','redkev-render.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+commands.push({file:path.join(qaDir,'prepare-density-assets.test.py'),relative:'qa/prepare-density-assets.test.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'tools/verify-density-assets.py'),relative:'tools/verify-density-assets.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'qa/verify-density-assets.test.py'),relative:'qa/verify-density-assets.test.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'tools/test-redkev-geometry.py'),relative:'tools/test-redkev-geometry.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'tools/test-boss-replacement.py'),relative:'tools/test-boss-replacement.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'qa/prepare-redkev-atlas.test.py'),relative:'qa/prepare-redkev-atlas.test.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'qa/redkev-anchors.test.py'),relative:'qa/redkev-anchors.test.py',args:[],executable:'python3'});
 // Story replay goldens for the hub's server verifier (bundle always; source simulation after npm ci).
 if(fs.existsSync(path.join(qaDir,'server-sim-goldens.mjs')))commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs',args:[root]});
 commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs (historical collision disabled)',args:[root,'--collision-disabled']});
@@ -29,7 +36,7 @@ if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.
 if(fs.existsSync(path.join(qaDir,'missile-checks.mjs')))commands.push({file:path.join(qaDir,'missile-checks.mjs'),relative:'qa/missile-checks.mjs',args:[root]});
 const results=[];
 for(const command of commands){
- const r=spawnSync(process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});
+ const r=spawnSync(command.executable||process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});
  const result={file:command.relative,args:command.args.map(a=>a===root?'<repo>':a===runtime?'<repo>/runtime/core/world.js':a),status:r.status===0?'passed':'failed',exit:r.status,signal:r.signal,stdout:r.stdout?.trim(),stderr:r.stderr?.trim(),error:r.error?.message};results.push(result);
  console.error(result.status.toUpperCase()+' '+command.relative);
 }

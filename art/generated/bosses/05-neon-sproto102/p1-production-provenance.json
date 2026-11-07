@@ -1,150 +1,19 @@
 {
   "schemaVersion": 1,
-  "kind": "reviewed-higgsfield-unlimited-asset-import",
   "folder": "05-neon-sproto102",
   "phase": 1,
+  "provider": "Higgsfield website Unlimited",
+  "kind": "root-reviewed-genuine-new-collector-P1-atlas",
+  "source": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/collector-neon-p1-boss-native.png",
+  "sourceSha256": "fa9ea3c19e07e35b6944a238f679b22a97a43e783274b13c3aaa40502bd06245",
+  "nativeFrames": 16,
+  "framesInventedDuplicatedInterpolatedOrReordered": false,
+  "preparationScript": "tools/prepare-redkev-atlas.py",
+  "preparationScriptSha256": "8cfd75f895948abe8277673bda2b405dbc2d83e90e70c8d493c279d6cab62c5e",
+  "preservedIntentionalNeonPink": true,
+  "rootVisualReview": "accepted-all16-pilot-identity-palette-alpha-real-distinct-weapons-and-registered-poses",
+  "rootNumericReview": "accepted-actual-core-coverage-fixed-aim-centers-and-5x5-opaque-neighborhoods",
+  "productionEnabled": true,
   "assetKind": "boss",
-  "provider": "Higgsfield website",
-  "model": "Nano Banana Pro 2K (connector nano_banana_2)",
-  "billingMode": "website Unlimited switch verified checked and native submit labelled UNLIMITED before generation",
-  "generation": {
-    "folder": "05-neon-sproto102",
-    "phase": 1,
-    "concept_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p1-concept.png",
-    "concept_job_id": "57668df4-4fad-4390-b728-802bf5fa2f5a",
-    "layout_guide_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/layout-guides/05-neon-sproto102-p1-guide-small.png",
-    "status": "root_visual_pass_copied_to_repo",
-    "billing": "Website Unlimited only; no paid fallback",
-    "model_ui": "Nano Banana Pro",
-    "resolution": "2K",
-    "aspect_ratio": "1:1",
-    "weapon_plan": [
-      {
-        "slot": "A",
-        "mechanism": "left crane-claw bolt-launch barrel",
-        "projectile": "long jagged bronze salvage-bolt dart",
-        "size_class": "long narrow",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 48,
-          "height": 11
-        }
-      },
-      {
-        "slot": "B",
-        "mechanism": "front grinder shredder-spit cannon",
-        "projectile": "small angular dark iron scrap shard with orange hot edge",
-        "size_class": "small compact",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 21,
-          "height": 21
-        }
-      },
-      {
-        "slot": "C",
-        "mechanism": "side pumpkin-weight feeder launcher",
-        "projectile": "wide spinning orange salvage gear with dark iron teeth",
-        "size_class": "broad wide",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 38,
-          "height": 28
-        }
-      },
-      {
-        "slot": "heavy",
-        "mechanism": "reinforced crane boom launcher",
-        "projectile": "large iron-bracketed pumpkin wrecking orb matching the crane weight",
-        "size_class": "large heavy",
-        "animation": "visible mechanism anticipation/charge, muzzle release synchronized to existing attack, recoil/recovery; no simulation timing changes",
-        "extent_percent_of_cell": {
-          "width": 44,
-          "height": 34
-        }
-      }
-    ],
-    "simulation_changes": false,
-    "enabled_in_game": false,
-    "type": "boss_phase_atlas",
-    "prompt": "Animate this EXACT tiny fixed-layout guide IN PLACE. Every complete vehicle including legs, wheels, antennae and chains stays at its input position, proportions and scale, maximum 220px tall or wide inside each 512px cell. Preserve HUGE empty gaps. The whole body and cockpit remain UPRIGHT at the identical angle in all16 cells; never rotate, tilt or shift the complete machine. Only local weapon mechanisms articulate. Every active weapon muzzle and attached spark points toward CANVAS LEFT, mounted away from the pilot. Never enlarge whole vehicles. Every sprite and effect fits central 55% of its cell; nothing touches an edge. Preserve the exact visible Sproto pilot seated inside the cockpit, face and hands unobstructed in ALL 16 frames. Never place a weapon, mask, flash or tint across the face or cockpit opening. Mount new mechanisms below the cockpit or on side chassis away from the pilot. ROW 1: four subtle idle mechanism frames. ROW 2: animate the left crane-claw bolt-launch barrel: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches long jagged bronze salvage-bolt dart colors/material and remains attached to the muzzle, maximum 15px. ROW 3: animate the front grinder shredder-spit cannon: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches small angular dark iron scrap shard with orange hot edge colors/material and remains attached to the muzzle, maximum 15px. ROW 4: animate the side pumpkin-weight feeder launcher: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches wide spinning orange salvage gear with dark iron teeth colors/material and remains attached to the muzzle, maximum 15px. Three DISTINCT physical mechanisms genuinely deploy and shoot in their respective attack rows. Other weapons stay neutral. No detached travelling projectiles or long beams; those are separate assets. Exactly four rows of four isolated complete sprites, 2048 square. Detailed crisp high-quality pixel art. Keep ALL empty background and gutters UNIFORMLY pure hot magenta #FF00FF. No grid lines, labels, text, arrows, scenery or enlarged reference. Match input 220px subject size exactly.",
-    "layout_guide_prompt": "Animate this EXACT tiny fixed-layout guide IN PLACE. Every complete vehicle including legs, wheels, antennae and chains stays at its input position, proportions and scale, maximum 220px tall or wide inside each 512px cell. Preserve HUGE empty gaps. The whole body and cockpit remain UPRIGHT at the identical angle in all16 cells; never rotate, tilt or shift the complete machine. Only local weapon mechanisms articulate. Every active weapon muzzle and attached spark points toward CANVAS LEFT, mounted away from the pilot. Never enlarge whole vehicles. Every sprite and effect fits central 55% of its cell; nothing touches an edge. Preserve the exact visible Sproto pilot seated inside the cockpit, face and hands unobstructed in ALL 16 frames. Never place a weapon, mask, flash or tint across the face or cockpit opening. Mount new mechanisms below the cockpit or on side chassis away from the pilot. ROW 1: four subtle idle mechanism frames. ROW 2: animate the left crane-claw bolt-launch barrel: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches long jagged bronze salvage-bolt dart colors/material and remains attached to the muzzle, maximum 15px. ROW 3: animate the front grinder shredder-spit cannon: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches small angular dark iron scrap shard with orange hot edge colors/material and remains attached to the muzzle, maximum 15px. ROW 4: animate the side pumpkin-weight feeder launcher: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches wide spinning orange salvage gear with dark iron teeth colors/material and remains attached to the muzzle, maximum 15px. Three DISTINCT physical mechanisms genuinely deploy and shoot in their respective attack rows. Other weapons stay neutral. No detached travelling projectiles or long beams; those are separate assets. Exactly four rows of four isolated complete sprites, 2048 square. Detailed crisp high-quality pixel art. Keep ALL empty background and gutters UNIFORMLY pure hot magenta #FF00FF. No grid lines, labels, text, arrows, scenery or enlarged reference. Match input 220px subject size exactly.",
-    "reference_policy": "Sole validated fixed-layout guide; never combined board or rejected draft",
-    "raw_output_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-atlases/05-neon-sproto102-p1.png",
-    "game_asset_path": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/art/generated/bosses/05-neon-sproto102/p1.png",
-    "grid": {
-      "columns": 4,
-      "rows": 4,
-      "width": 2048,
-      "height": 2048,
-      "cell_width": 512,
-      "cell_height": 512,
-      "rows_by_state": [
-        "idle",
-        "attack-a",
-        "attack-b",
-        "attack-c"
-      ]
-    },
-    "prompt_original_long": "EDIT the attached exact 4x4 fixed-layout GUIDE IN PLACE. Preserve its exact 16 sprite positions, vehicle scale, center, anchor, baseline and proportions. The sole reference is a deterministic guide made from the validated single phase concept; keep its exact vehicle and Sproto identity. No enlarged reference, ghost image or duplicated guide inside any cell. ROW 1: four genuinely DISTINCT subtle idle machinery/pilot frames. ROW 2: left crane-claw bolt-launch barrel: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local long jagged bronze salvage-bolt dart birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 3: front grinder shredder-spit cannon: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local small angular dark iron scrap shard with orange hot edge birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. ROW 4: side pumpkin-weight feeder launcher: frame1 brace/aim, frame2 charge/deploy, frame3 visibly SHOOT a tiny local wide spinning orange salvage gear with dark iron teeth birth at THAT weapon muzzle, frame4 recoil/recover. Other weapons stay neutral. THREE distinct physical mounted weapons SHOOTING in the three attack rows, with visible local weapon articulation and separate muzzle release origins; do not substitute whole-body bobbing or an identical generic flash. Pilot remains seated INSIDE the cockpit with both hands operating controls, exact face/costume/colors from the guide: large LIGHT-BLUE spiky head with darker blue edge shadows, thick arched blue brow shapes, two enormous bright YELLOW eyes with BLACK pupils, round RED nose, wide RED smiling lips with orange inner mouth; visible small ORANGE ear; ORANGE hands; bright YELLOW sleeves and YELLOW legs; dark BLACK/GREEN sleeveless top with a small RED neck detail; black shoes with yellow soles. Preserve this exact light-blue head, red round nose, orange hands and black-on-yellow costume; no headset, goggles, helmet or green vest. No glare, reflection stripes or colored tint over the pilot. Keep all pixels including tiny flashes inside the central 55% width/height of each 512 cell, broad clear margins, nothing touches cell borders. Do not move, resize or rotate whole sprites. Premium crisp detailed pixel art, rich controlled palette and precise mechanisms. ALL background/gutters stay original flat pure #FF00FF magenta in every cell, no gray/white background, black grid lines, dividers, frames, numbers, labels, text, arrows, trajectories, diagrams or extra objects. No flying projectile leaving its local muzzle. Four rows of four meaningful ordered animation frames; do not merely repeat static guide copies. Same gameplay timing, paths, damage and attack count; artwork only.",
-    "background_request": "#FF00FF",
-    "reference_maximum_subject_size": 220,
-    "prompt_previous_before_short_retry_strategy": "EDIT this exact4x4 fixed-layout guide IN PLACE. Preserve all16 positions, whole-machine scale, center, anchor, baseline and proportions. Preserve exact Sproto pilot identity/colors/costume from the guide, visible seated with hands operating controls. NO enlarged reference or ghost copy. ROW1 four distinct subtle idle machinery/pilot frames. ROW 2: left crane-claw bolt-launch barrel: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY hot amber muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 3: front grinder shredder-spit cannon: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY steel-white muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. ROW 4: side pumpkin-weight feeder launcher: frame1 mechanism brace/aim, frame2 deploy/charge, frame3 SHOOT with one TINY neon cyan muzzle flash attached to barrel tip, frame4 recoil/recover. Other weapons neutral. Pilot face, hands and cockpit remain visible and unobstructed in every frame. No weapon, bracket or flash can overlap the cockpit opening; mount weapons on the lower chassis or away from pilot. Three DISTINCT physical weapons visibly firing with real local mechanism articulation and recoil. Each muzzle flash is a compact spark no larger than20pixels total, touching only its muzzle tip. ALL actual travelling projectile art is generated SEPARATELY: this BOSS atlas contains only the machine, seated pilot and TINY attached muzzle flashes, no detached projectile, ray, beam, ring, splash, arrow, line or trajectory. Keep all sprite pixels and flash inside the CENTRAL55%width/height of its own512cell, wide empty margins, NOTHING touches any cell edge. Do not move/resize whole vehicles. High-quality detailed crisp32-bit pixel art. Background/gutters stay UNIFORMLY flat pure hot magenta #FF00FF in all16cells. No black grid lines, dividers, frames, text, labels, numbers, diagrams, floor or scenery. No reflection/tint over pilot face. FOUR meaningful consecutive keyframes per row, not repeated static copies. One2048square atlas with16 isolated complete animation frames.",
-    "final_pilot_source_concept": "outputs/boss-concepts/05-neon-sproto102-p2-concept.png",
-    "final_pilot_source_phase": 2,
-    "final_pilot_selection_reason": "Exact approved same canonical pilot, unobscured face/hands. Other phase has central glass line crossing eye/muzzle/chest; preserve target vehicle rim and machinery.",
-    "final_vehicle_source_concept": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/boss-concepts/05-neon-sproto102-p1-concept.png",
-    "baked_pilot_only": true,
-    "job_id": "10744b2f-6a8e-4ca8-97cb-9b0937925e0d",
-    "submitted_prompt": "Animate this EXACT tiny fixed-layout guide IN PLACE. Every complete vehicle including legs, wheels, antennae and chains stays at its input position, proportions and scale, maximum 220px tall or wide inside each 512px cell. Preserve HUGE empty gaps. The whole body and cockpit remain UPRIGHT at the identical angle in all16 cells; never rotate, tilt or shift the complete machine. Only local weapon mechanisms articulate. Every active weapon muzzle and attached spark points toward CANVAS LEFT, mounted away from the pilot. Never enlarge whole vehicles. Every sprite and effect fits central 55% of its cell; nothing touches an edge. Preserve the exact visible Sproto pilot seated inside the cockpit, face and hands unobstructed in ALL 16 frames. Never place a weapon, mask, flash or tint across the face or cockpit opening. Mount new mechanisms below the cockpit or on side chassis away from the pilot. ROW 1: four subtle idle mechanism frames. ROW 2: animate the left crane-claw bolt-launch barrel: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches long jagged bronze salvage-bolt dart colors/material and remains attached to the muzzle, maximum 15px. ROW 3: animate the front grinder shredder-spit cannon: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches small angular dark iron scrap shard with orange hot edge colors/material and remains attached to the muzzle, maximum 15px. ROW 4: animate the side pumpkin-weight feeder launcher: brace/aim, deploy/charge, visibly FIRE a tiny source-themed spark from THAT muzzle, recoil/recover. The spark matches wide spinning orange salvage gear with dark iron teeth colors/material and remains attached to the muzzle, maximum 15px. Three DISTINCT physical mechanisms genuinely deploy and shoot in their respective attack rows. Other weapons stay neutral. No detached travelling projectiles or long beams; those are separate assets. Exactly four rows of four isolated complete sprites, 2048 square. Detailed crisp high-quality pixel art. Keep ALL empty background and gutters UNIFORMLY pure hot magenta #FF00FF. No grid lines, labels, text, arrows, scenery or enlarged reference. Match input 220px subject size exactly.",
-    "reference_media_id": "7d6974a9-9b0d-4ef1-a4bb-fd0516a46518",
-    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261106_161559_10744b2f-6a8e-4ca8-97cb-9b0937925e0d.png",
-    "visual_review": "Genuine16 safe isolated machine frames. Exact P1 cab plus unobscured approved same-character P2 pilot patch, all protected native RGBA byte-exact. Three LEFT physical weapon mechanisms animate; baseline local gray-glow cleanup pending.",
-    "composition_provenance": [
-      "work/art-production/cockpit-compositions/05-neon-sproto102-p1-cab-raw.json",
-      "work/art-production/cockpit-compositions/05-neon-sproto102-p1-composed-raw.json"
-    ],
-    "pilot_repair": "Two exact native nearest-neighbor compositions: approved P1 cab/rim, then unobscured same canonical approved P2 pilot head/torso/hands. P1 machinery and all generated weapon motion outside the masks byte-exact.",
-    "final_output_sha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e"
-  },
-  "acceptedOutput": {
-    "path": "p1.png",
-    "sha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e",
-    "metadata": "p1.json",
-    "bounds": [
-      12,
-      239,
-      488,
-      261
-    ],
-    "rowBounds": [
-      [
-        175,
-        239,
-        283,
-        257
-      ],
-      [
-        12,
-        270,
-        435,
-        226
-      ],
-      [
-        62,
-        270,
-        385,
-        226
-      ],
-      [
-        54,
-        272,
-        446,
-        228
-      ]
-    ]
-  },
-  "runtimeReadyFlags": "Owned separately by root; this provenance record does not enable anything",
-  "review": "Parent independent visual pass and native source/strict16cell checks before repository import",
-  "animationPolicy": "Weapon machine frames and projectile poses genuinely generated by Higgsfield. Any repeated layout guide is reference-only and never runtime. Exact canonical cockpit/pilot may be nearest native approved-source composed with recorded hard masks; no invented motion."
+  "finalSha256": "a903906ebd52c4d57b55aee1747dcbe96568ebd786c6265bb8218e3ce6e3b33e"
 }

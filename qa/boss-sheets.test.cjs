@@ -92,10 +92,11 @@ for(const number of Object.keys(sheets.manifest)){
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');
-assert.deepEqual(JSON.parse(JSON.stringify(sheets.legacyBox(4,0,{x:100,y:200,w:380,h:498.4}))),{x:27,y:200,w:380,h:498.4},'legacyart registration moves only drawbox');
+const ranchRegistered=sheets.legacyBox(4,0,{x:100,y:200,w:380,h:498.4});for(const[key,value]of Object.entries({x:-23.3,y:200,w:520.6,h:498.4}))assert.ok(Math.abs(ranchRegistered[key]-value)<1e-9,'approved Ranch scale/offset moves only the drawing and preserves its bottom baseline');
+for(const[phaseIndex,expected]of [[0,{x:4595,y:260,w:400,h:340}],[1,{x:920,y:160,w:340,h:440}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'05-neon'},phaseIndex,data:{}}))),expected,'new Collector P1 uses its measured claw registration while P2 stays unchanged');
 console.log('PASS atlas readiness, loading/error fallback, fixed-tick frame sampling, rule-drawing preservation and simulation immutability');
 
-assert.deepEqual(JSON.parse(JSON.stringify(sheets.legacyBox(5,0,{x:-190,y:-510.4,w:380,h:498.4}))),{x:-248,y:-510.4,w:456,h:498.4},'squat salvage vehicle scales around fixed feet and preserves homing alignment');
+assert.deepEqual(JSON.parse(JSON.stringify(sheets.legacyBox(5,0,{x:-190,y:-510.4,w:380,h:498.4}))),{x:-301,y:-510.4,w:456,h:498.4},'new Collector hover rig retains the floor baseline and opaque homing registration');
 
 for(const [phaseIndex,expected]of [[0,{x:930,y:322,w:320,h:240}],[1,{x:956,y:322,w:320,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'12-codebreak'},phaseIndex,data:{},phase:{pilot:()=>({x:1090,y:452})}}))),expected,'summit P2 draw registration keeps fixed vent on leg armor and preserves climb pose');
 

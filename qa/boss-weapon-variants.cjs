@@ -3,14 +3,14 @@
  */
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const scope=vm.createContext({Image:class{constructor(){this.complete=true;this.naturalWidth=this.naturalHeight=2048;}}});
-const files=['sprite-hitboxes.js','runtime/contract.js','runtime/weapons/weapons.js','runtime/core/world.js',...fs.readdirSync('stages').filter(s=>/^\d\d-/.test(s)).map(s=>'stages/'+s+'/stage.js'),'boss-sheets.js'];
+const files=['levels.js','sprite-hitboxes.js','density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/weapons/weapons.js','runtime/core/world.js',...fs.readdirSync('stages').filter(s=>/^\d\d-/.test(s)).map(s=>'stages/'+s+'/stage.js'),'boss-sheets.js'];
 for(const file of files)vm.runInContext(fs.readFileSync(file,'utf8'),scope,{filename:file});
 const art=scope.ArcadeBossSheets;
 for(const c of Object.values(art.manifest))for(const a of [...c.phases,...c.projectiles])a.ready=true;
 let drawn=[];
 const ctx=new Proxy({drawImage(image,...args){drawn.push({path:image.src,row:Math.floor(args[1]/512)});}}, {get(o,k){return k in o?o[k]:(...args)=>{for(const a of args)if(typeof a==='number')assert.ok(Number.isFinite(a));};},set(o,k,v){o[k]=v;return true;}});
 const rows=[];
-for(const stage of scope.Arcade.stages.values())for(const phase of [0,1]){
+for(const stage of [...scope.Arcade.stages.values()].filter(s=>typeof s.enabled==='function'?s.enabled():s.enabled!==false))for(const phase of [0,1]){
   const w=new scope.Arcade.World(stage,{seed:177,phase,practice:true});
   w.player.hp=100000;
   const bossRows=new Set(),projectileRows=new Set();
@@ -24,7 +24,7 @@ for(const stage of scope.Arcade.stages.values())for(const phase of [0,1]){
     w.updateHazards();w.phase.update(w);
     const before=JSON.stringify(w);
     drawn=[];art.drawMachine(ctx,w);
-    for(const d of drawn)if(/\/p[12]\.png$/.test(d.path)&&d.row>0)bossRows.add(d.row);
+    for(const d of drawn)if(/\/p[12]\.png(?:\?|$)/.test(d.path)&&d.row>0)bossRows.add(d.row);
     for(const h of w.hazards){
       if(h.missile)continue;
       if(!h.removed&&h.age<h.windup+h.active){
@@ -36,7 +36,7 @@ for(const stage of scope.Arcade.stages.values())for(const phase of [0,1]){
         assert.equal(art.weaponVariant(w,h),saved,'in-flight shot variant must not change as its age advances');
         h.age=age;w.phaseTick=clock;
         drawn=[];art.drawProjectile(ctx,stage.id,h,{x:h.x,y:h.y,w:h.w,h:h.h},w);
-        for(const d of drawn)if(/projectiles\.png$/.test(d.path)&&d.row<3)projectileRows.add(d.row);
+        for(const d of drawn)if(/projectiles\.png(?:\?|$)/.test(d.path)&&d.row<3)projectileRows.add(d.row);
       }
     }
     assert.equal(JSON.stringify(w),before,'rendering and selection must not mutate simulation state');
@@ -64,4 +64,5 @@ assert.equal(art.shotBinding(wrapper.bullets[0]).variant,2);
 wrapper.boss.step=99;assert.equal(art.shotBinding(wrapper.bullets[0]).variant,2,'later boss moves cannot rebind old projectiles');
 assert.equal(vm.runInContext('updateCodeAttack()',wrapper),83);assert.equal(wrapper.codeCalls,1);
 assert.equal(art.shotBinding(wrapper.codeShots[0]).variant,1);
+assert.equal(rows.length,26,'all thirteen enabled boss identities exercise both weapon phases');
 console.log(JSON.stringify({status:'passed',kind:'presentation-only-weapon-variants',phases:rows,limitations:['Controlled stationary scene eligibility and protected target HP; not earned clears or human playtests.','Canvas operations are mocked; generated image quality requires separate visual inspection.']},null,2));

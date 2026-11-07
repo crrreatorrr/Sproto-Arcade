@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check hash-pinned numeric boss geometry against the actual ready sprite assets.
 
-This is read-only. --require-complete requires all 24 boss and projectile phases
+This is read-only. --require-complete requires all configured boss and projectile phases
 to have measured geometry; the runtime activation flag is never changed.
 """
 import argparse,hashlib,json,subprocess
@@ -39,4 +39,4 @@ for stage,entry in data['manifest'].items():
     if not raster:errors.append(f'{name}: no raster projectile profiles')
    records.append({'phase':phase+1,'stage':int(stage),'kind':kind,'sha256':actual})
 if args.require_complete and pending:errors.extend('Pending geometry: '+x for x in pending)
-print(json.dumps({'enabled':data['geometry']['enabled'],'verifiedAssetGeometryPairs':len(records),'expectedPairs':48,'pending':pending,'errors':errors,'assets':records},indent=2));raise SystemExit(1 if errors else 0)
+print(json.dumps({'enabled':data['geometry']['enabled'],'verifiedAssetGeometryPairs':len(records),'expectedPairs':len(data['manifest'])*4,'pending':pending,'errors':errors,'assets':records},indent=2));raise SystemExit(1 if errors else 0)

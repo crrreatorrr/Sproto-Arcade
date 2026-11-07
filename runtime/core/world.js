@@ -6,6 +6,7 @@
   const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
   // Collision geometry is separate from authored bounds used by aiming, spawning and routes.
   const hitbox=(w,kind,key,base,row,entity)=>{
+    if(kind==='projectiles'&&(entity||base).density&&typeof ArcadeDensityAttacks!=='undefined')return ArcadeDensityAttacks.damageRect({...entity,...base});
     if(kind==='projectiles'&&(['dash','shield'].includes((entity||base).rule)||/^carrier-debris-/.test((entity||base).source||'')))return base;
     const shot=entity||base,index=row??(kind==='projectiles'&&typeof spriteWeaponRow==='function'?spriteWeaponRow(shot.weaponVariant,shot):undefined);
     if(kind==='projectiles'&&typeof spriteProjectileCoreRect==='function'){
@@ -41,14 +42,19 @@
       this.restart();
     }
     restart(){
+      this.attempt=(this.attempt??(this.options.pickupAttempt??0)-1)+1;
+      const deathPhase=this.state==='lost'?this.phaseIndex:null;
+      this.checkpointRetry=deathPhase===1&&!this.options.practice;
       this.tick=0;this.failure='';this.practice=!!this.options.practice;this.sector=this.options.sector;
       this.attackRandom=A.rng(this.seed^hash(this.stage.id)^0xa77ac);
       if(this.weapons)this.weapons.reset();
-      this.enterPhase(clamp(this.options.phase|0,0,1),false);return this;
+      this.enterPhase(deathPhase??clamp(this.options.phase|0,0,1),false);
+      if(this.weapons)this.weapons.phase(this.phase.mode);return this;
     }
     enterPhase(index,carry){
       const hp=carry?this.player.hp:5;
       this.phaseIndex=index;this.phase=this.stage.phases[index];this.phaseTick=0;this.state='playing';this.transitionTick=0;
+      this.phasePowerups=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?ArcadePhasePowerups.create({seed:this.seed,attempt:this.attempt,phase:index}):null;
       this.platforms=[];this.targets=[];this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.events=[];this.data={};this.input={};
       this.objective=this.phase.objective||'';this.progress=0;this.cueText='';this.cueTicks=0;this.camera={x:0,y:0};this.shotClock=0;this.serial=0;this.pressureTicks=new Map();this.missileNextTick=180;
       const spawn=(this.practice&&this.phase.practiceSpawn)||this.phase.spawn||{x:120,y:600};
@@ -59,9 +65,9 @@
       this.player.grounded=this.platforms.some(p=>Math.abs(this.player.y-p.y)<1&&this.player.x+16>p.x&&this.player.x-16<p.x+p.w);
       this.player.grace=this.player.grounded?6:0;this.updateCamera();
     }
-    advancePhase(){if(this.state!=='playing')return;if(this.phaseIndex===1){this.clear();return;}this.state='transition';this.transitionTick=0;this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.cueText='';this.input={};this.events.push({type:'phase',phase:1});}
+    advancePhase(){if(this.state!=='playing')return;if(this.phaseIndex===1){this.clear();return;}this.state='transition';this.transitionTick=0;this.data.densityLane=null;this.phasePowerups=null;this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.cueText='';this.input={};this.events.push({type:'phase',phase:1});}
     lose(source='unknown'){if(this.state!=='playing')return;this.failure=source;this.state='lost';this.input={};this.events.push({type:'loss',source});}
-    clear(){if(this.state!=='playing')return;this.state='clear';this.hazards=[];this.shots=[];this.events.push({type:'clear',practice:this.practice,tick:this.tick});}
+    clear(){if(this.state!=='playing')return;this.state='clear';this.data.densityLane=null;this.phasePowerups=null;this.hazards=[];this.shots=[];this.events.push({type:'clear',practice:this.practice,tick:this.tick});}
     cue(text,ticks=120){this.cueText=text;this.cueTicks=ticks;}
     platform(spec){return this.upsert(this.platforms,{h:20,...spec});}
     target(spec){return this.upsert(this.targets,{open:true,...spec,maxHp:spec.maxHp??spec.hp});}
@@ -73,7 +79,7 @@
       if(typeof spriteWeaponBinding==='function')Object.assign(h,spriteWeaponBinding(this.phaseIndex,
         spriteModernWeaponVariant(this.stage.id,this.phaseIndex,h.source,h.id,this.phaseTick,h.missile)));
       // Campaign pacing is phase-independent; unnumbered mechanics fixtures keep authored physics.
-      if(Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=12){
+      if(Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=13){
         const speed=Math.hypot(h.vx,h.vy),cap=['dash','shield'].includes(h.rule)?8:6;
         h.authoredSpeed=speed;h.authoredActive=h.active;h.speedCap=cap;
         if(speed>cap&&h.active>0){
@@ -148,6 +154,7 @@
       if(this.cueTicks>0&&!--this.cueTicks)this.cueText='';
       this.movePlayer(input);
       if(this.state!=='playing')return;
+      this.updatePhasePowerups();
       if(this.weapons?.tick)this.weapons.tick(this.tick);
       if(input.beam&&!this.player.beamWait){this.standardSpecial('beam');this.player.beamWait=90;}
       if(input.bomb&&!this.player.bombWait){this.standardSpecial('ball');this.player.bombWait=120;}
@@ -155,10 +162,22 @@
       if(++this.shotClock>=12){this.shotClock=0;this.autoFire();}
       this.updateShots();this.updateHazards();this.updateEffects();this.collectPickups(input);
       if(this.state==='playing')this.phase.update?.(this);
+      if(this.state==='playing')this.updateDensity();
       this.updateCamera();
       // Resolve contacts before consuming last active dash/shield/invulnerability tick.
       for(const k of ['dash','shield','inv'])if(this.player[k]>0)this.player[k]--;
       this.input={};
+    }
+    updateDensity(){
+      if(typeof ArcadeDensityAttacks==='undefined')return;
+      const blocked=this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule));
+      const volley=ArcadeDensityAttacks.plan({stage:this.stage.number,phase:this.phaseIndex,tick:this.phaseTick,
+        enabled:ArcadeDensityAttacks.enabled,blocked,lastCycle:this.data.densityLastCycle??-1,liveCount:this.hazards.filter(h=>h.density&&!h.removed).length,
+        arena:{left:this.camera.x+20,top:this.camera.y+130,right:this.camera.x+1260,bottom:this.camera.y+650},
+        player:{x:this.player.x,y:this.player.y-26}});
+      if(volley?.clear){this.hazards=this.hazards.filter(h=>!h.density);this.data.densityLane=null;return;}
+      if(volley?.shots?.length){for(const shot of volley.shots)this.hazard(shot);this.data.densityLane=volley.lane;this.data.densityLastCycle=volley.cycle;this.cue(volley.cue,volley.cueDuration);}
+      if(this.data.densityLane&&this.phaseTick>this.data.densityLane.until)this.data.densityLane=null;
     }
     movePlayer(input){
       const p=this.player;p.prevX=p.x;p.prevY=p.y;
@@ -250,15 +269,33 @@
       for(const h of this.hazards)if(h.rule==='ordinary'&&Math.hypot(h.x-s.x,h.y-s.y)<=radius)h.removed=true;
       this.effects.push({type:'blast',x:s.x,y:s.y,radius,ttl:20});
     }
+    updatePhasePowerups(){
+      if(!this.phasePowerups)return;
+      const p=this.player,flying=['flight','orbit'].includes(this.phase.mode),b=this.phase.flightBounds;
+      const bounds=flying?{x:b?.left??this.camera.x+80,y:b?.top??this.camera.y+240,w:(b?.right??this.camera.x+820)-(b?.left??this.camera.x+80),h:(b?.bottom??this.camera.y+620)-(b?.top??this.camera.y+240)}:{x:this.camera.x+80,y:Math.max(this.camera.y+240,p.y-100),w:700,h:70};
+      const surfaces=flying?null:this.platforms.filter(s=>s.active!==false&&Math.abs(s.y-p.y)<=150&&s.x+s.w>this.camera.x+40&&s.x<this.camera.x+840).map(s=>({x:Math.max(this.camera.x+40,s.x),y:s.y,w:Math.min(s.x+s.w,this.camera.x+840)-Math.max(this.camera.x+40,s.x)})).filter(s=>s.w>=64);
+      const events=ArcadePhasePowerups.step(this.phasePowerups,{tick:this.phaseTick,ready:true,player:{x:p.x-16,y:p.y-58,w:32,h:58},bounds,surfaces});
+      for(const e of events)if(e.type==='collect'){
+        if(e.kind==='life'&&p.hp<5)p.hp++;
+        this.events.push({type:'phasePickup',kind:e.kind});
+      }
+    }
     hit(h){
       const p=this.player;const counter=h.rule==='dash'?p.dash>0:h.rule==='shield'?p.shield>0:h.rule==='ordinary'?(p.dash>0||p.shield>0):false;
       if(counter){this.events.push({type:'counter',source:h.source,rule:h.rule});return;}
       // Mandatory fronts cannot be bypassed by a preceding ordinary hit's grace.
       if(p.inv&&h.rule==='ordinary')return;
+      if(this.phasePowerups&&ArcadePhasePowerups.absorb(this.phasePowerups,this.phaseTick,{mandatory:h.rule!=='ordinary'})){p.inv=60;this.events.push({type:'pickupShield',source:h.source});return;}
       p.hp=Math.max(0,p.hp-1);p.inv=60;this.failure=h.source;this.events.push({type:'hit',source:h.source,rule:h.rule});
       if(p.hp===0)this.lose(h.source);
     }
+    clearDensityForFronts(){
+      if(this.hazards.some(h=>!h.removed&&!h.resolved&&['dash','shield'].includes(h.rule))){
+        this.hazards=this.hazards.filter(h=>!h.density);this.data.densityLane=null;
+      }
+    }
     updateHazards(){
+      this.clearDensityForFronts();
       const p=this.player,p0=box({...p,x:p.prevX,y:p.prevY}),p1=box(p);
       for(const h of this.hazards){
         if(h.removed)continue;

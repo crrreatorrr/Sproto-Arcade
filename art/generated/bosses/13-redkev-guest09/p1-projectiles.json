@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "kind": "prepared-image-sprite-atlas",
+  "assetKind": "projectiles",
+  "source": "redkev-p1-projectiles-native.png",
+  "sourceSha256": "e5c4c065d41e7924817f4fa6ae1d69ffdb8a16b7988d2934f0552f3df4b5bcb9",
+  "sourceDimensions": [
+    2048,
+    2048
+  ],
+  "sourceFrameDimensions": [
+    512,
+    512
+  ],
+  "gridRemoval": {
+    "maximumBoundaryDistance": 0,
+    "nearBlackMaximumChannel": 45,
+    "maximumInterpolationFringe": 0,
+    "bands": []
+  },
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      118,
+      193,
+      277,
+      212
+    ],
+    [
+      12,
+      261,
+      487,
+      77
+    ],
+    [
+      55,
+      98,
+      403,
+      402
+    ],
+    [
+      13,
+      203,
+      487,
+      202
+    ]
+  ],
+  "bounds": [
+    12,
+    98,
+    488,
+    402
+  ],
+  "unionCrop": [
+    19,
+    61,
+    492,
+    451
+  ],
+  "destinationSize": [
+    488,
+    402
+  ],
+  "offset": [
+    12,
+    98
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        133,
+        153,
+        380,
+        359
+      ],
+      "cellBounds": [
+        130,
+        193,
+        384,
+        405
+      ],
+      "sourceCell": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 218941
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        133,
+        153,
+        380,
+        359
+      ],
+      "cellBounds": [
+        130,
+        193,
+        384,
+        405
+      ],
+      "sourceCell": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 218919
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        122,
+        153,
+        390,
+        359
+      ],
+      "cellBounds": [
+        118,
+        193,
+        395,
+        405
+      ],
+      "sourceCell": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 214945
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        133,
+        153,
+        380,
+        359
+      ],
+      "cellBounds": [
+        130,
+        193,
+        384,
+        405
+      ],
+      "sourceCell": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 218874
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        40,
+        235,
+        472,
+        277
+      ],
+      "cellBounds": [
+        34,
+        277,
+        479,
+        321
+      ],
+      "sourceCell": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 245665
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        20,
+        224,
+        481,
+        287
+      ],
+      "cellBounds": [
+        13,
+        266,
+        489,
+        331
+      ],
+      "sourceCell": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 238828
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        19,
+        219,
+        491,
+        294
+      ],
+      "cellBounds": [
+        12,
+        261,
+        499,
+        338
+      ],
+      "sourceCell": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 232297
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        30,
+        235,
+        471,
+        277
+      ],
+      "cellBounds": [
+        23,
+        277,
+        478,
+        321
+      ],
+      "sourceCell": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 246543
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        82,
+        82,
+        431,
+        430
+      ],
+      "cellBounds": [
+        77,
+        120,
+        437,
+        478
+      ],
+      "sourceCell": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 204030
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        81,
+        81,
+        431,
+        430
+      ],
+      "cellBounds": [
+        76,
+        119,
+        437,
+        478
+      ],
+      "sourceCell": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 203839
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        61,
+        61,
+        451,
+        451
+      ],
+      "cellBounds": [
+        55,
+        98,
+        458,
+        500
+      ],
+      "sourceCell": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 193136
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        81,
+        82,
+        431,
+        430
+      ],
+      "cellBounds": [
+        76,
+        120,
+        437,
+        478
+      ],
+      "sourceCell": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 203994
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        71,
+        174,
+        472,
+        349
+      ],
+      "cellBounds": [
+        66,
+        214,
+        479,
+        395
+      ],
+      "sourceCell": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 217909
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        20,
+        174,
+        472,
+        349
+      ],
+      "cellBounds": [
+        13,
+        214,
+        479,
+        395
+      ],
+      "sourceCell": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 213313
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        20,
+        163,
+        492,
+        359
+      ],
+      "cellBounds": [
+        13,
+        203,
+        500,
+        405
+      ],
+      "sourceCell": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 203846
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        60,
+        174,
+        472,
+        349
+      ],
+      "cellBounds": [
+        54,
+        214,
+        479,
+        395
+      ],
+      "sourceCell": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "backgroundPixelsRemoved": 217041
+    }
+  ],
+  "sampling": "one-to-one source cells; no interpolation or frame duplication; nearest-neighbor scale",
+  "chroma": {
+    "key": "magenta",
+    "method": "edge-connected conservative chroma with boundary despill",
+    "minimumBackgroundFraction": 0.2
+  },
+  "atlasSha256": "1f41f296ab81194f55c204f6a97f4f731c829e492a7884e247db46829dee3685",
+  "facing": "right",
+  "status": "root-visual-reviewed-active",
+  "sourceFile": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/redkev-animation-sources/redkev-p1-projectiles-native.png",
+  "outputSha256": "1f41f296ab81194f55c204f6a97f4f731c829e492a7884e247db46829dee3685",
+  "generationProvenance": "generation-provenance.json",
+  "generationAssetId": "1a13e5a6-7ef8-4251-9dc9-393a31526c4f",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "root-approved identity, full-frame alpha, native attack motion, source-hashed anchor/core overlays"
+  }
+}

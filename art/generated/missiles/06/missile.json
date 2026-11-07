@@ -1,0 +1,187 @@
+{
+  "algorithm": "density-grid-key-v1",
+  "status": "root-visual-reviewed-active",
+  "sourceFile": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/missile-art/missiles-b-native.png",
+  "sourceSha256": "7e114e4020691c8e00e77db7e23394961066ff772aafda2aab64d047ea4ea558",
+  "sourceMode": "RGB",
+  "sourceSize": [
+    2048,
+    2048
+  ],
+  "outputSha256": "8676e1129501dad4bd6f9fdaf700aa781b5e30c21b4ca130db78f94ea0410f4a",
+  "outputSize": [
+    2048,
+    512
+  ],
+  "keyMaskSha256": "d11b4862046900af967a5827691dfd7c5b5d6dd1a93764851e2aeb85a2ee7ea5",
+  "maskMeaning": "255=background alpha keyed, 0=source RGBA preserved byte exact",
+  "keying": {
+    "fieldRGB": [
+      254,
+      1,
+      250
+    ],
+    "nearFieldChannelTolerance": 28,
+    "minimumChromaChannel": 190,
+    "hollowShieldSeeds": [],
+    "enclosedPickupFieldComponents": [],
+    "pickupOnlyAllNearFieldComponents": false,
+    "gridSeparatorRectangles": [
+      [
+        0,
+        0,
+        5,
+        2048
+      ],
+      [
+        507,
+        0,
+        517,
+        2048
+      ],
+      [
+        1019,
+        0,
+        1029,
+        2048
+      ],
+      [
+        1531,
+        0,
+        1541,
+        2048
+      ],
+      [
+        2043,
+        0,
+        2048,
+        2048
+      ],
+      [
+        0,
+        0,
+        2048,
+        5
+      ],
+      [
+        0,
+        508,
+        2048,
+        517
+      ],
+      [
+        0,
+        1019,
+        2048,
+        1029
+      ],
+      [
+        0,
+        1531,
+        2048,
+        1541
+      ],
+      [
+        0,
+        2043,
+        2048,
+        2048
+      ]
+    ],
+    "gridFringePixels": 321280,
+    "gridFringeRadiusPixels": 10,
+    "gridFringeMaxFrameBoundaryDistance": 10,
+    "floodConnectivity": 4,
+    "floodedPixels": 3320386,
+    "enclosedPureMagentaPixels": 0,
+    "changedAlphaPixels": 3320386,
+    "allRGBPreservedByteExact": true,
+    "unmaskedRGBAPreservedByteExact": true
+  },
+  "stage": 6,
+  "bounds": [
+    17,
+    155,
+    484,
+    196
+  ],
+  "core": [
+    85,
+    195,
+    246,
+    117
+  ],
+  "coreAnalysis": {
+    "method": "largest-inscribed-rectangle-in-four-frame-fully-opaque-intersection",
+    "solidBodySearchROI": [
+      17,
+      184,
+      314,
+      137
+    ],
+    "canonicalDirection": "left",
+    "trailingFlameExcluded": "rightmost35percent-of-common-union-crop",
+    "outerTipsExcluded": "top-and-bottom15percent-of-common-union-crop",
+    "commonOpaquePixels": 47408,
+    "coreAreaPixels": 28782,
+    "requiresVisualBodyReview": true
+  },
+  "frameBounds": [
+    [
+      17,
+      155,
+      458,
+      351
+    ],
+    [
+      17,
+      155,
+      489,
+      351
+    ],
+    [
+      17,
+      155,
+      501,
+      351
+    ],
+    [
+      17,
+      155,
+      491,
+      351
+    ]
+  ],
+  "isolatedBackgroundRemoval": {
+    "components": [],
+    "maximumComponentPixels": 16,
+    "minimumBodyDistancePixels": 24,
+    "matteChromaRule": "min(R,B)>=150 and min(R,B)-G>=110",
+    "maskSha256": "47f37a0f8978cb7bbc561ef9c2e366a4eb802eae031cbb549acb542014610345"
+  },
+  "edgeUnmix": {
+    "method": "actual-field alpha-unmix within2px of keyed outside/hollow field",
+    "actualFieldRGB": [
+      254,
+      1,
+      250
+    ],
+    "boundaryRadiusPixels": 2,
+    "minimumChromaExcess": 110,
+    "minimumRedBlueChannel": 180,
+    "alphaFormula": "max(G/255, 1-R/bgR, 1-B/bgB), clamped0..1",
+    "foregroundFormula": "(sourceRGB-(1-alpha)*actualFieldRGB)/alpha",
+    "protectedNativeColors": [
+      "obvious red",
+      "gold",
+      "cyan"
+    ],
+    "changedPixels": 6959,
+    "allRGBAOutsideEdgeMaskByteExact": true,
+    "maskSha256": "2e02b06b37a34cc58b3550a1e4c134482955ecf9719f4feaf3ea1141221d0cd8"
+  },
+  "finalPreservation": "Source RGBA byte exact outside keyed background, isolated-background and recorded edge-unmix masks",
+  "commonOpaqueMaskSha256": "48df2f485bb4301caff2bc3c0fb31945f908a2a607ba7ffa74b78d5887686be9",
+  "productionEnabled": true,
+  "visualReview": "Reviewed native themes, four frames, opaque-core overlays, dark/light alpha proofs and actual horizontal Canvas orientation for angled source art."
+}

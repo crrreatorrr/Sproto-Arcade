@@ -35,12 +35,12 @@ try{
     await page.click('#start');
     await page.waitForFunction(()=>document.querySelector('.overlay').hidden,null,{timeout:60000});
     const masks=sim.decodeInputs(gold.log.inputs,gold.log.ticks).masks;
-    const run=await page.evaluate(([level,masks])=>{
+    const run=await page.evaluate(([level,masks,seed])=>{
       let captured=null;
       const original=window.ArcadeHub.levelCleared;
       window.ArcadeHub.levelCleared=(index,god,replay)=>{captured=replay;return [];};
       godMode=false;
-      begin(LEVELS.findIndex(l=>l.id===level));
+      begin(LEVELS.findIndex(l=>l.id===level),false,1,seed);
       // The same per-tick path as the game loop: record the frame, then update().
       for(const mask of masks){
         if(mode!=='play')break;
@@ -51,7 +51,7 @@ try{
       const result={mode,time,captured,simVersion:window.ARCADE_SIM_VERSION};
       setOverlay('paused','','','','');
       return result;
-    },[gold.level,masks]);
+    },[gold.level,masks,gold.log.seed]);
     const log=run.captured;
     const problems=[];
     if(errors.length)problems.push('page errors: '+errors.join('; '));

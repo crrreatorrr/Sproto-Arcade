@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),context=vm.createContext({console});
 const runtime=process.argv[2]||path.join(root,'runtime/core/world.js');
-for(const f of [path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
+for(const f of [path.join(root,'density-attacks.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
 const A=context.Arcade,stage=A.stages.get('01-marina');
 function run(options){
  const world=new A.World(stage,options);let dashCounters=0,hits=0;const pressureIds=new Set(),pressureStyles=new Set();

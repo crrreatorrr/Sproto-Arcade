@@ -2,7 +2,7 @@
  "level": 10,
  "title": "Verse Gate",
  "bossId": "sprotosales",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "sprotosales",
   "godMode": false,
   "ticks": 8527,
-  "endHash": "f86a96507ff4c19e"
+  "endHash": "fc58ddff2544df9d"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24310,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 10,
    "bossId": "sprotosales",
-   "ticks": 8527
+   "ticks": 8527,
+   "endHash": "fc58ddff2544df9d"
   },
   "godMode": false
  }

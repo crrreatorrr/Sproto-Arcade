@@ -12,48 +12,48 @@
   "rowBounds": [
     [
       12,
-      234,
+      270,
       488,
-      158
+      107
     ],
     [
-      176,
-      235,
-      135,
-      137
-    ],
-    [
-      36,
-      101,
-      401,
-      399
-    ],
-    [
-      76,
       136,
-      319,
-      324
+      245,
+      257,
+      157
+    ],
+    [
+      52,
+      146,
+      404,
+      354
+    ],
+    [
+      77,
+      235,
+      354,
+      180
     ]
   ],
   "bounds": [
     12,
-    101,
+    146,
     488,
-    399
+    354
   ],
   "unionCrop": [
-    53,
-    76,
-    494,
-    437
+    22,
+    84,
+    495,
+    427
   ],
   "destinationSize": [
     488,
-    399
+    354
   ],
   "offset": [
     12,
-    101
+    146
   ],
   "baseline": 500,
   "padding": 12,
@@ -64,16 +64,16 @@
       "column": 0,
       "state": "attack-a",
       "sourceBounds": [
-        60,
-        215,
-        494,
-        320
+        56,
+        204,
+        459,
+        308
       ],
       "cellBounds": [
-        20,
-        255,
-        500,
-        371
+        47,
+        270,
+        463,
+        377
       ]
     },
     {
@@ -82,15 +82,15 @@
       "column": 1,
       "state": "attack-a",
       "sourceBounds": [
-        61,
-        208,
+        22,
+        204,
         494,
-        326
+        308
       ],
       "cellBounds": [
-        21,
-        247,
-        500,
+        12,
+        270,
+        499,
         377
       ]
     },
@@ -100,16 +100,16 @@
       "column": 2,
       "state": "attack-a",
       "sourceBounds": [
-        61,
-        200,
-        494,
-        333
+        22,
+        204,
+        495,
+        308
       ],
       "cellBounds": [
-        21,
-        238,
+        12,
+        270,
         500,
-        385
+        377
       ]
     },
     {
@@ -118,16 +118,16 @@
       "column": 3,
       "state": "attack-a",
       "sourceBounds": [
-        53,
-        196,
+        22,
+        204,
         494,
-        339
+        308
       ],
       "cellBounds": [
         12,
-        234,
-        500,
-        392
+        270,
+        499,
+        377
       ]
     },
     {
@@ -136,16 +136,16 @@
       "column": 0,
       "state": "attack-b",
       "sourceBounds": [
-        203,
-        208,
-        304,
-        313
+        183,
+        204,
+        340,
+        308
       ],
       "cellBounds": [
         178,
-        247,
-        290,
-        363
+        270,
+        340,
+        377
       ]
     },
     {
@@ -154,16 +154,16 @@
       "column": 1,
       "state": "attack-b",
       "sourceBounds": [
-        201,
-        211,
-        302,
-        321
+        142,
+        180,
+        391,
+        332
       ],
       "cellBounds": [
-        176,
-        250,
-        288,
-        372
+        136,
+        245,
+        393,
+        402
       ]
     },
     {
@@ -172,16 +172,16 @@
       "column": 2,
       "state": "attack-b",
       "sourceBounds": [
-        202,
-        210,
-        323,
-        312
+        157,
+        184,
+        379,
+        328
       ],
       "cellBounds": [
-        177,
+        151,
         249,
-        311,
-        362
+        380,
+        398
       ]
     },
     {
@@ -190,16 +190,16 @@
       "column": 3,
       "state": "attack-b",
       "sourceBounds": [
-        209,
-        197,
-        310,
-        314
+        157,
+        188,
+        380,
+        324
       ],
       "cellBounds": [
-        185,
-        235,
-        296,
-        364
+        151,
+        253,
+        381,
+        394
       ]
     },
     {
@@ -208,16 +208,16 @@
       "column": 0,
       "state": "attack-c",
       "sourceBounds": [
-        75,
-        76,
-        436,
-        437
+        155,
+        153,
+        359,
+        358
       ],
       "cellBounds": [
-        36,
-        101,
-        436,
-        500
+        149,
+        217,
+        360,
+        429
       ]
     },
     {
@@ -226,16 +226,16 @@
       "column": 1,
       "state": "attack-c",
       "sourceBounds": [
-        76,
-        76,
-        436,
-        437
+        83,
+        108,
+        430,
+        404
       ],
       "cellBounds": [
-        37,
-        101,
-        436,
-        500
+        75,
+        171,
+        433,
+        476
       ]
     },
     {
@@ -244,15 +244,15 @@
       "column": 2,
       "state": "attack-c",
       "sourceBounds": [
-        75,
-        76,
-        437,
-        437
+        61,
+        84,
+        452,
+        427
       ],
       "cellBounds": [
-        36,
-        101,
-        437,
+        52,
+        146,
+        456,
         500
       ]
     },
@@ -262,16 +262,16 @@
       "column": 3,
       "state": "attack-c",
       "sourceBounds": [
-        75,
         76,
-        436,
-        437
+        154,
+        437,
+        359
       ],
       "cellBounds": [
-        36,
-        101,
-        436,
-        500
+        68,
+        218,
+        440,
+        430
       ]
     },
     {
@@ -280,16 +280,16 @@
       "column": 0,
       "state": "heavy",
       "sourceBounds": [
-        124,
-        121,
-        388,
-        390
+        85,
+        170,
+        428,
+        342
       ],
       "cellBounds": [
-        91,
-        151,
-        383,
-        448
+        77,
+        235,
+        431,
+        412
       ]
     },
     {
@@ -298,16 +298,16 @@
       "column": 1,
       "state": "heavy",
       "sourceBounds": [
-        116,
-        113,
-        394,
-        398
+        85,
+        171,
+        427,
+        342
       ],
       "cellBounds": [
-        82,
-        142,
-        389,
-        457
+        77,
+        236,
+        430,
+        412
       ]
     },
     {
@@ -316,16 +316,16 @@
       "column": 2,
       "state": "heavy",
       "sourceBounds": [
-        124,
-        121,
-        388,
-        390
+        85,
+        170,
+        428,
+        345
       ],
       "cellBounds": [
-        91,
-        151,
-        383,
-        448
+        77,
+        235,
+        431,
+        415
       ]
     },
     {
@@ -334,304 +334,82 @@
       "column": 3,
       "state": "heavy",
       "sourceBounds": [
-        111,
-        108,
-        399,
-        401
+        85,
+        171,
+        428,
+        342
       ],
       "cellBounds": [
-        76,
-        136,
-        395,
-        460
+        77,
+        236,
+        431,
+        412
       ]
     }
   ],
-  "kind": "reviewed-magenta-projectile-alpha-unmix",
-  "assetKind": "projectiles",
-  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/05-neon-sproto102-p1-projectiles.png",
-  "sourceSha256": "e51697da260c5535ce7a0b379197423d9019acb05c5f55d42a2375f9a174b312",
-  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
-  "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
-  "reviewedPalette": "Source-specific reviewed palette: bronze/iron/orange bolt LEFT, dark iron slag shard, orange iron-toothed gear, iron-bound orange pumpkin. No authored magenta/violet. Gear center holes are pure magenta field, alpha-cleared by documented key-unmix.",
-  "gridRemovalBands": [],
-  "keyUnmix": {
-    "criterion": "min(R,B)-G>18",
-    "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
-    "foreground": "[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255",
-    "alphaFloorByte": 10,
-    "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
-    "outsideUnmixMaskRgbaByteExact": true,
-    "pixels": 3579360,
-    "removedPixels": 3502725,
-    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-chroma-unmix-mask.png",
-    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/05-neon-sproto102-p1-projectiles-clean-background-key-mask.png"
-  },
-  "frameCutoffChecks": [
-    {
-      "row": 0,
-      "column": 0,
-      "sourceBounds": [
-        60,
-        215,
-        494,
-        320
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 0,
-      "column": 1,
-      "sourceBounds": [
-        61,
-        208,
-        494,
-        326
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 0,
-      "column": 2,
-      "sourceBounds": [
-        61,
-        200,
-        494,
-        333
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 0,
-      "column": 3,
-      "sourceBounds": [
-        53,
-        196,
-        494,
-        339
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 1,
-      "column": 0,
-      "sourceBounds": [
-        203,
-        208,
-        304,
-        313
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 1,
-      "column": 1,
-      "sourceBounds": [
-        201,
-        211,
-        302,
-        321
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
+  "kind": "projectiles",
+  "facing": "left",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/raw-phase-projectiles/05-neon-sproto102-p2-projectiles.png",
+  "sourceSha256": "53332e009cefb3b7e4de152bc63bf6256fbbe62a6bbd016d676f667f8c0e3c70",
+  "backgroundRule": "edge-connected union of magenta(minRB>=180,minRB-G>=60,absR-B<=50) and diagonal pastel field(R>=180,G>=150,B>=180); closed white/cyan native cores not connected to border remain opaque",
+  "backgroundRemovedPixels": 3497897,
+  "externalGlowRegionsAndProtectedHardware": [
     {
       "row": 1,
       "column": 2,
-      "sourceBounds": [
-        202,
-        210,
-        323,
-        312
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
+      "nativeHardwareBox": [
+        164,
+        195,
+        369,
+        316
       ]
     },
     {
       "row": 1,
       "column": 3,
-      "sourceBounds": [
-        209,
-        197,
-        310,
-        314
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 2,
-      "column": 0,
-      "sourceBounds": [
-        75,
-        76,
-        436,
-        437
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 2,
-      "column": 1,
-      "sourceBounds": [
-        76,
-        76,
-        436,
-        437
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 2,
-      "column": 2,
-      "sourceBounds": [
-        75,
-        76,
-        437,
-        437
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 2,
-      "column": 3,
-      "sourceBounds": [
-        75,
-        76,
-        436,
-        437
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 3,
-      "column": 0,
-      "sourceBounds": [
-        124,
-        121,
-        388,
-        390
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 3,
-      "column": 1,
-      "sourceBounds": [
-        116,
-        113,
-        394,
-        398
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
+      "nativeHardwareBox": [
+        164,
+        195,
+        370,
+        316
       ]
     },
     {
       "row": 3,
       "column": 2,
-      "sourceBounds": [
-        124,
-        121,
-        388,
-        390
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
-      ]
-    },
-    {
-      "row": 3,
-      "column": 3,
-      "sourceBounds": [
-        111,
-        108,
-        399,
-        401
-      ],
-      "usableAfterGridRemoval": [
-        0,
-        0,
-        512,
-        512
+      "nativeHardwareBox": [
+        86,
+        171,
+        427,
+        342
       ]
     }
   ],
-  "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
+  "nativeProtectedHardwareRgbaByteExact": true,
+  "hardwareProtection": "native body rectangle inset2px, source white cores and all interior detail unchanged; only proven magenta-dominant edge pixels in3px alpha boundary may be unmixed",
+  "outsideDocumentedChangesRgbaByteExact": true,
+  "alphaOnlyBackgroundNativeRgbByteExact": true,
+  "externalCyanGlowUnmixPixels": 9019,
+  "magentaBoundaryUnmixPixels": 16621,
+  "openTailNativeWhiteCoreProtectedPixels": 100083,
+  "whiteCoreRule": "nativeG/B>=240 inside convex envelope of unambiguous teal body in C rows only; sourceRGBA unchanged, protects open-tail core from pastel flood key",
+  "glowRecovery": "minimum physically valid alpha from original magenta backdrop, only outside native dark-teal hardware rectangles; no generated art",
   "productionEnabled": true,
-  "outputSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc",
-  "status": "strict sourcecutoff pass; awaiting visual review",
+  "outputSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/matte-05p2-projectiles.py",
+  "scriptSha256": "3155cc3c1057112bd5a877d88ce2f5679f4b7aaa5694102a0c9be8a2476874f2",
   "releaseAcceptance": {
     "ready": true,
-    "visualReview": "passed",
-    "atlasSha256": "ccf550fead9484b73a279ce90f75ed44555fb4cd450d100a1ef8819a56174cfc"
+    "visualReview": "root-approved-exact-current05P2-ammunition-reused-as-P1",
+    "atlasSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b"
+  },
+  "atlasSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+  "sourceTransfer": {
+    "fromStage": 5,
+    "fromPhase": 1,
+    "sourcePackedPath": "art/generated/bosses/05-neon-sproto102/p2-projectiles.png",
+    "sourcePackedSha256": "8d5c6d3c91f3c516f00bd06407e9bcbe1892c0d56faaccd16eed8fab1403864b",
+    "allRgbaPixelsByteExact": true,
+    "framesInventedOrReordered": false
   }
 }

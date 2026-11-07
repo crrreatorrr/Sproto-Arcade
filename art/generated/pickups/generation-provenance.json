@@ -1,0 +1,26 @@
+{
+  "service": "Higgsfield website",
+  "model": "Nano Banana Pro",
+  "resolution": "2K",
+  "unlimited_mode": true,
+  "layout": "2048x2048,4x4grid,512pxcells",
+  "background": "#FF00FF",
+  "rows": [
+    "extra-life redheart goldcoin spin",
+    "cyan shield goldcoin pickup spin",
+    "hollow cyanbluegold active shieldbubble cycle",
+    "shield hit absorb impact cycle"
+  ],
+  "frames_per_row": 4,
+  "credit_check_baseline": {
+    "credits": 169.6,
+    "subscription_plan_type": "ultra",
+    "timing": "after Redkev concepts completed; while missile C and powerup sheets queued",
+    "before_concepts_unknown": true
+  },
+  "credit_check_after_C_pickups": 169.6,
+  "native_output": {
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EhTMTxw0fkqxeeNVPZRAKwzj8d/hf_20261107_031037_83b90916-bf5c-41b5-9de4-c786888cb865.png",
+    "asset_id": "83b90916-bf5c-41b5-9de4-c786888cb865"
+  }
+}

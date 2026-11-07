@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),scope=vm.createContext({});
-for(const file of ['runtime/contract.js','stages/12-codebreak/stage.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),scope);
+for(const file of ['density-attacks.js','phase-powerups.js','runtime/contract.js','stages/12-codebreak/stage.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),scope);
 const stage=scope.Arcade.stages.get('12-codebreak');
 function mock(index){const w={phaseTick:0,player:{x:260,y:640,grounded:true},platforms:[],targets:[],hazards:[],events:[],data:{},drops:[],state:'playing',camera:{x:0,y:0},platform(p){this.platforms.push(p);return p;},target(t){this.targets.push(t);return t;},hazard(h){this.hazards.push(h);return h;},cue(t){this.cueText=t;},drop(...args){this.drops.push(args);},advancePhase(){this.state='transition';},clear(){this.state='clear';}};stage.phases[index].enter(w);return w;}
 const climb=mock(0);assert.equal(climb.platforms.filter(p=>p.id.startsWith('ascent-')).length,18);assert.equal(climb.platforms.filter(p=>p.id.startsWith('recovery-')).length,4);

@@ -1,0 +1,737 @@
+{
+  "columns": 4,
+  "rows": 4,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "states": [
+    "attack-a",
+    "attack-b",
+    "attack-c",
+    "heavy"
+  ],
+  "rowBounds": [
+    [
+      12,
+      197,
+      488,
+      192
+    ],
+    [
+      148,
+      155,
+      214,
+      232
+    ],
+    [
+      19,
+      161,
+      469,
+      276
+    ],
+    [
+      51,
+      97,
+      405,
+      403
+    ]
+  ],
+  "bounds": [
+    12,
+    97,
+    488,
+    403
+  ],
+  "unionCrop": [
+    22,
+    61,
+    495,
+    452
+  ],
+  "destinationSize": [
+    488,
+    403
+  ],
+  "offset": [
+    12,
+    97
+  ],
+  "baseline": 500,
+  "padding": 12,
+  "frames": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "state": "attack-a",
+      "sourceBounds": [
+        22,
+        196,
+        492,
+        311
+      ],
+      "cellBounds": [
+        12,
+        236,
+        497,
+        355
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "state": "attack-a",
+      "sourceBounds": [
+        78,
+        162,
+        462,
+        344
+      ],
+      "cellBounds": [
+        70,
+        201,
+        466,
+        389
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "state": "attack-a",
+      "sourceBounds": [
+        37,
+        158,
+        476,
+        339
+      ],
+      "cellBounds": [
+        27,
+        197,
+        480,
+        384
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "state": "attack-a",
+      "sourceBounds": [
+        24,
+        197,
+        495,
+        310
+      ],
+      "cellBounds": [
+        14,
+        237,
+        500,
+        354
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "state": "attack-b",
+      "sourceBounds": [
+        154,
+        139,
+        360,
+        335
+      ],
+      "cellBounds": [
+        148,
+        177,
+        361,
+        379
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "state": "attack-b",
+      "sourceBounds": [
+        175,
+        117,
+        361,
+        342
+      ],
+      "cellBounds": [
+        170,
+        155,
+        362,
+        387
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "state": "attack-b",
+      "sourceBounds": [
+        176,
+        173,
+        342,
+        341
+      ],
+      "cellBounds": [
+        171,
+        212,
+        342,
+        386
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "state": "attack-b",
+      "sourceBounds": [
+        185,
+        183,
+        334,
+        334
+      ],
+      "cellBounds": [
+        180,
+        223,
+        334,
+        378
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "state": "attack-c",
+      "sourceBounds": [
+        29,
+        123,
+        483,
+        390
+      ],
+      "cellBounds": [
+        19,
+        161,
+        488,
+        436
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "state": "attack-c",
+      "sourceBounds": [
+        49,
+        123,
+        476,
+        375
+      ],
+      "cellBounds": [
+        40,
+        161,
+        480,
+        421
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "state": "attack-c",
+      "sourceBounds": [
+        67,
+        133,
+        460,
+        373
+      ],
+      "cellBounds": [
+        58,
+        171,
+        464,
+        419
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "state": "attack-c",
+      "sourceBounds": [
+        51,
+        133,
+        471,
+        391
+      ],
+      "cellBounds": [
+        42,
+        171,
+        475,
+        437
+      ]
+    },
+    {
+      "index": 12,
+      "row": 3,
+      "column": 0,
+      "state": "heavy",
+      "sourceBounds": [
+        100,
+        76,
+        410,
+        436
+      ],
+      "cellBounds": [
+        92,
+        112,
+        412,
+        484
+      ]
+    },
+    {
+      "index": 13,
+      "row": 3,
+      "column": 1,
+      "state": "heavy",
+      "sourceBounds": [
+        61,
+        61,
+        452,
+        452
+      ],
+      "cellBounds": [
+        52,
+        97,
+        456,
+        500
+      ]
+    },
+    {
+      "index": 14,
+      "row": 3,
+      "column": 2,
+      "state": "heavy",
+      "sourceBounds": [
+        61,
+        61,
+        452,
+        451
+      ],
+      "cellBounds": [
+        52,
+        97,
+        456,
+        499
+      ]
+    },
+    {
+      "index": 15,
+      "row": 3,
+      "column": 3,
+      "state": "heavy",
+      "sourceBounds": [
+        60,
+        61,
+        452,
+        452
+      ],
+      "cellBounds": [
+        51,
+        97,
+        456,
+        500
+      ]
+    }
+  ],
+  "kind": "reviewed-magenta-projectile-alpha-unmix",
+  "assetKind": "projectiles",
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/raw-phase-projectiles/04-ranch-zephyr-p1-projectiles.png",
+  "sourceSha256": "27b957121a6ba030d67e2ab8db441bcad3823e5b0dd2ae1b1685607b5ee1e3e5",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/key-magenta-projectile-glow.py",
+  "scriptSha256": "7021379a18bcb0a753a97b0bed9fc4f3b05e3f623304e02bbf2b4015d881906b",
+  "reviewedPalette": "Inspected harvest ammunition palette: amber seed, orange/charcoal ember, green leaf, gold lantern orb; no authored magenta or purple.",
+  "gridRemovalBands": [
+    {
+      "axis": "x",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        507,
+        517
+      ],
+      "rectangle": [
+        504,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1019,
+        1029
+      ],
+      "rectangle": [
+        1016,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "x",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1531,
+        1541
+      ],
+      "rectangle": [
+        1528,
+        0,
+        16,
+        2048
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 512,
+      "start": 504,
+      "end": 520,
+      "nearBlackCore": [
+        507,
+        517
+      ],
+      "rectangle": [
+        0,
+        504,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1024,
+      "start": 1016,
+      "end": 1032,
+      "nearBlackCore": [
+        1019,
+        1029
+      ],
+      "rectangle": [
+        0,
+        1016,
+        2048,
+        16
+      ]
+    },
+    {
+      "axis": "y",
+      "boundary": 1536,
+      "start": 1528,
+      "end": 1544,
+      "nearBlackCore": [
+        1531,
+        1541
+      ],
+      "rectangle": [
+        0,
+        1528,
+        2048,
+        16
+      ]
+    }
+  ],
+  "keyUnmix": {
+    "criterion": "min(R,B)-G>18",
+    "alpha": "max(G,255-min(R,B))/255; values <=floor settransparent",
+    "foreground": "[(R-(1-alpha)*255)/alpha,G/alpha,(B-(1-alpha)*255)/alpha], clamp0..255",
+    "alphaFloorByte": 10,
+    "verifiedEdgeBackgroundRule": "minRB>=180,minRB-G>=95,absRB<=65,edgeconnected; same conservative production chroma boundary rule",
+    "outsideUnmixMaskRgbaByteExact": true,
+    "pixels": 3419822,
+    "removedPixels": 3354432,
+    "mask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/04-ranch-zephyr-p1-projectiles-clean-chroma-unmix-mask.png",
+    "backgroundMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/art-production/processed-phase-projectiles/04-ranch-zephyr-p1-projectiles-clean-background-key-mask.png"
+  },
+  "frameCutoffChecks": [
+    {
+      "row": 0,
+      "column": 0,
+      "sourceBounds": [
+        22,
+        196,
+        492,
+        311
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "sourceBounds": [
+        78,
+        162,
+        462,
+        344
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "sourceBounds": [
+        37,
+        158,
+        476,
+        339
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "sourceBounds": [
+        24,
+        197,
+        495,
+        310
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        0,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "sourceBounds": [
+        154,
+        139,
+        360,
+        335
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "sourceBounds": [
+        175,
+        117,
+        361,
+        342
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "sourceBounds": [
+        176,
+        173,
+        342,
+        341
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "sourceBounds": [
+        185,
+        183,
+        334,
+        334
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "sourceBounds": [
+        29,
+        123,
+        483,
+        390
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "sourceBounds": [
+        49,
+        123,
+        476,
+        375
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "sourceBounds": [
+        67,
+        133,
+        460,
+        373
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        504
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "sourceBounds": [
+        51,
+        133,
+        471,
+        391
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        504
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "sourceBounds": [
+        100,
+        76,
+        410,
+        436
+      ],
+      "usableAfterGridRemoval": [
+        0,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "sourceBounds": [
+        61,
+        61,
+        452,
+        452
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "sourceBounds": [
+        61,
+        61,
+        452,
+        451
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        504,
+        512
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "sourceBounds": [
+        60,
+        61,
+        452,
+        452
+      ],
+      "usableAfterGridRemoval": [
+        8,
+        8,
+        512,
+        512
+      ]
+    }
+  ],
+  "sampling": "One common unioncrop/nearest scale/anchor for all16 genuine sourcecells; no invented/duplicated/reordered frames",
+  "productionEnabled": true,
+  "outputSha256": "942b81a8172e94aa789f88de13c9b65423fd289c4a0a80258c05b76aee09f915",
+  "status": "root_visual_pass_waiting_in_game_QA",
+  "sourceJobId": "55438e9f-68d9-4820-8fab-39da431d58a1",
+  "referenceInputCount": 0,
+  "facing": "All A whiteflare headsLEFT with spark trailsRIGHT, Cleaf pointLEFT, Bcoal and heavyorb symmetric/tumbling",
+  "releaseAcceptance": {
+    "ready": true,
+    "visualReview": "passed",
+    "atlasSha256": "942b81a8172e94aa789f88de13c9b65423fd289c4a0a80258c05b76aee09f915"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "boss": {
+    "path": "art/generated/bosses/05-neon-sproto102/p1.png",
+    "ready": true,
+    "bounds": [
+      12,
+      239,
+      488,
+      261
+    ],
+    "legacyScale": [
+      1.2,
+      1
+    ],
+    "legacyOffset": [
+      -20,
+      0
+    ]
+  },
+  "projectiles": {
+    "path": "art/generated/bosses/05-neon-sproto102/p1-projectiles.png",
+    "ready": true,
+    "bounds": [
+      12,
+      101,
+      488,
+      399
+    ],
+    "rowBounds": [
+      [
+        12,
+        234,
+        488,
+        158
+      ],
+      [
+        176,
+        235,
+        135,
+        137
+      ],
+      [
+        36,
+        101,
+        401,
+        399
+      ],
+      [
+        76,
+        136,
+        319,
+        324
+      ]
+    ],
+    "facing": "left"
+  }
+}

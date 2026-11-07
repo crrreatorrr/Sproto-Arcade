@@ -11,49 +11,49 @@
   ],
   "rowBounds": [
     [
-      188,
-      155,
-      312,
-      301
+      175,
+      239,
+      283,
+      257
     ],
     [
       12,
-      155,
-      488,
-      318
+      270,
+      435,
+      226
     ],
     [
-      86,
-      155,
-      414,
-      302
+      62,
+      270,
+      385,
+      226
     ],
     [
-      68,
-      155,
-      432,
-      345
+      54,
+      272,
+      446,
+      228
     ]
   ],
   "bounds": [
     12,
-    155,
+    239,
     488,
-    345
+    261
   ],
   "unionCrop": [
-    31,
+    34,
     145,
-    361,
-    378
+    408,
+    345
   ],
   "destinationSize": [
     488,
-    345
+    261
   ],
   "offset": [
     12,
-    155
+    239
   ],
   "baseline": 500,
   "padding": 12,
@@ -64,16 +64,16 @@
       "column": 0,
       "state": "idle",
       "sourceBounds": [
-        150,
+        159,
         145,
-        361,
-        348
+        354,
+        342
       ],
       "cellBounds": [
-        188,
-        155,
-        500,
-        456
+        175,
+        239,
+        430,
+        496
       ]
     },
     {
@@ -82,16 +82,16 @@
       "column": 1,
       "state": "idle",
       "sourceBounds": [
-        150,
+        173,
         145,
-        361,
-        347
+        340,
+        342
       ],
       "cellBounds": [
-        188,
-        155,
-        500,
-        454
+        193,
+        239,
+        411,
+        496
       ]
     },
     {
@@ -100,16 +100,16 @@
       "column": 2,
       "state": "idle",
       "sourceBounds": [
-        150,
+        173,
         145,
-        361,
-        347
+        357,
+        342
       ],
       "cellBounds": [
-        188,
-        155,
-        500,
-        454
+        193,
+        239,
+        433,
+        496
       ]
     },
     {
@@ -118,16 +118,16 @@
       "column": 3,
       "state": "idle",
       "sourceBounds": [
-        150,
-        145,
-        361,
-        347
+        173,
+        146,
+        376,
+        342
       ],
       "cellBounds": [
-        188,
-        155,
-        500,
-        454
+        193,
+        240,
+        458,
+        496
       ]
     },
     {
@@ -136,16 +136,16 @@
       "column": 0,
       "state": "attack-a",
       "sourceBounds": [
-        74,
-        145,
-        361,
-        348
+        109,
+        170,
+        367,
+        342
       ],
       "cellBounds": [
-        76,
-        155,
-        500,
-        456
+        110,
+        272,
+        447,
+        496
       ]
     },
     {
@@ -154,16 +154,16 @@
       "column": 1,
       "state": "attack-a",
       "sourceBounds": [
-        51,
-        145,
-        361,
-        360
+        80,
+        169,
+        367,
+        342
       ],
       "cellBounds": [
-        42,
-        155,
-        500,
-        473
+        72,
+        270,
+        447,
+        496
       ]
     },
     {
@@ -172,16 +172,16 @@
       "column": 2,
       "state": "attack-a",
       "sourceBounds": [
-        31,
-        145,
-        361,
-        348
+        34,
+        169,
+        367,
+        342
       ],
       "cellBounds": [
         12,
-        155,
-        500,
-        456
+        270,
+        447,
+        496
       ]
     },
     {
@@ -190,16 +190,16 @@
       "column": 3,
       "state": "attack-a",
       "sourceBounds": [
-        74,
-        145,
-        361,
-        348
+        108,
+        169,
+        367,
+        342
       ],
       "cellBounds": [
-        76,
-        155,
-        500,
-        456
+        109,
+        270,
+        447,
+        496
       ]
     },
     {
@@ -208,16 +208,16 @@
       "column": 0,
       "state": "attack-b",
       "sourceBounds": [
-        121,
-        145,
-        361,
-        348
+        113,
+        170,
+        367,
+        342
       ],
       "cellBounds": [
-        145,
-        155,
-        500,
-        456
+        115,
+        272,
+        447,
+        496
       ]
     },
     {
@@ -226,16 +226,16 @@
       "column": 1,
       "state": "attack-b",
       "sourceBounds": [
-        97,
-        145,
-        361,
-        348
+        112,
+        169,
+        367,
+        342
       ],
       "cellBounds": [
-        110,
-        155,
-        500,
-        456
+        114,
+        270,
+        447,
+        496
       ]
     },
     {
@@ -244,16 +244,16 @@
       "column": 2,
       "state": "attack-b",
       "sourceBounds": [
-        81,
-        145,
-        361,
-        349
+        72,
+        170,
+        367,
+        342
       ],
       "cellBounds": [
-        86,
-        155,
-        500,
-        457
+        62,
+        272,
+        447,
+        496
       ]
     },
     {
@@ -262,16 +262,16 @@
       "column": 3,
       "state": "attack-b",
       "sourceBounds": [
-        120,
-        145,
-        361,
-        348
+        137,
+        170,
+        367,
+        342
       ],
       "cellBounds": [
-        144,
-        155,
-        500,
-        456
+        146,
+        272,
+        447,
+        496
       ]
     },
     {
@@ -280,14 +280,14 @@
       "column": 0,
       "state": "attack-c",
       "sourceBounds": [
-        92,
-        145,
-        361,
-        378
+        100,
+        170,
+        408,
+        345
       ],
       "cellBounds": [
-        102,
-        155,
+        98,
+        272,
         500,
         500
       ]
@@ -298,16 +298,16 @@
       "column": 1,
       "state": "attack-c",
       "sourceBounds": [
-        119,
-        145,
-        361,
-        367
+        130,
+        170,
+        368,
+        342
       ],
       "cellBounds": [
-        142,
-        155,
-        500,
-        484
+        137,
+        272,
+        448,
+        496
       ]
     },
     {
@@ -316,16 +316,16 @@
       "column": 2,
       "state": "attack-c",
       "sourceBounds": [
-        69,
-        145,
-        361,
-        360
+        66,
+        170,
+        367,
+        345
       ],
       "cellBounds": [
-        68,
-        155,
-        500,
-        473
+        54,
+        272,
+        447,
+        500
       ]
     },
     {
@@ -334,642 +334,998 @@
       "column": 3,
       "state": "attack-c",
       "sourceBounds": [
-        140,
-        145,
-        361,
-        347
+        138,
+        170,
+        393,
+        342
       ],
       "cellBounds": [
-        173,
-        155,
-        500,
-        454
+        148,
+        272,
+        480,
+        496
       ]
     }
   ],
-  "kind": "native-cockpit-protected-conservative-chroma-recovery",
-  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/04-ranch-zephyr-p1-composed-raw.png",
-  "sourceSha256": "4661b3f9f3655732fbf1cb9e4c1e2848d4b89e0a61be90e92c7bc7c6844f35e0",
-  "nativeCockpitMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/04-ranch-zephyr-p1-native-mask.png",
-  "nativeCockpitMaskSha256": "073bf889a025b079fc9fffc009f8921cec621c9ef888199c31bb1eaec727f97b",
-  "nativeCockpitRgbaByteExact": true,
-  "backgroundRule": "edgeconnected min(R,B)>=230,G<=32,abs(R-B)<=25",
-  "backgroundPixels": 3734818,
-  "enclosedFieldPixels": 58,
-  "enclosedRule": "inside or exterior: max absolute RGB distance from sampled backdrop[253,1,253]<=10, exact nativecockpit excluded; alpha-only removal, intentional differentlycolored wires preserved",
-  "unmixRegions": [
-    [
-      1,
-      1,
-      [
-        55,
-        205,
-        355,
-        375
-      ]
-    ],
-    [
-      1,
-      2,
-      [
-        25,
-        235,
-        130,
-        335
-      ]
-    ],
-    [
-      2,
-      1,
-      [
-        95,
-        205,
-        355,
-        380
-      ]
-    ],
-    [
-      2,
-      2,
-      [
-        55,
-        175,
-        180,
-        350
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        100,
-        210,
-        355,
-        405
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        45,
-        260,
-        190,
-        390
-      ]
-    ]
-  ],
-  "explicitAlphaOnlyKeyGapRegions": [
-    [
-      0,
-      0,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      0,
-      0,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      0,
-      0,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      0,
-      1,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      0,
-      1,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      0,
-      1,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      0,
-      2,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      0,
-      2,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      0,
-      2,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      0,
-      3,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      0,
-      3,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      0,
-      3,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      1,
-      0,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      1,
-      0,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      1,
-      0,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      1,
-      1,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      1,
-      1,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      1,
-      1,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      1,
-      2,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      1,
-      2,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      1,
-      2,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      1,
-      3,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      1,
-      3,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      1,
-      3,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      2,
-      0,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      2,
-      0,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      2,
-      0,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      2,
-      1,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      2,
-      1,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      2,
-      1,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      2,
-      2,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      2,
-      2,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      2,
-      2,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      2,
-      3,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      2,
-      3,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      2,
-      3,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      3,
-      0,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      3,
-      0,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      3,
-      0,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      3,
-      3,
-      [
-        267,
-        166,
-        281,
-        189
-      ]
-    ],
-    [
-      3,
-      3,
-      [
-        326,
-        232,
-        339,
-        248
-      ]
-    ],
-    [
-      3,
-      3,
-      [
-        310,
-        290,
-        330,
-        308
-      ]
-    ],
-    [
-      3,
-      0,
-      [
-        175,
-        277,
-        220,
-        300
-      ]
-    ],
-    [
-      3,
-      1,
-      [
-        175,
-        277,
-        220,
-        300
-      ]
-    ],
-    [
-      3,
-      2,
-      [
-        175,
-        277,
-        220,
-        300
-      ]
-    ],
-    [
-      3,
-      3,
-      [
-        175,
-        277,
-        220,
-        300
-      ]
-    ],
-    [
-      1,
-      2,
-      [
-        175,
-        215,
-        240,
-        262
-      ]
-    ]
-  ],
-  "explicitKeyGapPredicate": "native min(R,B)-G>18 and min(R,B)>=55, protectednativecockpit excluded; differentlycoloredbrass/wires haveB<=G and remain unchanged",
-  "explicitKeyGapPixels": 5496,
-  "outerFringeMaxDistance": 3,
-  "unmixCriterion": "only documentedglow/outerfringe with min(R,B)-G>18; nativecockpit excluded",
-  "alphaFormula": "max(G,255-min(R,B))/255",
-  "foregroundFormula": "(sourceRGB-(1-alpha)*[255,0,255])/alpha,clamped0..255",
-  "unmixPixels": 65304,
+  "source": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1.png",
+  "sourceSha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e",
+  "inputKeyedRgba": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/processed-phase-atlases/05-neon-sproto102-p1-composed-prototype-source-keyed-rgba.png",
+  "inputKeyedSha256": "0809e8214dbba9780eec2b6a3015005a1ea22f3bf02d336274b2ae4e324a8a8c",
+  "nativeProtectedMask": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/cockpit-compositions/05-neon-sproto102-p1-all-native-mask.png",
+  "nativeProtectedRgbaByteExact": true,
   "outsideDocumentedChangesRgbaByteExact": true,
+  "backgroundRgb": [
+    128,
+    128,
+    128
+  ],
+  "explicitGlowPolygons": [
+    [
+      1,
+      2,
+      [
+        [
+          86,
+          174
+        ],
+        [
+          141,
+          174
+        ],
+        [
+          141,
+          207
+        ],
+        [
+          117,
+          207
+        ],
+        [
+          117,
+          231
+        ],
+        [
+          136,
+          241
+        ],
+        [
+          88,
+          245
+        ]
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        [
+          116,
+          195
+        ],
+        [
+          170,
+          195
+        ],
+        [
+          170,
+          220
+        ],
+        [
+          144,
+          220
+        ],
+        [
+          144,
+          251
+        ],
+        [
+          163,
+          265
+        ],
+        [
+          119,
+          276
+        ]
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        [
+          121,
+          205
+        ],
+        [
+          169,
+          205
+        ],
+        [
+          169,
+          226
+        ],
+        [
+          149,
+          226
+        ],
+        [
+          149,
+          264
+        ],
+        [
+          166,
+          282
+        ],
+        [
+          121,
+          282
+        ],
+        [
+          121,
+          252
+        ],
+        [
+          124,
+          246
+        ],
+        [
+          124,
+          228
+        ]
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        [
+          155,
+          205
+        ],
+        [
+          193,
+          205
+        ],
+        [
+          193,
+          224
+        ],
+        [
+          185,
+          224
+        ],
+        [
+          185,
+          252
+        ],
+        [
+          198,
+          254
+        ],
+        [
+          198,
+          276
+        ],
+        [
+          156,
+          276
+        ],
+        [
+          156,
+          251
+        ],
+        [
+          171,
+          251
+        ],
+        [
+          171,
+          226
+        ],
+        [
+          155,
+          226
+        ]
+      ]
+    ]
+  ],
+  "colorGate": "R-B>=8 and G>=B only inside explicit VFX polygons; physical gray/silver machinery and smoke remain native",
+  "glowRecoveryPixels": 5992,
+  "alphaRecovery": "minimum physically valid alpha=max overchannels positive(C-B)/(255-B),negative(B-C)/B; RGB=(native-(1-alpha)*B)/alpha; no generated art",
   "includesPilot": true,
   "productionEnabled": true,
-  "outputSha256": "0dd9cbd20d91a49b8ba65478a98c1099b1e72307210f18b2c2962d6d08dba316",
-  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/../art-production/matte-04p1-native.py",
-  "scriptSha256": "5f56ee770daa2e60310eac6892e166bfc9360773492b2759995a3f1ece667cd2",
-  "status": "root_visual_pass_waiting_in_game_QA",
-  "pilotOverlayRequired": false,
-  "sourceJobId": "cf5e0dbb-21b7-4c9a-8e2f-dd908013d0fe",
+  "outputSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876",
+  "script": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/Sproto-Arcade/tools/transfer-ranch-pilot.py",
+  "scriptSha256": "4f357cbb14a82fbaf09cc8a3a9105cb5d0d08943a1d10af329535b9f098d265a",
   "releaseAcceptance": {
     "ready": true,
-    "visualReview": "passed",
-    "atlasSha256": "0dd9cbd20d91a49b8ba65478a98c1099b1e72307210f18b2c2962d6d08dba316"
-  }
+    "visualReview": "root-accepted-all16-pilot-and-weapons-plus-floor-fixed-registration",
+    "atlasSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876"
+  },
+  "sampling": "same original packed weapon frames; native cockpit patch only, nearest source sampling, no weapon re-registration",
+  "pilotTransfer": {
+    "sourceConcept": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/approved-halloween-concept.png",
+    "sourceConceptSha256": "b4bb8104a3fbb48658c51ff97a320fa18176723eac4d5440db6c76e303aa5efe",
+    "specificationSha256": "a6871c7704d9f3627a028ad764327845e424a710a378d950a589f47534ef0467",
+    "replacementMaskSha256": "70aadcbec20360afa282ec8e8ac2f4aa7d78b881887c757eac8b62ac4d7c63f4",
+    "compositionProof": {
+      "schemaVersion": 1,
+      "kind": "approved-native-cockpit-composition",
+      "animationFramesGenerated": false,
+      "vehicleAnimationSource": "existing genuine input atlas, unchanged outside explicit masks",
+      "includesPilot": true,
+      "requiresVisualReview": false,
+      "productionEnabled": true,
+      "source": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/approved-halloween-concept.png",
+      "sourceSha256": "b4bb8104a3fbb48658c51ff97a320fa18176723eac4d5440db6c76e303aa5efe",
+      "sourceDimensions": [
+        2048,
+        2048
+      ],
+      "atlas": "art/reference/archive/20261106-ranch-neon-p1/original-05-neon/p1.png",
+      "atlasSha256": "9a5d0021dd721732c5d2b6ba3e2d732013fba54f9a8c0ec5d623a7597f792e6e",
+      "atlasDimensions": [
+        2048,
+        2048
+      ],
+      "specification": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/cab-placements.json",
+      "specificationSha256": "a6871c7704d9f3627a028ad764327845e424a710a378d950a589f47534ef0467",
+      "polygon": [
+        [
+          742,
+          445
+        ],
+        [
+          1298,
+          445
+        ],
+        [
+          1330,
+          477
+        ],
+        [
+          1330,
+          894
+        ],
+        [
+          1194,
+          894
+        ],
+        [
+          1075,
+          1035
+        ],
+        [
+          620,
+          1035
+        ],
+        [
+          637,
+          931
+        ],
+        [
+          660,
+          760
+        ],
+        [
+          684,
+          552
+        ],
+        [
+          708,
+          488
+        ]
+      ],
+      "sourceHorizontalFlip": false,
+      "sourceMaskBoundsAfterFlip": [
+        620,
+        445,
+        1331,
+        1036
+      ],
+      "maskPolicy": "hard binary polygon intersected with opaque source alpha; no feather, blending, repaint or interpolation",
+      "transform": "cellLocalPixel = (horizontalFlip ? [sourceWidth-1-rawX, rawY] : rawConceptPixel) * uniformScale + translate; anchors refer to original unmirrored source",
+      "resampling": "nearest-neighbor",
+      "columns": 4,
+      "rows": 4,
+      "placements": [
+        {
+          "row": 0,
+          "column": 0,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 0,
+          "column": 1,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 0,
+          "column": 2,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 0,
+          "column": 3,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 1,
+          "column": 2,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 1,
+          "column": 3,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 2,
+          "column": 2,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 2,
+          "column": 3,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 3,
+          "column": 0,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 3,
+          "column": 1,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 3,
+          "column": 2,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        },
+        {
+          "row": 3,
+          "column": 3,
+          "scale": 0.15,
+          "translate": [
+            150.0,
+            236.5
+          ],
+          "cellPatchBounds": [
+            243,
+            303,
+            350,
+            392
+          ],
+          "patchPixels": 8289,
+          "inverseAffine": [
+            6.666666666666667,
+            0,
+            -1000.0,
+            0,
+            6.666666666666667,
+            -1576.6666666666667
+          ],
+          "sourceAnchor": [
+            1000,
+            650
+          ],
+          "targetAnchor": [
+            300,
+            334
+          ]
+        }
+      ],
+      "checks": {
+        "outsideMaskRgbaByteExact": true,
+        "insideMaskMatchesNearestNativeSource": true,
+        "all16UniqueCells": true
+      },
+      "output": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/work/ranch-transfer/p1-candidate.png",
+      "outputSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876",
+      "maskOutput": "art/reference/archive/20261106-ranch-neon-p1/replacement-source/cab-mask.png",
+      "maskSha256": "70aadcbec20360afa282ec8e8ac2f4aa7d78b881887c757eac8b62ac4d7c63f4"
+    },
+    "originalPackedMetadataSha256": "7dc82bd4b9cb67c61f2c535611652f31045f6f2289af087faee36bb21b58df45",
+    "registrationBasis": {
+      "oldRawCabPlacementFile": "work/art-production/cockpit-compositions/05-neon-sproto102-p1-cab-placements.json",
+      "oldRawCabAnchor": [
+        258,
+        210
+      ],
+      "oldPackedUnionCrop": [
+        34,
+        145,
+        408,
+        345
+      ],
+      "oldPackedDestinationSize": [
+        488,
+        261
+      ],
+      "oldPackedOffset": [
+        12,
+        239
+      ],
+      "newNativeSourceAnchor": [
+        1000,
+        650
+      ],
+      "finalPackedAnchor": [
+        300,
+        334
+      ],
+      "nearestScale": 0.15,
+      "alignment": "Existing packed roof/window/base; all16 cab placements were static in original genuine animation."
+    },
+    "allOutsideCabPixelsRgbaByteExact": true,
+    "originalSourceUntouched": true,
+    "newAnimationFramesGenerated": false,
+    "frames": [
+      {
+        "row": 0,
+        "column": 0,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "cabMaskPixels": 8289,
+        "changedPixels": 8246,
+        "outsideCabMaskRgbaByteExact": true,
+        "frameContentReusedFromSameOriginalCell": true
+      }
+    ],
+    "productionEnabled": true,
+    "acceptedLegacyOffset": [
+      -53,
+      0
+    ],
+    "acceptedLegacyScale": [
+      1.37,
+      1
+    ]
+  },
+  "atlasSha256": "fd3bb671d9c29d49b45850ad7b99d5dbdcd13c99f2dcc842d89ac8972b4d0876"
 }

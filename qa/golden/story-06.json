@@ -2,7 +2,7 @@
  "level": 6,
  "title": "Circuit Gate",
  "bossId": "rune",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "rune",
   "godMode": false,
   "ticks": 7377,
-  "endHash": "83248da8bc2a2500"
+  "endHash": "9111081c9c93d171"
  },
  "log": {
   "schema": 1,
-  "simVersion": "90bc20c852f51a0c",
+  "simVersion": "69f1f8c07567e650",
   "seed": 24306,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 6,
    "bossId": "rune",
-   "ticks": 7377
+   "ticks": 7377,
+   "endHash": "9111081c9c93d171"
   },
   "godMode": false
  }

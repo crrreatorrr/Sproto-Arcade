@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'../..'),scope=vm.createContext({});
 const runtime=path.resolve(process.argv[2]||path.join(root,'runtime/core/world.js'));
-for(const file of [path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(file,'utf8'),scope);
+for(const file of [path.join(root,'density-attacks.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(file,'utf8'),scope);
 const A=scope.Arcade,stage=A.stages.get('09-hatchery');
 const w=new A.World(stage,{seed:37});let target=null,jumped=false;
 for(let t=0;t<6000&&w.state!=='clear'&&w.state!=='lost';t++){

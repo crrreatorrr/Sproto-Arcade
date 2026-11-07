@@ -1,0 +1,320 @@
+{
+  "algorithm": "density-grid-key-v1",
+  "status": "root-visual-reviewed-active",
+  "sourceFile": "/Users/kenhiraoka/Documents/Codex/2026-11-05/http-127-0-0-1-5173/outputs/powerup-art/pickups-native.png",
+  "sourceSha256": "aef3698af380cf7a9cbdc715c61a4b9ed51ffef8468bd54b0c26d68a768d6e6a",
+  "sourceMode": "RGB",
+  "sourceSize": [
+    2048,
+    2048
+  ],
+  "outputSha256": "4501abf0873d1b9430340b7be9b27e511876a51435c603ffa8ab90e727c8fa87",
+  "outputSize": [
+    2048,
+    2048
+  ],
+  "keyMaskSha256": "58473e64c08b9de83bce12e2fdbef1041bb7e6f06ddded56fc8a0966d2b29939",
+  "maskMeaning": "255=background alpha keyed, 0=source RGBA preserved byte exact",
+  "keying": {
+    "fieldRGB": [
+      251,
+      0,
+      253
+    ],
+    "nearFieldChannelTolerance": 76,
+    "minimumChromaChannel": 160,
+    "hollowShieldSeeds": [
+      [
+        256,
+        1280
+      ],
+      [
+        768,
+        1280
+      ],
+      [
+        1280,
+        1280
+      ],
+      [
+        1792,
+        1280
+      ],
+      [
+        256,
+        1792
+      ],
+      [
+        768,
+        1792
+      ],
+      [
+        1280,
+        1792
+      ],
+      [
+        1792,
+        1792
+      ]
+    ],
+    "enclosedPickupFieldComponents": [
+      {
+        "seed": [
+          1408,
+          1086
+        ],
+        "pixels": 85
+      },
+      {
+        "seed": [
+          1067,
+          1137
+        ],
+        "pixels": 70
+      },
+      {
+        "seed": [
+          973,
+          1199
+        ],
+        "pixels": 80
+      },
+      {
+        "seed": [
+          566,
+          1372
+        ],
+        "pixels": 66
+      },
+      {
+        "seed": [
+          1487,
+          1414
+        ],
+        "pixels": 62
+      },
+      {
+        "seed": [
+          1147,
+          1465
+        ],
+        "pixels": 183
+      },
+      {
+        "seed": [
+          728,
+          1557
+        ],
+        "pixels": 723
+      },
+      {
+        "seed": [
+          616,
+          1598
+        ],
+        "pixels": 276
+      },
+      {
+        "seed": [
+          595,
+          1618
+        ],
+        "pixels": 92
+      },
+      {
+        "seed": [
+          585,
+          1628
+        ],
+        "pixels": 268
+      },
+      {
+        "seed": [
+          536,
+          1751
+        ],
+        "pixels": 733
+      },
+      {
+        "seed": [
+          994,
+          1752
+        ],
+        "pixels": 784
+      },
+      {
+        "seed": [
+          728,
+          2018
+        ],
+        "pixels": 726
+      }
+    ],
+    "pickupOnlyAllNearFieldComponents": true,
+    "gridSeparatorRectangles": [],
+    "gridFringePixels": 0,
+    "gridFringeRadiusPixels": 0,
+    "gridFringeMaxFrameBoundaryDistance": 0,
+    "floodConnectivity": 4,
+    "floodedPixels": 2438004,
+    "enclosedPureMagentaPixels": 0,
+    "changedAlphaPixels": 2438004,
+    "allRGBPreservedByteExact": true,
+    "unmaskedRGBAPreservedByteExact": true
+  },
+  "rowBounds": [
+    [
+      51,
+      51,
+      411,
+      410
+    ],
+    [
+      51,
+      51,
+      411,
+      410
+    ],
+    [
+      10,
+      20,
+      492,
+      472
+    ],
+    [
+      10,
+      10,
+      492,
+      492
+    ]
+  ],
+  "frameBounds": [
+    [
+      [
+        51,
+        51,
+        462,
+        461
+      ],
+      [
+        61,
+        51,
+        451,
+        461
+      ],
+      [
+        184,
+        51,
+        328,
+        461
+      ],
+      [
+        61,
+        51,
+        451,
+        461
+      ]
+    ],
+    [
+      [
+        51,
+        51,
+        462,
+        461
+      ],
+      [
+        61,
+        51,
+        451,
+        461
+      ],
+      [
+        184,
+        51,
+        328,
+        461
+      ],
+      [
+        61,
+        51,
+        452,
+        461
+      ]
+    ],
+    [
+      [
+        20,
+        20,
+        492,
+        492
+      ],
+      [
+        10,
+        30,
+        502,
+        482
+      ],
+      [
+        10,
+        20,
+        502,
+        492
+      ],
+      [
+        20,
+        20,
+        492,
+        492
+      ]
+    ],
+    [
+      [
+        30,
+        30,
+        482,
+        482
+      ],
+      [
+        10,
+        10,
+        502,
+        502
+      ],
+      [
+        20,
+        18,
+        492,
+        492
+      ],
+      [
+        30,
+        30,
+        481,
+        482
+      ]
+    ]
+  ],
+  "edgeUnmix": {
+    "method": "actual-field alpha-unmix within2px of keyed outside/hollow field",
+    "actualFieldRGB": [
+      251,
+      0,
+      253
+    ],
+    "boundaryRadiusPixels": 2,
+    "minimumChromaExcess": 18,
+    "alphaFormula": "max(G/255, 1-R/bgR, 1-B/bgB), clamped0..1",
+    "foregroundFormula": "(sourceRGB-(1-alpha)*actualFieldRGB)/alpha",
+    "protectedNativeColors": [
+      "obvious red",
+      "gold",
+      "cyan"
+    ],
+    "changedPixels": 70094,
+    "allRGBAOutsideEdgeMaskByteExact": true,
+    "maskSha256": "91ebda9d3408f77b5d9155f9d172bd68f023b3f4ce18c0aa39490216cbf44df2"
+  },
+  "finalPreservation": "Source RGBA byte exact outside keyed background and recorded edge-unmix masks",
+  "productionEnabled": true,
+  "visualReview": "Clean alpha/checker/dark/light proof; heart and shield spin, hollow energy ring and impact animation; native palette core preserved; boundary-only documented chroma recovery."
+}

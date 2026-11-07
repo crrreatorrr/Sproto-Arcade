@@ -4,7 +4,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../..'),runtime=path.resolve(process.argv[2]||path.join(root,'runtime/core/world.js'));
 const scope=vm.createContext({});
-for(const file of [path.join(root,'runtime/contract.js'),runtime,...['03-mudline','07-moonkeep','09-hatchery','10-verse','12-codebreak'].map(id=>path.join(root,'stages',id,'stage.js'))])vm.runInContext(fs.readFileSync(file,'utf8'),scope);
+for(const file of [path.join(root,'density-attacks.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),runtime,...['03-mudline','07-moonkeep','09-hatchery','10-verse','12-codebreak'].map(id=>path.join(root,'stages',id,'stage.js'))])vm.runInContext(fs.readFileSync(file,'utf8'),scope);
 const A=scope.Arcade,results=[];
 const poses={
  '03-mudline':w=>{Object.assign(w.player,{x:220,y:390});Object.assign(w.data,{introduced:true,gateUnlocked:false});},

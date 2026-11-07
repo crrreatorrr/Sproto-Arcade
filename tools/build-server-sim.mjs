@@ -27,7 +27,7 @@ export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'
 export const BUNDLE_PATH=path.join(root,'dist/arcade-sim.server.js');
 export const VERSION_PATH=path.join(root,'runtime/story/sim-version.js');
 // Load order in legacy.html; each file's statements keep their order.
-const SOURCES=['sprite-hitboxes.js','levels.js','arena-effects.js','codebreak.js','game.js'];
+const SOURCES=['density-attacks.js','phase-powerups.js','sprite-hitboxes.js','levels.js','arena-effects.js','codebreak.js','game.js'];
 const PRELUDE=['runtime/story/sim-math.js','runtime/story/replay.js'];
 const ENTRY='runtime/story/server-entry.js';
 // ECMAScript built-ins the simulation may use. Browser globals are deliberately absent.
@@ -212,6 +212,8 @@ const DEV_TAIL=`api._dev = {
     mode = s.mode; time = s.time; levelIndex = s.levelIndex; camera = s.camera; shake = s.shake; banner = s.banner;
     transition = s.transition; phaseShift = s.phaseShift; vaultBeam = s.vaultBeam; player = s.player; boss = s.boss;
     bullets = s.bullets; hazards = s.hazards; sparks = s.sparks; impacts = s.impacts; codeShots = s.codeShots;
+    densityShots=s.densityShots||[];densityLane=s.densityLane||null;densityPhaseClock=s.densityPhaseClock||0;densityPhaseKey=s.densityPhaseKey||'';densityLastCycle=Number.isInteger(s.densityLastCycle)?s.densityLastCycle:-1;
+    phasePowerupsState=s.phasePowerupsState||null;
     inputFrame = c.inputFrame; clearedAt = c.clearedAt; clearedHash = c.clearedHash;
   }
 };`;
