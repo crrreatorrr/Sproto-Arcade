@@ -1,6 +1,6 @@
 /* ARC-DEC-01: hub-link.js splits a clear into recordLocalClear (local save and unlocks, every clear,
  * offline too) and reportHubClear (Relic, Tickets and cloud save; full runs only). Runs the real
- * story-progress.js and hub-link.js against a fake HubSdk that logs every call it receives. */
+ * story-progress.js and hub-link.js against a fake HubSDK (the 0.6.3 IIFE global) that logs every call it receives. */
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../..');
 const settle=()=>new Promise(r=>setTimeout(r,0));
@@ -19,7 +19,7 @@ function page({online}){
     exit(){calls.push(['exit']);},
   };
   const window={localStorage,location:{hostname:'localhost',protocol:'http:',port:'',search:''},console,setTimeout,
-    crypto:{randomUUID:()=>'u'+calls.length},...(online?{HubSdk:{createHubSdk:()=>sdk}}:{})};
+    crypto:{randomUUID:()=>'u'+calls.length},...(online?{HubSDK:{createHubSdk:()=>sdk}}:{})};
   const ctx=vm.createContext({window,console,setTimeout,Date,JSON,Promise});
   for(const f of ['story-progress.js','hub-link.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
   return {hub:window.ArcadeHub,P:window.ArcadeProgress,items,calls};
