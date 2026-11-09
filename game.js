@@ -1384,6 +1384,48 @@ function updateChase() {
 // for the duration of the special attack, then resume at their original beat.
 const authoredTime=()=>time-densityPausedTicks;
 
+// A fall out of the arena during a chase or climb barrage. It ends the run, except in god mode,
+// where it counts as a god hit (as in hurt()) and the player stands on the nearest platform again.
+function barrageFall(){
+  if(godMode){
+    player.inv=71;
+    godHits++;
+    rescueFromFall();
+    return;
+  }
+  player.hp=0;
+  setOverlay('lost','Barrage failed','Down for the count!','You fell.','Retry level');
+}
+
+// God mode only: the nearest platform on screen (the lowest one on the climb), with the player
+// standing on it inside the horizontal limits moveGround() keeps.
+function rescueFromFall(){
+  const p=player,margin=12;
+  let target=null;
+  if(isCodebreakClimb()){
+    for(let row=0;row<=CODE_LOOP/CODE_SPACING+4&&!target;row++){
+      const c=codePlatform(row);
+      if(c&&c.y<=H-margin)target={left:Math.max(c.x+margin,58),right:Math.min(c.x+c.width-margin,W-58),y:c.y};
+    }
+  }else{
+    let best=Infinity;
+    for(const c of chasePlatforms){
+      const left=Math.max(c.x-camera+margin,58),right=Math.min(c.x-camera+c.width-margin,W-360);
+      if(left>right)continue;
+      const distance=p.x<left?left-p.x:p.x>right?p.x-right:0;
+      if(distance<best){best=distance;target={left,right,y:c.y};}
+    }
+  }
+  if(!target)return;
+  p.x=clamp(p.x,target.left,target.right);
+  p.y=target.y;
+  p.vy=0;
+  p.grounded=true;
+  p.crouch=false;
+  p.airDash=true;
+  p.airJump=true;
+}
+
 function barrageRecovery(){
   if(isChase())return boss.attackAge>Math.max(45,...CHASE_ATTACKS[boss.attackIndex].shots.map(shot=>shot[0]));
   if(isCodebreak()){
@@ -1430,10 +1472,7 @@ function updateLegacyDensity(){
   movePlayer(false);
   if(isCodebreak()&&!isCodebreakClimb())player.x=Math.min(player.x,boss.x-200*CODE_MECHA_SCALE);
   else if(!isChase()&&!isCodebreak())keepPlayerLeft(false);
-  if((isChase()||isCodebreakClimb())&&player.y>H+60){
-    player.hp=0;
-    setOverlay('lost','Barrage failed','Down for the count!','You fell.','Retry level');
-  }
+  if((isChase()||isCodebreakClimb())&&player.y>H+60)barrageFall();
   const halfWidth=18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
   const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
   for(const shot of densityShots){
