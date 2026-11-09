@@ -86,6 +86,11 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
 - `godMode: true` never counts. The result is `ok:false, error:'god mode'`, echoes `godMode:true`
   and carries the empty-state `endHash`. Such a run is not replayed, because god mode's toggles
   are not in the log.
+- God mode also survives a fall out of a chase or climb barrage (`barrageFall()` in `game.js`):
+  the fall counts one god hit and the player is put back on the nearest platform. Without god
+  mode the fall ends the run on the same tick as before. The bundle's `godMode` is always false,
+  so this path never runs on the server and replays of non-god logs are unchanged (owner
+  decision ARC-DEC-02, 2026-11-09; `runtime/fixtures/god-fall.test.js`).
 
 ## How the hub should call it
 
