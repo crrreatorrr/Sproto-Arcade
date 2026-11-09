@@ -2295,9 +2295,22 @@ ui.start.addEventListener('click',()=>{
 });
 
 let last=0,carry=0;
+// Browser only. Each frame runs inside the crash guard (runtime/crash-guard.js) and the next frame is
+// always scheduled: a throw ends the frame (no more fixed steps on a half-applied state) and drops the
+// step backlog; a streak of failing frames halts the game behind a "Something broke" panel.
 function loop(now) {
+  try {
+    if (globalThis.ArcadeCrash) globalThis.ArcadeCrash.runFrame(storyFrame,now,()=>{carry=0;});
+    else storyFrame(now);
+  } finally {
+    requestAnimationFrame(loop);
+  }
+}
+// One rendered frame. Returns false when play is running but no fixed step fell due (proves nothing).
+function storyFrame(now) {
   const dt=Math.min(now-last,66);
   last=now;
+  let steps=0;
   if (mode==='play') {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
@@ -2306,13 +2319,14 @@ function loop(now) {
       update();
       pressed.clear();
       carry-=1000/60;
+      steps++;
     }
   } else {
     carry=0;
     pressed.clear();
   }
   if (player) render();
-  requestAnimationFrame(loop);
+  return steps>0 || mode!=='play';
 }
 
 function makePanoramaTile(image, floorRatio, width) {
@@ -2493,3 +2507,5 @@ function loadInitialLevel(){
  return initialLoad;
 }
 loadInitialLevel();
+// Startup reached the loop (it starts once the first level's art is in): an earlier uncaught error is not a boot failure.
+globalThis.ArcadeCrash?.markStarted();
