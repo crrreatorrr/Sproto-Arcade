@@ -36,7 +36,8 @@ if(fs.existsSync(path.join(qaDir,'pacing-checks.mjs')))commands.push({file:path.
 if(fs.existsSync(path.join(qaDir,'missile-checks.mjs')))commands.push({file:path.join(qaDir,'missile-checks.mjs'),relative:'qa/missile-checks.mjs',args:[root]});
 const results=[];
 for(const command of commands){
- const r=spawnSync(command.executable||process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:60000,maxBuffer:5*1024*1024});
+ // prepare-redkev-atlas builds several 2048² sheets in pure Python and can pass 60s on a busy runner.
+ const r=spawnSync(command.executable||process.execPath,[command.file,...command.args],{cwd:root,encoding:'utf8',timeout:180000,maxBuffer:5*1024*1024});
  const result={file:command.relative,args:command.args.map(a=>a===root?'<repo>':a===runtime?'<repo>/runtime/core/world.js':a),status:r.status===0?'passed':'failed',exit:r.status,signal:r.signal,stdout:r.stdout?.trim(),stderr:r.stderr?.trim(),error:r.error?.message};results.push(result);
  console.error(result.status.toUpperCase()+' '+command.relative);
 }
