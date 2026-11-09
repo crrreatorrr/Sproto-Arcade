@@ -1,6 +1,6 @@
 /* ARC-DEC-01: hub-link.js splits a clear into recordLocalClear (local save and unlocks, every clear,
  * offline too) and reportHubClear (Relic, Tickets and cloud save; full runs only). Runs the real
- * story-progress.js and hub-link.js against a fake HubSDK (the 0.6.3 IIFE global) that logs every call it receives. */
+ * story-progress.js and hub-link.js against a fake HubSDK (the 0.6.4 IIFE global) that logs every call it receives. */
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../..');
 const settle=()=>new Promise(r=>setTimeout(r,0));

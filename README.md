@@ -6,7 +6,7 @@ The twelve encounters have 24 detailed boss phase sheets and 24 matching project
 
 ## Hub, Relic, Tickets and saved progress (story mode)
 
-The metaverse hub's Bar cabinet now offers **Sproto Arcade** or **Sproto Fighter**. Picking Sproto Arcade opens `/play/sproto-arcade/#t=<ticket>`. `index.html` forwards a ticket to story mode (`legacy.html`), where `hub-link.js` redeems it with the vendored SDK (`vendor/hub-sdk/hub-sdk.iife.js`, `@metaverse/hub-sdk` 0.6.3, see its VENDOR.md). That redemption is the login. Opened directly or from `file://`, the game stays offline and fully playable.
+The metaverse hub's Bar cabinet now offers **Sproto Arcade** or **Sproto Fighter**. Picking Sproto Arcade opens `/play/sproto-arcade/#t=<ticket>`. `index.html` forwards a ticket to story mode (`legacy.html`), where `hub-link.js` redeems it with the vendored SDK (`vendor/hub-sdk/hub-sdk.iife.js`, `@metaverse/hub-sdk` 0.6.4, see its VENDOR.md). That redemption is the login. Opened directly or from `file://`, the game stays offline and fully playable.
 
 - **Breakwater Coin:** beating the first story boss (Fat Head Dave, Tidebreak Marina) reports `arcade.boss_defeated`, and the server grants the Coin once. God-mode wins count. In the other games it repeats Cone's Tip's award, and in NOBU it unlocks Wizard Hat II. Its hub look is Cone's Tip's gem as a placeholder.
 - **Tickets:** each level clear made without god mode earns 20 Tickets (`arcade_clear`), within the hub's session and daily caps. The hub bar under the game shows the balance.
