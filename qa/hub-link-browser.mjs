@@ -24,7 +24,7 @@ const server=http.createServer((req,res)=>{
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const origin='http://127.0.0.1:'+server.address().port;
-const STUB=`var HubSdk={createHubSdk:function(){
+const STUB=`var HubSDK={createHubSdk:function(){
   var calls=window.__hubCalls=[];var me=window.__stubPlayer||'p1';var relics=me==='p1'?['cones_tip']:[];
   var cloud=me==='p1'?{data:{v:1,cleared:[4],unlocked:['sproto831'],updatedAt:1},updatedAt:1}:{data:null,updatedAt:0};
   return {

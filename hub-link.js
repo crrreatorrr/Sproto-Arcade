@@ -151,11 +151,11 @@
   }
 
   async function connect() {
-    if (!root.HubSdk?.createHubSdk) return;
+    if (!root.HubSDK?.createHubSdk) return;
     state.status = 'connecting';
     emit();
     try {
-      sdk = root.HubSdk.createHubSdk({ serverUrl: config.serverUrl, serverKey: config.serverKey, hubUrl: config.hubUrl });
+      sdk = root.HubSDK.createHubSdk({ serverUrl: config.serverUrl, serverKey: config.serverKey, hubUrl: config.hubUrl });
       const init = await sdk.init(GAME_ID);
       const session = sdk.getSession?.();
       if (!session || !init?.playerId) {
