@@ -11,6 +11,12 @@ STANDARD SPECIALS: C piercing beam / V bouncing ball (recharging base kit)
 PICKUP POWER: F; E while touching a pickup deliberately replaces your slot
 RETRY: R (restores standard kit and current full/practice entry)
 PAUSE: Escape; focus loss also pauses
+MENUS: arrows / W S move, A D or left/right change a selector, Enter or Space
+confirms, Escape closes the pause screen
+
+CONTROLLER: plug in and press a button. Stick / D-pad move, A jump, B or RT dash,
+X or LT shield, Y C special, RB V special, LB pickup power, View replace pickup,
+Start pause. Menus: D-pad moves, A selects, B resumes. See README.md "Controls".
 
 Broken chevrons mark attacks requiring an active dash. Ready indicators and
 remaining power charges appear in the HUD. Read the current objective: an
