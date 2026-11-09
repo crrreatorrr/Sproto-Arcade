@@ -215,19 +215,31 @@
   }
 
   /**
-   * Called by game.js when a level is cleared. `god` is true when god mode was on at any point in
-   * that level. `replay` is the run's input log (runtime/story/replay.js) for the hub's server-side
-   * replay. Returns the Sproto ids this clear unlocked.
+   * Local half of a clear, called by game.js for every clear (full runs and phase-2 checkpoint
+   * runs alike). Records the cleared level and any Sprotos it opens in this browser's save. Works
+   * offline and sends nothing to the hub; the cloud save catches up on the next hub clear or sign-in.
+   * `level` is the 0-based LEVELS index. Returns the Sproto ids this clear unlocked.
    */
-  function levelCleared(level, god, replay) {
-    state.lastReplay = claimed(replay, 'clear');
+  function recordLocalClear(level) {
     const { save, opened } = P.recordClear(state.save, level, Date.now());
     state.save = save;
     P.store(storage, save, saveKey());
+    emit();
+    return opened;
+  }
+
+  /**
+   * Hub half of a clear, called by game.js only for full runs (never for a phase-2 checkpoint run,
+   * which skipped phase 1). `god` is true when god mode was on at any point in that level. `replay`
+   * is the run's input log (runtime/story/replay.js) for the hub's server-side replay. Sends the
+   * first-boss Relic report, the clear Tickets and the cloud save. A no-op offline.
+   */
+  function reportHubClear(level, god, replay) {
+    state.lastReplay = claimed(replay, 'clear');
     // Only clears made during a hub session are sent. Offline clears still count for local progress.
     if (connected()) {
       // ID13 is locally playable; the external hub still accepts the original12.
-      if(level>=12){queue(pushSave);emit();return opened;}
+      if(level>=12){queue(pushSave);emit();return;}
       const rows = [];
       if (level === FIRST_BOSS.level && !state.relics.includes(RELIC)) {
         const log = claimed(replay, 'boss');
@@ -241,7 +253,6 @@
       queue(pushSave);
     }
     emit();
-    return opened;
   }
 
   root.ArcadeHub = {
@@ -252,7 +263,8 @@
       return state;
     },
     connected,
-    levelCleared,
+    recordLocalClear,
+    reportHubClear,
     isUnlocked: (id) => P.isUnlocked(id, state.save, state.relics, state.unlockAll),
     // levels.js declares LEVELS with const, so it is a global binding but not a window property.
     lockReason: (id) => P.lockReason(id, typeof LEVELS !== 'undefined' ? LEVELS : undefined),

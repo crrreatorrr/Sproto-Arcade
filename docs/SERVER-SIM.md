@@ -130,7 +130,9 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
 - Logs larger than 32,768 bytes of JSON are not attached (see Sizes).
 - In the browser, `game.js` starts a recorder in `begin()`. It records the input frame before
   each `update()` in the game loop. `clearLevel()` stamps the claim with the end-state hash and
-  hands the log to `ArcadeHub.levelCleared(level, god, replay)`.
+  hands the log to `ArcadeHub.reportHubClear(level, god, replay)`. Every clear first calls
+  `ArcadeHub.recordLocalClear(level)` for local progress; a phase-2 checkpoint clear calls only that
+  and sends nothing to the hub.
 
 ## Chunks
 
