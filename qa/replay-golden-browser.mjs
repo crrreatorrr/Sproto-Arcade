@@ -37,8 +37,9 @@ try{
     const masks=sim.decodeInputs(gold.log.inputs,gold.log.ticks).masks;
     const run=await page.evaluate(([level,masks,seed])=>{
       let captured=null;
-      const original=window.ArcadeHub.levelCleared;
-      window.ArcadeHub.levelCleared=(index,god,replay)=>{captured=replay;return [];};
+      const original={local:window.ArcadeHub.recordLocalClear,report:window.ArcadeHub.reportHubClear};
+      window.ArcadeHub.recordLocalClear=()=>[];
+      window.ArcadeHub.reportHubClear=(index,god,replay)=>{captured=replay;};
       godMode=false;
       begin(LEVELS.findIndex(l=>l.id===level),false,1,seed);
       // The same per-tick path as the game loop: record the frame, then update().
@@ -47,7 +48,7 @@ try{
         const frame=ArcadeReplay.frameOf(mask);
         inputFrame=frame;replayRecorder?.push(frame);update();pressed.clear();
       }
-      window.ArcadeHub.levelCleared=original;
+      window.ArcadeHub.recordLocalClear=original.local;window.ArcadeHub.reportHubClear=original.report;
       const result={mode,time,captured,simVersion:window.ARCADE_SIM_VERSION};
       setOverlay('paused','','','','');
       return result;
