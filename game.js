@@ -2505,3 +2505,5 @@ function loadInitialLevel(){
  return initialLoad;
 }
 loadInitialLevel();
+// Startup reached the loop (it starts once the first level's art is in): an earlier uncaught error is not a boot failure.
+globalThis.ArcadeCrash?.markStarted();
