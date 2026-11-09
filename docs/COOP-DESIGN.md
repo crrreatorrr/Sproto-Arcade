@@ -62,7 +62,7 @@ tick.
 **Transport.** Use a Nakama authoritative match on the hub server, the same way Sproto Fighter's
 `sproto_duel` and Sproto Duel's `sproto_arena` work. A new `sproto_arcade_coop` match is registered from
 `server/modules/src/games/` and joined with the hub session that the portal ticket already gives the
-game (`HubSdk.realtimeFromSdk`). The session carries identity: user id, display name and ranked flag.
+game (`HubSDK.realtimeFromSdk`). The session carries identity: user id, display name and ranked flag.
 There is no separate login.
 
 **Model: deterministic lockstep with input delay**
