@@ -19,13 +19,39 @@ Checks: `runtime/fixtures/story-progress.test.js` and the replay goldens (`qa/se
 
 ## Controls
 
-- Arrow keys / WASD: move; all four directions in flight.
-- Space: jump, then air jump. Six simulation ticks of ledge grace preserve the air jump.
-- Shift: dash (11 simulation ticks). Use the remap button to choose another unreserved key.
-- X: shield. Shield-symbol pulses require shield; broken-chevron fronts require an active dash.
-- C: standard piercing beam; V: standard bouncing ball. Both recharge and remain part of the base kit.
-- F: activate equipped pickup power; E: deliberately replace an occupied slot while touching a pickup.
-- R: retry immediately. Escape: pause/resume. Losing window focus pauses the game, including during a transformation.
+Both pages share one layout. Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line under the game, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.
+
+| Action | Keyboard | Controller |
+| --- | --- | --- |
+| Move; fly in all directions in flight levels | Arrow keys or WASD | Left stick or D-pad |
+| Jump, then air jump | Space (story mode: also ↑ / W) | A (story mode: also D-pad up) |
+| Crouch (story mode, on foot) | ↓ / S | D-pad down, or the stick held straight down |
+| Dash (11 simulation ticks) | Shift (Machine Trials: or the key chosen with the remap button) | B or RT |
+| Shield | X | X or LT |
+| C special: tracking missile / red laser (story), piercing beam (Trials) | C | Y |
+| V special: tracking bomb / beach ball (story), bouncing ball (Trials) | V | RB |
+| Pickup power (Machine Trials) | F | LB |
+| Replace the held pickup while touching one (Machine Trials) | E | View |
+| Retry | R: Machine Trials retries at once; story mode after a knockout | A on the game-over Retry button |
+| Pause / resume | Escape | Start (B also resumes) |
+| Menus and overlays | Arrows or W/S move; A/D or ←/→ change a selector; Enter or Space confirms; Escape closes pause; Tab still works | D-pad or left stick moves; A confirms; B closes pause; Start presses the main button |
+| Return to hub (story mode in a hub session) | Click Return to hub, or Tab to it | Start, D-pad down, A |
+
+Mechanics: six simulation ticks of ledge grace preserve the air jump. Shield-symbol pulses require shield; broken-chevron fronts require an active dash. C and V recharge and remain part of the base kit. Losing window focus pauses the game, including during a transformation.
+
+### Controller
+
+Plug in any standard-mapping controller (Xbox, PlayStation, Switch Pro and most USB pads, by button position) and press a button; there is no setup. `gamepad.js` turns it into the same key presses the keyboard sends, so movement, timing, damage, replays and the dash/shield rules are identical.
+
+Why this layout: the right thumb lives on A for jumping, so the two reactive counters are also on the triggers (RT dash, LT shield) and can be pressed while jumping. Shield is X on both devices, so Machine Trials' "◇ X" shield cue is right for either. B as dash suits players who roll the thumb from A. Specials recharge and are fired when ready, so they go on Y and RB; the rarer pickup actions sit on LB and View. On foot in story mode the stick ignores up (A jumps) and crouch needs a near-vertical push, so running diagonally never jumps or crouches by accident; flight is full 8-way. Instant retry (R) stays off the controller during play because one stray press would restart the run; the game-over screen's Retry button is one A press.
+
+Following the hub's controller convention: the pad is read every frame, it may be plugged in or out at any time, and buttons already held when it appears (such as the A that chose this game in the hub) or held across a screen change are ignored until released. Stick deadzone is 0.2, radial and rescaled; menu repeat is 350 ms then 120 ms. Home is never bound.
+
+### Keyboard
+
+The keyboard layout matches the hub and the other Sproto games: WASD and arrows both move, Space jumps, Shift dashes, Escape pauses and closes the pause screen. Menus also take arrows/WASD and Enter (added with the controller work, through the same focus code), so no screen needs Tab or the mouse. In a typed field (the seed) the arrows keep their usual meaning. Story mode's prompts now list WASD, R (retry after a knockout) and the menu keys.
+
+Tests: `runtime/fixtures/gamepad.test.js` (mapping logic with fake pads, keyboard menu keys) and `qa/gamepad-mapping.test.cjs` (every button pushed through game.js's and rework.js's own key readers, prompts and cache hashes), both in `node qa/run-all.mjs .`; the browser smoke is `node qa/gamepad-browser.mjs` (stubbed `navigator.getGamepads`). Not yet tried with a real controller in hand.
 
 Autofire provides baseline pressure. Prism Rail has two piercing shots, Ricochet Mine two bouncing blasts, and Echo Decoy redirects one explicitly eligible aimed volley. Fixed attacks, shield pulses and mandatory dash fronts ignore decoys. Retry and practice reset the pickup slot; phase transitions retain remaining charges.
 
