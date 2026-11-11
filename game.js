@@ -169,6 +169,10 @@ const MAX_HP=5, PHASE_ONE_HEALTH=1065;
 // archived replays in qa/golden-disabled still run (qa/server-sim-goldens.mjs sets them true).
 const HISTORICAL_PHASE_SPLIT=false;
 const HISTORICAL_TELLS=false;
+const HISTORICAL_SAUCER_HITBOX=false;
+// One saucer hitbox for ordinary shots and barrage missiles (plan item D7, owner sign-off
+// 2026-11-11). They used to test 58 and 18 px either side of the saucer's centre.
+const SAUCER_HALF_WIDTH=44;
 const DENSITY_SECOND_GAP=900;
 const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MECHA_ROCKETS=['mechaMissile','mechaArc','mechaHoming','mechaWave'];
@@ -1523,7 +1527,7 @@ function updateBullets() {
     }
     if (!shot.own) {
       const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
-      if (enemyShotContact(shot,flying?58:18,top,bottom) && !p.dash) {
+      if (enemyShotContact(shot,flying?(HISTORICAL_SAUCER_HITBOX?58:SAUCER_HALF_WIDTH):18,top,bottom) && !p.dash) {
         shot.dead=true;
         hurt();
         if (!p.hp) break;
@@ -1757,7 +1761,7 @@ function updateLegacyDensity(){
   if(isCodebreak()&&!isCodebreakClimb())player.x=Math.min(player.x,boss.x-200*CODE_MECHA_SCALE);
   else if(!isChase()&&!isCodebreak())keepPlayerLeft(false);
   if((isChase()||isCodebreakClimb())&&player.y>H+60)barrageFall();
-  const halfWidth=18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
+  const halfWidth=isFlying()&&!HISTORICAL_SAUCER_HITBOX?SAUCER_HALF_WIDTH:18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
   const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
   for(const shot of densityShots){
     if(mode!=='play')break;
