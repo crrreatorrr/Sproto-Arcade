@@ -44,22 +44,88 @@
       out.unlocked = [...new Set(raw.unlocked.filter((id) => typeof id === 'string' && Object.hasOwn(UNLOCKS, id)))].sort();
     }
     out.updatedAt = Number.isFinite(raw.updatedAt) ? raw.updatedAt : 0;
+    // Optional: best full-run result per level index. Saves written before ranks existed have no
+    // `best`, and a save with no valid entry is written without the key.
+    if (raw.best && typeof raw.best === 'object' && !Array.isArray(raw.best)) {
+      const best = {};
+      for (let level = 0; level < LEVEL_COUNT; level++) {
+        const entry = cleanBest(raw.best[level]);
+        if (entry) best[level] = entry;
+      }
+      if (Object.keys(best).length) out.best = best;
+    }
     return out;
+  }
+
+  // Ranks a full run can earn, best first. Rank C (a clear after a phase-2 checkpoint retry) is
+  // shown on the clear screen but never stored.
+  const RANKS = ['S', 'A', 'B'];
+  const MAX_TICKS = 108000;
+
+  function cleanBest(entry) {
+    if (!entry || typeof entry !== 'object') return null;
+    const { ticks, hits, rank } = entry;
+    if (!Number.isInteger(ticks) || ticks < 1 || ticks > MAX_TICKS) return null;
+    if (!Number.isInteger(hits) || hits < 0 || hits > 999) return null;
+    if (!RANKS.includes(rank)) return null;
+    return { ticks, hits, rank };
+  }
+
+  /** True when `a` beats `b`: the better rank, then the lower time, then fewer hits. */
+  function betterBest(a, b) {
+    if (!b) return Boolean(a);
+    if (!a) return false;
+    const ra = RANKS.indexOf(a.rank), rb = RANKS.indexOf(b.rank);
+    if (ra !== rb) return ra < rb;
+    if (a.ticks !== b.ticks) return a.ticks < b.ticks;
+    return a.hits < b.hits;
+  }
+
+  /**
+   * Rank of a clear. S: no hits and at or under par. A: at most two hits and at or under
+   * 1.15 x par. B: any other full run. C: a clear after a phase-2 checkpoint retry.
+   * `par` is in ticks (story-par.js); without one, time does not limit the rank.
+   */
+  function rankFor({ ticks, hits, par = Infinity, checkpoint = false }) {
+    if (checkpoint) return 'C';
+    const limit = Number.isFinite(par) && par > 0 ? par : Infinity;
+    if (hits === 0 && ticks <= limit) return 'S';
+    if (hits <= 2 && ticks * 100 <= limit * 115) return 'A';
+    return 'B';
+  }
+
+  /** Records a full-run result if it beats the stored one. Returns the save, the stored best and whether it changed. */
+  function recordBest(save, level, result, now = 0) {
+    const next = normalize(save), entry = cleanBest(result);
+    if (!entry || !Number.isInteger(level) || level < 0 || level >= LEVEL_COUNT) return { save: next, best: next.best?.[level] ?? null, improved: false };
+    const current = next.best?.[level] ?? null;
+    if (!betterBest(entry, current)) return { save: next, best: current, improved: false };
+    next.best = { ...(next.best || {}), [level]: entry };
+    next.updatedAt = Math.max(next.updatedAt, now);
+    return { save: normalize(next), best: entry, improved: true };
   }
 
   function merge(a, b) {
     const x = normalize(a), y = normalize(b);
+    // Per level, keep the better result: rank first, then time.
+    const best = {};
+    for (let level = 0; level < LEVEL_COUNT; level++) {
+      const p = x.best?.[level], q = y.best?.[level];
+      if (p || q) best[level] = betterBest(q, p) ? q : p;
+    }
     return normalize({
       v: 1,
       cleared: [...x.cleared, ...y.cleared],
       unlocked: [...x.unlocked, ...y.unlocked],
       updatedAt: Math.max(x.updatedAt, y.updatedAt),
+      best,
     });
   }
 
   function same(a, b) {
     const x = normalize(a), y = normalize(b);
-    return x.cleared.join() === y.cleared.join() && x.unlocked.join() === y.unlocked.join();
+    return x.cleared.join() === y.cleared.join() && x.unlocked.join() === y.unlocked.join() &&
+      JSON.stringify(x.best || {}) === JSON.stringify(y.best || {});
   }
 
   /** Records a clear and any Sproto it opens. Returns the new save and the ids newly unlocked. */
@@ -113,5 +179,5 @@
 
   const playerKey = (playerId) => `${STORAGE_KEY}:${playerId}`;
 
-  root.ArcadeProgress = { STORAGE_KEY, playerKey, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, isUnlocked, lockReason, load, store };
+  root.ArcadeProgress = { STORAGE_KEY, playerKey, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, recordBest, rankFor, betterBest, RANKS, isUnlocked, lockReason, load, store };
 })(typeof window !== 'undefined' ? window : globalThis);

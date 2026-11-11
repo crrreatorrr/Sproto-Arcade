@@ -393,6 +393,8 @@ function walk(id, distance, frameDistance=12) {
 
 function sound(freq, end, length, volume = .04) {
   if (!audio || audio.state !== 'running') return;
+  // story-audio.js synthesises a voice for each call site; without it, the original sweep.
+  if (window.ArcadeAudio?.sfx(audio,freq,end,length,volume)) return;
   const oscillator = audio.createOscillator(), gain = audio.createGain(), now = audio.currentTime;
   oscillator.type = 'triangle';
   oscillator.frequency.setValueAtTime(freq, now);
@@ -471,6 +473,9 @@ function coachText() {
 function setOverlay(next, label, title, description, button) {
   if (next==='lost') description=failReport(description);
   mode = next;
+  window.ArcadeAudio?.music.duck(next!=='play');
+  const audioControls=document.getElementById('audio-controls');
+  if (audioControls) audioControls.hidden=next!=='paused';
   overlay.hidden = next === 'play';
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   sprotoSelect.hidden=levelSelect.parentElement.hidden;
@@ -515,9 +520,131 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
   }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
   replayRecorder=phaseCheckpointRun?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  if(typeof storyRunStart==='function')storyRunStart();
   refreshHud();
   prefetchLevel(index);
   if(nextCampaignLevel(index)>=0)prefetchLevel(nextCampaignLevel(index));
+}
+
+// ---- Run results, ranks, music cues and hit feedback. Browser only: called from begin(),
+// refreshHud(), clearLevel() and render(), none of which the server build keeps, and everything
+// is derived from simulation state without writing to it.
+const fmtTicks=ticks=>{const tenths=Math.floor(ticks/6);return Math.floor(tenths/600)+':'+String(Math.floor(tenths/10)%60).padStart(2,'0')+'.'+tenths%10;};
+const storyPar=index=>(typeof STORY_PAR_TICKS!=='undefined'&&STORY_PAR_TICKS[LEVELS[index].id])||Infinity;
+let runStats={hits:0,hp:MAX_HP,absorbed:null};
+const feedback={barrageAt:-Infinity,barrageLive:false,fromRight:true,pops:[],seen:new WeakSet()};
+function storyRunStart() {
+  runStats={hits:0,hp:player.hp,absorbed:phasePowerupsState?.items.absorbedAt??null};
+  Object.assign(feedback,{barrageAt:-Infinity,barrageLive:false,pops:[]});
+  barrageCue={key:'',floor:0,endedAt:-Infinity};
+  if (audio?.state==='running') window.ArcadeAudio?.music.start(audio,LEVELS[levelIndex].id,boss?.phase===2?2:1);
+}
+// Every tick, from refreshHud: a hit is a lost heart or a broken pickup shield.
+function trackRun() {
+  const absorbed=phasePowerupsState?.items.absorbedAt??null;
+  if (player.hp<runStats.hp) runStats.hits+=runStats.hp-player.hp;
+  else if (absorbed!==null && absorbed!==runStats.absorbed) runStats.hits++;
+  runStats.hp=player.hp;
+  runStats.absorbed=absorbed;
+  if (boss?.phase===2) window.ArcadeAudio?.music.phase(2);
+  ui.hearts.classList?.toggle('hit',player.inv>=58 && player.hp>0);
+}
+// The result lines for the clear screen. A full run without god mode is ranked and can set a best;
+// a phase-2 checkpoint clear is rank C and never touches the best (docs/PHASE-POWERUPS.md).
+function clearResults() {
+  const P=window.ArcadeProgress,par=storyPar(levelIndex),ticks=time,hits=runStats.hits;
+  const stats='Hits '+hits+'  ·  Hearts '+player.hp+'/'+MAX_HP;
+  if (godUsed) return 'Time '+fmtTicks(ticks)+'  ·  God mode: no rank and no best time';
+  if (phaseCheckpointRun) return 'Phase 2 from the checkpoint: '+fmtTicks(ticks)+'  ·  '+stats+'\nRank C  ·  Checkpoint clear. Your full-run best is unchanged'+
+    (window.ArcadeHub?.connected?.()?', and a checkpoint clear earns no Tickets.':'.');
+  const rank=P?.rankFor?.({ticks,hits,par})??'B';
+  const saved=window.ArcadeHub?.recordBest?.(levelIndex,{ticks,hits,rank});
+  const best=saved?.best;
+  return 'Time '+fmtTicks(ticks)+(Number.isFinite(par)?' (par '+fmtTicks(par)+')':'')+'  ·  '+stats+'\nRank '+rank+
+    (saved?.improved?'  ·  New best!':best?'  ·  Best: '+best.rank+' in '+fmtTicks(best.ticks):'');
+}
+// Level select: rank and best time beside each level, and how many are cleared.
+function paintLevelSelect() {
+  const save=window.ArcadeHub?.state?.save,order=campaignLevelIndices();
+  for (const option of levelSelect.options) {
+    const index=Number(option.value),best=save?.best?.[index];
+    option.textContent=String(campaignLevelNumber(index)).padStart(2,'0')+' · '+LEVELS[index].title+
+      (best?'  —  '+best.rank+'  '+fmtTicks(best.ticks):save?.cleared?.includes(index)?'  —  cleared':'');
+  }
+  const count=document.getElementById('cleared-count');
+  if (count) count.textContent=save?order.filter(index=>save.cleared.includes(index)).length+' of '+order.length+' cleared':'';
+}
+// Drawn last, over the scene: weak-spot hit numbers, the flash when the player is hit, the
+// one-heart vignette and the sweep that announces a barrage. No hit-stop; timing is untouched.
+function drawFeedback() {
+  if (!player || !['play','paused'].includes(mode)) return;
+  ctx.save();
+  if (boss && !isChase() && !isCodebreak()) {
+    const m=boss.move && moves[boss.move],exposed=m && boss.age>boss.tell+m.active;
+    for (const impact of impacts) {
+      if (impact.age>2 || feedback.seen.has(impact)) continue;
+      feedback.seen.add(impact);
+      if (exposed && (impact.art==='spit-impact'||impact.art==='saucer/muzzle') && Math.abs(impact.y-bossWeakY(boss))<34) feedback.pops.push({x:impact.x,y:impact.y,at:time});
+    }
+  }
+  feedback.pops=feedback.pops.filter(pop=>time>=pop.at && time-pop.at<30);
+  for (const pop of feedback.pops) {
+    const age=time-pop.at,fade=1-age/30;
+    if (age<10) {
+      ctx.globalAlpha=1-age/10;
+      ctx.strokeStyle='#fff3c4';
+      ctx.lineWidth=4;
+      ctx.beginPath();
+      ctx.arc(pop.x,pop.y,14+age*4.5,0,Math.PI*2);
+      ctx.stroke();
+      for (let ray=0;ray<6;ray++) {
+        const angle=ray*Math.PI/3+.4,inner=20+age*4,outer=inner+14;
+        ctx.beginPath();
+        ctx.moveTo(pop.x+Math.cos(angle)*inner,pop.y+Math.sin(angle)*inner);
+        ctx.lineTo(pop.x+Math.cos(angle)*outer,pop.y+Math.sin(angle)*outer);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha=Math.min(1,fade*1.6);
+    ctx.font='900 30px system-ui,sans-serif';
+    ctx.textAlign='center';
+    ctx.lineWidth=5;
+    ctx.strokeStyle='#2a1026';
+    ctx.fillStyle='#ffe07a';
+    ctx.strokeText('3',pop.x,pop.y-18-age*1.6);
+    ctx.fillText('3',pop.x,pop.y-18-age*1.6);
+  }
+  ctx.globalAlpha=1;
+  if (densityShots.length && !feedback.barrageLive) { feedback.barrageAt=time; feedback.fromRight=densityShots[0].vx<=0; }
+  feedback.barrageLive=densityShots.length>0;
+  const sweep=time-feedback.barrageAt;
+  if (sweep>=0 && sweep<40) {
+    // A hazard band crosses the screen from the side (or edge) the missiles come from.
+    const progress=sweep/40,vertical=densityShots[0]?.vertical,span=vertical?H:W,head=progress*(span+360)-180;
+    ctx.globalAlpha=.34*(1-progress*progress);
+    ctx.fillStyle='#ffb347';
+    for (let stripe=0;stripe<5;stripe++) {
+      const at=head-stripe*46;
+      ctx.beginPath();
+      if (vertical) { ctx.moveTo(0,at);ctx.lineTo(W,at-70);ctx.lineTo(W,at-46);ctx.lineTo(0,at+24); }
+      else { const x=feedback.fromRight?W-at:at,lean=feedback.fromRight?70:-70; ctx.moveTo(x,0);ctx.lineTo(x+24*Math.sign(lean),0);ctx.lineTo(x+24*Math.sign(lean)+lean,H);ctx.lineTo(x+lean,H); }
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  }
+  if (mode==='play' && player.hp>0 && player.inv>=69) {
+    ctx.fillStyle='#ffffff38';
+    ctx.fillRect(0,0,W,H);
+  }
+  if (player.hp===1) {
+    const pulse=.40+.12*Math.sin(time*.13),edge=ctx.createRadialGradient(W/2,H/2,H*.36,W/2,H/2,H*.92);
+    edge.addColorStop(0,'rgba(190,20,45,0)');
+    edge.addColorStop(1,'rgba(190,20,45,'+pulse.toFixed(3)+')');
+    ctx.fillStyle=edge;
+    ctx.fillRect(0,0,W,H);
+  }
+  ctx.restore();
 }
 
 // The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
@@ -584,6 +711,8 @@ function clearLevel() {
   // Hub link. Every clear, a phase-2 checkpoint clear included, saves local progress and unlocks.
   // First-boss retries still report the Relic. Tickets and immediate cloud saves require a full run.
   const opened=window.ArcadeHub?.recordLocalClear(levelIndex)??[];
+  // Time, hits, hearts and rank; a full-run best is saved before the hub report pushes the save.
+  const results=typeof clearResults==='function'?clearResults():'';
   window.ArcadeHub?.reportHubClear(levelIndex,godUsed,replay,{checkpoint:phaseCheckpointRun});
   if (opened.length) paintSprotoLocks();
   if (nextCampaignLevel(levelIndex)<0) {
@@ -593,6 +722,7 @@ function clearLevel() {
     setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[nextCampaignLevel(levelIndex)].title,'Next level');
   }
   if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
+  if (results) { ui.description.textContent=results+'\n'+ui.description.textContent; paintLevelSelect(); }
 }
 
 // ---- Cue line (browser only; refreshHud is a stub in the server build, so nothing here is simulated).
@@ -650,6 +780,7 @@ function setCue(message) {
 }
 
 function refreshHud() {
+  trackRun();
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
   ui.hearts.textContent = '♥'.repeat(player.hp) + '♡'.repeat(MAX_HP-player.hp);
@@ -2322,7 +2453,7 @@ function drawLegacyDensity(){
     }
   }
 }
-function render(){renderLegacyScene();drawLegacyDensity();drawLegacyPhasePowerups();}
+function render(){renderLegacyScene();drawLegacyDensity();drawLegacyPhasePowerups();drawFeedback();}
 function renderLegacyScene() {
   if (isCodebreak()) return drawCodebreak();
   if (phaseShift>=STAGE_BLACKOUT) {
@@ -2464,6 +2595,18 @@ window.addEventListener('blur',()=>{
   lastNine=-Infinity;
   if (mode==='play') pause();
 });
+// Pause screen: volume and mute for effects and music (story-audio.js keeps them in localStorage).
+if (window.ArcadeAudio && document.getElementById('audio-controls')) {
+  const level=document.getElementById('volume-level'),mute=document.getElementById('mute');
+  document.getElementById('volume-down').addEventListener('click',()=>ArcadeAudio.setVolume(ArcadeAudio.volume-.1));
+  document.getElementById('volume-up').addEventListener('click',()=>ArcadeAudio.setVolume(ArcadeAudio.volume+.1));
+  mute.addEventListener('click',()=>ArcadeAudio.setMuted(!ArcadeAudio.muted));
+  ArcadeAudio.onChange(({volume,muted})=>{
+    level.textContent=muted?'Muted':Math.round(volume*100)+'%';
+    mute.textContent=muted?'Unmute':'Mute';
+    mute.setAttribute('aria-pressed',String(muted));
+  });
+}
 ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
@@ -2694,6 +2837,8 @@ function loadInitialLevel(){
 });
  return initialLoad;
 }
+// Rank and best time beside each level, repainted whenever the save changes (hub sign-in, a clear).
+if (window.ArcadeHub?.onChange) window.ArcadeHub.onChange(paintLevelSelect); else paintLevelSelect();
 loadInitialLevel();
 // Startup reached the loop (it starts once the first level's art is in): an earlier uncaught error is not a boot failure.
 globalThis.ArcadeCrash?.markStarted();

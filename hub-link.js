@@ -229,6 +229,21 @@
   }
 
   /**
+   * Stores a full run's result ({ticks, hits, rank}) as the level's best if it beats the saved
+   * one. Local only: game.js calls it before reportHubClear, whose cloud save then carries it.
+   * Checkpoint and god-mode clears never reach here. Returns { best, improved }.
+   */
+  function recordBest(level, result) {
+    const { save, best, improved } = P.recordBest(state.save, level, result, Date.now());
+    if (improved) {
+      state.save = save;
+      P.store(storage, save, saveKey());
+      emit();
+    }
+    return { best, improved };
+  }
+
+  /**
    * Reports every first-boss win, including phase-2 retries, while connected to the hub.
    * Only full runs can earn Tickets or push the cloud save. `god` is true when god mode was on
    * at any point in the level, and `replay` is the full run's input log (runtime/story/replay.js).
@@ -265,6 +280,7 @@
     },
     connected,
     recordLocalClear,
+    recordBest,
     reportHubClear,
     isUnlocked: (id) => P.isUnlocked(id, state.save, state.relics, state.unlockAll),
     // levels.js declares LEVELS with const, so it is a global binding but not a window property.

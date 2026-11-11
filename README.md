@@ -17,6 +17,16 @@ The metaverse hub's Bar cabinet now offers **Sproto Arcade** or **Sproto Fighter
 
 Checks: `runtime/fixtures/story-progress.test.js` and the replay goldens (`qa/server-sim-goldens.mjs`) run in `node qa/run-all.mjs .`. After `npm ci`, `node tools/check-server-bundle.mjs` checks the server bundle, and `tools/goja-verify` runs the goldens in goja. `qa/hub-e2e.cjs` is the real end-to-end run against a local hub stack (steps in its header). In the browser, run `node qa/hub-link-browser.mjs` (offline, a stubbed hub session, ticket forwarding), `node qa/lazy-load-browser.mjs` (per-level loading) and `node qa/replay-browser.mjs` (determinism). The plan, its critique and the co-op design are in `docs/HUB-COOP-PLAN.md` and `docs/COOP-DESIGN.md`.
 
+## Story mode: cues, results and sound
+
+- **Cue line.** The line under the boss bar names each attack during its tell and says what the two mandatory mechanics need: crouch or shield for the ceiling sweep, shield for a shield pulse. During a missile barrage it says that guns are offline and what the next row asks for (crouch, jump, short hop, or the gap). A one-screen controls card is shown before the first level in a browser, and again on the pause screen.
+- **Knockout screen.** It says what ended the run, the phase, section and boss health, one tip for that cause, and what Retry restarts. After a phase-2 knockout it states the checkpoint rule: the clear saves progress but earns no Tickets.
+- **Results and ranks.** A clear shows time, hits taken, hearts left and a rank. S: no hits, at or under par. A: at most two hits, within 1.15 x par. B: any other full run. C: a clear after a phase-2 checkpoint retry. Par is the golden bot's clear time x 1.25 (`story-par.js`, written by `node tools/build-story-par.mjs` whenever the goldens change). The best full run per level (rank, then time) is kept in the story save and shown in the level select with the number of levels cleared. Checkpoint and god-mode clears never set a best.
+- **Sound.** `story-audio.js` synthesises every effect and four music tracks, each with a phase-two form; there are no audio files. Nothing plays before the first click. The pause screen has volume and mute, saved in localStorage.
+- **Frame cost.** Projectile and missile outlines are baked once per sprite frame and blitted (`boss-sheets.js`); `qa/FILTER-BUDGET.md` has the before and after figures, measured in headless Chromium only.
+
+Browser checks for these (Playwright's Chromium, not part of `qa/run-all.mjs`): `node qa/story-hud-browser.mjs .`, `node qa/story-results-browser.mjs .` and `node qa/filter-budget-browser.mjs .`.
+
 ## Controls
 
 Both pages share one layout. Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line under the game, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.
