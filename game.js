@@ -4,6 +4,7 @@ const W = 1280, H = 720, FLOOR = 604;
 const ENEMY_ATTACK_RATE = .9;
 const PLAYER_SHOT_RATE = .75;
 const GROUND_WARNING_FRAMES = 30;
+const MIN_TELL_FRAMES = 24;
 const SCROLL_STEP = 6.86;
 const CHASE_START_Y=552, CHASE_SCROLL=5.4;
 const CHASE_ROOF_DROP=24, CHASE_GAP_REDUCTION=16;
@@ -167,6 +168,7 @@ const MAX_HP=5, PHASE_ONE_HEALTH=1065;
 // Rules replaced by owner-approved changes keep their old form behind these constants, so the
 // archived replays in qa/golden-disabled still run (qa/server-sim-goldens.mjs sets them true).
 const HISTORICAL_PHASE_SPLIT=false;
+const HISTORICAL_TELLS=false;
 const DENSITY_SECOND_GAP=900;
 const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MECHA_ROCKETS=['mechaMissile','mechaArc','mechaHoming','mechaWave'];
@@ -1112,6 +1114,10 @@ function startMove() {
   } else if (mechanicsIndex(levelIndex)===0 && b.move==='arenaHazard') b.tell=Math.round(VAULT_WARNING_FRAMES*rate)-1;
   else if (b.move==='arenaHazard') b.tell=Math.ceil(44*rate);
   else if (isGroundColumn(b.move)) b.tell=Math.max(b.tell,Math.ceil(GROUND_WARNING_FRAMES*rate));
+  // Floor on ordinary tells (plan item D3, owner sign-off 2026-11-11): the move clock runs `rate`
+  // ticks per frame, so this keeps every tell on screen for at least MIN_TELL_FRAMES frames however
+  // fast the boss gets. Slow bosses and long tells are unchanged.
+  else if (!HISTORICAL_TELLS) b.tell=Math.max(b.tell,Math.ceil(MIN_TELL_FRAMES*rate));
   b.startX=b.x;
   b.aimX=player.x;
   b.aimY=player.y;
