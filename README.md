@@ -27,6 +27,8 @@ Checks: `runtime/fixtures/story-progress.test.js` and the replay goldens (`qa/se
 
 Browser checks for these (Playwright's Chromium, not part of `qa/run-all.mjs`): `node qa/story-hud-browser.mjs .`, `node qa/story-results-browser.mjs .` and `node qa/filter-budget-browser.mjs .`.
 
+Rule changes of 2026-11-11 (each needed the owner's sign-off; details and the bot figures are in section 11 of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md`): a boss's phase 1 is twice its listed health and phase 2 its listed health; no ordinary tell lasts under 24 frames; the saucer has one hitbox width; Redkev has his own move order and signatures. A boss's phase 1 also has a second, shorter missile barrage, and pickups are spread over the phase.
+
 ## Controls
 
 Both pages share one layout. Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line under the game, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.

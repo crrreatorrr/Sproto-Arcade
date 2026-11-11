@@ -34,7 +34,7 @@ try{
   const lanes=await page.evaluate(()=>{const seen=[];mode='play';for(let i=0;i<900&&densityShots.length;i++){inputFrame=NO_INPUT;update();const lane=barrageLane();if(lane&&seen.at(-1)!==lane)seen.push(lane);}const after=ui.cue.textContent;mode='paused';return{seen,after};});
   check('barrage hint follows the rows and ends with BARRAGE OVER',()=>{assert.ok(lanes.seen.includes('crouch')&&lanes.seen.includes('jump'),JSON.stringify(lanes.seen));assert.equal(lanes.after,'BARRAGE OVER · GUNS ONLINE');});
   r=await drive(page,{phase:1,until:"mode!=='play'",each:"if(densityShots.length&&godMode){godMode=false;player.hp=1;player.inv=0;}"});
-  check('barrage knockout reports the barrage',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out by the missile barrage\.\nPhase 1 · section 1 of 4 · Fat Head Dave at \d+%\nBarrage tip: read the row/);});
+  check('barrage knockout reports the barrage',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out by the missile barrage\.\nPhase 1 · section \d of 4 · Fat Head Dave at \d+%\nBarrage tip: read the row/);});
   r=await drive(page,{phase:1,until:"mode!=='play'",each:"const s=bullets.find(b=>!b.own);if(s&&boss.move!=='ceilingSweep'){godMode=false;player.hp=1;player.inv=0;player.dash=0;player.x=clamp(s.x,58,740);player.y=Math.min(FLOOR,s.y+40);}"});
   check('ordinary knockout names the attack',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out during [A-Z -]+\.\nPhase 1 · section \d of 4 · Fat Head Dave at \d+%\nTip: a dash passes through/);});
   r=await drive(page,{phase:2,setup:"boss.hp=Math.floor(boss.max*.45);",until:"boss.move==='shieldPulse'&&boss.age>=2"});

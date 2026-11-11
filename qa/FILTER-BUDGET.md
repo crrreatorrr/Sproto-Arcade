@@ -37,8 +37,10 @@ as a no-op before the page loads.
 | 3 Mudline Trenches (flight) | Normal play, two windows | not run | not run | 56.6, 57.8 |
 | 3 | Barrage, three windows | not run | not run | 60.0, 60.1, 59.5 |
 
-`node qa/filter-budget-browser.mjs . [level]` repeats the level-1 run and fails under 45 ticks
-per second, or when the cache is not doing the drawing.
+`node qa/filter-budget-browser.mjs . [level]` repeats the level-1 run and fails when the median
+window is under 45 ticks per second, or when the cache is not doing the drawing. On a machine
+busy with other work single windows dip (32 to 61 was seen with filters on and with filters
+off alike), which is why it judges the median.
 
 ## Visual equivalence
 

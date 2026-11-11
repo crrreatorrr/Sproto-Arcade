@@ -104,7 +104,7 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
    - `r.ok === true` (this already covers version, god mode, a real clear and claim agreement);
    - `r.kind` matches the report type: `'boss'` for `arcade.boss_defeated`, `'clear'` for `arcade_clear`;
    - `r.bossId` equals the event's `data.boss` (for example `'bront'`) for boss reports;
-   - `r.ticks` is plausible: the golden bot clears take 7,720 to 10,512 ticks, about 2 to 3
+   - `r.ticks` is plausible: the golden bot clears take 6,665 to 9,379 ticks, about 2 to 2.5
      minutes (per level in `qa/golden/story-NN.json`, `expect.ticks`), and a log can be at most
      108,000 ticks (30 minutes). A floor per level, set from real
      clears, would catch impossibly fast runs;
@@ -253,11 +253,14 @@ machine and far longer on a shared one; one process per level runs them side by 
 |---|---|---|
 | before 2026-11-11 | `e992c779ac0f8b62` | Baseline of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md` |
 | 2026-11-11 | `a288552328745110` | Plan items B1 to B3: pickups spread over the phase, held during barrages and (hearts) at full health; a second, shorter barrage in a boss's phase 1 (new state `densityLastEnd`); wider opening shifts in flight barrages. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 are their previous inputs, which still clear, restamped. |
+| 2026-11-11 | `d3360290cc771a31` | Owner sign-off items D1, D3, D7 and the Redkev half of D5: phase 1 = 2 x boss health and phase 2 = boss health; a 24-frame floor on ordinary tells; one 44 px saucer half-width; Redkev's own move order, signatures and cadence. Each is its own commit. The old rules for D1, D3 and D7 remain behind `HISTORICAL_*` constants (false in production) for the archived replay lane. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 restamped again. |
 
 Moonkeep (level 7) now uses user-authorized UFO flight and vertical dragon patrols.
 Its production clear is earned again with the flight controller. Historical
 `qa/golden-disabled` files remain unchanged: `--collision-disabled` explicitly disables sprite hitboxes,
-density barrages, and phase powerups before replaying those historical rules. It
+density barrages, and phase powerups before replaying those historical rules, and sets every
+`HISTORICAL_*` constant in `game.js` to true (the 1065 phase-one health, tells without a floor
+and the two saucer hitbox widths those runs were recorded under). It
 excludes level 7's old grounded clear and its two stored fuzz hashes, while
 retaining exact checks for the other eleven levels. The original fixture order
 and RNG stream are preserved. All 24 fuzz runs still check determinism and
@@ -310,7 +313,7 @@ no `replay`.
 
 ## Performance
 
-These figures are from the original 12-level checkpoint: full clears of 7,000 to 8,000 ticks each. They have not been re-measured; the current goldens are 7,720 to 10,512 ticks, so expect proportionally longer replays.
+These figures are from the original 12-level checkpoint: full clears of 7,000 to 8,000 ticks each. They have not been re-measured; the current goldens are 6,665 to 9,379 ticks, so expect somewhat longer replays.
 
 | Engine | Per full clear | Notes |
 |---|---|---|

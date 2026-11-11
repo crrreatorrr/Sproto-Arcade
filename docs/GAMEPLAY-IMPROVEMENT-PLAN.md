@@ -2,7 +2,9 @@
 
 ## 1. Status
 
-Plan only. This plan has changed no game code. Written 2026-11-09 against commit `b40bcbf`; re-validated 2026-11-11 at commit `936f939`.
+Implemented in part on 2026-11-11, on branch `claude/trusting-ramanujan-63h582`; section 11 lists what was done, what was skipped and what the bot measured afterwards. Sections 2 to 10 are the plan as written and describe the game before that work: their line numbers, figures and `ARCADE_SIM_VERSION` refer to commit `936f939`.
+
+Written 2026-11-09 against commit `b40bcbf`; re-validated 2026-11-11 at commit `936f939`.
 
 The one commit between them ("Report the Breakwater Coin on every first-boss win") changed hub reporting only. `game.js` kept its line count, so every `game.js` line number here still holds; `hub-link.js` numbers below are the new ones. `ARCADE_SIM_VERSION` is still `e992c779ac0f8b62`, so the golden replay figures stand. The browser runs in section 2 were made at `b40bcbf` and were not repeated; the retry behaviour seen there (no replay recorder on a phase-2 checkpoint run) is unchanged in the code. Section 4.4 lists what that commit resolved.
 
@@ -376,3 +378,93 @@ Five to eight people who have not seen the game are enough to find the large pro
 - The hub side of rewards beyond what `hub-link.js` shows.
 - Art quality and per-sprite hitbox fit (`sprite-hitboxes.js`); the checks in `docs/BOSS-VALIDATION.md` were taken as given.
 - Co-op (`docs/COOP-DESIGN.md`).
+
+## 11. Implementation status (2026-11-11)
+
+The owner read this plan and said "implement everything". Items inside the scope `AGENTS.md` already authorized were done first. Sign-off items were done only where this plan gives a concrete change, each in its own commit so it can be reverted alone; a revert needs a re-pin.
+
+No person has played any of this. Every figure below is from the lookahead bot or from headless Chromium.
+
+### Items
+
+| Item | Status | Notes |
+|---|---|---|
+| A0 real-GPU check | Partly | Headless Chromium only (`qa/FILTER-BUDGET.md`). No laptop, phone, Firefox or Safari was measured. |
+| A1 baked outlines | Done | Level-1 barrage: 9.5 to 21 ticks per second before, 59 to 60 after, headless. Rotation, mirror and scale are baked into the cache (rotation snapped to 2 degrees), which keeps the keyline axis-aligned as the filter drew it. Captures before and after differ only by sub-pixel placement of projectile edges. |
+| A2 hit flash | Done | Additive second draw. The hue and tint filters in `drawVerseGemLaser` and `arena-effects.js` are unchanged: this plan asks for them only where a real device shows a cost. |
+| A3 cue line | Done | Also shows "BARRAGE OVER · GUNS ONLINE" ahead of the exposed cue for its 45 frames. `qa/story-hud-browser.mjs`. |
+| A4 fail screen | Done | The Ticket sentence appears only in a hub session. |
+| A5 first-run card | Done | Shown once per browser, and on the pause screen. |
+| B1 pickups | Done | As specified. |
+| B2 second barrage | Done, with one deviation | Half the waves (`floor(length / 2)`), not `ceil(length / 2) + 1`: the written formula gives 480 to 516 ticks, while this plan's acceptance line (250 to 420) and stated cost (5 to 7 s) need half. Measured 343 to 417 ticks. |
+| B3 flight openings | Done | On Mudline's phase 1 (85 px) a saucer that never steers can still survive; on Moonkeep it is hit. |
+| C1 results and bests | Done | `story-par.js` is regenerated with the goldens (`tools/build-story-par.mjs`). |
+| C2 level select | Done | |
+| C3 audio | Done, synthesised | `story-audio.js`: a voice per `sound()` call site and four tracks with a phase-two form. No audio files. Nobody has listened to it critically. |
+| C4 impact | Done | Flash and heart shake on a hit, ring and "3" on weak-spot hits, one-heart vignette, hazard band when a barrage starts. |
+| D1 phase split | Done (sign-off) | Commit "D1 [CHANGES PRESERVED GAMEPLAY: progression]". Misses both of its own targets narrowly; see below. |
+| D2 phase-1 checkpoint | Skipped | It is the alternative to D1, and D1 was done. |
+| D3 tell floor | Done (sign-off) | Commit "D3 [CHANGES PRESERVED GAMEPLAY: attack timing, reaction windows]". The claim in D3 that levels 1 to 5 are unchanged is not quite right: the 26-tick ricochet tell grows by one tick in Marina's last section, and 28-tick tells grow in the late sections from Sproto Ranch on. |
+| D4 dash cooldown | Skipped | This plan says to do it only if playtests show dash-spam winning. There has been no playtest. |
+| D5 own attacks | Partly (sign-off) | Redkev done: commit "D5 (Redkev half) [CHANGES PRESERVED GAMEPLAY: attack order]". Base order rush, slabs, quake, drop, bankShot; section attacks in a new order; signatures forgePress and portalRing, which no other ground boss uses; cadence 1.01. The exact order and signatures were left open here and were chosen during implementation. Moonkeep not done: it needs new patterns designed and possibly art. `AGENTS.md` still describes Redkev as a clone of level 1. |
+| D6 guns on in barrages | Skipped | Section 8 says to decide after people have played a barrage with the new cue. |
+| D7 saucer hitbox | Done (sign-off) | Commit "D7 [CHANGES PRESERVED GAMEPLAY: player hitbox]". 44 px half-width for ordinary shots and barrage missiles. |
+| D8 chase and climb checkpoints | Skipped | This plan says to decide after a playtest. |
+| H2, H7 | Done | Fail screen states the checkpoint rule; `docs/SERVER-SIM.md` and `docs/PHASE-POWERUPS.md` corrected. |
+| H1, H3 to H6 | Not started | Hub-side work. H3 (Redkev Tickets) still needs the hub to accept stage 13. |
+
+The archived replay lane (`qa/server-sim-goldens.mjs --collision-disabled`) still passes: the old rules behind D1, D3 and D7 stay in `game.js` under `HISTORICAL_*` constants that only that lane switches on.
+
+### Simulation versions
+
+| Stage | `ARCADE_SIM_VERSION` |
+|---|---|
+| Before (this plan's baseline), and after batches 1 and 3 | `e992c779ac0f8b62` |
+| After B1 to B3 | `a288552328745110` |
+| After D1, D3, D7 and D5 (Redkev), the branch head | `d3360290cc771a31` |
+
+The hub has to vendor `dist/arcade-sim.server.js` from the commit it deploys with.
+
+### Bot figures at the branch head
+
+Golden clears replayed by `node runtime/fixtures/barrage-pickup-goldens.test.js --table`. Barrages are start tick + length within the phase; items are kind @ phase tick (s shield, l heart).
+
+| Level (id) | Clear ticks (s) | Phase 1 (s) | Phase 2 (s) | Phase-1 barrages | Phase-2 barrage | Phase-1 items | Phase-2 items | Bot hits (in barrage) |
+|---|---|---|---|---|---|---|---|---|
+| 1 Tidebreak Marina | 7462 (124) | 4571 (76) | 2891 (48) | 528+589, 2623+367 | 645+571 | s@1117 | s@459 | 0 (0) |
+| 13 Redkev's Marina | 6665 (111) | 4288 (71) | 2377 (40) | 424+579, 2495+357 | 758+562 | s@2852 | s@1321 | 0 (0) |
+| 2 Last Light Bar | 6766 (113) | 4165 (69) | 2601 (43) | 438+575, 2420+353 | 837+559 | s@2773 | s@1397 | 0 (0) |
+| 3 Mudline Trenches | 7007 (117) | 4330 (72) | 2677 (45) | 491+587, 2189+377 | 463+599 | s@2710 | s@448 | 0 (0) |
+| 4 Sproto Ranch | 8129 (135) | 4894 (82) | 3235 (54) | 528+608, 2765+398 | 780+627 | s@2695 | s@1408 | 0 (0) |
+| 5 Neon Tomorrow | 7254 (121) | 4619 (77) | 2635 (44) | 502+606, 2389+396 | 559+625 | s@2996 | s@1185 | 0 (0) |
+| 6 Circuit Gate | 8313 (139) | 4644 (77) | 3669 (61) | 610+646, 2476+380 | 537+652 | s@1385 | s@1190 | 0 (0) |
+| 7 Moonkeep Castle | 8146 (136) | 5118 (85) | 3028 (50) | 438+607, 2677+343 | 420+617 | s@1444 | s@1038 | 0 (0) |
+| 8 Crown Relay Chamber | 9379 (156) | 4975 (83) | 4404 (73) | 660+636, 2808+370 | 510+649 | s@2679 | l@4283 | 1 (0) |
+| 9 The Hatchery | 8252 (138) | 5139 (86) | 3113 (52) | 470+661, 2880+417 | 879+678 | s@3297 | s@1558 | 0 (0) |
+| 10 Verse Gate | 9168 (153) | 6199 (103) | 2969 (49) | 647+651, 3461+410 | 785+672 | s@2727 | s@1458 | 1 (0) |
+| 11 Rooftop Breakaway | 7720 (129) | n/a | n/a | 429+658 | n/a | s@2563 l@4779 | n/a | 3 (3) |
+| 12 Codebreak Ascent | 8880 (148) | 5686 (95) climb | 3194 (53) | 434+571 | 515+678 | l@1807 s@3934 | s@507 l@1334 | 1 (0) |
+
+Levels 11 and 12 are their earlier inputs, which still clear, restamped; the rest are new bot runs.
+
+Against section 9's targets:
+
+| Measure | Before | Target | Now |
+|---|---|---|---|
+| Phase 1, bot seconds | 107 to 132 | under 95 after D1 | 69 to 103. Verse Gate (103 s) misses; the second barrage accounts for about 7 s of it. |
+| Whole fight, Verse Gate against Marina | 168 s against 157 s | at least 25% longer | 153 s against 124 s, 23% longer. Misses narrowly. |
+| Pickup spawns inside a barrage | 21 of 47 | 0 | 0 of 28 |
+| Hearts spawned at five hearts | possible | 0 | 0 (4 hearts spawned, all to a hurt player) |
+| Latest pickup spawn in phase 1 | tick 888 | after tick 3,800 | 3,297 for a boss fight. The 3,800 target assumed the 1065-health phase 1; with D1 the second item is planned at 58 to 82% of 3,261 to 4,526 ticks. After B alone, before D1, it was tick 5,298. |
+| Bot hits inside barrages | 9 of 20 | not higher | 3 of 6 |
+| `ARCADE_SIM_VERSION` after batches 1 and 3 | `e992c779ac0f8b62` | unchanged | unchanged, confirmed by `tools/check-server-bundle.mjs` at each commit |
+
+### What a QA pass should look at first
+
+1. A real GPU: whether the baked outlines hold 58 ticks per second or better through a late barrage, and whether the remaining hue filters matter (A0).
+2. D1 pacing by hand. Phase 2 is now 40 to 73 s for the bot, and the phase-2 pickup span is still 1,400 ticks, so both items arrive in its first half.
+3. The second phase-1 barrage: whether it reads as welcome variety or as more dead time (D6 is still open).
+4. Redkev: whether the new order and the forgePress and portalRing signatures feel right at level 2.
+5. D7 in Moonkeep and Mudline barrages: the saucer is now 88 px wide against missiles, where it was 36.
+6. The cue line under load: one line at a time, mandatory mechanics first. Check that attack names do not hide the exposed cue for too long.
+7. The synthesised audio at normal volume, on speakers and headphones.
