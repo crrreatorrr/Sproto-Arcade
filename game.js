@@ -411,6 +411,7 @@ function announce(message, frames = 110) {
 
 function setOverlay(next, label, title, description, button) {
   mode = next;
+  overlay.dataset.mode = next;
   overlay.hidden = next === 'play';
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   sprotoSelect.hidden=levelSelect.parentElement.hidden;
@@ -2261,6 +2262,21 @@ function renderLegacyScene() {
 function pause() {
   if (mode==='play') setOverlay('paused','Intermission','Paused','Take a breather.','Resume');
   else if (mode==='paused') setOverlay('play','','','','');
+}
+
+// In-game feedback window (feedback-link.js): the paused mode without its overlay, so the two
+// never fight. Returns the mode before; feedbackResume(before) puts play back only if this pause
+// stopped it and nothing else changed the screen meanwhile. No tick runs outside 'play', so the
+// pickup, shield and attack clocks all hold still.
+function feedbackPause(){
+  const before=mode;
+  if (mode==='play') mode='paused';
+  keys.clear();pressed.clear();lastNine=-Infinity;
+  return before;
+}
+function feedbackResume(before){
+  keys.clear();pressed.clear();
+  if (before==='play' && mode==='paused' && overlay.hidden) mode='play';
 }
 
 function retryCurrentPhase(){
