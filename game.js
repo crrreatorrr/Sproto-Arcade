@@ -164,6 +164,9 @@ for (const [name,shots] of Object.entries({...SIGNATURE_PATTERNS,...FLIGHT_PATTE
   moves[name]={tell:32,active:shots.at(-1)[0]+23,rest:27};
 }
 const MAX_HP=5, PHASE_ONE_HEALTH=1065;
+// Rules replaced by owner-approved changes keep their old form behind these constants, so the
+// archived replays in qa/golden-disabled still run (qa/server-sim-goldens.mjs sets them true).
+const HISTORICAL_PHASE_SPLIT=false;
 const DENSITY_SECOND_GAP=900;
 const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MECHA_ROCKETS=['mechaMissile','mechaArc','mechaHoming','mechaWave'];
@@ -685,10 +688,14 @@ function simState() {
     bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
+// Phase split (plan item D1, owner sign-off 2026-11-11): phase 1 is twice the boss's listed
+// health and phase 2 is the listed health (526/263 for Fat Head Dave up to 730/365 for Bot Sales),
+// so later bosses take longer. It was 1065 for every boss, then half the listed health.
 function startBoss() {
   const [archetype,cadence,shotRate]=BOSS_PROFILES[mechanicsIndex(levelIndex)];
   const kit=acts[levelIndex];
-  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-70:FLOOR,hp:PHASE_ONE_HEALTH,max:PHASE_ONE_HEALTH,phaseTwoHealth:Math.ceil(kit.hp/2),scale:kit.id==='sprotosales'?4.65:4.40,
+  const phaseOne=HISTORICAL_PHASE_SPLIT?PHASE_ONE_HEALTH:2*kit.hp;
+  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-70:FLOOR,hp:phaseOne,max:phaseOne,phaseTwoHealth:HISTORICAL_PHASE_SPLIT?Math.ceil(kit.hp/2):kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
   player.inv=35;
