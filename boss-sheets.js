@@ -111,7 +111,61 @@
     const config=entry(id),img=image(config?.phases[phase]);
     return img&&img.naturalWidth%(config.columns||4)===0&&img.naturalHeight%(config.rows||4)===0?img:null;
   }
-  function frame(ctx,img,row,column,box,config,crop,scaleBounds){
+  // Keylines are baked once per sprite frame and size. A canvas filter on every projectile
+  // draw is the frame's dominant cost (see docs/GAMEPLAY-IMPROVEMENT-PLAN.md, F1), so the main
+  // canvas only ever blits the finished sprite-plus-outline. Mirroring and rotation stay on the
+  // caller's transform. Collision never reads any of this.
+  // Up to 256 entries and about 24 MB; typical projectiles are under 140px a side (78 KB). The
+  // side limit admits the one large steady sprite, the ceiling sweep band.
+  const OUTLINE_PAD=4,OUTLINE_MAX_SIDE=640,OUTLINE_MAX_ENTRIES=256,OUTLINE_MAX_BYTES=24*1024*1024,outlineCache=new Map();
+  let outlineStage=null,outlineBytes=0;
+  function outlineEvict(){const [key,old]=outlineCache.entries().next().value;outlineCache.delete(key);outlineBytes-=old.width*old.height*4;}
+  const outlineStats={builds:0,blits:0,direct:0};
+  function outlineSurface(width,height){
+    if(typeof document!=='undefined'&&typeof document.createElement==='function'){const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;return canvas;}
+    return typeof OffscreenCanvas==='undefined'?null:new OffscreenCanvas(width,height);
+  }
+  // Draws img's crop at the destination rectangle with filterText baked in. Returns false when the
+  // caller must use the direct filtered draw: no canvas factory (Node tests), an outer filter
+  // already active, a skewed transform, or a sprite too large to cache (rising columns, beams,
+  // long rays). The caller's scale, mirror and rotation are baked into the cached canvas, so the
+  // keyline stays one canvas pixel wide and axis-aligned exactly as the filter drew it. Rotation
+  // is snapped to OUTLINE_ANGLE_STEPS per turn (under 1px at a projectile's edge) so a shot that
+  // turns in flight reuses neighbouring entries.
+  const OUTLINE_ANGLE_STEPS=180;
+  function drawOutlined(ctx,img,sx,sy,sw,sh,dx,dy,dw,dh,filterText,stage){
+    if(typeof ctx.getTransform!=='function'||typeof ctx.setTransform!=='function'||ctx.filter&&ctx.filter!=='none')return false;
+    const m=ctx.getTransform(),kx=Math.hypot(m.a,m.b),ky=Math.hypot(m.c,m.d);
+    if(!(kx>0&&ky>0)||!(dw>0&&dh>0))return false;
+    const pw=dw*kx,ph=dh*ky,skew=(m.a*m.c+m.b*m.d)/(kx*ky);
+    if(pw<1||ph<1||pw>OUTLINE_MAX_SIDE||ph>OUTLINE_MAX_SIDE||Math.abs(skew)>1e-6)return false;
+    if(stage!==outlineStage){outlineCache.clear();outlineBytes=0;outlineStage=stage;}
+    const mirror=m.a*m.d-m.b*m.c<0?-1:1;
+    const step=((Math.round(Math.atan2(m.b,m.a)/(2*Math.PI)*OUTLINE_ANGLE_STEPS)%OUTLINE_ANGLE_STEPS)+OUTLINE_ANGLE_STEPS)%OUTLINE_ANGLE_STEPS;
+    const key=(img.currentSrc||img.src||'')+'|'+sx+'|'+sy+'|'+sw+'|'+sh+'|'+Math.round(pw*2)/2+'|'+Math.round(ph*2)/2+'|'+step+'|'+mirror+'|'+filterText;
+    let baked=outlineCache.get(key);
+    if(baked)outlineCache.delete(key);
+    else{
+      // Quarter turns use exact 0 and 1 so an unrotated sprite is copied without resampling drift.
+      const quarter=OUTLINE_ANGLE_STEPS/4,angle=step/OUTLINE_ANGLE_STEPS*2*Math.PI;
+      const cos=step%quarter?Math.cos(angle):[1,0,-1,0][step/quarter],sin=step%quarter?Math.sin(angle):[0,1,0,-1][step/quarter];
+      const width=Math.ceil(Math.abs(pw*cos)+Math.abs(ph*sin))+2*OUTLINE_PAD,height=Math.ceil(Math.abs(pw*sin)+Math.abs(ph*cos))+2*OUTLINE_PAD;
+      const surface=outlineSurface(width,height),pen=surface?.getContext?.('2d');
+      if(!pen)return false;
+      pen.imageSmoothingEnabled=false;pen.filter=filterText;
+      pen.setTransform(cos,sin,-sin*mirror,cos*mirror,width/2,height/2);
+      pen.drawImage(img,sx,sy,sw,sh,-pw/2,-ph/2,pw,ph);
+      baked=surface;outlineStats.builds++;
+      outlineBytes+=width*height*4;
+      while(outlineCache.size&&(outlineCache.size>=OUTLINE_MAX_ENTRIES||outlineBytes>OUTLINE_MAX_BYTES))outlineEvict();
+    }
+    outlineCache.set(key,baked);
+    const cx=dx+dw/2,cy=dy+dh/2,x=m.a*cx+m.c*cy+m.e,y=m.b*cx+m.d*cy+m.f;
+    ctx.save();ctx.setTransform(1,0,0,1,Math.round(x-baked.width/2),Math.round(y-baked.height/2));
+    ctx.drawImage(baked,0,0);ctx.restore();outlineStats.blits++;
+    return true;
+  }
+  function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline){
     const columns=config.columns||4,rows=config.rows||4;
     const cellWidth=img.naturalWidth/columns,cellHeight=img.naturalHeight/rows;
     if(cellWidth<1||cellHeight<1||img.naturalWidth%columns||img.naturalHeight%rows)return false;
@@ -124,8 +178,11 @@
     if(!destination)return false;
     ctx.save();ctx.imageSmoothingEnabled=false;
     ctx.translate(box.x+box.w/2,box.y+box.h/2);if(box.flip)ctx.scale(-1,1);
-    ctx.drawImage(img,(column%columns)*cellWidth+cx,(row%rows)*cellHeight+cy,width,height,
-      destination.x,destination.y,destination.w,destination.h);
+    const sx=(column%columns)*cellWidth+cx,sy=(row%rows)*cellHeight+cy;
+    if(!outline||!drawOutlined(ctx,img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h,outline.filter,outline.stage)){
+      if(outline){ctx.filter=ctx.filter&&ctx.filter!=='none'?ctx.filter+' '+outline.filter:outline.filter;outlineStats.direct++;}
+      ctx.drawImage(img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h);
+    }
     ctx.restore();return true;
   }
   function attackRow(id,hazard){
@@ -261,14 +318,14 @@
     ctx.save();
     // A pale inner keyline and dark outer halo separate every source palette
     // from both bright scenery and dark machinery without repainting the art.
+    // frame() blits it from the baked-outline cache, or applies it as a filter where it cannot.
     const contrast='drop-shadow(1px 0px 0px #f4fcff) drop-shadow(-1px 0px 0px #f4fcff) drop-shadow(0px 1px 0px #f4fcff) drop-shadow(0px -1px 0px #f4fcff) drop-shadow(0px 0px 2px #06111f)';
-    ctx.filter=ctx.filter&&ctx.filter!=='none'?ctx.filter+' '+contrast:contrast;
     if(presentation?.scale>1){
       // Scaling about the existing opaque core keeps the original collider
       // centered inside the enlarged solid sprite, including mirrored shots.
       ctx.translate(presentation.x,presentation.y);ctx.scale(presentation.scale,presentation.scale);ctx.translate(-presentation.x,-presentation.y);
     }
-    const shown=frame(ctx,img,row,column,box,config,crop,bounds);
+    const shown=frame(ctx,img,row,column,box,config,crop,bounds,{filter:contrast,stage:Number.parseInt(id,10)});
     ctx.restore();return shown;
   }
   // Coordinates and dimensions come from the caller's existing projectile transform/bounds.
@@ -297,9 +354,13 @@
     // Correct native source angle to LEFT, then retain the caller's +X frame.
     if(shot.vertical)ctx.rotate(-Math.PI/2);
     else ctx.scale(-1,1);
-    ctx.filter='drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
+    const glow='drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
     if(transform.rotation){ctx.translate(-transform.offsetX*size,-transform.offsetY*size);ctx.rotate(transform.rotation);}
-    ctx.drawImage(img,column*(img.naturalWidth/4)+sx,sy,sw,sh,-w/2,-h/2,w,h);ctx.restore();return true;
+    if(!drawOutlined(ctx,img,column*(img.naturalWidth/4)+sx,sy,sw,sh,-w/2,-h/2,w,h,glow,id)){
+      ctx.filter=glow;outlineStats.direct++;
+      ctx.drawImage(img,column*(img.naturalWidth/4)+sx,sy,sw,sh,-w/2,-h/2,w,h);
+    }
+    ctx.restore();return true;
   }
   function drawProjectile(ctx,id,shot,box,context){
     if(shot.density)return drawDensityMissile(ctx,{...shot,stage:id},box,shot.age||context?.phaseTick||0);
@@ -365,5 +426,5 @@
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
 })(globalThis);

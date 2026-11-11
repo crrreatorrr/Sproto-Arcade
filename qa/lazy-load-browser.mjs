@@ -35,7 +35,7 @@ const RECORD=`(()=>{const seen=new Set();window.__imagePaths=seen;
     set(v){const u=new URL(v,location.href);seen.add(u.pathname.slice(1)+u.search);d.set.call(this,v)}});})()`;
 
 async function openPage(browser,origin,query=''){
-  const page=await browser.newPage();
+  const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
   const stats={requests:0,bytes:0,failed:[],errors:[]};
   page.on('response',r=>{stats.requests++;if(r.status()>=400)stats.failed.push(r.status()+' '+r.url());stats.bytes+=Number(r.headers()['content-length']||0)});
   page.on('requestfailed',r=>stats.failed.push('failed '+r.url()));

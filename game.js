@@ -1585,7 +1585,6 @@ function drawMecha(b) {
   const y=mechaY(b);
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  if (b.flash && b.hp) ctx.filter='brightness(1.34)';
   ctx.translate(Math.round(b.x),Math.round(y));
   ctx.scale(-1,1);
   if (b.hp) drawFlightFlame('orange',-art.width/2+26,16,41,-.65);
@@ -1654,15 +1653,21 @@ function renderBoss() {
   shadow(b.x,FLOOR,120);
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  if (b.flash && b.hp) ctx.filter='brightness(1.38)';
   const sheetTop=hasMecha(b)?mechaY(b)-122:b.y-116*b.scale;
   const sheetBottom=hasMecha(b)?mechaY(b)+122:b.y-12;
   const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
-  const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,{x:b.x-(hasMecha(b)?150:190),y:sheetTop,w:hasMecha(b)?300:380,h:sheetBottom-sheetTop});
-  if (!sheetDrawn) {
-    if (hasMecha(b)) drawMecha(b);
+  // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
+  // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
+  // close to half of all frames while the player's autofire was landing.
+  const paintBoss=flash=>{
+    if (flash) { ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=flash; }
+    const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,{x:b.x-(hasMecha(b)?150:190),y:sheetTop,w:hasMecha(b)?300:380,h:sheetBottom-sheetTop});
+    if (sheetDrawn) return;
+    if (hasMecha(b)) { if (flash) ctx.globalAlpha=flash*.34/.38; drawMecha(b); }
     else sprite(b.id,pose,b.x,b.y,-1,b.scale);
-  }
+  };
+  paintBoss(0);
+  if (b.flash && b.hp) paintBoss(.38);
   ctx.restore();
   if (exposed && b.hp && !densityShots.length) {
     ctx.strokeStyle='#ffe5a1';
@@ -1894,7 +1899,7 @@ function drawCeilingSweep() {
   const travel=Math.round(boss.age*23*SWEEP_SPEED)%W;
   const fade=1-clamp(elapsed/moves.ceilingSweep.active,0,1)*.54;
   ctx.globalAlpha=.48*fade;
-  const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,{source:'ceilingSweep',age:boss.age},{x:0,y:0,w:W,h:Math.max(1,edge)},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss),tick:time});
+  const themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,{source:'ceilingSweep',age:boss.age},{x:0,y:edge-SWEEP_EDGE,w:W,h:SWEEP_EDGE},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss),tick:time});
   if(!themed){ctx.drawImage(art,travel-W,-66,W,edge+65);
   ctx.drawImage(art,travel,-66,W,edge+65);}
   ctx.globalAlpha=.92*fade;

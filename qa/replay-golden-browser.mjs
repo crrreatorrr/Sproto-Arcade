@@ -28,7 +28,7 @@ const browser=await chromium.launch();
 const results=[];let failed=0;
 try{
   for(const gold of goldens){
-    const page=await browser.newPage();
+    const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     const errors=[];page.on('pageerror',e=>errors.push(String(e)));
     await page.goto(origin+'/legacy.html?level='+gold.level);
     await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});

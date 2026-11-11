@@ -54,7 +54,7 @@ const sdkScript=/\/vendor\/hub-sdk\/hub-sdk\.iife\.js(?:\?[^#]*)?$/;
 const clear=(page,level,god,phase=1)=>page.evaluate(([level,god,phase])=>{godMode=god;begin(level,false,phase);clearLevel();godMode=false;return window.ArcadeHub.state.save;},[level,god,phase]);
 try{
   { // 1. Offline.
-    const page=await browser.newPage();
+    const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     const errors=await open(page);
     assert.equal(await page.evaluate(()=>window.ArcadeHub.state.status),'offline');
     assert.equal(await page.evaluate(()=>document.getElementById('hub-bar').hidden),true);
@@ -71,7 +71,7 @@ try{
     await page.close();
   }
   { // 2. Hub session with the recording stub.
-    const page=await browser.newPage();
+    const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:STUB}));
     const errors=await open(page);
     await page.waitForFunction(()=>window.ArcadeHub.state.status==='online');
@@ -131,7 +131,7 @@ try{
   }
   { // 2b. Accounts on one browser stay apart: offline progress goes to the first account only.
     const context=await browser.newContext();
-    const page=await context.newPage();
+    const page=await context.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     await page.goto(origin+'/legacy.html');
     await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});
     await page.evaluate(()=>window.ArcadeHub.ready);
@@ -154,7 +154,7 @@ try{
     await context.close();
   }
   { // 3. index.html forwards a ticket.
-    const page=await browser.newPage();
+    const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     // The SDK strips #t= as soon as it tries to redeem it, so note the hash story mode arrived with.
     await page.addInitScript(()=>{if(location.pathname.endsWith('/legacy.html'))sessionStorage.setItem('arrivedHash',location.hash);});
     await page.goto(origin+'/index.html#t=abc123');
@@ -162,7 +162,7 @@ try{
     assert.equal(await page.evaluate(()=>sessionStorage.getItem('arrivedHash')),'#t=abc123');
     await page.waitForFunction(()=>window.ArcadeHub&&window.ArcadeHub.state.status!=='connecting',null,{timeout:30000});
     assert.equal(await page.evaluate(()=>location.hash),'','the SDK consumed the ticket');
-    const plain=await browser.newPage();
+    const plain=await browser.newPage();await plain.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     await plain.goto(origin+'/index.html');
     assert.match(plain.url(),/index\.html$/,'no ticket stays on Machine Trials');
     results.ticketForward='passed';

@@ -40,4 +40,31 @@ calls.length=0;
 sheets.drawProjectile(ctx,1,{shape:'prism',age:1},{x:0,y:0,w:800,h:16},{phaseIndex:0,variant:1});
 assert.ok(!calls.some(c=>c[0]==='scale'&&c[1]>1),'tiled full-span beams retain exact authored span');
 assert.ok(calls.filter(c=>c[0]==='draw').every(c=>c[1]==='none'),'tiled fronts keep their original warning presentation');
+// Browser path: the keyline is baked once into an offscreen canvas with the same filter string
+// and the main canvas only blits it, with no filter of its own.
+{
+ const baked=[],main=[];
+ const surface=()=>{const pen={filter:'none',imageSmoothingEnabled:true,setTransform(){},drawImage(){baked.push(this.filter);}};return{width:0,height:0,getContext:()=>pen};};
+ const browser=vm.createContext({Image,document:{createElement:surface}});
+ vm.runInContext(fs.readFileSync('sprite-hitboxes.js','utf8'),browser);
+ vm.runInContext(fs.readFileSync('density-attacks.js','utf8'),browser);
+ vm.runInContext(fs.readFileSync('boss-sheets.js','utf8'),browser);
+ const live=browser.ArcadeBossSheets,stack=[];
+ const pen={filter:'none',matrix:{a:1,b:0,c:0,d:1,e:0,f:0},save(){stack.push({...this.matrix});},restore(){this.matrix=stack.pop();},
+  translate(x,y){const m=this.matrix;m.e+=m.a*x+m.c*y;m.f+=m.b*x+m.d*y;},scale(x,y){const m=this.matrix;m.a*=x;m.b*=x;m.c*=y;m.d*=y;},rotate(){},
+  getTransform(){return{...this.matrix};},setTransform(a,b,c,d,e,f){this.matrix={a,b,c,d,e,f};},beginPath(){},rect(){},clip(){},
+  drawImage(image){main.push({filter:this.filter,baked:typeof image.getContext==='function',matrix:{...this.matrix}});}};
+ for(let i=0;i<3;i++)live.drawProjectile(pen,1,{shape:'orb',age:1},{x:-12,y:-12,w:24,h:24},{phaseIndex:0,variant:0});
+ assert.equal(baked.length,1,'one sprite frame at one size is baked once and reused');
+ assert.ok(baked[0].includes('#f4fcff')&&baked[0].includes('#06111f'),'the baked outline uses both contrast edges');
+ assert.equal(main.length,3);
+ assert.ok(main.every(d=>d.baked&&d.filter==='none'&&d.matrix.a===1&&d.matrix.d===1&&Number.isInteger(d.matrix.e)&&Number.isInteger(d.matrix.f)),'the main canvas blits the baked sprite 1:1 with no filter');
+ assert.equal(live.outlineStats.builds,1);assert.equal(live.outlineStats.blits,3);assert.equal(live.outlineStats.direct,0);
+ live.drawDensityMissile(pen,{stage:1,vx:-5},{x:-20,y:-20,w:40,h:40},0);
+ assert.ok(baked[1].includes('#ffffff')&&baked[1].includes('#111522'),'barrage missiles bake their glow the same way');
+ main.length=0;live.drawProjectile(pen,1,{shape:'prism',age:1},{x:0,y:0,w:800,h:16},{phaseIndex:0,variant:1});
+ assert.ok(main.length>1&&main.every(d=>!d.baked&&d.filter==='none'),'tiled full-span beams still draw directly and unfiltered');
+ live.drawProjectile(pen,2,{shape:'orb',age:1},{x:-12,y:-12,w:24,h:24},{phaseIndex:0,variant:0});
+ assert.equal(live.outlineCacheSize(),1,'the cache is dropped when the stage changes');
+}
 console.log(`PASS ${cases} production core-anchor/containment cases; ${boosted} small silhouettes enlarged; contrast, full-span guards and simulation immutability`);
