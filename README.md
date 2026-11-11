@@ -46,6 +46,7 @@ Both pages share one layout. Keyboard, mouse and a controller all work at the sa
 | Replace the held pickup while touching one (Machine Trials) | E | View |
 | Retry | R: Machine Trials retries at once; story mode after a knockout | A on the game-over Retry button |
 | Pause / resume | Escape | Start (B also resumes) |
+| Send feedback (signed-in hub players; the game pauses and resumes where it was) | N twice, or Send feedback on the pause screen | Send feedback on the pause screen |
 | Menus and overlays | Arrows or W/S move; A/D or ←/→ change a selector; Enter or Space confirms; Escape closes pause; Tab still works | D-pad or left stick moves; A confirms; B closes pause; Start presses the main button |
 | Return to hub (story mode in a hub session) | Click Return to hub, or Tab to it | Start, D-pad down, A |
 

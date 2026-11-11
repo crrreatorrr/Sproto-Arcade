@@ -10,6 +10,8 @@ The user's November 6 follow-up explicitly expands that gameplay scope: Moonkeep
 
 Redkev's two concepts were explicitly approved; the user authorized both animation sheets and requires red projectiles. The user also reassigns the original Neon Tomorrow phase-one orange crane vehicle and its ammunition to Sproto Ranch phase one, replacing its pilot with canonical Halloween 2008. Neon Tomorrow phase one receives a new Collector vehicle matching its level and existing phase-two art style. Original IDs stay stable when Redkev is inserted into campaign order; references to levels 4/5/7 in these requests mean the original Ranch/Neon/Moonkeep identities.
 
+Note added 2026-11-11: as of commit 9253a5f (owner sign-off on plan item D5) Redkev is no longer a clone of level 1. He keeps Marina's arena, backgrounds, health and yacht cannon but has his own move order, section attacks, signatures (forgePress, portalRing) and cadence 1.01. See section 11 of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md`.
+
 
 - Integrate completed, verified project work into local `main` as it is finished. The user now also authorizes pushing completed verified tasks to GitHub main after local integration. Verify the repository destination, current remote state and CI, preserve concurrent work, and never force push.
 - Do not pull Sproto Fighter updates or dependent shared repositories until Sproto Fighter PR #8 has finished. Check that PR before any later pull. Current Arcade tuning uses checked-in assets. PR #8 was verified merged as04573bc9b1b4cc20308d4149f9e9fae0ef8d6454 before the subsequent safe Arcade pull; preserve that verification and recheck before later shared updates.

@@ -369,3 +369,4 @@ Options for the hub:
 - Only Chromium was run in the browser. With `SimMath` there is no known source of divergence
   in Firefox or Safari, but those browsers were not tested.
 - The goldens are bot runs, not human playtests.
+- **Ranks and best times are client-authoritative.** Story mode stores a best `{ticks, hits, rank}` per level in the story save, which syncs to the hub's cloud save (`story-progress.js`). The browser writes them and nothing verifies or reads them. They must never feed rewards, unlocks or a leaderboard as they stand: a board or reward needs the time from a server-side `verifyClear` of that run's log (`ticks` in its result), and hits would need to be derived from the replay too.

@@ -31,13 +31,21 @@ try{
  r=await stage("begin(0,false,1,777);time=8000;runStats.hits=4;clearLevel();");
  check('a faster run with a worse rank leaves the best',()=>{assert.match(r.text,/^Time 2:13\.3 .*\nRank B  ·  Best: A in 2:30\.0\n/);assert.deepEqual(r.best,{0:{ticks:9000,hits:1,rank:'A'}});});
  r=await stage("begin(0,false,2,777);time=1500;clearLevel();");
- check('a checkpoint clear is rank C and leaves the best alone',()=>{assert.match(r.text,/^Phase 2 from the checkpoint: 0:25\.0  ·  Hits 0  ·  Hearts 5\/5\nRank C  ·  Checkpoint clear\. Your full-run best is unchanged\.\n/);assert.deepEqual(r.best,{0:{ticks:9000,hits:1,rank:'A'}});});
+ check('a checkpoint clear is rank C and leaves the best alone',()=>{assert.match(r.text,/^Phase 2 from the checkpoint: 0:25\.0  ·  Hits 0  ·  Hearts 5\/5\nRank C  ·  Checkpoint clear\. Your full-run best is unchanged\.\nNext up/);assert.deepEqual(r.best,{0:{ticks:9000,hits:1,rank:'A'}});});
  r=await stage("godMode=true;begin(0,false,1,777);time=3000;clearLevel();godMode=false;");
  check('a god-mode clear is not ranked',()=>{assert.match(r.text,/^Time 0:50\.0  ·  God mode: no rank and no best time\n/);assert.deepEqual(r.best,{0:{ticks:9000,hits:1,rank:'A'}});});
  r=await stage("begin(0,false,1,777);time=7000;runStats.hits=0;clearLevel();");
  check('a hitless run under par is an S and replaces the A',()=>{assert.match(r.text,/\nRank S  ·  New best!\n/);assert.deepEqual(r.best,{0:{ticks:7000,hits:0,rank:'S'}});});
+ // What each clear paid, as the hub-connected player sees it (reportHubClear's rules).
+ const paid=await page.evaluate(()=>{const real={c:ArcadeHub.connected,r:ArcadeHub.reportHubClear};ArcadeHub.connected=()=>true;ArcadeHub.reportHubClear=()=>{};const line=()=>ui.description.textContent.split('\n').find(l=>/Tickets/.test(l))||'';const out={};
+  godMode=false;begin(0,false,1,777);time=9100;clearLevel();out.full=line();
+  begin(0,false,2,777);time=1500;clearLevel();out.checkpoint=line();
+  godMode=true;begin(0,false,1,777);time=3000;clearLevel();godMode=false;out.god=line();
+  begin(12,false,1,777);time=9100;clearLevel();out.redkev=line();out.redkevRank=/Rank [SAB]/.test(ui.description.textContent);
+  ArcadeHub.connected=real.c;ArcadeHub.reportHubClear=real.r;begin(0,false,1,777);time=9100;clearLevel();out.offline=line();return out;});
+ check('every clear says whether it paid, and why not',()=>assert.deepEqual(paid,{full:"+20 Tickets for this clear, within the hub's caps.",checkpoint:'No Tickets for this clear: it came after a phase-2 checkpoint retry, and only a full run pays.',god:'No Tickets for this clear: god mode was used.',redkev:"No Tickets for this clear: the hub does not pay for Redkev's Marina yet.",redkevRank:true,offline:''}));
  const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('sproto-arcade-story-v1')));
- check('the best is in the saved progress',()=>{assert.deepEqual(stored.best,{0:{ticks:7000,hits:0,rank:'S'}});assert.deepEqual(stored.cleared,[0,12]);});
+ check('the best is in the saved progress',()=>{assert.deepEqual(stored.best[0],{ticks:7000,hits:0,rank:'S'});assert.deepEqual(stored.cleared,[0,12]);assert.deepEqual(Object.keys(stored.best),['0','12']);});
  // Hits are counted from lost hearts while the level runs.
  const hits=await page.evaluate(()=>{godMode=false;begin(0,false,1,777);mode='play';for(let i=0;i<3000&&mode==='play'&&player.hp>2;i++){inputFrame=NO_INPUT;update();}const out={hits:runStats.hits,hp:player.hp};mode='paused';return out;});
  check('hits follow lost hearts',()=>{assert.ok(hits.hits>=1);assert.equal(hits.hits,5-hits.hp);});

@@ -293,6 +293,9 @@
   const page = adapters[profileName];
   const tracker = createTracker(), repeater = createRepeater();
   let held = new Set(), previousButtons = null, wasPlaying = null;
+  // The feedback window (feedback-link.js) takes the keyboard while it is open; the pad must not
+  // drive the menu or the game underneath it.
+  const feedbackOpen = () => { const f = root.ArcadeFeedback; return Boolean(f && typeof f.isOpen === 'function' && f.isOpen()); };
 
   function send(type, code) {
     window.dispatchEvent(new KeyboardEvent(type, { code, key: keyName(code), bubbles: true, cancelable: true }));
@@ -358,7 +361,7 @@
   // Keyboard menu navigation. It runs before the games' own handlers (capture) and only on menu
   // screens; during play every key goes to the game untouched.
   window.addEventListener('keydown', e => {
-    if (!e.isTrusted || page.playing() || !menuItems().length) return;
+    if (!e.isTrusted || feedbackOpen() || page.playing() || !menuItems().length) return;
     const action = menuKeyAction(e, focusKind());
     if (!action) return;
     e.preventDefault();
@@ -377,6 +380,15 @@
     let snapshot;
     try { snapshot = tracker.update(navigator.getGamepads()); }
     catch { snapshot = { connected: false, buttons: [], stick: null }; }
+    if (feedbackOpen()) {
+      // Let go of every synthetic key and ignore what is held, as on a screen change.
+      if (held.size) releaseAll();
+      tracker.latchAll();
+      repeater.reset();
+      previousButtons = null;
+      requestAnimationFrame(frame);
+      return;
+    }
     const playing = page.playing();
     if (wasPlaying !== null && playing !== wasPlaying) {
       // Screen change: let go of every synthetic key and ignore buttons still held, so the A

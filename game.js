@@ -459,10 +459,22 @@ function failReport(reason) {
   // Reward wording follows reportHubClear() in hub-link.js.
   if (boss.phase===2) {
     const hub=Boolean(window.ArcadeHub?.connected?.());
-    lines.push('Retry restarts phase 2 with full health. A clear after a checkpoint retry saves your progress'+
-      (hub?' but earns no Tickets.'+(LEVELS[levelIndex].id===1?' The Breakwater Coin still counts.':''):'.'));
+    const paying=hub && !noTicketReason(false,godMode);
+    lines.push('RETRY PHASE 2: full health, phase 2 only. That clear saves your progress'+
+      (hub?' but earns no Tickets.'+(LEVELS[levelIndex].id===1?' The Breakwater Coin still counts.':''):' as a rank C checkpoint clear.'));
+    lines.push('RESTART LEVEL: from phase 1. '+(paying?'Only this full run earns the '+window.ArcadeHub.TICKETS_PER_CLEAR+' Tickets, and a rank.':'Only a full run earns a rank and a best time.'));
   } else lines.push('Retry restarts '+(isCodebreak()?'the climb':'phase 1')+'.');
   return lines.join('\n');
+}
+// Why a clear of this level would earn no Tickets, or '' when it pays (reportHubClear in
+// hub-link.js): only a full run without god mode pays, and the hub does not pay for Redkev yet.
+// Offline there are no Tickets at all, so nothing is said.
+function noTicketReason(checkpoint,god) {
+  if (!window.ArcadeHub?.connected?.()) return '';
+  if (god) return 'god mode was used';
+  if (LEVELS[levelIndex].id===13) return 'the hub does not pay for Redkev\'s Marina yet';
+  if (checkpoint) return 'it came after a phase-2 checkpoint retry, and only a full run pays';
+  return '';
 }
 const COACH_KEY='sproto-arcade-coach-v1';
 function coachSeen() { try { return localStorage.getItem(COACH_KEY)==='1'; } catch { return true; } }
@@ -483,8 +495,13 @@ function setOverlay(next, label, title, description, button) {
   if (next==='lost') description=failReport(description);
   mode = next;
   window.ArcadeAudio?.music.duck(next!=='play');
+  // Phase-2 knockout: Retry is the checkpoint, so offer the full run beside it.
+  const full=document.getElementById('restart-full'),checkpointRetry=next==='lost' && !isChase() && boss?.phase===2;
+  if (full) full.hidden=!checkpointRetry;
+  if (checkpointRetry) button=window.ArcadeHub?.connected?.()?'Retry phase 2 · no Tickets':'Retry phase 2';
   const audioControls=document.getElementById('audio-controls');
   if (audioControls) audioControls.hidden=next!=='paused';
+  overlay.dataset.mode = next;
   overlay.hidden = next === 'play';
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   sprotoSelect.hidden=levelSelect.parentElement.hidden;
@@ -563,14 +580,16 @@ function trackRun() {
 function clearResults() {
   const P=window.ArcadeProgress,par=storyPar(levelIndex),ticks=time,hits=runStats.hits;
   const stats='Hits '+hits+'  ·  Hearts '+player.hp+'/'+MAX_HP;
-  if (godUsed) return 'Time '+fmtTicks(ticks)+'  ·  God mode: no rank and no best time';
-  if (phaseCheckpointRun) return 'Phase 2 from the checkpoint: '+fmtTicks(ticks)+'  ·  '+stats+'\nRank C  ·  Checkpoint clear. Your full-run best is unchanged'+
-    (window.ArcadeHub?.connected?.()?', and a checkpoint clear earns no Tickets.':'.');
+  // Say what the clear paid. The hub bar reads "+20 per clear", which is not true of every clear.
+  const reason=noTicketReason(phaseCheckpointRun,godUsed);
+  const tickets=!window.ArcadeHub?.connected?.()?'':reason?'\nNo Tickets for this clear: '+reason+'.':'\n+'+window.ArcadeHub.TICKETS_PER_CLEAR+' Tickets for this clear, within the hub\'s caps.';
+  if (godUsed) return 'Time '+fmtTicks(ticks)+'  ·  God mode: no rank and no best time'+tickets;
+  if (phaseCheckpointRun) return 'Phase 2 from the checkpoint: '+fmtTicks(ticks)+'  ·  '+stats+'\nRank C  ·  Checkpoint clear. Your full-run best is unchanged.'+tickets;
   const rank=P?.rankFor?.({ticks,hits,par})??'B';
   const saved=window.ArcadeHub?.recordBest?.(levelIndex,{ticks,hits,rank});
   const best=saved?.best;
   return 'Time '+fmtTicks(ticks)+(Number.isFinite(par)?' (par '+fmtTicks(par)+')':'')+'  ·  '+stats+'\nRank '+rank+
-    (saved?.improved?'  ·  New best!':best?'  ·  Best: '+best.rank+' in '+fmtTicks(best.ticks):'');
+    (saved?.improved?'  ·  New best!':best?'  ·  Best: '+best.rank+' in '+fmtTicks(best.ticks):'')+tickets;
 }
 // Level select: rank and best time beside each level, and how many are cleared.
 function paintLevelSelect() {
@@ -639,6 +658,21 @@ function drawFeedback() {
       else { const x=feedback.fromRight?W-at:at,lean=feedback.fromRight?70:-70; ctx.moveTo(x,0);ctx.lineTo(x+24*Math.sign(lean),0);ctx.lineTo(x+24*Math.sign(lean)+lean,H);ctx.lineTo(x+lean,H); }
       ctx.closePath();
       ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  }
+  // Portal Ring's first shot enters from the left edge, behind the player: mark its lane for the tell.
+  if (boss?.move==='portalRing' && boss.hp && boss.age<=boss.tell+6) {
+    const y=FLOOR+SIGNATURE_PATTERNS.portalRing[0][2],blink=.55+.45*Math.sin(time*.5);
+    ctx.globalAlpha=blink;
+    ctx.fillStyle='#ffd24a';
+    ctx.strokeStyle='#2a1026';
+    ctx.lineWidth=3;
+    for (let chevron=0;chevron<3;chevron++) {
+      const x=10+chevron*26;
+      ctx.beginPath();
+      ctx.moveTo(x,y-20);ctx.lineTo(x+22,y);ctx.lineTo(x,y+20);ctx.lineTo(x+8,y);ctx.closePath();
+      ctx.fill();ctx.stroke();
     }
     ctx.globalAlpha=1;
   }
@@ -749,9 +783,9 @@ const MOVE_LABELS={
   skimmer:'SKIMMER · LOW THEN HIGH',splitArc:'SPLIT ARC',comet:'DIVING COMETS',ripple:'RIPPLE · IT BOUNCES',minefall:'FALLING MINES',
   floorSaw:'FLOOR SAWS · JUMP',hammer:'HAMMERS · HIGH THEN LOW',starCross:'STAR CROSS',needleFall:'NEEDLE RAIN',eyeShot:'AIMED SHOTS',
   airMechaMissiles:'MISSILE RACK',anchorRun:'ANCHOR DROP · THEN TORPEDO',bellSweep:'BELL DROP',cabinetRush:'CABINET RUSH · BOTH SIDES',
-  casinoBounce:'CASINO BOUNCE',forgePress:'FORGE PRESS',frostRotor:'ROTOR BLADES · BOTH SIDES',crystalFlank:'CRYSTAL FLANK · BOTH SIDES',
+  casinoBounce:'CASINO BOUNCE',forgePress:'FORGE PRESS · JUMP THE BALL, THEN STEP OUT FROM UNDER THE ANVIL',frostRotor:'ROTOR BLADES · BOTH SIDES',crystalFlank:'CRYSTAL FLANK · BOTH SIDES',
   scarabSkitter:'SCARAB SKITTER · BOTH SIDES',diamondStep:'DIAMOND STEP',solarVolley:'SOLAR VOLLEY',tridentArc:'TRIDENT ARC',
-  prismRicochet:'PRISM RICOCHET · BOTH SIDES',portalRing:'PORTAL RING',meteorFall:'METEOR FALL',hourglassDrop:'HOURGLASS DROP',
+  prismRicochet:'PRISM RICOCHET · BOTH SIDES',portalRing:'PORTAL RING · FROM BEHIND: CROUCH, THEN DODGE THE DROP',meteorFall:'METEOR FALL',hourglassDrop:'HOURGLASS DROP',
   airLanes:'LANE SHOTS',airBarrage:'SPREAD SHOTS',airDive:'DIVE FROM ABOVE',airFork:'FORK',airLift:'RISING SHOTS · FROM BELOW',
   airSpiral:'SPIRAL',airPincer:'PINCER · BOTH SIDES',airCrossfire:'CROSSFIRE · BOTH SIDES',airRain:'NEEDLE RAIN',
   airRockets:'ROCKETS · BOTH SIDES',airWings:'WINGS · ABOVE AND BELOW',airMines:'DRIFTING MINES'
@@ -789,6 +823,7 @@ function barrageCueLine() {
   return time-barrageCue.endedAt<45 && time>=barrageCue.endedAt?'BARRAGE OVER · GUNS ONLINE':'';
 }
 function setCue(message) {
+  if (mode==='lost') message=''; // nothing stale behind the knockout screen
   if (ui.cue.textContent!==message) ui.cue.textContent=message;
   ui.cue.classList.toggle('urgent',/^(CEILING SWEEP|SHIELD NOW|MISSILE BARRAGE)/.test(message));
 }
@@ -2561,6 +2596,26 @@ function pause() {
   else if (mode==='paused') setOverlay('play','','','','');
 }
 
+// In-game feedback window (feedback-link.js): the paused mode without its overlay, so the two
+// never fight. Returns the mode before; feedbackResume(before) puts play back only if this pause
+// stopped it and nothing else changed the screen meanwhile. No tick runs outside 'play', so the
+// pickup, shield and attack clocks all hold still.
+function feedbackPause(){
+  const before=mode;
+  if (mode==='play') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
+  keys.clear();pressed.clear();lastNine=-Infinity;
+  return before;
+}
+function feedbackResume(before){
+  keys.clear();pressed.clear();
+  if (before==='play' && mode==='paused' && overlay.hidden) { mode='play'; window.ArcadeAudio?.music.duck(false); }
+}
+
+// The other choice after a phase-2 knockout: the whole level again, which is the run that pays.
+function restartFullRun(){
+  keys.clear();pressed.clear();
+  whenReady(levelIndex,()=>begin(levelIndex,false,1));
+}
 function retryCurrentPhase(){
   const checkpoint=(!isChase()&&boss?.phase===2)?2:1;
   keys.clear();pressed.clear();
@@ -2628,6 +2683,7 @@ if (window.ArcadeAudio && document.getElementById('audio-controls')) {
     mute.setAttribute('aria-pressed',String(muted));
   });
 }
+document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost') restartFullRun(); });
 ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});

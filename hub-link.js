@@ -59,6 +59,9 @@
     unlockAll: /(?:^|[?&])unlockAll=1(?:&|$)/.test(root.location?.search ?? ''),
   };
   let sdk = null;
+  // The last SDK created, kept even when there is no session: feedback-link.js builds the feedback
+  // transport on it, and without a session that transport answers with a one-line message.
+  let lastSdk = null;
   // Every flush and cloud write runs on this chain, one at a time.
   let syncing = Promise.resolve();
   const queue = (job) => (syncing = syncing.then(job).catch((e) => console.warn('hub sync failed', e)));
@@ -156,6 +159,7 @@
     emit();
     try {
       sdk = root.HubSDK.createHubSdk({ serverUrl: config.serverUrl, serverKey: config.serverKey, hubUrl: config.hubUrl });
+      lastSdk = sdk;
       const init = await sdk.init(GAME_ID);
       const session = sdk.getSession?.();
       if (!session || !init?.playerId) {
@@ -279,6 +283,9 @@
       return state;
     },
     connected,
+    get sdk() {
+      return lastSdk;
+    },
     recordLocalClear,
     recordBest,
     reportHubClear,

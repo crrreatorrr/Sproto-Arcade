@@ -77,10 +77,11 @@ const header = [
 const rest = `Story mode (\`legacy.html\`) is classic scripts and also runs from \`file://\`, so the SDK is one
 IIFE, \`hub-sdk.iife.js\`, that sets \`window.HubSDK\`. The bytes are the hub build from
 \`scripts/build-sdk-iife.mjs\`; this tool does not rewrite them, and the sha256 must match
-\`packages/hub-sdk/SOURCE.pin.json\`. \`hub-link.js\` calls \`HubSDK.createHubSdk\`. \`legacy.html\`
-pins the file with \`?v=\` set to the first 12 hex digits of that sha256.
+\`packages/hub-sdk/SOURCE.pin.json\`. \`hub-link.js\` calls \`HubSDK.createHubSdk\`, and
+\`feedback-link.js\` calls \`HubSDK.installFeedback\` (SDK 0.7.0 and later). \`legacy.html\` and
+\`index.html\` pin the file with \`?v=\` set to the first 12 hex digits of that sha256.
 
-Re-vendor whenever packages/hub-sdk changes, and after the hub PR merges re-vendor from hub main.
+${branch === 'main' ? '' : `This copy comes from the hub branch \`${branch}\`, which is not merged to hub main yet.\n`}Re-vendor whenever packages/hub-sdk changes, and after the hub PR merges re-vendor from hub main.
 The SDK drops Relic ids it does not know, so an old bundle hides newer Relics.
 `;
 writeFileSync(join(outDir, 'VENDOR.md'), `${header}\n\n${rest}`);
