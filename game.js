@@ -126,7 +126,7 @@ const acts = [
   {id:'highsproto',name:'High Sproto',tag:'The Smoke Signal',hp:355,color:'#a5c4ff',moves:['crossfire', 'bankShot', 'sweep', 'fan', 'rush'],staticMoves:['lanternShower', 'arenaHazard', 'skimmer']},
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']},
   null,null,
-  {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['quake','bankShot','rush','slabs','drop'],staticMoves:['gearPincer','skimmer']}
+  {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['rush','slabs','quake','drop','bankShot'],staticMoves:['skimmer','gearPincer']}
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const moves = {
@@ -698,7 +698,8 @@ function simState() {
 // health and phase 2 is the listed health (526/263 for Fat Head Dave up to 730/365 for Bot Sales),
 // so later bosses take longer. It was 1065 for every boss, then half the listed health.
 function startBoss() {
-  const [archetype,cadence,shotRate]=BOSS_PROFILES[mechanicsIndex(levelIndex)];
+  const [archetype,profileCadence,shotRate]=BOSS_PROFILES[mechanicsIndex(levelIndex)];
+  const cadence=bossKitOverride(levelIndex)?.cadence??profileCadence;
   const kit=acts[levelIndex];
   const phaseOne=HISTORICAL_PHASE_SPLIT?PHASE_ONE_HEALTH:2*kit.hp;
   boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-70:FLOOR,hp:phaseOne,max:phaseOne,phaseTwoHealth:HISTORICAL_PHASE_SPLIT?Math.ceil(kit.hp/2):kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
@@ -1090,12 +1091,15 @@ function startMove() {
   }
   const flight=isFlying()?FLIGHT_POOLS[b.phase-1]:null;
   const base=flight?.base ?? (b.phase===1?b.moves:staticOrder);
-  const unlocked=(flight?.unlocks ?? BOSS_SECTION_ATTACKS[mechanicsIndex(levelIndex)][b.phase-1]).slice(0,section+1);
-  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,BOSS_SIGNATURES[mechanicsIndex(levelIndex)][b.phase-1]);
+  const own=bossKitOverride(levelIndex);
+  const sectionAttacks=own?.sectionAttacks??BOSS_SECTION_ATTACKS[mechanicsIndex(levelIndex)];
+  const signatures=own?.signatures??BOSS_SIGNATURES[mechanicsIndex(levelIndex)];
+  const unlocked=(flight?.unlocks ?? sectionAttacks[b.phase-1]).slice(0,section+1);
+  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,signatures[b.phase-1]);
   const order=section===0?[base[0],...unlocked,...base.slice(1)]:
     [unlocked.at(-1),...base,...unlocked.slice(0,-1)];
   if (!flight && section===b.phase) {
-    const signature=BOSS_SIGNATURES[mechanicsIndex(levelIndex)][b.phase-1];
+    const signature=signatures[b.phase-1];
     order.splice(order.indexOf(signature),1);
     order.unshift(signature);
   }

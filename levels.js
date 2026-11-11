@@ -136,6 +136,17 @@ const BOSS_SIGNATURES = [
   ['frostRotor','meteorFall'], ['prismRicochet','hourglassDrop']
 ];
 
+// Redkev (level id 13, played second) keeps Tidebreak Marina's arena, backgrounds, health,
+// shot speed and yacht cannon, but not Fat Head Dave's kit (plan item D5, owner sign-off
+// 2026-11-11): his own attack order per health section, two signatures no other ground boss
+// uses, and a slightly faster move clock. All of it is existing moves and existing art.
+const REDKEV_KIT = {
+  cadence:1.01,
+  sectionAttacks:[['hammer','ripple','comet','floorSaw'],['eyeShot','minefall','needleFall','starCross']],
+  signatures:['forgePress','portalRing']
+};
+const bossKitOverride=index=>LEVELS[index]?.id===13?REDKEV_KIT:null;
+
 // Each row schedules one projectile. Sky shots use a player-relative x offset.
 const SIGNATURE_PATTERNS = {
   anchorRun:[[0,'sky',-100,1,8,'anchor',.15],[30,'right',-31,-14,0,'torpedo']],
