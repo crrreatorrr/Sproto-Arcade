@@ -1,1 +1,3 @@
 Historical collision-disabled replay fixtures from main commit ad1e864. These files remain byte-for-byte unchanged. Run `node qa/server-sim-goldens.mjs --collision-disabled` to verify them in a forced-disabled in-memory source and bundle. The command never rewrites these fixtures. Enabled collision replays live in qa/golden and require a collision-only divergence audit before changes.
+
+The forced-disabled replay also switches every `HISTORICAL_*` constant in `game.js` to true. Each one keeps the rule these runs were recorded under where a later, owner-approved change replaced it (the 1065 phase-one health, tells without a floor, the two saucer hitboxes). Production builds have them false.
