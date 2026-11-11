@@ -164,6 +164,7 @@ for (const [name,shots] of Object.entries({...SIGNATURE_PATTERNS,...FLIGHT_PATTE
   moves[name]={tell:32,active:shots.at(-1)[0]+23,rest:27};
 }
 const MAX_HP=5, PHASE_ONE_HEALTH=1065;
+const DENSITY_SECOND_GAP=900;
 const BOSS_HOME=1010, BOSS_MIN=798, BOSS_MAX=1070, BOSS_FRONT=205;
 const MECHA_ROCKETS=['mechaMissile','mechaArc','mechaHoming','mechaWave'];
 const MISSILE_COOLDOWN=120, BOMB_COOLDOWN=180;
@@ -281,7 +282,7 @@ let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infi
 let godUsed=false;
 const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
-let densityShots=[],densityPausedTicks=0,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1;
+let densityShots=[],densityPausedTicks=0,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1,densityLastEnd=0;
 const tileCache=new Map();
 
 function picture(path) {
@@ -522,10 +523,9 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
 // The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
 function resetRun(index, pilot, shieldWait, seed) {
   levelIndex = index;
-  phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0})}:null;
   cosmeticRandom=seededRandom(seed);
   inputFrame=NO_INPUT;
-  densityShots=[];densityPausedTicks=0;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;
+  densityShots=[];densityPausedTicks=0;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;densityLastEnd=0;
   time = 0;
   camera = 0;
   shake = 0;
@@ -538,12 +538,23 @@ function resetRun(index, pilot, shieldWait, seed) {
   if (isCodebreak()) startCodebreak();
   else if (isChase()) startChase();
   else startBoss();
+  // After the encounter exists: the item plan is spread over the phase's expected length.
+  phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0,span:powerupSpan(0)})}:null;
+}
+
+// Expected length of a phase attempt in ticks, for spreading the two pickups over it
+// (docs/PHASE-POWERUPS.md). Phase 1 follows the boss's health: the golden bot spends 6.0 to 7.5
+// ticks per point of it.
+function powerupSpan(phase) {
+  if (isChase()) return 7200;
+  if (isCodebreak()) return phase?1800:5000;
+  return phase?1400:Math.round(boss.max*6.2);
 }
 
 // Everything the simulation carries between ticks; the replay end-state hash covers all of it.
 function simState() {
   return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,...(phasePowerupsState?{phasePowerupsState}:{}),
-    ...(ArcadeDensityAttacks.enabled?{densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle}:{}),
+    ...(ArcadeDensityAttacks.enabled?{densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle,densityLastEnd}:{}),
     bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
 }
 
@@ -696,7 +707,7 @@ function puff(x,y,color,count=9) {
 function updatePhasePowerups(){
   if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!player.hp)return;
   const phase=boss?.phase===2?1:0;
-  if(phasePowerupsState.phase!==phase){const seed=phasePowerupsState.seed;phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase})};}
+  if(phasePowerupsState.phase!==phase){const seed=phasePowerupsState.seed;phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};}
   const tick=++phasePowerupsState.tick,flying=isFlying(),bounds={x:80,y:200,w:650,h:350},delta=camera-(phasePowerupsState.camera??camera);
   phasePowerupsState.camera=camera;
   for(const item of phasePowerupsState.items.pickups){if(isChase())item.x-=delta;else if(isCodebreakClimb())item.y+=delta;}
@@ -704,7 +715,8 @@ function updatePhasePowerups(){
   if(isChase())surfaces=chasePlatforms.map(p=>({x:p.x-camera,y:p.y,w:p.width}));
   else if(isCodebreakClimb())surfaces=Array.from({length:Math.ceil(CODE_LOOP/CODE_SPACING)+5},(_,i)=>codePlatform(i)).filter(Boolean).map(p=>({x:p.x,y:p.y,w:p.width}));
   if(surfaces)surfaces=surfaces.filter(p=>Math.abs(p.y-player.y)<=150&&p.x+p.w>60&&p.x<820).map(p=>({x:Math.max(60,p.x),y:p.y,w:Math.min(820,p.x+p.w)-Math.max(60,p.x)})).filter(p=>p.w>=64);
-  const events=ArcadePhasePowerups.step(phasePowerupsState.items,{tick,ready:true,player:{x:player.x-18,y:player.y-(flying?31:playerHeight()),w:36,h:flying?62:playerHeight()},bounds,surfaces});
+  // Nothing appears during a barrage or in the blink after a hit, and a heart waits for a hurt player.
+  const events=ArcadePhasePowerups.step(phasePowerupsState.items,{tick,ready:!densityShots.length&&!player.inv,hold:{life:player.hp>=MAX_HP},player:{x:player.x-18,y:player.y-(flying?31:playerHeight()),w:36,h:flying?62:playerHeight()},bounds,surfaces});
   for(const e of events)if(e.type==='collect'&&e.kind==='life'&&player.hp<MAX_HP)player.hp++;
 }
 
@@ -1563,16 +1575,23 @@ function updateLegacyDensity(){
     densityPhaseKey=key;
     densityPhaseClock=0;
     densityLastCycle=-1;
+    densityLastEnd=0;
     densityShots=[];
   }
   if(phaseShift||transition||boss.shift||boss.wreck||boss.hp===0)return false;
   if(!densityShots.length){
     densityPhaseClock++;
-    if(densityPhaseClock<ArcadeDensityAttacks.START || densityLastCycle>=0 ||
+    // Phase 1 of a boss fight has a second, shorter barrage: from the third health section on,
+    // and no sooner than DENSITY_SECOND_GAP phase-clock ticks after the first one ended. (The
+    // phase clock stops while missiles fly.) Phase 2, the chase and the climb keep one.
+    const cycle=densityLastCycle+1;
+    if(cycle>1 || (cycle===1 && (isChase() || isCodebreak() || boss.phase!==1 || healthSection(boss)<2 ||
+       densityPhaseClock<densityLastEnd+DENSITY_SECOND_GAP)))return false;
+    if(densityPhaseClock<ArcadeDensityAttacks.START ||
        (!isFlying()&&!player.grounded) || !barrageRecovery())return false;
     const vertical=isCodebreakClimb(),flying=isFlying(),scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
     const plan=ArcadeDensityAttacks.plan({
-      stage,phase,tick:densityPhaseClock,enabled:true,lastCycle:densityLastCycle,
+      stage,phase,tick:densityPhaseClock,enabled:true,lastCycle:densityLastCycle,cycle,
       flight:flying,vertical,standingHeight:110*scale,crouchHeight:72*scale,
       arena:{left:0,right:W,top:vertical?0:flying?51:140,bottom:vertical?H:flying?FLOOR-7:FLOOR,floor:player.y},
       player
@@ -1580,6 +1599,7 @@ function updateLegacyDensity(){
     if(!plan)return false;
     densityShots=plan.shots;
     densityLastCycle=plan.cycle;
+    densityLastEnd=densityPhaseClock;
     // A completed move can leave spent projectiles in the arena.
     // The barrage owns the arena until its final missile leaves the screen.
     bullets=[];

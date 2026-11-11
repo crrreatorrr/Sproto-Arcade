@@ -319,7 +319,7 @@
       const p=this.player,flying=['flight','orbit'].includes(this.phase.mode),b=this.phase.flightBounds;
       const bounds=flying?{x:b?.left??this.camera.x+80,y:b?.top??this.camera.y+240,w:(b?.right??this.camera.x+820)-(b?.left??this.camera.x+80),h:(b?.bottom??this.camera.y+620)-(b?.top??this.camera.y+240)}:{x:this.camera.x+80,y:Math.max(this.camera.y+240,p.y-100),w:700,h:70};
       const surfaces=flying?null:this.platforms.filter(s=>s.active!==false&&Math.abs(s.y-p.y)<=150&&s.x+s.w>this.camera.x+40&&s.x<this.camera.x+840).map(s=>({x:Math.max(this.camera.x+40,s.x),y:s.y,w:Math.min(s.x+s.w,this.camera.x+840)-Math.max(this.camera.x+40,s.x)})).filter(s=>s.w>=64);
-      const events=ArcadePhasePowerups.step(this.phasePowerups,{tick:this.phaseElapsed,ready:true,player:{x:p.x-16,y:p.y-58,w:32,h:58},bounds,surfaces});
+      const events=ArcadePhasePowerups.step(this.phasePowerups,{tick:this.phaseElapsed,ready:!p.inv&&!this.hazards.some(h=>h.density&&!h.removed),player:{x:p.x-16,y:p.y-58,w:32,h:58},bounds,surfaces});
       for(const e of events)if(e.type==='collect'){
         if(e.kind==='life'&&p.hp<5)p.hp++;
         this.events.push({type:'phasePickup',kind:e.kind});
