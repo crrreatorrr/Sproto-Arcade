@@ -9,6 +9,33 @@ const locked=P.create({seed:7});P.step(locked,{tick:9999,ready:false,bounds});as
 const ttl=P.create();P.step(ttl,{tick:1000,ready:true,bounds});assert.equal(ttl.pickups.length,2);P.step(ttl,{tick:1239,ready:true,bounds});assert.equal(ttl.pickups.length,2);P.step(ttl,{tick:1240,ready:true,bounds});assert.equal(ttl.pickups.length,0,'uncollected pickup expires exactly at240ticks');
 const shield=P.create();P.step(shield,{tick:1000,ready:true,bounds});const item=shield.pickups.find(p=>p.kind==='shield');const events=P.step(shield,{tick:1001,ready:true,player:{...item},bounds});assert.ok(events.some(e=>e.type==='collect'&&e.kind==='shield'));assert.ok(P.activeShield(shield,1600));assert.equal(P.activeShield(shield,1601),false,'collected shield expires at600ticks');const forced=JSON.parse(JSON.stringify(shield));assert.equal(P.absorb(forced,1100,{mandatory:true}),false,'cannot counter mandatory gates');assert.equal(P.activeShield(forced,1100),false,'actual mandatory hit still breaks pickup shield');assert.equal(forced.absorbedAt,1100);assert.ok(P.activeShield(shield,1100),'fresh separate shield remains for ordinary hit case');assert.equal(P.absorb(shield,1100),true);assert.equal(P.absorb(shield,1100),false,'shield absorbs exactly one eligible hit');
 const life=P.create();P.step(life,{tick:1000,ready:true,bounds});const heart=life.pickups.find(p=>p.kind==='life');const gains=P.step(life,{tick:1001,ready:true,player:{...heart},bounds}).filter(e=>e.type==='collect'&&e.kind==='life');assert.equal(gains.length,1);assert.equal(Math.min(5,4+gains.length),5);assert.equal(Math.min(5,5+gains.length),5);assert.ok(P.visible({expiresAt:240},179));assert.notEqual(P.visible({expiresAt:240},180),P.visible({expiresAt:240},186));
+// Story mode spreads the two items over the phase's expected length (plan item B1).
+for(let seed=1;seed<=400;seed++)for(const span of [1400,1800,5000,6603,7200]){
+ const spread=P.create({seed,attempt:seed%3,phase:seed%2,span}),early=P.create({seed,attempt:seed%3,phase:seed%2});
+ const [first,second]=spread.plans.map(p=>p.at).sort((x,y)=>x-y);
+ assert.ok(first>=Math.floor(span*.18)&&first<=Math.floor(span*.40),'first item lands in 18-40% of the span');
+ assert.ok(second>=Math.floor(span*.58)&&second<=Math.floor(span*.82),'second item lands in 58-82% of the span');
+ assert.deepEqual(spread.plans.map(p=>[p.kind,p.u,p.v]),early.plans.map(p=>[p.kind,p.u,p.v]),'span changes timing only: same draws, same places');
+ assert.equal(spread.plans.find(p=>p.kind==='shield').at<spread.plans.find(p=>p.kind==='life').at,early.plans.find(p=>p.kind==='shield').at<early.plans.find(p=>p.kind==='life').at,'same item comes first');
+ assert.deepEqual(spread,P.create({seed,attempt:seed%3,phase:seed%2,span}),'a span plan is reproducible');
+ const [e1,e2]=early.plans.map(p=>p.at).sort((x,y)=>x-y);
+ assert.ok(e1>=180&&e1<=540&&e2-e1>=150&&e2-e1<=450,'without a span the original windows are kept exactly');
+}
+assert.deepEqual(P.create({seed:9,span:0}),P.create({seed:9}),'span 0 means no span');
+{ // A heart waits for a hurt player; a barrage or a hit holds everything back.
+ const held=P.create({seed:5,span:1400}),lifeAt=held.plans.find(p=>p.kind==='life').at,shieldAt=held.plans.find(p=>p.kind==='shield').at,last=Math.max(lifeAt,shieldAt);
+ for(let tick=0;tick<=last+300;tick++)P.step(held,{tick,ready:true,hold:{life:true},bounds});
+ assert.ok(held.plans.find(p=>p.kind==='shield').spawned,'the shield is not held by hold.life');
+ assert.ok(!held.plans.find(p=>p.kind==='life').spawned,'a heart never appears while the player is at full health');
+ const events=P.step(held,{tick:last+301,ready:true,hold:{life:false},bounds});
+ assert.deepEqual(events.filter(e=>e.type==='spawn'),[{type:'spawn',kind:'life'}],'the held heart appears on the first tick it is allowed');
+ assert.equal(held.pickups.find(p=>p.kind==='life').expiresAt,last+301+P.PICKUP_TTL,'its four seconds start when it appears');
+ const busy=P.create({seed:5,span:1400});
+ for(let tick=0;tick<=last+50;tick++)P.step(busy,{tick,ready:false,bounds});
+ assert.ok(busy.plans.every(p=>!p.spawned),'nothing spawns while not ready');
+ assert.equal(P.step(busy,{tick:last+51,ready:true,bounds}).filter(e=>e.type==='spawn').length,2,'both appear on the first ready tick');
+ assert.equal(busy.plans.filter(p=>p.spawned).length,2);
+}
 console.log('PASS independent seeded pickup plans, varied attempt/phase timing, maxone each,240tick expiry/norespawn,600tick onehit shield, mandatory-gate protection and readiness gate');
 // Real World integration with an explicitly test-only accepted-art override.
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),root=path.resolve(__dirname,'../..'),scope=vm.createContext({});

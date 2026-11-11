@@ -58,7 +58,11 @@ const ArcadeDensityAttacks=(()=>{'use strict';
   const {stage,phase,tick,arena,player,flight,vertical}=options;
   const id=Number.parseInt(stage,10),path=missilePath(id),rank=progression.indexOf(id);
   if(!path||(phase!==0&&phase!==1)||!Number.isInteger(tick)||tick<START||
-     options.enabled!==true||options.blocked||options.liveCount>0||(options.lastCycle??-1)>=0)return null;
+     options.enabled!==true||options.blocked||options.liveCount>0)return null;
+  // One barrage per phase unless the caller asks for a later cycle (story phase 1 asks for a
+  // second, shorter one). A cycle is planned once.
+  const cycle=Number.isInteger(options.cycle)&&options.cycle>0?options.cycle:0;
+  if((options.lastCycle??-1)>=cycle)return null;
   if(!arena||!player||![arena.left,arena.top,arena.right,arena.bottom,player.x,player.y].every(Number.isFinite))return null;
   const width=arena.right-arena.left,height=arena.bottom-arena.top;
   if(width<760||height<260)return null;
@@ -79,7 +83,10 @@ const ArcadeDensityAttacks=(()=>{'use strict';
     coreScale:.65,windup:0,delay,active,recovery:0,age:0});
   }
 
-  for(let wave=0;wave<pattern.length;wave++){
+  // A later cycle is half the waves, entering the row pattern two rows on so it does not repeat
+  // the first barrage's opening.
+  const waves=cycle?Math.floor(pattern.length/2):pattern.length;
+  for(let wave=0;wave<waves;wave++){
    const delay=wave*spacing;
    if(flight||vertical){
     // Each formation leaves a traversable opening. Later formations shift it
@@ -88,7 +95,9 @@ const ArcadeDensityAttacks=(()=>{'use strict';
     const center=vertical?player.x:player.y;
     const gap=vertical?240-tier*10:240-tier*18;
     const offsets=[0,1,0,-1,1,-1,0,1,-1];
-    const shift=offsets[wave]*(vertical?tier*12:tier*20);
+    // Horizontal flight walls move their opening far enough that the pilot has to fly to it:
+    // 85 to 155px by tier, about 8 to 15 ticks of travel with a full wave spacing to do it.
+    const shift=offsets[wave]*(vertical?tier*12:50+tier*35);
     const home=clamp(center,start+gap/2,end-gap/2);
     const opening=clamp((flight?home:center)+shift,start+gap/2,end-gap/2);
     const count=vertical?17:10+tier;
@@ -100,7 +109,7 @@ const ArcadeDensityAttacks=(()=>{'use strict';
     continue;
    }
 
-   const row=pattern[wave];
+   const row=pattern[(wave+2*cycle)%pattern.length];
    const middle=row.endsWith('middle');
    const centerY=floor-(middle?(standing+crouching)/2:Math.min(24,standing*.38));
    const count=5+Math.floor(tier/2);
@@ -117,7 +126,7 @@ const ArcadeDensityAttacks=(()=>{'use strict';
     if(row.startsWith('high')&&i%2===0)add(wave,count+i,size,delay+i*7,floor-standing-145-offset);
    }
   }
-  return{cycle:0,shots};
+  return{cycle,shots};
  }
  return Object.freeze({enabled:true,plan,missilePath,missileGeometry,missileTransform,damageRect,START});
 })();

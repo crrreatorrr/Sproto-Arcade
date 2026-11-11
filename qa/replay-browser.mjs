@@ -25,7 +25,7 @@ const TICKS=1800;
 try{
   const results=[];
   for(const level of [1,3,11,12]){
-    const page=await browser.newPage();
+    const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     const errors=[];page.on('pageerror',e=>errors.push(String(e)));
     await page.goto(origin+'/legacy.html?level='+level);
     await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});

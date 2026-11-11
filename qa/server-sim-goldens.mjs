@@ -38,8 +38,11 @@ function forceDisabled(text,source=false){
  // Density's API is frozen; override the source flag before evaluating either
  // engine rather than attempting to mutate a frozen property in strict ES5.
  let historical=text.replace(/(Object\.freeze\(\{\s*enabled:\s*)(?:true|false)/g,'$1false')
-   .replace(/(\b(?:const|let|var)\s+assetsReady\s*=\s*)(?:true|false)/g,'$1false');
- if(/Object\.freeze\(\{\s*enabled:\s*true/.test(historical)||/\b(?:const|let|var)\s+assetsReady\s*=\s*true/.test(historical))throw Error('Historical feature flags could not be disabled');
+   .replace(/(\b(?:const|let|var)\s+assetsReady\s*=\s*)(?:true|false)/g,'$1false')
+   // Rules changed on purpose after these runs were recorded keep their old form behind a
+   // HISTORICAL_* constant in game.js (false in production). The archive replays with them on.
+   .replace(/(\b(?:const|let|var)\s+HISTORICAL_[A-Z_]+\s*=\s*)(?:true|false)/g,'$1true');
+ if(/Object\.freeze\(\{\s*enabled:\s*true/.test(historical)||/\b(?:const|let|var)\s+assetsReady\s*=\s*true/.test(historical)||/\b(?:const|let|var)\s+HISTORICAL_[A-Z_]+\s*=\s*false/.test(historical))throw Error('Historical feature flags could not be disabled');
  const overrides='\nSPRITE_HITBOXES.enabled = false;\n';
  const rewritten=source?historical+overrides+'return api;':historical.replace(marker,overrides+marker);
  const scope=vm.createContext({structuredClone,ARCADE_SIM_VERSION:defaultBundle.ARCADE_SIM_VERSION});
@@ -67,7 +70,7 @@ if (report.source && JSON.stringify(report.source.fuzzHashes)!==JSON.stringify(r
 if (write && !failed) fs.writeFileSync(fuzzFile,JSON.stringify({note:'Hashes of qa/server-sim-cases.js fuzz logs, recorded in Node; goja must match.',hashes:report.bundle.fuzzHashes},null,1)+'\n');
 const sizes=goldens.map(g=>({level:g.level,ticks:g.log.ticks,inputsBytes:g.log.inputs.length,logBytes:JSON.stringify(g.log).length}));
 for (const r of Object.values(report)) if (r && r.fuzzHashes) delete r.fuzzHashes;
-console.log(JSON.stringify({kind:'story-replay-goldens',collisionMode:collisionDisabled?'historical-forced-disabled':'production-default',historicalOverrides:collisionDisabled?{spriteHitboxes:false,densityAttacks:false,phasePowerups:false}:null,fixtureDirectory:path.relative(root,goldenDir),status:failed?'failed':'passed',goldens:goldens.length-exclusions.length,archivedFixtures:goldens.length,exclusions,fuzzRecorded:write&&!failed,sizes,engines:report,
+console.log(JSON.stringify({kind:'story-replay-goldens',collisionMode:collisionDisabled?'historical-forced-disabled':'production-default',historicalOverrides:collisionDisabled?{spriteHitboxes:false,densityAttacks:false,phasePowerups:false,historicalTuning:true}:null,fixtureDirectory:path.relative(root,goldenDir),status:failed?'failed':'passed',goldens:goldens.length-exclusions.length,archivedFixtures:goldens.length,exclusions,fuzzRecorded:write&&!failed,sizes,engines:report,
   limitations:['Golden runs come from tools/story-bot.mjs, a scripted lookahead player, not human play.','Node only here; tools/goja-verify runs the same cases in goja.',
     ...(loadSourceSim?[]:['Source simulation skipped: run npm ci for the build tools; the bundle was checked.'])]},null,1));
 if (failed) process.exitCode=1;

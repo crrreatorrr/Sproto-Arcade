@@ -38,7 +38,7 @@ ArcadeSim.verifyClear(log) -> { ok, error?, simVersion, kind, stage?, bossId?, g
   - `kind`: `'clear'` for a level clear (the `arcade_clear` Tickets report) or `'boss'` for a
     story-boss defeat (`arcade.boss_defeated`). It is taken from `log.claimed.kind` once the log
     validates.
-  - `stage`: the level id, 1 to 12 (`LEVELS[i].id`).
+  - `stage`: the level id, 1 to 13 (`LEVELS[i].id`; 13 is Redkev's Marina, played second).
   - `bossId`: the level's boss id (see the table below). It is present when `kind` is `'boss'`.
   - `godMode`: echoed from the log in every result.
   - `ticks`: the simulation ticks replayed (60 per second). On success this is the clear tick.
@@ -63,7 +63,7 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
 }
 ```
 
-- `rules.level` is the level id (1 to 12). `rules.shieldWait` (0 to 600) is the shield
+- `rules.level` is the level id (1 to 13). `rules.shieldWait` (0 to 600) is the shield
   cooldown that "Next level" carries over from the previous level. It is 0 for a level started
   from the menu or after a retry.
 - `loadout.pilot` must be one of the 14 playable Sproto ids. Whether the account has unlocked
@@ -104,8 +104,9 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
    - `r.ok === true` (this already covers version, god mode, a real clear and claim agreement);
    - `r.kind` matches the report type: `'boss'` for `arcade.boss_defeated`, `'clear'` for `arcade_clear`;
    - `r.bossId` equals the event's `data.boss` (for example `'bront'`) for boss reports;
-   - `r.ticks` is plausible: the golden bot clears take 7,000 to 8,000 ticks, about 2 minutes,
-     and a log can be at most 108,000 ticks (30 minutes). A floor per level, set from real
+   - `r.ticks` is plausible: the golden bot clears take 6,665 to 9,379 ticks, about 2 to 2.5
+     minutes (per level in `qa/golden/story-NN.json`, `expect.ticks`), and a log can be at most
+     108,000 ticks (30 minutes). A floor per level, set from real
      clears, would catch impossibly fast runs;
    - if the client sent its own end hash, it equals `r.endHash`;
    - the log has not been used before. Key it on the report's idempotency key, or on `r.endHash`
@@ -147,14 +148,20 @@ helpers are for a socket transport.
 
 ## Seed
 
-Story mode has no gameplay randomness. The only random stream, `cosmeticRandom`, moves sparks
-(dust and impact particles) that cannot touch the player or the bosses. The client seeds it as
-before, with `0x5eed + levelIndex`, and puts that seed in the log. `verifyClear` replays with
-whatever `log.seed` says. Sparks are part of the hashed state, so the seed changes `endHash` but
-never whether a run clears. The SDK provides no session seed today. When the hub issues one,
-`begin()` can pass it to `resetRun()` instead of `0x5eed + index`, and the hub should then check
-that `log.seed` is the one it issued. Because the game has no gameplay randomness, a server seed
-cannot stop a precomputed or bot-played run (see Limitations).
+The seed drives two streams. `cosmeticRandom` moves sparks (dust and impact particles) that
+cannot touch the player or the bosses. The pickup planner (`phase-powerups.js`) uses its own
+salted stream from the same seed to choose when and where the heart and the shield pickup
+appear in each phase, so the seed does affect play: a heart or a ten-second shield can decide
+whether a run clears. Attack patterns, barrages and boss behaviour use no randomness.
+
+In the browser `begin()` draws a fresh seed for every start and retry
+(`crypto.getRandomValues`, falling back to `0x5eed + levelIndex + attempt`) and records it in
+the log. The goldens use `0x5eed + levelIndex`. `verifyClear` replays with whatever `log.seed`
+says; sparks and pickups are part of the hashed state. The SDK provides no session seed today.
+When the hub issues one, `begin()` can take it as its `seedOverride` argument, and the hub
+should then check that `log.seed` is the one it issued. Until then a client can choose its own
+seed, and with it its own pickup plan; a server seed would close that, but it cannot stop a
+bot-played run (see Limitations).
 
 ## Boss ids (please confirm)
 
@@ -172,9 +179,10 @@ cannot stop a precomputed or bot-played run (see Limitations).
 | 10 | Verse Gate | `sprotosales` | Unconfirmed |
 | 11 | Rooftop Breakaway (Goldie chase) | `goldie` | Unconfirmed |
 | 12 | Codebreak Ascent (Bitcoin Sheriff) | `bitcoin_sheriff` | Unconfirmed |
+| 13 | Redkev's Marina (played second) | `redkev` | Unconfirmed; the hub does not accept stage 13 yet, so the client sends it no Ticket report (`hub-link.js`) |
 
-Levels 1 to 10 use the `acts` ids in `game.js`, the same convention that gave `bront`. Levels 11
-and 12 had no id in the code before, so these two were invented. The list is `STORY_BOSS_IDS` in
+Levels 1 to 10 and 13 use the `acts` ids in `game.js`, the same convention that gave `bront`.
+Levels 11 and 12 had no id in the code before, so these two were invented. The list is `STORY_BOSS_IDS` in
 `game.js`.
 
 ## Versioning
@@ -233,12 +241,26 @@ CI (`.github/workflows/gameplay.yml`) runs two jobs:
 
 If a gameplay change is intended, the golden end hashes change too. Run `node
 tools/story-bot.mjs` to record new clears, then `node qa/server-sim-goldens.mjs . --write-fuzz`
-to refresh `qa/golden/fuzz.json`.
+to refresh `qa/golden/fuzz.json`, then `node tools/build-story-par.mjs` to rewrite the clear-screen
+par times (`story-par.js`, checked by `runtime/fixtures/story-par.test.js`). When a level's old
+inputs still clear under the new rules, `node tools/refresh-story-goldens.mjs [level…]` restamps
+its golden without a new bot run. The bot needs about a minute of CPU per boss level on an idle
+machine and far longer on a shared one; one process per level runs them side by side.
+
+### Re-pin log
+
+| Date | `ARCADE_SIM_VERSION` | What changed in the simulation |
+|---|---|---|
+| before 2026-11-11 | `e992c779ac0f8b62` | Baseline of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md` |
+| 2026-11-11 | `a288552328745110` | Plan items B1 to B3: pickups spread over the phase, held during barrages and (hearts) at full health; a second, shorter barrage in a boss's phase 1 (new state `densityLastEnd`); wider opening shifts in flight barrages. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 are their previous inputs, which still clear, restamped. |
+| 2026-11-11 | `d3360290cc771a31` | Owner sign-off items D1, D3, D7 and the Redkev half of D5: phase 1 = 2 x boss health and phase 2 = boss health; a 24-frame floor on ordinary tells; one 44 px saucer half-width; Redkev's own move order, signatures and cadence. Each is its own commit. The old rules for D1, D3 and D7 remain behind `HISTORICAL_*` constants (false in production) for the archived replay lane. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 restamped again. |
 
 Moonkeep (level 7) now uses user-authorized UFO flight and vertical dragon patrols.
 Its production clear is earned again with the flight controller. Historical
 `qa/golden-disabled` files remain unchanged: `--collision-disabled` explicitly disables sprite hitboxes,
-density barrages, and phase powerups before replaying those historical rules. It
+density barrages, and phase powerups before replaying those historical rules, and sets every
+`HISTORICAL_*` constant in `game.js` to true (the 1065 phase-one health, tells without a floor
+and the two saucer hitbox widths those runs were recorded under). It
 excludes level 7's old grounded clear and its two stored fuzz hashes, while
 retaining exact checks for the other eleven levels. The original fixture order
 and RNG stream are preserved. All 24 fuzz runs still check determinism and
@@ -291,7 +313,7 @@ no `replay`.
 
 ## Performance
 
-These are full clears of the 12 goldens, 7,000 to 8,000 ticks each.
+These figures are from the original 12-level checkpoint: full clears of 7,000 to 8,000 ticks each. They have not been re-measured; the current goldens are 6,665 to 9,379 ticks, so expect somewhat longer replays.
 
 | Engine | Per full clear | Notes |
 |---|---|---|
@@ -337,8 +359,8 @@ Options for the hub:
 - **Performance in goja** (see above).
 - **Tickets clears carry no log** (SDK API; see "How logs reach the hub today").
 - **A replay proves that the inputs legally clear the level, not that a human typed them.** A
-  bot such as `tools/story-bot.mjs` makes valid logs. A server seed does not help, because story
-  mode has no gameplay randomness. Duplicate detection and time floors limit the abuse.
+  bot such as `tools/story-bot.mjs` makes valid logs. A server seed does not stop that: it only
+  fixes the pickup plan the bot has to play. Duplicate detection and time floors limit the abuse.
 - `loadout.pilot` unlocks and the carried `shieldWait` are only range-checked, and the pilot
   does not affect the simulation. The hub can check unlocks against the player's save or Relics.
 - God-mode clears never verify. Today the hub grants the Breakwater Coin for god-mode wins too. If
@@ -347,3 +369,4 @@ Options for the hub:
 - Only Chromium was run in the browser. With `SimMath` there is no known source of divergence
   in Firefox or Safari, but those browsers were not tested.
 - The goldens are bot runs, not human playtests.
+- **Ranks and best times are client-authoritative.** Story mode stores a best `{ticks, hits, rank}` per level in the story save, which syncs to the hub's cloud save (`story-progress.js`). The browser writes them and nothing verifies or reads them. They must never feed rewards, unlocks or a leaderboard as they stand: a board or reward needs the time from a server-side `verifyClear` of that run's log (`ticks` in its result), and hits would need to be derived from the replay too.

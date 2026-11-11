@@ -42,7 +42,7 @@ const focused=page=>page.evaluate(()=>document.activeElement?.id||document.activ
 const browser=await chromium.launch();
 const results={};
 async function open(url,ready){
-  const page=await browser.newPage();const errors=[];
+  const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */const errors=[];
   page.on('pageerror',e=>errors.push(String(e)));
   await page.addInitScript(STUB);
   await page.goto(origin+url);

@@ -40,6 +40,7 @@ const results={};
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function newPage(signedIn){
   const page=await browser.newPage({viewport:{width:1280,height:900}});
+  await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); // first-run card already seen
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   if(signedIn)await page.route(sdkScript,async route=>{const body=fs.readFileSync(path.join(root,'vendor/hub-sdk/hub-sdk.iife.js'),'utf8');await route.fulfill({contentType:'text/javascript',body:body+SIGNED_IN});});
   return {page,errors};

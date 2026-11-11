@@ -54,6 +54,49 @@ for(const vertical of [false,true]){
  assert.notEqual(plan.shots.filter(s=>s.delay===0).length,0);
  assert.ok(plan.shots.some(s=>s.delay>300));
 }
+// Second, shorter barrage (story phase 1 only asks for it): half the waves, entering the row
+// pattern two rows on, with the same dodge rules.
+for(const stage of [1,13,2,3,4,5,6,7,8,9,10]){
+ const first=D.plan({...options,stage}),second=D.plan({...options,stage,tick:D.START+1500,lastCycle:0,cycle:1});
+ assert.equal(first.cycle,0);assert.equal(second.cycle,1);
+ const wavesOf=plan=>[...new Set(plan.shots.map(s=>Number(s.id.split('-').at(-2))))];
+ assert.equal(wavesOf(second).length,Math.floor(wavesOf(first).length/2),'cycle 1 is half the waves');
+ const rowOf=(plan,wave)=>{const shots=plan.shots.filter(s=>Number(s.id.split('-').at(-2))===wave),low=Math.max(...shots.map(s=>{const c=D.damageRect(s);return c.y+c.h/2;}));return(low>arena.floor-72?'floor':'middle')+':'+shots.length;};
+ for(const wave of wavesOf(second))assert.equal(rowOf(second,wave),rowOf(first,wave+2),'cycle 1 starts two rows into the pattern');
+ const length=Math.max(...second.shots.map(s=>s.delay+s.active));
+ assert.ok(length>=250&&length<=420,`cycle 1 lasts 250-420 ticks (stage ${stage}: ${length})`);
+ assert.ok(length<Math.max(...first.shots.map(s=>s.delay+s.active))-100,'and is clearly shorter than the first');
+ for(const shot of second.shots){
+  const core=D.damageRect(shot);
+  if(core.y+core.h/2>arena.floor-72)assert.ok(core.y+core.h<arena.floor,'cycle 1 floor missiles can be jumped');
+  else if(core.y+core.h>arena.floor-110)assert.ok(core.y+core.h<arena.floor-72,'cycle 1 middle rows clear a crouch');
+ }
+ assert.equal(D.plan({...options,stage,lastCycle:1,cycle:1}),null,'a cycle is planned once');
+ assert.equal(D.plan({...options,stage,lastCycle:0}),null,'one barrage unless a later cycle is asked for');
+ assert.equal(D.plan({...options,stage,lastCycle:0,cycle:0}),null);
+}
+// Flight walls (Mudline 3, Moonkeep 7): the opening starts on the saucer, then moves (on Moonkeep far
+// enough that a pilot who never steers is hit), and never further than the saucer can fly in time.
+for(const stage of [3,7])for(const phase of [0,1])for(const startY of [120,340,560]){
+ const flightArena={left:0,right:1280,top:51,bottom:597,floor:startY},plan=D.plan({...options,stage,phase,arena:flightArena,player:{x:260,y:startY},flight:true});
+ const waves=[...new Set(plan.shots.map(s=>Number(s.id.split('-').at(-2))))].map(wave=>plan.shots.filter(s=>Number(s.id.split('-').at(-2))===wave));
+ const spacing=waves[1][0].delay-waves[0][0].delay,SAUCER=31,SPEED=10.4;
+ // Heights where the saucer's 62px band clears every missile core of a wall.
+ const safe=wall=>{const ys=[];for(let y=82;y<=566;y++)if(wall.every(s=>{const c=D.damageRect(s);return y+SAUCER<=c.y||y-SAUCER>=c.y+c.h;}))ys.push(y);return ys;};
+ let y=Math.max(82,Math.min(566,startY)),moved=0,stationaryHit=false;
+ waves.forEach((wall,index)=>{
+  const open=safe(wall);
+  assert.ok(open.length>=100,'each wall keeps a gap much taller than the saucer');
+  assert.ok(open.every(v=>v>=82&&v<=566),'the opening lies inside the flight bounds');
+  if(index===0)assert.ok(open.includes(y),'the first wall opens where the saucer already is');
+  if(!open.includes(Math.max(82,Math.min(566,startY))))stationaryHit=true;
+  const target=open.reduce((a,b)=>Math.abs(b-y)<Math.abs(a-y)?b:a),travel=Math.ceil(Math.abs(target-y)/SPEED);
+  assert.ok(travel<=spacing-20,`the next opening is reachable with 20 ticks spare (stage ${stage} phase ${phase}: ${travel} of ${spacing})`);
+  moved=Math.max(moved,Math.abs(target-y));y=target;
+ });
+ if(stage===7&&startY===340)assert.ok(stationaryHit,'on Moonkeep a saucer that never moves vertically is hit');
+ if(stage===7&&startY===340)assert.ok(moved>=20,'mid-arena Moonkeep walls ask for real movement');
+}
 console.log('PASS both crouch-height scales, floor rows, flight and climb openings, 26 phased patterns, progressive speed and staggered immediate launches');
 
 (async()=>{

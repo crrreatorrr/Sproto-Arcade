@@ -20,7 +20,7 @@ const rpc=(id,body,token)=>j(`${NK}/v2/rpc/${id}?unwrap=true`,{method:'POST',hea
   const before=await rpc('profile.get',{},hubToken);
   const enter=await rpc('portal.enter',{game:'sproto-arcade',ranked:false},hubToken);
   console.log('ticket ok',!!enter.ticket,'relics before',JSON.stringify(before.relics??before));
-  const b=await chromium.launch();const p=await b.newPage();const errs=[];p.on('pageerror',e=>errs.push(String(e)));
+  const b=await chromium.launch();const p=await b.newPage();await p.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */const errs=[];p.on('pageerror',e=>errs.push(String(e)));
   p.on('console',m=>{if(m.type()==='error'||m.type()==='warning')errs.push('console '+m.text())});
   await p.goto(`${HUB}/play/sproto-arcade/#t=${enter.ticket}`);
   await p.waitForFunction(()=>location.pathname.endsWith('legacy.html')&&window.ArcadeHub,null,{timeout:60000});
@@ -46,7 +46,7 @@ const rpc=(id,body,token)=>j(`${NK}/v2/rpc/${id}?unwrap=true`,{method:'POST',hea
   console.log('server save',JSON.stringify(save.data),'tickets',bal.balance,'hub relics',JSON.stringify(prof.relics));
   // Reload through a fresh ticket: progress comes back from the cloud on a clean browser.
   const enter2=await rpc('portal.enter',{game:'sproto-arcade',ranked:false},hubToken);
-  const ctx=await b.newContext();const p2=await ctx.newPage();
+  const ctx=await b.newContext();const p2=await ctx.newPage();await p2.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
   await p2.goto(`${HUB}/play/sproto-arcade/legacy.html#t=${enter2.ticket}`);
   await p2.waitForFunction(()=>window.ArcadeHub&&ArcadeHub.state.status==='online',null,{timeout:60000});
   await p2.waitForTimeout(800);

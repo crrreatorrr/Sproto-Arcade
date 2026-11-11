@@ -10,11 +10,11 @@
   "bossId": "bitcoin_sheriff",
   "godMode": false,
   "ticks": 8880,
-  "endHash": "79b659d989057ea5"
+  "endHash": "286353003d4846c5"
  },
  "log": {
   "schema": 1,
-  "simVersion": "e992c779ac0f8b62",
+  "simVersion": "d3360290cc771a31",
   "seed": 24312,
   "rules": {
    "mode": "story",
@@ -31,7 +31,7 @@
    "stage": 12,
    "bossId": "bitcoin_sheriff",
    "ticks": 8880,
-   "endHash": "79b659d989057ea5"
+   "endHash": "286353003d4846c5"
   },
   "godMode": false
  }
