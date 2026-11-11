@@ -1,5 +1,5 @@
 /* ARC-DEC-01: hub-link.js splits a clear into recordLocalClear (local save and unlocks, every clear,
- * offline too) and reportHubClear (Relic, Tickets and cloud save; full runs only). Runs the real
+ * offline too) and reportHubClear (first-boss Relic, plus Tickets and cloud save for full runs). Runs the real
  * story-progress.js and hub-link.js against a fake HubSDK (the 0.6.4 IIFE global) that logs every call it receives. */
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../..');
@@ -38,16 +38,31 @@ const plain=v=>JSON.parse(JSON.stringify(v));
     assert.equal(typeof hub.levelCleared,'undefined','the combined levelCleared is gone');
     const before=calls.length;
     const opened=hub.recordLocalClear(1);
+    hub.reportHubClear(1,false,null,{checkpoint:true});
     await settle();await settle();
     assert.deepEqual(plain(opened),expected,'checkpoint clear returns the Sprotos it opened');
     assert.deepEqual(plain(hub.state.save.cleared),[1]);
     const stored=JSON.parse(items.get(P.playerKey('p1')));
     assert.deepEqual(stored.cleared,[1],'checkpoint clear is stored in the player\'s local save');
     for(const id of expected)assert.ok(stored.unlocked.includes(id)&&hub.isUnlocked(id),'unlock '+id+' saved locally');
-    assert.deepEqual(calls.slice(before),[],'checkpoint clear sends nothing to the hub');
+    assert.deepEqual(calls.slice(before),[],'a later boss checkpoint sends nothing to the hub');
     assert.equal(hub.state.lastReplay,null,'checkpoint clear claims no replay');
     // A second checkpoint clear of the same level opens nothing new.
     assert.deepEqual(plain(hub.recordLocalClear(1)),[]);
+  }
+  // A phase-2 retry of the first boss still reports the Coin, even after a previous clear.
+  {
+    const {hub,calls}=page({online:true});
+    await hub.ready;
+    hub.recordLocalClear(0);
+    const before=calls.length;
+    hub.recordLocalClear(0);
+    hub.reportHubClear(0,false,null,{checkpoint:true});
+    await settle();
+    const sent=calls.slice(before);
+    assert.deepEqual(sent.map(c=>c[0]),['reportEvent']);
+    assert.equal(sent[0][1],'arcade.boss_defeated');
+    assert.deepEqual(plain(sent[0][2]),{boss:'bront'});
   }
   // Online, full clear of level 0 without god mode: local save plus Relic report, Tickets and cloud save.
   {
@@ -90,5 +105,5 @@ const plain=v=>JSON.parse(JSON.stringify(v));
     assert.deepEqual(JSON.parse(items.get(P.STORAGE_KEY)).cleared,[1],'offline clear stored in the device save');
     assert.deepEqual(calls,[],'offline sends nothing');
   }
-  console.log('PASS ARC-DEC-01 recordLocalClear saves every clear locally (online and offline); reportHubClear sends Relic, Tickets and cloud save only for full runs; Redkev save-only');
+  console.log('PASS local saves on every clear, Relic on first-boss checkpoint wins, Tickets on eligible full runs, Redkev save-only');
 })().catch(e=>{console.error(e);process.exitCode=1;});

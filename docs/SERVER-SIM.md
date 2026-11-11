@@ -114,12 +114,12 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
 
 ## How logs reach the hub today
 
-- **`arcade.boss_defeated`** (level 1, `bront`, sent while the Breakwater Coin is not owned):
+- **`arcade.boss_defeated`** (level 1, `bront`, sent on every win in a hub session):
   `sdk.reportEvent('arcade.boss_defeated', { boss: 'bront', replay: <log> }, key)`. The SDK
   passes `data` through as-is, so `vendor/hub-sdk` is unchanged. The live hub's `session.event`
-  RPC must accept the extra `replay` key. The run is the same for both reports, so this log has
-  `claimed.kind = 'boss'`.
-- **`arcade_clear`** (20 Tickets per non-god clear): **not attached.** `sdk.earnTickets(amount,
+  RPC must accept the extra `replay` key. This log has `claimed.kind = 'boss'`. Phase-2 retries
+  report the boss ID alone because they have no full-run replay.
+- **`arcade_clear`** (20 Tickets per full non-god clear): **not attached.** `sdk.earnTickets(amount,
   reason, key)` has no data or metadata parameter, and the SDK must not change in this task, so
   the log has nowhere to go. The client still builds it, with `claimed.kind = 'clear'`, and
   keeps it in `ArcadeHub.state.lastReplay`. To verify Tickets, the hub needs one of:
@@ -130,9 +130,9 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
 - Logs larger than 32,768 bytes of JSON are not attached (see Sizes).
 - In the browser, `game.js` starts a recorder in `begin()`. It records the input frame before
   each `update()` in the game loop. `clearLevel()` stamps the claim with the end-state hash and
-  hands the log to `ArcadeHub.reportHubClear(level, god, replay)`. Every clear first calls
-  `ArcadeHub.recordLocalClear(level)` for local progress; a phase-2 checkpoint clear calls only that
-  and sends nothing to the hub.
+  hands the log to `ArcadeHub.reportHubClear(level, god, replay, { checkpoint })`. Every clear first
+  calls `ArcadeHub.recordLocalClear(level)` for local progress. A phase-2 checkpoint clear can report
+  the Breakwater Coin event on level 1. Immediate cloud saves and Tickets require a full run.
 
 ## Chunks
 

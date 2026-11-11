@@ -3,9 +3,9 @@
  * the SDK redeems it (the login) and every call below talks to the hub. Opened directly or from
  * file://, init finds no session and the game plays offline with local progress only.
  *
- *  - First story boss (level 1, Fat Head Dave, boss id `bront`): reports `arcade.boss_defeated`,
- *    god mode included. The server grants the Breakwater Coin once.
- *  - Every boss/level clear without god mode: 20 Tickets (`arcade_clear`).
+ *  - First story boss (level 1, Fat Head Dave, boss id `bront`): every clear reports
+ *    `arcade.boss_defeated`, including god mode and phase-2 retries. The server grants the Breakwater Coin once.
+ *  - Every full boss/level clear without god mode: 20 Tickets (`arcade_clear`).
  *  - Progress (cleared levels, unlocked Sprotos): local save merged with the cloud save. */
 (function (root) {
   'use strict';
@@ -229,28 +229,29 @@
   }
 
   /**
-   * Hub half of a clear, called by game.js only for full runs (never for a phase-2 checkpoint run,
-   * which skipped phase 1). `god` is true when god mode was on at any point in that level. `replay`
-   * is the run's input log (runtime/story/replay.js) for the hub's server-side replay. Sends the
-   * first-boss Relic report, the clear Tickets and the cloud save. A no-op offline.
+   * Reports every first-boss win, including phase-2 retries, while connected to the hub.
+   * Only full runs can earn Tickets or push the cloud save. `god` is true when god mode was on
+   * at any point in the level, and `replay` is the full run's input log (runtime/story/replay.js).
    */
-  function reportHubClear(level, god, replay) {
+  function reportHubClear(level, god, replay, { checkpoint = false } = {}) {
+    const firstBoss = level === FIRST_BOSS.level;
+    if (checkpoint && !firstBoss) return;
     state.lastReplay = claimed(replay, 'clear');
     // Only clears made during a hub session are sent. Offline clears still count for local progress.
     if (connected()) {
       // ID13 is locally playable; the external hub still accepts the original12.
       if(level>=12){queue(pushSave);emit();return;}
       const rows = [];
-      if (level === FIRST_BOSS.level && !state.relics.includes(RELIC)) {
+      if (firstBoss) {
         const log = claimed(replay, 'boss');
         rows.push({ type: 'relic', boss: FIRST_BOSS.boss, key: `${BOSS_EVENT}:${FIRST_BOSS.boss}:${uuid()}`, ...(log ? { replay: log } : {}) });
       }
       // earnTickets(amount, reason, key) has no data field, so the clear's log cannot ride along.
       // It stays in state.lastReplay (not on the stored row, to keep the outbox small).
-      if (!god) rows.push({ type: 'tickets', amount: TICKETS_PER_CLEAR, level, key: `arcade:clear:${level}:${uuid()}` });
+      if (!checkpoint && !god) rows.push({ type: 'tickets', amount: TICKETS_PER_CLEAR, level, key: `arcade:clear:${level}:${uuid()}` });
       addPending(rows);
       queue(flush);
-      queue(pushSave);
+      if (!checkpoint) queue(pushSave);
     }
     emit();
   }

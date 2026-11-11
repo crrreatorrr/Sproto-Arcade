@@ -512,9 +512,9 @@ function clearLevel() {
   const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
   replayRecorder=null;
   // Hub link. Every clear, a phase-2 checkpoint clear included, saves local progress and unlocks.
-  // Only a full run sends the hub report (first-boss Relic, Tickets, cloud save); a no-op offline.
+  // First-boss retries still report the Relic. Tickets and immediate cloud saves require a full run.
   const opened=window.ArcadeHub?.recordLocalClear(levelIndex)??[];
-  if(!phaseCheckpointRun)window.ArcadeHub?.reportHubClear(levelIndex,godUsed,replay);
+  window.ArcadeHub?.reportHubClear(levelIndex,godUsed,replay,{checkpoint:phaseCheckpointRun});
   if (opened.length) paintSprotoLocks();
   if (nextCampaignLevel(levelIndex)<0) {
     levelSelect.value=String(firstLevel);
