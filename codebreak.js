@@ -72,8 +72,8 @@ function refreshCodebreakHud() {
   ui.boss.firstElementChild.textContent='BITCOIN SHERIFF · PHASE '+boss.phase+'/2'+
     (climbing?' · '+(boss.section+1)+'/'+CODE_ATTACK_SIDES.length:'');
   ui.boss.querySelector('progress').value=climbing?clamp(camera/CODE_LOOP,0,1):boss.hp/boss.max;
-  ui.cue.textContent=densityShots.length?'':boss.wreck?'':boss.shift?'SUMMIT REACHED':authoredTime()<110&&climbing?'JUMP TO THE NEXT PLATFORM':
-    boss.age>19&&boss.age<attackForCodebreak().frames[0]?attackForCodebreak().name.toUpperCase():'';
+  setCue(barrageCueLine()||(boss.wreck?'':boss.shift?'SUMMIT REACHED':authoredTime()<110&&climbing?'JUMP TO THE NEXT PLATFORM':
+    boss.age>19&&boss.age<attackForCodebreak().frames[0]?attackForCodebreak().name.toUpperCase():''));
 }
 
 function attackForCodebreak() {

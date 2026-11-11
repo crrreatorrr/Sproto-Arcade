@@ -409,7 +409,66 @@ function announce(message, frames = 110) {
   ui.notice.hidden = false;
 }
 
+// ---- Fail screen and first-run card (browser only; setOverlay is a stub in the server build).
+// What ended the run, how far it got, one tip, and what Retry does. Built from the state at the
+// moment of the knockout, so hurt() keeps its own strings and the simulation is untouched.
+const FAIL_TIPS={
+  barrage:{gap:'Barrage tip: every wall has one gap. Fly to it early; the gap shifts between walls.',
+    ground:'Barrage tip: read the row. Chest-high rows: crouch. Floor rows: jump. Floor rows with missiles overhead: tap jump for a short hop. A dash also passes through.'},
+  ceilingSweep:()=>'Tip: the ceiling sweep cannot be dashed or out-jumped. Hold crouch ('+crouchPrompt()+') until it passes, or raise the shield ('+shieldPrompt()+').',
+  shieldPulse:()=>'Tip: only the shield stops a pulse. Press '+shieldPrompt()+' when the cue line says SHIELD NOW; the boss waits until your shield is ready.',
+  shot:'Tip: a dash passes through shots and columns. Dash through what you cannot jump.'
+};
+function failReport(reason) {
+  const lines=[];
+  if (isChase()) {
+    lines.push(densityShots.length?'Knocked out by the missile barrage.':/wins this round/.test(reason)?'Knocked out by Goldie\'s '+CHASE_ATTACKS[boss.attackIndex].name.toLowerCase()+'.':reason);
+    lines.push('Rooftops crossed: '+Math.round(clamp((camera+player.x)/CHASE_FINISH,0,1)*100)+'%');
+    lines.push(densityShots.length?FAIL_TIPS.barrage.ground:'Tip: hold jump for a long leap and tap it again in the air. A dash keeps its height across a gap.');
+    lines.push('Retry restarts the chase.');
+    return lines.join('\n');
+  }
+  const climb=isCodebreak()&&boss.phase===1,barrage=densityShots.length>0;
+  const fell=!/wins this round/.test(reason);
+  const cause=fell?reason:barrage?'Knocked out by the missile barrage.':
+    isCodebreak()?'Knocked out by the Sheriff\'s '+attackForCodebreak().name.toLowerCase()+'.':
+    boss.move==='ceilingSweep'?'Caught standing under the ceiling sweep.':
+    boss.move==='shieldPulse'?'Hit by the shield pulse.':
+    boss.move?'Knocked out during '+moveLabel(boss.move).split(' · ')[0]+'.':'Knocked out.';
+  lines.push(cause);
+  if (climb) lines.push('Phase 1 · climb '+Math.round(clamp(camera/CODE_LOOP,0,1)*100)+'% complete');
+  else if (isCodebreak()) lines.push('Phase 2 · Sheriff at '+Math.ceil(boss.hp/boss.max*100)+'%');
+  else lines.push('Phase '+boss.phase+' · section '+(healthSection(boss)+1)+' of 4 · '+boss.name+' at '+Math.ceil(boss.hp/boss.max*100)+'%');
+  if (barrage) lines.push(isFlying()||densityShots[0].vertical?FAIL_TIPS.barrage.gap:FAIL_TIPS.barrage.ground);
+  else if (fell) lines.push('Tip: land on the wide platforms and save the air jump for a missed ledge.');
+  else if (!isCodebreak() && boss.move==='ceilingSweep') lines.push(FAIL_TIPS.ceilingSweep());
+  else if (!isCodebreak() && boss.move==='shieldPulse') lines.push(FAIL_TIPS.shieldPulse());
+  else lines.push(FAIL_TIPS.shot);
+  // Reward wording follows reportHubClear() in hub-link.js.
+  if (boss.phase===2) {
+    const hub=Boolean(window.ArcadeHub?.connected?.());
+    lines.push('Retry restarts phase 2 with full health. A clear after a checkpoint retry saves your progress'+
+      (hub?' but earns no Tickets.'+(LEVELS[levelIndex].id===1?' The Breakwater Coin still counts.':''):'.'));
+  } else lines.push('Retry restarts '+(isCodebreak()?'the climb':'phase 1')+'.');
+  return lines.join('\n');
+}
+const COACH_KEY='sproto-arcade-coach-v1';
+function coachSeen() { try { return localStorage.getItem(COACH_KEY)==='1'; } catch { return true; } }
+function coachDone() { try { localStorage.setItem(COACH_KEY,'1'); } catch {} }
+function coachText() {
+  const pad=padPrompts();
+  return [
+    pad?'Move: left stick or D-pad  ·  Jump: A, and again in the air  ·  Crouch: stick down':'Move: ← →  ·  Jump: Space, and again in the air  ·  Crouch: ↓',
+    (pad?'Dash (B / RT)':'Dash (Shift)')+' passes through shots, columns and missiles.',
+    'Shield ('+shieldPrompt()+') is the only answer to a SHIELD PULSE. Crouch or shield under a CEILING SWEEP.',
+    'When the cue line says EXPOSED, jump into the ring for triple damage.',
+    (pad?'Y and RB':'C and V')+' fire your two specials. In flight levels you fly in all four directions.',
+    'Read the cue line under the boss bar: it names each attack and tells you when to act.'
+  ].join('\n');
+}
+
 function setOverlay(next, label, title, description, button) {
+  if (next==='lost') description=failReport(description);
   mode = next;
   overlay.hidden = next === 'play';
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
@@ -525,6 +584,60 @@ function clearLevel() {
   if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
 }
 
+// ---- Cue line (browser only; refreshHud is a stub in the server build, so nothing here is simulated).
+// Attack names shown during a tell, as the chase and the climb already do.
+const MOVE_LABELS={
+  quake:'SHOCKWAVE · JUMP IT',sweep:'DOUBLE SHOCKWAVE · JUMP IT',slabs:'VOLLEY · HIGH THEN LOW',rush:'CHARGE · BACK OFF',
+  rain:'RAIN FROM ABOVE',ricochet:'BOUNCING VOLLEY',fan:'FAN SPREAD',drop:'LEAP SLAM · MOVE',crossfire:'CROSSFIRE · BOTH SIDES',
+  eruption:'ERUPTION · LEAVE THE MARKS',rift:'RIFT COLUMNS · LEAVE THE MARKS',gearPincer:'PINCER · LOW, BOTH SIDES',
+  lanternShower:'FALLING SHOWER',slabGates:'GATES · HIGH THEN LOW',crescentArc:'ARC SPREAD',bankShot:'BANK SHOT · IT BOUNCES',
+  skimmer:'SKIMMER · LOW THEN HIGH',splitArc:'SPLIT ARC',comet:'DIVING COMETS',ripple:'RIPPLE · IT BOUNCES',minefall:'FALLING MINES',
+  floorSaw:'FLOOR SAWS · JUMP',hammer:'HAMMERS · HIGH THEN LOW',starCross:'STAR CROSS',needleFall:'NEEDLE RAIN',eyeShot:'AIMED SHOTS',
+  airMechaMissiles:'MISSILE RACK',anchorRun:'ANCHOR DROP · THEN TORPEDO',bellSweep:'BELL DROP',cabinetRush:'CABINET RUSH · BOTH SIDES',
+  casinoBounce:'CASINO BOUNCE',forgePress:'FORGE PRESS',frostRotor:'ROTOR BLADES · BOTH SIDES',crystalFlank:'CRYSTAL FLANK · BOTH SIDES',
+  scarabSkitter:'SCARAB SKITTER · BOTH SIDES',diamondStep:'DIAMOND STEP',solarVolley:'SOLAR VOLLEY',tridentArc:'TRIDENT ARC',
+  prismRicochet:'PRISM RICOCHET · BOTH SIDES',portalRing:'PORTAL RING',meteorFall:'METEOR FALL',hourglassDrop:'HOURGLASS DROP',
+  airLanes:'LANE SHOTS',airBarrage:'SPREAD SHOTS',airDive:'DIVE FROM ABOVE',airFork:'FORK',airLift:'RISING SHOTS · FROM BELOW',
+  airSpiral:'SPIRAL',airPincer:'PINCER · BOTH SIDES',airCrossfire:'CROSSFIRE · BOTH SIDES',airRain:'NEEDLE RAIN',
+  airRockets:'ROCKETS · BOTH SIDES',airWings:'WINGS · ABOVE AND BELOW',airMines:'DRIFTING MINES'
+};
+const moveLabel=move=>MOVE_LABELS[move]??String(move).replace(/([a-z])([A-Z])/g,'$1 $2').toUpperCase();
+const padPrompts=()=>document.documentElement?.dataset?.input==='gamepad';
+const crouchPrompt=()=>padPrompts()?'STICK ↓':'↓';
+const shieldPrompt=()=>padPrompts()?'X / LT':'X';
+// What the nearest incoming barrage wave asks for: 'gap', 'crouch', 'hop' or 'jump'.
+let barrageCue={key:'',floor:0,endedAt:-Infinity};
+function barrageLane() {
+  if (!densityShots.length) return '';
+  const first=densityShots[0],scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+  if (first.vertical || isFlying()) return 'gap';
+  const key=first.id.split('-').slice(0,4).join('-');
+  // Every ground plan has a floor row; its lowest missile centre sits about 24px above the floor.
+  if (barrageCue.key!==key) barrageCue={...barrageCue,key,floor:Math.max(...densityShots.map(shot=>shot.y+shot.h/2))+24*scale};
+  const incoming=densityShots.filter(shot=>shot.vx<0?shot.x+shot.w>player.x-24:shot.x<player.x+24);
+  if (!incoming.length) return '';
+  const lead=incoming.reduce((a,b)=>b.delay<a.delay?b:a),wave=lead.id.split('-')[4];
+  const centres=incoming.filter(shot=>shot.id.split('-')[4]===wave).map(shot=>barrageCue.floor-(shot.y+shot.h/2));
+  const low=Math.min(...centres);
+  return low>60*scale?'crouch':centres.some(height=>height>150*scale)?'hop':'jump';
+}
+function barrageCueText() {
+  const lane=barrageLane();
+  const hint=lane==='gap'?(isFlying()?'FLY THROUGH THE GAP':'MOVE UNDER THE GAP'):lane==='crouch'?'CROUCH ('+crouchPrompt()+')':lane==='hop'?'SHORT HOP':lane==='jump'?'JUMP':'';
+  return 'MISSILE BARRAGE · GUNS OFFLINE'+(hint?' · '+hint:'');
+}
+// Called every tick by refreshHud: the barrage line while missiles fly, then "BARRAGE OVER" for 45 frames.
+function barrageCueLine() {
+  if (mode==='lost') { barrageCue.active=false; return ''; }
+  if (densityShots.length) { barrageCue.active=true; return barrageCueText(); }
+  if (barrageCue.active) { barrageCue.active=false; barrageCue.endedAt=time; }
+  return time-barrageCue.endedAt<45 && time>=barrageCue.endedAt?'BARRAGE OVER · GUNS ONLINE':'';
+}
+function setCue(message) {
+  if (ui.cue.textContent!==message) ui.cue.textContent=message;
+  ui.cue.classList.toggle('urgent',/^(CEILING SWEEP|SHIELD NOW|MISSILE BARRAGE)/.test(message));
+}
+
 function refreshHud() {
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
@@ -537,7 +650,7 @@ function refreshHud() {
   if (isChase()) {
     ui.boss.firstElementChild.textContent='GOLDIE · ROOFTOP CHASE';
     ui.boss.querySelector('progress').value=clamp((camera+player.x)/CHASE_FINISH,0,1);
-    ui.cue.textContent=densityShots.length?'':authoredTime()<110?'KEEP MOVING · JUMP THE GAPS':boss.attackAge<45?CHASE_ATTACKS[boss.attackIndex].name:'';
+    setCue(barrageCueLine()||(authoredTime()<110?'KEEP MOVING · JUMP THE GAPS':boss.attackAge<45?CHASE_ATTACKS[boss.attackIndex].name:''));
     ui.dash.textContent=player.dashWait?'DASH RECHARGING':'DASH READY';
     ui.dash.classList.toggle('ready',!player.dashWait);
     return;
@@ -551,14 +664,21 @@ function refreshHud() {
   showCooldown(ui['missile-status'],player.missileWait);
   showCooldown(ui['bomb-status'],player.bombWait);
   if (isCodebreak()) return refreshCodebreakHud();
-  if (densityShots.length) { ui.cue.textContent='';return; }
+  const barrage=barrageCueLine();
+  if (densityShots.length) { setCue(barrage);return; }
   const m = boss?.move && moves[boss.move];
+  const telling=boss.hp && m && boss.age<=boss.tell;
   const charging=boss.move==='shieldPulse' && boss.age<=boss.tell;
   const shieldNow=charging && (boss.tell-boss.age)/bossAttackRate(boss)<26;
   const arenaTell=mechanicsIndex(levelIndex)!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
-  const message=arenaTell?(PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)]?.name??'Yacht cannon charging'):charging?(shieldNow?'SHIELD NOW · X':'SHIELD PULSE CHARGING'):
-    !boss.hp || !m || boss.age<=boss.tell+m.active?'':'EXPOSED  ·  Jump to hit the weak spot';
-  if (ui.cue.textContent!==message) ui.cue.textContent=message;
+  // One line at a time, mandatory mechanics first: the sweep needs a crouch or the shield for its
+  // whole tell and strike, and nothing else answers it.
+  const message=ceilingSweepInProgress()?'CEILING SWEEP · CROUCH ('+crouchPrompt()+') OR SHIELD ('+shieldPrompt()+')':
+    charging?(shieldNow?'SHIELD NOW · '+shieldPrompt():'SHIELD PULSE CHARGING · GET READY TO SHIELD ('+shieldPrompt()+')'):
+    arenaTell?(PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)]?.name??'Yacht cannon charging'):
+    barrage?barrage:telling?moveLabel(boss.move):
+    boss.hp && m && boss.age>boss.tell+m.active?(isFlying()?'EXPOSED  ·  Line up with the ring':'EXPOSED  ·  Jump to hit the weak spot'):'';
+  setCue(message);
 }
 
 function showCooldown(label,frames) {
@@ -1878,9 +1998,10 @@ function drawVaultCannon() {
 function drawCeilingSweep() {
   if (!ceilingSweepInProgress()) return;
   const elapsed=boss.age-boss.tell;
-  if (elapsed < -boss.sweepDescent) return;
+  // The band lowers through the whole tell (it used to appear for the last 36 frames only), so the
+  // warning on screen is as long as the warning in the rules. Drawing only; the strike is unchanged.
   const edge=elapsed<0
-    ?Math.round(22+SWEEP_EDGE*.36*(1+elapsed/boss.sweepDescent))
+    ?Math.round(22+SWEEP_EDGE*.36*clamp(1+elapsed/boss.tell,0,1))
     :SWEEP_EDGE;
   const pulse=.5+.5*SimMath.sin(elapsed*.42*SWEEP_SPEED);
   const art=attackArt('boss/higgsfield/ceiling-sweep/blast');
@@ -2264,7 +2385,7 @@ function renderLegacyScene() {
 }
 
 function pause() {
-  if (mode==='play') setOverlay('paused','Intermission','Paused','Take a breather.','Resume');
+  if (mode==='play') setOverlay('paused','Intermission','Paused','Take a breather.\n'+coachText(),'Resume');
   else if (mode==='paused') setOverlay('play','','','','');
 }
 
@@ -2334,6 +2455,9 @@ ui.start.addEventListener('click',()=>{
   else if (mode==='lost') retryCurrentPhase(); // Decoded retry stays synchronous.
   else {
     const index=Number(levelSelect.value);
+    // First level of this browser: one screen of controls, shown once (COACH_KEY).
+    if (mode!=='coach' && !coachSeen()) { setOverlay('coach','How to play','Before you start',coachText(),'Got it · Start');return; }
+    coachDone();
     whenReady(index,()=>begin(index));
   }
 });
