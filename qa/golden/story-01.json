@@ -2,7 +2,7 @@
  "level": 1,
  "title": "Tidebreak Marina",
  "bossId": "bront",
- "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
+ "source": "tools/story-bot.mjs; same input sequence replayed with a seed that exercises a late shield pickup",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,12 +10,12 @@
   "bossId": "bront",
   "godMode": false,
   "ticks": 6150,
-  "endHash": "ed89b80fe73ee52d"
+  "endHash": "a2a1401b67cdee46"
  },
  "log": {
   "schema": 1,
   "simVersion": "3879d9320d6ce5bb",
-  "seed": 24301,
+  "seed": 24314,
   "rules": {
    "mode": "story",
    "level": 1,
@@ -31,7 +31,7 @@
    "stage": 1,
    "bossId": "bront",
    "ticks": 6150,
-   "endHash": "ed89b80fe73ee52d"
+   "endHash": "a2a1401b67cdee46"
   },
   "godMode": false
  }
