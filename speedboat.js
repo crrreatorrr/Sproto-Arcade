@@ -12,7 +12,7 @@ const ArcadeSpeedboat = (() => {
   const boat = 'art/ocean/speedboat.png', effects = 'art/ocean/naval-effects.png';
   const assets = [...route, storm, boat, effects];
   const boatWidth = 224, boatHeight = 112, fxWidth = 128, fxHeight = 96;
-  const screenWidth = 1280, screenHeight = 720, panelDistance = 4400;
+  const screenWidth = 1280, screenHeight = 720, panelDistance = 3200;
   const bossMotion = new WeakMap();
   // The two guard poses share these anchor-relative upper-body crops.
   const pilots = {

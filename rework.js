@@ -56,7 +56,7 @@ function moonkeepSaucer(p,tick){
 function chevrons(x,y,h){ctx.strokeStyle='#f4efe1';ctx.lineWidth=4;for(let yy=y+12;yy<y+h;yy+=32){ctx.beginPath();ctx.moveTo(x-8,yy-8);ctx.lineTo(x+3,yy);ctx.lineTo(x-8,yy+8);ctx.stroke();}}
 function render(){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);if(!world){text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase;
 const gradient=ctx.createLinearGradient(0,0,0,720);gradient.addColorStop(0,'#172d3e');gradient.addColorStop(1,w.stage.color||'#293e47');ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,720);
-if(ph.naval)ArcadeSpeedboat.drawOcean(ctx,img,w.phaseElapsed*6.86,w.phaseIndex===1);
+if(ph.naval)ArcadeSpeedboat.drawOcean(ctx,img,w.phaseElapsed*40,w.phaseIndex===1);
 ctx.save();ctx.translate(-w.camera.x,-w.camera.y);ctx.textAlign='left';
 if(!ph.naval)for(const pl of w.platforms){if(pl.removed||pl.active===false)continue;ctx.fillStyle='#263c49';ctx.fillRect(pl.x,pl.y,pl.w,pl.h||20);ctx.fillStyle='#81b5ba';ctx.fillRect(pl.x,pl.y,pl.w,4);}
 if(ph.naval){
