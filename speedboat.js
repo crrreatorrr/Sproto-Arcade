@@ -12,6 +12,9 @@ const ArcadeSpeedboat = (() => {
   const boat = 'art/ocean/speedboat.png', effects = 'art/ocean/naval-effects.png';
   const assets = [...route, storm, boat, effects];
   const boatWidth = 224, boatHeight = 112, fxWidth = 128, fxHeight = 96;
+  const fireFrame = 2;
+  // Cell-local muzzle flash bounds in the light and heavy attack rows.
+  const muzzleFlash = {1:[180,32,36,32],2:[70,0,52,41]};
   const screenWidth = 1280, screenHeight = 720, panelDistance = 3200;
   const bossMotion = new WeakMap();
   // The two guard poses share these anchor-relative upper-body crops.
@@ -106,12 +109,29 @@ const ArcadeSpeedboat = (() => {
     if (age < 0 || age >= weapon.frames) return -1;
     if (age < weapon.launch - 2) return 0;
     if (age < weapon.launch) return 1;
-    return age < weapon.launch + 4 ? 2 : 3;
+    return age < weapon.launch + 4 ? fireFrame : 3;
   }
 
   function hull(ctx, image, row, column, x, y, start = 0, width = boatWidth) {
+    const flash = column === fireFrame && muzzleFlash[row];
+    if (flash) {
+      const [left, top, w, h] = flash;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x, y, boatWidth, boatHeight);
+      ctx.rect(x + left, y + top, w, h);
+      ctx.clip('evenodd');
+    }
     ctx.drawImage(image, column * boatWidth + start, row * boatHeight, width, boatHeight,
       x + start, y, width, boatHeight);
+    if (flash) ctx.restore();
+  }
+
+  function drawMuzzleFlash(ctx, image, row, column, x, y) {
+    if (column !== fireFrame) return;
+    const [left, top, w, h] = muzzleFlash[row];
+    ctx.drawImage(image, column * boatWidth + left, row * boatHeight + top, w, h,
+      x + left, y + top, w, h);
   }
 
   function drawPilot(ctx, picture, id, tick, x, y) {
@@ -123,7 +143,7 @@ const ArcadeSpeedboat = (() => {
     const scale = Math.min(59 / width, 51 / height);
     const w = Math.round(width * scale), h = Math.round(height * scale);
     ctx.drawImage(image, anchorX + left, anchorY + top, width, height,
-      Math.round(x + 2 - w / 2), Math.round(y + 3 - h), w, h);
+      Math.round(x + 10 - w / 2), Math.round(y + 1 - h), w, h);
   }
 
   function drawBoat(ctx, picture, player, tick, lightAge, heavyAge) {
@@ -156,6 +176,8 @@ const ArcadeSpeedboat = (() => {
       hull(ctx, image, 0, motion, x, y);
     }
     drawPilot(ctx, picture, player.id, tick, player.x, player.y + bob);
+    drawMuzzleFlash(ctx, image, 2, heavy, x, y);
+    drawMuzzleFlash(ctx, image, 1, light, x, y);
     ctx.restore();
     return true;
   }
