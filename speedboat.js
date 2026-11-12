@@ -78,13 +78,20 @@ const ArcadeSpeedboat = (() => {
 
   function drawWake(ctx, picture, x, surface, tick, dx, dy, scale, trailOffset) {
     const speed = Math.hypot(dx, dy);
-    // Ease the wake toward the center during slow reversals.
-    const trail = Math.max(-1, Math.min(1, dx)) * trailOffset;
+    // Shift and blend the wake through the center during slow reversals.
+    const direction = Math.max(-1, Math.min(1, dx));
     ctx.save();
-    ctx.translate(Math.round(x - trail), Math.round(surface + 10));
-    if (dx < 0) ctx.scale(-1, 1);
+    ctx.translate(Math.round(x - direction * trailOffset), Math.round(surface + 10));
     const frame = Math.floor(tick / (speed > 8 ? 3 : 5)) % 4;
-    drawEffect(ctx, picture, 3, frame, -fxWidth * scale / 2, -fxHeight * scale / 2, scale);
+    for (const facing of [1, -1]) {
+      const opacity = (1 + direction * facing) / 2;
+      if (!opacity) continue;
+      ctx.save();
+      ctx.scale(facing, 1);
+      ctx.globalAlpha *= opacity;
+      drawEffect(ctx, picture, 3, frame, -fxWidth * scale / 2, -fxHeight * scale / 2, scale);
+      ctx.restore();
+    }
     if (speed > .18) {
       const splashScale = scale * (speed > 8 ? .65 : .45);
       ctx.globalAlpha *= speed > 8 ? .86 : .62;
