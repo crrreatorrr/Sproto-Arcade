@@ -228,7 +228,8 @@
     movePlayer(input){
       const p=this.player;p.prevX=p.x;p.prevY=p.y;
       if(p.grounded&&p.support){const support=this.platforms.find(t=>t.id===p.support&&!t.removed&&t.active!==false);if(support){p.x+=support.x-(support._lastX??support.x);p.y+=support.y-(support._lastY??support.y);}}
-      for(const key of ['dashWait','shieldWait','beamWait','bombWait'])if(p[key]>0)p[key]--;
+      const timers=this.phase.naval&&this.densityBarrage?['dashWait','shieldWait']:['dashWait','shieldWait','beamWait','bombWait'];
+      for(const key of timers)if(p[key]>0)p[key]--;
       if(input.shield&&!p.shieldWait){p.shield=45;p.shieldWait=150;}
       const dx=Number(!!input.right)-Number(!!input.left),dy=Number(!!input.down)-Number(!!input.up);
       if(dx)p.facing=dx;

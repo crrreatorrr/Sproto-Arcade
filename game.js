@@ -259,7 +259,7 @@ const bossAttackImage=name=>picture(`art/attacks/boss/higgsfield/${name}.png`);
 const isNaval=()=>!HISTORICAL_MARINA_GROUND&&Boolean(LEVELS[levelIndex]?.naval);
 const isFlying=()=>isNaval()||Boolean(LEVELS[levelIndex]?.flight);
 const isChase=()=>Boolean(LEVELS[levelIndex]?.chase);
-const hasMecha=b=>isFlying() && b.phase===2 && LEVELS[levelIndex].id!==7;
+const hasMecha=b=>isFlying() && !isNaval() && b.phase===2 && LEVELS[levelIndex].id!==7;
 const mechaY=b=>b.y-210;
 const bossWeakY=b=>hasMecha(b)?mechaY(b)-58:b.y-222;
 const shieldDuration=()=>isFlying()?SAUCER_SHIELD_DURATION:SHIELD_DURATION;
@@ -461,7 +461,7 @@ function failReport(reason) {
   else lines.push('Phase '+boss.phase+' · section '+(healthSection(boss)+1)+' of 4 · '+boss.name+' at '+Math.ceil(boss.hp/boss.max*100)+'%');
   if (barrage) lines.push(isFlying()||densityShots[0].vertical?FAIL_TIPS.barrage.gap:FAIL_TIPS.barrage.ground);
   else if (fell) lines.push('Tip: land on the wide platforms and save the air jump for a missed ledge.');
-  else if (!isCodebreak() && boss.move==='ceilingSweep') lines.push(FAIL_TIPS.ceilingSweep());
+  else if (!isCodebreak() && boss.move==='ceilingSweep') lines.push(isNaval()?'Tip: steer below the sweep or raise the shield ('+shieldPrompt()+').':FAIL_TIPS.ceilingSweep());
   else if (!isCodebreak() && boss.move==='shieldPulse') lines.push(FAIL_TIPS.shieldPulse());
   else lines.push(FAIL_TIPS.shot);
   // Reward wording follows reportHubClear() in hub-link.js.
@@ -492,7 +492,7 @@ function coachText() {
   if(isNaval())return [
     pad?'Steer: left stick or D-pad · Dash: B / RT':'Steer: WASD or arrow keys · Dash: Shift',
     (pad?'Y':'C')+' deploys three straight torpedoes. '+(pad?'RB':'V')+' launches a bouncing water mine.',
-    'Steer through gaps in missile walls. Use '+shieldPrompt()+' when the cue says SHIELD NOW.',
+    'Steer through gaps in missile walls. For a sweep, steer low or shield. Use '+shieldPrompt()+' when the cue says SHIELD NOW.',
     'When the cue says EXPOSED, line up with the ring for triple damage.'
   ].join('\n');
   return [
@@ -880,7 +880,7 @@ function refreshHud() {
   const arenaTell=mechanicsIndex(levelIndex)!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
   // One line at a time, mandatory mechanics first: the sweep needs a crouch or the shield for its
   // whole tell and strike, and nothing else answers it.
-  const message=ceilingSweepInProgress()?'CEILING SWEEP · CROUCH ('+crouchPrompt()+') OR SHIELD ('+shieldPrompt()+')':
+  const message=ceilingSweepInProgress()?'CEILING SWEEP · '+(isNaval()?'STEER LOW':'CROUCH ('+crouchPrompt()+')')+' OR SHIELD ('+shieldPrompt()+')':
     charging?(shieldNow?'SHIELD NOW · '+shieldPrompt():'SHIELD PULSE CHARGING · GET READY TO SHIELD ('+shieldPrompt()+')'):
     arenaTell?(PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)]?.name??'Yacht cannon charging'):
     barrage?barrage:telling?moveLabel(boss.move):
@@ -1144,16 +1144,16 @@ function startMove() {
     b.section=section;
     b.step=0;
   }
-  const flight=isFlying()?FLIGHT_POOLS[b.phase-1]:null;
+  const flight=isFlying()&&!isNaval()?FLIGHT_POOLS[b.phase-1]:null;
   const base=flight?.base ?? (b.phase===1?b.moves:staticOrder);
   const own=bossKitOverride(levelIndex);
   const sectionAttacks=own?.sectionAttacks??BOSS_SECTION_ATTACKS[mechanicsIndex(levelIndex)];
   const signatures=own?.signatures??BOSS_SIGNATURES[mechanicsIndex(levelIndex)];
   const unlocked=(flight?.unlocks ?? sectionAttacks[b.phase-1]).slice(0,section+1);
-  if ((!flight||isNaval()) && section>=b.phase) unlocked.splice(b.phase,0,signatures[b.phase-1]);
+  if (!flight && section>=b.phase) unlocked.splice(b.phase,0,signatures[b.phase-1]);
   const order=section===0?[base[0],...unlocked,...base.slice(1)]:
     [unlocked.at(-1),...base,...unlocked.slice(0,-1)];
-  if ((!flight||isNaval()) && section===b.phase) {
+  if (!flight && section===b.phase) {
     const signature=signatures[b.phase-1];
     order.splice(order.indexOf(signature),1);
     order.unshift(signature);
@@ -1239,13 +1239,15 @@ function attackBoss(t) {
         launchMechaRocket(b.rocketIndex++,lane);
       }
       break;
-    case 'ceilingSweep':
+    case 'ceilingSweep': {
       if (t===0) sound(300,62,.36,.1);
-      if (!b.sweepHit && !player.shield && (!player.crouch || player.y-playerHeight()<SWEEP_EDGE)) {
+      const inSweep=isNaval()?player.y-31<SWEEP_EDGE:!player.crouch||player.y-playerHeight()<SWEEP_EDGE;
+      if (!b.sweepHit && !player.shield && inSweep) {
         b.sweepHit=true;
         hurt(true,true);
       }
       break;
+    }
     case 'shieldPulse':
       if (t===0) {
         b.pulses.add(b.section);
@@ -1423,7 +1425,14 @@ function updateBoss() {
   const b=boss, tick=authoredTime();
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
-  if (LEVELS[levelIndex].id===7) {
+  if (isNaval()) {
+    if(b.phase===2){
+      b.x=BOSS_HOME+SimMath.sin(tick*.025)*24;
+      b.y=FLOOR-17+SimMath.sin(tick*.042)*17;
+    }else if(b.move!=='drop'||b.age<b.tell||b.age>=b.tell+moves.drop.active){
+      b.y=FLOOR-15-SimMath.sin(tick*.032)*15;
+    }
+  } else if (LEVELS[levelIndex].id===7) {
     // Moonkeep's two dragon forms patrol vertically while the player flies.
     b.y=FLOOR-70+SimMath.sin(tick*.025)*(b.phase===1?54:70);
   } else if (hasMecha(b)) {
@@ -1432,7 +1441,6 @@ function updateBoss() {
   } else if (isFlying()) {
     b.y=FLOOR-28-SimMath.sin(tick*.032)*26;
   }
-  if (isNaval() && b.phase===2) b.x=BOSS_HOME+SimMath.sin(tick*.025)*24;
   const rate=bossAttackRate(b);
   const ticks=Math.floor(tick*rate)-Math.floor((tick-1)*rate);
   for (let i=0;i<ticks;i++) advanceBossMove(b);
@@ -1472,8 +1480,10 @@ function updateVaultBeam() {
   }
   const {y,age}=vaultBeam;
   const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
-  if (age<32 && player.x+18>=r.x && player.x-18<=r.x+r.w &&
-      player.y>r.y && player.y-playerHeight()<r.y+r.h) hurt();
+  const naval=isNaval(),halfWidth=naval?SAUCER_HALF_WIDTH:18;
+  const top=player.y-(naval?31:playerHeight()),bottom=player.y+(naval?31:0);
+  if (age<32 && player.x+halfWidth>=r.x && player.x-halfWidth<=r.x+r.w &&
+      bottom>r.y && top<r.y+r.h) hurt();
 }
 
 function startStageShift() {
@@ -2010,11 +2020,12 @@ function renderBoss() {
     else pose=art[30];
   } else if (b.flash) pose=art[24];
   else if (b.moving) pose=walk(b.id,b.distance);
-  shadow(b.x,FLOOR,120);
+  const sheetBox=bossSheetBox(b);
+  const bottom=sheetBox.y+sheetBox.h;
+  shadow(b.x,isNaval()?bottom-2:FLOOR,120);
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  const sheetBox=bossSheetBox(b);
-  if(isNaval())ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,sheetBox.y+sheetBox.h);
+  if(isNaval())ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,bottom);
   const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on

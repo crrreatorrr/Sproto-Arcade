@@ -27,7 +27,14 @@ function run(options){
 const full=run({seed:17}),practice=run({seed:17,phase:1,practice:true});
 assert.deepEqual(run({seed:17}),full);
 const special=new A.World(stage,{seed:17});
+Object.assign(special.player,{x:120,y:605});
 special.step({beam:true,bomb:true});
+const {beamWait,bombWait}=special.player;
+special.densityBarrage={shots:[{delay:100}],next:0,startedAt:special.tick};
+for(let i=0;i<10;i++)special.step({});
+assert.deepEqual([special.player.beamWait,special.player.bombWait],[beamWait,bombWait]);
+assert.equal(special.shots.length,0,'barrage pauses an in-progress deployment');
+special.densityBarrage=null;
 for(let i=0;i<5;i++)special.step({});
 const volley=special.shots.filter(s=>s.type==='boatTorpedo');
 assert.equal(volley.length,3);
@@ -38,16 +45,18 @@ for(let i=0;i<2;i++)special.step({});
 assert.deepEqual(volley.map(s=>s.y),lanes,'three torpedoes stay in their horizontal lanes');
 const mine=special.shots.find(s=>s.type==='waterMine');
 assert.ok(mine);
-let y=special.player.y-26-28,vy=-9.8;
-for(let i=0;i<70;i++){
+let y=special.player.y-26-28,vy=-9.8,bounced=false;
+for(let i=0;i<120;i++){
  y+=vy*.75;vy+=.31*.75;
  if(y>591){
   assert.equal(mine.y+mine.h/2,591);
   assert.equal(mine.bounces,1);
   assert.ok(special.effects.some(e=>e.type==='navalSplash'));
+  bounced=true;
   break;
  }
  assert.ok(Math.abs(mine.y+mine.h/2-y)<1e-8,'mine matches the beach-ball trajectory');
  special.step({});
 }
+assert.ok(bounced,'the trajectory check reaches a real bounce');
 console.log(JSON.stringify({full,practice,reproducible:true,inputs:'steering and dash; autofire baseline',specials:'three horizontal torpedoes and beach-ball mine arc'},null,2));
