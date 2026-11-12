@@ -258,7 +258,10 @@
   function machineBox(w){
     const phase=w.phaseIndex||0,id=Number.parseInt(w.stage.id,10),offset=w.data.offset||0;
     switch(id){
-      case 1:return{x:930,y:290,w:340,h:310};
+      case 1:{
+        const motion=marinaTrialMotion(w.phaseTick);
+        return marinaBossDrawBox({x:930+motion.x,y:290+motion.y,w:340,h:310},1270+motion.x);
+      }
       case 13:{const b=entry(13)?.phases[phase]?.modernBox;return Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[2]>0&&b[3]>0?{x:b[0],y:b[1],w:b[2],h:b[3]}:{x:930,y:290,w:340,h:310};}
       case 2:return phase?{x:911,y:380,w:300,h:220}:{x:950,y:300,w:300,h:300};
       case 3:return{x:795,y:160,w:415,h:410};
@@ -283,9 +286,10 @@
     return frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds);
   }
   function legacyBox(id,phase,box){
-    const asset=entry(id)?.phases[phase],offset=asset?.legacyOffset,scale=asset?.legacyScale;
+    const config=entry(id),asset=config?.phases[phase],offset=asset?.legacyOffset,scale=asset?.legacyScale;
     if(Array.isArray(scale)&&scale.length===2&&scale.every(n=>Number.isFinite(n)&&n>0))box={...box,x:box.x+box.w*(1-scale[0])/2,y:box.y+box.h*(1-scale[1]),w:box.w*scale[0],h:box.h*scale[1]};
-    return Array.isArray(offset)&&offset.length===2&&offset.every(Number.isFinite)?{...box,x:box.x+offset[0],y:box.y+offset[1]}:box;
+    if(Array.isArray(offset)&&offset.length===2&&offset.every(Number.isFinite))box={...box,x:box.x+offset[0],y:box.y+offset[1]};
+    return config===manifest[1]?marinaBossDrawBox(box,1280):box;
   }
   function drawBoss(ctx,id,phase,pose,box){
     const config=entry(id),img=phaseImage(id,phase);

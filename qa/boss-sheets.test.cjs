@@ -89,6 +89,12 @@ for(const number of Object.keys(sheets.manifest)){
     if(Number(number)===11)assert.equal(box.flip,index===0,'pursuing aircraft faces its original firing direction');
   }
 }
+for(const phaseIndex of [0,1]){
+  assert.deepEqual({...sheets.machineBox({stage:{id:'01-marina'},phaseIndex,data:{}})},
+    {x:760,y:135,w:510,h:465},'Dave grows 50% in Trials while keeping his baseline and right margin');
+  assert.deepEqual({...sheets.legacyBox(1,phaseIndex,{x:880,y:90,w:380,h:498})},
+    {x:710,y:-159,w:570,h:747},'Dave grows 50% in Story without clipping the right edge');
+}
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');

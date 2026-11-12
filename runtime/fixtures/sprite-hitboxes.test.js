@@ -82,7 +82,8 @@ functions(game,'floorHeight','startChase');
 functions(code,'updateCodeShots','startCodebreakArena');functions(code,'updateCodePlayerShots','updateCodebreak');
 functions(code,'updateCodeAttack','codeBeamLanes');
 vm.runInContext(`var LEVELS=[{id:1}],levelIndex=0,boss={phase:1,hp:10,max:10,gemAim:0},player={x:140,y:530,dash:0,shield:0,inv:0},boxes={orb:{w:40,h:40}},hits=0,damaged=0;
-var SimMath=Math,VAULT_MUZZLE=400,VAULT_BEAM_LIFE=90,vaultBeam={age:0,y:500},VERSE_GEM=[0,0],VERSE_GEM_CHARGE=0,VERSE_GEM_FIRE=0,VERSE_GEM_END=100;
+var SimMath=Math,SAUCER_HALF_WIDTH=44,VAULT_MUZZLE=400,VAULT_BEAM_LIFE=90,vaultBeam={age:0,y:500},VERSE_GEM=[0,0],VERSE_GEM_CHARGE=0,VERSE_GEM_FIRE=0,VERSE_GEM_END=100;
+var naval=false;function isNaval(){return naval;}
 var CODE_CHARACTER_SCALE=.56,W=1280,H=720,codeShots=[],bullets=[],impacts=[],CODE_PLAYER_WEAPONS={greenLaser:{speed:0,tracking:0,damage:2}},playerImpacts={greenLaser:{}},CODE_AIR_ATTACKS=[[0]],CODE_ARENA_ATTACK_COUNT=7;
 function playerHeight(){return 52;}function hurt(){hits++;}function sound(){}function hitBoss(shot,damage){damaged+=damage;shot.dead=true;}function codeTargetY(){return 500;}function isChase(){return false;}var PLAYER_SHOT_RATE=1,ENEMY_ATTACK_RATE=1;
 SPRITE_HITBOXES.enabled=true;SPRITE_HITBOXES.stages={'1':{'0':{projectiles:{orb:{rect:[.25,.25,.5,.5]}},beams:{vault:{rect:[0,.5,1,.5]},'verse-gem':{halfWidth:2}}}},'12':{'0':{projectiles:{'code:0':{rect:[.25,.25,.5,.5]}},boss:{damage:{radius:40}},beams:{'codebreak.horizontal':{rect:[0,.75,1,.25]}}},'1':{boss:{damage:{radius:20}}}}};`,legacy);
@@ -104,6 +105,10 @@ assert.equal(Object.hasOwn(legacy.bullets.at(-1),'weaponVariant'),false,'disable
 vm.runInContext('player.x=140;boss.step=1',legacy);
 vm.runInContext('player.x=350;player.y=490;updateVaultBeam()',legacy);assert.equal(legacy.hits,0);
 vm.runInContext('delete SPRITE_HITBOXES.stages[1][0].beams.vault;vaultBeam={age:0,y:500};updateVaultBeam()',legacy);assert.equal(legacy.hits,1);
+vm.runInContext('naval=true;hits=0;player.y=552;vaultBeam={age:0,y:500};updateVaultBeam()',legacy);
+assert.equal(legacy.hits,0,'a boat below the visible beam uses its own vertical collision band');
+vm.runInContext('player.y=475;vaultBeam={age:0,y:500};updateVaultBeam();naval=false',legacy);
+assert.equal(legacy.hits,1,'the lower half of a boat above the beam can still be struck');
 vm.runInContext('hits=0;player.x=100;player.y=60;updateVerseGemLaser(1)',legacy);assert.equal(legacy.hits,0);
 vm.runInContext('delete SPRITE_HITBOXES.stages[1][0].beams["verse-gem"];updateVerseGemLaser(1)',legacy);assert.equal(legacy.hits,1);
 vm.runInContext('hits=0;LEVELS[0].id=12;player.x=140;player.y=530;codeShots=[{x:100,y:500,vx:0,vy:0,angle:0,attack:{size:[20,100],sprite:0}}];updateCodeShots()',legacy);assert.equal(legacy.hits,0);

@@ -170,6 +170,7 @@ const MAX_HP=5, PHASE_ONE_HEALTH=1065;
 const HISTORICAL_PHASE_SPLIT=false;
 const HISTORICAL_TELLS=false;
 const HISTORICAL_SAUCER_HITBOX=false;
+const HISTORICAL_MARINA_GROUND=false;
 // One saucer hitbox for ordinary shots and barrage missiles (plan item D7, owner sign-off
 // 2026-11-11). They used to test 58 and 18 px either side of the saucer's centre.
 const SAUCER_HALF_WIDTH=44;
@@ -183,6 +184,8 @@ const boxes = {
   greenLaser:{color:'#9aff8f',art:'player/higgsfield/saucer/laser'},
   redLaser:{color:'#ff6274',art:'player/higgsfield/saucer/red-laser'},
   beachBall:{color:'#ffd75c'},
+  boatTorpedo:{color:'#6aebff',art:'player/higgsfield/missile'},
+  waterMine:{color:'#a0f2ff',art:'player/higgsfield/bomb'},
   mechaMissile:{w:80,h:34,color:'#ff975f'},
   mechaArc:{w:76,h:34,color:'#9accff'},
   mechaHoming:{w:72,h:33,color:'#f4a8ff'},
@@ -213,6 +216,8 @@ const playerImpacts = {
   greenLaser:{art:'saucer/muzzle',duration:7,opacity:.7,size:.52},
   redLaser:{art:'missile-impact',duration:12,opacity:.8,size:.8},
   beachBall:{art:'bomb-impact',duration:16,opacity:.85},
+  boatTorpedo:{art:'missile-impact',duration:12,opacity:.85},
+  waterMine:{art:'bomb-impact',duration:16,opacity:.85,navalSplash:true},
   missile:{art:'missile-impact',duration:15,opacity:1},
   bomb:{art:'bomb-impact',duration:19,opacity:1}
 };
@@ -251,9 +256,10 @@ for (const [name,[w,h,color]] of Object.entries(signatureArt)) {
   bossShotArt[name]=['signatures/'+name,w,h];
 }
 const bossAttackImage=name=>picture(`art/attacks/boss/higgsfield/${name}.png`);
-const isFlying=()=>Boolean(LEVELS[levelIndex]?.flight);
+const isNaval=()=>!HISTORICAL_MARINA_GROUND&&Boolean(LEVELS[levelIndex]?.naval);
+const isFlying=()=>isNaval()||Boolean(LEVELS[levelIndex]?.flight);
 const isChase=()=>Boolean(LEVELS[levelIndex]?.chase);
-const hasMecha=b=>isFlying() && b.phase===2 && LEVELS[levelIndex].id!==7;
+const hasMecha=b=>isFlying() && !isNaval() && b.phase===2 && LEVELS[levelIndex].id!==7;
 const mechaY=b=>b.y-210;
 const bossWeakY=b=>hasMecha(b)?mechaY(b)-58:b.y-222;
 const shieldDuration=()=>isFlying()?SAUCER_SHIELD_DURATION:SHIELD_DURATION;
@@ -329,6 +335,7 @@ function sceneryTile([file,foot],width) {
 
 function drawBackground() {
   if (isCodebreak()) return drawCodebreakBackground();
+  if (isNaval() && ArcadeSpeedboat.drawOcean(ctx,picture,camera,boss?.phase===2)) return;
   if (mode!=='title' && mode!=='won' && boss?.phase===2) {
     const tile=sceneryTile(STATIC_ARENAS[mechanicsIndex(levelIndex)],W);
     if (tile) {
@@ -363,6 +370,7 @@ function drawBackground() {
 }
 
 function drawArenaMotion() {
+  if (isNaval()) return;
   if (boss.phase===2) {
     drawPhaseTwoAtmosphere(ctx,mechanicsIndex(levelIndex),time);
   } else if (mechanicsIndex(levelIndex)===0) {
@@ -453,7 +461,7 @@ function failReport(reason) {
   else lines.push('Phase '+boss.phase+' · section '+(healthSection(boss)+1)+' of 4 · '+boss.name+' at '+Math.ceil(boss.hp/boss.max*100)+'%');
   if (barrage) lines.push(isFlying()||densityShots[0].vertical?FAIL_TIPS.barrage.gap:FAIL_TIPS.barrage.ground);
   else if (fell) lines.push('Tip: land on the wide platforms and save the air jump for a missed ledge.');
-  else if (!isCodebreak() && boss.move==='ceilingSweep') lines.push(FAIL_TIPS.ceilingSweep());
+  else if (!isCodebreak() && boss.move==='ceilingSweep') lines.push(isNaval()?'Tip: steer below the sweep or raise the shield ('+shieldPrompt()+').':FAIL_TIPS.ceilingSweep());
   else if (!isCodebreak() && boss.move==='shieldPulse') lines.push(FAIL_TIPS.shieldPulse());
   else lines.push(FAIL_TIPS.shot);
   // Reward wording follows reportHubClear() in hub-link.js.
@@ -481,6 +489,12 @@ function coachSeen() { try { return localStorage.getItem(COACH_KEY)==='1'; } cat
 function coachDone() { try { localStorage.setItem(COACH_KEY,'1'); } catch {} }
 function coachText() {
   const pad=padPrompts();
+  if(isNaval())return [
+    pad?'Steer: left stick or D-pad · Dash: B / RT':'Steer: WASD or arrow keys · Dash: Shift',
+    (pad?'Y':'C')+' deploys three straight torpedoes. '+(pad?'RB':'V')+' launches a bouncing water mine.',
+    'Steer through gaps in missile walls. For a sweep, steer low or shield. Use '+shieldPrompt()+' when the cue says SHIELD NOW.',
+    'When the cue says EXPOSED, line up with the ring for triple damage.'
+  ].join('\n');
   return [
     pad?'Move: left stick or D-pad  ·  Jump: A, and again in the air  ·  Crouch: stick down':'Move: ← →  ·  Jump: Space, and again in the air  ·  Crouch: ↓',
     (pad?'Dash (B / RT)':'Dash (Shift)')+' passes through shots, columns and missiles.',
@@ -513,11 +527,13 @@ function setOverlay(next, label, title, description, button) {
 }
 
 function showLevelControls() {
-  const flying=isFlying(), chase=isChase();
-  for (const element of document.querySelectorAll('[data-flight-only], [data-ground-only], [data-boss-only]')) {
+  const flying=isFlying(), naval=isNaval(), chase=isChase();
+  for (const element of document.querySelectorAll('[data-flight-only], [data-ground-only], [data-boss-only], [data-boat-only], [data-ufo-only]')) {
     element.hidden=(chase && element.hasAttribute('data-boss-only')) ||
       (!flying && element.hasAttribute('data-flight-only')) ||
-      (flying && element.hasAttribute('data-ground-only'));
+      (flying && element.hasAttribute('data-ground-only')) ||
+      (!naval && element.hasAttribute('data-boat-only')) ||
+      ((!flying || naval) && element.hasAttribute('data-ufo-only'));
   }
   document.querySelector('#ground-auto-fire').hidden=chase || flying || isCodebreak();
   document.querySelector('#tracking-auto-fire').hidden=!isCodebreak();
@@ -541,7 +557,7 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
     if(isCodebreak())startCodebreakArena();
     else if(!isChase()){
       boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;boss.step=0;startMove();
-      announce(PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+      announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
     }
   }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
@@ -812,7 +828,7 @@ function barrageLane() {
 }
 function barrageCueText() {
   const lane=barrageLane();
-  const hint=lane==='gap'?(isFlying()?'FLY THROUGH THE GAP':'MOVE UNDER THE GAP'):lane==='crouch'?'CROUCH ('+crouchPrompt()+')':lane==='hop'?'SHORT HOP':lane==='jump'?'JUMP':'';
+  const hint=lane==='gap'?(isNaval()?'STEER THROUGH THE GAP':isFlying()?'FLY THROUGH THE GAP':'MOVE UNDER THE GAP'):lane==='crouch'?'CROUCH ('+crouchPrompt()+')':lane==='hop'?'SHORT HOP':lane==='jump'?'JUMP':'';
   return 'MISSILE BARRAGE · GUNS OFFLINE'+(hint?' · '+hint:'');
 }
 // Called every tick by refreshHud: the barrage line while missiles fly, then "BARRAGE OVER" for 45 frames.
@@ -864,7 +880,7 @@ function refreshHud() {
   const arenaTell=mechanicsIndex(levelIndex)!==7 && boss.hp && boss.move==='arenaHazard' && boss.age<=boss.tell;
   // One line at a time, mandatory mechanics first: the sweep needs a crouch or the shield for its
   // whole tell and strike, and nothing else answers it.
-  const message=ceilingSweepInProgress()?'CEILING SWEEP · CROUCH ('+crouchPrompt()+') OR SHIELD ('+shieldPrompt()+')':
+  const message=ceilingSweepInProgress()?'CEILING SWEEP · '+(isNaval()?'STEER LOW':'CROUCH ('+crouchPrompt()+')')+' OR SHIELD ('+shieldPrompt()+')':
     charging?(shieldNow?'SHIELD NOW · '+shieldPrompt():'SHIELD PULSE CHARGING · GET READY TO SHIELD ('+shieldPrompt()+')'):
     arenaTell?(PHASE_TWO_HAZARDS[mechanicsIndex(levelIndex)]?.name??'Yacht cannon charging'):
     barrage?barrage:telling?moveLabel(boss.move):
@@ -1014,8 +1030,11 @@ function movePlayer(firing=true) {
     else if (!isFlying()) fire(p.x+30,p.y-88,12,-5,'missile',true);
     sound(590,860,.075,.025);
   }
-  if (isFlying() && MISSILE_COOLDOWN-p.missileWait===RED_ARM_DEPLOY) {
-    fire(p.x+RED_ARM_TIP_X,p.y+RED_ARM_TIP_Y,0,0,'redLaser',true);
+  if (isFlying() && MISSILE_COOLDOWN-p.missileWait===(isNaval()?NAVAL_WEAPONS.light.launch:RED_ARM_DEPLOY)) {
+    if(isNaval()){
+      const light=NAVAL_WEAPONS.light;
+      for(const offset of light.lanes)fire(p.x+light.x,p.y+offset,light.speed,0,'boatTorpedo',true);
+    }else fire(p.x+RED_ARM_TIP_X,p.y+RED_ARM_TIP_Y,0,0,'redLaser',true);
     sound(215,560,.16,.045);
   }
   if (boss.hp && !p.bombWait && inputFrame.bomb) {
@@ -1026,8 +1045,9 @@ function movePlayer(firing=true) {
       sound(260,430,.10,.035);
     }
   }
-  if (isFlying() && BOMB_COOLDOWN-p.bombWait===BALL_LAUNCH_FRAME) {
-    fire(p.x+BALL_MUZZLE_X,p.y+BALL_MUZZLE_Y,16,-9.8,'beachBall',true,.31,2);
+  if (isFlying() && BOMB_COOLDOWN-p.bombWait===(isNaval()?NAVAL_WEAPONS.heavy.launch:BALL_LAUNCH_FRAME)) {
+    const heavy=NAVAL_WEAPONS.heavy;
+    fire(p.x+heavy.x,p.y+heavy.y,heavy.vx,heavy.vy,isNaval()?'waterMine':'beachBall',true,heavy.gravity,heavy.bounces);
     sound(260,630,.12,.05);
   }
 }
@@ -1124,7 +1144,7 @@ function startMove() {
     b.section=section;
     b.step=0;
   }
-  const flight=isFlying()?FLIGHT_POOLS[b.phase-1]:null;
+  const flight=isFlying()&&!isNaval()?FLIGHT_POOLS[b.phase-1]:null;
   const base=flight?.base ?? (b.phase===1?b.moves:staticOrder);
   const own=bossKitOverride(levelIndex);
   const sectionAttacks=own?.sectionAttacks??BOSS_SECTION_ATTACKS[mechanicsIndex(levelIndex)];
@@ -1219,13 +1239,15 @@ function attackBoss(t) {
         launchMechaRocket(b.rocketIndex++,lane);
       }
       break;
-    case 'ceilingSweep':
+    case 'ceilingSweep': {
       if (t===0) sound(300,62,.36,.1);
-      if (!b.sweepHit && !player.shield && (!player.crouch || player.y-playerHeight()<SWEEP_EDGE)) {
+      const inSweep=isNaval()?player.y-31<SWEEP_EDGE:!player.crouch||player.y-playerHeight()<SWEEP_EDGE;
+      if (!b.sweepHit && !player.shield && inSweep) {
         b.sweepHit=true;
         hurt(true,true);
       }
       break;
+    }
     case 'shieldPulse':
       if (t===0) {
         b.pulses.add(b.section);
@@ -1403,7 +1425,14 @@ function updateBoss() {
   const b=boss, tick=authoredTime();
   if (b.flash) b.flash--;
   if (b.rocketFlash) b.rocketFlash--;
-  if (LEVELS[levelIndex].id===7) {
+  if (isNaval()) {
+    if(b.phase===2){
+      b.x=BOSS_HOME+SimMath.sin(tick*.025)*24;
+      b.y=FLOOR-17+SimMath.sin(tick*.042)*17;
+    }else if(b.move!=='drop'||b.age<b.tell||b.age>=b.tell+moves.drop.active){
+      b.y=FLOOR-15-SimMath.sin(tick*.032)*15;
+    }
+  } else if (LEVELS[levelIndex].id===7) {
     // Moonkeep's two dragon forms patrol vertically while the player flies.
     b.y=FLOOR-70+SimMath.sin(tick*.025)*(b.phase===1?54:70);
   } else if (hasMecha(b)) {
@@ -1451,8 +1480,10 @@ function updateVaultBeam() {
   }
   const {y,age}=vaultBeam;
   const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
-  if (age<32 && player.x+18>=r.x && player.x-18<=r.x+r.w &&
-      player.y>r.y && player.y-playerHeight()<r.y+r.h) hurt();
+  const naval=isNaval(),halfWidth=naval?SAUCER_HALF_WIDTH:18;
+  const top=player.y-(naval?31:playerHeight()),bottom=player.y+(naval?31:0);
+  if (age<32 && player.x+halfWidth>=r.x && player.x-halfWidth<=r.x+r.w &&
+      bottom>r.y && top<r.y+r.h) hurt();
 }
 
 function startStageShift() {
@@ -1478,14 +1509,14 @@ function advanceStageShift() {
   boss.hp=boss.max=boss.phaseTwoHealth;
   boss.step=0;
   startMove();
-  announce(PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+  announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
 }
 
 function keepPlayerLeft(contact=true) {
   const p=player;let front=boss.x-(hasMecha(boss)?170:BOSS_FRONT);
   let bossTop=hasMecha(boss)?mechaY(boss)-122:boss.y-110*boss.scale;
   let bossBottom=hasMecha(boss)?mechaY(boss)+122:boss.y;
-  if(combatHitboxProfile('boss','contact')){const r=combatHitbox({x:front,y:bossTop,w:(boss.x-front)*2,h:bossBottom-bossTop},'boss','contact');front=r.x;bossTop=r.y;bossBottom=r.y+r.h;}
+  if(combatHitboxProfile('boss','contact')){const r=isNaval()?navalBossBody(boss):combatHitbox({x:front,y:bossTop,w:(boss.x-front)*2,h:bossBottom-bossTop},'boss','contact');front=r.x;bossTop=r.y;bossBottom=r.y+r.h;}
   if (p.x<front) return;
   const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y;
   if (boss.hp && top<bossBottom && bottom>bossTop) {
@@ -1549,6 +1580,7 @@ function updateBullets() {
       shot.y=FLOOR-13;
       shot.vy=-Math.max(6.5,Math.abs(shot.vy)*.72);
       shot.bounces--;
+      if(shot.shape==='waterMine')impacts.push({...playerImpacts.waterMine,x:shot.x,y:shot.y,age:0});
       puff(shot.x,FLOOR,shot.own?boxes[shot.shape].color:b.color,5);
     }
     if (shot.shape==='bomb' && shot.own) {
@@ -1579,7 +1611,7 @@ function updateBullets() {
     const halfWidth=mech?106:147;
     let hitLeft=b.x-halfWidth,hitRight=b.x+halfWidth;
     const profile=combatHitboxProfile('boss','damage');
-    if(profile){const r=combatHitbox({x:hitLeft,y:hitTop,w:halfWidth*2,h:hitBottom-hitTop},'boss','damage');hitLeft=r.x;hitRight=r.x+r.w;hitTop=r.y;hitBottom=r.y+r.h;}
+    if(profile){const r=isNaval()?navalBossBody(b):combatHitbox({x:hitLeft,y:hitTop,w:halfWidth*2,h:hitBottom-hitTop},'boss','damage');hitLeft=r.x;hitRight=r.x+r.w;hitTop=r.y;hitBottom=r.y+r.h;}
     const beam=shot.shape==='redLaser';
     const inRange=beam
       ?shot.x<=hitRight && SAUCER_BEAM_END>=hitLeft
@@ -1590,7 +1622,7 @@ function updateBullets() {
     const m=b.move && moves[b.move];
     const exposed=m && b.age>b.tell+m.active;
     const weak=exposed && Math.abs(shot.y-bossWeakY(b))<34;
-    const damage=shot.shape==='beachBall'?4:shot.shape==='missile'||shot.shape==='redLaser'?2:weak?3:1;
+    const damage=shot.shape==='beachBall'||shot.shape==='waterMine'?4:shot.shape==='missile'||shot.shape==='redLaser'||shot.shape==='boatTorpedo'?2:weak?3:1;
     hitBoss(shot,damage);
     if (weak) sound(750,970,.08,.035);
     if (!b.hp) break;
@@ -1877,6 +1909,17 @@ function shadow(x,y,w) {
   ctx.fill();
 }
 
+function bossSheetBox(b) {
+  const mech=hasMecha(b);
+  const top=mech?mechaY(b)-122:b.y-116*b.scale;
+  const bottom=mech?mechaY(b)+122:b.y-12;
+  return {x:b.x-(mech?150:190),y:top,w:mech?300:380,h:bottom-top};
+}
+
+function navalBossBody(b) {
+  return marinaBossBodyRect(marinaBossDrawBox(bossSheetBox(b),W),b.phase-1);
+}
+
 function attackArt(name) {
   return picture(`art/attacks/${name}.png`);
 }
@@ -1977,18 +2020,19 @@ function renderBoss() {
     else pose=art[30];
   } else if (b.flash) pose=art[24];
   else if (b.moving) pose=walk(b.id,b.distance);
-  shadow(b.x,FLOOR,120);
+  const sheetBox=bossSheetBox(b);
+  const bottom=sheetBox.y+sheetBox.h;
+  shadow(b.x,isNaval()?bottom-2:FLOOR,120);
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  const sheetTop=hasMecha(b)?mechaY(b)-122:b.y-116*b.scale;
-  const sheetBottom=hasMecha(b)?mechaY(b)+122:b.y-12;
+  if(isNaval())ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,bottom);
   const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
   const paintBoss=flash=>{
     if (flash) { ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=flash; }
-    const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,{x:b.x-(hasMecha(b)?150:190),y:sheetTop,w:hasMecha(b)?300:380,h:sheetBottom-sheetTop});
+    const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,sheetBox);
     if (sheetDrawn) return;
     if (hasMecha(b)) { if (flash) ctx.globalAlpha=flash*.34/.38; drawMecha(b); }
     else sprite(b.id,pose,b.x,b.y,-1,b.scale);
@@ -2029,7 +2073,8 @@ function drawStageShift() {
   const cut=phaseShift>=STAGE_BLAST;
   const charge=clamp((phaseShift-1)/(STAGE_BLAST-1),0,1);
   const burst=clamp((phaseShift-STAGE_BLAST)/(STAGE_BLACKOUT-STAGE_BLAST),0,1);
-  const mouthX=player.x+44, mouthY=player.y-(player.crouch?74:109);
+  const mouthX=player.x+(isNaval()?SAUCER_MUZZLE_X:44);
+  const mouthY=isNaval()?player.y+SAUCER_MUZZLE_Y:player.y-(player.crouch?74:109);
   const fromX=travel===1?mouthX:travel===-1?W+65:targetX;
   const fromY=travel===1?mouthY:mechanicsIndex(levelIndex)===6||mechanicsIndex(levelIndex)===8?FLOOR+65:targetY;
   const point=t=>{
@@ -2528,7 +2573,12 @@ function renderLegacyScene() {
   if (shake) ctx.translate(SimMath.sin(time*1.8)*shake*.28,SimMath.cos(time*2)*shake*.25);
   ctx.imageSmoothingEnabled=false;
   renderBoss();
-  if (isFlying()) drawSaucer();
+  if (isNaval()) {
+    if(!player.inv||time%8<5)ArcadeSpeedboat.drawBoat(ctx,picture,player,time,
+      phaseShift||densityShots.length?Infinity:MISSILE_COOLDOWN-player.missileWait,
+      phaseShift||densityShots.length?Infinity:BOMB_COOLDOWN-player.bombWait);
+    if(player.shield)drawPlayerShield('saucer-shield',player.x,player.y,1.4);
+  } else if (isFlying()) drawSaucer();
   else drawGroundPlayer();
   for (const shot of bullets) {
     ctx.save();
@@ -2541,11 +2591,12 @@ function renderLegacyScene() {
     };
     const enemyArt=bossShotArt[shot.laser?'laser':shot.shape]||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
     if (shot.own) {
+      if(ArcadeSpeedboat.drawShot(ctx,picture,shot.shape,shot.age)){ctx.restore();continue;}
       legacyShotPose();
       const {art,scale=1}=boxes[shot.shape];
       const sprite=shot.shape==='beachBall'
         ?attackFrame('player/higgsfield/saucer/ball-spin',Math.floor(shot.age/2)%16)
-        :attackArt(art);
+        :attackArt(isNaval()&&shot.shape==='greenLaser'?boxes.spark.art:art);
       const w=sprite.width*scale, h=sprite.height*scale;
       ctx.drawImage(sprite,-Math.floor(w/2),-Math.floor(h/2),w,h);
     } else if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
@@ -2569,6 +2620,10 @@ function renderLegacyScene() {
   }
   ctx.save();
   for (const impact of impacts) {
+    if(impact.navalSplash){
+      ctx.globalAlpha=impact.opacity*Math.min(1,(1-impact.age/impact.duration)*2);
+      if(ArcadeSpeedboat.drawSplash(ctx,picture,impact.x,impact.y,impact.age))continue;
+    }
     const sprite=attackArt(`player/higgsfield/${impact.art}`);
     const progress=impact.age/impact.duration;
     const scale=Math.min(1,.6+progress*1.4)*(impact.size??1);
@@ -2797,8 +2852,8 @@ function coreAssets() {
 
 function levelAssets(index) {
   const level=LEVELS[index];
-  const images=[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
-  if (STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
+  const images=level.naval?ArcadeSpeedboat.assets.map(picture):[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
+  if (!level.naval&&STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
   if (acts[index]) {
     for (let i=0;i<4;i++) images.push(stageEffectFrame(mechanicsIndex(index),i));
     images.push(...spriteFrames(acts[index].id));

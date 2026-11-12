@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const root=path.resolve(__dirname,'../..'),context=vm.createContext({console});
 const runtime=process.argv[2]||path.join(root,'runtime/core/world.js');
 // Isolate the authored encounter contract; qa/density-modern.test.cjs covers the barrage.
-for(const f of [path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
+for(const f of [path.join(root,'levels.js'),path.join(root,'phase-powerups.js'),path.join(root,'runtime/contract.js'),runtime,path.join(__dirname,'stage.js')])vm.runInContext(fs.readFileSync(f,'utf8'),context,{filename:f});
 const A=context.Arcade,stage=A.stages.get('01-marina');
 function run(options){
  const world=new A.World(stage,options);let dashCounters=0,hits=0;const pressureIds=new Set(),pressureStyles=new Set();
@@ -15,7 +15,7 @@ function run(options){
    else if(!p.dash){if(p.x>265)input.left=true;else if(p.facing<0)input.right=true;}
   }
   const wake=world.hazards.find(h=>h.rule==='ordinary'&&h.age>=h.windup&&!h.resolved);
-  if(wake&&wake.x-p.x<110&&wake.x>p.x&&p.grounded)input.jump=true;
+  if(wake&&wake.x-p.x<110&&wake.x>p.x&&p.y>530)input.up=true;
   world.step(input);
   for(const h of world.hazards)if(h.pressure){pressureIds.add(h.id);pressureStyles.add(h.sprite);}
   dashCounters+=world.events.filter(e=>e.type==='counter'&&e.rule==='dash').length;
@@ -26,4 +26,37 @@ function run(options){
 }
 const full=run({seed:17}),practice=run({seed:17,phase:1,practice:true});
 assert.deepEqual(run({seed:17}),full);
-console.log(JSON.stringify({full,practice,reproducible:true,inputs:'movement/jump/dash only; autofire baseline'},null,2));
+const special=new A.World(stage,{seed:17});
+Object.assign(special.player,{x:120,y:605});
+special.step({beam:true,bomb:true});
+const {beamWait,bombWait}=special.player;
+special.densityBarrage={shots:[{delay:100}],next:0,startedAt:special.tick};
+for(let i=0;i<10;i++)special.step({});
+assert.deepEqual([special.player.beamWait,special.player.bombWait],[beamWait,bombWait]);
+assert.equal(special.shots.length,0,'barrage pauses an in-progress deployment');
+special.densityBarrage=null;
+for(let i=0;i<5;i++)special.step({});
+const volley=special.shots.filter(s=>s.type==='boatTorpedo');
+assert.equal(volley.length,3);
+assert.equal(new Set(volley.map(s=>s.y)).size,3);
+assert.ok(volley.every(s=>s.vx>0&&s.vy===0));
+const lanes=volley.map(s=>s.y);
+for(let i=0;i<2;i++)special.step({});
+assert.deepEqual(volley.map(s=>s.y),lanes,'three torpedoes stay in their horizontal lanes');
+const mine=special.shots.find(s=>s.type==='waterMine');
+assert.ok(mine);
+let y=special.player.y-26-28,vy=-9.8,bounced=false;
+for(let i=0;i<120;i++){
+ y+=vy*.75;vy+=.31*.75;
+ if(y>591){
+  assert.equal(mine.y+mine.h/2,591);
+  assert.equal(mine.bounces,1);
+  assert.ok(special.effects.some(e=>e.type==='navalSplash'));
+  bounced=true;
+  break;
+ }
+ assert.ok(Math.abs(mine.y+mine.h/2-y)<1e-8,'mine matches the beach-ball trajectory');
+ special.step({});
+}
+assert.ok(bounced,'the trajectory check reaches a real bounce');
+console.log(JSON.stringify({full,practice,reproducible:true,inputs:'steering and dash; autofire baseline',specials:'three horizontal torpedoes and beach-ball mine arc'},null,2));

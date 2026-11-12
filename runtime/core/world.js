@@ -19,7 +19,12 @@
         if(projected)return projected;
       }
     }
-    return typeof spriteHitboxRect==='function'?spriteHitboxRect(base,w.stage.id,w.phaseIndex,kind,key,index):base;
+    const fitted=typeof spriteHitboxRect==='function'?spriteHitboxRect(base,w.stage.id,w.phaseIndex,kind,key,index):base;
+    if(w.phase?.naval&&kind==='targets'&&key==='marina-vent'&&typeof marinaTrialMotion==='function'){
+      const offset=marinaTrialMotion(w.phaseTick);
+      return {...fitted,x:fitted.x+offset.x,y:fitted.y+offset.y};
+    }
+    return fitted;
   };
   // Relative swept AABB, including overlap at either endpoint and zero-width fronts.
   function swept(a0,a1,b0,b1) {
@@ -171,8 +176,11 @@
         this.updateHazards(true);
         if(barrage.next===barrage.shots.length&&!this.hazards.some(h=>h.density))this.densityBarrage=null;
       }else{
-        if(input.beam&&!this.player.beamWait){this.standardSpecial('beam');this.player.beamWait=90;}
-        if(input.bomb&&!this.player.bombWait){this.standardSpecial('ball');this.player.bombWait=120;}
+        if(this.phase.naval&&typeof NAVAL_WEAPONS!=='undefined')this.navalSpecials(input);
+        else {
+          if(input.beam&&!this.player.beamWait){this.standardSpecial('beam');this.player.beamWait=90;}
+          if(input.bomb&&!this.player.bombWait){this.standardSpecial('ball');this.player.bombWait=120;}
+        }
         if(input.power&&this.weapons)this.weapons.activate({player:this.player,targets:this.targets,platforms:this.platforms,mode:this.phase.mode,blocked:false,tick:this.tick});
         if(++this.shotClock>=12){this.shotClock=0;this.autoFire();}
         this.updateShots();this.updateHazards();
@@ -220,7 +228,8 @@
     movePlayer(input){
       const p=this.player;p.prevX=p.x;p.prevY=p.y;
       if(p.grounded&&p.support){const support=this.platforms.find(t=>t.id===p.support&&!t.removed&&t.active!==false);if(support){p.x+=support.x-(support._lastX??support.x);p.y+=support.y-(support._lastY??support.y);}}
-      for(const key of ['dashWait','shieldWait','beamWait','bombWait'])if(p[key]>0)p[key]--;
+      const timers=this.phase.naval&&this.densityBarrage?['dashWait','shieldWait']:['dashWait','shieldWait','beamWait','bombWait'];
+      for(const key of timers)if(p[key]>0)p[key]--;
       if(input.shield&&!p.shieldWait){p.shield=45;p.shieldWait=150;}
       const dx=Number(!!input.right)-Number(!!input.left),dy=Number(!!input.down)-Number(!!input.up);
       if(dx)p.facing=dx;
@@ -285,6 +294,20 @@
       }
       this.shots.push({id:type+'-'+this.tick,x:p.x+dx*24,y:p.y-26,w:16,h:12,vx:dx*(type==='beam'?28:8),vy:type==='beam'?dy*28:2,damage:type==='beam'?4:3,piercing:type==='beam',ttl:180,bounces:3,radius:65,hit:new Set(),type:type==='ball'?'mine':'beam'});
     }
+    navalSpecials(input){
+      const p=this.player,{light,heavy}=NAVAL_WEAPONS;
+      if(input.beam&&!p.beamWait)p.beamWait=light.cooldown;
+      if(input.bomb&&!p.bombWait)p.bombWait=heavy.cooldown;
+      if(light.cooldown-p.beamWait===light.launch){
+        for(const lane of light.lanes)this.shots.push({id:'torpedo-'+this.tick+'-'+lane,
+          type:'boatTorpedo',x:p.x+light.x-9,y:p.y-26+lane-4,w:18,h:8,
+          vx:light.speed*.75,vy:0,damage:2,ttl:145,born:this.tick});
+      }
+      if(heavy.cooldown-p.bombWait===heavy.launch){
+        this.shots.push({id:'water-mine-'+this.tick,type:'waterMine',x:p.x+heavy.x-10,y:p.y-26+heavy.y-10,w:20,h:20,
+          vx:heavy.vx*.75,vy:heavy.vy*.75,damage:4,ttl:145,bounces:heavy.bounces,born:this.tick});
+      }
+    }
     damageTarget(t,damage,source){
       if(t.hp<=0||t.open===false||t.removed)return false;
       t.hp=Math.max(0,t.hp-damage);this.events.push({type:'targetHit',target:t.id,source,damage});
@@ -297,12 +320,23 @@
           s.vy+=.4;
           for(const p of this.platforms)if(!p.removed&&s.vy>=0&&old.y+(s.h||10)<=p.y&&s.y+(s.h||10)>=p.y&&s.x+(s.w||10)>p.x&&s.x<p.x+p.w){s.y=p.y-(s.h||10);s.vy=-Math.max(3,Math.abs(s.vy)*.65);s.bounces--;if(s.bounces<0)this.blast(s);break;}
         }
+        if(s.type==='waterMine'){
+          // Convert the Story projectile's .75 rate into per-tick displacement.
+          s.vy+=NAVAL_WEAPONS.heavy.gravity*.75*.75;
+          if(s.y+s.h/2>591&&s.bounces>0){
+            s.y=591-s.h/2;s.vy=-Math.max(6.5*.75,Math.abs(s.vy)*.72);s.bounces--;
+            this.effects.push({type:'navalSplash',x:s.x+s.w/2,y:591,ttl:16});
+          }else if(s.y>640)s.removed=true;
+        }
         s.hit??=new Set();
         for(const t of this.targets){if(s.removed||s.hit.has(t.id)||t.hp<=0||t.removed)continue;
           const targetBox=hitbox(this,'targets',t.id,t);
           if(swept(old,{...old,x:s.x,y:s.y},targetBox,targetBox)){
             if(s.type==='mine'){this.blast(s);break;}
-            if(this.damageTarget(t,s.damage,s.id)){s.hit.add(t.id);if(!s.piercing)s.removed=true;}
+            if(this.damageTarget(t,s.damage,s.id)){
+              s.hit.add(t.id);if(!s.piercing)s.removed=true;
+              if(s.type==='waterMine')this.effects.push({type:'navalSplash',x:s.x+s.w/2,y:s.y+s.h/2,ttl:16});
+            }
           }
         }
         if(--s.ttl<=0){if(s.type==='mine')this.blast(s);s.removed=true;}

@@ -20,12 +20,12 @@ const drive=(page,options)=>page.evaluate(({phase,god,until,limit,setup,each})=>
 },{phase:0,god:true,limit:6000,setup:'',each:'',...options});
 const check=(name,fn)=>{fn();cases.push(name);};
 try{
- { // Level 1: sweep cue, attack names, barrage cue, fail reports.
-  const {page,errors}=await openStory(browser,1);
+ { // Redkev: sweep, ground barrage and fail reports. Tidebreak: shield and checkpoint.
+  const {page,errors}=await openStory(browser,13);
   let r=await drive(page,{phase:1,until:"boss.move==='ceilingSweep'&&boss.age>=2"});
   check('ceiling sweep cue within 2 frames of the tell',()=>{assert.match(r.cue,/^CEILING SWEEP · CROUCH \(↓\) OR SHIELD \(X\)$/);assert.ok(r.urgent);assert.ok(r.age<=2&&r.age<r.tell);});
   r=await drive(page,{until:"mode!=='play'",setup:"godMode=false;player.hp=1;player.inv=0;"});
-  check('sweep knockout names the sweep, the phase and the retry cost',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Caught standing under the ceiling sweep\.\nPhase 1 · section 1 of 4 · Fat Head Dave at \d+%\nTip: the ceiling sweep cannot be dashed.*crouch \(↓\).*shield \(X\)\.\nRetry restarts phase 1\.$/);});
+  check('sweep knockout names the sweep, the phase and the retry cost',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Caught standing under the ceiling sweep\.\nPhase 1 · section 1 of 4 · Redkev at \d+%\nTip: the ceiling sweep cannot be dashed.*crouch \(↓\).*shield \(X\)\.\nRetry restarts phase 1\.$/);});
   r=await drive(page,{phase:1,until:"boss.move&&boss.move!=='ceilingSweep'&&boss.age===2&&boss.age<boss.tell&&time>60"});
   const label=await page.evaluate(()=>moveLabel(boss.move));
   check('ordinary attacks are named during the tell',()=>{assert.equal(r.cue,label);assert.ok(label.length>3);});
@@ -34,9 +34,10 @@ try{
   const lanes=await page.evaluate(()=>{const seen=[];mode='play';for(let i=0;i<900&&densityShots.length;i++){inputFrame=NO_INPUT;update();const lane=barrageLane();if(lane&&seen.at(-1)!==lane)seen.push(lane);}const after=ui.cue.textContent;mode='paused';return{seen,after};});
   check('barrage hint follows the rows and ends with BARRAGE OVER',()=>{assert.ok(lanes.seen.includes('crouch')&&lanes.seen.includes('jump'),JSON.stringify(lanes.seen));assert.equal(lanes.after,'BARRAGE OVER · GUNS ONLINE');});
   r=await drive(page,{phase:1,until:"mode!=='play'",each:"if(densityShots.length&&godMode){godMode=false;player.hp=1;player.inv=0;}"});
-  check('barrage knockout reports the barrage',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out by the missile barrage\.\nPhase 1 · section \d of 4 · Fat Head Dave at \d+%\nBarrage tip: read the row/);});
+  check('barrage knockout reports the barrage',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out by the missile barrage\.\nPhase 1 · section \d of 4 · Redkev at \d+%\nBarrage tip: read the row/);});
   r=await drive(page,{phase:1,until:"mode!=='play'",each:"const s=bullets.find(b=>!b.own);if(s&&boss.move!=='ceilingSweep'){godMode=false;player.hp=1;player.inv=0;player.dash=0;player.x=clamp(s.x,58,740);player.y=Math.min(FLOOR,s.y+40);}"});
-  check('ordinary knockout names the attack',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out during [A-Z -]+\.\nPhase 1 · section \d of 4 · Fat Head Dave at \d+%\nTip: a dash passes through/);});
+  check('ordinary knockout names the attack',()=>{assert.equal(r.mode,'lost');assert.match(r.description,/^Knocked out during [A-Z -]+\.\nPhase 1 · section \d of 4 · Redkev at \d+%\nTip: a dash passes through/);});
+  await page.evaluate(async()=>{await loadFor(0);begin(0,false,1,777);});
   r=await drive(page,{phase:2,setup:"boss.hp=Math.floor(boss.max*.45);",until:"boss.move==='shieldPulse'&&boss.age>=2"});
   check('shield pulse cue',()=>assert.match(r.cue,/^SHIELD PULSE CHARGING · GET READY TO SHIELD \(X\)$/));
   r=await drive(page,{until:"ui.cue.textContent.startsWith('SHIELD NOW')||mode!=='play'"});
@@ -96,13 +97,13 @@ try{
   const {page,errors}=await openStory(browser,1,{coach:true,start:false});
   await page.click('#start');
   const card=await page.evaluate(()=>({mode,eyebrow:ui.eyebrow.textContent,text:ui.description.textContent,button:ui.start.textContent,select:document.getElementById('sproto-select').hidden}));
-  check('first Start shows the controls card',()=>{assert.equal(card.mode,'coach');assert.equal(card.eyebrow,'How to play');assert.match(card.text,/Crouch: ↓/);assert.match(card.text,/SHIELD PULSE/);assert.match(card.text,/EXPOSED/);assert.ok(card.select);});
+  check('first Start shows the speedboat controls card',()=>{assert.equal(card.mode,'coach');assert.equal(card.eyebrow,'How to play');assert.match(card.text,/Steer: WASD/);assert.match(card.text,/three straight torpedoes/);assert.match(card.text,/water mine/);assert.match(card.text,/SHIELD NOW/);assert.match(card.text,/EXPOSED/);assert.ok(card.select);});
   await page.click('#start');await page.waitForFunction(()=>mode==='play',null,{timeout:60000});
   check('second press starts the level and remembers the card',()=>{});
   assert.equal(await page.evaluate(()=>localStorage.getItem('sproto-arcade-coach-v1')),'1');
   await page.keyboard.press('Escape');
   const paused=await page.evaluate(()=>({mode,text:ui.description.textContent}));
-  check('pause repeats the controls',()=>{assert.equal(paused.mode,'paused');assert.match(paused.text,/Take a breather\.\nMove: ← →/);});
+  check('pause repeats the controls',()=>{assert.equal(paused.mode,'paused');assert.match(paused.text,/Take a breather\.\nSteer: WASD/);});
   await page.reload();await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});
   await page.click('#start');await page.waitForFunction(()=>mode==='play',null,{timeout:60000});
   check('a returning browser starts on the first press',()=>{});

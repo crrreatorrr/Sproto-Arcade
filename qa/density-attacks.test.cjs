@@ -77,7 +77,7 @@ for(const stage of [1,13,2,3,4,5,6,7,8,9,10]){
 }
 // Flight walls (Mudline 3, Moonkeep 7): the opening starts on the saucer, then moves (on Moonkeep far
 // enough that a pilot who never steers is hit), and never further than the saucer can fly in time.
-for(const stage of [3,7])for(const phase of [0,1])for(const startY of [120,340,560]){
+for(const stage of [1,3,7])for(const phase of [0,1])for(const startY of [120,340,560]){
  const flightArena={left:0,right:1280,top:51,bottom:597,floor:startY},plan=D.plan({...options,stage,phase,arena:flightArena,player:{x:260,y:startY},flight:true});
  const waves=[...new Set(plan.shots.map(s=>Number(s.id.split('-').at(-2))))].map(wave=>plan.shots.filter(s=>Number(s.id.split('-').at(-2))===wave));
  const spacing=waves[1][0].delay-waves[0][0].delay,SAUCER=31,SPEED=10.4;
@@ -132,12 +132,12 @@ console.log('PASS both crouch-height scales, floor rows, flight and climb openin
   assert.equal(JSON.stringify(dev.state()),second,'restored replay keeps barrage timing');
  }
  // Actual movement and collision paths for both ground lanes.
- dev.reset(0,'rivet',0,5);
+ dev.reset(12,'rivet',0,5);
  const snap=dev.snapshot();
  const s=snap.s;
  s.time=500;
- Object.assign(s,{densityPhaseKey:'1:0',densityPhaseClock:D.START,densityLastCycle:0});
- const wave=D.plan(opts).shots;
+ Object.assign(s,{densityPhaseKey:'13:0',densityPhaseClock:D.START,densityLastCycle:0});
+ const wave=D.plan({...opts,stage:13}).shots;
  function contact(shot,mask,steps=1){
   const missile={...shot,delay:0,x:s.player.x-shot.w/2-shot.vx*steps};
   s.densityShots=[missile];
@@ -149,7 +149,7 @@ console.log('PASS both crouch-height scales, floor rows, flight and climb openin
  }
  assert.equal(contact(wave[0],0),4,'standing player is struck by the middle row');
  assert.equal(contact(wave[0],8),5,'tuck clears the middle row');
- const floor=wave.find(shot=>shot.delay===74);
+ const floor=wave.find(shot=>shot.y+shot.h/2>arena.floor-30);
  assert.equal(contact(floor,8),4,'tuck cannot avoid the floor row');
  assert.equal(contact(floor,16|32,12),5,'jump clears the floor-row core');
  console.log('PASS actual Story barrage start and attack isolation for all 13 bosses, replay restore, and crouch/jump contacts');

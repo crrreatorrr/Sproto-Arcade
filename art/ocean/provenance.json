@@ -1,0 +1,17 @@
+{
+  "provider": "Higgsfield",
+  "model": "gpt_image_2_6",
+  "generationCredits": 10,
+  "jobs": {
+    "speedboat concept": "e20fba51-7b78-4b61-9981-f479bdb7a6a2",
+    "sunrise.webp": "3230e89d-4d65-436c-9077-1a27b2f726a2",
+    "shoals.webp": "e0160453-9035-4451-9869-4d4e81c2de58",
+    "islands.webp": "0bdc3796-687a-463d-8bab-fccd3fe1b7d4",
+    "fog.webp": "31136eca-b597-4893-8c6f-9996ddded720",
+    "wrecks.webp": "f7ae7455-ccb7-495a-b91c-760dc6e9f011",
+    "storm.webp": "9a25cb12-37e6-4e5c-a850-0ca2ee613a56",
+    "speedboat.png motion row": "ffdba369-06b8-4c07-8386-c2a79bdde412",
+    "speedboat.png light and heavy rows": "e40acc95-6d7c-40dd-b8bf-251fe5030f1e",
+    "naval-effects.png": "ebadad9a-a541-4f00-b2f0-0a51e161bacc"
+  }
+}

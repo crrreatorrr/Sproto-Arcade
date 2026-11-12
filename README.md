@@ -31,6 +31,8 @@ Rule changes of 2026-11-11 (each needed the owner's sign-off; details and the bo
 
 ## Controls
 
+In Tidebreak Marina, steer an open-cockpit speedboat with any playable Sproto. C fires three horizontal torpedoes and V launches a bouncing water mine. Five ocean settings scroll past in Phase 1, and the storm arena marks Phase 2.
+
 Both pages share one layout. Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line under the game, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.
 
 | Action | Keyboard | Controller |
