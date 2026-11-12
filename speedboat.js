@@ -12,6 +12,7 @@ const ArcadeSpeedboat = (() => {
   const boat = 'art/ocean/speedboat.png', effects = 'art/ocean/naval-effects.png';
   const assets = [...route, storm, boat, effects];
   const boatWidth = 224, boatHeight = 112, fxWidth = 128, fxHeight = 96;
+  const hullBottom = 93, waterlineDepth = 6;
   const fireFrame = 2;
   // Cell-local muzzle flash bounds in the light and heavy attack rows.
   const muzzleFlash = {1:[180,32,36,32],2:[70,0,52,41]};
@@ -155,26 +156,32 @@ const ArcadeSpeedboat = (() => {
     const x = Math.round(player.x - boatWidth / 2), y = Math.round(player.y - 66 + bob);
     ctx.save();
     ctx.imageSmoothingEnabled = false;
+    if(light===fireFrame||heavy===fireFrame){
+      // The hull cutout and the foreground flash must meet on the same pixel grid.
+      const {a,b,c,d,e,f}=ctx.getTransform();
+      ctx.setTransform(a,b,c,d,Math.round(e),Math.round(f));
+    }
     const dx = player.dash ? (player.dashX ?? player.dashDir) * 23 : player.vx;
     const dy = player.dash ? player.dashY * 23 : player.vy;
     const angle = Math.atan2(dy,dx);
     const moving = Math.hypot(dx,dy) > .12;
     drawWake(ctx,picture,player.x-(moving ? Math.cos(angle)*77 : 77),
-      player.y+26-(moving ? Math.sin(angle)*12 : 0),tick,dx,dy,player.dash ? 1.02 : .76,1);
+      y+hullBottom-waterlineDepth-(moving ? Math.sin(angle)*12 : 0),tick,dx,dy,player.dash ? 1.02 : .76,1);
     if(light<0&&heavy<0&&dx < -3&&Math.abs(dy)<3){
       ctx.translate(player.x,player.y);
       ctx.rotate(.045);
       ctx.translate(-player.x,-player.y);
     }
-    if (light >= 0 && heavy >= 0) {
-      hull(ctx, image, 2, heavy, x, y, 0, boatWidth / 2);
-      hull(ctx, image, 1, light, x, y, boatWidth / 2, boatWidth / 2);
-    } else if (heavy >= 0) hull(ctx, image, 2, heavy, x, y);
-    else if (light >= 0) hull(ctx, image, 1, light, x, y);
-    else {
-      const motion = dy < -2 ? 1 : dy > 2 ? 2 : dx > 3 || player.dash ? 3 : 0;
-      hull(ctx, image, 0, motion, x, y);
-    }
+    const motion = dy < -2 ? 1 : dy > 2 ? 2 : dx > 3 || player.dash ? 3 : 0;
+    ArcadeBossSheets.drawWaterline(ctx,{x:x+10,y,w:boatWidth-20,h:hullBottom},waterlineDepth,tick,(dx,dy)=>{
+      const left=x+dx,top=y+dy;
+      if (light >= 0 && heavy >= 0) {
+        hull(ctx, image, 2, heavy, left, top, 0, boatWidth / 2);
+        hull(ctx, image, 1, light, left, top, boatWidth / 2, boatWidth / 2);
+      } else if (heavy >= 0) hull(ctx, image, 2, heavy, left, top);
+      else if (light >= 0) hull(ctx, image, 1, light, left, top);
+      else hull(ctx, image, 0, motion, left, top);
+    });
     drawPilot(ctx, picture, player.id, tick, player.x, player.y + bob);
     drawMuzzleFlash(ctx, image, 2, heavy, x, y);
     drawMuzzleFlash(ctx, image, 1, light, x, y);
