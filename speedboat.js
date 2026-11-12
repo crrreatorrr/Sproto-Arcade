@@ -76,34 +76,39 @@ const ArcadeSpeedboat = (() => {
     return drawEffect(ctx, picture, 2, Math.min(3, Math.floor(age / 4)), x - 36, y - 44, .56);
   }
 
-  function drawWake(ctx, picture, x, y, tick, dx, dy, scale, facing) {
+  function drawWake(ctx, picture, x, surface, tick, dx, dy, scale, trailOffset) {
     const speed = Math.hypot(dx, dy);
-    const direction = speed > .12 ? Math.atan2(dy, dx) : facing > 0 ? 0 : Math.PI;
+    // Shift and blend the wake through the center during slow reversals.
+    const direction = Math.max(-1, Math.min(1, dx));
     ctx.save();
-    ctx.translate(Math.round(x), Math.round(y));
-    ctx.rotate(direction);
+    ctx.translate(Math.round(x - direction * trailOffset), Math.round(surface + 10));
     const frame = Math.floor(tick / (speed > 8 ? 3 : 5)) % 4;
-    drawEffect(ctx, picture, 3, frame, -fxWidth * scale, -fxHeight * scale / 2, scale);
+    for (const facing of [1, -1]) {
+      const opacity = (1 + direction * facing) / 2;
+      if (!opacity) continue;
+      ctx.save();
+      ctx.scale(facing, 1);
+      ctx.globalAlpha *= opacity;
+      drawEffect(ctx, picture, 3, frame, -fxWidth * scale / 2, -fxHeight * scale / 2, scale);
+      ctx.restore();
+    }
     if (speed > .18) {
       const splashScale = scale * (speed > 8 ? .65 : .45);
       ctx.globalAlpha *= speed > 8 ? .86 : .62;
-      drawEffect(ctx, picture, 2, frame, -80 * splashScale, -74 * splashScale, splashScale);
+      drawEffect(ctx, picture, 2, frame, -fxWidth * splashScale / 2, -74 * splashScale, splashScale);
     }
     ctx.restore();
   }
 
-  function drawBossWake(ctx, picture, boss, tick, x, bottom) {
+  function drawBossWake(ctx, picture, boss, tick, x, surface) {
     const previous = bossMotion.get(boss);
     const motion = previous?.tick === tick ? previous : {
-      x,y:bottom,tick,
+      x,y:surface,tick,
       dx:previous ? (x - previous.x) / Math.max(1,tick - previous.tick) : 0,
-      dy:previous ? (bottom - previous.y) / Math.max(1,tick - previous.tick) : 0
+      dy:previous ? (surface - previous.y) / Math.max(1,tick - previous.tick) : 0
     };
     bossMotion.set(boss,motion);
-    const angle = Math.atan2(motion.dy, motion.dx);
-    const moving = Math.hypot(motion.dx, motion.dy) > .12;
-    drawWake(ctx,picture,x + (moving ? -Math.cos(angle) * 95 : 100),
-      bottom - (moving ? Math.sin(angle) * 14 : 4),tick,motion.dx,motion.dy,1.37,-1);
+    drawWake(ctx,picture,x,surface,tick,motion.dx,motion.dy,1.37,95);
   }
 
   function specialFrame(age, weapon) {
@@ -163,10 +168,7 @@ const ArcadeSpeedboat = (() => {
     }
     const dx = player.dash ? (player.dashX ?? player.dashDir) * 23 : player.vx;
     const dy = player.dash ? player.dashY * 23 : player.vy;
-    const angle = Math.atan2(dy,dx);
-    const moving = Math.hypot(dx,dy) > .12;
-    drawWake(ctx,picture,player.x-(moving ? Math.cos(angle)*77 : 77),
-      y+hullBottom-waterlineDepth-(moving ? Math.sin(angle)*12 : 0),tick,dx,dy,player.dash ? 1.02 : .76,1);
+    drawWake(ctx,picture,player.x,y+hullBottom-waterlineDepth,tick,dx,dy,player.dash ? 1.02 : .76,77);
     if(light<0&&heavy<0&&dx < -3&&Math.abs(dy)<3){
       ctx.translate(player.x,player.y);
       ctx.rotate(.045);
