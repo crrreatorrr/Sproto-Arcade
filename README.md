@@ -33,14 +33,14 @@ Rule changes of 2026-11-11 (each needed the owner's sign-off; details and the bo
 
 In Tidebreak Marina, steer an open-cockpit speedboat with any playable Sproto. C fires three horizontal torpedoes and V launches a bouncing water mine. Five ocean settings scroll past in Phase 1, and the storm arena marks Phase 2.
 
-Both pages share one layout. Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line under the game, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.
+Both pages share one layout (the defaults below; players can change them in Controller settings). Keyboard, mouse and a controller all work at the same time; the on-screen prompts (the help line on the menus, story mode's weapon bar and Machine Trials' HUD and cues) follow whichever was used last.
 
 | Action | Keyboard | Controller |
 | --- | --- | --- |
 | Move; fly in all directions in flight levels | Arrow keys or WASD | Left stick or D-pad |
 | Jump, then air jump | Space (story mode: also ↑ / W) | A (story mode: also D-pad up) |
 | Crouch (story mode, on foot) | ↓ / S | D-pad down, or the stick held straight down |
-| Dash (11 simulation ticks) | Shift (Machine Trials: or the key chosen with the remap button) | B or RT |
+| Dash (11 simulation ticks) | Shift (Machine Trials: also the quick remap button on the menus) | B or RT |
 | Shield | X | X or LT |
 | C special: tracking missile / red laser (story), piercing beam (Trials) | C | Y |
 | V special: tracking bomb / beach ball (story), bouncing ball (Trials) | V | RB |
@@ -51,8 +51,20 @@ Both pages share one layout. Keyboard, mouse and a controller all work at the sa
 | Send feedback (signed-in hub players; the game pauses and resumes where it was) | N twice, or Send feedback on the pause screen | Send feedback on the pause screen |
 | Menus and overlays | Arrows or W/S move; A/D or ←/→ change a selector; Enter or Space confirms; Escape closes pause; Tab still works | D-pad or left stick moves; A confirms; B closes pause; Start presses the main button |
 | Return to hub (story mode in a hub session) | Click Return to hub, or Tab to it | Start, D-pad down, A |
+| Main menu · Hub · Controller settings · Full screen | The buttons at the top of every menu screen | D-pad up to them, A |
 
 Mechanics: six simulation ticks of ledge grace preserve the air jump. Shield-symbol pulses require shield; broken-chevron fronts require an active dash. C and V recharge and remain part of the base kit. Losing window focus pauses the game, including during a transformation.
+
+### Full window, menus and controller settings
+
+Both pages fill the browser window: the 16:9 game screen is scaled as large as the window allows and centred, with the page colour in any spare bars, and the page never scrolls. The HUD and every menu sit inside that screen; a menu taller than a small window scrolls inside itself. Every menu screen (story mode: title, first-run card, pause, knockout, level clear, campaign clear; Machine Trials: the setup curtain, pause, knockout and clear) has, beside its own buttons, **Main menu** (not on the main menu itself), **Hub**, **Controller settings** and **Full screen**. `menus.js` wires them up:
+
+- Main menu goes to story mode's title screen (`returnToTitle()` in game.js) or Machine Trials' setup curtain (`ArcadeApp.mainMenu()`). From the pause screen, or a knockout screen, it asks first, because the run is lost.
+- Hub uses the hub session when there is one (`ArcadeHub.exit()`, or the SDK session Machine Trials' feedback link picked up) and otherwise opens the hub page the game already knows (`hub-config.js` hubUrl, `play.<domain>` → `<domain>/hub/`, else `/hub/`). It asks first mid-run too.
+- Full screen calls the browser Fullscreen API from the click itself; the label follows `document.fullscreenElement`, and it is hidden where full screen is not allowed. On a menu in full screen, Esc only leaves full screen (it does not also resume or close anything); in play it pauses, as always.
+- Controller settings lists every action with two keyboard slots and two controller slots. Choose a slot and press the new key or button (Esc cancels; B cancels a key slot, Start a button slot; Backspace clears a key slot). A key already used by another action is swapped with it; Esc, N, F11, Tab and the browser's keys are reserved, Start always pauses and the D-pad and stick always move. It also sets the left-stick dead zone (5 to 50 %, default 20 %). The game has no rumble, so there is no vibration switch. Reset to defaults, and Back. Settings save in `localStorage` (`sproto-arcade-controls-v1:story` and `…:trials`) and apply at once. Machine Trials' existing quick dash remap button now saves through the same bindings.
+
+Remapping is an input layer only (`controls.js`). The games still read their fixed key codes; during play a remapped key is turned into the code the game reads before game.js or rework.js sees it, and gamepad.js sends the codes the controller bindings say. With the default bindings nothing is translated at all. No simulation file, server bundle or replay format changed. Tests: `runtime/fixtures/controls.test.js` (model, storage and the key layer) in `node qa/run-all.mjs .`, and `node qa/menus-browser.mjs [repo] [screenshot-dir]` for the layouts, menus, remaps and full screen in Chromium.
 
 ### Controller
 
@@ -60,7 +72,7 @@ Plug in any standard-mapping controller (Xbox, PlayStation, Switch Pro and most 
 
 Why this layout: the right thumb lives on A for jumping, so the two reactive counters are also on the triggers (RT dash, LT shield) and can be pressed while jumping. Shield is X on both devices, so Machine Trials' "◇ X" shield cue is right for either. B as dash suits players who roll the thumb from A. Specials recharge and are fired when ready, so they go on Y and RB; the rarer pickup actions sit on LB and View. On foot in story mode the stick ignores up (A jumps) and crouch needs a near-vertical push, so running diagonally never jumps or crouches by accident; flight is full 8-way. Instant retry (R) stays off the controller during play because one stray press would restart the run; the game-over screen's Retry button is one A press.
 
-Following the hub's controller convention: the pad is read every frame, it may be plugged in or out at any time, and buttons already held when it appears (such as the A that chose this game in the hub) or held across a screen change are ignored until released. Stick deadzone is 0.2, radial and rescaled; menu repeat is 350 ms then 120 ms. Home is never bound.
+Following the hub's controller convention: the pad is read every frame, it may be plugged in or out at any time, and buttons already held when it appears (such as the A that chose this game in the hub) or held across a screen change are ignored until released. Stick deadzone is 0.2 by default (Controller settings changes it), radial and rescaled; menu repeat is 350 ms then 120 ms. Home is never bound.
 
 ### Keyboard
 

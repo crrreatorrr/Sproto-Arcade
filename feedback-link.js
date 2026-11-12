@@ -58,7 +58,8 @@
     canvas: () => doc.querySelector('.screen canvas'),
     theme: { font: 'system-ui, sans-serif', titleFont: 'Georgia, serif', background: 'rgba(22, 12, 27, 0.78)', panel: '#211122',
       text: '#fff0c9', muted: '#ded0b2', accent: '#ffcc59', accentText: '#21131d', border: '#b88a53', radius: '3px' },
-    enabled: () => true,
+    // While controller settings wait for a key, N is that key's answer (and is refused as reserved).
+    enabled: () => !attempt(() => root.ArcadeControls.capturing, null),
     pause: () => ({ before: feedbackPause() }),
     resume: (token) => feedbackResume(token && token.before),
     sdk: async () => {
@@ -121,8 +122,8 @@
     canvas: () => $('arena'),
     theme: { font: 'system-ui, sans-serif', titleFont: 'inherit', background: 'rgba(9, 19, 30, 0.86)', panel: '#20303d',
       text: '#f6ebd0', muted: '#acb9c0', accent: '#ffce7a', accentText: '#17212b', border: '#53636d', radius: '4px' },
-    // While the dash key is being remapped, N goes to the game, which refuses it as reserved.
-    enabled: () => !attempt(() => app().remapping, false),
+    // While a key is being bound (the quick dash remap or controller settings), N goes to the binder, which refuses it as reserved.
+    enabled: () => !attempt(() => app().remapping, false) && !attempt(() => root.ArcadeControls.capturing, null),
     pause: () => ({ before: app().feedbackPause() }),
     resume: (token) => app().feedbackResume(token && token.before),
     // Story mode holds the hub link (hub-link.js). This page only picks up the session the same tab
@@ -193,6 +194,8 @@
     isOpen: () => Boolean(handle && handle.isOpen()),
     open: () => { if (handle) handle.open(); },
     context: () => attempt(() => page.context(), {}),
+    /** The hub SDK this page uses (menus.js's Hub option exits through it when a session is live). */
+    sdk: () => page.sdk(),
     ready: null,
   };
   root.ArcadeFeedback = api;

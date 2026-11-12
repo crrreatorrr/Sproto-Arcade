@@ -86,7 +86,9 @@
   // Tracks player 1's pad across frames: hot-plug, latch on connect, and re-latch on demand.
   // A latched button (or stick) is ignored until it is released, so the press that confirmed a
   // portal in the hub, or that started a run here, never leaks into the next screen.
-  function createTracker() {
+  // options.deadzone(): the left-stick dead zone to use this frame (controller settings).
+  function createTracker(options) {
+    const deadzone = () => { const v = options && options.deadzone ? Number(options.deadzone()) : NaN; return Number.isFinite(v) ? v : TUNING.leftDeadzone; };
     let key = null, latched = new Array(BUTTON_COUNT).fill(false), stickLatched = false;
     let rawButtons = new Array(BUTTON_COUNT).fill(false), rawStick = { x: 0, y: 0, magnitude: 0 };
     const tracker = {
@@ -103,7 +105,7 @@
         key = nextKey;
         const axes = pad.axes || [];
         rawButtons = readButtons(pad);
-        rawStick = radialDeadzone(axes[0], axes[1], TUNING.leftDeadzone);
+        rawStick = radialDeadzone(axes[0], axes[1], deadzone());
         if (justConnected) tracker.latchAll();
         for (let i = 0; i < BUTTON_COUNT; i++) if (!rawButtons[i]) latched[i] = false;
         if (rawStick.magnitude === 0) stickLatched = false;
@@ -166,7 +168,8 @@
 
   // D-pad wins over the stick; the stick uses its dominant axis past the menu threshold.
   // Uses the deadzoned stick, whose magnitude is rescaled, so compare the raw-equivalent.
-  function menuDirection(snapshot) {
+  function menuDirection(snapshot, deadzone) {
+    const dz = Number.isFinite(deadzone) ? deadzone : TUNING.leftDeadzone;
     if (!snapshot || !snapshot.connected) return null;
     const b = snapshot.buttons;
     if (b[BUTTON.UP]) return 'up';
@@ -175,7 +178,7 @@
     if (b[BUTTON.RIGHT]) return 'right';
     const s = snapshot.stick;
     if (!s || !s.magnitude) return null;
-    const raw = TUNING.leftDeadzone + s.magnitude * (1 - TUNING.leftDeadzone);
+    const raw = dz + s.magnitude * (1 - dz);
     if (raw < TUNING.menuThreshold) return null;
     const nx = s.x / s.magnitude, ny = s.y / s.magnitude;
     if (Math.abs(nx) >= Math.abs(ny)) return nx < 0 ? 'left' : 'right';
@@ -282,16 +285,33 @@
     trials: {
       playing: () => { const c = $('curtain'); return Boolean(c && c.hidden); },
       flying: () => { const m = root.ArcadeApp && root.ArcadeApp.world && root.ArcadeApp.world.phase && root.ArcadeApp.world.phase.mode; return m === 'flight' || m === 'orbit'; },
-      dashCode: () => (root.ArcadeApp && root.ArcadeApp.dashKey) || 'ShiftLeft',
-      // The dash remap button waits for a keyboard key, so it is left to the keyboard.
-      candidates: () => [...document.querySelectorAll('header a[href], #setup select, #setup input, #setup button, #curtain button')],
+      // controls.js turns a remapped dash key into Shift before rework.js reads it, so the pad sends Shift too.
+      dashCode: () => 'ShiftLeft',
+      // The quick dash remap button waits for a keyboard key, so it is left to the keyboard.
+      candidates: () => [...document.querySelectorAll('header a[href], #setup select, #setup input, #setup button, #curtain button:not(#dash-key)')],
       primary: () => (visible($('resume')) ? $('resume') : $('start')),
       start: () => { const b = adapters.trials.primary(); if (visible(b)) b.click(); },
       back: () => { const app = root.ArcadeApp; if (app && app.paused && visible($('resume'))) $('resume').click(); }
     }
   };
-  const page = adapters[profileName];
-  const tracker = createTracker(), repeater = createRepeater();
+  const base = adapters[profileName];
+  // Controller settings (controls.js) supply the button layout and the stick dead zone; the menu
+  // shell (menus.js) can open a panel (controller settings, a confirm) over the page's menu, which
+  // then owns focus, B and Start until it closes.
+  const controls = () => root.ArcadeControls || null;
+  const panel = () => { const m = root.ArcadeMenus; return (m && typeof m.activePanel === 'function' && m.activePanel()) || null; };
+  const page = {
+    playing: () => !panel() && base.playing(),
+    flying: base.flying,
+    dashCode: base.dashCode,
+    candidates: () => { const p = panel(); return p ? p.items() : base.candidates(); },
+    primary: () => { const p = panel(); return p ? p.primary() : base.primary(); },
+    start: () => { const p = panel(); if (p) { if (p.start) p.start(); } else base.start(); },
+    back: () => { const p = panel(); if (p) p.back(); else base.back(); }
+  };
+  const layout = () => { const c = controls(); return c ? { ...profile, buttons: c.padButtons() } : profile; };
+  const BUTTON_NAME = Object.fromEntries(Object.entries(BUTTON).map(([name, index]) => [index, name]));
+  const tracker = createTracker({ deadzone: () => { const c = controls(); return c ? c.deadzone : TUNING.leftDeadzone; } }), repeater = createRepeater();
   let held = new Set(), previousButtons = null, wasPlaying = null;
   // The feedback window (feedback-link.js) takes the keyboard while it is open; the pad must not
   // drive the menu or the game underneath it.
@@ -407,10 +427,20 @@
     }
     const edges = pressedEdges(previousButtons, snapshot.buttons);
     previousButtons = snapshot.buttons;
+    // Press-to-bind in controller settings: the next button press is the answer, nothing else.
+    const binding = controls() && controls().capturing;
+    if (binding) {
+      if (held.size) releaseAll();
+      if (edges.length) setDevice('gamepad');
+      for (const index of edges) if (controls().capturePad(BUTTON_NAME[index])) break;
+      repeater.reset();
+      requestAnimationFrame(frame);
+      return;
+    }
     // A pad only appears after a press on it, so its arrival also counts as using it.
     if (snapshot.justConnected || edges.length || snapshot.stick.magnitude > 0) setDevice('gamepad');
     if (playing) {
-      const next = gameplayCodes(snapshot, profile, { flying: page.flying(), dashCode: page.dashCode() });
+      const next = gameplayCodes(snapshot, layout(), { flying: page.flying(), dashCode: page.dashCode() });
       const change = diffCodes(held, next);
       for (const code of change.up) send('keyup', code);
       for (const code of change.down) send('keydown', code);
@@ -418,7 +448,8 @@
       // Menu/Start pauses with a tap of the pause key, exactly like pressing Escape.
       if (edges.includes(BUTTON.MENU)) { send('keydown', profile.pause); send('keyup', profile.pause); }
     } else {
-      const direction = repeater.update(menuDirection(snapshot), now);
+      const c = controls();
+      const direction = repeater.update(menuDirection(snapshot, c ? c.deadzone : undefined), now);
       if (direction) moveFocus(direction);
       if (edges.includes(BUTTON.A)) confirm();
       else if (edges.includes(BUTTON.B)) page.back();
