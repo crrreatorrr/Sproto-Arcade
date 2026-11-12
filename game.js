@@ -53,6 +53,7 @@ const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75;
 const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
 const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel&&(level.id!==13||REDKEV_READY)));
 const canvas = document.querySelector('canvas');
+const TITLE_PAGE = document.title;
 const ctx = canvas.getContext('2d', { alpha: false });
 const ui = Object.fromEntries(['hearts','god-mode','shield-status','count','location','boss','cue','dash','missile-status','bomb-status','notice','eyebrow','title','description','start'].map(id => [id, document.getElementById(id)]));
 const hud = document.querySelector('.hud'), overlay = document.querySelector('.overlay');
@@ -490,17 +491,17 @@ function coachDone() { try { localStorage.setItem(COACH_KEY,'1'); } catch {} }
 function coachText() {
   const pad=padPrompts();
   if(isNaval())return [
-    pad?'Steer: left stick or D-pad · Dash: B / RT':'Steer: WASD or arrow keys · Dash: Shift',
-    (pad?'Y':'C')+' deploys three straight torpedoes. '+(pad?'RB':'V')+' launches a bouncing water mine.',
+    (pad?'Steer: left stick or D-pad':'Steer: WASD or arrow keys')+' · Dash: '+controlPrompt('dash','Shift','B / RT'),
+    controlPrompt('missile','C','Y')+' deploys three straight torpedoes. '+controlPrompt('bomb','V','RB')+' launches a bouncing water mine.',
     'Steer through gaps in missile walls. For a sweep, steer low or shield. Use '+shieldPrompt()+' when the cue says SHIELD NOW.',
     'When the cue says EXPOSED, line up with the ring for triple damage.'
   ].join('\n');
   return [
-    pad?'Move: left stick or D-pad  ·  Jump: A, and again in the air  ·  Crouch: stick down':'Move: ← →  ·  Jump: Space, and again in the air  ·  Crouch: ↓',
-    (pad?'Dash (B / RT)':'Dash (Shift)')+' passes through shots, columns and missiles.',
+    (pad?'Move: left stick or D-pad  ·  Jump: ':'Move: ← →  ·  Jump: ')+controlPrompt('jump','Space','A')+', and again in the air  ·  Crouch: '+(pad?'stick down':crouchPrompt()),
+    'Dash ('+controlPrompt('dash','Shift','B / RT')+') passes through shots, columns and missiles.',
     'Shield ('+shieldPrompt()+') is the only answer to a SHIELD PULSE. Crouch or shield under a CEILING SWEEP.',
     'When the cue line says EXPOSED, jump into the ring for triple damage.',
-    (pad?'Y and RB':'C and V')+' fire your two specials. In flight levels you fly in all four directions.',
+    controlPrompt('missile','C','Y')+' and '+controlPrompt('bomb','V','RB')+' fire your two specials. In flight levels you fly in all four directions.',
     'Read the cue line under the boss bar: it names each attack and tells you when to act.'
   ].join('\n');
 }
@@ -808,8 +809,10 @@ const MOVE_LABELS={
 };
 const moveLabel=move=>MOVE_LABELS[move]??String(move).replace(/([a-z])([A-Z])/g,'$1 $2').toUpperCase();
 const padPrompts=()=>document.documentElement?.dataset?.input==='gamepad';
-const crouchPrompt=()=>padPrompts()?'STICK ↓':'↓';
-const shieldPrompt=()=>padPrompts()?'X / LT':'X';
+// Key names in game text follow controller settings (controls.js); with the default bindings they are these literals.
+const controlPrompt=(action,key,pad)=>{const c=window.ArcadeControls;if(padPrompts())return c?c.padPrompt(action,pad):pad;return c?c.prompt(action,key):key;};
+const crouchPrompt=()=>controlPrompt('down','↓','STICK ↓');
+const shieldPrompt=()=>controlPrompt('shield','X','X / LT');
 // What the nearest incoming barrage wave asks for: 'gap', 'crouch', 'hop' or 'jump'.
 let barrageCue={key:'',floor:0,endedAt:-Infinity};
 function barrageLane() {
@@ -2678,6 +2681,28 @@ function retryCurrentPhase(){
   const checkpoint=(!isChase()&&boss?.phase===2)?2:1;
   keys.clear();pressed.clear();
   whenReady(levelIndex,()=>begin(levelIndex,false,checkpoint));
+}
+
+// Main menu (menus.js): leave whatever screen is up for the title screen, as the page first opens.
+// Browser only and never reached by the server build. Nothing is saved or reported: a run left
+// here simply ends, like closing the tab mid-level.
+const TITLE_DESCRIPTION=ui.description.textContent;
+function returnToTitle(){
+  if (mode==='loading' || mode==='title') return;
+  keys.clear();pressed.clear();lastNine=-Infinity;
+  pendingStart++;
+  replayRecorder=null;phaseCheckpointRun=false;
+  player=undefined;boss=undefined;
+  gameScreen.classList.remove('stage-blackout');
+  hud.hidden=true;ui.boss.hidden=true;ui.notice.hidden=true;setCue('');
+  window.ArcadeAudio?.music.stop?.();
+  camera=0;
+  levelSelect.value=String(levelIndex);
+  document.title=TITLE_PAGE;
+  setOverlay('title',selectedSproto.name+' in',LEVELS[levelIndex].title,TITLE_DESCRIPTION,'Start level');
+  showLevelControls();
+  drawBackground();
+  refreshTitleReadiness();
 }
 
 window.addEventListener('keydown',e=>{
