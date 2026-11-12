@@ -66,6 +66,10 @@ for (const wake of [playerWake, bossWake]) {
       assert.deepEqual(orientation, vx < 0 ? [['scale', -1, 1]] : [], 'mirror only on the horizontal axis');
     }
   }
+  const offset = vx => wake(vx, 7).draws[0].transforms[0][1] - x;
+  assert.ok(offset(.13) < offset(.11) && offset(.11) < 0, 'slowing down brings the wake closer to center');
+  assert.ok(Math.abs(offset(.13) - offset(.11)) <= 2, 'slow lateral drift does not make the wake jump');
+  assert.equal(offset(-.11), -offset(.11), 'slow motion shifts the wake equally in either direction');
 }
 assert.deepEqual(playerWake(7, 0, true).draws[0].transforms[0].slice(0, 2), ['translate', x],
   'a vertical dash centers the wake even when ordinary velocity points sideways');
