@@ -8,7 +8,14 @@ for(const file of files)vm.runInContext(fs.readFileSync(file,'utf8'),scope,{file
 const art=scope.ArcadeBossSheets;
 for(const c of Object.values(art.manifest))for(const a of [...c.phases,...c.projectiles])a.ready=true;
 let drawn=[];
-const ctx=new Proxy({drawImage(image,...args){drawn.push({path:image.src,row:Math.floor(args[1]/512)});}}, {get(o,k){return k in o?o[k]:(...args)=>{for(const a of args)if(typeof a==='number')assert.ok(Number.isFinite(a));};},set(o,k,v){o[k]=v;return true;}});
+const alphaStack=[];
+const ctx=new Proxy({
+  globalAlpha:1,
+  save(){alphaStack.push(this.globalAlpha);},
+  restore(){this.globalAlpha=alphaStack.pop();},
+  createLinearGradient(){return {addColorStop(){}};},
+  drawImage(image,...args){drawn.push({path:image.src,row:Math.floor(args[1]/512)});}
+}, {get(o,k){return k in o?o[k]:(...args)=>{for(const a of args)if(typeof a==='number')assert.ok(Number.isFinite(a));};},set(o,k,v){o[k]=v;return true;}});
 const rows=[];
 for(const stage of [...scope.Arcade.stages.values()].filter(s=>typeof s.enabled==='function'?s.enabled():s.enabled!==false))for(const phase of [0,1]){
   const w=new scope.Arcade.World(stage,{seed:177,phase,practice:true});
@@ -24,6 +31,7 @@ for(const stage of [...scope.Arcade.stages.values()].filter(s=>typeof s.enabled=
     w.updateHazards();w.phase.update(w);
     const before=JSON.stringify(w);
     drawn=[];art.drawMachine(ctx,w);
+    assert.equal(ctx.globalAlpha,1,'the machine draw restores its opacity');
     for(const d of drawn)if(/\/p[12]\.png(?:\?|$)/.test(d.path)&&d.row>0)bossRows.add(d.row);
     for(const h of w.hazards){
       if(h.missile)continue;
