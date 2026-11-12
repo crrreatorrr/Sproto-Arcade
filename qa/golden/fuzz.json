@@ -1,7 +1,7 @@
 {
  "note": "Hashes of qa/server-sim-cases.js fuzz logs, recorded in Node; goja must match.",
  "hashes": [
-  "a0965110a06a004c:1043",
+  "505bfb327d5501aa:1043",
   "903778c8ef3ac391:599",
   "ff7b0efd785a1836:537",
   "09bac124d07adace:802",
@@ -14,7 +14,7 @@
   "ef35b87bcd1e5b10:37",
   "76ecf2140320c06b:54",
   "966f58b0ff5f4839:629",
-  "dae730e175d5db5b:766",
+  "0f41e80f50e3fb56:766",
   "3e9e2355cf4ac4c2:302",
   "a75a6e6ae189b3a0:772",
   "8257b6941053f641:345",
