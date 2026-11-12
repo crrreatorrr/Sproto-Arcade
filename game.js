@@ -2022,17 +2022,20 @@ function renderBoss() {
   else if (b.moving) pose=walk(b.id,b.distance);
   const sheetBox=bossSheetBox(b);
   const bottom=sheetBox.y+sheetBox.h;
-  shadow(b.x,isNaval()?bottom-2:FLOOR,120);
+  const sheets=globalThis.ArcadeBossSheets,naval=isNaval();
+  const surface=naval&&sheets?bottom-sheets.marinaWaterlineDepth(b.phase-1,sheets.legacyBox(1,b.phase-1,sheetBox).w):bottom;
+  shadow(b.x,naval?surface-2:FLOOR,120);
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
-  if(isNaval())ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,bottom);
+  if(naval)ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,surface);
   const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
   const paintBoss=flash=>{
     if (flash) { ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=flash; }
-    const sheetDrawn=globalThis.ArcadeBossSheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,sheetBox);
+    const sheetDrawn=sheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,sheetBox,
+      naval?{tick:time,drawSurface:!flash}:null);
     if (sheetDrawn) return;
     if (hasMecha(b)) { if (flash) ctx.globalAlpha=flash*.34/.38; drawMecha(b); }
     else sprite(b.id,pose,b.x,b.y,-1,b.scale);
