@@ -119,7 +119,7 @@ vm.runInContext('delete SPRITE_HITBOXES.stages[12][0].beams["codebreak.horizonta
 vm.runInContext('boss.phase=2;boss.x=200;bullets=[{x:170,y:500,vx:0,vy:0,age:0,shape:"greenLaser"}];updateCodePlayerShots()',legacy);assert.equal(legacy.damaged,0,'phase2 collision radius can shrink without changing aim/tracking');
 vm.runInContext('SPRITE_HITBOXES.stages[12][1].boss.damage.radius=40;updateCodePlayerShots()',legacy);assert.equal(legacy.damaged,2);
 vm.runInContext('boss.phase=1;bullets=[{x:170,y:500,vx:0,vy:0,age:0,shape:"greenLaser"}];updateCodePlayerShots()',legacy);assert.equal(legacy.damaged,2,'phase1 retains absorption without boss damage');
-vm.runInContext(`LEVELS[0].id=1;damaged=0;boss={x:200,y:400,scale:1,hp:10,phase:1,move:'test',age:100,tell:10};var FLOOR=600,SAUCER_BEAM_END=1280,moves={test:{active:20}};function hasMecha(){return false;}function isFlying(){return false;}function isCodebreak(){return false;}function bossWeakY(){return 350;}
+vm.runInContext(`LEVELS[0].id=1;damaged=0;boss={x:200,y:400,scale:1,hp:10,phase:1,move:'test',age:100,tell:10};var FLOOR=600,SAUCER_BEAM_END=1280,moves={test:{active:20}};function hasMecha(){return false;}function isNaval(){return false;}function isFlying(){return false;}function isCodebreak(){return false;}function bossWeakY(){return 350;}
 SPRITE_HITBOXES.stages[1][0].boss={damage:{rect:[.25,.25,.5,.5]}};bullets=[{x:110,y:350,vx:0,vy:0,rate:1,gravity:0,bounces:0,age:0,own:true,shape:'spark'}];updateBullets()`,legacy);
 assert.equal(legacy.damaged,0,'boss fringe outside the new core must miss');
 vm.runInContext(`bullets=[{x:200,y:350,vx:0,vy:0,rate:1,gravity:0,bounces:0,age:0,own:true,shape:'spark'}];updateBullets()`,legacy);
