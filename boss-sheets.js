@@ -165,7 +165,46 @@
     ctx.drawImage(baked,0,0);ctx.restore();outlineStats.blits++;
     return true;
   }
-  function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline){
+  function drawWaterline(ctx,box,depth,tick,paint,drawSurface=true){
+    const {x,y,w,h}=box,line=y+h-depth;
+    const wave=px=>line+Math.sin(px*.068-tick*.15)*2+Math.sin(px*.027+tick*.08);
+    function clipHull(submerged){
+      ctx.beginPath();
+      ctx.moveTo(x-3,wave(x-3));
+      for(let px=x+1;px<x+w+3;px+=4)ctx.lineTo(px,wave(px));
+      ctx.lineTo(x+w+3,wave(x+w+3));
+      const edge=submerged?y+h+2:y-2;
+      ctx.lineTo(x+w+3,edge);ctx.lineTo(x-3,edge);ctx.closePath();
+      ctx.clip();
+    }
+    ctx.save();
+    clipHull(false);paint(0,0);
+    ctx.restore();
+    ctx.save();
+    clipHull(true);
+    ctx.globalAlpha*=.36;
+    paint(Math.round(Math.sin(tick*.18)*2),2);
+    ctx.restore();
+    if(!drawSurface)return;
+
+    const start=x+w*.09,end=x+w*.97;
+    const foam=ctx.createLinearGradient(start,0,end,0);
+    foam.addColorStop(0,'#b8f3ff00');
+    foam.addColorStop(.2,'#b8f3ff99');
+    foam.addColorStop(.72,'#72dcf04d');
+    foam.addColorStop(1,'#b8f3ff00');
+    ctx.save();
+    ctx.strokeStyle=foam;ctx.lineWidth=Math.min(2,w/180);
+    ctx.beginPath();ctx.moveTo(start,wave(start));
+    for(let px=start+4;px<=end;px+=4)ctx.lineTo(px,wave(px));
+    ctx.stroke();
+    ctx.restore();
+  }
+  function marinaWaterlineDepth(phase,width){
+    // The approved preview used a 408 px hull and submerged 55% of the orange band.
+    return .55*(phase===1?75:63)*width/408;
+  }
+  function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline,waterline){
     const columns=config.columns||4,rows=config.rows||4;
     const cellWidth=img.naturalWidth/columns,cellHeight=img.naturalHeight/rows;
     if(cellWidth<1||cellHeight<1||img.naturalWidth%columns||img.naturalHeight%rows)return false;
@@ -179,7 +218,12 @@
     ctx.save();ctx.imageSmoothingEnabled=false;
     ctx.translate(box.x+box.w/2,box.y+box.h/2);if(box.flip)ctx.scale(-1,1);
     const sx=(column%columns)*cellWidth+cx,sy=(row%rows)*cellHeight+cy;
-    if(!outline||!drawOutlined(ctx,img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h,outline.filter,outline.stage)){
+    if(waterline){
+      const depth=marinaWaterlineDepth(waterline.phase,destination.w);
+      drawWaterline(ctx,destination,depth,waterline.tick,(dx,dy)=>{
+        ctx.drawImage(img,sx,sy,width,height,destination.x+dx,destination.y+dy,destination.w,destination.h);
+      },waterline.drawSurface);
+    }else if(!outline||!drawOutlined(ctx,img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h,outline.filter,outline.stage)){
       if(outline){ctx.filter=ctx.filter&&ctx.filter!=='none'?ctx.filter+' '+outline.filter:outline.filter;outlineStats.direct++;}
       ctx.drawImage(img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h);
     }
@@ -283,7 +327,8 @@
     const config=entry(w.stage.id),img=phaseImage(w.stage.id,w.phaseIndex),box=machineBox(w);
     if(!img||!box)return false;
     const pose=attackPose(w);
-    return frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds);
+    const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
+    return frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline);
   }
   function legacyBox(id,phase,box){
     const config=entry(id),asset=config?.phases[phase],offset=asset?.legacyOffset,scale=asset?.legacyScale;
@@ -291,9 +336,10 @@
     if(Array.isArray(offset)&&offset.length===2&&offset.every(Number.isFinite))box={...box,x:box.x+offset[0],y:box.y+offset[1]};
     return config===manifest[1]?marinaBossDrawBox(box,1280):box;
   }
-  function drawBoss(ctx,id,phase,pose,box){
+  function drawBoss(ctx,id,phase,pose,box,waterline){
     const config=entry(id),img=phaseImage(id,phase);
-    return !!img&&frame(ctx,img,pose.row||0,pose.column||0,legacyBox(id,phase,box),config,config.phases[phase].bounds);
+    return !!img&&frame(ctx,img,pose.row||0,pose.column||0,legacyBox(id,phase,box),config,config.phases[phase].bounds,null,null,
+      config===manifest[1]&&waterline?{...waterline,phase}:null);
   }
   function projectileKind(id,shot,box){
     return spriteProjectileKind(shot,box,entry(id)?.projectileKinds?.[shot.source||shot.shape]);
@@ -430,5 +476,5 @@
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
 })(globalThis);

@@ -61,7 +61,7 @@ ctx.save();ctx.translate(-w.camera.x,-w.camera.y);ctx.textAlign='left';
 if(!ph.naval)for(const pl of w.platforms){if(pl.removed||pl.active===false)continue;ctx.fillStyle='#263c49';ctx.fillRect(pl.x,pl.y,pl.w,pl.h||20);ctx.fillStyle='#81b5ba';ctx.fillRect(pl.x,pl.y,pl.w,4);}
 if(ph.naval){
  const box=ArcadeBossSheets.machineBox(w);
- ArcadeSpeedboat.drawBossWake(ctx,img,w,w.tick,box.x+box.w*.65,box.y+box.h);
+ ArcadeSpeedboat.drawBossWake(ctx,img,w,w.tick,box.x+box.w*.65,box.y+box.h-ArcadeBossSheets.marinaWaterlineDepth(w.phaseIndex,box.w));
 }
 ph.draw?.(ctx,w);
 const machineSheet=!!globalThis.ArcadeBossSheets?.phaseImage(w.stage.id,w.phaseIndex);
