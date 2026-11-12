@@ -10,6 +10,9 @@
   function label(ctx,text,x,y,color='#fff0c9') {ctx.fillStyle=color;ctx.font='bold 18px system-ui';ctx.fillText(text,x,y);}
   function machine(ctx,w,press){
     const t=w.phaseTick%CYCLE,vent=w.targets.find(x=>x.id==='marina-vent');
+    if(press){
+      ctx.strokeStyle='#648a9b';ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(1185,340);ctx.lineTo(1185,230);ctx.lineTo(350,230);ctx.lineTo(350,490);ctx.stroke();
+    }
     const generated=globalThis.ArcadeBossSheets?.drawMachine(ctx,w);
     if(!generated){
     ctx.fillStyle=press?'#324d60':'#375c66';ctx.fillRect(970,340,260,260);
@@ -22,14 +25,14 @@
     }
     if(vent&&vent.open){ctx.strokeStyle='#edf9ff';ctx.lineWidth=4;for(let n=0;n<3;n++){ctx.beginPath();ctx.moveTo(1050+n*32,478);ctx.quadraticCurveTo(1028+n*32,450,1054+n*32,430);ctx.stroke();}}
     if(press){
-      ctx.strokeStyle='#648a9b';ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(1185,340);ctx.lineTo(1185,230);ctx.lineTo(350,230);ctx.lineTo(350,490);ctx.stroke();
       for(let n=0;n<3;n++){ctx.fillStyle=t>=30+n*22&&t<190?'#ffe785':'#456372';ctx.fillRect(540+n*190,216,52,28);label(ctx,String(n+1),554+n*190,236,'#192d37');}
       const valve=w.targets.find(x=>x.id==='marina-valve');
       ctx.strokeStyle=valve&&valve.open?'#a9ffce':'#7a8b96';ctx.lineWidth=7;ctx.beginPath();ctx.arc(872,548,30,0,Math.PI*2);ctx.moveTo(850,526);ctx.lineTo(894,570);ctx.moveTo(894,526);ctx.lineTo(850,570);ctx.stroke();
       label(ctx,'RELEASE VALVE',790,485,valve&&valve.open?'#a9ffce':'#9aa5ab');
       label(ctx,'≫  SHIFT THROUGH PRESSURE  ≫',270,310,'#ffdb92');
     }
-    label(ctx,w.stage.number===13?(press?'RED SIEGE CRUISER':'RED INTERCEPTOR'):(press?'DRY DOCK PRESS':'BREAKWATER TUG'),950,315);
+    // The Trials HUD already names Dave's machine. Keep its enlarged sprite clear.
+    if(!generated||w.stage.number!==1)label(ctx,w.stage.number===13?(press?'RED SIEGE CRUISER':'RED INTERCEPTOR'):(press?'DRY DOCK PRESS':'BREAKWATER TUG'),950,315);
     label(ctx,vent&&vent.open?'STEAM: VENT OPEN':'VENT ARMORED',985,635,vent&&vent.open?'#eaffad':'#afb3b7');
   }
   const phase1={
