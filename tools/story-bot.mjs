@@ -31,7 +31,7 @@ function actions(kind) {
 const masksOf=(a,n)=>Array.from({length:n},(_,i)=>a.held|(i===0?a.tap:0));
 
 function kindOf(level,state) {
-  if (level===2 || level===6) return 'flight';
+  if (level===0 || level===2 || level===6) return 'flight';
   if (level===10) return 'chase';
   if (level===11) return state.boss.phase===1?'climb':'boss';
   return 'boss';

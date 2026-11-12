@@ -14,7 +14,7 @@
  },
  "log": {
   "schema": 1,
-  "simVersion": "d3360290cc771a31",
+  "simVersion": "97891b583da5c684",
   "seed": 24304,
   "rules": {
    "mode": "story",

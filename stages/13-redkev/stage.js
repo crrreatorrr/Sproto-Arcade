@@ -5,6 +5,6 @@
  A.registerStage({...source,id:'13-redkev',number:13,order:1.5,mechanics:1,
   enabled:()=>typeof REDKEV_READY!=='undefined'&&REDKEV_READY,
   title:"Redkev's Marina",operator:'Redkev',operatorSprite:'redkev',
-  phases:source.phases.map((p,index)=>({...p,machine:index?'Red Siege Cruiser':'Red Interceptor',enter(w){p.enter(w);w.cueText=w.cueText.replace(/Dave/g,'Redkev');}}))
+  phases:source.groundPhases.map((p,index)=>({...p,machine:index?'Red Siege Cruiser':'Red Interceptor',enter(w){p.enter(w);w.cueText=w.cueText.replace(/Dave/g,'Redkev');}}))
  });
 })(Arcade);

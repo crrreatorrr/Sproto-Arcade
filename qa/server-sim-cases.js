@@ -69,7 +69,9 @@ function runServerSimCases(A, goldens, fuzzExpect, now, options) {
     var rl = verify(longer);
     record('inputs after the clear are rejected', shapeOk(rl) && rl.ok === false, rl.error);
     var tampered = masks.slice();
-    for (var i = 2000; i < 2030 && i < tampered.length; i++) tampered[i] ^= 3;
+    // A few directional taps can cancel out or land during a locked transition.
+    // Remove a substantial active segment so the alternate log cannot be equivalent.
+    for (var i = 0; i < Math.floor(tampered.length / 3); i++) tampered[i] = 0;
     var rt = verify(withMasks(first, tampered));
     record('tampered inputs fail or change the hash', shapeOk(rt) && (rt.ok === false || rt.endHash !== firstExpect.endHash), { ok: rt.ok, error: rt.error });
     var idle = [];

@@ -5,7 +5,7 @@
   const VENT={x:1040,y:490,w:110,h:110};
   function floor(w){w.platform({id:'marina-dock',x:0,y:FLOOR,w:1280,h:80});}
   function wake(w,cycle,delay=0){
-    w.hazard({id:'marina-wake-'+w.phaseIndex+'-'+cycle,source:'marina.breakwater-slam.wake',rule:'ordinary',x:1020,y:568,w:76,h:32,vx:-9,vy:0,windup:delay,active:126,recovery:12,cue:'BOW PISTON — JUMP THE LOW WAKE'});
+    w.hazard({id:'marina-wake-'+w.phaseIndex+'-'+cycle,source:'marina.breakwater-slam.wake',rule:'ordinary',x:1020,y:568,w:76,h:32,vx:-9,vy:0,windup:delay,active:126,recovery:12,cue:w.phase?.naval?'BOW PISTON — STEER ABOVE THE LOW WAKE':'BOW PISTON — JUMP THE LOW WAKE'});
   }
   function label(ctx,text,x,y,color='#fff0c9') {ctx.fillStyle=color;ctx.font='bold 18px system-ui';ctx.fillText(text,x,y);}
   function machine(ctx,w,press){
@@ -23,7 +23,11 @@
     ctx.fillStyle=vent&&vent.open?'#f4ffb3':'#172835';ctx.fillRect(1040,490,110,110);
     for(let n=0;n<4;n++){ctx.fillStyle='#628a8d';ctx.fillRect(1044,505+n*22,102,6);}
     }
-    if(vent&&vent.open){ctx.strokeStyle='#edf9ff';ctx.lineWidth=4;for(let n=0;n<3;n++){ctx.beginPath();ctx.moveTo(1050+n*32,478);ctx.quadraticCurveTo(1028+n*32,450,1054+n*32,430);ctx.stroke();}}
+    if(vent&&vent.open){
+      const target=w.collisionBounds?.('targets',vent.id,vent)||vent;
+      const x=target.x+12,y=target.y-12;
+      ctx.strokeStyle='#edf9ff';ctx.lineWidth=4;for(let n=0;n<3;n++){ctx.beginPath();ctx.moveTo(x+n*32,y);ctx.quadraticCurveTo(x-22+n*32,y-28,x+4+n*32,y-48);ctx.stroke();}
+    }
     if(press){
       for(let n=0;n<3;n++){ctx.fillStyle=t>=30+n*22&&t<190?'#ffe785':'#456372';ctx.fillRect(540+n*190,216,52,28);label(ctx,String(n+1),554+n*190,236,'#192d37');}
       const valve=w.targets.find(x=>x.id==='marina-valve');
@@ -42,17 +46,17 @@
     enter(w){
       floor(w);w.data.rewarded=false;w.progress=0;
       w.target({id:'marina-vent',...VENT,hp:18,maxHp:18,open:false,label:'Steam vent',onDefeat(world){world.cue('Tug docks: wheelhouse and piston connect to pressure pipes.',90);world.advancePhase();}});
-      w.cue('Dave raises the piston. Jump the wake, then shoot the steaming vent.',180);
+      w.cue(w.phase?.naval?'Dave raises the piston. Steer above the wake, then shoot the steaming vent.':'Dave raises the piston. Jump the wake, then shoot the steaming vent.',180);
     },
     update(w){
       const t=w.phaseTick%CYCLE,cycle=Math.floor(w.phaseTick/CYCLE),vent=w.targets.find(x=>x.id==='marina-vent');
-      if(t===60)w.cue('PISTON HANGS — LOW WAKE IN 60 TICKS: JUMP',100);
+      if(t===60)w.cue(w.phase?.naval?'PISTON HANGS — LOW WAKE IN 60 TICKS: STEER UP':'PISTON HANGS — LOW WAKE IN 60 TICKS: JUMP',100);
       if(t===120)wake(w,cycle);
       if(vent){vent.open=t>=180&&t<390;w.progress=1-Math.max(0,vent.hp)/18;
         if(t===180)w.cue('STEAM OPENING — FIRE AT THE VENT',160);
         if(!w.data.rewarded&&vent.hp<18){w.data.rewarded=true;w.drop('marina-first-vent-punish',w.player.x+55,FLOOR-24);}
       }
-      w.objective=vent&&vent.open?'Vent open: land your baseline shots.':'Jump the low wake. Steam reveals the vent after the slam.';
+      w.objective=vent&&vent.open?'Vent open: land your baseline shots.':w.phase?.naval?'Steer above the low wake. Steam reveals the vent after the slam.':'Jump the low wake. Steam reveals the vent after the slam.';
     },draw(ctx,w){machine(ctx,w,false);}
   };
   function makeValve(w,cycle){
@@ -92,5 +96,11 @@
       w.objective=vent&&vent.open?'Pressure released: shoot the steaming vent.':w.data.unlocked?'Shoot the release valve (left of the vent).':'Read the three pipes; dash through the marked pressure front.';
     },draw(ctx,w){machine(ctx,w,true);}
   };
-  A.registerStage({id:'01-marina',number:1,title:'Tidebreak Marina',operator:'Fat Head Dave',operatorSprite:'bront',color:'#efad76',eligibleWeapons:['prism-rail','ricochet-mine'],phases:[phase1,phase2]});
+  const groundPhases=[phase1,phase2];
+  const phases=groundPhases.map((phase,index)=>({...phase,mode:'flight',naval:true,
+    spawn:{x:phase.spawn.x,y:510},practiceSpawn:{x:phase.spawn.x,y:510},
+    flightBounds:{left:98,right:790,top:205,bottom:620},
+    objective:index?phase.objective:'Steer above the low wake and fire into the steaming vent.'
+  }));
+  A.registerStage({id:'01-marina',number:1,title:'Tidebreak Marina',operator:'Fat Head Dave',operatorSprite:'bront',color:'#efad76',eligibleWeapons:['prism-rail','ricochet-mine'],phases,groundPhases});
 })(Arcade);

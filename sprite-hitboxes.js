@@ -22,8 +22,8 @@ const SPRITE_HITBOXES = {
   stages: {
     "1": {
       "0": {
-        provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"12a1c3f0ada7b52dd3829997c7b9e0e571eda41c1ce1c2c6b2577ae56f65933e","bodyCorePixels":[180,245,295,225],"logicalTargetCorePixels":[210,345,245,125],"projectilesSha256":"596a3c8e4f3e83f9ec8c299a65088745928df1ff26df9ad7fed0deae61c51a34","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[157,267,114,86],[94,269,273,80],[116,185,151,250],[114,271,276,108]],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1]},
-        targets: {"marina-vent":{"rect":[0.2540983606557389,0.016709147550268838,1.5517883755588675,0.7929764939110734]}},
+        provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"12a1c3f0ada7b52dd3829997c7b9e0e571eda41c1ce1c2c6b2577ae56f65933e","bodyCorePixels":[180,245,295,225],"logicalTargetCorePixels":[290,397,100,80],"projectilesSha256":"596a3c8e4f3e83f9ec8c299a65088745928df1ff26df9ad7fed0deae61c51a34","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[157,267,114,86],[94,269,273,80],[116,185,151,250],[114,271,276,108]],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1]},
+        targets: {"marina-vent":{"rect":[0.0956,0.0182,0.95,0.759]}},
         boss: {"damage":{"rect":[0.29870636779301885,0.601127345824395,0.78133712501394,0.351592385352755]},"contact":{"rect":[0.3556577369052379,0.5644666718158645,0.5602758896441423,0.3620529852475477]}},
         projectiles: {
           "boulder@0": {"reference":[12,116,488,384],"crop":[143,245,216,130],"core":[157,267,114,86],"visualBox":[50,42],"kind":"contain","facing":"left"},
@@ -223,8 +223,8 @@ const SPRITE_HITBOXES = {
         }
       },
       "1": {
-        provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"eee526d69cb38f5a78bdb3bc309c065e580747d32fdff5b835feb4037d396eeb","bodyCorePixels":[130,150,350,325],"logicalTargetCorePixels":[145,350,320,125],"projectilesSha256":"d065040bfa4368dff51e250656ec34bf3c5f5fd29fa8c508bfd54339456ce77a","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[147,292,214,16],[180,204,154,162],[139,224,170,123],[90,189,202,215]],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1]},
-        targets: {"marina-vent":{"rect":[-0.15760059612518634,0.05050505050505039,2.0268256333830106,0.7912457912457913]}},
+        provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"eee526d69cb38f5a78bdb3bc309c065e580747d32fdff5b835feb4037d396eeb","bodyCorePixels":[130,150,350,325],"logicalTargetCorePixels":[290,397,100,80],"projectilesSha256":"d065040bfa4368dff51e250656ec34bf3c5f5fd29fa8c508bfd54339456ce77a","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[147,292,214,16],[180,204,154,162],[139,224,170,123],[90,189,202,215]],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1]},
+        targets: {"marina-vent":{"rect":[0.0956,0.0173,0.95,0.76]}},
         boss: {"damage":{"rect":[0.16627634660421547,0.4534064562154449,0.9270101483216239,0.5071785268414482]},"contact":{"rect":[0.2606957217113155,0.41235078053259866,0.6647341063574571,0.5222681359044995]}},
         projectiles: {
           "boulder@0": {"reference":[12,63,488,437],"crop":[12,192,488,179],"core":[147,292,214,16],"visualBox":[50,42],"kind":"contain","facing":"left"},
@@ -4852,6 +4852,22 @@ function spriteAtlasDestinationRect(reference,crop,box,centered) {
     y:Math.round(centered?(crop[1]-reference[1]-reference[3]/2)*s:box.h/2+(crop[1]-reference[1]-reference[3])*s),
     w:Math.round(crop[2]*s),h:Math.round(crop[3]*s)};
   return result.w>0&&result.h>0?result:null;
+}
+
+function marinaBossDrawBox(box,rightEdge) {
+  const scale=1.5,w=box.w*scale,h=box.h*scale;
+  return {...box,x:Math.min(box.x+(box.w-w)/2,rightEdge-w),y:box.y+box.h-h,w,h};
+}
+
+function marinaTrialMotion(tick=0) {
+  return {x:Math.sin(tick*.046)*9,y:Math.sin(tick*.061)*7};
+}
+
+function marinaBossBodyRect(box,phase) {
+  const body=SPRITE_HITBOXES.stages[1][phase].provenance.bodyCorePixels;
+  const bounds=phase?[12,95,488,405]:[12,179,488,321];
+  const destination=spriteAtlasDestinationRect(bounds,body,box,false);
+  return {...destination,x:destination.x+box.x+box.w/2,y:destination.y+box.y+box.h/2};
 }
 
 // Pure visual-layout classification, shared by renderer and fitted collision geometry.

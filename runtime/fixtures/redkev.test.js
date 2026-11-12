@@ -17,7 +17,7 @@ const pending=config(false),live=config(true);assert.deepEqual(Array.from(pendin
  for(const move of ['anchorRun','bellSweep'])assert.ok(dave.seen.has(move)&&!kev.seen.has(move),'Fat Head Dave alone uses '+move);
  for(const move of ['ceilingSweep','arenaHazard','hammer','ripple','comet','floorSaw','eyeShot','minefall','needleFall','starCross'])assert.ok(kev.seen.has(move),'Redkev still uses '+move);
  assert.notDeepEqual(kev.orderSeen.slice(0,6),dave.orderSeen.slice(0,6),'the two fights open differently');
- assert.equal(dave.orderSeen[0],'quake');assert.equal(kev.orderSeen[0],'rush');
+ assert.equal(dave.orderSeen[0],'airLanes');assert.equal(kev.orderSeen[0],'rush');
  const log={schema:1,simVersion:sim.ARCADE_SIM_VERSION,seed:37,rules:{mode:'story',level:13,shieldWait:0},loadout:{pilot:'rivet'},ticks:1,inputs:sim.encodeInputs([0]),claimed:{kind:'boss',stage:13,bossId:'redkev',ticks:1},godMode:false};const r=sim.verifyClear(log);assert.equal(r.ok,false);assert.match(r.error,/no clear within/,'ID13 resolves in actual server verifier but no clear is fabricated');assert.equal(r.stage,13);assert.equal(r.bossId,'redkev');
  console.log('PASS gated Redkev campaign1→13→2, stable prior12IDs/unlocks, Marina arena and health with the Redkev kit, and real serverID13 validation');
 })().catch(e=>{console.error(e);process.exitCode=1;});

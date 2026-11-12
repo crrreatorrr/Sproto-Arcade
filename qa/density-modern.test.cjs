@@ -105,8 +105,8 @@ for(const id of ['04-ranch','05-neon']){
  const w=atDue(world('01-marina'));
  w.shotClock=4;w.step({});assert.ok(w.densityBarrage);
  const clock=w.shotClock,x=w.player.x,y=w.player.y;
- w.step({right:true,jump:true,beam:true,bomb:true,power:true});
- assert.ok(w.player.x>x&&w.player.y<y,'ground player can move and jump');
+ w.step({right:true,up:true,beam:true,bomb:true,power:true});
+ assert.ok(w.player.x>x&&w.player.y<y,'speedboat can change lanes during a barrage');
  assert.equal(w.shotClock,clock);assert.equal(w.player.beamWait,0);assert.equal(w.player.bombWait,0);assert.equal(w.shots.length,0,'barrage suspends player offense');
  w.step({right:true,dash:true});assert.ok(w.player.dash,'air dash stays available');
  w.advancePhase();assert.equal(w.densityBarrage,null);assert.equal(w.hazards.length,0);
@@ -114,8 +114,8 @@ for(const id of ['04-ranch','05-neon']){
  assert.equal(w.phaseIndex,1);assert.equal(w.phaseTick,0);assert.equal(w.data.densityLastCycle,undefined);
 }
 for(const down of [false,true]){
- const w=atDue(world('01-marina'));w.step({});w.hazards=[];
- const p=w.player,probe={id:'crouch-test',stage:1,source:'boss-density-1',density:true,x:p.x-16,y:p.y-40,w:32,h:32,active:1};
+ const w=atDue(world('13-redkev'));w.step({});w.hazards=[];
+ const p=w.player,probe={id:'crouch-test',stage:13,source:'boss-density-13',density:true,x:p.x-16,y:p.y-40,w:32,h:32,active:1};
  const core=D.damageRect(probe);
  probe.x+=p.x-core.x-core.w/2;probe.y+=p.y-43-core.y-core.h/2;
  w.hazard(probe);w.step({down});
@@ -136,7 +136,7 @@ for(const down of [false,true]){
  w.step({});assert.equal(w.player.y,cameraY+52);assert.equal(w.camera.y,cameraY,'upward movement stays inside the fixed barrage viewport');
 }
 // Input-only full runs exercise both dodge types with the real player and cores.
-for(const id of ['01-marina','13-redkev']){
+for(const id of ['13-redkev']){
  const w=new A.World(A.stages.get(id),{seed:17});
  const barrages=new Set();let jumps=0,tucks=0;
  for(let tick=0;tick<10000&&w.state!=='clear'&&w.state!=='lost';tick++){

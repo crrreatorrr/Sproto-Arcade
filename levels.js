@@ -2,6 +2,7 @@ const LEVELS = [
   {
     "title": "Tidebreak Marina",
     "id": 1,
+    "naval": true,
     "art": "art/level-01.jpg",
     "foot": 0.913
   },
@@ -65,6 +66,10 @@ const LEVELS = [
   {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84},
   {title:"Redkev's Marina",id:13,mechanics:1,art:"art/level-01.jpg",foot:.913}
 ];
+const NAVAL_WEAPONS = {
+  light:{cooldown:120,launch:5,frames:18,x:64,lanes:[-22,-9,4],speed:22},
+  heavy:{cooldown:180,launch:7,frames:18,x:-47,y:-28,vx:16,vy:-9.8,gravity:.31,bounces:2}
+};
 // Stable IDs/indexes preserve saved progress; campaign placement is independent.
 const REDKEV_READY=true;
 const mechanicsIndex=index=>LEVELS[index]?.mechanics?LEVELS.findIndex(l=>l.id===LEVELS[index].mechanics):index;
