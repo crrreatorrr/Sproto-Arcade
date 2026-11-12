@@ -53,8 +53,27 @@ const trialsReached=new Set();
 for(const name of NAMES){
  const got=trialsActions([name]);assert.deepEqual(got,[...trialsLayout[name]].sort(),`trials ${name}`);got.forEach(a=>trialsReached.add(a));cases++;
 }
-assert.deepEqual(trialsActions(['B'],'KeyQ'),['dash'],'a remapped dash key still dashes from the pad');
-assert.deepEqual(trialsActions(['RT'],'KeyQ'),['dash']);cases+=2;
+// Controller settings (controls.js): a keyboard remap leaves the pad alone, and a pad remap moves
+// the canonical code the game reads to the new button.
+const ctl=vm.createContext({});vm.runInContext(read('controls.js'),ctl);const K=ctl.SprotoControls;
+function remappedTrials(names,state){
+ const codes=G.gameplayCodes(snap(names),{...PROFILES.trials,buttons:K.padButtons(state,'trials')},{});
+ trialsScope.held=new Set(codes);trialsScope.press=new Set(codes);return truthy(vm.runInContext('read()',trialsScope));
+}
+const qDash=K.bindKey(K.defaults('trials'),'trials','dash',0,'KeyQ').state;
+assert.deepEqual(remappedTrials(['B'],qDash),['dash'],'a remapped dash key still dashes from the pad');
+assert.deepEqual(remappedTrials(['RT'],qDash),['dash']);
+assert.deepEqual(JSON.stringify(K.padButtons(K.defaults('trials'),'trials')),JSON.stringify(Object.fromEntries(Object.entries(PROFILES.trials.buttons).map(([b,c])=>[b,c.map(x=>x==='$dash'?'ShiftLeft':x)]))),'controls.js default pad layout is gamepad.js trials layout');
+assert.deepEqual(JSON.stringify(K.padButtons(K.defaults('story'),'story')),JSON.stringify(PROFILES.story.buttons),'controls.js default pad layout is gamepad.js story layout');
+const yJump=K.bindPad(K.defaults('trials'),'trials','jump',0,'Y');
+assert.equal(JSON.stringify(yJump.swapped),JSON.stringify({action:'beam',slot:0,code:'A'}),'binding Y to jump swaps the C special onto A');
+assert.deepEqual(remappedTrials(['Y'],yJump.state),['jump'],'Y now jumps');assert.deepEqual(remappedTrials(['A'],yJump.state),['beam'],'A now fires the C special');
+const padRetry=K.bindPad(K.defaults('trials'),'trials','retry',0,'R3').state;
+assert.deepEqual(remappedTrials(['R3'],padRetry),['retry'],'instant retry can be put on a button by choice');
+const storyPadJump=K.bindPad(K.defaults('story'),'story','jump',1,'LB').state;
+{const codes=G.gameplayCodes(snap(['LB']),{...PROFILES.story,buttons:K.padButtons(storyPadJump,'story')},{});storyScope.keys=new Set(codes);storyScope.pressed=new Set(codes);
+ assert.deepEqual(truthy(vm.runInContext('read()',storyScope)),['jump','jumpHeld'],'story: LB bound to jump jumps');}
+cases+=8;
 const trialsFields=['left','right','up','down','dash',...trialsScope.actionNames].filter(a=>a!=='retry').sort();
 assert.deepEqual([...trialsReached].sort(),trialsFields,'every trials action but instant retry has a controller button');
 assert.ok(!trialsReached.has('retry'),'instant retry (R) stays off the pad; game over offers a Retry button');
@@ -82,7 +101,9 @@ for(const [page,profile,after] of [['legacy.html','story','game.js'],['index.htm
 for(const page of ['index.html','controlled-stage-review.html']){const m=read(page).match(/rework\.js\?v=([0-9a-f]+)/);assert.equal(m[1],hash('rework.js'),`${page} rework.js cache hash is current`);}
 // Story weapons bar and Trials canvas labels swap to the button that sends that key.
 const storyPad=Object.fromEntries(Object.entries(PROFILES.story.buttons).map(([b,codes])=>[codes[0],b]));
-for(const [,key,label] of read('legacy.html').matchAll(/<b data-pad="([A-Z]+)">([A-Z])<\/b>/g))assert.equal(storyPad['Key'+label],key,`story prompt ${label} shows ${key}`);
+let promptCount=0;
+for(const [,key,label] of read('legacy.html').matchAll(/<b data-bind="[a-z]+" data-pad="([A-Z]+)">([A-Z])<\/b>/g)){promptCount++;assert.equal(storyPad['Key'+label],key,`story prompt ${label} shows ${key}`);}
+assert.equal(promptCount,2,'both story weapon prompts are checked');
 const padLabel=JSON.parse(rework.match(/const PAD_LABEL=(\{[^}]*\})/)[1].replace(/(\w+):/g,'"$1":').replace(/'/g,'"'));
 const trialsPad=Object.fromEntries(Object.entries(PROFILES.trials.buttons).filter(([b])=>b!=='RT'&&b!=='LT').map(([b,codes])=>[codes[0].replace(/^Key/,'').replace('$dash','dash'),b]));
 for(const [key,label] of Object.entries(padLabel))assert.equal(trialsPad[key],label,`trials canvas prompt ${key} shows ${label}`);
