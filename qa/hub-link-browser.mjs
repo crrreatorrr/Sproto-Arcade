@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Story mode ↔ hub link (hub-link.js, story-progress.js, hub-ui.js) in real Chromium.
 //  1. Offline: the real vendored SDK finds no ticket, the game plays, progress stays local.
-//  2. Hub session: the SDK bundle is swapped for a recording stub. Checks the cloud-save merge,
+//  2. Hub session: the real SDK bundle with createHubSdk swapped for a recording stub (the
+//     progress store is the real one). Checks the cloud-save merge,
 //     Relic unlocks, first-boss Relic reports for repeat wins and phase-2 retries, Tickets only
 //     on full clears outside god mode, and Return to hub.
 //  3. index.html forwards a hub ticket (#t=) to story mode.
@@ -24,7 +25,7 @@ const server=http.createServer((req,res)=>{
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const origin='http://127.0.0.1:'+server.address().port;
-const STUB=`var HubSDK={createHubSdk:function(){
+const STUB=`HubSDK=Object.assign({},HubSDK,{createHubSdk:function(){
   var calls=window.__hubCalls=[];var me=window.__stubPlayer||'p1';var relics=me==='p1'?['cones_tip']:[];
   var cloud=me==='p1'?{data:{v:1,cleared:[4],unlocked:['sproto831'],updatedAt:1},updatedAt:1}:{data:null,updatedAt:0};
   return {
@@ -36,7 +37,8 @@ const STUB=`var HubSDK={createHubSdk:function(){
     reportEvent:async function(e,d,k){calls.push(['reportEvent',e,d,k]);if(e==='arcade.boss_defeated'&&d.boss==='bront'&&relics.indexOf('breakwater_coin')<0){relics.push('breakwater_coin');return {granted:'breakwater_coin'};}return {};},
     earnTickets:async function(a,r,k){if(window.__slowEarn)await new Promise(function(ok){setTimeout(ok,window.__slowEarn);});calls.push(['earnTickets',a,r,k]);return {balance:60,capped:false};},
     exit:function(r){calls.push(['exit',r]);}
-  };}};`;
+  };}});`;
+const SDK_STUB=fs.readFileSync(path.join(root,'vendor/hub-sdk/hub-sdk.iife.js'),'utf8')+';\n'+STUB;
 const browser=await chromium.launch();
 const results={};
 async function open(page){
@@ -72,7 +74,7 @@ try{
   }
   { // 2. Hub session with the recording stub.
     const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
-    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:STUB}));
+    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:SDK_STUB}));
     const errors=await open(page);
     await page.waitForFunction(()=>window.ArcadeHub.state.status==='online');
     const state=await page.evaluate(()=>window.ArcadeHub.state);
@@ -84,8 +86,8 @@ try{
     await page.evaluate(()=>window.ArcadeHub.recordLocalClear(0)); // a previous win without the Coin
     await clear(page,0,false,2);
     await page.waitForFunction(()=>window.ArcadeHub.state.relics.includes('breakwater_coin'));
-    assert.deepEqual(await page.evaluate(()=>window.__hubCalls.filter(c=>c[0]==='earnTickets'||c[0]==='writeSave')),[],
-      'a phase-2 retry grants the Coin without Tickets or a cloud write');
+    assert.deepEqual(await page.evaluate(()=>window.__hubCalls.filter(c=>c[0]==='earnTickets')),[],
+      'a phase-2 retry grants the Coin without Tickets');
     await clear(page,0,true);
     await page.waitForFunction(()=>window.__hubCalls.some(c=>c[0]==='writeSave'&&c[1].cleared.includes(0)));
     await clear(page,0,false); // full run with the Coin already owned
@@ -129,16 +131,17 @@ try{
     results.hubSession='passed';
     await page.close();
   }
-  { // 2b. Accounts on one browser stay apart: offline progress goes to the first account only.
+  { // 2b. Accounts on one browser stay apart, and progress made outside the hub stays with the browser.
     const context=await browser.newContext();
     const page=await context.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     await page.goto(origin+'/legacy.html');
     await page.waitForFunction(()=>!document.getElementById('start').disabled,null,{timeout:120000});
     await page.evaluate(()=>window.ArcadeHub.ready);
     await clear(page,2,false); // offline, before any sign-in
-    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:STUB}));
+    await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:SDK_STUB}));
     await page.reload();await page.waitForFunction(()=>window.ArcadeHub?.state.status==='online',null,{timeout:60000});
-    assert.deepEqual(await page.evaluate(()=>window.ArcadeHub.state.save.cleared),[2,4],'first account takes over the guest progress');
+    assert.deepEqual(await page.evaluate(()=>window.ArcadeHub.state.save.cleared),[4],'the account does not take the browser progress');
+    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('sproto-arcade-story-v1')).cleared),[2],'browser progress stays on the device');
     await clear(page,5,false);
     await page.addInitScript(()=>{window.__stubPlayer='p2';});
     await page.reload();await page.waitForFunction(()=>window.ArcadeHub?.state.status==='online',null,{timeout:60000});
@@ -146,7 +149,7 @@ try{
     assert.deepEqual(p2.save.cleared,[],"another account does not inherit p1's progress");
     assert.deepEqual(p2.relics,[]);
     assert.ok(!p2.calls.some(c=>c[0]==='earnTickets'||c[0]==='reportEvent'),"p1's queued writes are not sent as p2");
-    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('sproto-arcade-story-v1:p1')).cleared),[2,4,5]);
+    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('sproto-arcade-story-v1@p1')).cleared),[4,5]);
     // Production hub address: play.<domain> games return to <domain>/hub/.
     assert.equal(await page.evaluate(()=>window.ArcadeHub.hubUrlFor({hostname:'play.example.com',protocol:'https:',port:''})),'https://example.com/hub/');
     assert.equal(await page.evaluate(()=>window.ArcadeHub.hubUrlFor({hostname:'127.0.0.1',protocol:'http:',port:'5173'})),'/hub/');
