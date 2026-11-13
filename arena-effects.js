@@ -286,11 +286,17 @@ function drawVerseMotion(ctx,time) {
   ctx.restore();
 }
 
-// [x, y, rx, ry, rate, hubRx, hubRy]: the clip ellipse is the painted fan
-// opening; the hub ellipse keeps the painted brass nose cone in front.
+// [x, y, rx, ry, rate, hubRx, hubRy, opening]: the rotor turns about the
+// painted brass hub at x, y. The painted engines are seen at an angle, so the
+// fan opening (the inner edge of the brass housing ring, [x, y, rx, ry]) is
+// centred to the right of the hub. The rotor is sized so its blades reach that
+// edge all round and is clipped to it, so blades fill the opening and stop at
+// the ring. The hub ellipse is cut out so the painted brass nose cone stays in
+// front; it is as large as the sprite's copper hub plate and its bolt ring
+// (68 of 160 px, scaled by the overscan below), so that plate never shows.
 const MARINA_TURBINES = [
-  [-3,283,123,153,.039,41,48],
-  [288,293,105,129,-.028,29,39]
+  [-3,283,147,176,.039,74,89,[39,289,102,151]],
+  [288,293,109,131,-.028,55,66,[304,300,87,118]]
 ];
 // The sprite's riveted outer rim does not exist in the painted engines, so the
 // rotor is drawn oversize to push that rim outside the clip, and darkened to
@@ -308,16 +314,16 @@ function drawMarinaEngineMotion(ctx,time) {
   const rotor=picture('art/backdrop-motion/marina/turbine.png');
   ctx.save();
   ctx.imageSmoothingEnabled=false;
-  for (const [i,[x,y,rx,ry,rate,hubRx,hubRy]] of MARINA_TURBINES.entries()) {
+  for (const [i,[x,y,rx,ry,rate,hubRx,hubRy,[ox,oy,orx,ory]]] of MARINA_TURBINES.entries()) {
     ctx.save();
-    // Follow the circular face instead of slicing the spinning blades at a
-    // rectangular bottom/left edge. The native foreground remains visible.
-    ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);
+    // Follow the painted fan opening instead of slicing the spinning blades at
+    // a rectangular bottom/left edge. The native foreground remains visible.
+    ctx.beginPath();ctx.ellipse(ox,oy,orx,ory,0,0,Math.PI*2);
     ctx.moveTo(x+hubRx,y);ctx.ellipse(x,y,hubRx,hubRy,0,0,Math.PI*2);ctx.clip('evenodd');
     if (i===1) {
       // The rear wheel passes behind the curved housing of the front engine.
       ctx.beginPath();ctx.rect(0,0,1280,720);
-      ctx.ellipse(40,283,225,175,0,0,Math.PI*2);ctx.clip('evenodd');
+      ctx.ellipse(92,285,170,210,0,0,Math.PI*2);ctx.clip('evenodd');
     }
     // Keep the two lamp stands and the lower pipe ledge in front of the rotors.
     // Separate clips prevent overlapping foreground masks cancelling out.
