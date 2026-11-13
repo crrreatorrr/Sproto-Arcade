@@ -8,8 +8,11 @@ const turbines=vm.runInContext('MARINA_TURBINES',scope),overscan=vm.runInContext
 assert.equal(vm.runInContext('STATIC_ARENAS[0][0]',scope),'marina-remake/engine-room.jpg');
 // turbine.png: blades end about 145 px from the 160 px radius, then a riveted rim the painted engines lack.
 assert.ok(overscan*145/160>=1,'the sprite rim falls outside the painted fan opening');
+// turbine.png: the copper hub plate and its bolt ring end 68 px from the centre.
 for(const [x,y,rx,ry,rate,hubRx,hubRy] of turbines){
- assert.ok(rate!==0&&hubRx>0&&hubRy>0&&hubRx<rx&&hubRy<ry,'each rotor keeps the painted brass hub in front');
+ assert.ok(rate!==0&&hubRx<rx&&hubRy<ry,'each rotor keeps the painted brass hub in front');
+ const plate=rx*overscan*68/160;
+ assert.ok(hubRx>=plate&&hubRy>=plate*ry/rx,'the hub cut hides the sprite copper plate');
 }
 for(const time of [0,40,333]){
  const ops=[];let filterSet=false,rotor=null;
@@ -22,5 +25,8 @@ for(const time of [0,40,333]){
  const hubs=ops.filter(o=>o[0]==='ellipse'&&turbines.some(t=>o[3]===t[5]&&o[4]===t[6]));
  assert.equal(hubs.length,turbines.length,'hub ellipse cut out of each rotor clip');
  assert.ok(ops.filter(o=>o[0]==='clip'&&o[1]==='evenodd').length>=turbines.length*2);
+ // The rear rotor stops at its own housing ring (inner edge near x=260 at the hub, 238 at the top).
+ const housing=ops.filter(o=>o[0]==='ellipse'&&o[1]===92&&o[2]===285&&o[3]===170&&o[4]===210);
+ assert.equal(housing.length,1,'rear rotor masked by its housing ring');
 }
 console.log('marina turbines ok: '+turbines.length+' rotors');
