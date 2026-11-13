@@ -286,10 +286,18 @@ function drawVerseMotion(ctx,time) {
   ctx.restore();
 }
 
+// [x, y, rx, ry, rate, hubRx, hubRy]: the clip ellipse is the painted fan
+// opening; the hub ellipse keeps the painted brass nose cone in front.
 const MARINA_TURBINES = [
-  [-3,283,123,153,.039],
-  [284,294,105,129,-.028]
+  [-3,283,123,153,.039,41,48],
+  [288,293,105,129,-.028,29,39]
 ];
+// The sprite's riveted outer rim does not exist in the painted engines, so the
+// rotor is drawn oversize to push that rim outside the clip, and darkened to
+// match the painted blades. A flat shade fill is used instead of ctx.filter,
+// which is costly per frame (see qa/FILTER-BUDGET.md).
+const MARINA_ROTOR_OVERSCAN = 1.16;
+const MARINA_ROTOR_SHADE = ['#0b1020',.38];
 const MARINA_TANKS = [[499,594],[635,730],[771,867]];
 
 function marinaWaterFrame(frame) {
@@ -300,11 +308,12 @@ function drawMarinaEngineMotion(ctx,time) {
   const rotor=picture('art/backdrop-motion/marina/turbine.png');
   ctx.save();
   ctx.imageSmoothingEnabled=false;
-  for (const [i,[x,y,rx,ry,rate]] of MARINA_TURBINES.entries()) {
+  for (const [i,[x,y,rx,ry,rate,hubRx,hubRy]] of MARINA_TURBINES.entries()) {
     ctx.save();
     // Follow the circular face instead of slicing the spinning blades at a
     // rectangular bottom/left edge. The native foreground remains visible.
-    ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.clip();
+    ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);
+    ctx.moveTo(x+hubRx,y);ctx.ellipse(x,y,hubRx,hubRy,0,0,Math.PI*2);ctx.clip('evenodd');
     if (i===1) {
       // The rear wheel passes behind the curved housing of the front engine.
       ctx.beginPath();ctx.rect(0,0,1280,720);
@@ -324,7 +333,11 @@ function drawMarinaEngineMotion(ctx,time) {
     ctx.translate(x,y);
     ctx.scale(1,ry/rx);
     ctx.rotate(time*rate);
-    ctx.drawImage(rotor,-rx,-rx,rx*2,rx*2);
+    const size=rx*MARINA_ROTOR_OVERSCAN;
+    ctx.drawImage(rotor,-size,-size,size*2,size*2);
+    ctx.fillStyle=MARINA_ROTOR_SHADE[0];
+    ctx.globalAlpha=MARINA_ROTOR_SHADE[1];
+    ctx.fillRect(-size,-size,size*2,size*2);
     ctx.restore();
   }
 

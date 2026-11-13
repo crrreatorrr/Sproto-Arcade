@@ -20,7 +20,7 @@ const commands=tests.map(file=>{
  }
  return {file,relative,args};
 });
-for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs','projectile-visibility.test.cjs','density-attacks.test.cjs','density-modern.test.cjs','density-rotation.test.cjs','redkev-render.test.cjs','gamepad-mapping.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs','projectile-visibility.test.cjs','density-attacks.test.cjs','density-modern.test.cjs','density-rotation.test.cjs','redkev-render.test.cjs','marina-turbines.test.cjs','gamepad-mapping.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
 commands.push({file:path.join(qaDir,'prepare-density-assets.test.py'),relative:'qa/prepare-density-assets.test.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'tools/verify-density-assets.py'),relative:'tools/verify-density-assets.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'qa/verify-density-assets.test.py'),relative:'qa/verify-density-assets.test.py',args:[],executable:'python3'});
