@@ -1,6 +1,7 @@
-/* Story mode progress: cleared levels and unlocked Sprotos. Classic script, no DOM or network.
- * Saved in localStorage and, when the hub is connected, in the hub's cloud save (save.get/put).
- * Local and cloud copies merge as a union, so a stale copy never removes progress. */
+/* Story mode progress: cleared levels, unlocked Sprotos and best results. Classic script, no DOM
+ * or network. The rules live here; hub-link.js keeps the save in the hub SDK's progress store
+ * (MODEL below), which owns the localStorage keys and the cloud save. Copies merge as a union and
+ * keep the better record, so a stale copy never removes progress. */
 (function (root) {
   'use strict';
   const STORAGE_KEY = 'sproto-arcade-story-v1';
@@ -160,7 +161,8 @@
     return `Clear ${level}, or own the ${relics} in the hub`;
   }
 
-  /** `key` defaults to the device (guest) save; hub-link.js passes a per-player key. */
+  /** Reads a save kept under `key` (default: the device save). The progress store owns these keys;
+   * hub-link.js only reads them to migrate older per-player saves. */
   function load(storage, key = STORAGE_KEY) {
     try {
       return normalize(JSON.parse(storage?.getItem(key) ?? 'null'));
@@ -177,7 +179,17 @@
     }
   }
 
-  const playerKey = (playerId) => `${STORAGE_KEY}:${playerId}`;
+  /** Where builds before the hub progress store kept each player's copy. Migrated into that
+   * player's account on their next hub visit (hub-link.js), then removed. */
+  const legacyPlayerKey = (playerId) => `${STORAGE_KEY}:${playerId}`;
 
-  root.ArcadeProgress = { STORAGE_KEY, playerKey, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, recordBest, rankFor, betterBest, RANKS, isUnlocked, lockReason, load, store };
+  /**
+   * The save as a hub SDK ProgressModel. `merge` unions clears and unlocks, keeps the better
+   * result per level (a total order: rank, then time, then hits) and the later updatedAt, so it is
+   * commutative, associative and idempotent. The cloud form is the save itself, the same shape the
+   * cloud save has always had, so existing accounts load unchanged.
+   */
+  const MODEL = { empty, normalize, merge };
+
+  root.ArcadeProgress = { STORAGE_KEY, legacyPlayerKey, MODEL, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, recordBest, rankFor, betterBest, RANKS, isUnlocked, lockReason, load, store };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -133,7 +133,8 @@ Other helpers on `ArcadeSim`: `chunkLog`, `joinChunks`, `encodeInputs`, `decodeI
   each `update()` in the game loop. `clearLevel()` stamps the claim with the end-state hash and
   hands the log to `ArcadeHub.reportHubClear(level, god, replay, { checkpoint })`. Every clear first
   calls `ArcadeHub.recordLocalClear(level)` for local progress. A phase-2 checkpoint clear can report
-  the Breakwater Coin event on level 1. Immediate cloud saves and Tickets require a full run.
+  the Breakwater Coin event on level 1. Tickets require a full run; every clear's progress syncs to
+  the account's cloud save through the hub SDK progress store.
 
 ## Chunks
 
