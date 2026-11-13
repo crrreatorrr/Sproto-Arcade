@@ -1,8 +1,8 @@
 # Vendored @metaverse/hub-sdk
 
 - repo: https://github.com/crrreatorrr/metaverse-hub
-- branch: claude/account-progress
-- sha: c9d01b399a57cd83c54db4ba4e996edcd7954da4
+- branch: main
+- sha: b7921f2f7b92dbda4c7da973b70d4e23747ed3db
 - package: packages/hub-sdk @ 0.8.0
 - built with: `node tools/vendor-hub-sdk.mjs <path-to-metaverse-hub>`
 - iife: hub-sdk.iife.js (global HubSDK; classic script, not a CDN import)
@@ -38,6 +38,5 @@ IIFE, `hub-sdk.iife.js`, that sets `window.HubSDK`. The bytes are the hub build 
 `feedback-link.js` calls `HubSDK.installFeedback` (SDK 0.7.0 and later). `legacy.html` and
 `index.html` pin the file with `?v=` set to the first 12 hex digits of that sha256.
 
-This copy comes from the hub branch `claude/account-progress`, which is not merged to hub main yet.
 Re-vendor whenever packages/hub-sdk changes, and after the hub PR merges re-vendor from hub main.
 The SDK drops Relic ids it does not know, so an old bundle hides newer Relics.
