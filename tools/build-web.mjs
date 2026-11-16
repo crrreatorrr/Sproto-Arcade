@@ -116,7 +116,8 @@ for(const file of [...files].sort()){
 }
 // Production hub config: the server key comes from the environment, never from the repo.
 const serverKey=process.env.NAKAMA_SERVER_KEY||'';
-if(!serverKey)console.warn('NAKAMA_SERVER_KEY is not set: dist/ plays offline only (no hub sign-in).');
+// With no key, hub-link.js signs in with Nakama's stock key only when served from loopback (the local hub).
+if(!serverKey)console.warn('NAKAMA_SERVER_KEY is not set: dist/ signs in to the hub only when served from this machine (localhost); elsewhere it plays offline.');
 // ARCADE_ALLOW_DEV_KEY=1 is for local test builds against server/docker-compose.yml only; CI never sets it.
 const devBuild=process.env.ARCADE_ALLOW_DEV_KEY==='1';
 if(serverKey==='defaultkey'&&!devBuild)throw Error('Refusing the dev server key in dist/; deploy/scripts/check-dist-secrets.sh rejects it too. Set ARCADE_ALLOW_DEV_KEY=1 for a local test build.');

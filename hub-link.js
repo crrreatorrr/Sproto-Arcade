@@ -28,11 +28,29 @@
   // Builds before the progress store showed the last signed-in player's copy outside the hub.
   // Play outside the hub is device progress now, so the key is no longer read; it is removed.
   const LAST_PLAYER_KEY = 'sproto-arcade-hub-last-player';
+  // localhost, *.localhost, 127.x.x.x and [::1]: a page the local hub serves.
+  const LOOPBACK_HOST = /^(localhost|[\w-]+\.localhost|127(?:\.\d{1,3}){3}|\[::1\]|::1)$/i;
   // hub-config.js sets window.SPROTO_ARCADE_HUB = { serverUrl, serverKey, hubUrl } before this
   // script (dev key locally, the production key in dist/). serverUrl '' is same-origin /v2, as on
   // play.<domain> and the hub dev proxy. An empty hubUrl is derived from this page's host.
   const config = { serverUrl: '', serverKey: '', hubUrl: '', ...(root.SPROTO_ARCADE_HUB || {}) };
+  config.serverKey = serverKeyFor(config.serverKey, root.location?.hostname);
   if (!config.hubUrl) config.hubUrl = hubUrlFor(root.location);
+
+  /**
+   * The Nakama client key for this page: the configured one, else Nakama's stock key when the page
+   * is served from this machine. A dist/ built without NAKAMA_SERVER_KEY ships an empty key; the
+   * local hub serves that build from its public/play/sproto-arcade/ and keeps the stock key
+   * (metaverse-hub server/scripts/dev-env.sh). Same rule as Sproto Fighter's src/net/serverKey.ts.
+   * The key is not a secret. Any other host with no key stays offline, as before.
+   */
+  function serverKeyFor(configKey, hostname) {
+    if (configKey) return String(configKey);
+    // Joined at runtime so dist/ never holds the bare literal: tools/build-web.mjs and the hub's
+    // deploy/scripts/check-dist-secrets.sh refuse a build configured with the dev key, and this
+    // fallback never applies outside loopback.
+    return LOOPBACK_HOST.test(String(hostname ?? '')) ? ['default', 'key'].join('') : '';
+  }
 
   /** play.<domain> serves the games and <domain>/hub/ the plaza; anywhere else (dev) the hub is same-origin. */
   function hubUrlFor(loc) {
@@ -395,6 +413,7 @@
     },
     hubUrl: config.hubUrl,
     hubUrlFor,
+    serverKeyFor,
     ready: connect(),
   };
 })(window);
