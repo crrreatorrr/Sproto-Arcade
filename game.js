@@ -2396,8 +2396,16 @@ function goldieAttachment(x,y,pose) {
 }
 
 function drawGoldieJetpack() {
-  const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||{row:1+(globalThis.ArcadeBossSheets?.legacyVariant(boss,'chase')||0),column:Math.floor((boss.attackAge||0)/6)%4};
-  if(globalThis.ArcadeBossSheets?.drawBoss(ctx,11,0,sheetPose,{x:boss.x-100,y:boss.y-100,w:200,h:200,flip:true}))return;
+  const sheets=globalThis.ArcadeBossSheets, age=boss.attackAge, shots=CHASE_ATTACKS[boss.attackIndex].shots;
+  const first=shots[0][0], last=shots.at(-1)[0];
+  const attacking=authoredTime()>=100&&age>=first-24&&age<last+16;
+  let sheetPose={row:0,column:Math.floor(time/6)%4};
+  if (attacking) {
+    const column=age<first?(age<first-10?0:1):shots.some(([tick])=>age>=tick&&age<tick+7)?2:3;
+    sheetPose={row:1+(sheets?.legacyVariant(boss,'chase')??0),column};
+  }
+  if (densityShots.length&&sheets) sheetPose=sheets.barragePose(densityShots,time,true);
+  if(sheets?.drawBoss(ctx,11,0,sheetPose,{x:boss.x-100,y:boss.y-100,w:200,h:200,flip:true}))return;
   const pose=goldiePose();
   const size=GOLDIE_FRAME_SIZE;
   ctx.save();

@@ -50,5 +50,24 @@ const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.pro
  const legacyGate=vm.runInContext('({ready:bossArtReady,load:loadBossArt})',scope);const beforeMissing=scope.constructed;scope.ArcadeBossSheets=undefined;
  vm.runInContext('SPRITE_HITBOXES.enabled=false',scope);assert.equal(scope.start(),undefined);assert.equal(scope.constructed,beforeMissing+1);assert.equal(legacyGate.ready(0),true);await legacyGate.load(0);
  vm.runInContext('SPRITE_HITBOXES.enabled=true',scope);const protectedWorld=scope.world;scope.start();assert.equal(scope.constructed,beforeMissing+1,'enabled geometry cannot start without the renderer');assert.equal(scope.world,protectedWorld);assert.match(el('start').textContent,/Reload/);assert.equal(legacyGate.ready(0),false);await assert.rejects(legacyGate.load(0),/Reload/);let missingStarted=false;scope.whenReady(0,()=>{missingStarted=true;});await new Promise(setImmediate);assert.equal(missingStarted,false);assert.match(el('start').textContent,/Reload/);scope.ArcadeBossSheets=art;vm.runInContext('SPRITE_HITBOXES.enabled=false',scope);
- console.log('PASS stage-scoped boss/missile/shared-pickup decode gate, shared loads, retryable failures, invalid dimensions, modern/legacy no pre-start world/ticks and synchronous warm retry');
+ // Cosmetic phase sheets load in place of the canonical pixels. A failed
+ // cosmetic decode falls back to the original phase without blocking a run.
+ const cosmetic=vm.createContext({Image});
+ for(const file of ['sprite-hitboxes.js','boss-sprite-presentations.js','boss-sheets.js'])vm.runInContext(fs.readFileSync(file,'utf8'),cosmetic,{filename:file});
+ const display=cosmetic.ArcadeBossSheets;
+ assert.equal(display.presentationPaths().length,26);
+ const cosmeticStart=created.length,load=display.preloadStage(1),requested=created.slice(cosmeticStart);
+ assert.match(requested[0].src,/p1-presentation\.webp\?v=[a-f0-9]{12}$/);
+ assert.match(requested[1].src,/p2-presentation\.webp\?v=[a-f0-9]{12}$/);
+ assert.ok(!requested.some(i=>/\/p[12]\.png/.test(i.src)),'the accepted sources do not load twice');
+ requested.slice(1).forEach(i=>i.src.includes('/missiles/')?i.resolve(2048,512):i.resolve());
+ requested[0].reject();
+ await new Promise(setImmediate);
+ assert.match(created.at(-1).src,/\/p1\.png\?v=[a-f0-9]{16}$/);
+ created.at(-1).resolve();
+ await load;
+ assert.equal(display.stageReady(1),true);
+ assert.match(display.phaseImage(1,0).src,/\/p1\.png/);
+ assert.match(display.phaseImage(1,1).src,/p2-presentation\.webp/);
+ console.log('PASS stage-scoped decode gates, versioned presentation atlases, canonical fallback and synchronous warm retry');
 })().catch(error=>{console.error(error);process.exitCode=1;});

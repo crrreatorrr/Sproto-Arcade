@@ -88,9 +88,22 @@
   Object.assign(manifest[5].projectiles[0],{"ready":true,"bounds":[12,146,488,354],"rowBounds":[[12,270,488,107],[136,245,257,157],[52,146,404,354],[77,235,354,180]],"facing":"left"});
   // END APPROVED COLLECTOR P1 REPLACEMENT
   const images=new Map(),shotBindings=new WeakMap();
+  const visualPhases=Object.fromEntries(Object.entries(root.ArcadeBossSpriteVersions||{}).map(([id,versions])=>[
+    id,versions.map((version,phase)=>{
+      const canonical=manifest[id].phases[phase];
+      return {path:canonical.path.replace(/\.png$/,'-presentation.webp'),version,ready:true,canonical};
+    })
+  ]));
+  const unavailableVisuals=new Set();
+  function presentationPaths(){return Object.values(visualPhases).flatMap(phases=>phases.map(asset=>asset.path));}
+  function presentationPhase(id,phase){
+    const key=Number.parseInt(id,10),canonical=manifest[key]?.phases[phase],visual=visualPhases[key]?.[phase];
+    return canonical?.ready&&visual&&!unavailableVisuals.has(visual.path)?visual:canonical;
+  }
   const mod3=n=>((Math.floor(Number(n)||0)%3)+3)%3;
   function entry(id){return manifest[Number.parseInt(id,10)];}
   function assetUrl(asset){
+    if(asset.version)return asset.path+'?v='+asset.version;
     // A replacement keeps its canonical filename; pin the request to its
     // reviewed pixels so a returning browser cannot reuse the old vehicle.
     const match=/\/bosses\/(\d+)-[^/]+\/p([12])(-projectiles)?\.png$/.exec(asset.path);
@@ -108,7 +121,7 @@
     return img.complete&&img.naturalWidth>0?img:null;
   }
   function phaseImage(id,phase){
-    const config=entry(id),img=image(config?.phases[phase]);
+    const config=entry(id),asset=presentationPhase(id,phase),img=image(asset);
     return img&&img.naturalWidth%(config.columns||4)===0&&img.naturalHeight%(config.rows||4)===0?img:null;
   }
   // Keylines are baked once per sprite frame and size. A canvas filter on every projectile
@@ -284,7 +297,7 @@
     return spriteLegacyWeaponVariant(b.step,b.attackIndex,kind);
   }
   function legacyPose(move,age,tell,active,tick,variant=0){
-    if(!move)return{row:0,column:Math.floor(tick/6)%4};
+    if(!move||age>=tell+active+10)return{row:0,column:Math.floor(tick/6)%4};
     const column=age<tell?Math.min(1,Math.floor(age/Math.max(1,tell/2))):age<tell+Math.min(12,active)?2:3;
     return{row:1+mod3(variant),column,variant:mod3(variant)};
   }
@@ -459,23 +472,31 @@
     return[x,y,Math.max(...valid.map(b=>b[0]+b[2]))-x,Math.max(...valid.map(b=>b[1]+b[3]))-y];
   }
   const stageLoads=new Map();
-  function stageAssets(id){const config=entry(id);return config?[...config.phases,...config.projectiles,missileAssets[Number.parseInt(id,10)],pickupAsset].filter(asset=>asset?.ready):[];}
+  function stageAssets(id){const config=entry(id);return config?[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles,missileAssets[Number.parseInt(id,10)],pickupAsset].filter(asset=>asset?.ready):[];}
   function decoded(img,asset){return !!img&&img.complete&&img.naturalWidth===2048&&img.naturalHeight===(asset?.rows===1?512:2048);}
   function stageReady(id){return stageAssets(id).every(asset=>decoded(images.get(asset.path),asset));}
+  function decodeStageAsset(asset){
+    image(asset);
+    const img=images.get(asset.path);
+    if(decoded(img,asset))return Promise.resolve();
+    const ready=typeof img.decode==='function'?img.decode():new Promise((resolve,reject)=>{
+      img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('Boss art could not load')),{once:true});
+    });
+    return ready.then(()=>{if(!decoded(img,asset))throw Error('Game art must be a complete 2048px sprite sheet');});
+  }
   function preloadStage(id){
-    const assets=stageAssets(id),key=Number.parseInt(id,10)+':'+assets.map(asset=>asset.path).join('|');
+    const assets=stageAssets(id),key=Number.parseInt(id,10);
     if(stageReady(id))return Promise.resolve();
     if(stageLoads.has(key))return stageLoads.get(key);
-    const pending=Promise.all(assets.map(asset=>{
-      image(asset);const img=images.get(asset.path);
-      const ready=decoded(img,asset)?Promise.resolve():typeof img.decode==='function'?img.decode():new Promise((resolve,reject)=>{
-        img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('Boss art could not load')),{once:true});
-      });
-      return ready.then(()=>{if(!decoded(img,asset))throw Error('Game art must be a complete 2048px sprite sheet');});
-    }));
-    const loading=pending.then(()=>{stageLoads.delete(key);},error=>{stageLoads.delete(key);for(const asset of assets)if(!decoded(images.get(asset.path),asset))images.delete(asset.path);throw error;});
+    const pending=Promise.all(assets.map(asset=>decodeStageAsset(asset).catch(error=>{
+      if(!asset.canonical)throw error;
+      unavailableVisuals.add(asset.path);
+      images.delete(asset.path);
+      return decodeStageAsset(asset.canonical);
+    })));
+    const loading=pending.then(()=>{stageLoads.delete(key);},error=>{stageLoads.delete(key);for(const asset of stageAssets(id))if(!decoded(images.get(asset.path),asset))images.delete(asset.path);throw error;});
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,presentationPaths,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
 })(globalThis);

@@ -407,13 +407,16 @@ function drawCodeMecha(frame,x,y,height,facing=1) {
 }
 
 function drawCodebreak() {
-  const barragePose=densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true);
+  const sheets=globalThis.ArcadeBossSheets;
+  const barragePose=densityShots.length&&sheets?.barragePose(densityShots,time,true);
   const cinema=boss.shift?storyTransition?.position(boss):null;
   const blend=boss.shift?(cinema==null?(boss.shift-1)/78:globalThis.ArcadeBossTransitions.progress(cinema)):null;
   ArcadePhaseBackground.draw(ctx,boss.phase===2,blend,drawCodebreakBackground);
   const b=boss, attack=attackForCodebreak();
-  const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attack.frames.at(-1)+(attack.sweep?CODE_SWEEP_DURATION-1:5);
-  const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attack.frames.at(-1)+5 && b.age<attack.frames.at(-1)+23?3:0;
+  const attackEnd=attack.frames.at(-1)+(attack.beam?(attack.sweep?CODE_SWEEP_DURATION:CODE_BEAM_DURATION)-1:5);
+  const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attackEnd;
+  const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attackEnd && b.age<attackEnd+18?3:0;
+  const sheetPose=barragePose||(frame?{row:1+(sheets?.legacyVariant(b,'codebreak')??0),column:frame===1&&b.age<attack.frames[0]-12?0:frame}:{row:0,column:Math.floor(time/6)%4});
   if (b.phase===1) {
     drawCodePlatforms();
   }
@@ -431,8 +434,9 @@ function drawCodebreak() {
       const y=b.y+(footY-320)*CODE_MECHA_SCALE;
       ctx.drawImage(flame,Math.round(x-width/2),Math.round(y),width,height);
     }
-    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,0,barragePose||{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-160*CODE_MECHA_SCALE,y:b.y-320*CODE_MECHA_SCALE,w:320*CODE_MECHA_SCALE,h:320*CODE_MECHA_SCALE,flip:facing<0}))drawCodeMecha(codeFrame('fly',pose),b.x,b.y,320*CODE_MECHA_SCALE,facing);
-    if (!attack.beam && (frame===1 || fireFrame)) {
+    const drawn=sheets?.drawBoss(ctx,12,0,sheetPose,from);
+    if(!drawn)drawCodeMecha(codeFrame('fly',pose),b.x,b.y,320*CODE_MECHA_SCALE,facing);
+    if (!drawn && !attack.beam && (frame===1 || fireFrame)) {
       const [x,y]=codeAttackMuzzle(attack.sprite);
       ctx.globalAlpha=fireFrame?.88:.3+SimMath.sin(time*.65)*.15;
       ctx.drawImage(codeFrame('shot',attack.sprite),x-15,y-36,30,38);
@@ -441,7 +445,7 @@ function drawCodebreak() {
   } else if (b.phase===2) {
     const wreckFrame=b.wreck?Math.min(3,Math.floor(b.wreck/13)):0;
     const sprite=b.wreck?codeFrame('wreck',wreckFrame):codeFrame('attack'+(attack.beam?4:b.attackIndex),frame);
-    if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,1,barragePose||{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT}))drawCodeMecha(sprite,b.x,FLOOR,CODE_BOSS_HEIGHT);
+    if(!sheets?.drawBoss(ctx,12,1,sheetPose,{x:b.x-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT}))drawCodeMecha(sprite,b.x,FLOOR,CODE_BOSS_HEIGHT);
     if (b.wreck>=25) {
       const t=b.wreck-25;
       ctx.save();

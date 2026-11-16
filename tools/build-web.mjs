@@ -82,7 +82,9 @@ function staticFiles(){
   // Sprite paths are assembled by the presentation manifest, rather than literal strings.
   // Include every verified atlas even when its first attack occurs after the brief browser audit.
   const sheetScope={};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sprite-presentations.js'),'utf8'),sheetScope);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sheets.js'),'utf8'),sheetScope);
+  for(const asset of sheetScope.ArcadeBossSheets.presentationPaths())files.add(asset);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-transitions.js'),'utf8'),sheetScope);
   for(const asset of sheetScope.ArcadeBossTransitions.assetPaths())files.add(asset);
   for(const config of Object.values(sheetScope.ArcadeBossSheets.manifest)){
