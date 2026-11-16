@@ -131,10 +131,11 @@ const acts = [
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const MOONKEEP_ATTACKS={
-  dragonBreath:{variant:0,lift:-50,shots:[[0,-4],[16,1],[32,5]]},
+  dragonBreath:{variant:0,lift:-50,shots:[[0,-4],[16,1],[32,'low']]},
   dragonCannons:{variant:1,lift:46,shots:[[0,5],[0,-5],[22,3],[22,-3]]},
-  dragonWingShot:{variant:2,lift:-35,shots:[[0,-6],[25,7]]}
+  dragonWingShot:{variant:2,lift:-35,shots:[[0,'high'],[25,'low']]}
 };
+const MOONKEEP_LANE_Y={high:108,low:FLOOR-54};
 // Mouth, wing cannons and body cannon, measured in the accepted 512px firing cells.
 const MOONKEEP_MUZZLES=[[[70,259],[86,360],[76,367]],[[61,325],[136,183],[77,396]]];
 const MOONKEEP_RIGHT_CANNON=[[151,360],[242,204]];
@@ -829,8 +830,8 @@ const MOVE_LABELS={
   airLanes:'LANE SHOTS',airBarrage:'SPREAD SHOTS',airDive:'DIVE FROM ABOVE',airFork:'FORK',airLift:'RISING SHOTS · FROM BELOW',
   airSpiral:'SPIRAL',airPincer:'PINCER · BOTH SIDES',airCrossfire:'CROSSFIRE · BOTH SIDES',airRain:'NEEDLE RAIN',
   airRockets:'ROCKETS · BOTH SIDES',airWings:'WINGS · ABOVE AND BELOW',airMines:'DRIFTING MINES',
-  dragonBreath:'DRAGON BREATH · SHIFT ALTITUDE',dragonCannons:'DRAGON CANNONS · SPLIT VOLLEY',
-  dragonWingShot:'DRAGON CANNON · HIGH AND LOW'
+  dragonBreath:'DRAGON BREATH · LOW FINISH · CLIMB',dragonCannons:'DRAGON CANNONS · SPLIT VOLLEY',
+  dragonWingShot:'DRAGON CANNON · HIGH THEN LOW · BACK OFF'
 };
 const moveLabel=move=>MOVE_LABELS[move]??String(move).replace(/([a-z])([A-Z])/g,'$1 $2').toUpperCase();
 const padPrompts=()=>document.documentElement?.dataset?.input==='gamepad';
@@ -1244,12 +1245,21 @@ function attackBoss(t) {
   const b=boss, x=b.x-146, hard=b.phase>=2;
   const dragon=MOONKEEP_ATTACKS[b.move];
   if (dragon) {
-    for (const [frame,vertical] of dragon.shots) {
+    for (const [frame,direction] of dragon.shots) {
       if(t!==frame)continue;
-      const [muzzleX,muzzleY]=moonkeepMuzzle(b,dragon.variant,dragon.variant===1&&vertical>0);
-      const aim=clamp((b.aimY-muzzleY)/78,-4,4);
+      const [muzzleX,muzzleY]=moonkeepMuzzle(b,dragon.variant,dragon.variant===1&&direction>0);
       const shape=dragon.variant===0?(hard?'pearl':'orb'):dragon.variant===1?'shard':'comet';
-      fire(muzzleX,muzzleY,hard?-12.5:-11.5,aim+vertical,shape,false);
+      const speed=hard?12.5:11.5;
+      if (typeof direction==='string') {
+        // Lock the horizontal aim during the tell and sweep the chosen altitude,
+        // including pilots nearly underneath the muzzle.
+        const dx=b.aimX-muzzleX,dy=MOONKEEP_LANE_Y[direction]-muzzleY;
+        const length=SimMath.hypot(dx,dy)||1;
+        fire(muzzleX,muzzleY,dx*speed/length,dy*speed/length,shape,false);
+      } else {
+        const aim=clamp((b.aimY-muzzleY)/78,-4,4);
+        fire(muzzleX,muzzleY,-speed,aim+direction,shape,false);
+      }
     }
     return;
   }

@@ -18,16 +18,21 @@ function airFront(w,cycle){w.hazard({id:'air-front-'+cycle,source:'moonkeep-air-
 function breath(w,clock,first,second){
  const next=clock<=first?first:second;
  const until=next-clock;
+ const low=(clock<=first)===(w.phaseIndex===0);
  w.data.dragonTell=until>0&&until<=27?until:0;
+ if(until===27)w.data.breathAimX=w.player.x;
+ if(until===22)w.cue(low?'LOW BREATH · CLIMB':w.phaseIndex?'HIGH BREATH · DIVE · JOINT OPEN':'HIGH BREATH · DIVE',48);
  if(clock!==first&&clock!==second)return;
  const phase=w.phaseIndex;
  // Mouth center in the registered flight box, plus the current patrol offset.
  const x=phase?985:969,y=(phase?384:302)+w.data.dragonY;
- const vy=clock===first?2.75:-2.75;
- const altitudeExit=vy>0?flightBounds.bottom+28:flightBounds.top-80;
- const active=Math.min(174,Math.ceil((altitudeExit-y)/vy));
+ const aimX=w.data.breathAimX??w.player.x;
+ // The high pass is shorter so it clears before the next bite windup.
+ const dx=(low?aimX:Math.max(340,aimX))-x,dy=(low?flightBounds.bottom-24:flightBounds.top-24)-y;
+ const distance=Math.hypot(dx,dy),speed=5.8;
+ const active=Math.ceil(distance/speed)+5;
  w.hazard({id:'dragon-breath-'+w.phaseTick,source:ID+'/dragon-breath',rule:'ordinary',sprite:'orb',
-  x:x-21,y:y-13,w:42,h:26,vx:-5.2,vy,active});
+  x:x-21,y:y-13,w:42,h:26,vx:dx*speed/distance,vy:dy*speed/distance,active});
 }
 A.registerStage({id:ID,number:7,title:'Moonkeep Castle',operator:'Big Swole',operatorSprite:'bigswole',color:'#b9d8e2',eligibleWeapons:['prism-rail','echo-decoy'],phases:[{
  name:'Iron Fang flight',machine:'Siege Dragon',mode:'flight',camera:'fixed',flightBounds,pilot,pilotHeight:48,hudLabel:'NECK JOINT',objective:'Fly the jet, evade the locked bite, then punish the neck joint',spawn:{x:180,y:390},practiceSpawn:{x:180,y:390},
