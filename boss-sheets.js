@@ -220,8 +220,8 @@
   // Source pixels in each 512px atlas cell. Shape the folded and extended
   // wings separately so the shorter wing still gets a full stroke.
   const dragonRigs=[
-    {wing:[310,306],tips:[487,487,487,487],wingLift:95,legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,414,452],pitchX:.47},
-    {wing:[250,346],tips:[371,497,497,404],wingLift:116,legs:[[37,80,114],[114,157,204],[211,260,308]],legY:[420,474,500],pitchX:.39}
+    {wing:[310,306],tips:[487,487,487,487],wingLift:95,legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
+    {wing:[250,346],tips:[371,497,497,404],wingLift:116,legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
   ];
   const dragonMotion=new WeakMap();
   function dragonFlight(owner,phase,tick,altitude){
@@ -231,13 +231,43 @@
     const speed=elapsed>0&&elapsed<=12?(altitude-previous.altitude)/elapsed:0;
     const velocity=Math.abs(speed)<8&&elapsed>0&&elapsed<=12?
       previous.velocity+(speed-previous.velocity)*(1-Math.pow(.68,elapsed)):0;
+    const trailing=elapsed>0&&elapsed<=12?
+      previous.trailing+(velocity-previous.trailing)*(1-Math.pow(.92,elapsed)):0;
     const pitch=-.23*Math.max(-1,Math.min(1,velocity/1.9));
-    const flight={phase,tick,altitude,velocity,pitch};
+    const flight={phase,tick,altitude,velocity,trailing,pitch};
     if(owner)dragonMotion.set(owner,flight);
     return flight;
   }
   function dragonPivot(destination,phase){
     return [destination.x+destination.w*dragonRigs[phase].pitchX,destination.y+destination.h*.59];
+  }
+  function smoothStep(t){
+    const fraction=Math.max(0,Math.min(1,t));
+    return fraction*fraction*(3-2*fraction);
+  }
+  function drawDragonTail(paint,y,scale,flight,startX,endX,top,bottom){
+    const shortTail=flight.phase===1;
+    const left=shortTail?startX:132;
+    const right=shortTail?352:430;
+    const bend=shortTail?450:456;
+    const exit=shortTail?477:bottom;
+    const lag=Math.max(-1,Math.min(1,-flight.trailing/1.65));
+    const strength=shortTail?29:32;
+    paint(startX,top,left,bottom);
+    for(let l=left;l<right;l+=6){
+      const r=Math.min(right,l+6),center=(l+r)/2;
+      // The curled tail ends on the left. The shorter tail sticks out
+      // past the back leg, so its sway increases toward the right.
+      const distance=smoothStep(shortTail?(center-left)/34:(right-center)/230);
+      const wave=Math.sin(flight.tick*.087-distance*2.3);
+      const shift=Math.round((lag*strength+wave*6)*distance*scale);
+      const bendY=y(bend)+Math.round(shift*.42);
+      const exitY=y(exit)+Math.round(shift*(shortTail?.25:1));
+      paint(l,top,r,bend,y(top),bendY);
+      paint(l,bend,r,exit,bendY,exitY);
+      paint(l,exit,r,bottom,exitY);
+    }
+    paint(right,top,endX,bottom);
   }
   let dragonBuffer=null;
   function drawDragonFlight(ctx,img,sx,sy,crop,d,flight,row,column,viewRight) {
@@ -288,24 +318,25 @@
       if(shear)target.restore();
     }
     let edge=cx;
-    const motion=Math.min(1,Math.abs(flight.velocity)/1.6);
-    const tuck=Math.max(-1,Math.min(1,flight.velocity/1.9))*10;
+    const motion=Math.max(-1,Math.min(1,flight.trailing/1.9));
     for(const [index,[start,joint,end]] of rig.legs.entries()){
       paint(edge,legTop,start,legEnd);
-      const stride=Math.sin(beat*.67+index*1.9)*(13+15*motion)+tuck;
+      const reach=index===2?8:5;
+      const stride=(Math.sin(flight.tick*.097+index*.9)*.62+motion*.64)*reach;
       for(let l=start;l<end;l+=6){
         const r=Math.min(end,l+6),center=(l+r)/2;
         const fraction=center<joint?(center-start)/(joint-start):(end-center)/(end-joint);
-        const blend=Math.min(1,1.65*fraction);
-        const influence=blend*blend*(3-2*blend);
-        const shift=Math.round(Math.max(-.8*(knee-legTop),stride*influence)*scale);
+        const shift=Math.round(stride*smoothStep(1.5*fraction)*scale);
         paint(l,legTop,r,knee,y(legTop),y(knee)+shift);
         paint(l,knee,r,legEnd,y(knee)+shift,y(legEnd)+(flight.phase?Math.round(shift*.85):0));
       }
       edge=end;
     }
-    paint(edge,legTop,endX,legEnd);
-    paint(cx,legEnd,endX,endY);
+    if(flight.phase)drawDragonTail(paint,y,scale,flight,edge,endX,legTop,legEnd);
+    else{
+      paint(edge,legTop,endX,legEnd);
+      drawDragonTail(paint,y,scale,flight,cx,endX,legEnd,endY);
+    }
     if(buffer)ctx.drawImage(dragonBuffer,d.x,d.y-pad);
     return true;
   }
