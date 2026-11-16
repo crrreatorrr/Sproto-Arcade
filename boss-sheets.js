@@ -234,17 +234,18 @@
     [222,228],[201,222],[181,220],[164,223],[143,234]];
   const rampartFoldedCut=[[143,199],[512,199],...rampartBodyEdge];
   const rampartDeployedCut=[[143,110],[512,110],...rampartBodyEdge];
-  const rampartCannons=[[81,162],[204,157],[207,177],[229,177],[229,171],[303,172],[311,198],
+  const rampartCannons=[[81,162],[204,157],[207,177],[229,180],[246,179],[272,179],
+    [278,177],[285,177],[287,182],[295,183],[300,186],[306,188],[311,198],
     [302,214],[286,224],[266,227],[250,220],[227,208],[205,209],[185,224],[171,220],[160,205],[80,212]];
   const dragonRigs=[
     {wing:{mask:siegeWing,anchor:[310,255],row:0,column:0},legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
-    {wing:{mask:rampartWing,anchor:[282,225],row:2,column:1},
-      rear:{mask:rampartRearWing,anchor:[194,211],row:2,column:1},
+    {wing:{mask:rampartWing,anchor:[282,225],row:2,column:1,scale:.80},
+      rear:{mask:rampartRearWing,anchor:[194,211],row:2,column:1,scale:.40,restAngle:.46},
       mounts:{masks:[rampartNearSupport,rampartFarSupport],row:2,column:1},
       legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
   ];
   const dragonMotion=new WeakMap();
-  function dragonFlight(owner,phase,tick,altitude,pose){
+  function dragonFlight(owner,phase,tick,altitude){
     const previous=owner&&dragonMotion.get(owner);
     if(previous?.phase===phase&&previous.tick===tick)return previous;
     const elapsed=previous?.phase===phase?tick-previous.tick:0;
@@ -254,9 +255,7 @@
     const trailing=elapsed>0&&elapsed<=12?
       previous.trailing+(velocity-previous.trailing)*(1-Math.pow(.92,elapsed)):0;
     const pitch=-.23*Math.max(-1,Math.min(1,velocity/1.9));
-    const opening=phase===1&&pose.row===2?[.35,1,1,.28][pose.column%4]:0;
-    const spread=elapsed>0&&elapsed<=12?previous.spread+(opening-previous.spread)*(1-.87**elapsed):opening;
-    const flight={phase,tick,altitude,velocity,trailing,pitch,spread};
+    const flight={phase,tick,altitude,velocity,trailing,pitch};
     if(owner)dragonMotion.set(owner,flight);
     return flight;
   }
@@ -318,27 +317,28 @@
     }
     return {wing:layers.wing,rear:layers.rear,mounts:layers.mounts,body:layers.bodies.get(key)};
   }
-  function drawDragonWing(target,layer,part,flight,scale,pin,origin,pivot,viewRight,rear=false){
-    const beat=flight.tick*2*Math.PI/(flight.phase?36:42)-(rear ? .32 : 0);
+  function drawDragonWing(target,layer,part,flight,scale,pin,origin,pivot,viewRight){
+    const beat=flight.tick*2*Math.PI/42;
     const stroke=Math.sin(beat)+.12*Math.sin(2*beat-.5);
-    const t=flight.spread;
-    const angle=flight.phase ? (rear ? .65-.56*t+.11*stroke : .53-.50*t+.19*stroke) : .05+.265*stroke;
-    const extension=(flight.phase?(rear ? .31+.46*t : .51+.37*t):.98)*(1-.085*Math.sin(beat)**2);
-    const lift=(rear ? .64+.16*t : .96)+.055*Math.cos(beat);
+    // Both forms use Siege's wingbeat. Layer size and rest angle fit the blue dragon's hinges.
+    const angle=.05+.265*stroke+(part.restAngle??0);
+    const extension=.98*(1-.085*Math.sin(beat)**2);
+    const lift=.96+.055*Math.cos(beat);
+    const wingScale=scale*(part.scale??1);
     const [hx,hy]=part.anchor,[px,py]=pivot;
     const sin=Math.sin(angle),cos=Math.cos(angle),bodySin=Math.sin(flight.pitch),bodyCos=Math.cos(flight.pitch);
     const rootRight=px+(origin[0]-px)*bodyCos-(origin[1]-py)*bodySin;
     let reach=extension;
     // Fold the span as a whole when the dragon flies against the right edge.
     for(const [wx,wy] of part.mask){
-      const u=wx-hx,v=wy-hy,dx=(u*cos-v*sin)*scale*bodyCos;
-      const dy=(u*sin+v*cos)*lift*scale;
+      const u=wx-hx,v=wy-hy,dx=(u*cos-v*sin)*wingScale*bodyCos;
+      const dy=(u*sin+v*cos)*lift*wingScale;
       if(dx>0)reach=Math.min(reach,(viewRight-3-rootRight+dy*bodySin)/dx);
     }
     reach=Math.max(.22,reach);
     target.save();
     target.translate(...pin);
-    target.transform(scale*reach*cos,scale*lift*sin,-scale*reach*sin,scale*lift*cos,0,0);
+    target.transform(wingScale*reach*cos,wingScale*lift*sin,-wingScale*reach*sin,wingScale*lift*cos,0,0);
     target.drawImage(layer,-hx,-hy);
     target.restore();
   }
@@ -395,11 +395,11 @@
     };
     const [px,py]=dragonPivot(d,flight.phase);
     ctx.translate(px,py);ctx.rotate(flight.pitch);ctx.translate(-px,-py);
-    for(const [layer,part,rear] of [[parts.rear,rig.rear,true],[parts.wing,rig.wing,false]]){
+    for(const [layer,part] of [[parts.rear,rig.rear],[parts.wing,rig.wing]]){
       if(!layer)continue;
       const [hx,hy]=part.anchor;
       const origin=[d.x+(hx-cx)*scale,d.y+(hy-cy)*scale];
-      drawDragonWing(target,layer,part,flight,scale,[x(hx),y(hy)],origin,[px,py],viewRight,rear);
+      drawDragonWing(target,layer,part,flight,scale,[x(hx),y(hy)],origin,[px,py],viewRight);
     }
     if(parts.mounts)target.drawImage(parts.mounts,x(0),y(0),x(parts.mounts.width)-x(0),y(parts.mounts.height)-y(0));
     paint(cx,cy,endX,legTop);
@@ -556,7 +556,7 @@
     if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
-    const flight=config===manifest[7]?dragonFlight(w.player,w.phaseIndex,w.tick,box.y,pose):null;
+    const flight=config===manifest[7]?dragonFlight(w.player,w.phaseIndex,w.tick,box.y):null;
     const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline,flight);
     if(shown)drawMountedRelease(ctx,img,pose,box,config.phases[w.phaseIndex].bounds,flight,w.player);
     return shown;
@@ -571,7 +571,7 @@
     const config=entry(id),img=phaseImage(id,phase);
     if(!img)return false;
     const registered=legacyBox(id,phase,box);
-    const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?dragonFlight(pose.flightOwner,phase,pose.flightTick,registered.y,pose):null;
+    const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?dragonFlight(pose.flightOwner,phase,pose.flightTick,registered.y):null;
     const shown=frame(ctx,img,pose.row||0,pose.column||0,registered,config,config.phases[phase].bounds,null,null,
       config===manifest[1]&&waterline?{...waterline,phase}:null,flight);
     if(shown&&ctx.globalCompositeOperation!=='lighter')drawMountedRelease(ctx,img,pose,registered,config.phases[phase].bounds,flight,pose.flightOwner);

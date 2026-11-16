@@ -97,6 +97,7 @@ for(const phaseIndex of [0,1]){
 }
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
 const dragonDraws=[],wingTransforms=[],wingMounts=[];
+const wingbeats=[];
 sandbox.OffscreenCanvas=class{
  constructor(width,height){this.width=width;this.height=height;}
  getContext(){
@@ -110,7 +111,8 @@ sandbox.OffscreenCanvas=class{
   };
  }
 };
-for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456],[1,118,474,9,298,450]]){
+const quarter=10;
+for(const [dragonPhase,tops,knee,tailX,tailY] of [[0,119,410,156,456],[1,118,474,298,450]]){
  const asset=sheets.manifest[7].phases[dragonPhase];
  asset.ready=true;asset.bounds=[12,tops,488,500-tops];
  const box={x:900,y:140,w:350,h:300},pose={row:2,column:2,flightTick:0,flightOwner:{}};
@@ -126,6 +128,7 @@ for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456]
  const lowered=sample(quarter),raised=sample(quarter*3);
  assert.deepEqual(raised.draws[0],lowered.draws[0],'the wingbeat leaves the cockpit and weapon pose registered');
  const wing=frame=>frame.wings.at(-1);
+ const angle=frame=>Math.atan2(wing(frame)[1],wing(frame)[3]);
  const leg=frame=>frame.draws.filter(draw=>draw[1]===knee&&draw[2]===6).map(draw=>draw[5]);
  assert.ok(wing(lowered)[1]-wing(raised)[1]>.22,'the wingtip rises and falls about the shoulder');
  assert.deepEqual(wing(raised).slice(4),[0,0],'the pivot travels with the torso without a pose offset');
@@ -139,20 +142,18 @@ for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456]
  for(let i=1;i<=30;i++)climbing=sample(start+i,142-i*2);
  for(let i=1;i<=30;i++)diving=sample(start+30+i,82+i*2);
  assert.ok(tail(climbing)[5]>tail(diving)[5]+5,'the tail drags below the dragon on a climb and above it on a dive');
+ wingbeats.push(Array.from({length:42},(_,i)=>angle(sample(120+i))));
  if(dragonPhase===1){
   assert.equal(raised.mounts.length,1,'Rampart paints the permanent wing supports as one layer');
   assert.deepEqual(raised.mounts,lowered.mounts,'the supports stay fixed while both membranes flap');
   assert.notDeepEqual(raised.wings[0],lowered.wings[0],'the far wing flaps with its own motion');
-  const owner={},idle={row:0,column:0,flightOwner:owner},deploy={...pose,flightOwner:owner};
-  const wingAngle=frame=>Math.atan2(wing(frame)[1],wing(frame)[3]);
-  sample(120,140,idle);
-  const eased=wingAngle(sample(121,140,deploy));
-  const closed=wingAngle(sample(121,140,{...idle,flightOwner:{}}));
-  const spread=wingAngle(sample(121,140,{...deploy,flightOwner:{}}));
-  assert.ok(closed>eased&&eased>spread&&closed-eased<(closed-spread)*.2,'the wing opens gradually when the cannon pose starts');
-  assert.deepEqual(sample(122,140,idle).mounts,raised.mounts,'the supports stay in place when the cannons fold away');
+  const idle=sample(121,140,{row:0,column:0,flightOwner:{}});
+  const firing=sample(121,140,{...pose,flightOwner:{}});
+  assert.deepEqual(idle.wings,firing.wings,'the weapon atlas changes frame without changing the wingbeat');
+  assert.deepEqual(idle.mounts,firing.mounts,'the supports stay in place when the cannons fold away');
  }
 }
+assert.ok(wingbeats[0].every((angle,i)=>Math.abs(angle-wingbeats[1][i])<1e-12),'Rampart follows Siege’s angle on every tick of the shared wingbeat');
 delete sandbox.OffscreenCanvas;
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');
