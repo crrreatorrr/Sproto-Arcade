@@ -284,6 +284,8 @@
   }
   function attackPose(w){
     if(w.densityBarrage)return barragePose(w.hazards.filter(h=>h.density&&!h.removed),w.tick);
+    const released=releasePose(w.player,w.phaseIndex,w.tick);
+    if(released)return released;
     const authored=authoredPose(w);if(authored)return authored;
     const live=(w.hazards||[]).filter(h=>!h.removed&&h.age<(h.windup||0)+(h.active||1)&&attackRow(w.stage.id,h));
     const main=live.filter(h=>!h.pressure&&!h.missile),pool=main.length?main:live;
@@ -310,7 +312,7 @@
     const phase=Number.isInteger(origin.weaponPhase)?origin.weaponPhase:binding?.phase??context?.phaseIndex??0;
     const variant=Number.isInteger(origin.weaponVariant)?mod3(origin.weaponVariant):binding?.variant??(Number.isInteger(context?.variant)?mod3(context.variant):context?.stage?weaponVariant(context,shot):0);
     const age=Number.isFinite(shot.age)?shot.age:Number.isFinite(origin.age)?origin.age:Math.max(0,(context?.tick||0)-(binding?.bornTick||0));
-    return{phase,row:spriteWeaponRow(variant,{...origin,...shot}),variant,column:Math.floor(age/5)%4};
+    return{phase,row:spriteWeaponRow(variant,{...origin,...shot}),variant,column:Math.floor(age/5)%4,age};
   }
   function machineBox(w){
     const phase=w.phaseIndex||0,id=Number.parseInt(w.stage.id,10),offset=w.data.offset||0;
@@ -342,7 +344,9 @@
     if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
-    return frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline);
+    const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline);
+    if(shown)drawMountedRelease(ctx,img,pose,box,config.phases[w.phaseIndex].bounds);
+    return shown;
   }
   function legacyBox(id,phase,box){
     const config=entry(id),asset=config?.phases[phase],offset=asset?.legacyOffset,scale=asset?.legacyScale;
@@ -352,11 +356,248 @@
   }
   function drawBoss(ctx,id,phase,pose,box,waterline){
     const config=entry(id),img=phaseImage(id,phase);
-    return !!img&&frame(ctx,img,pose.row||0,pose.column||0,legacyBox(id,phase,box),config,config.phases[phase].bounds,null,null,
+    if(!img)return false;
+    const registered=legacyBox(id,phase,box);
+    const shown=frame(ctx,img,pose.row||0,pose.column||0,registered,config,config.phases[phase].bounds,null,null,
       config===manifest[1]&&waterline?{...waterline,phase}:null);
+    if(shown&&ctx.globalCompositeOperation!=='lighter')drawMountedRelease(ctx,img,pose,registered,config.phases[phase].bounds);
+    return shown;
   }
   function projectileKind(id,shot,box){
     return spriteProjectileKind(shot,box,entry(id)?.projectileKinds?.[shot.source||shot.shape]);
+  }
+  const projectileColors=[
+    null,['#49dcff','#78ffef'],['#ff72fa','#86edff'],['#d1f658','#ffe293'],['#ffad49','#ffde65'],
+    ['#68fff2','#70dcff'],['#ffc64a','#c9ff72'],['#ffc86a','#88dfff'],['#ffe276','#ff9646'],
+    ['#ffc765','#b7f37c'],['#ff689f','#ff6e86'],['#ffab6a','#85bcff'],['#ffd368','#ffbc56'],['#ff624e','#ff5682']
+  ];
+  const projectileInk='#101323',projectileLight='#fff4dd';
+  const vivid='saturate(1.30) contrast(1.08) brightness(1.05)';
+  function projectileColor(id,phase){
+    return projectileColors[Number.parseInt(id,10)]?.[phase===1?1:0]||'#ffb677';
+  }
+  function pixel(ctx,x,y,w,h,color){
+    ctx.fillStyle=color;
+    ctx.fillRect(Math.round(x),Math.round(y),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)));
+  }
+  function flightTrail(ctx,x,y,width,height,angle,speed,age,kind,color){
+    if(!ctx.fillRect||speed<=0||age<1)return;
+    const missile=kind==='missile',heavy=kind==='large',unit=Math.max(1,Math.min(3,Math.round(height/13)));
+    const shoulder=Math.round(Math.min(31,width*.33));
+    const tail=Math.min(age*speed,Math.max(unit*4,Math.min(missile?48:34,7+speed*1.15+width*.34)));
+    if(tail<2)return;
+    ctx.save();ctx.translate(x,y);if(angle)ctx.rotate(angle);
+    const crest=Math.round(Math.sin(age*.8)*unit);
+    ctx.globalAlpha*=.82;
+    if(!heavy){
+      const root=-shoulder,hot=Math.min(tail*.7,tail*(.41+(age%5)*.05));
+      pixel(ctx,root-tail,-unit*.5-1,tail+1,unit+2,projectileInk);
+      pixel(ctx,root-hot,-unit-1,hot+1,2*unit+2,projectileInk);
+      pixel(ctx,root-tail*.82,-unit*.5,tail*.75,unit,color);
+      pixel(ctx,root-hot,-unit,hot+1,2*unit,color);
+      pixel(ctx,root-hot*.62,0,hot*.7,unit,projectileLight);
+    }
+    for(let i=0;i<(missile||heavy?4:3);i++){
+      const p=((age*(missile?3:2)+i*6)%19)/19,puff=Math.max(1,Math.round((1-p)*unit));
+      const px=-shoulder-tail*p,py=(i%2?1:-1)*(unit*(2+i%3)+p*3)+crest;
+      pixel(ctx,px-1,py-1,puff+3,puff+2,projectileInk);
+      pixel(ctx,px,py,puff+1,puff,i===0?projectileLight:color);
+    }
+    ctx.restore();
+  }
+  function beamFlow(ctx,width,height,age,direction,color){
+    if(!ctx.fillRect||height<8)return;
+    ctx.save();
+    ctx.beginPath();ctx.rect(-width/2,-height/2,width,height);ctx.clip();
+    const unit=Math.max(1,Math.min(3,Math.round(height/12))),step=Math.max(36,Math.min(110,Math.round(width/13)));
+    const period=step*2,scroll=((Math.floor(age*6)*direction%period)+period)%period;
+    ctx.globalAlpha*=.8;
+    for(let x=-width/2-period+scroll,i=0;x<width/2;x+=step,i++){
+      const y=(i%2?1:-1)*Math.min(height*.25,unit*2);
+      pixel(ctx,x-1,y-1,step*.46+2,unit+2,projectileInk);
+      pixel(ctx,x,y,step*.46,unit,color);
+      pixel(ctx,x+step*.13,y,step*.17,unit,projectileLight);
+      pixel(ctx,x+step*.67,-y,unit*2,unit,color);
+    }
+    ctx.restore();
+  }
+  function columnFoot(ctx,box,age,color){
+    if(!ctx.fillRect||box.h<8)return;
+    ctx.save();
+    const x=box.x+box.w/2,bottom=box.y+box.h,spread=Math.min(box.w*.45,8+age*1.6);
+    ctx.globalAlpha*=Math.min(1,(35-age)/7);
+    pixel(ctx,x-spread,bottom-5,spread*2,5,projectileInk);
+    pixel(ctx,x-spread*.75,bottom-3,spread*1.5,2,color);
+    for(let i=0;i<6;i++){
+      const step=(age*2+i*7)%16,px=x+(i%2?-1:1)*spread*(.38+step*.03);
+      const py=bottom-Math.min(box.h-1,step+3+i%3*3);
+      pixel(ctx,px,py,2+i%2,2,i%3===0?projectileLight:color);
+    }
+    ctx.restore();
+  }
+  const strikes=new WeakMap(),launches=new WeakMap(),releaseMasks=new WeakMap(),trialReleased=new WeakSet();
+  const impactDuration=23,launchDuration=11;
+  function effectQueue(store,owner,tick,duration){
+    const previous=store.get(owner);
+    const queue=(previous||[]).filter(effect=>tick>=effect.tick&&tick-effect.tick<duration);
+    store.set(owner,queue);
+    return queue;
+  }
+  function addProjectileHit(owner,tick,spec){
+    if(!owner||!Number.isFinite(spec.x)||!Number.isFinite(spec.y))return;
+    const queue=effectQueue(strikes,owner,tick,impactDuration);
+    if(queue.length>=12)return;
+    queue.push({...spec,tick});
+  }
+  function recordProjectileLaunch(owner,tick,spec){
+    if(!owner||!Number.isFinite(spec.x)||!Number.isFinite(spec.y))return;
+    const queue=effectQueue(launches,owner,tick,launchDuration);
+    if(queue.length>=24)return;
+    const angle=Math.atan2(spec.vy||0,spec.vx||0);
+    queue.push({...spec,tick,angle});
+  }
+  function releasePose(owner,phase,tick,fallback){
+    const queue=launches.get(owner)||[];
+    const latest=queue.findLast(event=>event.phase===phase&&event.pose!==false&&tick>=event.tick&&tick-event.tick<6);
+    if(!latest)return fallback;
+    // On a multi-shot frame the closest origin to the actor takes priority over remote launchers.
+    const release=queue.find(event=>event.tick===latest.tick&&event.phase===phase&&event.mounted&&event.pose!==false)||latest;
+    const variant=mod3(release.variant);
+    return{row:1+variant,column:2,variant,release,releaseAge:tick-release.tick};
+  }
+  function drawImpact(ctx,e,age){
+    const t=age/impactDuration,wet=e.kind==='water',bounce=e.kind==='bounce'||wet,guard=e.kind==='guard';
+    const color=guard?'#69ffe4':wet?'#7febff':projectileColor(e.id,e.phase);
+    const size=e.size||1,wide=(7+38*t)*size,high=wide*(bounce?.36:.76);
+    const angle=Math.atan2(e.vy||0,e.vx||0),dx=Math.cos(angle),dy=Math.sin(angle);
+    ctx.save();ctx.globalAlpha*=Math.min(1,2.25*(1-t));
+    if(age<9){
+      const core=(1-age/9)*size,flare=age<4?12:8;
+      pixel(ctx,e.x-flare*core,e.y-5*core,2*flare*core,10*core,projectileInk);
+      pixel(ctx,e.x-5*core,e.y-9*core,10*core,18*core,projectileInk);
+      pixel(ctx,e.x-(flare-2)*core,e.y-3*core,2*(flare-2)*core,6*core,color);
+      pixel(ctx,e.x-3*core,e.y-7*core,6*core,14*core,color);
+      pixel(ctx,e.x-4*core,e.y-2*core,8*core,4*core,projectileLight);
+    }
+    for(let i=0;i<8;i++){
+      const radians=i*Math.PI/4,ox=Math.cos(radians),oy=Math.sin(radians);
+      const x=e.x+ox*wide+dx*t*8,y=e.y+oy*high+(bounce?-high:dy*t*8);
+      const length=Math.max(1,Math.round((1-t)*(i%2?5:7)*size));
+      const px=x+(ox>.1?0:-length),py=y+(oy>.1?0:-length*.7);
+      const horizontal=Math.abs(ox)>=.7;
+      pixel(ctx,px-1,py-1,(horizontal?length:2)+2,(horizontal?2:length)+2,projectileInk);
+      pixel(ctx,px,py,horizontal?length:2,horizontal?2:length,i%2||t>.48?color:projectileLight);
+      if(i%2===0&&t>.2){
+        pixel(ctx,x+ox*6-1,y+oy*4-1,4,4,projectileInk);
+        pixel(ctx,x+ox*6,y+oy*4,2,2,color);
+      }
+      if(age<13&&i%2===1){
+        pixel(ctx,e.x+ox*wide*.54-1,e.y+oy*high*.54-(bounce?high:0),4,3,projectileInk);
+        pixel(ctx,e.x+ox*wide*.54,e.y+oy*high*.54-(bounce?high:0)+1,2,1,color);
+      }
+    }
+    if(bounce){
+      pixel(ctx,e.x-wide*1.05,e.y-2,wide*2.1,4,projectileInk);
+      pixel(ctx,e.x-wide*.8,e.y-2,wide*1.6,2,color);
+      pixel(ctx,e.x-wide*.42,e.y-2,wide*.55,2,projectileLight);
+    }
+    ctx.restore();
+  }
+  function drawLaunch(ctx,e,age){
+    const color=projectileColor(e.id,e.phase),u=(e.size||1)*Math.max(.28,1-age/launchDuration);
+    ctx.save();ctx.translate(e.x,e.y);ctx.rotate(e.angle);
+    ctx.globalAlpha*=Math.min(1,1.8*(1-age/launchDuration));
+    pixel(ctx,-8*u,-5*u,26*u,10*u,projectileInk);
+    pixel(ctx,-7*u,-3*u,23*u,6*u,color);
+    pixel(ctx,-3*u,-2*u,14*u,4*u,projectileLight);
+    if(age<4){
+      pixel(ctx,0,-10*u,3*u,20*u,color);
+      pixel(ctx,5*u,-7*u,3*u,14*u,projectileLight);
+    }
+    for(const direction of [-1,1]){
+      const x=11+age*2,y=direction*(6+age);
+      pixel(ctx,x,y,5*u,2*u,color);
+      pixel(ctx,x+8,y+direction*2,2*u,2*u,projectileLight);
+    }
+    ctx.restore();
+  }
+  function releaseMask(img,row,crop){
+    let masks=releaseMasks.get(img);
+    if(!masks){masks=new Map();releaseMasks.set(img,masks);}
+    if(masks.has(row))return masks.get(row);
+    const canvas=outlineSurface(40,40),ctx=canvas?.getContext?.('2d',{willReadFrequently:true});
+    if(!ctx?.getImageData)return null;
+    const [x,y,w,h]=crop,cw=img.naturalWidth/4,ch=img.naturalHeight/4;
+    ctx.imageSmoothingEnabled=false;
+    ctx.drawImage(img,2*cw+x,row*ch+y,w,h,0,0,40,40);
+    const alpha=ctx.getImageData(0,0,40,40).data;
+    masks.set(row,alpha);
+    return alpha;
+  }
+  function drawMountedRelease(ctx,img,pose,box,crop){
+    const {release:e,releaseAge:age}=pose;
+    if(!e?.mounted||!ctx.fillRect||!crop)return;
+    const d=spriteAtlasDestinationRect(crop,crop,box,false);
+    if(!d)return;
+    const cx=box.x+box.w/2,cy=box.y+box.h/2,minX=cx+(box.flip?-d.x-d.w:d.x),minY=cy+d.y;
+    const dx=Math.cos(e.angle),dy=Math.sin(e.angle);
+    const reach=84;
+    if(e.x<minX-reach||e.x>minX+d.w+reach||e.y<minY-reach||e.y>minY+d.h+reach)return;
+    const alpha=releaseMask(img,pose.row,crop);
+    if(!alpha)return;
+    // Trace back from the exact release position along its velocity. Only join a nearby
+    // opaque muzzle. The line is brief and cosmetic, so remote launchers keep their own cue.
+    for(let length=0;length<=reach;length+=3){
+      const x=e.x-dx*length,y=e.y-dy*length;
+      const mx=Math.floor((x-minX)/d.w*40),my=Math.floor((y-minY)/d.h*40);
+      if(mx<0||mx>=40||my<0||my>=40||alpha[(my*40+(box.flip?39-mx:mx))*4+3]<160)continue;
+      if(length<5)return;
+      ctx.save();ctx.translate(x,y);ctx.rotate(e.angle);
+      ctx.globalAlpha*=.72*(1-age/6);
+      pixel(ctx,0,-3,length+1,6,projectileInk);
+      pixel(ctx,0,-2,length,4,projectileColor(e.id,e.phase));
+      pixel(ctx,length*.17,-1,length*.73,2,projectileLight);
+      ctx.restore();
+      return;
+    }
+  }
+  function drawProjectileHits(ctx,owner,tick,boss=owner.player||owner){
+    if(!ctx.fillRect)return;
+    for(const e of strikes.get(owner.player||owner)||[]){
+      const age=tick-e.tick;
+      if(age>=0&&age<impactDuration)drawImpact(ctx,e,age);
+    }
+    for(const e of launches.get(boss)||[]){
+      const age=tick-e.tick;
+      if(age>=0&&age<launchDuration)drawLaunch(ctx,e,age);
+    }
+  }
+  function trialBeamFromRight(shot){
+    return shot.w>=shot.h&&!shot.vx&&!shot.vy;
+  }
+  function projectileHitsTrial(w){
+    const {player,tick,phaseIndex:phase}=w,id=w.stage.id;
+    if(!player||w.state==='transition')return;
+    for(const e of w.events){
+      if(!['hit','counter','pickupShield'].includes(e.type))continue;
+      const contact=w.hazards.find(h=>h.source===e.source&&h.resolved&&Math.abs(h.x+h.w/2-player.x)<h.w/2+42);
+      const y=player.y-(w.phase.naval?28:w.crouching?18:26);
+      addProjectileHit(player,tick,{x:player.x,y,id,phase,vx:contact?.vx,vy:contact?.vy,
+        kind:e.type==='hit'?'hit':'guard',size:contact?.missile?1.12:1});
+    }
+    if(w.state!=='playing')return;
+    for(const h of w.hazards){
+      if(trialReleased.has(h)||h.age<h.windup||h.age>h.windup+1||h.density||h.source?.startsWith('carrier-debris-'))continue;
+      const moving=Boolean(h.vx||h.vy);
+      const beam=Math.max(h.w,h.h)>=184&&projectileKind(id,h,h)==='ray';
+      if(!moving&&!beam)continue;
+      trialReleased.add(h);
+      const fromRight=trialBeamFromRight(h);
+      const vx=moving?h.vx:fromRight?-1:0,vy=moving?h.vy:fromRight?0:1;
+      const moved=h.age>h.windup?1:0;
+      const x=h.x+h.w/2-h.vx*moved+(beam?-Math.sign(vx)*h.w/2:0),y=h.y+h.h/2-h.vy*moved+(beam?-Math.sign(vy)*h.h/2:0);
+      recordProjectileLaunch(player,tick,{x,y,vx,vy,id,phase,variant:weaponVariant(w,h),mounted:!h.pressure,pose:!h.pressure});
+    }
   }
   function projectilePresentation(id,phase,row,box){
     const config=entry(id),asset=config?.projectiles[phase],crop=asset?.rowBounds?.[row],bounds=asset?.bounds;
@@ -383,7 +624,7 @@
     // A pale inner keyline and dark outer halo separate every source palette
     // from both bright scenery and dark machinery without repainting the art.
     // frame() blits it from the baked-outline cache, or applies it as a filter where it cannot.
-    const contrast='drop-shadow(1px 0px 0px #f4fcff) drop-shadow(-1px 0px 0px #f4fcff) drop-shadow(0px 1px 0px #f4fcff) drop-shadow(0px -1px 0px #f4fcff) drop-shadow(0px 0px 2px #06111f)';
+    const contrast=vivid+' drop-shadow(1px 0px 0px #f4fcff) drop-shadow(-1px 0px 0px #f4fcff) drop-shadow(0px 1px 0px #f4fcff) drop-shadow(0px -1px 0px #f4fcff) drop-shadow(0px 0px 2px #06111f)';
     if(presentation?.scale>1){
       // Scaling about the existing opaque core keeps the original collider
       // centered inside the enlarged solid sprite, including mirrored shots.
@@ -410,15 +651,18 @@
     const id=Number.parseInt(shot.stage||String(shot.source||'').replace('boss-density-',''),10),asset=missileAssets[id],img=image(asset);
     const numeric=typeof ArcadeDensityAttacks==='undefined'?null:ArcadeDensityAttacks.missileGeometry?.[id];
     const geometry={...numeric,...asset,bounds:asset?.bounds||numeric?.bounds},bounds=geometry.bounds;
-    if(!img||!bounds)return false;
+    if(!bounds)return false;
     const transform=typeof ArcadeDensityAttacks==='undefined'?{scale:Math.min(box.w/bounds[2],box.h/bounds[3]),rotation:0,offsetX:0,offsetY:0}:ArcadeDensityAttacks.missileTransform(geometry,box);
     if(!transform)return false;
-    const column=Math.floor(tick/7)%4,[sx,sy,sw,sh]=bounds,size=transform.scale,w=sw*size,h=sh*size;
+    const age=Number.isFinite(shot.age)?Math.max(0,shot.age-(shot.delay||0)):tick;
+    const column=Math.floor(age/5)%4,[sx,sy,sw,sh]=bounds,size=transform.scale,w=sw*size,h=sh*size;
+    flightTrail(ctx,box.x+box.w/2,box.y+box.h/2,w,h,shot.vertical?Math.PI/2:0,Math.hypot(shot.vx||0,shot.vy||0),age,'missile',projectileColor(id,shot.weaponPhase));
+    if(!img)return false;
     ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(box.x+box.w/2,box.y+box.h/2);
     // Correct native source angle to LEFT, then retain the caller's +X frame.
     if(shot.vertical)ctx.rotate(-Math.PI/2);
     else ctx.scale(-1,1);
-    const glow='drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
+    const glow=vivid+' drop-shadow(0px 0px 1px #ffffff) drop-shadow(0px 0px 2px #111522)';
     if(transform.rotation){ctx.translate(-transform.offsetX*size,-transform.offsetY*size);ctx.rotate(transform.rotation);}
     if(!drawOutlined(ctx,img,column*(img.naturalWidth/4)+sx,sy,sw,sh,-w/2,-h/2,w,h,glow,id)){
       ctx.filter=glow;outlineStats.direct++;
@@ -429,7 +673,6 @@
   function drawProjectile(ctx,id,shot,box,context){
     if(shot.density)return drawDensityMissile(ctx,{...shot,stage:id},box,shot.age||context?.phaseTick||0);
     const selection=projectileSelection(id,shot,context),config=entry(id),asset=config?.projectiles[selection.phase],img=image(asset);
-    if(!img)return false;
     // Explicit local +X direction is used by legacy callers; modern callers
     // retain their existing velocity mirror. Never combine both conventions.
     if(Number.isFinite(context?.directionAngle)&&!context.directionApplied){
@@ -438,13 +681,28 @@
       const shown=drawProjectile(ctx,id,shot,box,{...context,directionApplied:true});
       ctx.restore();return shown;
     }
-    const kind=projectileKind(id,shot,box),{row,column}=selection;
-    const crop=asset.rowBounds?.[row],flip=(asset.facing||config.projectileFacing)==='left';
+    const origin=shot.original||shot,{phase,row,column,age}=selection;
+    const kind=projectileKind(id,shot,box),color=projectileColor(id,phase);
+    const crop=asset?.rowBounds?.[row],flip=(asset?.facing||config?.projectileFacing)==='left';
+    const columnSource=Number.isFinite(origin.height)&&!origin.blast;
+    const live=!shot.warning&&(!origin.windup||age>=origin.windup),span=Math.max(box.w,box.h);
+    if(live&&span<=184&&(origin.vx||origin.vy)){
+      const velocity=Math.hypot(origin.vx||0,origin.vy||0);
+      const anchor=img&&kind!=='ray'?projectilePresentation(id,phase,row,box):null;
+      const angle=context?.directionApplied?0:Math.atan2(origin.vy||0,Math.abs(origin.vx||0));
+      flightTrail(ctx,anchor?.x??box.x+box.w/2,anchor?.y??box.y+box.h/2,
+        anchor?.visibleWidth??box.w,anchor?.visibleHeight??box.h,angle,velocity,age-(origin.windup||0),kind,color);
+    }
+    if(!img){if(columnSource)columnFoot(ctx,box,age,color);return false;}
     // All weapon rows share one scale and registration. Row crops mask neighboring
     // cells; fitting each crop independently would erase the artist's size variation.
     const bounds=asset.bounds||unionBounds(asset.rowBounds)||[0,0,img.naturalWidth/(config.columns||4),img.naturalHeight/(config.rows||4)];
     const enlarge=shot.rule!=='dash'&&shot.rule!=='shield'&&!shot.requiresDash&&!shot.requiresShield;
-    if(kind!=='ray')return projectileFrame(ctx,img,id,selection.phase,row,column,{...box,anchor:'center',flip},config,crop,bounds,enlarge);
+    if(kind!=='ray'){
+      const shown=projectileFrame(ctx,img,id,phase,row,column,{...box,anchor:'center',flip},config,crop,bounds,enlarge);
+      if(columnSource)columnFoot(ctx,box,age,color);
+      return shown;
+    }
     // A vertical hazard uses the same authored ray turned along its long axis.
     // Long beams tile at uniform scale so their full dangerous span remains visible.
     const vertical=box.h>box.w,wide=vertical?box.h:box.w,high=vertical?box.w:box.h;
@@ -460,9 +718,16 @@
       // Short rays fit the common reference's long axis. A square heavy row
       // must not shrink every narrow ray to a few unreadable pixels.
       const referenceHeight=wide*bounds[3]/bounds[2];
-      shown=projectileFrame(ctx,img,id,selection.phase,row,column,{x:-wide/2,y:-referenceHeight/2,w:wide,h:referenceHeight,anchor:'center',flip},config,crop,bounds,enlarge);
+      shown=projectileFrame(ctx,img,id,phase,row,column,{x:-wide/2,y:-referenceHeight/2,w:wide,h:referenceHeight,anchor:'center',flip},config,crop,bounds,enlarge);
     }
-    ctx.restore();return shown;
+    if(live&&wide>high*6){
+      const reverse=columnSource||(context?.stage&&trialBeamFromRight(origin))||
+        (shot.laser&&!shot.source&&[1,13].includes(Number.parseInt(id,10)));
+      beamFlow(ctx,wide,high,age,reverse?-1:1,color);
+    }
+    ctx.restore();
+    if(columnSource)columnFoot(ctx,box,age,color);
+    return shown;
   }
   function unionBounds(rows){
     if(!rows?.length)return null;
@@ -498,5 +763,5 @@
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,presentationPaths,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,presentationPaths,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,releasePose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,addProjectileHit,recordProjectileLaunch,projectileHitsTrial,drawProjectileHits,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
 })(globalThis);

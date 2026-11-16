@@ -3,6 +3,7 @@
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('arena'),ctx=canvas.getContext('2d'),held=new Set(),press=new Set();
 const images=new Map(),stages=[...Arcade.stages.values()].filter(s=>typeof s.enabled==='function'?s.enabled():s.enabled!==false).sort((a,b)=>(a.order??a.number)-(b.order??b.number));
+const saucerAssets=['art/attacks/player/higgsfield/saucer/cockpit-rear.png','art/attacks/player/higgsfield/saucer/cockpit-front.png'];
 const transitions=globalThis.ArcadeBossTransitions,trialTransition=transitions?.createClock();
 let incomingWorld=null;
 let world=null,paused=false,last=0,acc=0,visibleState='',pilot='rivet',soundTick=-1,pickupAttempt=0;
@@ -25,20 +26,21 @@ function refreshEntries(){const s=Arcade.stages.get($('stage').value);$('entry')
 function startNow(){trialTransition?.reset();incomingWorld=null;const s=Arcade.stages.get($('stage').value);if(!s)return;pilot=$('pilot').value;world=new Arcade.World(s,{pickupAttempt:pickupAttempt++,seed:Number($('seed').value)||777,phase:Number($('entry').selectedOptions[0].dataset.phase??$('entry').value)||0,sector:Number($('entry').selectedOptions[0].dataset.sector)||0,practice:$('entry').value!=='0'});paused=false;held.clear();press.clear();acc=0;visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;$('next').hidden=true;records();tone();}
 let startRequest=0;const startLabel=$('start').textContent;
 function start(){
- const id=$('stage').value,art=globalThis.ArcadeBossSheets,ticket=++startRequest;
- if(!Arcade.stages.has(id))return;
+ const id=$('stage').value,selectedPilot=$('pilot').value,art=globalThis.ArcadeBossSheets,ticket=++startRequest;
+ const stage=Arcade.stages.get(id);
+ if(!stage)return;
  const adapterReady=typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function';
  if(!adapterReady&&typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled){paused=true;$('start').disabled=false;$('start').textContent='Reload game';$('start').onclick=()=>location.reload();$('status').textContent='Boss art could not load. Reload the game before starting.';return;}
- const boatAssets=Arcade.stages.get(id).phases?.[0].naval
-   ? [...ArcadeSpeedboat.assets,...[0,1].map(p=>ART.sprites[$('pilot').value].poses[p][0])] : [];
- if((!adapterReady||art.stageReady(id))&&boatAssets.every(path=>img(path))&&transitions?.settled(id)!==false){ $('start').disabled=false;$('start').textContent=startLabel;return startNow(); }
+ const hullAssets=stage.phases?.some(phase=>phase.naval)?ArcadeSpeedboat.assets:stage.number===7?saucerAssets:[];
+ const vehicleAssets=hullAssets.length?[...hullAssets,...[0,1].map(i=>ART.sprites[selectedPilot].poses[i][0])]:[];
+ if((!adapterReady||art.stageReady(id))&&vehicleAssets.every(path=>img(path))&&transitions?.settled(id)!==false){ $('start').disabled=false;$('start').textContent=startLabel;return startNow(); }
  paused=true;$('start').disabled=true;$('start').textContent='Loading…';$('status').textContent='Loading boss art…';
- return Promise.all([adapterReady?art.preloadStage(id):null,transitions?.preload(id),...boatAssets.map(path=>image(path).decode().catch(error=>{images.delete(path);throw error;}))]).then(()=>{
+ return Promise.all([adapterReady?art.preloadStage(id):null,transitions?.preload(id),...vehicleAssets.map(path=>image(path).decode().catch(error=>{images.delete(path);throw error;}))]).then(()=>{
   if(ticket!==startRequest)return;
   $('start').disabled=false;$('start').textContent=startLabel;
-  if($('stage').value===id)return startNow();
+  if($('stage').value===id)return vehicleAssets.length&&$('pilot').value!==selectedPilot?start():startNow();
   $('status').textContent='Choose Start to load the selected encounter.';
- },()=>{if(ticket!==startRequest)return;$('start').disabled=false;$('start').textContent='Retry art loading';$('status').textContent='Boss art could not load. Retry to start the encounter.';});
+ },()=>{if(ticket!==startRequest)return;if(vehicleAssets.length&&$('pilot').value!==selectedPilot)return start();$('start').disabled=false;$('start').textContent='Retry art loading';$('status').textContent='Boss art could not load. Retry to start the encounter.';});
 }
 $('next').onclick=()=>{const n=stages.findIndex(s=>s.id===world.stage.id)+1;if(stages[n]){$('stage').value=stages[n].id;refreshEntries();start();}};
 function overlay(title,message,button){$('curtain').dataset.mode=title==='Paused'?'paused':world?.state==='lost'?'lost':world?.state==='clear'?'clear':'menu';$('next').hidden=!(world?.state==='clear'&&!world.practice&&stages.findIndex(s=>s.id===world.stage.id)<stages.length-1);$('result').textContent=title;$('message').textContent=message;$('resume').textContent=button;const fb=$('feedback-open');if(fb)fb.hidden=!(title==='Paused'&&globalThis.ArcadeFeedback?.allowed);$('curtain').hidden=false;}
@@ -56,12 +58,23 @@ function input(){const i={left:held.has('ArrowLeft')||held.has('KeyA'),right:hel
 function text(s,x,y,size=18,color='#fff1d0',align='left'){ctx.font=`700 ${size}px system-ui`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(String(s),x,y);}
 function sprite(id,x,y,height=76,pose=0,facing=1){const a=ART.sprites[id],p=a?.poses?.[pose]||a?.poses?.[0],i=img(p?.[0]);if(i){const b=Arcade.spriteBounds?.[p[0]]||[0,0,i.naturalWidth,i.naturalHeight],w=height*b[2]/b[3];ctx.save();ctx.translate(x,y);ctx.imageSmoothingEnabled=false;ctx.scale(facing<0?-1:1,1);ctx.drawImage(i,b[0],b[1],b[2],b[3],-w/2,-height,w,height);ctx.restore();}else{ctx.fillStyle='#ffdb8a';ctx.fillRect(x-13,y-height,26,height);}}
 function moonkeepSaucer(p,tick){
- const rear=img('art/attacks/player/higgsfield/saucer/cockpit-rear.png'),front=img('art/attacks/player/higgsfield/saucer/cockpit-front.png');
+ const rear=img(saucerAssets[0]),front=img(saucerAssets[1]);
  if(!rear||!front)return false;
  const x=Math.round(p.x-rear.naturalWidth/2),y=Math.round(p.y-28-rear.naturalHeight/2),a=ART.sprites[pilot],pose=a?.poses?.[Math.floor(tick/23)%2]||a?.poses?.[0],portrait=img(pose?.[0]);
  ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(rear,x,y);
  if(portrait){const [,ax,ay]=pose,[sx,sy,sw,sh]=a.cockpitCrop||[ax-36,ay-128,88,83],scale=Math.min(53/sw,43/sh),w=Math.round(sw*scale),h=Math.round(sh*scale);ctx.drawImage(portrait,sx,sy,sw,sh,x+Math.round(100-w/2),y+55-h,w,h);}
  ctx.drawImage(front,x,y);ctx.restore();return true;
+}
+function drawTrialDash(p,vehicle){
+ if(!vehicle){ctx.strokeStyle='#eed9ff';ctx.lineWidth=4;ctx.strokeRect(p.x-22,p.y-57,44,62);return;}
+ ctx.save();ctx.translate(Math.round(p.x),Math.round(p.y-26));ctx.rotate(Math.atan2(p.dashY,p.dashX));
+ for(const [length,y] of [[19,-8],[27,0],[13,8]]){
+  const x=-102-length;
+  ctx.fillStyle='#261a39';ctx.fillRect(x-2,y-3,length+4,7);
+  ctx.fillStyle='#bd90ff';ctx.fillRect(x,y-2,length,4);
+  ctx.fillStyle='#f4e6ff';ctx.fillRect(x+length-7,y-1,7,2);
+ }
+ ctx.restore();
 }
 function chevrons(x,y,h){ctx.strokeStyle='#f4efe1';ctx.lineWidth=4;for(let yy=y+12;yy<y+h;yy+=32){ctx.beginPath();ctx.moveTo(x-8,yy-8);ctx.lineTo(x+3,yy);ctx.lineTo(x-8,yy+8);ctx.stroke();}}
 function drawTrialsBackdrop(phaseTwo){
@@ -111,15 +124,19 @@ for(const h of w.hazards){
  if(h.rule==='dash')chevrons(h.x+h.w/2,h.y,h.h);if(h.rule==='shield')text('◇ X',h.x+h.w/2,h.y+30,24,'#e1fffb','center');
 }
 for(const s of w.densityBarrage?[]:w.shots){if(s.removed)continue;
- if(s.type==='boatTorpedo'||s.type==='waterMine'){
-   ctx.save();ctx.translate(s.x+s.w/2,s.y+s.h/2);
-   const drawn=ArcadeSpeedboat.drawShot(ctx,img,s.type,w.tick-s.born);
-   ctx.restore();
-   if(drawn)continue;
- }
- ctx.fillStyle=s.type==='mine'?'#9af0ad':'#ffe9a3';ctx.fillRect(s.x,s.y,s.w||12,s.h||6);}
+ const age=Math.max(0,w.tick-(s.born??0));
+ const kind=s.type??(ph.mode==='flight'&&!ph.naval?'greenLaser':'spark');
+ const useBoatAtlas=kind==='boatTorpedo'||kind==='waterMine';
+ ArcadePlayerProjectiles.drawShot(ctx,kind,s.x+(s.w||12)/2,s.y+(s.h||6)/2,s.vx||0,s.vy||0,age,
+   useBoatAtlas?()=>ArcadeSpeedboat.drawShot(ctx,img,kind,age):null);
+}
 for(const pick of w.pickups){if(pick.removed)continue;ctx.fillStyle='#7ae7ce';ctx.beginPath();ctx.arc(pick.x,pick.y,17,0,Math.PI*2);ctx.fill();text(keyLabel('F'),pick.x,pick.y+6,16,'#183e44','center');text(pick.weapon,pick.x,pick.y-24,14,'#b6fff2','center');}
-for(const e of w.effects){if(e.type==='decoy'){ctx.globalAlpha=.5;sprite(pilot,e.x,e.y+26);ctx.globalAlpha=1;}else if(e.type==='blast'){ctx.strokeStyle='#bcffa3';ctx.beginPath();ctx.arc(e.x,e.y,e.radius||90,0,Math.PI*2);ctx.stroke();}else if(e.type==='navalSplash')ArcadeSpeedboat.drawSplash(ctx,img,e.x,e.y,16-e.ttl);}
+for(const e of w.effects){
+ if(e.type==='decoy'){ctx.globalAlpha=.5;sprite(pilot,e.x,e.y+26);ctx.globalAlpha=1;}
+ else if(e.type==='blast')ArcadePlayerProjectiles.drawBlast(ctx,e.x,e.y,e.radius||90,20-e.ttl,20);
+ else if(e.type==='navalSplash')ArcadePlayerProjectiles.drawSplash(ctx,e.x,e.y,16-e.ttl,16);
+ else if(e.type==='projectileImpact')ArcadePlayerProjectiles.drawImpact(ctx,e.kind,e.x,e.y,14-e.ttl,14);
+}
 if(!ph.drawsPilot&&!machineSheet){const pp=(typeof ph.pilot==='function'?ph.pilot(w):ph.pilot)||{x:w.camera.x+1120,y:w.camera.y+235};sprite(w.stage.operatorSprite||'rivet',pp.x,pp.y,pp.height||pp.scale||ph.pilotHeight||82);text(w.stage.operator,pp.x,pp.y-90,14,'#f6e2bb','center');}
 if(ph.naval){
  const {light,heavy}=NAVAL_WEAPONS;
@@ -129,7 +146,10 @@ if(ph.naval){
 }else if(ph.mode==='flight'||ph.mode==='orbit'){if(w.stage.number!==7||!moonkeepSaucer(p,w.tick)){ctx.fillStyle='#91aeb5';ctx.beginPath();ctx.ellipse(p.x,p.y-15,48,17,0,0,Math.PI*2);ctx.fill();sprite(pilot,p.x,p.y-20,48);}}else sprite(pilot,p.x,p.y,76,p.dash?6:w.crouching?10:!p.grounded?8:0,p.facing);
 const pickupShieldDiameter=w.stage.number===7||ph.naval?220:140;
 globalThis.ArcadeBossSheets?.drawPhasePowerups(ctx,w.phasePowerups,w.phaseElapsed,{x:p.x-pickupShieldDiameter/2,y:p.y-28-pickupShieldDiameter/2,w:pickupShieldDiameter,h:pickupShieldDiameter});
-if(p.dash){ctx.strokeStyle='#eed9ff';ctx.lineWidth=4;ctx.strokeRect(p.x-22,p.y-57,44,62);}if(p.shield){ctx.strokeStyle='#83f9df';ctx.lineWidth=4;ctx.beginPath();ctx.arc(p.x,p.y-28,47,0,Math.PI*2);ctx.stroke();}ctx.restore();
+if(p.dash)drawTrialDash(p,ph.naval||ph.mode==='flight'||ph.mode==='orbit');
+if(p.shield){ctx.strokeStyle='#83f9df';ctx.lineWidth=4;ctx.beginPath();ctx.arc(p.x,p.y-28,47,0,Math.PI*2);ctx.stroke();}
+if(w.state!=='transition')globalThis.ArcadeBossSheets?.drawProjectileHits?.(ctx,w,w.tick);
+ctx.restore();
 ctx.fillStyle='#09131ee8';ctx.fillRect(0,0,1280,115);text(w.stage.title,24,32,23);text(`${w.checkpointRetry?'PHASE CHECKPOINT':w.practice?'PRACTICE':'FULL RUN'} · ${ph.name} · ${ph.machine||''}`,24,57,14,'#9fbdc8');text(w.objective||ph.objective,24,85,18,'#ffe3a4');text('♥'.repeat(Math.max(0,p.hp)),1255,32,23,'#ffce7a','right');text(p.dashWait?'DASH '+(p.dashWait/60).toFixed(1)+'s':'DASH READY  »',1255,57,16,p.dashWait?'#aebcc6':'#d1b5ff','right');const slot=w.weapons?.snapshot();text(slot?`${slot.weapon} · ${slot.charges} charges · ${keyLabel('F')}`:'PICKUP SLOT EMPTY',1255,83,14,'#a1ead5','right');ctx.fillStyle='#49616a';ctx.fillRect(24,100,1232,4);ctx.fillStyle='#ffd98a';ctx.fillRect(24,100,1232*Arcade.clamp(w.progress||0,0,1),4);
 if(w.cueText&&!w.densityBarrage){ctx.fillStyle='#101b2be8';ctx.fillRect(180,125,920,45);text(w.cueText,640,155,18,'#fff3d5','center');if(soundTick!==w.tick&&w.cueText!==render.lastCue){tone(580);soundTick=w.tick;}render.lastCue=w.cueText;}
 ctx.fillStyle='#0b1824db';ctx.fillRect(0,680,1280,40);text(`${ph.hudLabel||'PROGRESS'} · ${Math.round((w.progress||0)*100)}%`,24,706,14,'#d2e1df');text(`${keyLabel('X')} SHIELD ${p.shieldWait?(p.shieldWait/60).toFixed(1)+'s':'READY'}   ${keyLabel('C')} ${p.beamWait?(p.beamWait/60).toFixed(1)+'s':'READY'}   ${keyLabel('V')} ${p.bombWait?(p.bombWait/60).toFixed(1)+'s':'READY'}`,1255,706,14,'#a4d9db','right');
@@ -143,7 +163,13 @@ if(w.state==='transition'){
 // Each frame runs inside the crash guard (runtime/crash-guard.js) and the next frame is always scheduled: a throw ends the frame (no more fixed steps on a half-applied state) and drops the step backlog; a streak of failing frames halts behind a "Something broke" panel.
 function loop(now){try{if(globalThis.ArcadeCrash)ArcadeCrash.runFrame(trialsFrame,now,()=>{acc=0;});else trialsFrame(now);}finally{requestAnimationFrame(loop);}}
 // One rendered frame. Returns false when a run is active but no fixed step fell due (proves nothing).
-function trialsFrame(now){const dt=Math.min(250,now-last||0);last=now;acc+=dt;let steps=0;const running=!!(world&&!paused);if(running){while(acc>=1000/60){const i=input();if(i.retry){trialTransition?.reset();incomingWorld=null;world.restart();visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;held.clear();}else if(trialTransition?.step(world,world.stage.id,world.state==='transition'?90-world.transitionTick:0)!==false)world.step(i);acc-=1000/60;steps++;}if(world.state!==visibleState){visibleState=world.state;if(world.state==='lost')overlay('Try the next opening',`Cause: ${world.failure||'Unknown hazard'}. Press R or retry. Phase ${world.phaseIndex+1} restarts with the standard kit.`,'Retry');if(world.state==='clear'){const key=recordKey(world),r=readRecords();r[key]=Math.min(r[key]||Infinity,world.tick);try{localStorage.setItem('arcade-v1-records',JSON.stringify(r));}catch{}records();overlay('Encounter cleared',`${world.stage.operator}'s machine is down. ${world.checkpointRetry?'Phase checkpoint result':world.practice?'Practice result':'Full-run result'} · ${(world.tick/60).toFixed(1)} seconds.`,'Play again');}}$('status').textContent=`${world.state.toUpperCase()} · Seed ${world.seed??$('seed').value} · Tick ${world.tick} · ${world.failure?'Last hit: '+world.failure:'Read the cue, then commit.'}`;}else{acc=0;press.clear();}render();return !running||steps>0;}
+function stepTrials(inputFrame){
+ if(trialTransition?.step(world,world.stage.id,world.state==='transition'?90-world.transitionTick:0)===false)return;
+ const tick=world.tick;
+ world.step(inputFrame);
+ if(world.tick!==tick)globalThis.ArcadeBossSheets?.projectileHitsTrial?.(world);
+}
+function trialsFrame(now){const dt=Math.min(250,now-last||0);last=now;acc+=dt;let steps=0;const running=!!(world&&!paused);if(running){while(acc>=1000/60){const i=input();if(i.retry){trialTransition?.reset();incomingWorld=null;world.restart();visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;held.clear();}else stepTrials(i);acc-=1000/60;steps++;}if(world.state!==visibleState){visibleState=world.state;if(world.state==='lost')overlay('Try the next opening',`Cause: ${world.failure||'Unknown hazard'}. Press R or retry. Phase ${world.phaseIndex+1} restarts with the standard kit.`,'Retry');if(world.state==='clear'){const key=recordKey(world),r=readRecords();r[key]=Math.min(r[key]||Infinity,world.tick);try{localStorage.setItem('arcade-v1-records',JSON.stringify(r));}catch{}records();overlay('Encounter cleared',`${world.stage.operator}'s machine is down. ${world.checkpointRetry?'Phase checkpoint result':world.practice?'Practice result':'Full-run result'} · ${(world.tick/60).toFixed(1)} seconds.`,'Play again');}}$('status').textContent=`${world.state.toUpperCase()} · Seed ${world.seed??$('seed').value} · Tick ${world.tick} · ${world.failure?'Last hit: '+world.failure:'Read the cue, then commit.'}`;}else{acc=0;press.clear();}render();return !running||steps>0;}
 $('status').textContent=`${stages.length} encounters registered · Offline classic scripts`;const query=new URLSearchParams(location.search);if(Arcade.stages.has(query.get('stage')))$('stage').value=query.get('stage');refreshEntries();if(query.get('phase')==='1')$('entry').value='1';records();requestAnimationFrame(loop);globalThis.ArcadeCrash?.markStarted();
 // Public read-only-in-spirit diagnostics for reproducible QA; no forced completion UI.
 // Main menu (menus.js): leave the run and show the first curtain with the setup again.

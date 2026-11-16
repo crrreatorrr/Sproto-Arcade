@@ -158,7 +158,7 @@ function drawCodeBeamLane(attack,lane) {
     ctx.translate(width,0);
     ctx.scale(-1,1);
   }
-  if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,12,{laser:true,source:'12-codebreak/summit-scanner',age:boss.age,vy:vertical?1:0},{x:0,y:0,w:width,h:height},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss,'codebreak'),tick:time}))ctx.drawImage(codeArt('beam-'+attack.beam+'.png'),0,0,width,height);
+  if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,12,{laser:true,source:'12-codebreak/summit-scanner',age:boss.age,vy:vertical?1:0,warning:!live},{x:0,y:0,w:width,h:height},{phaseIndex:boss.phase-1,variant:globalThis.ArcadeBossSheets.legacyVariant(boss,'codebreak'),tick:time}))ctx.drawImage(codeArt('beam-'+attack.beam+'.png'),0,0,width,height);
   if (!live) {
     ctx.globalAlpha=.82;
     ctx.fillStyle=vertical?'#ffcaef':'#fff0ab';
@@ -416,7 +416,8 @@ function drawCodebreak() {
   const attackEnd=attack.frames.at(-1)+(attack.beam?(attack.sweep?CODE_SWEEP_DURATION:CODE_BEAM_DURATION)-1:5);
   const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attackEnd;
   const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attackEnd && b.age<attackEnd+18?3:0;
-  const sheetPose=barragePose||(frame?{row:1+(sheets?.legacyVariant(b,'codebreak')??0),column:frame===1&&b.age<attack.frames[0]-12?0:frame}:{row:0,column:Math.floor(time/6)%4});
+  const defaultPose=frame?{row:1+(sheets?.legacyVariant(b,'codebreak')??0),column:frame===1&&b.age<attack.frames[0]-12?0:frame}:{row:0,column:Math.floor(time/6)%4};
+  const sheetPose=barragePose||(b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
   if (b.phase===1) {
     drawCodePlatforms();
   }
@@ -466,19 +467,6 @@ function drawCodebreak() {
     if(!globalThis.ArcadeBossSheets?.drawProjectile(ctx,12,{original:shot,shape:String(shot.attack.sprite),age:shot.age},{x:-w/2,y:-h/2,w,h},{phaseIndex:boss.phase-1,tick:time,directionAngle:-Math.PI/2}))ctx.drawImage(codeFrame('shot',shot.attack.sprite),-w/2,-h/2,w,h);
     ctx.restore();
   }
-  for (const shot of bullets) {
-    const {art,scale=1}=boxes[shot.shape];
-    const sprite=attackArt(art),w=sprite.width*scale,h=sprite.height*scale;
-    ctx.save();
-    ctx.translate(shot.x,shot.y);
-    if (shot.shape!=='bomb') ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
-    ctx.drawImage(sprite,-w/2,-h/2,w,h);
-    ctx.restore();
-  }
-  for (const impact of impacts) {
-    const sprite=attackArt('player/higgsfield/'+impact.art);
-    ctx.globalAlpha=impact.opacity*(1-impact.age/impact.duration);
-    ctx.drawImage(sprite,impact.x-sprite.width/2,impact.y-sprite.height/2);
-    ctx.globalAlpha=1;
-  }
+  for (const shot of bullets) drawStoryPlayerShot(shot);
+  for (const impact of impacts) drawStoryPlayerImpact(impact);
 }

@@ -336,6 +336,9 @@
             if(this.damageTarget(t,s.damage,s.id)){
               s.hit.add(t.id);if(!s.piercing)s.removed=true;
               if(s.type==='waterMine')this.effects.push({type:'navalSplash',x:s.x+s.w/2,y:s.y+s.h/2,ttl:16});
+              else if(this.state==='playing')this.effects.push({type:'projectileImpact',kind:s.type,
+                x:clamp(s.x+old.w/2,targetBox.x,targetBox.x+targetBox.w),
+                y:clamp(s.y+old.h/2,targetBox.y,targetBox.y+targetBox.h),ttl:14});
             }
           }
         }

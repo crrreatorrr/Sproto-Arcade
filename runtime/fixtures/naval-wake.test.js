@@ -28,6 +28,11 @@ function canvas() {
     translate(x, y) { transforms.push(['translate', x, y]); },
     scale(x, y) { transforms.push(['scale', x, y]); },
     rotate(angle) { transforms.push(['rotate', angle]); },
+    beginPath() {},
+    moveTo() {},
+    lineTo() {},
+    closePath() {},
+    clip() {},
     drawImage(image, sx, sy, sw, sh, dx, dy, width, height) {
       if (image.name === 'art/ocean/naval-effects.png') {
         draws.push({ sx, sy, dx, dy, width, height, alpha: this.globalAlpha, transforms: transforms.slice() });

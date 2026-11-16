@@ -18,6 +18,9 @@ const ArcadeSpeedboat = (() => {
   const muzzleFlash = {1:[180,32,36,32],2:[70,0,52,41]};
   const screenWidth = 1280, screenHeight = 720, panelDistance = 3200;
   const bossMotion = new WeakMap();
+  // Main-deck cockpit edge, sampled from the still hull cell.
+  const cockpitEdge = [[76,64],[91,68],[117,68],[124,65],[131,61],[135,55],[139,53],[144,57],[152,59],[166,59]];
+  const cockpitMotionY = [0,-3,1,2];
   // The two guard poses share these anchor-relative upper-body crops.
   const pilots = {
     rivet:[-36,-128,87,83],
@@ -140,16 +143,26 @@ const ArcadeSpeedboat = (() => {
       x + left, y + top, w, h);
   }
 
-  function drawPilot(ctx, picture, id, tick, x, y) {
+  function drawPilot(ctx, picture, id, tick, x, y, cockpitY) {
     const art = ART.sprites[id];
     const [path, anchorX, anchorY] = art.poses[Math.floor(tick / 23) % 2] ?? art.poses[0];
     const image = picture(path);
     if (!image?.naturalWidth) return;
     const [left, top, width, height] = pilots[id] ?? pilots.rivet;
-    const scale = Math.min(59 / width, 51 / height);
+    const scale = Math.min(57 / width, 50 / height);
     const w = Math.round(width * scale), h = Math.round(height * scale);
+    // Keep the cabin rim and windscreen in front of the driver's shoulders and hands.
+    const [firstX] = cockpitEdge[0];
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x + firstX, y);
+    for (const [edgeX,edgeY] of cockpitEdge) ctx.lineTo(x + edgeX, y + cockpitY + edgeY);
+    ctx.lineTo(x + cockpitEdge.at(-1)[0], y);
+    ctx.closePath();
+    ctx.clip();
     ctx.drawImage(image, anchorX + left, anchorY + top, width, height,
-      Math.round(x + 10 - w / 2), Math.round(y + 1 - h), w, h);
+      Math.round(x + 119 - w / 2), Math.round(y + cockpitY + 71 - h), w, h);
+    ctx.restore();
   }
 
   function drawBoat(ctx, picture, player, tick, lightAge, heavyAge) {
@@ -184,7 +197,7 @@ const ArcadeSpeedboat = (() => {
       else if (light >= 0) hull(ctx, image, 1, light, left, top);
       else hull(ctx, image, 0, motion, left, top);
     });
-    drawPilot(ctx, picture, player.id, tick, player.x, player.y + bob);
+    drawPilot(ctx, picture, player.id, tick, x, y, light < 0 && heavy < 0 ? cockpitMotionY[motion] : -1);
     drawMuzzleFlash(ctx, image, 2, heavy, x, y);
     drawMuzzleFlash(ctx, image, 1, light, x, y);
     ctx.restore();

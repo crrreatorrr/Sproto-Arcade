@@ -62,15 +62,34 @@ for(let cycle=0;cycle<3;cycle++){
  assert.equal(pose.row-1,art.projectileSelection(1,h,w).row);
 }
 // Browser-only wrappers preserve return values, arguments, shot fields and original calls.
-const wrapper=vm.createContext({ArcadeBossSheets:art,boss:{phase:2,step:3,attackIndex:1},time:90,bullets:[],codeShots:[],hazards:[],vaultBeam:null,isChase:()=>false,isCodebreak:()=>false});
-vm.runInContext('var fireCalls=0,codeCalls=0; function fire(x,y,vx,vy,shape,own){fireCalls++;bullets.push({x,y,vx,vy,shape,own,age:0});return 71;} function updateBoss(){hazards.push({x:1,w:65,age:0});vaultBeam={y:200,age:0};return 97;} function updateCodeAttack(){codeCalls++;codeShots.push({attack:{size:[24,12]},x:1,y:2});return 83;}',wrapper);
+const wrapper=vm.createContext({ArcadeBossSheets:art,boss:{phase:2,step:3,attackIndex:1,x:250},time:90,
+  LEVELS:[{id:1}],levelIndex:0,W:1280,FLOOR:604,VAULT_MUZZLE:1170,bullets:[],codeShots:[],hazards:[],vaultBeam:null,isChase:()=>false,isCodebreak:()=>false});
+vm.runInContext(`var fireCalls=0,codeCalls=0;
+  function fire(x,y,vx,vy,shape,own){fireCalls++;bullets.push({x,y,vx,vy,shape,own,age:0});return 71;}
+  function updateBoss(){hazards.push({x:1,w:65,age:0});vaultBeam={y:200,age:0};return 97;}
+  function updateCodeAttack(){codeCalls++;codeShots.push({attack:{size:[24,12]},x:1,y:2});return 83;}
+  function attackForCodebreak(){return {};}
+  function updateVerseGemLaser(){} function enemyShotContact(){} function hurt(){} function updateBullets(){}
+  function updateChaseAttacks(){} function updateCodeShots(){} function updateLegacyDensity(){}
+  function updateVaultBeam(){} function updateHazards(){} function puff(){} function render(){}`,wrapper);
 vm.runInContext(fs.readFileSync('boss-presentation-hooks.js','utf8'),wrapper);
-assert.equal(vm.runInContext("fire(1,2,3,4,'prism',false)",wrapper),71);
+assert.equal(vm.runInContext("fire(150,200,-3,4,'prism',false)",wrapper),71);
 assert.equal(wrapper.fireCalls,1);
-assert.equal(JSON.stringify(wrapper.bullets[0]),JSON.stringify({x:1,y:2,vx:3,vy:4,shape:'prism',own:false,age:0}));
+assert.equal(JSON.stringify(wrapper.bullets[0]),JSON.stringify({x:150,y:200,vx:-3,vy:4,shape:'prism',own:false,age:0}));
 assert.equal(art.shotBinding(wrapper.bullets[0]).variant,2);
+const release=art.releasePose(wrapper.boss,1,90);
+assert.deepEqual([release.row,release.column,release.releaseAge,release.release.x,release.release.y],[3,2,0,150,200]);
+assert.equal(art.releasePose(wrapper.boss,1,96),undefined,'authored pose takes over after the release');
 wrapper.boss.step=99;assert.equal(art.shotBinding(wrapper.bullets[0]).variant,2,'later boss moves cannot rebind old projectiles');
 assert.equal(vm.runInContext('updateCodeAttack()',wrapper),83);assert.equal(wrapper.codeCalls,1);
 assert.equal(art.shotBinding(wrapper.codeShots[0]).variant,1);
+const marina=scope.Arcade.stages.get('01-marina'),trial=new scope.Arcade.World(marina,{seed:42});
+const launched=trial.hazard({id:'fixture-shot',source:'marina.breakwater-slam.wake',x:544,y:300,w:32,h:20,vx:-4,active:30});
+const original=JSON.stringify(trial);
+art.projectileHitsTrial(trial);
+const trialRelease=art.releasePose(trial.player,0,trial.tick);
+assert.deepEqual([trialRelease.column,trialRelease.release.x,trialRelease.release.y],[2,560,310]);
+assert.equal(trialRelease.variant,art.projectileSelection(trial.stage.id,launched,trial).variant);
+assert.equal(JSON.stringify(trial),original,'launch observation must never edit simulator state');
 assert.equal(rows.length,26,'all thirteen enabled boss identities exercise both weapon phases');
 console.log(JSON.stringify({status:'passed',kind:'presentation-only-weapon-variants',phases:rows,limitations:['Controlled stationary scene eligibility and protected target HP; not earned clears or human playtests.','Canvas operations are mocked; generated image quality requires separate visual inspection.']},null,2));

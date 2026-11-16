@@ -1954,6 +1954,30 @@ function drawColumn(h) {
   }
 }
 
+function drawStoryPlayerShot(shot) {
+  const kind=isNaval()&&shot.shape==='greenLaser'?'spark':shot.shape;
+  ArcadePlayerProjectiles.drawShot(ctx,kind,shot.x,shot.y,shot.vx,shot.vy,shot.age,()=>{
+    if(ArcadeSpeedboat.drawShot(ctx,picture,shot.shape,shot.age))return true;
+    if(shot.shape!=='beachBall')return false;
+    const frame=attackFrame('player/higgsfield/saucer/ball-spin',Math.floor(shot.age/2)%16);
+    if(!frame.naturalWidth)return false;
+    ctx.drawImage(frame,-Math.floor(frame.width/2),-Math.floor(frame.height/2));
+    return true;
+  });
+}
+
+function drawStoryPlayerImpact(impact) {
+  const {x,y,age,duration}=impact;
+  if(impact.navalSplash){
+    ArcadePlayerProjectiles.drawSplash(ctx,x,y,age,duration);
+    return;
+  }
+  const kind=impact.art==='bomb-impact'?(isFlying()?'beachBall':'bomb'):
+    impact.art==='missile-impact'?(isNaval()?'boatTorpedo':isFlying()?'redLaser':'missile'):
+    impact.art==='saucer/muzzle'?'greenLaser':'spark';
+  ArcadePlayerProjectiles.drawImpact(ctx,kind,x,y,age,duration);
+}
+
 function drawFlightFlame(color,x,y,height,angle=0) {
   const art=attackFrame('flight-flames/'+color,Math.floor(time/3)%2);
   const width=Math.round(height*art.width/art.height);
@@ -2005,14 +2029,7 @@ function renderBoss() {
   }
   for (const h of hazards) {
     if (h.blast) {
-      const frame=attackArt('player/higgsfield/explosion');
-      const progress=h.age/13;
-      const width=Math.round(h.w*Math.min(1,.48+progress*1.8));
-      const height=Math.round(width*frame.height/frame.width);
-      ctx.save();
-      ctx.globalAlpha=Math.min(1,(1-progress)*2.5);
-      ctx.drawImage(frame,Math.round(h.x-width/2),FLOOR-height,width,height);
-      ctx.restore();
+      ArcadePlayerProjectiles.drawBlast(ctx,h.x,FLOOR,combatHitboxValue(198,'boss','splash','radius'),h.age,13,true);
     } else {
       drawColumn(h);
     }
@@ -2046,7 +2063,9 @@ function renderBoss() {
     ctx.restore();
     return;
   }
-  const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
+  const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,sheets.legacyVariant(b))??{row:0,column:0};
+  const sheetPose=(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
+    (b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
@@ -2332,7 +2351,7 @@ function drawSaucerRedArm(p) {
   if (beamAge>=0 && beamAge<RED_BEAM_FRAMES && tip<SAUCER_BEAM_END) {
     const beam=attackArt(boxes.redLaser.art);
     const height=Math.round(4+beam.height*Math.min(1,(RED_BEAM_FRAMES-beamAge)/8));
-    ctx.drawImage(beam,tip,Math.round(y-height/2),SAUCER_BEAM_END-tip,height);
+    ArcadePlayerProjectiles.drawBeam(ctx,tip,y,SAUCER_BEAM_END-tip,height,beamAge);
   }
 }
 
@@ -2411,6 +2430,7 @@ function drawGoldieJetpack() {
     sheetPose={row:1+(sheets?.legacyVariant(boss,'chase')??0),column};
   }
   if (densityShots.length&&sheets) sheetPose=sheets.barragePose(densityShots,time,true);
+  else sheetPose=sheets?.releasePose?.(boss,0,time,sheetPose)??sheetPose;
   if(sheets?.drawBoss(ctx,11,0,sheetPose,{x:boss.x-100,y:boss.y-100,w:200,h:200,flip:true}))return;
   const pose=goldiePose();
   const size=GOLDIE_FRAME_SIZE;
@@ -2537,25 +2557,20 @@ function renderLegacyScene() {
   } else if (isFlying()) drawSaucer();
   else drawGroundPlayer();
   for (const shot of bullets) {
+    if (shot.own) {
+      drawStoryPlayerShot(shot);
+      continue;
+    }
     ctx.save();
     ctx.translate(Math.round(shot.x),Math.round(shot.y));
     ctx.imageSmoothingEnabled=false;
     const legacyShotPose=()=>{
-      if (shot.shape==='missile'||MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
+      if (MECHA_ROCKETS.includes(shot.shape)) ctx.rotate(SimMath.atan2(shot.vy,shot.vx));
       else if ((shot.shape==='gear'||shot.shape==='saw'||shot.shape==='star')) ctx.rotate(shot.age*.17*Math.sign(shot.vx));
       else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
     };
     const enemyArt=bossShotArt[shot.laser?'laser':shot.shape]||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
-    if (shot.own) {
-      if(ArcadeSpeedboat.drawShot(ctx,picture,shot.shape,shot.age)){ctx.restore();continue;}
-      legacyShotPose();
-      const {art,scale=1}=boxes[shot.shape];
-      const sprite=shot.shape==='beachBall'
-        ?attackFrame('player/higgsfield/saucer/ball-spin',Math.floor(shot.age/2)%16)
-        :attackArt(isNaval()&&shot.shape==='greenLaser'?boxes.spark.art:art);
-      const w=sprite.width*scale, h=sprite.height*scale;
-      ctx.drawImage(sprite,-Math.floor(w/2),-Math.floor(h/2),w,h);
-    } else if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
+    if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
       // Themed enemy art uses the original visual size; collision remains in boxes.
     } else {
       legacyShotPose();
@@ -2574,20 +2589,7 @@ function renderLegacyScene() {
     }
     ctx.restore();
   }
-  ctx.save();
-  for (const impact of impacts) {
-    if(impact.navalSplash){
-      ctx.globalAlpha=impact.opacity*Math.min(1,(1-impact.age/impact.duration)*2);
-      if(ArcadeSpeedboat.drawSplash(ctx,picture,impact.x,impact.y,impact.age))continue;
-    }
-    const sprite=attackArt(`player/higgsfield/${impact.art}`);
-    const progress=impact.age/impact.duration;
-    const scale=Math.min(1,.6+progress*1.4)*(impact.size??1);
-    const w=Math.round(sprite.width*scale),h=Math.round(sprite.height*scale);
-    ctx.globalAlpha=impact.opacity*Math.min(1,(1-progress)*2);
-    ctx.drawImage(sprite,Math.round(impact.x-w/2),Math.round(impact.y-h/2),w,h);
-  }
-  ctx.restore();
+  for (const impact of impacts) drawStoryPlayerImpact(impact);
   for (const s of sparks) {
     ctx.globalAlpha=s.life/18;
     ctx.fillStyle=s.color;

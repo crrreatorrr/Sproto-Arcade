@@ -54,7 +54,7 @@ function trials(throwsOn){
  const el={textContent:'',hidden:true};
  const world={state:'playing',seed:1,tick:0,failure:'',phaseIndex:0,stage:{operator:'x'},restart(){},
   step(){steps++;this.tick++;if(throwsOn(steps))throw new Error('boom from a trials step');}};
- const h=harness('rework.js',['loop','trialsFrame'],{
+ const h=harness('rework.js',['loop','trialsFrame','stepTrials'],{
   world,trialTransition:null,incomingWorld:null,paused:false,acc:0,last:1000,visibleState:'playing',soundTick:-1,held:new Set(),press:new Set(),
   input:()=>({retry:false}),render:Object.assign(()=>{},{lastCue:''}),overlay:()=>{},$:()=>el,
   recordKey:()=>'',readRecords:()=>({}),records:()=>{},localStorage:{setItem(){}},

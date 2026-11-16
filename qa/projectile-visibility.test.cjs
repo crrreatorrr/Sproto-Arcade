@@ -67,4 +67,19 @@ assert.ok(calls.filter(c=>c[0]==='draw').every(c=>c[1]==='none'),'tiled fronts k
  live.drawProjectile(pen,2,{shape:'orb',age:1},{x:-12,y:-12,w:24,h:24},{phaseIndex:0,variant:0});
  assert.equal(live.outlineCacheSize(),1,'the cache is dropped when the stage changes');
 }
+{
+ const streaks=[],pen={...ctx,globalAlpha:1,drawImage(){},fillRect(x,y,w,h){streaks.push({x,y,w,h,color:this.fillStyle});}};
+ const shot={source:'light.iris-shot.beam',vx:0,vy:0,w:1060,h:16};
+ const box={x:0,y:0,w:shot.w,h:shot.h},trial={stage:{id:'02-last-light'},phaseIndex:0,variant:0};
+ function paint(id,overrides,view){
+  streaks.length=0;
+  sheets.drawProjectile(pen,id,{age:0,...shot,...overrides},box,view);
+  return streaks.filter(p=>p.color==='#fff4dd'&&Math.abs(p.x)<200);
+ }
+ const before=paint(2,{age:0},trial),after=paint(2,{age:1},trial);
+ assert.ok(before.length>0 && before.some(p=>after.some(next=>next.x===p.x-6&&next.y===p.y)),
+  'stationary Last Light streaks flow left from its right-side projector');
+ assert.equal(paint(12,{source:'12-codebreak/summit-scanner',laser:true,warning:true},{phaseIndex:0,variant:0}).length,0,
+  'warning beams keep their authored quiet atlas and overlays');
+}
 console.log(`PASS ${cases} production core-anchor/containment cases; ${boosted} small silhouettes enlarged; contrast, full-span guards and simulation immutability`);
