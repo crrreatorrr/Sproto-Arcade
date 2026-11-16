@@ -96,13 +96,17 @@ for(const phaseIndex of [0,1]){
     {x:710,y:-159,w:570,h:747},'Dave grows 50% in Story without clipping the right edge');
 }
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
-const dragonDraws=[],wingTransforms=[];
+const dragonDraws=[],wingTransforms=[],wingMounts=[];
 sandbox.OffscreenCanvas=class{
  constructor(width,height){this.width=width;this.height=height;}
  getContext(){
   return {save(){},restore(){},translate(){},beginPath(){},moveTo(){},lineTo(){},closePath(){},
    clip(){},fill(){},clearRect(){},transform(...matrix){wingTransforms.push(matrix);},
-   drawImage(img,...args){if(img instanceof sandbox.OffscreenCanvas&&args.length===8)dragonDraws.push(args);}
+   drawImage(img,...args){
+    if(!(img instanceof sandbox.OffscreenCanvas))return;
+    if(args.length===8)dragonDraws.push(args);
+    if(args.length===4)wingMounts.push(args);
+   }
   };
  }
 };
@@ -114,9 +118,10 @@ for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456]
  Object.assign(created.at(-1),{complete:true,naturalWidth:2048,naturalHeight:2048});
  const sample=(tick,y=box.y,paintPose=pose)=>{
   calls.length=0;
-  dragonDraws.length=0;wingTransforms.length=0;
+  dragonDraws.length=0;wingTransforms.length=0;wingMounts.length=0;
   assert.equal(sheets.drawBoss(ctx,7,dragonPhase,{...paintPose,flightTick:tick},{...box,y}),true);
-  return {draws:dragonDraws.slice(),wings:wingTransforms.slice(),pitch:calls.find(call=>call[0]==='rotate')[1]};
+  return {draws:dragonDraws.slice(),wings:wingTransforms.slice(),mounts:wingMounts.slice(),
+   pitch:calls.find(call=>call[0]==='rotate')[1]};
  };
  const lowered=sample(quarter),raised=sample(quarter*3);
  assert.deepEqual(raised.draws[0],lowered.draws[0],'the wingbeat leaves the cockpit and weapon pose registered');
@@ -135,6 +140,9 @@ for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456]
  for(let i=1;i<=30;i++)diving=sample(start+30+i,82+i*2);
  assert.ok(tail(climbing)[5]>tail(diving)[5]+5,'the tail drags below the dragon on a climb and above it on a dive');
  if(dragonPhase===1){
+  assert.equal(raised.mounts.length,1,'Rampart paints the permanent wing supports as one layer');
+  assert.deepEqual(raised.mounts,lowered.mounts,'the supports stay fixed while both membranes flap');
+  assert.notDeepEqual(raised.wings[0],lowered.wings[0],'the far wing flaps with its own motion');
   const owner={},idle={row:0,column:0,flightOwner:owner},deploy={...pose,flightOwner:owner};
   const wingAngle=frame=>Math.atan2(wing(frame)[1],wing(frame)[3]);
   sample(120,140,idle);
@@ -142,6 +150,7 @@ for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456]
   const closed=wingAngle(sample(121,140,{...idle,flightOwner:{}}));
   const spread=wingAngle(sample(121,140,{...deploy,flightOwner:{}}));
   assert.ok(closed>eased&&eased>spread&&closed-eased<(closed-spread)*.2,'the wing opens gradually when the cannon pose starts');
+  assert.deepEqual(sample(122,140,idle).mounts,raised.mounts,'the supports stay in place when the cannons fold away');
  }
 }
 delete sandbox.OffscreenCanvas;

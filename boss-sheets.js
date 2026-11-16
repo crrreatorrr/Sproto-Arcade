@@ -221,20 +221,26 @@
   // The three cannon poses reach higher than the idle wing's leading edge.
   const siegeWing=[[298,162],[309,118],[512,118],[512,283],[385,308],[370,308],[361,297],[350,290],
     [335,280],[322,282],[309,289],[293,287],[300,269],[309,250],[313,207]];
-  const rampartWing=[[285,218],[312,193],[389,154],[500,139],[500,382],[376,382],[366,347],
-    [316,330],[272,334],[232,350],[222,340],[247,305],[259,271],[267,240]];
-  const rampartRearWing=[[196,205],[206,174],[248,145],[292,121],[330,112],[383,112],[383,124],
-    [347,132],[328,154],[319,177],[317,222],[301,221],[302,173],[252,166],[222,183],[206,202],[202,221]];
-  const rampartFoldedCut=[[226,202],[512,202],[512,422],[323,422],[319,394],[308,377],
-    [293,365],[279,356],[253,351],[232,352],[207,358],[205,346],[232,329],[247,312],[255,289],[260,253]];
-  const rampartDeployedCut=[[145,110],[512,110],[512,422],[323,422],[319,394],[308,377],
-    [293,365],[279,356],[253,351],[232,352],[207,358],[205,346],[232,329],[247,312],[255,289],[257,242],[245,220],[145,220]];
+  // Use the extended membranes for the full beat and keep the metal supports behind the cockpit.
+  const rampartWing=[[281,224],[312,193],[389,154],[505,139],[505,382],[376,382],[366,347],
+    [316,330],[272,334],[241,349],[248,314],[256,279],[267,240]];
+  const rampartRearWing=[[177,215],[206,174],[248,145],[292,121],[330,110],[383,110],[383,124],
+    [347,132],[328,154],[319,177],[317,222],[301,221],[302,173],[252,166],[222,183],[206,208],[199,237],[177,237]];
+  const rampartNearSupport=[[180,347],[218,318],[244,296],[260,270],[270,243],[275,225],[289,222],
+    [292,233],[284,245],[274,275],[256,316],[228,335],[197,357],[182,361]];
+  const rampartFarSupport=[[169,208],[188,205],[204,201],[209,210],[208,225],[195,237],[176,241],[167,220]];
+  const rampartBodyEdge=[[512,425],[323,425],[319,394],[308,377],[293,365],[279,356],[253,351],
+    [232,352],[207,358],[205,346],[232,329],[244,311],[252,287],[252,258],[242,241],
+    [222,228],[201,222],[181,220],[164,223],[143,234]];
+  const rampartFoldedCut=[[143,199],[512,199],...rampartBodyEdge];
+  const rampartDeployedCut=[[143,110],[512,110],...rampartBodyEdge];
   const rampartCannons=[[81,162],[204,157],[207,177],[229,177],[229,171],[303,172],[311,198],
     [302,214],[286,224],[266,227],[250,220],[227,208],[205,209],[185,224],[171,220],[160,205],[80,212]];
   const dragonRigs=[
     {wing:{mask:siegeWing,anchor:[310,255],row:0,column:0},legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
-    {wing:{mask:rampartWing,anchor:[259,226],row:2,column:1},
-      rear:{mask:rampartRearWing,anchor:[198,213],row:2,column:1},
+    {wing:{mask:rampartWing,anchor:[282,225],row:2,column:1},
+      rear:{mask:rampartRearWing,anchor:[194,211],row:2,column:1},
+      mounts:{masks:[rampartNearSupport,rampartFarSupport],row:2,column:1},
       legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
   ];
   const dragonMotion=new WeakMap();
@@ -262,11 +268,13 @@
     return fraction*fraction*(3-2*fraction);
   }
   const dragonLayers=new WeakMap();
-  function dragonMask(pen,points){
+  function dragonMask(pen,...regions){
     pen.beginPath();
-    pen.moveTo(...points[0]);
-    for(const point of points.slice(1))pen.lineTo(...point);
-    pen.closePath();
+    for(const points of regions){
+      pen.moveTo(...points[0]);
+      for(const point of points.slice(1))pen.lineTo(...point);
+      pen.closePath();
+    }
   }
   function dragonCell(img,row,column){
     const size=img.naturalWidth/4;
@@ -274,10 +282,10 @@
     if(!pen)return null;
     return {canvas,pen,paint:()=>pen.drawImage(img,column*size,row*size,size,size,0,0,size,size)};
   }
-  function dragonLayer(img,{row,column,mask}){
+  function dragonLayer(img,{row,column,mask,masks=[mask]}){
     const cell=dragonCell(img,row,column);
     if(!cell)return null;
-    dragonMask(cell.pen,mask);
+    dragonMask(cell.pen,...masks);
     cell.pen.clip();
     cell.paint();
     return cell.canvas;
@@ -287,7 +295,8 @@
     if(!layers){
       const wing=dragonLayer(img,rig.wing);
       if(!wing)return null;
-      layers={wing,rear:rig.rear&&dragonLayer(img,rig.rear),bodies:new Map()};
+      layers={wing,rear:rig.rear&&dragonLayer(img,rig.rear),
+        mounts:rig.mounts&&dragonLayer(img,rig.mounts),bodies:new Map()};
       dragonLayers.set(img,layers);
     }
     const key=row*4+column;
@@ -307,15 +316,15 @@
       }
       layers.bodies.set(key,cell.canvas);
     }
-    return {wing:layers.wing,rear:layers.rear,body:layers.bodies.get(key)};
+    return {wing:layers.wing,rear:layers.rear,mounts:layers.mounts,body:layers.bodies.get(key)};
   }
   function drawDragonWing(target,layer,part,flight,scale,pin,origin,pivot,viewRight,rear=false){
-    const beat=flight.tick*2*Math.PI/(flight.phase?36:42)-(rear ? .58 : 0);
+    const beat=flight.tick*2*Math.PI/(flight.phase?36:42)-(rear ? .32 : 0);
     const stroke=Math.sin(beat)+.12*Math.sin(2*beat-.5);
     const t=flight.spread;
-    const angle=flight.phase ? .64-.6*t+.21*stroke : .05+.265*stroke;
-    const extension=(flight.phase?(rear ? .37+.44*t : .52+.39*t):.98)*(1-.085*Math.sin(beat)**2);
-    const lift=(rear ? .80 : .96)+.055*Math.cos(beat);
+    const angle=flight.phase ? (rear ? .65-.56*t+.11*stroke : .53-.50*t+.19*stroke) : .05+.265*stroke;
+    const extension=(flight.phase?(rear ? .31+.46*t : .51+.37*t):.98)*(1-.085*Math.sin(beat)**2);
+    const lift=(rear ? .64+.16*t : .96)+.055*Math.cos(beat);
     const [hx,hy]=part.anchor,[px,py]=pivot;
     const sin=Math.sin(angle),cos=Math.cos(angle),bodySin=Math.sin(flight.pitch),bodyCos=Math.cos(flight.pitch);
     const rootRight=px+(origin[0]-px)*bodyCos-(origin[1]-py)*bodySin;
@@ -392,6 +401,7 @@
       const origin=[d.x+(hx-cx)*scale,d.y+(hy-cy)*scale];
       drawDragonWing(target,layer,part,flight,scale,[x(hx),y(hy)],origin,[px,py],viewRight,rear);
     }
+    if(parts.mounts)target.drawImage(parts.mounts,x(0),y(0),x(parts.mounts.width)-x(0),y(parts.mounts.height)-y(0));
     paint(cx,cy,endX,legTop);
     let edge=cx;
     const motion=Math.max(-1,Math.min(1,flight.trailing/1.9));
