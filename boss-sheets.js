@@ -217,14 +217,27 @@
     // The approved preview used a 408 px hull and submerged 55% of the orange band.
     return .55*(phase===1?75:63)*width/408;
   }
-  // Source pixels in each 512px atlas cell. Shape the folded and extended
-  // wings separately so the shorter wing still gets a full stroke.
+  // Hinges and masks are registered in the accepted 512px atlas cells.
+  const siegeWing=[[298,162],[512,151],[512,283],[385,308],[370,308],[361,297],[350,290],
+    [335,280],[322,282],[309,289],[293,287],[300,269],[309,250],[313,207]];
+  const rampartWing=[[285,218],[312,193],[389,154],[500,139],[500,382],[376,382],[366,347],
+    [316,330],[272,334],[232,350],[222,340],[247,305],[259,271],[267,240]];
+  const rampartRearWing=[[196,205],[206,174],[248,145],[292,121],[330,112],[383,112],[383,124],
+    [347,132],[328,154],[319,177],[317,222],[301,221],[302,173],[252,166],[222,183],[206,202],[202,221]];
+  const rampartFoldedCut=[[226,202],[512,202],[512,422],[323,422],[319,394],[308,377],
+    [293,365],[279,356],[253,351],[232,352],[207,358],[205,346],[232,329],[247,312],[255,289],[260,253]];
+  const rampartDeployedCut=[[145,110],[512,110],[512,422],[323,422],[319,394],[308,377],
+    [293,365],[279,356],[253,351],[232,352],[207,358],[205,346],[232,329],[247,312],[255,289],[257,242],[245,220],[145,220]];
+  const rampartCannons=[[81,162],[204,157],[207,177],[229,177],[229,171],[303,172],[311,198],
+    [302,214],[286,224],[266,227],[250,220],[227,208],[205,209],[185,224],[171,220],[160,205],[80,212]];
   const dragonRigs=[
-    {wing:[310,306],tips:[487,487,487,487],wingLift:95,legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
-    {wing:[250,346],tips:[371,497,497,404],wingLift:116,legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
+    {wing:{mask:siegeWing,anchor:[312,234],row:0,column:0},legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
+    {wing:{mask:rampartWing,anchor:[259,226],row:2,column:1},
+      rear:{mask:rampartRearWing,anchor:[198,213],row:2,column:1},
+      legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
   ];
   const dragonMotion=new WeakMap();
-  function dragonFlight(owner,phase,tick,altitude){
+  function dragonFlight(owner,phase,tick,altitude,pose){
     const previous=owner&&dragonMotion.get(owner);
     if(previous?.phase===phase&&previous.tick===tick)return previous;
     const elapsed=previous?.phase===phase?tick-previous.tick:0;
@@ -234,7 +247,9 @@
     const trailing=elapsed>0&&elapsed<=12?
       previous.trailing+(velocity-previous.trailing)*(1-Math.pow(.92,elapsed)):0;
     const pitch=-.23*Math.max(-1,Math.min(1,velocity/1.9));
-    const flight={phase,tick,altitude,velocity,trailing,pitch};
+    const opening=phase===1&&pose.row===2?[.35,1,1,.28][pose.column%4]:0;
+    const spread=elapsed>0&&elapsed<=12?previous.spread+(opening-previous.spread)*(1-.87**elapsed):opening;
+    const flight={phase,tick,altitude,velocity,trailing,pitch,spread};
     if(owner)dragonMotion.set(owner,flight);
     return flight;
   }
@@ -244,6 +259,78 @@
   function smoothStep(t){
     const fraction=Math.max(0,Math.min(1,t));
     return fraction*fraction*(3-2*fraction);
+  }
+  const dragonLayers=new WeakMap();
+  function dragonMask(pen,points){
+    pen.beginPath();
+    pen.moveTo(...points[0]);
+    for(const point of points.slice(1))pen.lineTo(...point);
+    pen.closePath();
+  }
+  function dragonCell(img,row,column){
+    const size=img.naturalWidth/4;
+    const canvas=outlineSurface(size,size),pen=canvas?.getContext('2d');
+    if(!pen)return null;
+    return {canvas,pen,paint:()=>pen.drawImage(img,column*size,row*size,size,size,0,0,size,size)};
+  }
+  function dragonLayer(img,{row,column,mask}){
+    const cell=dragonCell(img,row,column);
+    if(!cell)return null;
+    dragonMask(cell.pen,mask);
+    cell.pen.clip();
+    cell.paint();
+    return cell.canvas;
+  }
+  function dragonParts(img,rig,phase,row,column){
+    let layers=dragonLayers.get(img);
+    if(!layers){
+      const wing=dragonLayer(img,rig.wing);
+      if(!wing)return null;
+      layers={wing,rear:rig.rear&&dragonLayer(img,rig.rear),bodies:new Map()};
+      dragonLayers.set(img,layers);
+    }
+    const key=row*4+column;
+    if(!layers.bodies.has(key)){
+      const cell=dragonCell(img,row,column);
+      if(!cell)return null;
+      cell.paint();
+      const deployed=phase===1&&row===2&&(column===1||column===2);
+      dragonMask(cell.pen,phase===0?siegeWing:deployed?rampartDeployedCut:rampartFoldedCut);
+      cell.pen.globalCompositeOperation='destination-out';
+      cell.pen.fill();
+      cell.pen.globalCompositeOperation='source-over';
+      if(deployed){
+        dragonMask(cell.pen,rampartCannons);
+        cell.pen.clip();
+        cell.paint();
+      }
+      layers.bodies.set(key,cell.canvas);
+    }
+    return {wing:layers.wing,rear:layers.rear,body:layers.bodies.get(key)};
+  }
+  function drawDragonWing(target,layer,part,flight,scale,pin,origin,pivot,viewRight,rear=false){
+    const beat=flight.tick*2*Math.PI/(flight.phase?36:42)-(rear ? .58 : 0);
+    const stroke=Math.sin(beat)+.12*Math.sin(2*beat-.5);
+    const t=flight.spread;
+    const angle=flight.phase ? .64-.6*t+.21*stroke : .05+.30*stroke;
+    const extension=(flight.phase?(rear ? .37+.44*t : .52+.39*t):.98)*(1-.085*Math.sin(beat)**2);
+    const lift=(rear ? .80 : .96)+.055*Math.cos(beat);
+    const [hx,hy]=part.anchor,[px,py]=pivot;
+    const sin=Math.sin(angle),cos=Math.cos(angle),bodySin=Math.sin(flight.pitch),bodyCos=Math.cos(flight.pitch);
+    const rootRight=px+(origin[0]-px)*bodyCos-(origin[1]-py)*bodySin;
+    let reach=extension;
+    // Fold the span as a whole when the dragon flies against the right edge.
+    for(const [wx,wy] of part.mask){
+      const u=wx-hx,v=wy-hy,dx=(u*cos-v*sin)*scale*bodyCos;
+      const dy=(u*sin+v*cos)*lift*scale;
+      if(dx>0)reach=Math.min(reach,(viewRight-3-rootRight+dy*bodySin)/dx);
+    }
+    reach=Math.max(.22,reach);
+    target.save();
+    target.translate(...pin);
+    target.transform(scale*reach*cos,scale*lift*sin,-scale*reach*sin,scale*lift*cos,0,0);
+    target.drawImage(layer,-hx,-hy);
+    target.restore();
   }
   function drawDragonTail(paint,y,scale,flight,startX,endX,top,bottom){
     const shortTail=flight.phase===1;
@@ -270,18 +357,19 @@
     paint(right,top,endX,bottom);
   }
   let dragonBuffer=null;
-  function drawDragonFlight(ctx,img,sx,sy,crop,d,flight,row,column,viewRight) {
+  function drawDragonFlight(ctx,img,crop,d,flight,row,column,viewRight) {
     const [cx,cy,width,height]=crop,rig=dragonRigs[flight.phase];
-    const [root,wingBase]=rig.wing,[legTop,knee,legEnd]=rig.legY;
+    const [legTop,knee,legEnd]=rig.legY;
     const endX=cx+width,endY=cy+height;
-    if(cx>=root||endX<=root||cy>=wingBase||endY<legEnd)return false;
+    if(endY<legEnd)return false;
+    const parts=dragonParts(img,rig,flight.phase,row%4,column%4);
+    if(!parts)return false;
     const scale=d.w/width;
-    // Assemble the limbs before rotating, so the tilted sprite has one
-    // silhouette and the individual strips cannot leave antialiased gaps.
-    const pad=Math.ceil(1.15*rig.wingLift*scale),needW=d.w,needH=d.h+pad*2;
+    // Assemble the layers before pitching the complete silhouette.
+    const pad=Math.ceil(95*scale),side=Math.ceil(40*scale),needW=d.w+side*2,needH=d.h+pad*2;
     dragonBuffer??=outlineSurface(needW,needH);
     const buffer=dragonBuffer?.getContext('2d'),target=buffer||ctx;
-    const left=buffer?0:d.x,top=buffer?pad:d.y;
+    const left=buffer?side:d.x,top=buffer?pad:d.y;
     if(buffer){
       if(dragonBuffer.width!==needW)dragonBuffer.width=needW;
       if(dragonBuffer.height!==needH)dragonBuffer.height=needH;
@@ -292,31 +380,18 @@
     const y=value=>top+Math.round((value-cy)*d.h/height);
     const paint=(l,t,r,b,dyTop=y(t),dyBottom=y(b))=>{
       if(r>l&&b>t&&x(r)>x(l)&&dyBottom>dyTop){
-        target.drawImage(img,sx+l-cx,sy+t-cy,r-l,b-t,x(l),dyTop,x(r)-x(l),dyBottom-dyTop);
+        target.drawImage(parts.body,l,t,r-l,b-t,x(l),dyTop,x(r)-x(l),dyBottom-dyTop);
       }
     };
     const [px,py]=dragonPivot(d,flight.phase);
     ctx.translate(px,py);ctx.rotate(flight.pitch);ctx.translate(-px,-py);
-    paint(cx,cy,root,wingBase);
-    paint(cx,wingBase,endX,legTop);
-    const tip=flight.phase&&row!==2?348:rig.tips[column%4];
-    const beat=flight.tick*Math.PI/(flight.phase?15:18);
-    const flap=(Math.cos(beat)+.18*Math.sin(2*beat))*rig.wingLift*scale;
-    const wingTop=d.y-Math.max(0,flap);
-    const cos=Math.cos(flight.pitch),sin=Math.sin(flight.pitch);
-    const projectedTip=px+(d.x+(tip-cx)*scale-px)*cos-(wingTop-py)*sin;
-    // At the right edge tuck the raised wing toward the cockpit. The shear
-    // fades to zero at the shoulder and cannot move the head or the cannons.
-    const fold=flight.phase&&row===2&&flight.pitch>0&&target.transform?
-      Math.max(0,projectedTip-viewRight+4)/(cos*(y(wingBase)-y(cy)+Math.max(0,flap))):0;
-    for(let l=root;l<endX;l+=8){
-      const r=Math.min(endX,l+8);
-      const leverage=Math.min(1,((l+r)/2-root)/(tip-root));
-      const shear=fold*leverage;
-      if(shear){target.save();target.transform(1,0,shear,1,-shear*y(wingBase),0);}
-      paint(l,cy,r,wingBase,y(cy)-Math.round(flap*leverage));
-      if(shear)target.restore();
+    for(const [layer,part,rear] of [[parts.rear,rig.rear,true],[parts.wing,rig.wing,false]]){
+      if(!layer)continue;
+      const [hx,hy]=part.anchor;
+      const origin=[d.x+(hx-cx)*scale,d.y+(hy-cy)*scale];
+      drawDragonWing(target,layer,part,flight,scale,[x(hx),y(hy)],origin,[px,py],viewRight,rear);
     }
+    paint(cx,cy,endX,legTop);
     let edge=cx;
     const motion=Math.max(-1,Math.min(1,flight.trailing/1.9));
     for(const [index,[start,joint,end]] of rig.legs.entries()){
@@ -337,7 +412,7 @@
       paint(edge,legTop,endX,legEnd);
       drawDragonTail(paint,y,scale,flight,cx,endX,legEnd,endY);
     }
-    if(buffer)ctx.drawImage(dragonBuffer,d.x,d.y-pad);
+    if(buffer)ctx.drawImage(dragonBuffer,d.x-side,d.y-pad);
     return true;
   }
   function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline,waterline,flight){
@@ -359,7 +434,7 @@
       drawWaterline(ctx,destination,depth,waterline.tick,(dx,dy)=>{
         ctx.drawImage(img,sx,sy,width,height,destination.x+dx,destination.y+dy,destination.w,destination.h);
       },waterline.drawSurface);
-    }else if(!flight||!crop||!drawDragonFlight(ctx,img,sx,sy,crop,destination,flight,row,column,1280-box.x-box.w/2)){
+    }else if(!flight||!crop||!drawDragonFlight(ctx,img,crop,destination,flight,row,column,1280-box.x-box.w/2)){
       if(!outline||!drawOutlined(ctx,img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h,outline.filter,outline.stage)){
         if(outline){ctx.filter=ctx.filter&&ctx.filter!=='none'?ctx.filter+' '+outline.filter:outline.filter;outlineStats.direct++;}
         ctx.drawImage(img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h);
@@ -470,7 +545,7 @@
     if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
-    const flight=config===manifest[7]?dragonFlight(w.player,w.phaseIndex,w.tick,box.y):null;
+    const flight=config===manifest[7]?dragonFlight(w.player,w.phaseIndex,w.tick,box.y,pose):null;
     const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline,flight);
     if(shown)drawMountedRelease(ctx,img,pose,box,config.phases[w.phaseIndex].bounds,flight,w.player);
     return shown;
@@ -485,7 +560,7 @@
     const config=entry(id),img=phaseImage(id,phase);
     if(!img)return false;
     const registered=legacyBox(id,phase,box);
-    const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?dragonFlight(pose.flightOwner,phase,pose.flightTick,registered.y):null;
+    const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?dragonFlight(pose.flightOwner,phase,pose.flightTick,registered.y,pose):null;
     const shown=frame(ctx,img,pose.row||0,pose.column||0,registered,config,config.phases[phase].bounds,null,null,
       config===manifest[1]&&waterline?{...waterline,phase}:null,flight);
     if(shown&&ctx.globalCompositeOperation!=='lighter')drawMountedRelease(ctx,img,pose,registered,config.phases[phase].bounds,flight,pose.flightOwner);

@@ -96,38 +96,55 @@ for(const phaseIndex of [0,1]){
     {x:710,y:-159,w:570,h:747},'Dave grows 50% in Story without clipping the right edge');
 }
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
-for(const [dragonPhase,tops,knee,halfBeat,tailX,tailY] of [[0,119,410,18,156,456],[1,118,474,15,298,450]]){
+const dragonDraws=[],wingTransforms=[];
+sandbox.OffscreenCanvas=class{
+ constructor(width,height){this.width=width;this.height=height;}
+ getContext(){
+  return {save(){},restore(){},translate(){},beginPath(){},moveTo(){},lineTo(){},closePath(){},
+   clip(){},fill(){},clearRect(){},transform(...matrix){wingTransforms.push(matrix);},
+   drawImage(img,...args){if(img instanceof sandbox.OffscreenCanvas&&args.length===8)dragonDraws.push(args);}
+  };
+ }
+};
+for(const [dragonPhase,tops,knee,quarter,tailX,tailY] of [[0,119,410,10,156,456],[1,118,474,9,298,450]]){
  const asset=sheets.manifest[7].phases[dragonPhase];
  asset.ready=true;asset.bounds=[12,tops,488,500-tops];
  const box={x:900,y:140,w:350,h:300},pose={row:2,column:2,flightTick:0,flightOwner:{}};
  assert.equal(sheets.drawBoss(ctx,7,dragonPhase,pose,box),false);
  Object.assign(created.at(-1),{complete:true,naturalWidth:2048,naturalHeight:2048});
- const sample=(tick,y=box.y)=>{
+ const sample=(tick,y=box.y,paintPose=pose)=>{
   calls.length=0;
-  assert.equal(sheets.drawBoss(ctx,7,dragonPhase,{...pose,flightTick:tick},{...box,y}),true);
-  return calls.filter(call=>call[0]==='draw').map(call=>call.slice(2));
+  dragonDraws.length=0;wingTransforms.length=0;
+  assert.equal(sheets.drawBoss(ctx,7,dragonPhase,{...paintPose,flightTick:tick},{...box,y}),true);
+  return {draws:dragonDraws.slice(),wings:wingTransforms.slice(),pitch:calls.find(call=>call[0]==='rotate')[1]};
  };
- const raised=sample(0),lowered=sample(halfBeat);
- assert.deepEqual(raised.slice(0,2),lowered.slice(0,2),'cockpit, body and source attack frame keep their registration through the wingbeat');
- const wing=frame=>frame.filter(draw=>draw[1]===1024+tops&&draw[2]<=8).at(-1);
- const leg=frame=>frame.filter(draw=>draw[1]===1024+knee&&draw[2]===6)[3];
- assert.ok(wing(raised)[5]+65<wing(lowered)[5],'the far wing rises and falls visibly in both forms');
- assert.notEqual(leg(raised)[5],leg(lowered)[5],'the leg joint flexes without moving the torso');
- const tail=frame=>frame.find(draw=>draw[1]===1024+tailY&&draw[0]===1024+tailX);
- assert.notEqual(tail(raised)[5],tail(sample(halfBeat*2))[5],'the tail sways independently of the body');
- const pitch=(tick,y)=>{
-  calls.length=0;
-  sheets.drawBoss(ctx,7,dragonPhase,{...pose,flightTick:tick},{...box,y});
-  return calls.find(call=>call[0]==='rotate')[1];
- };
- assert.ok(pitch(halfBeat*2+6,128)>.15,'the left-facing dragon pitches nose-up on a climb');
- assert.ok(pitch(halfBeat*2+12,142)<-.15,'the left-facing dragon pitches nose-down on a dive');
- const start=halfBeat*2+12;
+ const lowered=sample(quarter),raised=sample(quarter*3);
+ assert.deepEqual(raised.draws[0],lowered.draws[0],'the wingbeat leaves the cockpit and weapon pose registered');
+ const wing=frame=>frame.wings.at(-1);
+ const leg=frame=>frame.draws.filter(draw=>draw[1]===knee&&draw[2]===6).map(draw=>draw[5]);
+ assert.ok(wing(lowered)[1]-wing(raised)[1]>.22,'the wingtip rises and falls about the shoulder');
+ assert.deepEqual(wing(raised).slice(4),[0,0],'the pivot travels with the torso without a pose offset');
+ assert.notDeepEqual(leg(raised),leg(lowered),'the leg joints flex without moving the torso');
+ const tail=frame=>frame.draws.find(draw=>draw[1]===tailY&&draw[0]===tailX);
+ assert.notEqual(tail(raised)[5],tail(sample(quarter*4))[5],'the tail sways independently of the body');
+ assert.ok(sample(quarter*4+6,128).pitch>.15,'the left-facing dragon pitches nose-up on a climb');
+ assert.ok(sample(quarter*4+12,142).pitch<-.15,'the left-facing dragon pitches nose-down on a dive');
+ const start=quarter*4+12;
  let climbing,diving;
  for(let i=1;i<=30;i++)climbing=sample(start+i,142-i*2);
  for(let i=1;i<=30;i++)diving=sample(start+30+i,82+i*2);
  assert.ok(tail(climbing)[5]>tail(diving)[5]+5,'the tail drags below the dragon on a climb and above it on a dive');
+ if(dragonPhase===1){
+  const owner={},idle={row:0,column:0,flightOwner:owner},deploy={...pose,flightOwner:owner};
+  const wingAngle=frame=>Math.atan2(wing(frame)[1],wing(frame)[3]);
+  sample(120,140,idle);
+  const eased=wingAngle(sample(121,140,deploy));
+  const closed=wingAngle(sample(121,140,{...idle,flightOwner:{}}));
+  const spread=wingAngle(sample(121,140,{...deploy,flightOwner:{}}));
+  assert.ok(closed>eased&&eased>spread&&closed-eased<(closed-spread)*.2,'the wing opens gradually when the cannon pose starts');
+ }
 }
+delete sandbox.OffscreenCanvas;
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');
 const ranchRegistered=sheets.legacyBox(4,0,{x:100,y:200,w:380,h:498.4});for(const[key,value]of Object.entries({x:-23.3,y:200,w:520.6,h:498.4}))assert.ok(Math.abs(ranchRegistered[key]-value)<1e-9,'approved Ranch scale/offset moves only the drawing and preserves its bottom baseline');
