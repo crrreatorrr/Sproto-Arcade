@@ -302,9 +302,9 @@ function updateCodebreak() {
   refreshHud();
 }
 
-function drawCodebreakBackground() {
+function drawCodebreakBackground(phaseTwo=boss?.phase===2) {
   ctx.imageSmoothingEnabled=false;
-  if (mode!=='title' && boss?.phase===2) {
+  if (mode!=='title' && phaseTwo) {
     const arena=sceneryTile(['codebreak/arena.webp',.84],W);
     if (arena) {
       ctx.drawImage(arena,0,0);
@@ -408,12 +408,8 @@ function drawCodeMecha(frame,x,y,height,facing=1) {
 
 function drawCodebreak() {
   const barragePose=densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true);
-  if (boss.shift>=53) {
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,W,H);
-    return;
-  }
-  drawCodebreakBackground();
+  const blend=boss.shift?(boss.shift-1)/78:null;
+  ArcadePhaseBackground.draw(ctx,boss.phase===2,blend,drawCodebreakBackground);
   const b=boss, attack=attackForCodebreak();
   const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attack.frames.at(-1)+(attack.sweep?CODE_SWEEP_DURATION-1:5);
   const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attack.frames.at(-1)+5 && b.age<attack.frames.at(-1)+23?3:0;
@@ -474,10 +470,5 @@ function drawCodebreak() {
     ctx.globalAlpha=impact.opacity*(1-impact.age/impact.duration);
     ctx.drawImage(sprite,impact.x-sprite.width/2,impact.y-sprite.height/2);
     ctx.globalAlpha=1;
-  }
-  if (b.shift) {
-    const alpha=SimMath.sin(Math.PI*b.shift/53)*.83;
-    ctx.fillStyle='rgba(109,255,176,'+alpha+')';
-    ctx.fillRect(0,0,W,H);
   }
 }

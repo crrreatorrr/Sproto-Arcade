@@ -62,9 +62,15 @@ function moonkeepSaucer(p,tick){
  ctx.drawImage(front,x,y);ctx.restore();return true;
 }
 function chevrons(x,y,h){ctx.strokeStyle='#f4efe1';ctx.lineWidth=4;for(let yy=y+12;yy<y+h;yy+=32){ctx.beginPath();ctx.moveTo(x-8,yy-8);ctx.lineTo(x+3,yy);ctx.lineTo(x-8,yy+8);ctx.stroke();}}
-function render(){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);if(!world){text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase;
-const gradient=ctx.createLinearGradient(0,0,0,720);gradient.addColorStop(0,'#172d3e');gradient.addColorStop(1,w.stage.color||'#293e47');ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,720);
-if(ph.naval)ArcadeSpeedboat.drawOcean(ctx,img,w.phaseElapsed*40,w.phaseIndex===1);
+function drawTrialsBackdrop(phaseTwo){
+ const gradient=ctx.createLinearGradient(0,0,0,720);
+ gradient.addColorStop(0,'#172d3e');gradient.addColorStop(1,world.stage.color||'#293e47');
+ ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,720);
+ if(world.stage.phases[Number(phaseTwo)].naval)ArcadeSpeedboat.drawOcean(ctx,img,world.phaseElapsed*40,phaseTwo);
+}
+function render(){if(!world){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase;
+const blend=w.state==='transition'&&ph.naval?w.transitionTick/89:null;
+ArcadePhaseBackground.draw(ctx,w.phaseIndex===1,blend,drawTrialsBackdrop);
 ctx.save();ctx.translate(-w.camera.x,-w.camera.y);ctx.textAlign='left';
 if(!ph.naval)for(const pl of w.platforms){if(pl.removed||pl.active===false)continue;ctx.fillStyle='#263c49';ctx.fillRect(pl.x,pl.y,pl.w,pl.h||20);ctx.fillStyle='#81b5ba';ctx.fillRect(pl.x,pl.y,pl.w,4);}
 if(ph.naval){
@@ -121,7 +127,12 @@ if(p.dash){ctx.strokeStyle='#eed9ff';ctx.lineWidth=4;ctx.strokeRect(p.x-22,p.y-5
 ctx.fillStyle='#09131ee8';ctx.fillRect(0,0,1280,115);text(w.stage.title,24,32,23);text(`${w.checkpointRetry?'PHASE CHECKPOINT':w.practice?'PRACTICE':'FULL RUN'} · ${ph.name} · ${ph.machine||''}`,24,57,14,'#9fbdc8');text(w.objective||ph.objective,24,85,18,'#ffe3a4');text('♥'.repeat(Math.max(0,p.hp)),1255,32,23,'#ffce7a','right');text(p.dashWait?'DASH '+(p.dashWait/60).toFixed(1)+'s':'DASH READY  »',1255,57,16,p.dashWait?'#aebcc6':'#d1b5ff','right');const slot=w.weapons?.snapshot();text(slot?`${slot.weapon} · ${slot.charges} charges · ${keyLabel('F')}`:'PICKUP SLOT EMPTY',1255,83,14,'#a1ead5','right');ctx.fillStyle='#49616a';ctx.fillRect(24,100,1232,4);ctx.fillStyle='#ffd98a';ctx.fillRect(24,100,1232*Arcade.clamp(w.progress||0,0,1),4);
 if(w.cueText&&!w.densityBarrage){ctx.fillStyle='#101b2be8';ctx.fillRect(180,125,920,45);text(w.cueText,640,155,18,'#fff3d5','center');if(soundTick!==w.tick&&w.cueText!==render.lastCue){tone(580);soundTick=w.tick;}render.lastCue=w.cueText;}
 ctx.fillStyle='#0b1824db';ctx.fillRect(0,680,1280,40);text(`${ph.hudLabel||'PROGRESS'} · ${Math.round((w.progress||0)*100)}%`,24,706,14,'#d2e1df');text(`${keyLabel('X')} SHIELD ${p.shieldWait?(p.shieldWait/60).toFixed(1)+'s':'READY'}   ${keyLabel('C')} ${p.beamWait?(p.beamWait/60).toFixed(1)+'s':'READY'}   ${keyLabel('V')} ${p.bombWait?(p.bombWait/60).toFixed(1)+'s':'READY'}`,1255,706,14,'#a4d9db','right');
-if(w.state==='transition'){ctx.fillStyle='#09131ee0';ctx.fillRect(0,0,1280,720);text('MACHINE TRANSFORMATION',640,320,32,'#ffdf95','center');text(w.stage.phases[1].machine,640,365,24,'#d8ebea','center');text('New task: '+w.stage.phases[1].objective,640,410,18,'#d8ebea','center');}
+if(w.state==='transition'){
+ const next=w.stage.phases[1];
+ ctx.fillStyle='#09131ee8';ctx.fillRect(280,127,720,63);
+ text(next.machine,640,151,20,'#ffdf95','center');
+ text(next.objective,640,176,16,'#d8ebea','center');
+}
 }
 // Each frame runs inside the crash guard (runtime/crash-guard.js) and the next frame is always scheduled: a throw ends the frame (no more fixed steps on a half-applied state) and drops the step backlog; a streak of failing frames halts behind a "Something broke" panel.
 function loop(now){try{if(globalThis.ArcadeCrash)ArcadeCrash.runFrame(trialsFrame,now,()=>{acc=0;});else trialsFrame(now);}finally{requestAnimationFrame(loop);}}

@@ -334,10 +334,10 @@ function sceneryTile([file,foot],width) {
   return tile;
 }
 
-function drawBackground() {
-  if (isCodebreak()) return drawCodebreakBackground();
-  if (isNaval() && ArcadeSpeedboat.drawOcean(ctx,picture,camera,boss?.phase===2)) return;
-  if (mode!=='title' && mode!=='won' && boss?.phase===2) {
+function drawBackground(phaseTwo=boss?.phase===2) {
+  if (isCodebreak()) return drawCodebreakBackground(phaseTwo);
+  if (isNaval() && ArcadeSpeedboat.drawOcean(ctx,picture,camera,phaseTwo)) return;
+  if (mode!=='title' && mode!=='won' && phaseTwo) {
     const tile=sceneryTile(STATIC_ARENAS[mechanicsIndex(levelIndex)],W);
     if (tile) {
       ctx.drawImage(tile,0,0);
@@ -370,9 +370,9 @@ function drawBackground() {
   ctx.restore();
 }
 
-function drawArenaMotion() {
+function drawArenaMotion(phaseTwo) {
   if (isNaval()) return;
-  if (boss.phase===2) {
+  if (phaseTwo) {
     drawPhaseTwoAtmosphere(ctx,mechanicsIndex(levelIndex),time);
   } else if (mechanicsIndex(levelIndex)===0) {
     ctx.save();
@@ -410,6 +410,9 @@ function walk(id, distance, frameDistance=12) {
 }
 
 function sound(freq, end, length, volume = .04) {
+  // The replay simulation still reaches the historic cue ticks. Phase changes
+  // now use a silent backdrop fade, with no stage-blast sound.
+  if (phaseShift===STAGE_BLAST || (isCodebreak() && boss?.shift===1)) return;
   if (!audio || audio.state !== 'running') return;
   // story-audio.js synthesises a voice for each call site; without it, the original sweep.
   if (window.ArcadeAudio?.sfx(audio,freq,end,length,volume)) return;
@@ -1502,6 +1505,8 @@ function startStageShift() {
 
 function advanceStageShift() {
   phaseShift++;
+  // Keep the replay bundle's cue calls stable. The renderer ignores the old
+  // phase marker and the browser sound adapter suppresses its blast cue.
   if (phaseShift===STAGE_BLAST) sound(155+levelIndex*23,37+levelIndex*12,.52,.13);
   if (phaseShift===STAGE_BLACKOUT) gameScreen.classList.add('stage-blackout');
   if (phaseShift<STAGE_SHIFT_END) return;
@@ -2006,8 +2011,6 @@ function renderBoss() {
     }
   }
   if (!b.hp && b.phase===2 && transition<12) return;
-  // The teleport atlas supplies the mecha silhouette until it resolves into the live sprite.
-  if (isFlying() && phaseShift>=STAGE_BLAST) return;
   const frames=ART.sprites[b.id]??ART.sprites[acts[mechanicsIndex(levelIndex)].id], art=frames.poses;
   const strike=m && b.age>=b.tell && b.age<b.tell+m.active;
   const exposed=m && b.age>=b.tell+m.active;
@@ -2053,79 +2056,6 @@ function renderBoss() {
     ctx.arc(b.x,bossWeakY(b),22+SimMath.sin(time*.18)*3,0,Math.PI*2);
     ctx.stroke();
   }
-}
-
-// [arrival x, arrival y, launch direction, lift, twist, burst radius, spark color]
-const STAGE_EFFECTS = [
-  [780,564,1,155,0,460,'#ffd084'],
-  [650,270,0,110,1.3,540,'#f5a8ff'],
-  [1015,315,0,160,3.2,455,'#7ef6ff'],
-  [795,560,1,195,1.5,490,'#ffb568'],
-  [625,350,-1,25,.1,640,'#f878ff'],
-  [715,310,-1,92,2.1,530,'#8effbc'],
-  [865,490,0,0,.2,570,'#ffab58'],
-  [680,265,0,120,2.9,480,'#ffda8f'],
-  [495,475,0,0,.7,500,'#c7ff82'],
-  [638,335,0,0,-4.2,620,'#cc9fff']
-];
-
-function stageEffectFrame(index, frame) {
-  return attackFrame('boss/higgsfield/stage-effects/'+(mechanicsIndex(index)+1),frame);
-}
-
-function drawStageShift() {
-
-  const [targetX,targetY,travel,lift,twist,radius,color]=STAGE_EFFECTS[mechanicsIndex(levelIndex)];
-  const cut=phaseShift>=STAGE_BLAST;
-  const charge=clamp((phaseShift-1)/(STAGE_BLAST-1),0,1);
-  const burst=clamp((phaseShift-STAGE_BLAST)/(STAGE_BLACKOUT-STAGE_BLAST),0,1);
-  const mouthX=player.x+(isNaval()?SAUCER_MUZZLE_X:44);
-  const mouthY=isNaval()?player.y+SAUCER_MUZZLE_Y:player.y-(player.crouch?74:109);
-  const fromX=travel===1?mouthX:travel===-1?W+65:targetX;
-  const fromY=travel===1?mouthY:mechanicsIndex(levelIndex)===6||mechanicsIndex(levelIndex)===8?FLOOR+65:targetY;
-  const point=t=>{
-    const arc=SimMath.sin(t*Math.PI);
-    return [
-      fromX+(targetX-fromX)*t+SimMath.sin(t*twist*2)*arc*86,
-      fromY+(targetY-fromY)*t-lift*arc
-    ];
-  };
-  const [x,y]=cut?[targetX,targetY]:point(charge);
-  const atlas=stageEffectFrame(levelIndex,cut?(burst<.29?2:3):(charge<.57?0:1));
-  const sprite=mechanicsIndex(levelIndex)===0 && !cut?attackFrame('boss/higgsfield/transition',Math.floor(phaseShift/6)%2):atlas;
-  const alpha=cut?1-burst*.95:1;
-  const size=cut?radius*(1.10+burst*1.22):74+charge*(travel?117:260);
-
-  ctx.save();
-  ctx.imageSmoothingEnabled=false;
-  ctx.fillStyle=color;
-  ctx.globalAlpha=alpha*.13;
-  ctx.fillRect(0,0,W,H);
-  ctx.globalAlpha=1;
-  if (!cut && travel) {
-    for (let i=4;i>0;i--) {
-      const [trailX,trailY]=point(Math.max(0,charge-i*.036));
-      const trailSize=size*(1-i*.16);
-      ctx.globalAlpha=.20-i*.025;
-      ctx.drawImage(atlas,trailX-trailSize/2,trailY-trailSize/2,trailSize,trailSize);
-    }
-  }
-  ctx.globalAlpha=alpha;
-  ctx.save();
-  ctx.translate(x,y);
-  ctx.rotate(cut?twist*burst*.23:twist*charge*.31);
-  const height=size*sprite.height/sprite.width;
-  ctx.drawImage(sprite,Math.round(-size/2),Math.round(-height/2),size,height);
-  ctx.restore();
-  for (let i=0;i<24;i++) {
-    const angle=i*2.399+(cut?burst:charge)*twist;
-    const reach=cut?(20+burst*(radius*.78+i%5*13)):(26+i%6*10)*(1+charge*.65);
-    const px=x+SimMath.cos(angle)*reach;
-    const py=y+SimMath.sin(angle)*reach*.66;
-    ctx.globalAlpha=alpha*(.25+i%4*.12);
-    ctx.fillRect(Math.round(px),Math.round(py),3+i%3*2,2+i%3);
-  }
-  ctx.restore();
 }
 
 function updateVerseGemLaser(t) {
@@ -2331,7 +2261,7 @@ function drawSaucer() {
     ctx.drawImage(front,x,y);
   }
   drawSaucerRedArm(p);
-  if (p.shot===1 || (phaseShift>0 && phaseShift<6)) {
+  if (p.shot===1 && !phaseShift) {
     const flash=attackArt('player/higgsfield/saucer/muzzle');
     ctx.drawImage(flash,Math.round(p.x+SAUCER_MUZZLE_X-5),Math.round(p.y+SAUCER_MUZZLE_Y-flash.height/2));
   }
@@ -2399,10 +2329,8 @@ function drawGroundPlayer() {
   const platforming=isChase() || isCodebreakClimb();
   const scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
   if (!platforming || p.grounded) shadow(p.x,platforming?p.y:FLOOR,36*scale);
-  const casting=phaseShift>0 && phaseShift<=8 && !p.crouch;
-  const walking=p.walking && p.grounded && !p.dash && !p.crouch && !casting;
-  const pose=casting?(art.cast.at(-2)??art.cast[0]):
-    p.dash?art.poses[6]:p.crouch?art.poses[10]:
+  const walking=p.walking && p.grounded && !p.dash && !p.crouch;
+  const pose=p.dash?art.poses[6]:p.crouch?art.poses[10]:
     !p.grounded?art.poses[p.vy<0?8:9]:
     walking?walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length):
     p.id==='rivet' && p.shot<3?art.cast.at(p.shot<2?-2:-1):art.poses[time%46<23?0:1];
@@ -2561,20 +2489,21 @@ function drawLegacyDensity(){
   }
 }
 function render(){renderLegacyScene();drawLegacyDensity();drawLegacyPhasePowerups();drawFeedback();}
+function drawStoryBackdrop(phaseTwo) {
+  drawBackground(phaseTwo);
+  drawArenaMotion(phaseTwo);
+  drawShade();
+}
+
 function renderLegacyScene() {
   if (isCodebreak()) return drawCodebreak();
-  if (phaseShift>=STAGE_BLACKOUT) {
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,W,H);
-    return;
-  }
-  drawBackground();
   if (isChase()) {
+    drawBackground();
     drawChase();
     return;
   }
-  drawArenaMotion();
-  drawShade();
+  const blend=phaseShift?(phaseShift-1)/(STAGE_SHIFT_END-2):null;
+  ArcadePhaseBackground.draw(ctx,boss.phase===2,blend,drawStoryBackdrop);
   ctx.save();
   if (shake) ctx.translate(SimMath.sin(time*1.8)*shake*.28,SimMath.cos(time*2)*shake*.25);
   ctx.imageSmoothingEnabled=false;
@@ -2649,7 +2578,6 @@ function renderLegacyScene() {
   drawVerseGemLaser();
   drawShieldPulse();
   drawCeilingSweep();
-  if (phaseShift) drawStageShift();
 }
 
 function pause() {
@@ -2882,10 +2810,7 @@ function levelAssets(index) {
   const level=LEVELS[index];
   const images=level.naval?ArcadeSpeedboat.assets.map(picture):[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
   if (!level.naval&&STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
-  if (acts[index]) {
-    for (let i=0;i<4;i++) images.push(stageEffectFrame(mechanicsIndex(index),i));
-    images.push(...spriteFrames(acts[index].id));
-  }
+  if (acts[index]) images.push(...spriteFrames(acts[index].id));
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;
