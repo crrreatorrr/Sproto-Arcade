@@ -218,7 +218,8 @@
     return .55*(phase===1?75:63)*width/408;
   }
   // Hinges and masks are registered in the accepted 512px atlas cells.
-  const siegeWing=[[298,162],[512,151],[512,283],[385,308],[370,308],[361,297],[350,290],
+  // The three cannon poses reach higher than the idle wing's leading edge.
+  const siegeWing=[[298,162],[309,118],[512,118],[512,283],[385,308],[370,308],[361,297],[350,290],
     [335,280],[322,282],[309,289],[293,287],[300,269],[309,250],[313,207]];
   const rampartWing=[[285,218],[312,193],[389,154],[500,139],[500,382],[376,382],[366,347],
     [316,330],[272,334],[232,350],[222,340],[247,305],[259,271],[267,240]];
@@ -231,7 +232,7 @@
   const rampartCannons=[[81,162],[204,157],[207,177],[229,177],[229,171],[303,172],[311,198],
     [302,214],[286,224],[266,227],[250,220],[227,208],[205,209],[185,224],[171,220],[160,205],[80,212]];
   const dragonRigs=[
-    {wing:{mask:siegeWing,anchor:[312,234],row:0,column:0},legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
+    {wing:{mask:siegeWing,anchor:[310,255],row:0,column:0},legs:[[108,149,184],[184,219,267],[278,320,374]],legY:[378,410,430],pitchX:.47},
     {wing:{mask:rampartWing,anchor:[259,226],row:2,column:1},
       rear:{mask:rampartRearWing,anchor:[198,213],row:2,column:1},
       legs:[[37,80,114],[114,157,204],[211,253,286]],legY:[420,474,500],pitchX:.39}
@@ -312,7 +313,7 @@
     const beat=flight.tick*2*Math.PI/(flight.phase?36:42)-(rear ? .58 : 0);
     const stroke=Math.sin(beat)+.12*Math.sin(2*beat-.5);
     const t=flight.spread;
-    const angle=flight.phase ? .64-.6*t+.21*stroke : .05+.30*stroke;
+    const angle=flight.phase ? .64-.6*t+.21*stroke : .05+.265*stroke;
     const extension=(flight.phase?(rear ? .37+.44*t : .52+.39*t):.98)*(1-.085*Math.sin(beat)**2);
     const lift=(rear ? .80 : .96)+.055*Math.cos(beat);
     const [hx,hy]=part.anchor,[px,py]=pivot;
