@@ -2110,12 +2110,13 @@ function renderBoss() {
   const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,variant)??{row:0,column:0};
   const sheetPose=(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
     (b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
+  const flightPose=id===7?{...sheetPose,flightTick:time,flightOwner:b}:sheetPose;
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
   const paintBoss=flash=>{
     if (flash) { ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=flash; }
-    const sheetDrawn=sheets?.drawBoss(ctx,id,b.phase-1,id===7?{...sheetPose,flightTick:time}:sheetPose,sheetBox,
+    const sheetDrawn=sheets?.drawBoss(ctx,id,b.phase-1,flightPose,sheetBox,
       naval?{tick:time,drawSurface:!flash}:null);
     if (sheetDrawn) return;
     if (hasMecha(b)) { if (flash) ctx.globalAlpha=flash*.34/.38; drawMecha(b); }

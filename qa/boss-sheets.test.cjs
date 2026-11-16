@@ -96,10 +96,10 @@ for(const phaseIndex of [0,1]){
     {x:710,y:-159,w:570,h:747},'Dave grows 50% in Story without clipping the right edge');
 }
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
-for(const [dragonPhase,tops,halfBeat] of [[0,119,18],[1,118,15]]){
+for(const [dragonPhase,tops,knee,halfBeat] of [[0,119,414,18],[1,118,474,15]]){
  const asset=sheets.manifest[7].phases[dragonPhase];
  asset.ready=true;asset.bounds=[12,tops,488,500-tops];
- const box={x:900,y:140,w:350,h:300},pose={row:2,column:2,flightTick:0};
+ const box={x:900,y:140,w:350,h:300},pose={row:2,column:2,flightTick:0,flightOwner:{}};
  assert.equal(sheets.drawBoss(ctx,7,dragonPhase,pose,box),false);
  Object.assign(created.at(-1),{complete:true,naturalWidth:2048,naturalHeight:2048});
  const sample=tick=>{
@@ -109,7 +109,17 @@ for(const [dragonPhase,tops,halfBeat] of [[0,119,18],[1,118,15]]){
  };
  const raised=sample(0),lowered=sample(halfBeat);
  assert.deepEqual(raised.slice(0,2),lowered.slice(0,2),'cockpit, body and source attack frame keep their registration through the wingbeat');
- assert.ok(raised.length>4&&raised.at(-1)[5]<lowered.at(-1)[5],'the far wing rises and falls in both forms');
+ const wing=frame=>frame.filter(draw=>draw[1]===1024+tops&&draw[2]<=8).at(-1);
+ const leg=frame=>frame.filter(draw=>draw[1]===1024+knee&&draw[2]===6)[3];
+ assert.ok(wing(raised)[5]+65<wing(lowered)[5],'the far wing rises and falls visibly in both forms');
+ assert.notEqual(leg(raised)[5],leg(lowered)[5],'the leg joint flexes without moving the torso');
+ const pitch=(tick,y)=>{
+  calls.length=0;
+  sheets.drawBoss(ctx,7,dragonPhase,{...pose,flightTick:tick},{...box,y});
+  return calls.find(call=>call[0]==='rotate')[1];
+ };
+ assert.ok(pitch(halfBeat+6,128)>.15,'the left-facing dragon pitches nose-up on a climb');
+ assert.ok(pitch(halfBeat+12,142)<-.15,'the left-facing dragon pitches nose-down on a dive');
 }
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');

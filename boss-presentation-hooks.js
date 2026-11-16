@@ -24,7 +24,9 @@
     if(meta)for(let i=first;i<(bullets?.length||0);i++){
       const shot=bullets[i];
       art.bindShot(shot,meta);
-      release(shot,meta,{mounted:bossMount(shot),size:shot.shape?.startsWith('mecha')?1.15:.8});
+      const box=LEVELS[levelIndex].id===7&&MOONKEEP_ATTACKS[boss.move]?bossSheetBox(boss):null;
+      const dragonMount=box?[shot.x-box.x-box.w/2,shot.y-box.y-box.h/2]:null;
+      release(shot,meta,{mounted:bossMount(shot),size:shot.shape?.startsWith('mecha')?1.15:.8,dragonMount});
     }
     return result;
   };
