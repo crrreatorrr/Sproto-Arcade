@@ -4939,6 +4939,7 @@ function spriteWeaponCycle(stage, phase, source, eventId, bornTick) {
 }
 
 function spriteModernWeaponVariant(stage,phase,source,eventId,bornTick,missile) {
+  if(source==='07-moonkeep/dragon-breath')return 0;
   return missile?2:spriteWeaponMod3(spriteWeaponCycle(stage,phase,source,eventId,bornTick));
 }
 

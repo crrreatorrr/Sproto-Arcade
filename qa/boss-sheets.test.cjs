@@ -96,6 +96,21 @@ for(const phaseIndex of [0,1]){
     {x:710,y:-159,w:570,h:747},'Dave grows 50% in Story without clipping the right edge');
 }
 for(const [phaseIndex,expected]of [[0,{x:930,y:185,w:330,h:280}],[1,{x:952,y:222,w:328,h:280}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'07-moonkeep'},phaseIndex,data:{}}))),expected,'phase-specific dragon draw calibration preserves P1');
+for(const [dragonPhase,tops,halfBeat] of [[0,119,18],[1,118,15]]){
+ const asset=sheets.manifest[7].phases[dragonPhase];
+ asset.ready=true;asset.bounds=[12,tops,488,500-tops];
+ const box={x:900,y:140,w:350,h:300},pose={row:2,column:2,flightTick:0};
+ assert.equal(sheets.drawBoss(ctx,7,dragonPhase,pose,box),false);
+ Object.assign(created.at(-1),{complete:true,naturalWidth:2048,naturalHeight:2048});
+ const sample=tick=>{
+  calls.length=0;
+  assert.equal(sheets.drawBoss(ctx,7,dragonPhase,{...pose,flightTick:tick},box),true);
+  return calls.filter(call=>call[0]==='draw').map(call=>call.slice(2));
+ };
+ const raised=sample(0),lowered=sample(halfBeat);
+ assert.deepEqual(raised.slice(0,2),lowered.slice(0,2),'cockpit, body and source attack frame keep their registration through the wingbeat');
+ assert.ok(raised.length>4&&raised.at(-1)[5]<lowered.at(-1)[5],'the far wing rises and falls in both forms');
+}
 for(const [phaseIndex,expected]of [[0,{x:920,y:300,w:320,h:300}],[1,{x:760,y:140,w:510,h:460}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'08-crown'},phaseIndex,data:{}}))),expected,'phase-specific tank draw calibration preserves P1');
 for(const [phaseIndex,expected]of [[0,{x:3858,y:400,w:390,h:220}],[1,{x:3996,y:290,w:390,h:310}]])assert.deepEqual(JSON.parse(JSON.stringify(sheets.machineBox({stage:{id:'04-ranch'},phaseIndex,data:{offset:100}}))),expected,'calibrated harvester/train retain authored routeoffset');
 const ranchRegistered=sheets.legacyBox(4,0,{x:100,y:200,w:380,h:498.4});for(const[key,value]of Object.entries({x:-23.3,y:200,w:520.6,h:498.4}))assert.ok(Math.abs(ranchRegistered[key]-value)<1e-9,'approved Ranch scale/offset moves only the drawing and preserves its bottom baseline');

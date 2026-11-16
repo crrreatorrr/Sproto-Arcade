@@ -130,6 +130,14 @@ const acts = [
   {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['rush','slabs','quake','drop','bankShot'],staticMoves:['skimmer','gearPincer']}
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
+const MOONKEEP_ATTACKS={
+  dragonBreath:{variant:0,lift:-50,shots:[[0,-4],[16,1],[32,5]]},
+  dragonCannons:{variant:1,lift:46,shots:[[0,5],[0,-5],[22,3],[22,-3]]},
+  dragonWingShot:{variant:2,lift:-35,shots:[[0,-6],[25,7]]}
+};
+// Mouth, wing cannons and body cannon, measured in the accepted 512px firing cells.
+const MOONKEEP_MUZZLES=[[[70,259],[86,360],[76,367]],[[61,325],[136,183],[77,396]]];
+const MOONKEEP_RIGHT_CANNON=[[151,360],[242,204]];
 const moves = {
   quake:{tell:28,active:38,rest:31},
   slabs:{tell:34,active:57,rest:26},
@@ -164,6 +172,9 @@ const moves = {
 };
 for (const [name,shots] of Object.entries({...SIGNATURE_PATTERNS,...FLIGHT_PATTERNS})) {
   moves[name]={tell:32,active:shots.at(-1)[0]+23,rest:27};
+}
+for (const [name,attack] of Object.entries(MOONKEEP_ATTACKS)) {
+  moves[name]={tell:45,active:attack.shots.at(-1)[0]+24,rest:31};
 }
 const MAX_HP=5, PHASE_ONE_HEALTH=1065;
 // Rules replaced by owner-approved changes keep their old form behind these constants, so the
@@ -499,6 +510,13 @@ function coachText() {
     'Steer through gaps in missile walls. For a sweep, steer low or shield. Use '+shieldPrompt()+' when the cue says SHIELD NOW.',
     'When the cue says EXPOSED, line up with the ring for triple damage.'
   ].join('\n');
+  if(LEVELS[levelIndex]?.id===7)return [
+    pad?'Fly the UFO with the left stick or D-pad.':'Fly the UFO with WASD or the arrow keys.',
+    'Change altitude to dodge the dragon. Dash ('+controlPrompt('dash','Shift','B / RT')+') through incoming shots.',
+    'Use your shield ('+shieldPrompt()+') when the cue says SHIELD NOW.',
+    controlPrompt('missile','C','Y')+' fires the UFO laser. '+controlPrompt('bomb','V','RB')+' launches the bouncing ball.',
+    'When the dragon is EXPOSED, line up with the ring for triple damage.'
+  ].join('\n');
   return [
     (pad?'Move: left stick or D-pad  ·  Jump: ':'Move: ← →  ·  Jump: ')+controlPrompt('jump','Space','A')+', and again in the air  ·  Crouch: '+(pad?'stick down':crouchPrompt()),
     'Dash ('+controlPrompt('dash','Shift','B / RT')+') passes through shots, columns and missiles.',
@@ -757,7 +775,7 @@ function startBoss() {
   const cadence=bossKitOverride(levelIndex)?.cadence??profileCadence;
   const kit=acts[levelIndex];
   const phaseOne=HISTORICAL_PHASE_SPLIT?PHASE_ONE_HEALTH:2*kit.hp;
-  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-70:FLOOR,hp:phaseOne,max:phaseOne,phaseTwoHealth:HISTORICAL_PHASE_SPLIT?Math.ceil(kit.hp/2):kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
+  boss = {...kit,archetype,cadence,shotRate,x:BOSS_HOME,y:LEVELS[levelIndex].id===7?FLOOR-90:FLOOR,hp:phaseOne,max:phaseOne,phaseTwoHealth:HISTORICAL_PHASE_SPLIT?Math.ceil(kit.hp/2):kit.hp,scale:kit.id==='sprotosales'?4.65:4.40,
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
   player.inv=35;
@@ -809,7 +827,9 @@ const MOVE_LABELS={
   prismRicochet:'PRISM RICOCHET · BOTH SIDES',portalRing:'PORTAL RING · FROM BEHIND: CROUCH, THEN DODGE THE DROP',meteorFall:'METEOR FALL',hourglassDrop:'HOURGLASS DROP',
   airLanes:'LANE SHOTS',airBarrage:'SPREAD SHOTS',airDive:'DIVE FROM ABOVE',airFork:'FORK',airLift:'RISING SHOTS · FROM BELOW',
   airSpiral:'SPIRAL',airPincer:'PINCER · BOTH SIDES',airCrossfire:'CROSSFIRE · BOTH SIDES',airRain:'NEEDLE RAIN',
-  airRockets:'ROCKETS · BOTH SIDES',airWings:'WINGS · ABOVE AND BELOW',airMines:'DRIFTING MINES'
+  airRockets:'ROCKETS · BOTH SIDES',airWings:'WINGS · ABOVE AND BELOW',airMines:'DRIFTING MINES',
+  dragonBreath:'DRAGON BREATH · SHIFT ALTITUDE',dragonCannons:'DRAGON CANNONS · SPLIT VOLLEY',
+  dragonWingShot:'DRAGON CANNON · HIGH AND LOW'
 };
 const moveLabel=move=>MOVE_LABELS[move]??String(move).replace(/([a-z])([A-Z])/g,'$1 $2').toUpperCase();
 const padPrompts=()=>document.documentElement?.dataset?.input==='gamepad';
@@ -947,6 +967,7 @@ function hurt(contact = false, force = false) {
 // Numeric simulation-only geometry; render/image readiness never influences contact.
 function combatWeaponVariant() {
   const id=LEVELS[levelIndex].id,kind=id===11?'chase':id===12?'codebreak':'regular';
+  if(id===7&&MOONKEEP_ATTACKS[boss.move])return MOONKEEP_ATTACKS[boss.move].variant;
   return typeof spriteLegacyWeaponVariant==='function'?spriteLegacyWeaponVariant(boss.step,boss.attackIndex,kind):0;
 }
 function combatPhaseIndex() {
@@ -1158,7 +1179,9 @@ function startMove() {
   const signatures=own?.signatures??BOSS_SIGNATURES[mechanicsIndex(levelIndex)];
   const unlocked=(flight?.unlocks ?? sectionAttacks[b.phase-1]).slice(0,section+1);
   if (!flight && section>=b.phase) unlocked.splice(b.phase,0,signatures[b.phase-1]);
-  const order=section===0?[base[0],...unlocked,...base.slice(1)]:
+  const order=LEVELS[levelIndex].id===7?(b.phase===1?
+    ['dragonBreath','dragonCannons','dragonWingShot']:['dragonCannons','dragonWingShot','dragonBreath']):
+    section===0?[base[0],...unlocked,...base.slice(1)]:
     [unlocked.at(-1),...base,...unlocked.slice(0,-1)];
   if (!flight && section===b.phase) {
     const signature=signatures[b.phase-1];
@@ -1218,6 +1241,17 @@ function launchMechaRocket(index, targetY) {
 
 function attackBoss(t) {
   const b=boss, x=b.x-146, hard=b.phase>=2;
+  const dragon=MOONKEEP_ATTACKS[b.move];
+  if (dragon) {
+    for (const [frame,vertical] of dragon.shots) {
+      if(t!==frame)continue;
+      const [muzzleX,muzzleY]=moonkeepMuzzle(b,dragon.variant,dragon.variant===1&&vertical>0);
+      const aim=clamp((b.aimY-muzzleY)/78,-4,4);
+      const shape=dragon.variant===0?(hard?'pearl':'orb'):dragon.variant===1?'shard':'comet';
+      fire(muzzleX,muzzleY,hard?-12.5:-11.5,aim+vertical,shape,false);
+    }
+    return;
+  }
   const flight=FLIGHT_PATTERNS[b.move];
   if (flight) {
     for (const [frame,side,offset,vx,vy,shape] of flight) {
@@ -1440,8 +1474,10 @@ function updateBoss() {
       b.y=FLOOR-15-SimMath.sin(tick*.032)*15;
     }
   } else if (LEVELS[levelIndex].id===7) {
-    // Moonkeep's two dragon forms patrol vertically while the player flies.
-    b.y=FLOOR-70+SimMath.sin(tick*.025)*(b.phase===1?54:70);
+    const patrol=SimMath.sin(tick*(b.phase===1?.023:.027))*(b.phase===1?74:84);
+    const attack=MOONKEEP_ATTACKS[b.move];
+    const flightArc=attack?SimMath.sin(Math.PI*clamp(b.age/(b.tell+moves[b.move].active),0,1)):0;
+    b.y=clamp(FLOOR-90+patrol+(attack?.lift??0)*flightArc*flightArc,FLOOR-225,FLOOR-8);
   } else if (hasMecha(b)) {
     const target=FLOOR-72+SimMath.sin(tick*.042)*76;
     b.y+=clamp(target-b.y,-5,5);
@@ -1502,7 +1538,7 @@ function updateVaultBeam() {
 function startStageShift() {
   phaseShift=1;
   boss.move=null;
-  boss.y=LEVELS[levelIndex].id===7?FLOOR-70:FLOOR;
+  boss.y=LEVELS[levelIndex].id===7?FLOOR-90:FLOOR;
   boss.moving=false;
   bullets=[];
   hazards=[];
@@ -1931,6 +1967,13 @@ function bossSheetBox(b) {
   return {x:b.x-(mech?150:190),y:top,w:mech?300:380,h:bottom-top};
 }
 
+function moonkeepMuzzle(b,variant,otherCannon) {
+  const box=bossSheetBox(b),phase=b.phase-1;
+  const [x,y]=otherCannon?MOONKEEP_RIGHT_CANNON[phase]:MOONKEEP_MUZZLES[phase][variant];
+  const scale=Math.min(box.w/488,box.h/(381+phase));
+  return [box.x+box.w/2+(x-256)*scale,box.y+box.h+(y-500)*scale];
+}
+
 function navalBossBody(b) {
   return marinaBossBodyRect(marinaBossDrawBox(bossSheetBox(b),W),b.phase-1);
 }
@@ -2063,7 +2106,8 @@ function renderBoss() {
     ctx.restore();
     return;
   }
-  const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,sheets.legacyVariant(b))??{row:0,column:0};
+  const variant=id===7?combatWeaponVariant():sheets?.legacyVariant(b);
+  const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,variant)??{row:0,column:0};
   const sheetPose=(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
     (b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
@@ -2071,7 +2115,7 @@ function renderBoss() {
   // close to half of all frames while the player's autofire was landing.
   const paintBoss=flash=>{
     if (flash) { ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=flash; }
-    const sheetDrawn=sheets?.drawBoss(ctx,LEVELS[levelIndex].id,b.phase-1,sheetPose,sheetBox,
+    const sheetDrawn=sheets?.drawBoss(ctx,id,b.phase-1,id===7?{...sheetPose,flightTick:time}:sheetPose,sheetBox,
       naval?{tick:time,drawSurface:!flash}:null);
     if (sheetDrawn) return;
     if (hasMecha(b)) { if (flash) ctx.globalAlpha=flash*.34/.38; drawMecha(b); }

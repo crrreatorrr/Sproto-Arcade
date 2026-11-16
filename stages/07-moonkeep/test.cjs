@@ -6,9 +6,21 @@ const A=scope.Arcade,stage=A.stages.get('07-moonkeep');
 for(const phase of [0,1]){
  assert.equal(stage.phases[phase].mode,'flight');
  const w=new A.World(stage,{phase,practice:true});const start=w.player.y;w.step({up:true});assert.ok(w.player.y<start);w.step({down:true});assert.equal(w.player.y,start);assert.equal(w.player.grounded,false);
- const positions=new Set();for(let i=0;i<240;i++){w.step({shield:true});positions.add(Math.round(w.targets[0].y));assert.equal(w.targets[0].y,330+w.data.dragonY);assert.ok(w.targets[0].y>=265&&w.targets[0].y<=395);}
+ const positions=new Set();for(let i=0;i<240;i++){w.step({shield:true});positions.add(Math.round(w.targets[0].y));assert.equal(w.targets[0].y,330+w.data.dragonY);assert.ok(w.targets[0].y>=245&&w.targets[0].y<=415);}
  assert.ok(positions.size>60,'both dragon forms patrol vertically');
  for(let i=0;i<100;i++)w.step({up:true});assert.equal(w.player.y,240,'UFO stays below HUD');
+ const launch=new A.World(stage,{phase,practice:true});
+ if(phase)Object.assign(launch.data,{crossed:true,crossedAt:0});
+ const shots=new Set(),directions=new Set(),origins=new Set();
+ for(let i=0;i<180;i++){
+  launch.step({shield:true});
+  for(const shot of launch.hazards.filter(h=>h.source==='07-moonkeep/dragon-breath'&&!shots.has(h.id))){
+   shots.add(shot.id);directions.add(Math.sign(shot.vy));origins.add(Math.round(shot.y));
+   assert.equal(shot.y+shot.h/2,(phase?384:302)+launch.data.dragonY,'live projectile starts at the moving mouth');
+  }
+ }
+ assert.deepEqual([...directions].sort(),[-1,1],'each dragon breathes up and down');
+ assert.equal(origins.size,2,'repeated breaths launch at distinct altitudes');
 }
 const locked=new A.World(stage,{phase:1,practice:true});for(let i=0;i<430&&locked.state==='playing';i++)locked.step({shield:true});assert.equal(locked.data.crossed,false);assert.equal(locked.targets[0].open,false,'shield cannot unlock a dash current');
 const w=new A.World(stage,{seed:37});

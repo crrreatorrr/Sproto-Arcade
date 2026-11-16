@@ -217,7 +217,25 @@
     // The approved preview used a 408 px hull and submerged 55% of the orange band.
     return .55*(phase===1?75:63)*width/408;
   }
-  function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline,waterline){
+  function drawDragonFlight(ctx,img,sx,sy,crop,destination,{phase,tick}) {
+    const [cx,cy,width,height]=crop;
+    const wingRoot=phase?250:310,wingBase=phase?348:306;
+    const start=wingRoot-cx,cut=wingBase-cy;
+    const x=source=>destination.x+Math.round(source*destination.w/width);
+    const y=source=>destination.y+Math.round(source*destination.h/height);
+    const flap=Math.cos(tick*Math.PI/(phase?15:18))*(phase?.38:.43);
+    // The cockpit and torso keep the accepted registration. Stretch the wing
+    // farther from its hinge so the trailing edge carries the flap.
+    ctx.drawImage(img,sx,sy,start,height,x(0),y(0),x(start)-x(0),destination.h);
+    ctx.drawImage(img,sx+start,sy+cut,width-start,height-cut,x(start),y(cut),x(width)-x(start),y(height)-y(cut));
+    for(let left=start;left<width;left+=12){
+      const right=Math.min(width,left+12);
+      const leverage=(left+right-2*start)/(2*(width-start));
+      const offset=Math.round((y(cut)-y(0))*flap*leverage);
+      ctx.drawImage(img,sx+left,sy,right-left,cut,x(left),y(0)-offset,x(right)-x(left),y(cut)-y(0)+offset);
+    }
+  }
+  function frame(ctx,img,row,column,box,config,crop,scaleBounds,outline,waterline,flight){
     const columns=config.columns||4,rows=config.rows||4;
     const cellWidth=img.naturalWidth/columns,cellHeight=img.naturalHeight/rows;
     if(cellWidth<1||cellHeight<1||img.naturalWidth%columns||img.naturalHeight%rows)return false;
@@ -236,6 +254,8 @@
       drawWaterline(ctx,destination,depth,waterline.tick,(dx,dy)=>{
         ctx.drawImage(img,sx,sy,width,height,destination.x+dx,destination.y+dy,destination.w,destination.h);
       },waterline.drawSurface);
+    }else if(flight&&crop&&cx<(flight.phase?250:310)&&cx+width>(flight.phase?250:310)&&cy<(flight.phase?348:306)&&cy+height>(flight.phase?348:306)){
+      drawDragonFlight(ctx,img,sx,sy,crop,destination,flight);
     }else if(!outline||!drawOutlined(ctx,img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h,outline.filter,outline.stage)){
       if(outline){ctx.filter=ctx.filter&&ctx.filter!=='none'?ctx.filter+' '+outline.filter:outline.filter;outlineStats.direct++;}
       ctx.drawImage(img,sx,sy,width,height,destination.x,destination.y,destination.w,destination.h);
@@ -286,6 +306,7 @@
     if(w.densityBarrage)return barragePose(w.hazards.filter(h=>h.density&&!h.removed),w.tick);
     const released=releasePose(w.player,w.phaseIndex,w.tick);
     if(released)return released;
+    if(w.stage.number===7&&w.data.dragonTell>0)return {row:1,column:w.data.dragonTell>12?0:1};
     const authored=authoredPose(w);if(authored)return authored;
     const live=(w.hazards||[]).filter(h=>!h.removed&&h.age<(h.windup||0)+(h.active||1)&&attackRow(w.stage.id,h));
     const main=live.filter(h=>!h.pressure&&!h.missile),pool=main.length?main:live;
@@ -327,7 +348,7 @@
       case 4:return phase?{x:3896+offset,y:290,w:390,h:310}:{x:3758+offset,y:400,w:390,h:220};
       case 5:{if(phase)return{x:920,y:160,w:340,h:440};const b=entry(5)?.phases[0]?.modernBox;return Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[2]>0&&b[3]>0?{x:b[0],y:b[1],w:b[2],h:b[3]}:{x:4650,y:260,w:400,h:340};}
       case 6:return{x:1010,y:280,w:260,h:320};
-      case 7:return phase?{x:952,y:222,w:328,h:280}:{x:930,y:185,w:330,h:280};
+      case 7:return phase?{x:952,y:222+(w.data.dragonY||0),w:328,h:280}:{x:930,y:185+(w.data.dragonY||0),w:330,h:280};
       case 8:return phase?{x:760,y:140,w:510,h:460}:{x:920,y:300,w:320,h:300};
       case 9:{const core=w.targets.find(t=>t.id===(phase?'crawler-hatch':'incubator-core'));return{x:(core?.x??1050)-80,y:phase?340:190,w:300,h:phase?275:310};}
       case 10:return phase?{x:535,y:235,w:210,h:225}:{x:4500,y:180,w:370,h:360};
@@ -344,7 +365,8 @@
     if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
-    const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline);
+    const flight=config===manifest[7]?{phase:w.phaseIndex,tick:w.tick}:null;
+    const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline,flight);
     if(shown)drawMountedRelease(ctx,img,pose,box,config.phases[w.phaseIndex].bounds);
     return shown;
   }
@@ -358,8 +380,9 @@
     const config=entry(id),img=phaseImage(id,phase);
     if(!img)return false;
     const registered=legacyBox(id,phase,box);
+    const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?{phase,tick:pose.flightTick}:null;
     const shown=frame(ctx,img,pose.row||0,pose.column||0,registered,config,config.phases[phase].bounds,null,null,
-      config===manifest[1]&&waterline?{...waterline,phase}:null);
+      config===manifest[1]&&waterline?{...waterline,phase}:null,flight);
     if(shown&&ctx.globalCompositeOperation!=='lighter')drawMountedRelease(ctx,img,pose,registered,config.phases[phase].bounds);
     return shown;
   }
