@@ -2324,14 +2324,17 @@ function drawMoonkeepJet() {
   const p=player,jet=globalThis.ArcadeMoonkeepJet;
   const firing=!phaseShift&&!densityShots.length&&(!godMode||godFire);
   jet.draw(ctx,picture,p,time,{
+    active:mode==='play'&&!phaseShift,
     visible:!p.inv||time%8<5,
     missileAge:firing?MISSILE_COOLDOWN-p.missileWait:RED_ARM_DEPLOY+jet.missileAge(p,time),
     heavyAge:firing?BOMB_COOLDOWN-p.bombWait:Infinity,
-    missile:{launch:RED_ARM_DEPLOY,mount:[48,22],port:[RED_ARM_TIP_X,RED_ARM_TIP_Y]},
-    heavy:{launch:BALL_LAUNCH_FRAME,mount:[-45,1],port:[NAVAL_WEAPONS.heavy.x,NAVAL_WEAPONS.heavy.y]}
+    pulse:firing&&p.shot===1?[SAUCER_MUZZLE_X,SAUCER_MUZZLE_Y]:null,
+    missile:{launch:RED_ARM_DEPLOY,mount:[52,23],port:[RED_ARM_TIP_X,RED_ARM_TIP_Y],aim:[1,0],
+      flash:jet.storyFlash(p,time)},
+    heavy:{launch:BALL_LAUNCH_FRAME,mount:[-35,-6],port:[NAVAL_WEAPONS.heavy.x,NAVAL_WEAPONS.heavy.y],
+      aim:[NAVAL_WEAPONS.heavy.vx,NAVAL_WEAPONS.heavy.vy],flash:jet.storyFlash(p,time,true)}
   });
   jet.drawEffects(ctx,p,time);
-  if(firing&&p.shot===1)ArcadePlayerProjectiles.drawImpact(ctx,'greenLaser',p.x+SAUCER_MUZZLE_X,p.y+SAUCER_MUZZLE_Y,1,8);
   if(p.shield)drawPlayerShield('saucer-shield',p.x,p.y,1.4);
 }
 

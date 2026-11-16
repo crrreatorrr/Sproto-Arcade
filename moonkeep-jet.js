@@ -9,7 +9,8 @@ globalThis.ArcadeMoonkeepJet = (() => {
   const glass=[[46,23],[47,17],[52,12],[58,8],[65,8],[70,11],[74,17],[76,23],[74,24],[48,24]];
   const origin=[48,23];
   const missileTravel=5, missileTraces=new WeakMap(), traceByShot=new WeakMap();
-  const heavyHits=new WeakMap(),heavyBounces=new WeakMap();
+  const heavyLaunches=new WeakMap(),heavyHits=new WeakMap(),heavyBounces=new WeakMap();
+  const flightPoses=new WeakMap();
   let hull;
 
   function rect(ctx,color,x,y,w,h){ctx.fillStyle=color;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));}
@@ -91,6 +92,8 @@ globalThis.ArcadeMoonkeepJet = (() => {
     rect(ctx,light,49,28,1,1);
     rect(ctx,ink,72,29,8,3);
     for(let i=0;i<3;i++)rect(ctx,cyan,73+i*2,30,1,1);
+    pixels(ctx,ink,[[68,32],[81,33],[77,36],[68,37],[65,35]]);
+    rect(ctx,brass,69,34,7,1);
     rect(ctx,ink,84,28,3,2);
     rect(ctx,silver,85,28,2,1);
 
@@ -106,14 +109,52 @@ globalThis.ArcadeMoonkeepJet = (() => {
     return surface;
   }
 
-  function drawExhaust(ctx,tick,dash){
-    const reach=(dash?16:9)+Math.round(2*Math.sin(tick*.78))+tick%2;
-    for(const y of [24,34]){
-      pixels(ctx,'#274fb7',[[7,y-4],[7,y+4],[2,y+4],[-reach,y],[-2,y-2]]);
-      pixels(ctx,'#31a8ff',[[7,y-3],[7,y+3],[1,y+3],[-reach+4,y],[-1,y-1]]);
-      pixels(ctx,'#a4f6ff',[[7,y-2],[7,y+2],[2,y+2],[-reach+7,y]]);
+  function flightPose(p,tick,climbSpeed,active){
+    let pose=flightPoses.get(p);
+    if(!pose||tick<pose.tick){
+      pose={tick:tick-1,y:p.y-(p.vy||0),pitch:0,boost:0};
+      flightPoses.set(p,pose);
+    }
+    const dt=tick-pose.tick;
+    if(dt){
+      // Use traveled altitude so the nose eases level at the flight limits.
+      const vertical=active?Math.max(-1,Math.min(1,(p.y-pose.y)/(dt*climbSpeed))):0;
+      const dashing=active&&p.dash>0;
+      pose.pitch+=(vertical*.24-pose.pitch)*(1-.82**dt);
+      pose.boost+=(Number(dashing)-pose.boost)*(1-(dashing ? .42 : .78)**dt);
+      pose.y=p.y;
+      pose.tick=tick;
+    }
+    return pose;
+  }
+
+  function drawExhaust(ctx,tick,boost){
+    for(const [i,y] of [24,34].entries()){
+      const pulse=(tick+i*2)%4;
+      const reach=9+Math.round(boost*(37+i*5)+2*Math.sin(tick*.78+i));
+      const spread=4+Math.round(boost*4);
+      if(boost>.18){
+        pixels(ctx,'#171d4a',[[7,y-spread-2],[7,y+spread+2],[-9,y+spread+1],[-reach-7,y],[-11,y-spread-1]]);
+        pixels(ctx,'#7943e1',[[4,y-spread-1],[3,y+spread+1],[-11,y+spread],[-reach-4,y],[-12,y-spread]]);
+      }
+      pixels(ctx,'#274fb7',[[7,y-spread],[7,y+spread],[0,y+spread],[-reach,y],[-4,y-spread+1]]);
+      pixels(ctx,'#31a8ff',[[7,y-spread+1],[7,y+spread-1],[-1,y+spread-1],[-reach+4,y],[-2,y-spread+2]]);
+      pixels(ctx,'#a4f6ff',[[7,y-2],[7,y+2],[1,y+3],[-Math.round(reach*.67),y],[-3,y-3]]);
       rect(ctx,white,4,y-1,3,2);
-      rect(ctx,cyan,-reach-3,y+(tick%3)-1,2,1);
+      if(boost>.18){
+        for(let j=0;j<3;j++){
+          const x=-7-j*9-pulse*2;
+          if(-x>reach*.77)break;
+          const h=6-j;
+          pixels(ctx,j===0?white:'#91f1ff',[[x-5,y],[x,y-h],[x+4,y],[x,y+h]]);
+          rect(ctx,'#e5fdff',x-2,y-1,4,2);
+        }
+        for(let j=0;j<5;j++){
+          const x=-reach-5-((tick*3+j*11)%24);
+          const dy=(j-2)*(2+pulse%2);
+          rect(ctx,j%2?cyan:'#a57bf7',x,y+dy,2+j%3,1);
+        }
+      }else rect(ctx,cyan,-reach-3,y+(tick%3)-1,2,1);
     }
   }
 
@@ -138,57 +179,176 @@ globalThis.ArcadeMoonkeepJet = (() => {
 
   function opening(age,launch,end){
     if(age<0||age>=end)return 0;
-    const t=Math.min(1,(age+1)/(launch+1),(end-age)/7);
+    const t=Math.min(1,(age+1)/(launch+1),(end-age)/9);
     return t*t*(3-2*t);
   }
 
-  function muzzleFlare(ctx,x,y,color,age,size){
-    const reach=size+age*2,fade=Math.max(0,1-age/7);
-    ctx.save();
-    ctx.globalAlpha*=fade;
-    pixels(ctx,color,[[x-reach,y],[x-3,y-3],[x,y-reach],[x+3,y-3],[x+reach,y],[x+3,y+3],[x,y+reach],[x-3,y+3]]);
-    rect(ctx,white,x-2,y-2,4,4);
-    for(let i=0;i<3;i++)rect(ctx,cyan,x+reach+i*4,y+(i-1)*(4+age),3,2);
-    ctx.restore();
+  function octagon(ctx,color,x,y,r){
+    const bevel=Math.ceil(r*.45);
+    pixels(ctx,color,[[x-bevel,y-r],[x+bevel,y-r],[x+r,y-bevel],[x+r,y+bevel],
+      [x+bevel,y+r],[x-bevel,y+r],[x-r,y+bevel],[x-r,y-bevel]]);
   }
 
-  function launcher(ctx,age,launch,mount,port,kind){
-    const open=opening(age,launch,launch+16);
-    if(!open)return;
-    const [mx,my]=mount,[px,py]=port;
-    const x=mx+(px-mx)*open,y=my+(py-my)*open;
-    const charge=kind==='heavy'?violet:cyan;
-    ctx.save();
-    ctx.translate(mx,my);
-    const reach=Math.hypot(x-mx,y-my);
-    ctx.rotate(Math.atan2(y-my,x-mx));
-    rect(ctx,ink,-6,-8,reach+9,16);
-    rect(ctx,slate,-4,-6,reach+5,12);
-    rect(ctx,silver,0,-5,reach,3);
-    rect(ctx,gunmetal,0,2,reach+1,4);
-    rect(ctx,brass,reach-9,-6,4,12);
-    rect(ctx,charge,reach-4,-3,5,6);
-    ctx.restore();
-    if(age>=launch-2&&age<launch)rect(ctx,kind==='heavy'?amber:white,x-4,y-4,8,8);
-    if(age>=launch&&age-launch<7)muzzleFlare(ctx,x,y,charge,age-launch,kind==='heavy'?11:8);
+  function missilePod(ctx,age){
+    // The upper tube is the live bore, aligned with local (0, 0).
+    ctx.translate(0,4);
+    pixels(ctx,ink,[[-29,-4],[-23,-9],[-5,-9],[3,-6],[3,7],[-5,10],[-23,10],[-28,5]]);
+    pixels(ctx,slate,[[-27,-3],[-22,-8],[-7,-8],[-2,-5],[-2,6],[-6,9],[-22,9],[-26,4]]);
+    pixels(ctx,silver,[[-26,-3],[-22,-7],[-10,-7],[-12,-4],[-23,-2]]);
+    rect(ctx,light,-21,-7,10,1);
+    rect(ctx,gunmetal,-23,4,15,4);
+    rect(ctx,brass,-21,4,11,1);
+    for(let i=0;i<3;i++)rect(ctx,ink,-22+i*4,6,2,2);
+    for(const y of [-4,4]){
+      rect(ctx,ink,-15,y-2,14,4);
+      rect(ctx,grey,-13,y-2,10,1);
+      rect(ctx,slate,-8,y-3,7,6);
+      octagon(ctx,ink,0,y,4);
+      octagon(ctx,age<=0?cyan:grey,0,y,3);
+      octagon(ctx,'#182743',0,y,2);
+      if(age<0)rect(ctx,white,-1,y-1,2,2);
+    }
+    rect(ctx,age<0?cyan:'#3951a1',-18,-1,5,2);
   }
 
-  function draw(ctx,picture,p,tick,{missileAge=Infinity,heavyAge=Infinity,missile,heavy,visible=true}={}){
-    ctx.save();
-    ctx.imageSmoothingEnabled=false;
-    ctx.translate(Math.round(p.x),Math.round(p.y));
-    if(visible){
+  function heavyCannon(ctx,age){
+    pixels(ctx,ink,[[-25,-5],[-20,-10],[-8,-11],[-3,-7],[-3,7],[-9,11],[-22,10],[-26,5]]);
+    pixels(ctx,slate,[[-24,-4],[-19,-9],[-9,-10],[-4,-6],[-4,6],[-10,10],[-21,9],[-25,4]]);
+    rect(ctx,silver,-19,-9,10,2);
+    rect(ctx,gunmetal,-25,-4,6,10);
+    for(let i=0;i<3;i++)rect(ctx,brass,-24+i*2,-3,1,8);
+    octagon(ctx,ink,-13,0,8);
+    octagon(ctx,brass,-13,0,7);
+    octagon(ctx,'#493286',-13,0,5);
+    octagon(ctx,age<=1?'#e0a3ff':violet,-13,0,3);
+    rect(ctx,white,-15+(age+24)%4,-3,2,3);
+    const spread=age>=0?Math.max(0,3-Math.floor(age/2)):2;
+    for(const side of [-1,1]){
       ctx.save();
-      ctx.scale(p.facing<0?-2:2,2);
-      ctx.translate(-origin[0],-origin[1]);
-      drawExhaust(ctx,tick,p.dash);
-      hull??=buildHull();
-      ctx.drawImage(hull,0,0);
-      drawPilot(ctx,picture,p.id,tick);
+      ctx.scale(1,side);
+      pixels(ctx,ink,[[-12,-8],[-6,-7],[2,-5-spread],[4,-3-spread],[2,-1-spread],[-12,-3]]);
+      pixels(ctx,grey,[[-11,-7],[-6,-6],[2,-4-spread],[3,-3-spread],[-3,-3-spread],[-11,-3]]);
+      rect(ctx,silver,-10,-6,4,1);
+      rect(ctx,age<4?'#e6b3ff':brass,-1,-4-spread,4,1);
       ctx.restore();
     }
-    if(missile)launcher(ctx,missileAge,missile.launch,missile.mount,missile.port,'missile');
-    if(heavy)launcher(ctx,heavyAge,heavy.launch,heavy.mount,heavy.port,'heavy');
+    if(age<0)octagon(ctx,age===-1?white:amber,0,0,age===-1?3:2);
+  }
+
+  function ignition(ctx,age,heavy){
+    if(age<0||age>=11)return;
+    const color=heavy?'#c57aff':'#51dfff', spark=heavy?amber:'#9cedff';
+    ctx.save();
+    ctx.globalAlpha*=Math.min(1,(11-age)/7);
+    const radius=(heavy?10:7)+age*2, reach=(heavy?23:17)+age*2;
+    if(age<4){
+      pixels(ctx,color,[[-5,0],[3,-5],[reach/2|0,-6],[reach,0],[reach/2|0,5],[3,5]]);
+      pixels(ctx,white,[[0,0],[4,-3],[reach*.68|0,0],[5,3]]);
+    }
+    for(let i=0;i<8;i++){
+      const a=i*Math.PI/4+age*.07;
+      const x=Math.cos(a)*radius*.55+age*1.5,y=Math.sin(a)*radius;
+      rect(ctx,i%2?spark:color,x,y,i%2?3:2,2);
+    }
+    ctx.restore();
+  }
+
+  function rotatedMount([x,y],facing,pitch){
+    x*=facing;
+    return [x*Math.cos(pitch)-y*Math.sin(pitch),x*Math.sin(pitch)+y*Math.cos(pitch)];
+  }
+
+  function assembly(ctx,mount,port,open,elapsed,aimSide,angle,heavy){
+    const [mx,my]=mount,[px,py]=port;
+    const vx=aimSide*Math.cos(angle),vy=Math.sin(angle);
+    const recoil=elapsed>0&&elapsed<7?Math.sin(elapsed*Math.PI/7)*(heavy?10:5):0;
+    const x=mx+(px-mx)*open-vx*recoil,y=my+(py-my)*open-vy*recoil;
+    const back=heavy?19:25,bx=x-vx*back,by=y-vy*back;
+    ctx.save();
+    ctx.translate(mx,my);
+    ctx.rotate(Math.atan2(by-my,bx-mx));
+    const length=Math.round(Math.hypot(bx-mx,by-my));
+    if(!heavy&&length>=14){
+      for(const side of [-1,1]){
+        const dy=side*5;
+        pixels(ctx,ink,[[-4,dy-3],[length+2,dy-4],[length+3,dy+3],[-4,dy+3]]);
+        rect(ctx,slate,0,dy-2,length+2,4);
+        rect(ctx,silver,Math.round(length*.38),dy-2,Math.round(length*.54),1);
+      }
+      octagon(ctx,ink,0,0,8);
+      octagon(ctx,slate,0,0,6);
+      octagon(ctx,brass,0,0,3);
+      octagon(ctx,gunmetal,length,0,7);
+      octagon(ctx,grey,length,0,3);
+    }else{
+      pixels(ctx,ink,[[-5,-6],[length+2,-5],[length+2,5],[-5,6]]);
+      pixels(ctx,slate,[[-4,-4],[length+1,-3],[length+1,3],[-4,4]]);
+      rect(ctx,silver,1,-3,Math.max(0,length-1),2);
+      rect(ctx,brass,-4,-3,5,6);
+    }
+    ctx.restore();
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(aimSide,1);
+    ctx.rotate(angle);
+    const scale=1.65*(.58+.42*open);
+    ctx.scale(scale,scale);
+    if(heavy)heavyCannon(ctx,elapsed);
+    else missilePod(ctx,elapsed);
+    ctx.restore();
+  }
+
+  function weapon(ctx,age,{launch,mount,port,aim,flash=port},facing,pitch,heavy,visible){
+    const open=opening(age,launch,launch+22);
+    if(!open)return;
+    const elapsed=age-launch;
+    // Facing mirrors the bay. The weapon swivels to the shot's direction.
+    const aimSide=aim[0]<0?-1:1;
+    const bearing=Math.atan2(aim[1],Math.abs(aim[0]));
+    if(visible){
+      const angle=bearing+aimSide*(1-open)*(heavy ? .66 : -.54);
+      assembly(ctx,rotatedMount(mount,facing,pitch),elapsed===0?flash:port,open,elapsed,aimSide,angle,heavy);
+    }
+    ctx.save();
+    ctx.translate(...flash);
+    ctx.scale(aimSide,1);
+    ctx.rotate(bearing);
+    ignition(ctx,elapsed,heavy);
+    ctx.restore();
+  }
+
+  function drawPulse(ctx,port,facing,pitch){
+    const [x,y]=rotatedMount(port,facing,pitch);
+    if(Math.abs(pitch)>.04){
+      for(let i=1;i<4;i++){
+        const t=i/4;
+        rect(ctx,i===1?white:'#70f5d6',x+(port[0]*facing+8-x)*t,y+(port[1]-y)*t,5-i,3);
+      }
+    }
+    ArcadePlayerProjectiles.drawImpact(ctx,'greenLaser',x,y,1,8);
+  }
+
+  function draw(ctx,picture,p,tick,{id=p.id,y=p.y,climbSpeed=10.4,active=true,
+    missileAge=Infinity,heavyAge=Infinity,missile,heavy,pulse,visible=true}={}){
+    const facing=p.facing<0?-1:1;
+    const pose=flightPose(p,tick,climbSpeed,active),pitch=pose.pitch*facing;
+    ctx.save();
+    ctx.imageSmoothingEnabled=false;
+    ctx.translate(Math.round(p.x),Math.round(y));
+    if(visible){
+      ctx.save();
+      ctx.rotate(pitch);
+      ctx.scale(facing*2,2);
+      ctx.translate(-origin[0],-origin[1]);
+      drawExhaust(ctx,tick,pose.boost);
+      hull??=buildHull();
+      ctx.drawImage(hull,0,0);
+      drawPilot(ctx,picture,id,tick);
+      ctx.restore();
+      if(pulse)drawPulse(ctx,pulse,facing,pitch);
+    }
+    if(missile)weapon(ctx,missileAge,missile,facing,pitch,false,visible);
+    if(heavy)weapon(ctx,heavyAge,heavy,facing,pitch,true,visible);
     ctx.restore();
   }
 
@@ -213,6 +373,16 @@ globalThis.ArcadeMoonkeepJet = (() => {
     return trace?tick-trace.tick:Infinity;
   }
 
+  function recordHeavyLaunch(player,{x,y},tick){
+    heavyLaunches.set(player,{x,y,tick});
+  }
+
+  function storyFlash(player,tick,heavy=false){
+    const launch=(heavy?heavyLaunches:missileTraces).get(player);
+    const age=tick-launch?.tick;
+    if(age>=0&&age<11)return [launch.x-Math.round(player.x),launch.y-Math.round(player.y)];
+  }
+
   function drawMissileTrace(ctx,player,tick){
     const trace=missileTraces.get(player);
     if(!trace)return;
@@ -221,14 +391,19 @@ globalThis.ArcadeMoonkeepJet = (() => {
     if(age<0||age>=22)return;
     const travel=Math.min(1,age/missileTravel);
     const tip=x+distance*travel;
-    ctx.save();
-    ctx.globalAlpha*=Math.min(1,(22-age)/14);
-    const span=tip-x;
-    rect(ctx,ink,x,y-5,span,10);
-    rect(ctx,'#2868bf',x,y-3,span,6);
-    rect(ctx,'#81e9ff',x,y-1,span,2);
-    for(let s=(age*17)%48;s<span;s+=48)rect(ctx,white,x+s,y-1,Math.min(17,span-s),2);
-    ctx.restore();
+    const spacing=Math.max(11,distance/35);
+    for(let i=0,px=x;px<tip-12;i++,px+=spacing){
+      const lag=age-(px-x)/distance*missileTravel;
+      if(lag>14)continue;
+      const py=y+Math.sin(i*1.4+lag*.18)*(2+lag*.46);
+      const radius=Math.round(3+lag*.36),length=Math.round(spacing*.74);
+      ctx.save();
+      ctx.globalAlpha*=1-lag/15;
+      rect(ctx,ink,px-1,py-radius,length+2,radius*2);
+      rect(ctx,lag<4?'#68daff':'#3674c1',px,py-radius+1,length,radius*2-2);
+      rect(ctx,lag<4?white:'#70d5f9',px+2,py-1,Math.max(2,length-4),2);
+      ctx.restore();
+    }
     if(age<=missileTravel)ArcadePlayerProjectiles.drawShot(ctx,'jetMissile',tip,y,0,0,age);
     if(trace.hit&&age>=missileTravel){
       ArcadePlayerProjectiles.drawImpact(ctx,'jetMissile',end,y,age-missileTravel,16);
@@ -251,5 +426,5 @@ globalThis.ArcadeMoonkeepJet = (() => {
     if(bounce&&bounce.tick!==hit?.tick)ArcadePlayerProjectiles.drawBlast(ctx,bounce.x,bounce.y,34,tick-bounce.tick,12,true,'jetHeavy');
   }
 
-  return {draw,missileAge,recordMissile,recordMissileHit,recordHeavyHit,recordHeavyBounce,drawEffects};
+  return {draw,missileAge,storyFlash,recordMissile,recordMissileHit,recordHeavyLaunch,recordHeavyHit,recordHeavyBounce,drawEffects};
 })();

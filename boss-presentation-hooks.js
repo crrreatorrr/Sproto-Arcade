@@ -22,8 +22,9 @@
     const first=bullets?.length||0,own=arguments[5];
     const meta=!own?binding(isChase()?'chase':isCodebreak()?'codebreak':'regular'):null;
     const result=originalFire.apply(this,arguments);
-    if(jet&&own&&arguments[4]==='redLaser'&&LEVELS[levelIndex].id===7){
-      jet.recordMissile(player,bullets[first],time,SAUCER_BEAM_END);
+    if(jet&&own&&LEVELS[levelIndex].id===7){
+      if(arguments[4]==='redLaser')jet.recordMissile(player,bullets[first],time,SAUCER_BEAM_END);
+      if(arguments[4]==='beachBall')jet.recordHeavyLaunch(player,bullets[first],time);
     }
     if(meta)for(let i=first;i<(bullets?.length||0);i++){
       const shot=bullets[i];

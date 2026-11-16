@@ -3,6 +3,7 @@
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('arena'),ctx=canvas.getContext('2d'),held=new Set(),press=new Set();
 const images=new Map(),stages=[...Arcade.stages.values()].filter(s=>typeof s.enabled==='function'?s.enabled():s.enabled!==false).sort((a,b)=>(a.order??a.number)-(b.order??b.number));
+const jetLaunches=new WeakMap();
 const transitions=globalThis.ArcadeBossTransitions,trialTransition=transitions?.createClock();
 let incomingWorld=null;
 let world=null,paused=false,last=0,acc=0,visibleState='',pilot='rivet',soundTick=-1,pickupAttempt=0;
@@ -56,17 +57,27 @@ window.addEventListener('keyup',e=>held.delete(e.code));window.addEventListener(
 function input(){const i={left:held.has('ArrowLeft')||held.has('KeyA'),right:held.has('ArrowRight')||held.has('KeyD'),up:held.has('ArrowUp')||held.has('KeyW'),down:held.has('ArrowDown')||held.has('KeyS'),dash:press.has('ShiftLeft')||press.has('ShiftRight')};for(const [a,codes]of Object.entries(actions))i[a]=codes.some(c=>press.has(c));press.clear();return i;}
 function text(s,x,y,size=18,color='#fff1d0',align='left'){ctx.font=`700 ${size}px system-ui`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(String(s),x,y);}
 function sprite(id,x,y,height=76,pose=0,facing=1){const a=ART.sprites[id],p=a?.poses?.[pose]||a?.poses?.[0],i=img(p?.[0]);if(i){const b=Arcade.spriteBounds?.[p[0]]||[0,0,i.naturalWidth,i.naturalHeight],w=height*b[2]/b[3];ctx.save();ctx.translate(x,y);ctx.imageSmoothingEnabled=false;ctx.scale(facing<0?-1:1,1);ctx.drawImage(i,b[0],b[1],b[2],b[3],-w/2,-height,w,height);ctx.restore();}else{ctx.fillStyle='#ffdb8a';ctx.fillRect(x-13,y-height,26,height);}}
+function trialJetWeapon(w,p,releases,type,age,mount){
+ if(age>=22)return;
+ const launchTick=w.tick-age,id=type+'-'+launchTick;
+ const shot=w.shots.find(s=>s.id===id);
+ const heavy=type==='ball';
+ if(shot)releases[type]={id,dx:shot.vx/(heavy?8:28),dy:heavy ? .25 : shot.vy/28};
+ const release=releases[type];
+ const {dx,dy}=release?.id===id?release:{dx:p.facing,dy:heavy ? .25 : 0};
+ // Match World.standardSpecial's spawn center and retain the bearing after impact.
+ return {launch:0,mount,port:[dx*24+8,6],aim:[dx,dy]};
+}
 function drawTrialsJet(w,p){
- const firing=w.state==='playing'&&!w.densityBarrage;
+ const active=w.state==='playing',firing=active&&!w.densityBarrage;
  const missileAge=firing&&p.beamWait?90-p.beamWait:Infinity;
  const heavyAge=firing&&p.bombWait?120-p.bombWait:Infinity;
- const missile=missileAge<16?w.shots.find(s=>s.id===`beam-${w.tick-missileAge}`):null;
- const heavy=heavyAge<16?w.shots.find(s=>s.id===`ball-${w.tick-heavyAge}`):null;
- // Match World.standardSpecial's spawn centers, including the missile's target lead.
- globalThis.ArcadeMoonkeepJet.draw(ctx,img,{...p,id:pilot,y:p.y-26},w.tick,{
-  visible:!p.inv||w.tick%8<5,missileAge,heavyAge,
-  missile:{launch:0,mount:[0,23],port:[(missile?missile.vx/28:p.facing)*24+8,6]},
-  heavy:{launch:0,mount:[-21*p.facing,-5],port:[(heavy?heavy.vx/8:p.facing)*24+8,6]}
+ let releases=jetLaunches.get(p);
+ if(!releases){releases={};jetLaunches.set(p,releases);}
+ globalThis.ArcadeMoonkeepJet.draw(ctx,img,p,w.tick,{
+  id:pilot,y:p.y-26,climbSpeed:6,active,visible:!p.inv||w.tick%8<5,missileAge,heavyAge,
+  missile:trialJetWeapon(w,p,releases,'beam',missileAge,[5,24]),
+  heavy:trialJetWeapon(w,p,releases,'ball',heavyAge,[-22,-5])
  });
 }
 function drawTrialDash(p,vehicle){
@@ -155,7 +166,7 @@ if(ph.naval){
 }
 const pickupShieldDiameter=w.stage.number===7||ph.naval?220:140;
 globalThis.ArcadeBossSheets?.drawPhasePowerups(ctx,w.phasePowerups,w.phaseElapsed,{x:p.x-pickupShieldDiameter/2,y:p.y-28-pickupShieldDiameter/2,w:pickupShieldDiameter,h:pickupShieldDiameter});
-if(p.dash)drawTrialDash(p,ph.naval||ph.mode==='flight'||ph.mode==='orbit');
+if(p.dash&&!jet)drawTrialDash(p,ph.naval||ph.mode==='flight'||ph.mode==='orbit');
 if(p.shield){ctx.strokeStyle='#83f9df';ctx.lineWidth=4;ctx.beginPath();ctx.arc(p.x,p.y-28,47,0,Math.PI*2);ctx.stroke();}
 if(w.state!=='transition')globalThis.ArcadeBossSheets?.drawProjectileHits?.(ctx,w,w.tick);
 ctx.restore();

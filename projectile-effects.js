@@ -9,7 +9,7 @@ const ArcadePlayerProjectiles = (() => {
   const water = ['#101b35','#175b9d','#34c8ff','#a3f4ff','#f8ffff'];
   const red = ['#261226','#8f284d','#ff496b','#ffc3a6','#fff4e0'];
   const prism = ['#211434','#7051b7','#d78aff','#b5fdff','#fff4ff'];
-  const jetBlue = ['#141d37','#3159a8','#42baff','#9bf1ff','#f3ffff','#4e6e93','#95bbdc','#deefff'];
+  const jetBlue = ['#141d37','#3159a8','#42baff','#9bf1ff','#f3ffff','#4e6e93','#95bbdc','#deefff','#ffc775'];
   const jetViolet = ['#1e1536','#653baf','#bd63f6','#ffc76c','#fff4e6','#895667','#e9a754','#534974'];
 
   const bolt = [
@@ -64,7 +64,7 @@ const ArcadePlayerProjectiles = (() => {
     '  06500   000  ',
     ' 0055660006700 ',
     '035667676676670',
-    '024567777777740',
+    '024567777788740',
     '035556655664400',
     ' 0056650006700 ',
     '  06500   000  ',
@@ -160,11 +160,16 @@ const ArcadePlayerProjectiles = (() => {
       ctx.rotate(style.rolling?Math.trunc(age/2)*(vx<0?-1:1)*Math.PI/8:angle);
       const frame=sprite(style),w=frame.width*style.size,h=frame.height*style.size;
       if(kind==='missile'||kind==='jetMissile'){
-        const jet=14+animation*3,base=-w/2+4;
+        const jet=(kind==='jetMissile'?22:14)+animation*3,base=-w/2+4;
         pixel(ctx,base-jet/2,0,jet+4,colors[0],12);
         pixel(ctx,base-jet/2,0,jet,colors[2],7);
         pixel(ctx,base-jet*.34,0,Math.round(jet*.68),colors[3],4);
         pixel(ctx,base-3,0,7,colors[4],2);
+        if(kind==='jetMissile'){
+          pixel(ctx,base-jet*.96,-3,5,colors[3],2);
+          pixel(ctx,base-jet*.76,4,7,colors[2],2);
+          pixel(ctx,base-8,0,10,colors[8],3);
+        }
       }
       ctx.drawImage(frame,-Math.floor(w/2),-Math.floor(h/2),w,h);
       pixel(ctx,Math.round(w*(.19-animation*.073)),0,style.size*2,colors[4],style.size);
