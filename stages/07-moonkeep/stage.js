@@ -1,4 +1,4 @@
-/* Moonkeep: a UFO flight duel against two vertically patrolling dragons. */
+/* Moonkeep: a jet duel against two vertically patrolling dragons. */
 (function(A){'use strict';
 const ID='07-moonkeep';
 const flightBounds={left:80,right:820,top:240,bottom:620};
@@ -30,8 +30,8 @@ function breath(w,clock,first,second){
   x:x-21,y:y-13,w:42,h:26,vx:-5.2,vy,active});
 }
 A.registerStage({id:ID,number:7,title:'Moonkeep Castle',operator:'Big Swole',operatorSprite:'bigswole',color:'#b9d8e2',eligibleWeapons:['prism-rail','echo-decoy'],phases:[{
- name:'Iron Fang flight',machine:'Siege Dragon',mode:'flight',camera:'fixed',flightBounds,pilot,pilotHeight:48,hudLabel:'NECK JOINT',objective:'Fly the UFO, evade the locked bite, then punish the neck joint',spawn:{x:180,y:390},practiceSpawn:{x:180,y:390},
- enter(w){w.target({id:'neck-joint',x:1050,y:330,w:110,h:100,hp:12,open:false,onDefeat:()=>w.advancePhase()});w.data.reward=false;w.data.dragonY=0;w.cue('UFO FLIGHT · Arrows/WASD move in every direction · evade the locked bite',180);},
+ name:'Iron Fang flight',machine:'Siege Dragon',mode:'flight',camera:'fixed',flightBounds,pilot,pilotHeight:48,hudLabel:'NECK JOINT',objective:'Fly the jet, evade the locked bite, then punish the neck joint',spawn:{x:180,y:390},practiceSpawn:{x:180,y:390},
+ enter(w){w.target({id:'neck-joint',x:1050,y:330,w:110,h:100,hp:12,open:false,onDefeat:()=>w.advancePhase()});w.data.reward=false;w.data.dragonY=0;w.cue('JET FLIGHT · Arrows/WASD move in every direction · evade the locked bite',180);},
  update(w){moveDragon(w);const cycle=w.phaseTick%240;if(cycle===60)bite(w,Math.floor(w.phaseTick/240));breath(w,cycle,120,177);const core=w.targets[0];core.open=cycle>=138&&cycle<235;core.label=core.open?'Neck joint · OPEN':'Neck joint · bait Iron Fang';w.progress=1-core.hp/core.maxHp;w.objective=core.open?'Neck withdrawn · fire into the moving joint':'Fly freely · change altitude after the jaw locks';if(!w.data.reward&&w.events.some(e=>e.type==='targetHit'&&e.target==='neck-joint')){w.data.reward=true;w.drop('moonkeep-first-joint',w.player.x,w.player.y-20);}},
  draw(ctx,w){dragon(ctx,w);}
 },{

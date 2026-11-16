@@ -1,10 +1,11 @@
 /* Browser-only observation. This file is deliberately outside the replay simulation SOURCES.
  * Original functions still receive the same this/arguments and return/throw unchanged.
- * Enemy shot objects are never edited; immutable presentation metadata lives in a WeakMap.
+ * Shot objects are never edited by these hooks; presentation metadata lives separately.
  */
 (function(){
   'use strict';
   const art=globalThis.ArcadeBossSheets;
+  const jet=globalThis.ArcadeMoonkeepJet;
   if(!art)return;
   function binding(kind){
     return{phase:boss?.phase===2?1:0,variant:art.legacyVariant(boss||{},kind),bornTick:time};
@@ -21,6 +22,9 @@
     const first=bullets?.length||0,own=arguments[5];
     const meta=!own?binding(isChase()?'chase':isCodebreak()?'codebreak':'regular'):null;
     const result=originalFire.apply(this,arguments);
+    if(jet&&own&&arguments[4]==='redLaser'&&LEVELS[levelIndex].id===7){
+      jet.recordMissile(player,bullets[first],time,SAUCER_BEAM_END);
+    }
     if(meta)for(let i=first;i<(bullets?.length||0);i++){
       const shot=bullets[i];
       art.bindShot(shot,meta);
@@ -30,6 +34,16 @@
     }
     return result;
   };
+  if(jet){
+    const originalHitBoss=hitBoss;
+    hitBoss=function(shot){
+      if(shot.own&&LEVELS[levelIndex].id===7){
+        if(shot.shape==='redLaser')jet.recordMissileHit(shot);
+        if(shot.shape==='beachBall')jet.recordHeavyHit(player,shot.x,shot.y,time);
+      }
+      return originalHitBoss.apply(this,arguments);
+    };
+  }
   const originalUpdateBoss=updateBoss;
   updateBoss=function(){
     const first=hazards?.length||0,previousBeam=vaultBeam,meta=binding('regular');
@@ -156,6 +170,9 @@
   puff=function(x,y){
     const result=originalPuff.apply(this,arguments);
     if(y!==FLOOR||arguments[3]!==5)return result;
+    if(jet&&LEVELS[levelIndex].id===7&&bullets.some(s=>s.own&&s.shape==='beachBall'&&!s.dead&&s.x===x&&s.y===FLOOR-13&&s.vy<0)){
+      jet.recordHeavyBounce(player,x,y,time);
+    }
     const shot=bullets.find(s=>!s.own&&!s.dead&&s.x===x&&s.y===FLOOR-13&&s.vy<0);
     if(shot)art.addProjectileHit(player,time,{x,y:y-3,id:LEVELS[levelIndex].id,phase:boss.phase===2?1:0,
       vx:shot.vx,vy:shot.vy,kind:isNaval()?'water':'bounce',size:1});

@@ -511,10 +511,10 @@ function coachText() {
     'When the cue says EXPOSED, line up with the ring for triple damage.'
   ].join('\n');
   if(LEVELS[levelIndex]?.id===7)return [
-    pad?'Fly the UFO with the left stick or D-pad.':'Fly the UFO with WASD or the arrow keys.',
+    pad?'Fly the jet with the left stick or D-pad.':'Fly the jet with WASD or the arrow keys.',
     'Change altitude to dodge the dragon. Dash ('+controlPrompt('dash','Shift','B / RT')+') through incoming shots.',
     'Use your shield ('+shieldPrompt()+') when the cue says SHIELD NOW.',
-    controlPrompt('missile','C','Y')+' fires the UFO laser. '+controlPrompt('bomb','V','RB')+' launches the bouncing ball.',
+    controlPrompt('missile','C','Y')+' launches a missile. '+controlPrompt('bomb','V','RB')+' fires a bouncing heavy charge.',
     'When the dragon is EXPOSED, line up with the ring for triple damage.'
   ].join('\n');
   return [
@@ -549,13 +549,14 @@ function setOverlay(next, label, title, description, button) {
 }
 
 function showLevelControls() {
-  const flying=isFlying(), naval=isNaval(), chase=isChase();
-  for (const element of document.querySelectorAll('[data-flight-only], [data-ground-only], [data-boss-only], [data-boat-only], [data-ufo-only]')) {
+  const flying=isFlying(), naval=isNaval(), chase=isChase(), jet=LEVELS[levelIndex]?.id===7;
+  for (const element of document.querySelectorAll('[data-flight-only], [data-ground-only], [data-boss-only], [data-boat-only], [data-ufo-only], [data-jet-only]')) {
     element.hidden=(chase && element.hasAttribute('data-boss-only')) ||
       (!flying && element.hasAttribute('data-flight-only')) ||
       (flying && element.hasAttribute('data-ground-only')) ||
       (!naval && element.hasAttribute('data-boat-only')) ||
-      ((!flying || naval) && element.hasAttribute('data-ufo-only'));
+      ((!flying || naval || jet) && element.hasAttribute('data-ufo-only')) ||
+      (!jet && element.hasAttribute('data-jet-only'));
   }
   document.querySelector('#ground-auto-fire').hidden=chase || flying || isCodebreak();
   document.querySelector('#tracking-auto-fire').hidden=!isCodebreak();
@@ -1998,6 +1999,10 @@ function drawColumn(h) {
 }
 
 function drawStoryPlayerShot(shot) {
+  if(LEVELS[levelIndex].id===7&&shot.shape==='beachBall'){
+    ArcadePlayerProjectiles.drawShot(ctx,'jetHeavy',shot.x,shot.y,shot.vx,shot.vy,shot.age);
+    return;
+  }
   const kind=isNaval()&&shot.shape==='greenLaser'?'spark':shot.shape;
   ArcadePlayerProjectiles.drawShot(ctx,kind,shot.x,shot.y,shot.vx,shot.vy,shot.age,()=>{
     if(ArcadeSpeedboat.drawShot(ctx,picture,shot.shape,shot.age))return true;
@@ -2015,6 +2020,7 @@ function drawStoryPlayerImpact(impact) {
     ArcadePlayerProjectiles.drawSplash(ctx,x,y,age,duration);
     return;
   }
+  if(LEVELS[levelIndex].id===7&&(impact.art==='bomb-impact'||impact.art==='missile-impact'))return;
   const kind=impact.art==='bomb-impact'?(isFlying()?'beachBall':'bomb'):
     impact.art==='missile-impact'?(isNaval()?'boatTorpedo':isFlying()?'redLaser':'missile'):
     impact.art==='saucer/muzzle'?'greenLaser':'spark';
@@ -2314,6 +2320,21 @@ function drawShieldPulse() {
   ctx.restore();
 }
 
+function drawMoonkeepJet() {
+  const p=player,jet=globalThis.ArcadeMoonkeepJet;
+  const firing=!phaseShift&&!densityShots.length&&(!godMode||godFire);
+  jet.draw(ctx,picture,p,time,{
+    visible:!p.inv||time%8<5,
+    missileAge:firing?MISSILE_COOLDOWN-p.missileWait:RED_ARM_DEPLOY+jet.missileAge(p,time),
+    heavyAge:firing?BOMB_COOLDOWN-p.bombWait:Infinity,
+    missile:{launch:RED_ARM_DEPLOY,mount:[48,22],port:[RED_ARM_TIP_X,RED_ARM_TIP_Y]},
+    heavy:{launch:BALL_LAUNCH_FRAME,mount:[-45,1],port:[NAVAL_WEAPONS.heavy.x,NAVAL_WEAPONS.heavy.y]}
+  });
+  jet.drawEffects(ctx,p,time);
+  if(firing&&p.shot===1)ArcadePlayerProjectiles.drawImpact(ctx,'greenLaser',p.x+SAUCER_MUZZLE_X,p.y+SAUCER_MUZZLE_Y,1,8);
+  if(p.shield)drawPlayerShield('saucer-shield',p.x,p.y,1.4);
+}
+
 function drawSaucer() {
   const p=player;
   const rear=attackArt('player/higgsfield/saucer/cockpit-rear');
@@ -2599,7 +2620,8 @@ function renderLegacyScene() {
       phaseShift||densityShots.length?Infinity:MISSILE_COOLDOWN-player.missileWait,
       phaseShift||densityShots.length?Infinity:BOMB_COOLDOWN-player.bombWait);
     if(player.shield)drawPlayerShield('saucer-shield',player.x,player.y,1.4);
-  } else if (isFlying()) drawSaucer();
+  } else if (LEVELS[levelIndex].id===7) drawMoonkeepJet();
+  else if (isFlying()) drawSaucer();
   else drawGroundPlayer();
   for (const shot of bullets) {
     if (shot.own) {

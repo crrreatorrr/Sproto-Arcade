@@ -9,6 +9,8 @@ const ArcadePlayerProjectiles = (() => {
   const water = ['#101b35','#175b9d','#34c8ff','#a3f4ff','#f8ffff'];
   const red = ['#261226','#8f284d','#ff496b','#ffc3a6','#fff4e0'];
   const prism = ['#211434','#7051b7','#d78aff','#b5fdff','#fff4ff'];
+  const jetBlue = ['#141d37','#3159a8','#42baff','#9bf1ff','#f3ffff','#4e6e93','#95bbdc','#deefff'];
+  const jetViolet = ['#1e1536','#653baf','#bd63f6','#ffc76c','#fff4e6','#895667','#e9a754','#534974'];
 
   const bolt = [
     '    000000   ',
@@ -57,11 +59,36 @@ const ArcadePlayerProjectiles = (() => {
     ' 012210   000000    ',
     '  0000              '
   ];
+  const jetMissile = [
+    '  000          ',
+    '  06500   000  ',
+    ' 0055660006700 ',
+    '035667676676670',
+    '024567777777740',
+    '035556655664400',
+    ' 0056650006700 ',
+    '  06500   000  ',
+    '  000          '
+  ];
+  const jetHeavy = [
+    '   000000   ',
+    '  06655660  ',
+    ' 0672112760 ',
+    '067123321760',
+    '051234432150',
+    '051244432150',
+    '067123321760',
+    ' 0672112760 ',
+    '  06655660  ',
+    '   000000   '
+  ];
   const styles = {
     spark:{body:bolt,colors:mint,size:2,tail:35},
     greenLaser:{body:laser,colors:plasma,size:2,tail:54},
     redLaser:{body:laser,colors:red,size:3,tail:55},
     missile:{body:missile,colors:rocket,size:3,tail:76,impact:43},
+    jetMissile:{body:jetMissile,colors:jetBlue,size:3,tail:98,impact:48},
+    jetHeavy:{body:jetHeavy,colors:jetViolet,size:4,tail:49,rolling:true,impact:64},
     bomb:{body:mine,colors:bomb,size:4,tail:38,rolling:true,impact:56},
     beachBall:{body:mine,colors:bomb,size:4,tail:35,rolling:true,impact:52},
     boatTorpedo:{body:torpedo,colors:water,size:2,tail:57,impact:43},
@@ -132,7 +159,7 @@ const ArcadePlayerProjectiles = (() => {
       ctx.save();
       ctx.rotate(style.rolling?Math.trunc(age/2)*(vx<0?-1:1)*Math.PI/8:angle);
       const frame=sprite(style),w=frame.width*style.size,h=frame.height*style.size;
-      if(kind==='missile'){
+      if(kind==='missile'||kind==='jetMissile'){
         const jet=14+animation*3,base=-w/2+4;
         pixel(ctx,base-jet/2,0,jet+4,colors[0],12);
         pixel(ctx,base-jet/2,0,jet,colors[2],7);
@@ -146,6 +173,10 @@ const ArcadePlayerProjectiles = (() => {
     if (style.rolling || kind==='boatTorpedo') {
       const [dx,dy]=radial[Math.floor(age/2)%radial.length];
       flare(ctx,dx*(kind==='beachBall'?22:14),dy*12,2,colors);
+      if(kind==='jetHeavy'){
+        flare(ctx,dx*26,dy*23,3,colors);
+        pixel(ctx,-dx*26,-dy*23,4,colors[2]);
+      }
     }
     ctx.restore();
   }
@@ -201,13 +232,17 @@ const ArcadePlayerProjectiles = (() => {
 
   function drawImpact(ctx,kind,x,y,age,duration) {
     const style=styles[kind]??styles.spark;
+    if(kind==='jetHeavy'){
+      drawBlast(ctx,x,y,style.impact,age,duration,false,kind);
+      return;
+    }
     drawBurst(ctx,x,y,age,duration,style.impact??29,style.colors);
   }
 
-  function drawBlast(ctx,x,y,radius,age,duration,grounded=false) {
+  function drawBlast(ctx,x,y,radius,age,duration,grounded=false,kind=null) {
     const t=age/duration;
     if (t<0 || t>=1) return;
-    const colors=grounded?bomb:mint;
+    const colors=styles[kind]?.colors??(grounded?bomb:mint);
     drawBurst(ctx,x,y-(grounded?9:0),age,duration,grounded?Math.min(76,radius):radius,colors,grounded);
     const ring=radius*(.27+.73*t*(2-t));
     ctx.save();
@@ -218,6 +253,10 @@ const ArcadePlayerProjectiles = (() => {
       const w=Math.max(4,Math.round(radius*.09*(1-t)));
       pixel(ctx,px,py,w+3,colors[0],6);
       pixel(ctx,px,py,w,colors[i%2===0?3:2],3);
+      if(kind==='jetHeavy'){
+        pixel(ctx,px-dx*7,py-dy*7,w*.66,colors[2],2);
+        pixel(ctx,px+dx*5,py+dy*5,3,colors[4],2);
+      }
     }
     ctx.restore();
   }
