@@ -49,7 +49,7 @@ const BALL_MUZZLE_X = -47, BALL_MUZZLE_Y = -28;
 const PANEL_WIDTH=1344, GENERATED_PANEL_WIDTH=3072;
 const STAGE_BLAST=54, STAGE_BLACKOUT=82, STAGE_SHIFT_END=96;
 const VERSE_GEM_CHARGE=22, VERSE_GEM_FIRE=46, VERSE_GEM_END=64;
-const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75;
+const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75, VAULT_SWEEP_DISTANCE=28;
 const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
 const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel&&(level.id!==13||REDKEV_READY)));
 const canvas = document.querySelector('canvas');
@@ -1485,9 +1485,15 @@ function updateVaultBeam() {
     vaultBeam=null;
     return;
   }
+  const naval=isNaval();
+  if (naval && LEVELS[levelIndex].id===1 && boss.phase===2) {
+    const sweep=SimMath.sin(Math.PI*vaultBeam.age/VAULT_BEAM_LIFE);
+    const direction=boss.laserCycle%2?-1:1;
+    vaultBeam.y=arenaLaserY()+direction*VAULT_SWEEP_DISTANCE*sweep*sweep;
+  }
   const {y,age}=vaultBeam;
   const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
-  const naval=isNaval(),halfWidth=naval?SAUCER_HALF_WIDTH:18;
+  const halfWidth=naval?SAUCER_HALF_WIDTH:18;
   const top=player.y-(naval?31:playerHeight()),bottom=player.y+(naval?31:0);
   if (age<32 && player.x+halfWidth>=r.x && player.x-halfWidth<=r.x+r.w &&
       bottom>r.y && top<r.y+r.h) hurt();

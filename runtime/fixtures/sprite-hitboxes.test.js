@@ -74,7 +74,7 @@ console.log('PASS enabled geometry preserves authored emissions, timing, traject
 const legacy=vm.createContext({Math});vm.runInContext(read('sprite-hitboxes.js'),legacy);
 const game=read('game.js'),code=read('codebreak.js');
 function functions(source,start,end){vm.runInContext(source.slice(source.indexOf('function '+start+'('),source.indexOf('function '+end+'(')),legacy);}
-functions(game,'combatWeaponVariant','fire');functions(game,'fire','updateShield');functions(game,'vaultBeamFront','startStageShift');
+functions(game,'combatWeaponVariant','fire');functions(game,'fire','updateShield');functions(game,'arenaLaserY','startStageShift');
 functions(game,'updateVerseGemLaser','drawVerseGemLaser');
 functions(game,'updateBullets','hitBoss');
 functions(game,'startChase','updateChase');
@@ -82,7 +82,7 @@ functions(game,'floorHeight','startChase');
 functions(code,'updateCodeShots','startCodebreakArena');functions(code,'updateCodePlayerShots','updateCodebreak');
 functions(code,'updateCodeAttack','codeBeamLanes');
 vm.runInContext(`var LEVELS=[{id:1}],levelIndex=0,boss={phase:1,hp:10,max:10,gemAim:0},player={x:140,y:530,dash:0,shield:0,inv:0},boxes={orb:{w:40,h:40}},hits=0,damaged=0;
-var SimMath=Math,SAUCER_HALF_WIDTH=44,VAULT_MUZZLE=400,VAULT_BEAM_LIFE=90,vaultBeam={age:0,y:500},VERSE_GEM=[0,0],VERSE_GEM_CHARGE=0,VERSE_GEM_FIRE=0,VERSE_GEM_END=100;
+var SimMath=Math,SAUCER_HALF_WIDTH=44,VAULT_MUZZLE=400,VAULT_BEAM_LIFE=40,VAULT_SWEEP_DISTANCE=28,vaultBeam={age:0,y:500},VERSE_GEM=[0,0],VERSE_GEM_CHARGE=0,VERSE_GEM_FIRE=0,VERSE_GEM_END=100;
 var naval=false;function isNaval(){return naval;}
 var CODE_CHARACTER_SCALE=.56,W=1280,H=720,codeShots=[],bullets=[],impacts=[],CODE_PLAYER_WEAPONS={greenLaser:{speed:0,tracking:0,damage:2}},playerImpacts={greenLaser:{}},CODE_AIR_ATTACKS=[[0]],CODE_ARENA_ATTACK_COUNT=7;
 function playerHeight(){return 52;}function hurt(){hits++;}function sound(){}function hitBoss(shot,damage){damaged+=damage;shot.dead=true;}function codeTargetY(){return 500;}function isChase(){return false;}var PLAYER_SHOT_RATE=1,ENEMY_ATTACK_RATE=1;
@@ -211,6 +211,29 @@ for(const age of [0,10]){
  vm.runInContext(`hits=0;vaultBeam={age:${age},y:500,weaponVariant:0,weaponPhase:0};`,legacy);const front=Math.max(0,400-(age+1)*69),width=Math.max(1,400-front),rect=geometry.rect(legacy.dynamicProfile,{x:(front+400)/2,y:500},0,[width,32],{kind:'ray'});
  legacy.contactX=rect.x+rect.w/2;legacy.contactY=rect.y+rect.h/2+20;vm.runInContext('player.x=contactX;player.y=contactY;updateVaultBeam()',legacy);assert.equal(legacy.hits,1,'actual short/tiled vault beam uses current visual bounds');
 }
+vm.runInContext(`SPRITE_HITBOXES.stages[1][1]={beams:{'vault@0':dynamicProfile}};
+ boss.phase=2;naval=true;player.x=200;`,legacy);
+for(const [cycle,direction] of [[0,1],[1,-1]]){
+ const lane=vm.runInContext(`boss.laserCycle=${cycle};arenaLaserY()`,legacy);
+ const rect=geometry.rect(legacy.dynamicProfile,{x:200,y:lane},0,[400,32],{kind:'ray'});
+ const boatY=direction>0?rect.y+rect.h+39:rect.y-39;
+ vm.runInContext(`hits=0;player.y=${boatY};vaultBeam={age:0,y:${lane},weaponVariant:0,weaponPhase:1};`,legacy);
+ const y=[];
+ for(let age=1;age<40;age++){
+  vm.runInContext('updateVaultBeam()',legacy);
+  y[age]=legacy.vaultBeam.y;
+  if(age===4)assert.equal(legacy.hits,0,'the warned lane clears this boat before the sweep reaches it');
+  if(age===20)assert.ok(legacy.hits>0,'the fitted ray must reach a boat outside the warned lane as it sweeps');
+ }
+ assert.ok(direction*(y[20]-y[10])>0 && direction*(y[20]-y[30])>0,'the beam moves out and back in both lanes');
+ assert.ok(Math.abs(y[39]-lane)<1,'the fading beam returns to its warned lane');
+ vm.runInContext('updateVaultBeam()',legacy);
+ assert.equal(legacy.vaultBeam,null,'the sweep keeps the original lifetime');
+}
+vm.runInContext('LEVELS[0].id=13;boss.laserCycle=0;vaultBeam={age:19,y:500};updateVaultBeam()',legacy);
+assert.equal(legacy.vaultBeam.y,500,'Redkev keeps his fixed laser lane');
+vm.runInContext('LEVELS[0].id=1;naval=false;vaultBeam={age:19,y:500};updateVaultBeam()',legacy);
+assert.equal(legacy.vaultBeam.y,500,'historical grounded Dave keeps his fixed laser lane');
 console.log('PASS dynamic growing columns, short/tiled fullspan beams, modern mirror/vertical transforms and actual legacy contact consumers');
 H.config.enabled=true;H.config.stages={'1':{'0':{projectiles:{'numeric-fit@0':{...JSON.parse(JSON.stringify(actualCore)),kind:'auto',visualBox:[1,1]}}}}};
 const modernCore=world(),modernHazard=modernCore.hazard({id:'numeric-fit-event',source:'numeric-fit',x:250,y:550,w:76,h:64,vx:-300,windup:2,active:1});
