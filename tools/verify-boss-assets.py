@@ -94,9 +94,9 @@ for number, config in manifest.items():
                 rgb = delta.convert('RGB').point(lambda value: 255 if value else 0).convert('L')
                 coverage = ImageChops.lighter(alpha, original.getchannel('A')).point(lambda value: 255 if value else 0)
                 changed = ImageChops.lighter(delta.getchannel('A'), ImageChops.multiply(rgb, coverage)).getbbox()
-                if cell == 0 and changed is not None:
-                    errors.append(f'{path}: first idle pose does not match the transition')
-                elif cell and (not changed or changed[0] < x or changed[1] < y or changed[2] > x+w or changed[3] > y+h):
+                if cell == 0 and delta.getchannel('A').getbbox() is not None:
+                    errors.append(f'{path}: first idle silhouette differs from the canonical pose')
+                if not changed or changed[0] < x or changed[1] < y or changed[2] > x+w or changed[3] > y+h:
                     errors.append(f'{path}: cell {cell} is unchanged or modifies pixels outside the draw crop')
         presentation_count += 1
 if args.require_complete and pending:
