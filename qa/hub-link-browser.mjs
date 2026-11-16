@@ -25,7 +25,7 @@ const server=http.createServer((req,res)=>{
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const origin='http://127.0.0.1:'+server.address().port;
-const STUB=`HubSDK=Object.assign({},HubSDK,{createHubSdk:function(){
+const STUB=`HubSDK=Object.assign({},HubSDK,{createHubSdk:function(options){window.__hubOptions=options;
   var calls=window.__hubCalls=[];var me=window.__stubPlayer||'p1';var relics=me==='p1'?['cones_tip']:[];
   var cloud=me==='p1'?{data:{v:1,cleared:[4],unlocked:['sproto831'],updatedAt:1},updatedAt:1}:{data:null,updatedAt:0};
   return {
@@ -75,8 +75,12 @@ try{
   { // 2. Hub session with the recording stub.
     const page=await browser.newPage();await page.addInitScript(()=>{try{localStorage.setItem('sproto-arcade-coach-v1','1');}catch{}}); /* first-run card already seen */
     await page.route(sdkScript,r=>r.fulfill({contentType:'text/javascript',body:SDK_STUB}));
+    // CI's dist/ is built without NAKAMA_SERVER_KEY, so its hub-config.js has an empty key. Served
+    // from loopback (the local hub), hub-link.js still signs in with Nakama's stock key.
+    await page.route(/\/hub-config\.js(?:\?[^#]*)?$/,r=>r.fulfill({contentType:'text/javascript',body:'window.SPROTO_ARCADE_HUB={serverUrl:"",serverKey:"",hubUrl:""};'}));
     const errors=await open(page);
     await page.waitForFunction(()=>window.ArcadeHub.state.status==='online');
+    assert.equal(await page.evaluate(()=>window.__hubOptions.serverKey),['default','key'].join(''),'an unkeyed build signs in on loopback');
     const state=await page.evaluate(()=>window.ArcadeHub.state);
     assert.deepEqual(state.save.cleared,[4],'cloud progress merged in');
     assert.deepEqual(state.save.unlocked,['sproto831']);
