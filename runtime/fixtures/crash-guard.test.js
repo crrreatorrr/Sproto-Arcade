@@ -42,7 +42,7 @@ function harness(file,names,globals){
 function story(throwsOn){
  let steps=0;
  const h=harness('game.js',['loop','storyFrame'],{
-  mode:'play',player:{},replayRecorder:null,inputFrame:null,pressed:new Set(),last:1000,carry:0,
+  mode:'play',player:{},storyTransition:null,phaseShift:0,isCodebreak:()=>false,replayRecorder:null,inputFrame:null,pressed:new Set(),last:1000,carry:0,
   readKeyboardFrame:()=>({}),render:()=>{},
   update:()=>{steps++;if(throwsOn(steps))throw new Error('boom from a story step');},
  });
@@ -55,7 +55,7 @@ function trials(throwsOn){
  const world={state:'playing',seed:1,tick:0,failure:'',phaseIndex:0,stage:{operator:'x'},restart(){},
   step(){steps++;this.tick++;if(throwsOn(steps))throw new Error('boom from a trials step');}};
  const h=harness('rework.js',['loop','trialsFrame'],{
-  world,paused:false,acc:0,last:1000,visibleState:'playing',soundTick:-1,held:new Set(),press:new Set(),
+  world,trialTransition:null,incomingWorld:null,paused:false,acc:0,last:1000,visibleState:'playing',soundTick:-1,held:new Set(),press:new Set(),
   input:()=>({retry:false}),render:Object.assign(()=>{},{lastCue:''}),overlay:()=>{},$:()=>el,
   recordKey:()=>'',readRecords:()=>({}),records:()=>{},localStorage:{setItem(){}},
  });

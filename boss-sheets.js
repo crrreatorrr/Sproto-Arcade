@@ -326,6 +326,7 @@
   function drawMachine(ctx,w){
     const config=entry(w.stage.id),img=phaseImage(w.stage.id,w.phaseIndex),box=machineBox(w);
     if(!img||!box)return false;
+    if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
     return frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline);

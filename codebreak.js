@@ -408,13 +408,19 @@ function drawCodeMecha(frame,x,y,height,facing=1) {
 
 function drawCodebreak() {
   const barragePose=densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true);
-  const blend=boss.shift?(boss.shift-1)/78:null;
+  const cinema=boss.shift?storyTransition?.position(boss):null;
+  const blend=boss.shift?(cinema==null?(boss.shift-1)/78:globalThis.ArcadeBossTransitions.progress(cinema)):null;
   ArcadePhaseBackground.draw(ctx,boss.phase===2,blend,drawCodebreakBackground);
   const b=boss, attack=attackForCodebreak();
   const fireFrame=!densityShots.length && b.age>=attack.frames[0] && b.age<=attack.frames.at(-1)+(attack.sweep?CODE_SWEEP_DURATION-1:5);
   const frame=densityShots.length?0:fireFrame?2:b.age>=20 && b.age<attack.frames[0]?1:b.age>attack.frames.at(-1)+5 && b.age<attack.frames.at(-1)+23?3:0;
   if (b.phase===1) {
     drawCodePlatforms();
+  }
+  const from={x:b.x-160*CODE_MECHA_SCALE,y:b.y-320*CODE_MECHA_SCALE,w:320*CODE_MECHA_SCALE,h:320*CODE_MECHA_SCALE,flip:b.section%2===1};
+  const siege={x:1052-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT};
+  const transformed=cinema!=null&&globalThis.ArcadeBossTransitions.draw(ctx,12,cinema,from,siege);
+  if (b.phase===1 && !transformed) {
     const pose=frame?attack.sprite===3?1:attack.sprite===2?3:attack.sprite===1?2:1:0;
     const facing=b.section%2?-1:1;
     for (const [index,[footX,footY]] of CODE_THRUSTER_FEET[pose].entries()) {
@@ -432,7 +438,7 @@ function drawCodebreak() {
       ctx.drawImage(codeFrame('shot',attack.sprite),x-15,y-36,30,38);
       ctx.globalAlpha=1;
     }
-  } else {
+  } else if (b.phase===2) {
     const wreckFrame=b.wreck?Math.min(3,Math.floor(b.wreck/13)):0;
     const sprite=b.wreck?codeFrame('wreck',wreckFrame):codeFrame('attack'+(attack.beam?4:b.attackIndex),frame);
     if(!globalThis.ArcadeBossSheets?.drawBoss(ctx,12,1,barragePose||{row:frame?1+globalThis.ArcadeBossSheets.legacyVariant(b,'codebreak'):0,column:frame||Math.floor(time/6)%4},{x:b.x-CODE_BOSS_HEIGHT/2,y:FLOOR-CODE_BOSS_HEIGHT,w:CODE_BOSS_HEIGHT,h:CODE_BOSS_HEIGHT}))drawCodeMecha(sprite,b.x,FLOOR,CODE_BOSS_HEIGHT);

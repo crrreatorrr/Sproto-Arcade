@@ -34,7 +34,7 @@ const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.pro
  // Execute the actual modern start functions, with only DOM/world construction mocked.
  const elements=new Map(),el=id=>{if(!elements.has(id))elements.set(id,{value:'',textContent:id==='start'?'Start run':'',disabled:false,selectedOptions:[{dataset:{}}]});return elements.get(id);};el('stage').value='04-ranch';el('entry').value='0';el('pilot').value='rivet';el('seed').value='777';
  scope.$=el;scope.constructed=0;scope.Arcade={stages:new Map([['04-ranch',{id:'04-ranch'}],['05-neon',{id:'05-neon'}]]),World:class{constructor(stage,options){scope.constructed++;this.stage=stage;this.options=options;this.tick=0;}}};
- vm.runInContext('var world=null,paused=false,pilot,last=0,acc=0,visibleState="",soundTick=-1,held=new Set(),press=new Set();function records(){}function tone(){}function render(){}',scope);
+ vm.runInContext('var world=null,transitions=null,trialTransition=null,incomingWorld=null,paused=false,pilot,last=0,acc=0,visibleState="",soundTick=-1,held=new Set(),press=new Set();function records(){}function tone(){}function render(){}',scope);
  const source=fs.readFileSync('rework.js','utf8');vm.runInContext(source.slice(source.indexOf('function startNow(){'),source.indexOf("$('next').onclick")),scope);
  approve(4);before=created.length;const cold=scope.start();assert.equal(scope.constructed,0,'no world or gameplay ticks before decoding');assert.equal(el('start').disabled,true);created.slice(before).forEach(i=>i.resolve());await cold;assert.equal(scope.constructed,1);assert.equal(scope.world.tick,0);assert.equal(el('start').disabled,false);
  assert.equal(scope.start(),undefined,'already decoded retry remains synchronous');assert.equal(scope.constructed,2);

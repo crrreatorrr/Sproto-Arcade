@@ -3,6 +3,8 @@
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('arena'),ctx=canvas.getContext('2d'),held=new Set(),press=new Set();
 const images=new Map(),stages=[...Arcade.stages.values()].filter(s=>typeof s.enabled==='function'?s.enabled():s.enabled!==false).sort((a,b)=>(a.order??a.number)-(b.order??b.number));
+const transitions=globalThis.ArcadeBossTransitions,trialTransition=transitions?.createClock();
+let incomingWorld=null;
 let world=null,paused=false,last=0,acc=0,visibleState='',pilot='rivet',soundTick=-1,pickupAttempt=0;
 // Key prompts follow the last device used (gamepad.js sets data-input); the controller layout is README "Controls".
 // Bindings come from controls.js (controller settings); with the defaults these are the labels below.
@@ -20,7 +22,7 @@ function readRecords(){try{return JSON.parse(localStorage.getItem('arcade-v1-rec
 function recordKey(w){return w.stage.id+':'+(w.checkpointRetry?'checkpoint:phase1':w.practice?`practice:phase${w.options.phase}:sector${w.options.sector}`:'full');}
 function records(){const r=readRecords(),id=$('stage').value,o=$('entry').selectedOptions[0],phase=Number(o?.dataset.phase??o?.value)||0,sector=Number(o?.dataset.sector)||0;const f=r[id+':full'],p=r[id+`:practice:phase${phase}:sector${sector}`];$('records').textContent=`Best full run: ${f?(f/60).toFixed(1)+'s':'—'} · Best selected practice: ${p?(p/60).toFixed(1)+'s':'—'}`;}
 function refreshEntries(){const s=Arcade.stages.get($('stage').value);$('entry').replaceChildren(new Option('Full run · Phase 1','0'),new Option('Practice · Phase 2','1'));for(const sec of s?.practiceSectors||[]){const o=new Option('Practice · '+sec.label,'sector-'+sec.id);o.dataset.phase=sec.phase??0;o.dataset.sector=sec.id;$('entry').add(o);}records();}
-function startNow(){const s=Arcade.stages.get($('stage').value);if(!s)return;pilot=$('pilot').value;world=new Arcade.World(s,{pickupAttempt:pickupAttempt++,seed:Number($('seed').value)||777,phase:Number($('entry').selectedOptions[0].dataset.phase??$('entry').value)||0,sector:Number($('entry').selectedOptions[0].dataset.sector)||0,practice:$('entry').value!=='0'});paused=false;held.clear();press.clear();acc=0;visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;$('next').hidden=true;records();tone();}
+function startNow(){trialTransition?.reset();incomingWorld=null;const s=Arcade.stages.get($('stage').value);if(!s)return;pilot=$('pilot').value;world=new Arcade.World(s,{pickupAttempt:pickupAttempt++,seed:Number($('seed').value)||777,phase:Number($('entry').selectedOptions[0].dataset.phase??$('entry').value)||0,sector:Number($('entry').selectedOptions[0].dataset.sector)||0,practice:$('entry').value!=='0'});paused=false;held.clear();press.clear();acc=0;visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;$('next').hidden=true;records();tone();}
 let startRequest=0;const startLabel=$('start').textContent;
 function start(){
  const id=$('stage').value,art=globalThis.ArcadeBossSheets,ticket=++startRequest;
@@ -29,9 +31,9 @@ function start(){
  if(!adapterReady&&typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled){paused=true;$('start').disabled=false;$('start').textContent='Reload game';$('start').onclick=()=>location.reload();$('status').textContent='Boss art could not load. Reload the game before starting.';return;}
  const boatAssets=Arcade.stages.get(id).phases?.[0].naval
    ? [...ArcadeSpeedboat.assets,...[0,1].map(p=>ART.sprites[$('pilot').value].poses[p][0])] : [];
- if((!adapterReady||art.stageReady(id))&&boatAssets.every(path=>img(path))){ $('start').disabled=false;$('start').textContent=startLabel;return startNow(); }
+ if((!adapterReady||art.stageReady(id))&&boatAssets.every(path=>img(path))&&transitions?.settled(id)!==false){ $('start').disabled=false;$('start').textContent=startLabel;return startNow(); }
  paused=true;$('start').disabled=true;$('start').textContent='Loading…';$('status').textContent='Loading boss art…';
- return Promise.all([adapterReady?art.preloadStage(id):null,...boatAssets.map(path=>image(path).decode().catch(error=>{images.delete(path);throw error;}))]).then(()=>{
+ return Promise.all([adapterReady?art.preloadStage(id):null,transitions?.preload(id),...boatAssets.map(path=>image(path).decode().catch(error=>{images.delete(path);throw error;}))]).then(()=>{
   if(ticket!==startRequest)return;
   $('start').disabled=false;$('start').textContent=startLabel;
   if($('stage').value===id)return startNow();
@@ -69,7 +71,11 @@ function drawTrialsBackdrop(phaseTwo){
  if(world.stage.phases[Number(phaseTwo)].naval)ArcadeSpeedboat.drawOcean(ctx,img,world.phaseElapsed*40,phaseTwo);
 }
 function render(){if(!world){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase;
-const blend=w.state==='transition'&&ph.naval?w.transitionTick/89:null;
+const cinema=w.state==='transition'?trialTransition?.position(w)??null:null;
+if(cinema!==null)incomingWorld??=new Arcade.World(w.stage,{phase:1,seed:w.seed,practice:w.practice});
+else incomingWorld=null;
+transitions?.setTrial(w,cinema,incomingWorld);
+const blend=w.state==='transition'&&ph.naval?(cinema===null?w.transitionTick/89:globalThis.ArcadeBossTransitions.progress(cinema)):null;
 ArcadePhaseBackground.draw(ctx,w.phaseIndex===1,blend,drawTrialsBackdrop);
 ctx.save();ctx.translate(-w.camera.x,-w.camera.y);ctx.textAlign='left';
 if(!ph.naval)for(const pl of w.platforms){if(pl.removed||pl.active===false)continue;ctx.fillStyle='#263c49';ctx.fillRect(pl.x,pl.y,pl.w,pl.h||20);ctx.fillStyle='#81b5ba';ctx.fillRect(pl.x,pl.y,pl.w,4);}
@@ -137,7 +143,7 @@ if(w.state==='transition'){
 // Each frame runs inside the crash guard (runtime/crash-guard.js) and the next frame is always scheduled: a throw ends the frame (no more fixed steps on a half-applied state) and drops the step backlog; a streak of failing frames halts behind a "Something broke" panel.
 function loop(now){try{if(globalThis.ArcadeCrash)ArcadeCrash.runFrame(trialsFrame,now,()=>{acc=0;});else trialsFrame(now);}finally{requestAnimationFrame(loop);}}
 // One rendered frame. Returns false when a run is active but no fixed step fell due (proves nothing).
-function trialsFrame(now){const dt=Math.min(250,now-last||0);last=now;acc+=dt;let steps=0;const running=!!(world&&!paused);if(running){while(acc>=1000/60){const i=input();if(i.retry){world.restart();visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;held.clear();}else world.step(i);acc-=1000/60;steps++;}if(world.state!==visibleState){visibleState=world.state;if(world.state==='lost')overlay('Try the next opening',`Cause: ${world.failure||'Unknown hazard'}. Press R or retry. Phase ${world.phaseIndex+1} restarts with the standard kit.`,'Retry');if(world.state==='clear'){const key=recordKey(world),r=readRecords();r[key]=Math.min(r[key]||Infinity,world.tick);try{localStorage.setItem('arcade-v1-records',JSON.stringify(r));}catch{}records();overlay('Encounter cleared',`${world.stage.operator}'s machine is down. ${world.checkpointRetry?'Phase checkpoint result':world.practice?'Practice result':'Full-run result'} · ${(world.tick/60).toFixed(1)} seconds.`,'Play again');}}$('status').textContent=`${world.state.toUpperCase()} · Seed ${world.seed??$('seed').value} · Tick ${world.tick} · ${world.failure?'Last hit: '+world.failure:'Read the cue, then commit.'}`;}else{acc=0;press.clear();}render();return !running||steps>0;}
+function trialsFrame(now){const dt=Math.min(250,now-last||0);last=now;acc+=dt;let steps=0;const running=!!(world&&!paused);if(running){while(acc>=1000/60){const i=input();if(i.retry){trialTransition?.reset();incomingWorld=null;world.restart();visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;held.clear();}else if(trialTransition?.step(world,world.stage.id,world.state==='transition'?90-world.transitionTick:0)!==false)world.step(i);acc-=1000/60;steps++;}if(world.state!==visibleState){visibleState=world.state;if(world.state==='lost')overlay('Try the next opening',`Cause: ${world.failure||'Unknown hazard'}. Press R or retry. Phase ${world.phaseIndex+1} restarts with the standard kit.`,'Retry');if(world.state==='clear'){const key=recordKey(world),r=readRecords();r[key]=Math.min(r[key]||Infinity,world.tick);try{localStorage.setItem('arcade-v1-records',JSON.stringify(r));}catch{}records();overlay('Encounter cleared',`${world.stage.operator}'s machine is down. ${world.checkpointRetry?'Phase checkpoint result':world.practice?'Practice result':'Full-run result'} · ${(world.tick/60).toFixed(1)} seconds.`,'Play again');}}$('status').textContent=`${world.state.toUpperCase()} · Seed ${world.seed??$('seed').value} · Tick ${world.tick} · ${world.failure?'Last hit: '+world.failure:'Read the cue, then commit.'}`;}else{acc=0;press.clear();}render();return !running||steps>0;}
 $('status').textContent=`${stages.length} encounters registered · Offline classic scripts`;const query=new URLSearchParams(location.search);if(Arcade.stages.has(query.get('stage')))$('stage').value=query.get('stage');refreshEntries();if(query.get('phase')==='1')$('entry').value='1';records();requestAnimationFrame(loop);globalThis.ArcadeCrash?.markStarted();
 // Public read-only-in-spirit diagnostics for reproducible QA; no forced completion UI.
 // Main menu (menus.js): leave the run and show the first curtain with the setup again.

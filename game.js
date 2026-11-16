@@ -544,6 +544,7 @@ function showLevelControls() {
 }
 
 function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, seedOverride = null) {
+  storyTransition?.reset();
   if(LEVELS[index]?.id===13&&!REDKEV_READY)return;
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
@@ -2034,6 +2035,11 @@ function renderBoss() {
   ctx.save();
   if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
   if(naval)ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,surface);
+  const id=LEVELS[levelIndex].id, cinema=phaseShift?storyTransition?.position(b):null;
+  if (cinema!=null && globalThis.ArcadeBossTransitions.draw(ctx,id,cinema,sheets.legacyBox(id,0,sheetBox),sheets.legacyBox(id,1,bossSheetBox({...b,phase:2})))) {
+    ctx.restore();
+    return;
+  }
   const sheetPose=(densityShots.length&&globalThis.ArcadeBossSheets?.barragePose(densityShots,time,true))||globalThis.ArcadeBossSheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,globalThis.ArcadeBossSheets.legacyVariant(b))||{row:0,column:0};
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
@@ -2502,7 +2508,8 @@ function renderLegacyScene() {
     drawChase();
     return;
   }
-  const blend=phaseShift?(phaseShift-1)/(STAGE_SHIFT_END-2):null;
+  const cinema=phaseShift?storyTransition?.position(boss):null;
+  const blend=phaseShift?(cinema==null?(phaseShift-1)/(STAGE_SHIFT_END-2):globalThis.ArcadeBossTransitions.progress(cinema)):null;
   ArcadePhaseBackground.draw(ctx,boss.phase===2,blend,drawStoryBackdrop);
   ctx.save();
   if (shake) ctx.translate(SimMath.sin(time*1.8)*shake*.28,SimMath.cos(time*2)*shake*.25);
@@ -2713,6 +2720,7 @@ ui.start.addEventListener('click',()=>{
   }
 });
 
+const storyTransition=globalThis.ArcadeBossTransitions?.createClock();
 let last=0,carry=0;
 // Browser only. Each frame runs inside the crash guard (runtime/crash-guard.js) and the next frame is
 // always scheduled: a throw ends the frame (no more fixed steps on a half-applied state) and drops the
@@ -2733,9 +2741,12 @@ function storyFrame(now) {
   if (mode==='play') {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
-      inputFrame=readKeyboardFrame();
-      replayRecorder?.push(inputFrame);
-      update();
+      const transitionSteps=phaseShift?STAGE_SHIFT_END-phaseShift:isCodebreak()&&boss.shift?80-boss.shift:0;
+      if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
+        inputFrame=readKeyboardFrame();
+        replayRecorder?.push(inputFrame);
+        update();
+      }
       pressed.clear();
       carry-=1000/60;
       steps++;
@@ -2835,8 +2846,10 @@ const loadLevel=index=>loadGroup('level:'+index,()=>levelAssets(index));
 const loadSproto=id=>loadGroup('sproto:'+id,()=>spriteFrames(id));
 const bossArtReady=index=>{const art=globalThis.ArcadeBossSheets;return typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function'?art.stageReady(LEVELS[index].id):!(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled);};
 const loadBossArt=index=>{const art=globalThis.ArcadeBossSheets;if(typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function')return art.preloadStage(LEVELS[index].id);return typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled?Promise.reject(Error('Boss art renderer could not load. Reload the game.')):Promise.resolve();};
-const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
-const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index)]);
+const transitionReady=index=>LEVELS[index].chase||globalThis.ArcadeBossTransitions?.settled(LEVELS[index].id)!==false;
+const loadTransition=index=>LEVELS[index].chase?null:globalThis.ArcadeBossTransitions?.preload(LEVELS[index].id);
+const isReady=(index,id=selectedSproto.id)=>transitionReady(index) && readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
+const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index),loadTransition(index)]);
 function prefetchLevel(index) {
   if (index<LEVELS.length) Promise.all([loadLevel(index),loadBossArt(index)]).catch(()=>{});
 }
