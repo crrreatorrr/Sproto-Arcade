@@ -1,0 +1,710 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/Sproto-Arcade/art/reference/20261117-sprotel-bitcoin/disk-laser-source-4x4.png",
+  "sourceSha256": "2e27f07c6fd29c2716e30b578a0160e939ee662c133d9894656d9a7e8523ab3c",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "xCuts": [
+    0,
+    311,
+    623,
+    937,
+    1254
+  ],
+  "yCuts": [
+    0,
+    310,
+    623,
+    937,
+    1254
+  ],
+  "xGutters": [
+    {
+      "nominal": 314,
+      "emptyRunInclusive": [
+        284,
+        337
+      ],
+      "cut": 311,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 627,
+      "emptyRunInclusive": [
+        595,
+        650
+      ],
+      "cut": 623,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 940,
+      "emptyRunInclusive": [
+        908,
+        965
+      ],
+      "cut": 937,
+      "foregroundPixelsAcrossCut": 0
+    }
+  ],
+  "yGutters": [
+    {
+      "nominal": 314,
+      "emptyRunInclusive": [
+        294,
+        325
+      ],
+      "cut": 310,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 627,
+      "emptyRunInclusive": [
+        607,
+        638
+      ],
+      "cut": 623,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 940,
+      "emptyRunInclusive": [
+        920,
+        954
+      ],
+      "cut": 937,
+      "foregroundPixelsAcrossCut": 0
+    }
+  ],
+  "sharedSourceBaseline": 294,
+  "sharedYOffset": 6,
+  "distinctFrames": 16,
+  "frames": [
+    {
+      "index": 0,
+      "path": "disk-laser-frames/frame-00.png",
+      "sourceCellXYXY": [
+        0,
+        0,
+        311,
+        310
+      ],
+      "nominalOriginXY": [
+        0,
+        0
+      ],
+      "pasteOffsetXY": [
+        32,
+        38,
+        343,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        26,
+        15,
+        274,
+        294
+      ],
+      "bounds": [
+        58,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "6efb5271448d225cb6fc67c36936b4e4127f04023f8ca33af70b2fe77e8aafbf",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 1,
+      "path": "disk-laser-frames/frame-01.png",
+      "sourceCellXYXY": [
+        311,
+        0,
+        623,
+        310
+      ],
+      "nominalOriginXY": [
+        314,
+        0
+      ],
+      "pasteOffsetXY": [
+        29,
+        38,
+        341,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        28,
+        15,
+        276,
+        294
+      ],
+      "bounds": [
+        57,
+        53,
+        305,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "5fc0c79ff584c7d46f68259a40494d5a08f006306f8809de1f8c9ac915e29ffe",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 2,
+      "path": "disk-laser-frames/frame-02.png",
+      "sourceCellXYXY": [
+        623,
+        0,
+        937,
+        310
+      ],
+      "nominalOriginXY": [
+        627,
+        0
+      ],
+      "pasteOffsetXY": [
+        28,
+        38,
+        342,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        30,
+        15,
+        278,
+        294
+      ],
+      "bounds": [
+        58,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "544bbaf9b19ed384e1fa62990b81da7d755bc4f6ef4d68b7c62db4f5bd4f4d81",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 3,
+      "path": "disk-laser-frames/frame-03.png",
+      "sourceCellXYXY": [
+        937,
+        0,
+        1254,
+        310
+      ],
+      "nominalOriginXY": [
+        940,
+        0
+      ],
+      "pasteOffsetXY": [
+        29,
+        38,
+        346,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        29,
+        15,
+        277,
+        294
+      ],
+      "bounds": [
+        58,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "bec2e50cf01431e1acae9563bf855e36ef4601cc6cdf4cc60ff83912d34183f5",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 4,
+      "path": "disk-laser-frames/frame-04.png",
+      "sourceCellXYXY": [
+        0,
+        310,
+        311,
+        623
+      ],
+      "nominalOriginXY": [
+        0,
+        314
+      ],
+      "pasteOffsetXY": [
+        32,
+        34,
+        343,
+        347
+      ],
+      "sourceBoundsInCellLTRB": [
+        26,
+        18,
+        274,
+        297
+      ],
+      "bounds": [
+        58,
+        52,
+        306,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "a361fb68262062b7b683db776fe1c64f9e1c5ca42d6acc7b3d811caa987feb1f",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 5,
+      "path": "disk-laser-frames/frame-05.png",
+      "sourceCellXYXY": [
+        311,
+        310,
+        623,
+        623
+      ],
+      "nominalOriginXY": [
+        314,
+        314
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        341,
+        347
+      ],
+      "sourceBoundsInCellLTRB": [
+        27,
+        19,
+        277,
+        297
+      ],
+      "bounds": [
+        56,
+        53,
+        306,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "05c64b52155b2a09e01478191490afb859b757a158c94c7b9f1f14daada0e7c7",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 6,
+      "path": "disk-laser-frames/frame-06.png",
+      "sourceCellXYXY": [
+        623,
+        310,
+        937,
+        623
+      ],
+      "nominalOriginXY": [
+        627,
+        314
+      ],
+      "pasteOffsetXY": [
+        28,
+        34,
+        342,
+        347
+      ],
+      "sourceBoundsInCellLTRB": [
+        28,
+        18,
+        280,
+        297
+      ],
+      "bounds": [
+        56,
+        52,
+        308,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "84d07866a448630dedf3f6304b1e72b88a2778761731a1703e511dfc67dc11ae",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 7,
+      "path": "disk-laser-frames/frame-07.png",
+      "sourceCellXYXY": [
+        937,
+        310,
+        1254,
+        623
+      ],
+      "nominalOriginXY": [
+        940,
+        314
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        346,
+        347
+      ],
+      "sourceBoundsInCellLTRB": [
+        29,
+        16,
+        285,
+        297
+      ],
+      "bounds": [
+        58,
+        50,
+        314,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "caff099f12bfe421f01f77c6e0b7b5a31fa19886830e7129893c9af5d47a15ba",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 8,
+      "path": "disk-laser-frames/frame-08.png",
+      "sourceCellXYXY": [
+        0,
+        623,
+        311,
+        937
+      ],
+      "nominalOriginXY": [
+        0,
+        627
+      ],
+      "pasteOffsetXY": [
+        32,
+        34,
+        343,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        26,
+        16,
+        284,
+        297
+      ],
+      "bounds": [
+        58,
+        50,
+        316,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "8f5050897db85760e6114cb8ca5d3a9317b1a3b59bb0f3a92557bb641769e7e8",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 9,
+      "path": "disk-laser-frames/frame-09.png",
+      "sourceCellXYXY": [
+        311,
+        623,
+        623,
+        937
+      ],
+      "nominalOriginXY": [
+        314,
+        627
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        341,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        30,
+        18,
+        284,
+        297
+      ],
+      "bounds": [
+        59,
+        52,
+        313,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "20bccc10ef8fd170970dbb0ef0899e6b9fad9323455e29274106f06cd5faca1b",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 10,
+      "path": "disk-laser-frames/frame-10.png",
+      "sourceCellXYXY": [
+        623,
+        623,
+        937,
+        937
+      ],
+      "nominalOriginXY": [
+        627,
+        627
+      ],
+      "pasteOffsetXY": [
+        28,
+        34,
+        342,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        33,
+        18,
+        285,
+        297
+      ],
+      "bounds": [
+        61,
+        52,
+        313,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "2f9d2564e19183ca0769ece85ec12f710582799e558d2043b582fecda3892e25",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 11,
+      "path": "disk-laser-frames/frame-11.png",
+      "sourceCellXYXY": [
+        937,
+        623,
+        1254,
+        937
+      ],
+      "nominalOriginXY": [
+        940,
+        627
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        346,
+        348
+      ],
+      "sourceBoundsInCellLTRB": [
+        31,
+        20,
+        282,
+        297
+      ],
+      "bounds": [
+        60,
+        54,
+        311,
+        331
+      ],
+      "sourceGroundBaseline": 293,
+      "outputGroundBaseline": 331,
+      "sha256": "a2cf570346a9bcde5e77ca63cb3e0ca1a12b80de460eb3903bf9cbb53774e8d0",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 12,
+      "path": "disk-laser-frames/frame-12.png",
+      "sourceCellXYXY": [
+        0,
+        937,
+        311,
+        1254
+      ],
+      "nominalOriginXY": [
+        0,
+        940
+      ],
+      "pasteOffsetXY": [
+        32,
+        35,
+        343,
+        352
+      ],
+      "sourceBoundsInCellLTRB": [
+        27,
+        22,
+        280,
+        297
+      ],
+      "bounds": [
+        59,
+        57,
+        312,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "4e04bc067a6d8d0d14769bd2f880951f83d7a540c5aba7f8c58761b77528461e",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 13,
+      "path": "disk-laser-frames/frame-13.png",
+      "sourceCellXYXY": [
+        311,
+        937,
+        623,
+        1254
+      ],
+      "nominalOriginXY": [
+        314,
+        940
+      ],
+      "pasteOffsetXY": [
+        29,
+        35,
+        341,
+        352
+      ],
+      "sourceBoundsInCellLTRB": [
+        28,
+        18,
+        277,
+        297
+      ],
+      "bounds": [
+        57,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "494dcb832604b483943e7a4973e2c18233c9bb0662dd0d64ac1855d397a27fe2",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 14,
+      "path": "disk-laser-frames/frame-14.png",
+      "sourceCellXYXY": [
+        623,
+        937,
+        937,
+        1254
+      ],
+      "nominalOriginXY": [
+        627,
+        940
+      ],
+      "pasteOffsetXY": [
+        28,
+        35,
+        342,
+        352
+      ],
+      "sourceBoundsInCellLTRB": [
+        30,
+        18,
+        278,
+        297
+      ],
+      "bounds": [
+        58,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "6493ee992551ff4da12e7f59f22d225e7f5d2349f4786049d55077a78d7c4302",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 15,
+      "path": "disk-laser-frames/frame-15.png",
+      "sourceCellXYXY": [
+        937,
+        937,
+        1254,
+        1254
+      ],
+      "nominalOriginXY": [
+        940,
+        940
+      ],
+      "pasteOffsetXY": [
+        29,
+        35,
+        346,
+        352
+      ],
+      "sourceBoundsInCellLTRB": [
+        29,
+        18,
+        277,
+        297
+      ],
+      "bounds": [
+        58,
+        53,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 294,
+      "outputGroundBaseline": 332,
+      "sha256": "28f3460ac7deff978018cf655d8a22d9ab59d3904f094a343426a4bc60334689",
+      "alphaValues": [
+        0,
+        255
+      ]
+    }
+  ],
+  "qa": "All cuts cross globally verified empty magenta lines. All16full native subjects are complete and padded; no edge fragments removed."
+}

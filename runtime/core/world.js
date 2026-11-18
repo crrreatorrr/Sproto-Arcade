@@ -41,8 +41,9 @@
   function hash(text){let n=2166136261;for(const c of text){n^=c.charCodeAt(0);n=Math.imul(n,16777619);}return n>>>0;}
   class World {
     constructor(stage,options={}) {
-      if(!stage||!Array.isArray(stage.phases)||stage.phases.length!==2)throw Error('World requires two phases');
+      if(!stage||!Array.isArray(stage.phases)||![1,2].includes(stage.phases.length))throw Error('World requires one or two phases');
       this.stage=stage;this.options={seed:1,phase:0,sector:0,practice:false,...options};
+      this.options.phase=clamp(this.options.phase|0,0,stage.phases.length-1);
       this.seed=this.options.seed>>>0;this.practice=!!this.options.practice;this.sector=this.options.sector;
       this.weapons=A.Weapons?new A.Weapons({seed:this.seed^hash(stage.id)^0x10ad,eligible:stage.eligibleWeapons||[],mode:stage.phases[this.options.phase].mode,emit:e=>this.consumeEffect(e)}):null;
       this.restart();
@@ -54,7 +55,7 @@
       this.tick=0;this.failure='';this.practice=!!this.options.practice;this.sector=this.options.sector;
       this.attackRandom=A.rng(this.seed^hash(this.stage.id)^0xa77ac);
       if(this.weapons)this.weapons.reset();
-      this.enterPhase(deathPhase??clamp(this.options.phase|0,0,1),false);
+      this.enterPhase(deathPhase??clamp(this.options.phase|0,0,this.stage.phases.length-1),false);
       if(this.weapons)this.weapons.phase(this.phase.mode);return this;
     }
     enterPhase(index,carry){
@@ -72,7 +73,7 @@
       this.player.grounded=this.platforms.some(p=>Math.abs(this.player.y-p.y)<1&&this.player.x+16>p.x&&this.player.x-16<p.x+p.w);
       this.player.grace=this.player.grounded?6:0;this.updateCamera();
     }
-    advancePhase(){if(this.state!=='playing')return;if(this.phaseIndex===1){this.clear();return;}this.state='transition';this.transitionTick=0;this.densityBarrage=null;this.phasePowerups=null;this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.cueText='';this.input={};this.events.push({type:'phase',phase:1});}
+    advancePhase(){if(this.state!=='playing')return;if(this.phaseIndex>=this.stage.phases.length-1){this.clear();return;}this.state='transition';this.transitionTick=0;this.densityBarrage=null;this.phasePowerups=null;this.hazards=[];this.shots=[];this.effects=[];this.pickups=[];this.cueText='';this.input={};this.events.push({type:'phase',phase:1});}
     lose(source='unknown'){if(this.state!=='playing')return;this.failure=source;this.state='lost';this.densityBarrage=null;this.input={};this.events.push({type:'loss',source});}
     clear(){if(this.state!=='playing')return;this.state='clear';this.densityBarrage=null;this.phasePowerups=null;this.hazards=[];this.shots=[];this.events.push({type:'clear',practice:this.practice,tick:this.tick});}
     get phaseElapsed(){return this.phaseTick+this.densityTicks;}
@@ -88,7 +89,7 @@
       if(!h.density&&typeof spriteWeaponBinding==='function')Object.assign(h,spriteWeaponBinding(this.phaseIndex,
         spriteModernWeaponVariant(this.stage.id,this.phaseIndex,h.source,h.id,this.phaseTick,h.missile)));
       // Campaign pacing is phase-independent; unnumbered mechanics fixtures keep authored physics.
-      if(!h.density&&Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=13){
+      if(!h.density&&Number.isInteger(this.stage.number)&&this.stage.number>=1&&this.stage.number<=14){
         const speed=Math.hypot(h.vx,h.vy),cap=['dash','shield'].includes(h.rule)?8:6;
         h.authoredSpeed=speed;h.authoredActive=h.active;h.speedCap=cap;
         if(speed>cap&&h.active>0){
@@ -196,6 +197,7 @@
       this.input={};
     }
     updateDensity(){
+      if(this.stage.densityBarrage===false)return;
       if(typeof ArcadeDensityAttacks==='undefined'||!ArcadeDensityAttacks.enabled||this.phaseTick<ArcadeDensityAttacks.START||this.data.densityLastCycle!==undefined)return;
       const p=this.player,flight=['flight','orbit'].includes(this.phase.mode),vertical=(this.phase.camera||this.phase.mode)==='vertical';
       if(!flight&&!p.grounded)return;

@@ -127,7 +127,8 @@ const acts = [
   {id:'highsproto',name:'High Sproto',tag:'The Smoke Signal',hp:355,color:'#a5c4ff',moves:['crossfire', 'bankShot', 'sweep', 'fan', 'rush'],staticMoves:['lanternShower', 'arenaHazard', 'skimmer']},
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']},
   null,null,
-  {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['rush','slabs','quake','drop','bankShot'],staticMoves:['skimmer','gearPincer']}
+  {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['rush','slabs','quake','drop','bankShot'],staticMoves:['skimmer','gearPincer']},
+  {id:'sprotel',name:'Sprotel Bitcoin',tag:'Last Call',hp:290,color:'#19d9ed',moves:['sprotelBeer','sprotelDrinks','sprotelMarlin','sprotelDiskLaser'],staticMoves:[]}
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const MOONKEEP_ATTACKS={
@@ -140,6 +141,10 @@ const MOONKEEP_LANE_Y={high:108,low:FLOOR-54};
 const MOONKEEP_MUZZLES=[[[70,259],[86,360],[76,367]],[[61,325],[136,183],[77,396]]];
 const MOONKEEP_RIGHT_CANNON=[[151,360],[242,204]];
 const moves = {
+  sprotelBeer:{tell:60,active:40,rest:55},
+  sprotelDrinks:{tell:65,active:38,rest:55},
+  sprotelMarlin:{tell:80,active:32,rest:65},
+  sprotelDiskLaser:{tell:90,active:40,rest:65},
   quake:{tell:28,active:38,rest:31},
   slabs:{tell:34,active:57,rest:26},
   rush:{tell:37,active:29,rest:33},
@@ -193,6 +198,10 @@ const MECHA_ROCKETS=['mechaMissile','mechaArc','mechaHoming','mechaWave'];
 const MISSILE_COOLDOWN=120, BOMB_COOLDOWN=180;
 const SHIELD_DURATION=60, SAUCER_SHIELD_DURATION=180, SHIELD_COOLDOWN=600;
 const boxes = {
+  beer:{w:42,h:54,color:'#ffce44'},
+  cocktail:{w:38,h:48,color:'#44eaff'},
+  blueMarlin:{w:100,h:38,color:'#16cfff'},
+  diskLaser:{w:120,h:40,color:'#5dffff'},
   spark:{color:'#ffde65',art:'player/higgsfield/spit'},
   greenLaser:{color:'#9aff8f',art:'player/higgsfield/saucer/laser'},
   redLaser:{color:'#ff6274',art:'player/higgsfield/saucer/red-laser'},
@@ -496,6 +505,7 @@ function failReport(reason) {
 function noTicketReason(checkpoint,god) {
   if (!window.ArcadeHub?.connected?.()) return '';
   if (god) return 'god mode was used';
+  if (LEVELS[levelIndex].id===14) return 'the hub does not pay for Sprotel Bitcoin yet';
   if (LEVELS[levelIndex].id===13) return 'the hub does not pay for Redkev\'s Marina yet';
   if (checkpoint) return 'it came after a phase-2 checkpoint retry, and only a full run pays';
   return '';
@@ -566,6 +576,7 @@ function showLevelControls() {
 function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, seedOverride = null) {
   storyTransition?.reset();
   if(LEVELS[index]?.id===13&&!REDKEV_READY)return;
+  if(LEVELS[index]?.id===14&&!SPROTEL_READY)return;
   const shieldWait=carryShield?player.shieldWait:0;
   levelIndex = index;
   godUsed=godMode;
@@ -577,7 +588,7 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
   setOverlay('play','','','','');
   const seed=(seedOverride??window.crypto?.getRandomValues(new Uint32Array(1))[0]??(0x5eed+index+runAttempt++))>>>0;
   resetRun(index,selectedSproto.id,shieldWait,seed);
-  phaseCheckpointRun=checkpointPhase===2;
+  phaseCheckpointRun=checkpointPhase===2&&!LEVELS[index].singlePhase;
   if(phaseCheckpointRun){
     if(isCodebreak())startCodebreakArena();
     else if(!isChase()){
@@ -817,6 +828,9 @@ function clearLevel() {
 // ---- Cue line (browser only; refreshHud is a stub in the server build, so nothing here is simulated).
 // Attack names shown during a tell, as the chase and the climb already do.
 const MOVE_LABELS={
+  sprotelBeer:'BEER TOSS · DODGE THE ARC',sprotelDrinks:'DRINKS ROUND · TWO GLASSES',
+  sprotelMarlin:'BLUE MARLIN · LOW THEN HIGH',
+  sprotelDiskLaser:'DISK LASER CHARGING · LEAVE THE LOCKED LINE',
   quake:'SHOCKWAVE · JUMP IT',sweep:'DOUBLE SHOCKWAVE · JUMP IT',slabs:'VOLLEY · HIGH THEN LOW',rush:'CHARGE · BACK OFF',
   rain:'RAIN FROM ABOVE',ricochet:'BOUNCING VOLLEY',fan:'FAN SPREAD',drop:'LEAP SLAM · MOVE',crossfire:'CROSSFIRE · BOTH SIDES',
   eruption:'ERUPTION · LEAVE THE MARKS',rift:'RIFT COLUMNS · LEAVE THE MARKS',gearPincer:'PINCER · LOW, BOTH SIDES',
@@ -892,7 +906,7 @@ function refreshHud() {
     return;
   }
   if (boss) {
-    ui.boss.firstElementChild.textContent=boss.name+' · PHASE '+boss.phase+'/2 · SECTION '+(healthSection(boss)+1)+'/4';
+    ui.boss.firstElementChild.textContent=boss.name+' · PHASE '+boss.phase+'/'+(LEVELS[levelIndex].singlePhase?1:2)+' · SECTION '+(healthSection(boss)+1)+'/4';
     ui.boss.querySelector('progress').value = boss.hp/boss.max;
   }
   ui.dash.textContent=player.dashWait?'DASH RECHARGING':'DASH READY';
@@ -970,6 +984,7 @@ function hurt(contact = false, force = false) {
 function combatWeaponVariant() {
   const id=LEVELS[levelIndex].id,kind=id===11?'chase':id===12?'codebreak':'regular';
   if(id===7&&MOONKEEP_ATTACKS[boss.move])return MOONKEEP_ATTACKS[boss.move].variant;
+  if(id===14)return boss.move==='sprotelDrinks'?1:boss.move==='sprotelMarlin'?2:0;
   return typeof spriteLegacyWeaponVariant==='function'?spriteLegacyWeaponVariant(boss.step,boss.attackIndex,kind):0;
 }
 function combatPhaseIndex() {
@@ -1167,6 +1182,14 @@ function ceilingSweepInProgress() {
 
 function startMove() {
   const b=boss;
+  if(LEVELS[levelIndex].id===14){
+    const order=b.moves;
+    b.section=healthSection(b);b.move=order[b.step++%order.length];b.age=0;
+    const warning=b.move==='sprotelDiskLaser'?90:60;
+    b.tell=Math.max(moves[b.move].tell,Math.ceil(warning*bossAttackRate(b)));
+    b.startX=b.x;b.aimX=player.x;b.aimY=player.y;b.lanes=[];
+    return;
+  }
   const groundMove=b.archetype===3?'rift':'eruption';
   const staticOrder=mechanicsIndex(levelIndex)===0?['arenaHazard',groundMove,...b.staticMoves]:[groundMove,...b.staticMoves];
   const section=healthSection(b);
@@ -1243,6 +1266,20 @@ function launchMechaRocket(index, targetY) {
 
 function attackBoss(t) {
   const b=boss, x=b.x-146, hard=b.phase>=2;
+  if(LEVELS[levelIndex].id===14){
+    // Drinks follow separate arcs; the long marlin crosses a low, then high lane.
+    if(b.move==='sprotelBeer'&&(t===0||t===24))fire(x,FLOOR-180,-8.2,-5.8,'beer',false,.22);
+    if(b.move==='sprotelDrinks'&&(t===0||t===18))fire(x,FLOOR-210,-7.5,t===0?-6.8:-3.8,'cocktail',false,.20);
+    if(b.move==='sprotelMarlin'&&(t===0||t===24)){
+      const y=t===0?FLOOR-72:FLOOR-205;
+      fire(x,y,-9,0,'blueMarlin',false);
+    }
+    if(b.move==='sprotelDiskLaser'&&[0,8,16,24].includes(t)){
+      const [mx,my]=sprotelDiskMuzzle(b),dx=b.aimX-mx,dy=b.aimY-65-my,length=SimMath.hypot(dx,dy)||1;
+      fire(mx,my,dx*12/length,dy*12/length,'diskLaser',false,0,0,true);
+    }
+    return;
+  }
   const dragon=MOONKEEP_ATTACKS[b.move];
   if (dragon) {
     for (const [frame,direction] of dragon.shots) {
@@ -1467,6 +1504,18 @@ function attackBoss(t) {
       break;
     }
   }
+}
+
+// Artwork registration shared by the committed laser stream and its warning line.
+function sprotelDiskMuzzle(b){return[b.x-1,b.y-181];}
+
+function drawSprotelLaserWarning(){
+  if(LEVELS[levelIndex].id!==14||!boss.hp)return;
+  if(boss.move!=='sprotelDiskLaser'||boss.age>=boss.tell)return;
+  const [x,y]=sprotelDiskMuzzle(boss),tx=boss.aimX,ty=boss.aimY-65;
+  ctx.save();ctx.strokeStyle='#79ffff';ctx.lineWidth=2;ctx.setLineDash([10,10]);
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tx,ty);ctx.stroke();ctx.setLineDash([]);
+  ctx.beginPath();ctx.arc(tx,ty,20,0,Math.PI*2);ctx.stroke();ctx.restore();
 }
 
 const playerHeight=()=>(player.crouch?72:110)*(isCodebreak()?CODE_CHARACTER_SCALE:1);
@@ -1707,7 +1756,7 @@ function hitBoss(shot,damage) {
   const y=shot.shape==='bomb'?(hasMecha(boss)?mechaY(boss)+102:boss.y-55):shot.y;
   impacts.push({...effect,x,y,age:0});
   if (!boss.hp && !isCodebreak()) {
-    if (boss.phase===1) startStageShift();
+    if (boss.phase===1&&!LEVELS[levelIndex].singlePhase) startStageShift();
     else defeatBoss();
   }
 }
@@ -1850,7 +1899,7 @@ function barrageRecovery(){
 }
 
 function updateLegacyDensity(){
-  if(!ArcadeDensityAttacks.enabled || mode!=='play')return false;
+  if(!ArcadeDensityAttacks.enabled || mode!=='play'||LEVELS[levelIndex].densityBarrage===false)return false;
   const phase=boss.phase===2?1:0,stage=LEVELS[levelIndex].id,key=stage+':'+phase;
   if(key!==densityPhaseKey){
     densityPhaseKey=key;
@@ -2093,8 +2142,9 @@ function renderBoss() {
       drawColumn(h);
     }
   }
-  if (!b.hp && b.phase===2 && transition<12) return;
-  const frames=ART.sprites[b.id]??ART.sprites[acts[mechanicsIndex(levelIndex)].id], art=frames.poses;
+  if (!b.hp && (b.phase===2||LEVELS[levelIndex].singlePhase) && transition<12) return;
+  const fallbackId=ART.sprites[b.id]?b.id:acts[mechanicsIndex(levelIndex)].id;
+  const frames=ART.sprites[fallbackId], art=frames.poses;
   const strike=m && b.age>=b.tell && b.age<b.tell+m.active;
   const exposed=m && b.age>=b.tell+m.active;
   let pose=art[time%48<24?0:1];
@@ -2102,20 +2152,20 @@ function renderBoss() {
   else if (!m) pose=frames.entrance[Math.min(frames.entrance.length-1,Math.floor(b.age/5))] ?? art[0];
   else if (telling && b.move!=='arenaHazard') pose=art[b.move==='drop'?7:29];
   else if (strike && b.move!=='arenaHazard') {
-    if (b.move==='rush') pose=b.age-b.tell<6?art[6]:walk(b.id,b.distance);
+    if (b.move==='rush') pose=b.age-b.tell<6?art[6]:walk(fallbackId,b.distance);
     else if (b.move==='drop') pose=art[b.age-b.tell<16?8:b.age-b.tell<32?9:10];
     else if (phaseTwoMoves.includes(b.move)) pose=art[31];
     else if (frames.ranged.length) pose=frames.ranged[Math.min(frames.ranged.length-1,Math.floor((b.age-b.tell)/4))];
     else pose=art[30];
   } else if (b.flash) pose=art[24];
-  else if (b.moving) pose=walk(b.id,b.distance);
+  else if (b.moving) pose=walk(fallbackId,b.distance);
   const sheetBox=bossSheetBox(b);
   const bottom=sheetBox.y+sheetBox.h;
   const sheets=globalThis.ArcadeBossSheets,naval=isNaval();
   const surface=naval&&sheets?bottom-sheets.marinaWaterlineDepth(b.phase-1,sheets.legacyBox(1,b.phase-1,sheetBox).w):bottom;
   shadow(b.x,naval?surface-2:FLOOR,120);
   ctx.save();
-  if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
+  if (!b.hp && (b.phase===2||LEVELS[levelIndex].singlePhase)) ctx.globalAlpha=clamp((transition-12)/25,0,1);
   if(naval)ArcadeSpeedboat.drawBossWake(ctx,picture,b,time,b.x,surface);
   const id=LEVELS[levelIndex].id, cinema=phaseShift?storyTransition?.position(b):null;
   if (cinema!=null && globalThis.ArcadeBossTransitions.draw(ctx,id,cinema,sheets.legacyBox(id,0,sheetBox),sheets.legacyBox(id,1,bossSheetBox({...b,phase:2})))) {
@@ -2124,9 +2174,10 @@ function renderBoss() {
   }
   const variant=id===7?combatWeaponVariant():sheets?.legacyVariant(b);
   const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,variant)??{row:0,column:0};
-  const sheetPose=(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
+  const sheetPose=id===14?defaultPose:(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
     (b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
-  const flightPose=id===7?{...sheetPose,flightTick:time,flightOwner:b}:sheetPose;
+  const flightPose=id===7?{...sheetPose,flightTick:time,flightOwner:b}:id===14?
+    {...sheetPose,animation:sheetPose.animation||'idle',frame:sheetPose.frame??Math.floor(time/2)%16}:sheetPose;
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
@@ -2628,6 +2679,7 @@ function renderLegacyScene() {
   if (shake) ctx.translate(SimMath.sin(time*1.8)*shake*.28,SimMath.cos(time*2)*shake*.25);
   ctx.imageSmoothingEnabled=false;
   renderBoss();
+  drawSprotelLaserWarning();
   if (isNaval()) {
     if(!player.inv||time%8<5)ArcadeSpeedboat.drawBoat(ctx,picture,player,time,
       phaseShift||densityShots.length?Infinity:MISSILE_COOLDOWN-player.missileWait,
@@ -2649,7 +2701,9 @@ function renderLegacyScene() {
       else if ((shot.shape==='gear'||shot.shape==='saw'||shot.shape==='star')) ctx.rotate(shot.age*.17*Math.sign(shot.vx));
       else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
     };
-    const enemyArt=bossShotArt[shot.laser?'laser':shot.shape]||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
+    const sourceArt=bossShotArt[shot.laser?'laser':shot.shape];
+    const sprotelShot=LEVELS[levelIndex].id===14&&['beer','cocktail','blueMarlin','diskLaser'].includes(shot.shape);
+    const enemyArt=sprotelShot?['',boxes[shot.shape].w,boxes[shot.shape].h]:sourceArt||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
     if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
       // Themed enemy art uses the original visual size; collision remains in boxes.
     } else {
@@ -2661,10 +2715,14 @@ function renderLegacyScene() {
         const flame=attackFrame('boss/higgsfield/barn-fire',Math.floor(shot.age/3)%4);
         ctx.rotate(SimMath.atan2(-shot.vx,shot.vy)*.7);
         ctx.drawImage(flame,-26,-66,52,92);
-      } else {
-        const [name,w,h]=bossShotArt[shot.laser?'laser':shot.shape];
+      } else if(sourceArt) {
+        const [name,w,h]=sourceArt;
         if (MECHA_ROCKETS.includes(shot.shape)) drawFlightFlame('orange',-w/2+23,0,30);
         ctx.drawImage(bossAttackImage(name),-Math.floor(w/2),-Math.floor(h/2),w,h);
+      } else {
+        // Loading failures must retain a readable shape without throwing a frame.
+        const [,w,h]=enemyArt;
+        ctx.fillStyle=boxes[shot.shape]?.color||'#ffce44';ctx.fillRect(-w/2,-h/2,w,h);
       }
     }
     ctx.restore();
@@ -2917,7 +2975,7 @@ function levelAssets(index) {
   const level=LEVELS[index];
   const images=level.naval?ArcadeSpeedboat.assets.map(picture):[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
   if (!level.naval&&STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
-  if (acts[index]) images.push(...spriteFrames(acts[index].id));
+  if (acts[index]) images.push(...spriteFrames(ART.sprites[acts[index].id]?acts[index].id:acts[mechanicsIndex(index)].id));
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;

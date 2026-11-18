@@ -1,0 +1,243 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page3.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 8,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        56,
+        60,
+        459,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/frame-08.png",
+      "sourceFrameSha256": "8f5050897db85760e6114cb8ca5d3a9317b1a3b59bb0f3a92557bb641769e7e8",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        58,
+        50,
+        316,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/disk-laser-source-4x4.png",
+      "masterSourceSha256": "2e27f07c6fd29c2716e30b578a0160e939ee662c133d9894656d9a7e8523ab3c",
+      "sourceCellXYXY": [
+        0,
+        623,
+        311,
+        937
+      ],
+      "nominalOriginXY": [
+        0,
+        627
+      ],
+      "pasteOffsetXY": [
+        32,
+        34,
+        343,
+        348
+      ]
+    },
+    {
+      "index": 9,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        58,
+        63,
+        454,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/frame-09.png",
+      "sourceFrameSha256": "20bccc10ef8fd170970dbb0ef0899e6b9fad9323455e29274106f06cd5faca1b",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        59,
+        52,
+        313,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/disk-laser-source-4x4.png",
+      "masterSourceSha256": "2e27f07c6fd29c2716e30b578a0160e939ee662c133d9894656d9a7e8523ab3c",
+      "sourceCellXYXY": [
+        311,
+        623,
+        623,
+        937
+      ],
+      "nominalOriginXY": [
+        314,
+        627
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        341,
+        348
+      ]
+    },
+    {
+      "index": 10,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        61,
+        63,
+        454,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/frame-10.png",
+      "sourceFrameSha256": "2f9d2564e19183ca0769ece85ec12f710582799e558d2043b582fecda3892e25",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        61,
+        52,
+        313,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/disk-laser-source-4x4.png",
+      "masterSourceSha256": "2e27f07c6fd29c2716e30b578a0160e939ee662c133d9894656d9a7e8523ab3c",
+      "sourceCellXYXY": [
+        623,
+        623,
+        937,
+        937
+      ],
+      "nominalOriginXY": [
+        627,
+        627
+      ],
+      "pasteOffsetXY": [
+        28,
+        34,
+        342,
+        348
+      ]
+    },
+    {
+      "index": 11,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        59,
+        66,
+        451,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/frame-11.png",
+      "sourceFrameSha256": "a2cf570346a9bcde5e77ca63cb3e0ca1a12b80de460eb3903bf9cbb53774e8d0",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        60,
+        54,
+        311,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/disk-laser/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/disk-laser-source-4x4.png",
+      "masterSourceSha256": "2e27f07c6fd29c2716e30b578a0160e939ee662c133d9894656d9a7e8523ab3c",
+      "sourceCellXYXY": [
+        937,
+        623,
+        1254,
+        937
+      ],
+      "nominalOriginXY": [
+        940,
+        627
+      ],
+      "pasteOffsetXY": [
+        29,
+        34,
+        346,
+        348
+      ]
+    }
+  ],
+  "bounds": [
+    56,
+    60,
+    403,
+    438
+  ],
+  "animationBounds": [
+    53,
+    60,
+    406,
+    440
+  ],
+  "core": [
+    194,
+    97,
+    210,
+    128
+  ],
+  "version": "cae40d62b63cb70b",
+  "atlasSha256": "cae40d62b63cb70bc7f30de0095e7cef330a22d1873c9cbe1de14000c410dfc9",
+  "page": 3,
+  "frameStart": 8,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "body",
+  "animation": "disk-laser",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      56,
+      50,
+      316,
+      332
+    ],
+    "uniformScale": 1.5602836879432624,
+    "destinationDimensions": [
+      406,
+      440
+    ],
+    "offsetXY": [
+      53,
+      60,
+      459,
+      500
+    ],
+    "baseline": 500,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  },
+  "referenceBounds": [
+    15,
+    60,
+    482,
+    440
+  ]
+}

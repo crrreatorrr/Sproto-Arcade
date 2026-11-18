@@ -1,0 +1,249 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "native whole-boss marlin-launch source pages; final runtime packing is separate",
+  "frames": 16,
+  "pageCount": 4,
+  "framesPerPage": 4,
+  "allFramePixelsUnique": true,
+  "records": [
+    {
+      "page": 1,
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page1-source-2x2.png",
+      "prompt": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page1-prompt-2x2.txt",
+      "sha256": "eee2fcd964818eebe7ce9fc7de1def3323a2096b9be1911bf0b822fbbc15a960",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "columns": 2,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "sha256": "7c43ed108b66dc471e1746fb7a46793df9068e38181c72e1918c8fa6f02eced0",
+          "foregroundBoundsApprox": [
+            98,
+            31,
+            562,
+            579
+          ],
+          "minimumSourceMargin": 31
+        },
+        {
+          "frame": 2,
+          "sha256": "b601632f56371cd62a3467c7e6c16394293618a89382743fc25f408755214577",
+          "foregroundBoundsApprox": [
+            89,
+            31,
+            565,
+            579
+          ],
+          "minimumSourceMargin": 31
+        },
+        {
+          "frame": 3,
+          "sha256": "ee5a94bb101e8295b6b561ffdcbbb85386042ef763ac7ae5458a271267be8e5a",
+          "foregroundBoundsApprox": [
+            104,
+            31,
+            566,
+            579
+          ],
+          "minimumSourceMargin": 31
+        },
+        {
+          "frame": 4,
+          "sha256": "cf369454862385ea915f3b33e9d8fc8f0bab64c783d10074aa362b5dc26d71aa",
+          "foregroundBoundsApprox": [
+            52,
+            31,
+            565,
+            579
+          ],
+          "minimumSourceMargin": 31
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page2-source-2x2.png",
+      "prompt": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page2-prompt-2x2.txt",
+      "sha256": "43894f6889848e148d12a2ebe8a226ec7e6922f5774a2cbab0c1cc4f0ec80742",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "columns": 2,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 5,
+          "sha256": "a11dc9d6da7d40a2c6850df58f86e957678a450a7f3a5289417550eca499727b",
+          "foregroundBoundsApprox": [
+            86,
+            31,
+            563,
+            578
+          ],
+          "minimumSourceMargin": 31
+        },
+        {
+          "frame": 6,
+          "sha256": "1a6a95e9beffde8492b5ea3c9e89b43aeecec242a68d82e704ac981a1b40a2c6",
+          "foregroundBoundsApprox": [
+            46,
+            31,
+            563,
+            578
+          ],
+          "minimumSourceMargin": 31
+        },
+        {
+          "frame": 7,
+          "sha256": "1fe28367fad76a54ff8ed4832cf7d3f99c3e4d1e6090ed8ed93002b35d6835b7",
+          "foregroundBoundsApprox": [
+            34,
+            33,
+            563,
+            578
+          ],
+          "minimumSourceMargin": 33
+        },
+        {
+          "frame": 8,
+          "sha256": "b46b43d21320b1765a86c98188be557f75ff385e121ebb9f50e2ddfbbf99e030",
+          "foregroundBoundsApprox": [
+            11,
+            33,
+            563,
+            578
+          ],
+          "minimumSourceMargin": 11
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page3-source-2x2.png",
+      "prompt": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page3-prompt-2x2.txt",
+      "sha256": "94dcc5647fccf2e1b1e21ffaf0a913dc0aae4c08716b8a870ea435276c58600b",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "columns": 2,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 9,
+          "sha256": "2ebc04459e1b0c186d74bd5c6ce9ba1ad3a01e314eb00f3d95e62725c0973c0f",
+          "foregroundBoundsApprox": [
+            25,
+            31,
+            564,
+            577
+          ],
+          "minimumSourceMargin": 25
+        },
+        {
+          "frame": 10,
+          "sha256": "615a6ae2130c8b3a4e726fc489e07e6acd26923c7d3c6cd56fb499ab21494dc1",
+          "foregroundBoundsApprox": [
+            48,
+            32,
+            568,
+            577
+          ],
+          "minimumSourceMargin": 32
+        },
+        {
+          "frame": 11,
+          "sha256": "2a758048b5c3e67ffe52a5aa75eac5a030aecaebcf56b2a9a571cf9297f6b949",
+          "foregroundBoundsApprox": [
+            79,
+            34,
+            566,
+            578
+          ],
+          "minimumSourceMargin": 34
+        },
+        {
+          "frame": 12,
+          "sha256": "a18fa2cc39bbd5f5563ba40366c3c65d69f84a5830f92e1f9dde1f2950960986",
+          "foregroundBoundsApprox": [
+            100,
+            32,
+            564,
+            578
+          ],
+          "minimumSourceMargin": 32
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page4-source-2x2.png",
+      "prompt": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/marlin-page4-prompt-2x2.txt",
+      "sha256": "7dd1a43ea2f3354b9a4f8d245e20eac00beca36a0dea66459b469cf5fd4bc455",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "columns": 2,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 13,
+          "sha256": "5439e9892379a2ff4db2f79d5c784e22b9ea211de7eb5bfd8a77250c0177dd0c",
+          "foregroundBoundsApprox": [
+            69,
+            29,
+            563,
+            578
+          ],
+          "minimumSourceMargin": 29
+        },
+        {
+          "frame": 14,
+          "sha256": "263299e0ffac1d5154c72785b0d9ff75c03e79b0af6460c8e53b5d10e2e6c293",
+          "foregroundBoundsApprox": [
+            71,
+            29,
+            563,
+            577
+          ],
+          "minimumSourceMargin": 29
+        },
+        {
+          "frame": 15,
+          "sha256": "c28cb2730ed6f696895aea03a0b43740f5d24f5e755e7248a42432e9298f66f3",
+          "foregroundBoundsApprox": [
+            71,
+            29,
+            563,
+            579
+          ],
+          "minimumSourceMargin": 29
+        },
+        {
+          "frame": 16,
+          "sha256": "516bc2b53419088f52ac7b91f9472f203a446007d1839c1d5dedb423008f9dc0",
+          "foregroundBoundsApprox": [
+            70,
+            28,
+            564,
+            578
+          ],
+          "minimumSourceMargin": 28
+        }
+      ]
+    }
+  ],
+  "visualReview": [
+    "All pages have exactly two columns and two rows.",
+    "All sixteen full bodies and launcher/claw parts are contained in their cells.",
+    "Same blue Santa-hat pilot and Bahamas jukebox mecha retained.",
+    "No detached fish, text, floor or shadow.",
+    "Model produced less than requested 12% source margins in some cells; final packer must apply safe output padding."
+  ]
+}

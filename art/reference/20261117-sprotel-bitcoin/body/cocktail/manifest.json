@@ -1,0 +1,710 @@
+{
+  "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-boss/cocktail-source-4x4.png",
+  "sourceSha256": "7f21e05ac8db44ec374d0f32442bfe1a26057f4424fbd9224616a73f6e10b886",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "xCuts": [
+    0,
+    305,
+    619,
+    928,
+    1254
+  ],
+  "yCuts": [
+    0,
+    316,
+    629,
+    942,
+    1254
+  ],
+  "xGutters": [
+    {
+      "nominal": 314,
+      "emptyRunInclusive": [
+        279,
+        331
+      ],
+      "cut": 305,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 627,
+      "emptyRunInclusive": [
+        592,
+        645
+      ],
+      "cut": 619,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 940,
+      "emptyRunInclusive": [
+        905,
+        951
+      ],
+      "cut": 928,
+      "foregroundPixelsAcrossCut": 0
+    }
+  ],
+  "yGutters": [
+    {
+      "nominal": 314,
+      "emptyRunInclusive": [
+        282,
+        349
+      ],
+      "cut": 316,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 627,
+      "emptyRunInclusive": [
+        596,
+        662
+      ],
+      "cut": 629,
+      "foregroundPixelsAcrossCut": 0
+    },
+    {
+      "nominal": 940,
+      "emptyRunInclusive": [
+        909,
+        975
+      ],
+      "cut": 942,
+      "foregroundPixelsAcrossCut": 0
+    }
+  ],
+  "sharedSourceBaseline": 282,
+  "sharedYOffset": 18,
+  "distinctFrames": 16,
+  "frames": [
+    {
+      "index": 0,
+      "path": "cocktail-frames/frame-00.png",
+      "sourceCellXYXY": [
+        0,
+        0,
+        305,
+        316
+      ],
+      "nominalOriginXY": [
+        0,
+        0
+      ],
+      "pasteOffsetXY": [
+        32,
+        50,
+        337,
+        366
+      ],
+      "sourceBoundsInCellLTRB": [
+        42,
+        43,
+        274,
+        282
+      ],
+      "bounds": [
+        74,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "26feea0e4eb478978e7679759a75d4ec8f8b7aa98dd065649e5173ac730724cd",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 1,
+      "path": "cocktail-frames/frame-01.png",
+      "sourceCellXYXY": [
+        305,
+        0,
+        619,
+        316
+      ],
+      "nominalOriginXY": [
+        314,
+        0
+      ],
+      "pasteOffsetXY": [
+        23,
+        50,
+        337,
+        366
+      ],
+      "sourceBoundsInCellLTRB": [
+        52,
+        43,
+        283,
+        282
+      ],
+      "bounds": [
+        75,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "0b8248826e986a21a8b09b9e41561074abbd60925fd2d1b58b1f5723ba7a3d7c",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 2,
+      "path": "cocktail-frames/frame-02.png",
+      "sourceCellXYXY": [
+        619,
+        0,
+        928,
+        316
+      ],
+      "nominalOriginXY": [
+        627,
+        0
+      ],
+      "pasteOffsetXY": [
+        24,
+        50,
+        333,
+        366
+      ],
+      "sourceBoundsInCellLTRB": [
+        49,
+        43,
+        282,
+        282
+      ],
+      "bounds": [
+        73,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "678702d577e8f323d4277b57caa968d91d20c7062941ae16dd9674b5dba969e1",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 3,
+      "path": "cocktail-frames/frame-03.png",
+      "sourceCellXYXY": [
+        928,
+        0,
+        1254,
+        316
+      ],
+      "nominalOriginXY": [
+        940,
+        0
+      ],
+      "pasteOffsetXY": [
+        20,
+        50,
+        346,
+        366
+      ],
+      "sourceBoundsInCellLTRB": [
+        51,
+        43,
+        287,
+        282
+      ],
+      "bounds": [
+        71,
+        93,
+        307,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "124ff070da949c721bca062735c74dda22df7fed6976cbb723fb219d327e792c",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 4,
+      "path": "cocktail-frames/frame-04.png",
+      "sourceCellXYXY": [
+        0,
+        316,
+        305,
+        629
+      ],
+      "nominalOriginXY": [
+        0,
+        314
+      ],
+      "pasteOffsetXY": [
+        32,
+        52,
+        337,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        35,
+        41,
+        274,
+        280
+      ],
+      "bounds": [
+        67,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "7800c587983efaf4cc7bb899014d5555b32d7b68c717ef82cb6c00352fd91428",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 5,
+      "path": "cocktail-frames/frame-05.png",
+      "sourceCellXYXY": [
+        305,
+        316,
+        619,
+        629
+      ],
+      "nominalOriginXY": [
+        314,
+        314
+      ],
+      "pasteOffsetXY": [
+        23,
+        52,
+        337,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        36,
+        41,
+        283,
+        280
+      ],
+      "bounds": [
+        59,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "fefa0735f0ea279801c0abe2acbab1a30a5b739b136cc0c652e8e7b7764e2096",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 6,
+      "path": "cocktail-frames/frame-06.png",
+      "sourceCellXYXY": [
+        619,
+        316,
+        928,
+        629
+      ],
+      "nominalOriginXY": [
+        627,
+        314
+      ],
+      "pasteOffsetXY": [
+        24,
+        52,
+        333,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        27,
+        41,
+        282,
+        280
+      ],
+      "bounds": [
+        51,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "c0e0f240b374dd8773f4c416db3c39403d54f04c67975581acaf2ef000a211e8",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 7,
+      "path": "cocktail-frames/frame-07.png",
+      "sourceCellXYXY": [
+        928,
+        316,
+        1254,
+        629
+      ],
+      "nominalOriginXY": [
+        940,
+        314
+      ],
+      "pasteOffsetXY": [
+        20,
+        52,
+        346,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        24,
+        41,
+        287,
+        280
+      ],
+      "bounds": [
+        44,
+        93,
+        307,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "dbf84258f096f001198137bf902aeb3ac2d313dccd26242fab7a259df3ae14eb",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 8,
+      "path": "cocktail-frames/frame-08.png",
+      "sourceCellXYXY": [
+        0,
+        629,
+        305,
+        942
+      ],
+      "nominalOriginXY": [
+        0,
+        627
+      ],
+      "pasteOffsetXY": [
+        32,
+        52,
+        337,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        14,
+        42,
+        274,
+        280
+      ],
+      "bounds": [
+        46,
+        94,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "96900165c9700a227aa700f77ddb28aa166e6a353a5139907001d8bbdc7235fa",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 9,
+      "path": "cocktail-frames/frame-09.png",
+      "sourceCellXYXY": [
+        305,
+        629,
+        619,
+        942
+      ],
+      "nominalOriginXY": [
+        314,
+        627
+      ],
+      "pasteOffsetXY": [
+        23,
+        52,
+        337,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        27,
+        41,
+        283,
+        280
+      ],
+      "bounds": [
+        50,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "5912bc668303ad612dc008553f754dd16e16d0bdadf174e14e64de51f19fb0ae",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 10,
+      "path": "cocktail-frames/frame-10.png",
+      "sourceCellXYXY": [
+        619,
+        629,
+        928,
+        942
+      ],
+      "nominalOriginXY": [
+        627,
+        627
+      ],
+      "pasteOffsetXY": [
+        24,
+        52,
+        333,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        31,
+        41,
+        282,
+        280
+      ],
+      "bounds": [
+        55,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "844cb794079be1df296db2cc706d627df1ea2b07c0f959dded7d663a7e4903b4",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 11,
+      "path": "cocktail-frames/frame-11.png",
+      "sourceCellXYXY": [
+        928,
+        629,
+        1254,
+        942
+      ],
+      "nominalOriginXY": [
+        940,
+        627
+      ],
+      "pasteOffsetXY": [
+        20,
+        52,
+        346,
+        365
+      ],
+      "sourceBoundsInCellLTRB": [
+        42,
+        41,
+        286,
+        280
+      ],
+      "bounds": [
+        62,
+        93,
+        306,
+        332
+      ],
+      "sourceGroundBaseline": 282,
+      "outputGroundBaseline": 332,
+      "sha256": "d2ea6041b2b64b550c92bc304094d2ab85f4459335c352a811751ec9affb2bda",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 12,
+      "path": "cocktail-frames/frame-12.png",
+      "sourceCellXYXY": [
+        0,
+        942,
+        305,
+        1254
+      ],
+      "nominalOriginXY": [
+        0,
+        940
+      ],
+      "pasteOffsetXY": [
+        32,
+        52,
+        337,
+        364
+      ],
+      "sourceBoundsInCellLTRB": [
+        34,
+        42,
+        274,
+        281
+      ],
+      "bounds": [
+        66,
+        94,
+        306,
+        333
+      ],
+      "sourceGroundBaseline": 283,
+      "outputGroundBaseline": 333,
+      "sha256": "16e1ca188785aec08df47fa4ba9a36850104877226209688616db7716f71a1df",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 13,
+      "path": "cocktail-frames/frame-13.png",
+      "sourceCellXYXY": [
+        305,
+        942,
+        619,
+        1254
+      ],
+      "nominalOriginXY": [
+        314,
+        940
+      ],
+      "pasteOffsetXY": [
+        23,
+        52,
+        337,
+        364
+      ],
+      "sourceBoundsInCellLTRB": [
+        42,
+        42,
+        282,
+        281
+      ],
+      "bounds": [
+        65,
+        94,
+        305,
+        333
+      ],
+      "sourceGroundBaseline": 283,
+      "outputGroundBaseline": 333,
+      "sha256": "14e8a777d97c85fd33cfb1bf4970c63604078f1d59ea71492612bbe877bdcdd2",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 14,
+      "path": "cocktail-frames/frame-14.png",
+      "sourceCellXYXY": [
+        619,
+        942,
+        928,
+        1254
+      ],
+      "nominalOriginXY": [
+        627,
+        940
+      ],
+      "pasteOffsetXY": [
+        24,
+        52,
+        333,
+        364
+      ],
+      "sourceBoundsInCellLTRB": [
+        42,
+        42,
+        282,
+        281
+      ],
+      "bounds": [
+        66,
+        94,
+        306,
+        333
+      ],
+      "sourceGroundBaseline": 283,
+      "outputGroundBaseline": 333,
+      "sha256": "cdbb050fb46db208542e907ec2548e05bed5c20252d0ef103239145662692fe1",
+      "alphaValues": [
+        0,
+        255
+      ]
+    },
+    {
+      "index": 15,
+      "path": "cocktail-frames/frame-15.png",
+      "sourceCellXYXY": [
+        928,
+        942,
+        1254,
+        1254
+      ],
+      "nominalOriginXY": [
+        940,
+        940
+      ],
+      "pasteOffsetXY": [
+        20,
+        52,
+        346,
+        364
+      ],
+      "sourceBoundsInCellLTRB": [
+        49,
+        42,
+        287,
+        281
+      ],
+      "bounds": [
+        69,
+        94,
+        307,
+        333
+      ],
+      "sourceGroundBaseline": 283,
+      "outputGroundBaseline": 333,
+      "sha256": "454a3a1b44e461f4c5cb182ded2eaf26d0d19259d920fe3455eb4ee9db5ce5fc",
+      "alphaValues": [
+        0,
+        255
+      ]
+    }
+  ],
+  "qa": "All cuts cross globally verified empty magenta lines. All16full native subjects are complete and padded; no edge fragments removed."
+}

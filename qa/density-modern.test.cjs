@@ -19,7 +19,7 @@ function finish(w){
  while(w.densityBarrage&&w.tick-start<1800)w.step({});
  assert.equal(w.densityBarrage,null,'the scheduled and live missiles fully drain');
 }
-for(const stage of A.stages.values())for(const phase of [0,1]){
+for(const stage of A.stages.values())if(stage.densityBarrage!==false)for(const phase of stage.phases.keys()){
  const w=new A.World(stage,{phase,practice:true,seed:37});
  w.hit=()=>{};w.autoFire=()=>{};
  // The authored route counters are tested by their stage suites. Here put

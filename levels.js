@@ -64,7 +64,8 @@ const LEVELS = [
   },
   {title:"Rooftop Breakaway",id:11,chase:true},
   {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84},
-  {title:"Redkev's Marina",id:13,mechanics:1,art:"art/level-01.jpg",foot:.913}
+  {title:"Redkev's Marina",id:13,mechanics:1,art:"art/level-01.jpg",foot:.913},
+  {title:"Sprotel Bitcoin",id:14,mechanics:2,singlePhase:true,densityBarrage:false,art:"art/level-02.jpg",foot:.801}
 ];
 const NAVAL_WEAPONS = {
   light:{cooldown:120,launch:5,frames:18,x:64,lanes:[-22,-9,4],speed:22},
@@ -72,8 +73,14 @@ const NAVAL_WEAPONS = {
 };
 // Stable IDs/indexes preserve saved progress; campaign placement is independent.
 const REDKEV_READY=true;
+// Keep the encounter out of campaign selection until its source sprites pass visual QA.
+const SPROTEL_READY=true;
 const mechanicsIndex=index=>LEVELS[index]?.mechanics?LEVELS.findIndex(l=>l.id===LEVELS[index].mechanics):index;
-const campaignLevelIndices=()=>REDKEV_READY?[0,12,1,2,3,4,5,6,7,8,9,10,11]:[0,1,2,3,4,5,6,7,8,9,10,11];
+const campaignLevelIndices=()=>{
+  const order=REDKEV_READY?[0,12,1,2,3,4,5,6,7,8,9,10,11]:[0,1,2,3,4,5,6,7,8,9,10,11];
+  if(SPROTEL_READY)order.splice(order.indexOf(1)+1,0,13);
+  return order;
+};
 const nextCampaignLevel=index=>{const order=campaignLevelIndices();return order[order.indexOf(index)+1]??-1;};
 const campaignLevelNumber=index=>campaignLevelIndices().indexOf(index)+1;
 

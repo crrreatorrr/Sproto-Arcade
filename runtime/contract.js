@@ -3,7 +3,7 @@
   'use strict';
   const A = g.Arcade = {version:1, stages:new Map(), assets:new Map()};
   A.registerStage = stage => {
-    if (!stage.id || stage.phases.length!==2 || A.stages.has(stage.id)) throw Error('Invalid/duplicate stage');
+    if (!stage.id || !Array.isArray(stage.phases) || ![1,2].includes(stage.phases.length) || A.stages.has(stage.id)) throw Error('Invalid/duplicate stage');
     A.stages.set(stage.id,stage);
   };
   A.registerAssets = pack => A.assets.set(pack.id,pack);

@@ -88,6 +88,9 @@ function staticFiles(){
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-transitions.js'),'utf8'),sheetScope);
   for(const asset of sheetScope.ArcadeBossTransitions.assetPaths())files.add(asset);
   for(const config of Object.values(sheetScope.ArcadeBossSheets.manifest)){
+    for(const animation of [...Object.values(config.animations||{}),...Object.values(config.projectileAnimations||{})]){
+      for(const asset of animation.pages||[])if(asset.ready)files.add(asset.path);
+    }
     for(const asset of [...config.phases,...config.projectiles])if(asset.ready)files.add(asset.path);
   }
   for(const page of PAGES){

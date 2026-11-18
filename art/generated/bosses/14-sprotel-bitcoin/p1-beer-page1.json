@@ -1,0 +1,243 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page1.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 0,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        59,
+        62,
+        455,
+        497
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/beer/frame-00.png",
+      "sourceFrameSha256": "c195ebc7fbc980c9c3efea572d111f314ed99f7c46767f734085550c4c4d1b70",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        56,
+        41,
+        320,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/beer/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/beer-source-4x4.png",
+      "masterSourceSha256": "ff2c9f2134a4e048d2e8b09e9fac472fe9dd1fda822adcc31c8dd2d2f2f1208f",
+      "sourceCellXYXY": [
+        0,
+        0,
+        310,
+        310
+      ],
+      "nominalOriginXY": [
+        0,
+        0
+      ],
+      "pasteOffsetXY": [
+        32,
+        32,
+        342,
+        342
+      ]
+    },
+    {
+      "index": 1,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        61,
+        63,
+        448,
+        497
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/beer/frame-01.png",
+      "sourceFrameSha256": "80cc1bf2b69679fbcb549e3b776cc0da576a11f90b13aa92a2df08ca92f9addc",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        57,
+        42,
+        315,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/beer/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/beer-source-4x4.png",
+      "masterSourceSha256": "ff2c9f2134a4e048d2e8b09e9fac472fe9dd1fda822adcc31c8dd2d2f2f1208f",
+      "sourceCellXYXY": [
+        310,
+        0,
+        625,
+        310
+      ],
+      "nominalOriginXY": [
+        314,
+        0
+      ],
+      "pasteOffsetXY": [
+        28,
+        32,
+        343,
+        342
+      ]
+    },
+    {
+      "index": 2,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        61,
+        62,
+        449,
+        497
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/beer/frame-02.png",
+      "sourceFrameSha256": "9eda70d34573fad7ea7b9b43801af1b05c0e844fd1c9c932ccfa1602a0b5b457",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        57,
+        41,
+        316,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/beer/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/beer-source-4x4.png",
+      "masterSourceSha256": "ff2c9f2134a4e048d2e8b09e9fac472fe9dd1fda822adcc31c8dd2d2f2f1208f",
+      "sourceCellXYXY": [
+        625,
+        0,
+        940,
+        310
+      ],
+      "nominalOriginXY": [
+        627,
+        0
+      ],
+      "pasteOffsetXY": [
+        30,
+        32,
+        345,
+        342
+      ]
+    },
+    {
+      "index": 3,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        59,
+        62,
+        449,
+        497
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/beer/frame-03.png",
+      "sourceFrameSha256": "bf63c3a6bd9ec9cbff6910a65b6a65869a15b465e809dbd5e156a64f00595529",
+      "sourceFrameDimensions": [
+        384,
+        384
+      ],
+      "sourceFrameBoundsLTRB": [
+        56,
+        41,
+        316,
+        331
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/beer/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/beer-source-4x4.png",
+      "masterSourceSha256": "ff2c9f2134a4e048d2e8b09e9fac472fe9dd1fda822adcc31c8dd2d2f2f1208f",
+      "sourceCellXYXY": [
+        940,
+        0,
+        1254,
+        310
+      ],
+      "nominalOriginXY": [
+        940,
+        0
+      ],
+      "pasteOffsetXY": [
+        32,
+        32,
+        346,
+        342
+      ]
+    }
+  ],
+  "bounds": [
+    59,
+    62,
+    396,
+    435
+  ],
+  "animationBounds": [
+    44,
+    60,
+    423,
+    440
+  ],
+  "core": [
+    177,
+    99,
+    236,
+    146
+  ],
+  "version": "816801987ed849e8",
+  "atlasSha256": "816801987ed849e8ba20d314259668de58b4d500598768c498a523c7e69712dc",
+  "page": 1,
+  "frameStart": 0,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "body",
+  "animation": "beer",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      46,
+      40,
+      328,
+      333
+    ],
+    "uniformScale": 1.5017064846416381,
+    "destinationDimensions": [
+      423,
+      440
+    ],
+    "offsetXY": [
+      44,
+      60,
+      467,
+      500
+    ],
+    "baseline": 500,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  },
+  "referenceBounds": [
+    15,
+    60,
+    482,
+    440
+  ]
+}

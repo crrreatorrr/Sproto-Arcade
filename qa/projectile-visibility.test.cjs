@@ -6,7 +6,9 @@ vm.runInContext(fs.readFileSync('sprite-hitboxes.js','utf8'),scope);
 vm.runInContext(fs.readFileSync('boss-sheets.js','utf8'),scope);
 const sheets=scope.ArcadeBossSheets,data=vm.runInContext('SPRITE_HITBOXES',scope);
 const untouched=JSON.stringify(data);let cases=0,boosted=0;
-for(const [id,config]of Object.entries(sheets.manifest))for(const phase of [0,1])for(let row=0;row<4;row++){
+// Sprotel has separate paged native animations, without the older row boost.
+// Its actual page sampling and opaque collider cores have a dedicated fixture.
+for(const [id,config]of Object.entries(sheets.manifest).filter(([,c])=>c.phaseCount!==1))for(const phase of [0,1])for(let row=0;row<4;row++){
  const asset=config.projectiles[phase];if(!asset.ready)continue;
  const core=data.stages[id][phase].projectiles[`orb@${row}`].core;
  for(const size of [24,36,160]){
