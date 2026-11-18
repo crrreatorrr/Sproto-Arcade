@@ -1,0 +1,527 @@
+{
+  "frameCount": 16,
+  "kind": "projectile",
+  "generator": "built-in image_gen",
+  "columns": 4,
+  "rows": 4,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/projectiles/pretzel/page-0.png",
+      "sha256": "52f8ada6983d879e6351cb5e938e300e66f153b792dc5bb0b334c0d51a218af8",
+      "version": "52f8ada6983d879e",
+      "width": 2048,
+      "height": 2048,
+      "columns": 4,
+      "rows": 4,
+      "ready": true,
+      "bounds": [
+        12,
+        85,
+        488,
+        341
+      ]
+    }
+  ],
+  "bounds": [
+    12,
+    85,
+    488,
+    341
+  ],
+  "referenceBounds": [
+    12,
+    85,
+    488,
+    341
+  ],
+  "core": [
+    189,
+    161,
+    63,
+    145
+  ],
+  "facing": "left",
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        34,
+        139,
+        466,
+        272
+      ],
+      "frameSha256": "115728af116a469c700f5c0975dfff8b67afd5fdace271929661ac7c759d7b2e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "nativeFrameSha256": "176335f1d3c8d175c1e71952d0d5fa0052841c04ccb6f0ac1f4910a7e6967217",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        29,
+        127,
+        469,
+        282
+      ],
+      "frameSha256": "0b2351305d4b94b517b3f97f67816adc3a4e2c70b877903dc2a81b6fb81b7bf7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        0,
+        627,
+        314
+      ],
+      "nativeFrameSha256": "7292ec32e7433e397f809625b21490f3a4fe07ae2f7e274b81ba9feb188084c0",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        29,
+        110,
+        464,
+        309
+      ],
+      "frameSha256": "3bc3e9a0611815aa9ff8f299d6ed2ed57cc861bf3d4f7c8f3de0fcb265e8d270",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        940,
+        314
+      ],
+      "nativeFrameSha256": "87390f00293a399b3f2d9f7a8e6a200bc0e2496cd3979df0fb710a86ecd7bd55",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        32,
+        87,
+        456,
+        339
+      ],
+      "frameSha256": "115f157682e0645213272285033c0a43f9f11b65f0314ed69b8c5082b64bd10a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        0,
+        1254,
+        314
+      ],
+      "nativeFrameSha256": "370205f6edd28a41c766ef7688733742eacd13d1ac0c2adebcea794fd1cb8060",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 4,
+      "page": 0,
+      "cell": 4,
+      "bounds": [
+        32,
+        85,
+        461,
+        331
+      ],
+      "frameSha256": "85fc6249ed56bb5d3382aaf3c5e46b34d5d8f6f5b6bed3d25d4043ab17e213e9",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        314,
+        314,
+        627
+      ],
+      "nativeFrameSha256": "c6daa8246d92d9b4826124fb373c937dbd884ba7343d91a17b6d6579b8bcd3e9",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 5,
+      "page": 0,
+      "cell": 5,
+      "bounds": [
+        32,
+        97,
+        463,
+        312
+      ],
+      "frameSha256": "c78b700004228a36e49c2f8589087b283957f3662131fbc9a63061370cbf68a0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        314,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "503af88b5817cf25b150c327e5c00534482ae348ee43caa3ecfe304f9e6f7abd",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 6,
+      "page": 0,
+      "cell": 6,
+      "bounds": [
+        19,
+        110,
+        474,
+        291
+      ],
+      "frameSha256": "5bef9b9d9d411c4f746a2254d23771fad2341e65903d34552044e1821dd1985d",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        314,
+        940,
+        627
+      ],
+      "nativeFrameSha256": "f1ff9c62d1387b363fb442b7e8dbc81ff28c6779153d56a00f2e3d3c073d15a4",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 7,
+      "page": 0,
+      "cell": 7,
+      "bounds": [
+        17,
+        117,
+        478,
+        284
+      ],
+      "frameSha256": "6e1242d22f576eb0703b29697bd86a2ba66f4c083cd4d702b8cd6b1eaed8ed82",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        314,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "3e3145476052836dfb3dba94ce1c4e52fa5ba134be10d20f56e50038e765ea4b",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 8,
+      "page": 0,
+      "cell": 8,
+      "bounds": [
+        19,
+        124,
+        481,
+        282
+      ],
+      "frameSha256": "9cc2623bc610ac45198b8a6da948ed8c2653a49a5debb800b9255bb878ccdb8f",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        314,
+        940
+      ],
+      "nativeFrameSha256": "8f29a236c4a1223c2fe85b58ebaa2d88171b8eed03c47566115560c6cbc37ffb",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 9,
+      "page": 0,
+      "cell": 9,
+      "bounds": [
+        17,
+        107,
+        481,
+        299
+      ],
+      "frameSha256": "8ddaf89712cbee48eaa9cf5f845503e57588f3bd25bf3c9bfa5108542f0613a2",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        627,
+        627,
+        940
+      ],
+      "nativeFrameSha256": "eba55e6cffa54433fe791faa918b89d759d5683fc5395d926824b23cfcbe6a19",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 10,
+      "page": 0,
+      "cell": 10,
+      "bounds": [
+        12,
+        102,
+        476,
+        312
+      ],
+      "frameSha256": "71dc238f830bf2ccd3bf16e15d00a5d9f9105e7be21b5dbada88541a2ff3d8b3",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "nativeFrameSha256": "9254dc9b459d26db5cfa98f0c9cc1371ef2c678ab5ed56e367532bb0f88b5caf",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 11,
+      "page": 0,
+      "cell": 11,
+      "bounds": [
+        14,
+        85,
+        474,
+        336
+      ],
+      "frameSha256": "3ec88ec1131fbe2895b08be7dbd22c7e201e5a8135f7c22de34b766acd7573cf",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "nativeFrameSha256": "00d87fc28238877178a7018825c80bcad2ef1dec04338147c13d448f53a4dc71",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 12,
+      "page": 0,
+      "cell": 12,
+      "bounds": [
+        19,
+        92,
+        476,
+        329
+      ],
+      "frameSha256": "223ae1a128e209775dba238fe4e18129c866f02eb6c0b06fc2d1e9ca5da279e9",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        940,
+        314,
+        1254
+      ],
+      "nativeFrameSha256": "e68e02d12816e0c0472ad53e8abef2ed8cd49d58ede9b845b0d960f1a035a35d",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 13,
+      "page": 0,
+      "cell": 13,
+      "bounds": [
+        19,
+        110,
+        476,
+        299
+      ],
+      "frameSha256": "2a153e9e35273d6a06becc59b0ecceec1f03d563885c7c0d793c3bc18cb04f2b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        940,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "b2eafd277571bd04170a06be0f3981141ebc43408c676cba6a0bad94e640f00e",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 14,
+      "page": 0,
+      "cell": 14,
+      "bounds": [
+        12,
+        122,
+        478,
+        284
+      ],
+      "frameSha256": "f5fb6361b395271780fcba970a05f0fde2fdbcfa454817e1db7e8d8723922956",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "nativeFrameSha256": "10a473db588476eae7d8cf556aa8e8b249128784543bac7a463e1e4e5464ebb7",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 15,
+      "page": 0,
+      "cell": 15,
+      "bounds": [
+        22,
+        127,
+        473,
+        282
+      ],
+      "frameSha256": "a759df1e15b60684c76b4e722c2929cb31ba63072814d12f31f5b5201069b98a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/pretzel/pretzel-source.png",
+      "sourceSha256": "fbf0beb2f60e1f0a19de00482a45c15af9ca7af64fd2f764170f33b950bd1325",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "2d739c4b14c260e4d6b364196e65f5fb69ee7ed847a70ce416ffa2b99360401f",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

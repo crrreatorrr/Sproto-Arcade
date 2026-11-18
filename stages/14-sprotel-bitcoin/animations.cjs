@@ -20,7 +20,7 @@ function harness(){
   resolve(width=this.size[0],height=this.size[1]){this.complete=true;this.naturalWidth=width;this.naturalHeight=height;this.fulfill();}
  }
  const scope=vm.createContext({Image});
- for(const f of ['levels.js','sprite-hitboxes.js','boss-sheets.js'])vm.runInContext(read(f),scope,{filename:f});
+ for(const f of ['levels.js','sprite-hitboxes.js','sprotel-art.js','boss-sheets.js'])vm.runInContext(read(f),scope,{filename:f});
  return{scope,art:scope.ArcadeBossSheets,requested};
 }
 function canvas(){
@@ -47,64 +47,75 @@ function coreFromDraw(call,core){
 }
 function closeRect(actual,expected,label){for(const k of ['x','y','w','h'])assert(Math.abs(actual[k]-expected[k])<1e-7,label+' '+k+': '+actual[k]+' != '+expected[k]);}
 function checkFrame(call,animation,index){
- assert.equal(call.path,animation.pages[Math.floor(index/4)].path);
- assert.deepEqual(call.args.slice(0,4),[(index%2)*512+animation.bounds[0],Math.floor(index%4/2)*512+animation.bounds[1],animation.bounds[2],animation.bounds[3]]);
+ const columns=animation.columns,rows=animation.rows,perPage=columns*rows,page=animation.pages[Math.floor(index/perPage)],cell=index%perPage;
+ const crop=animation.preservedFromMain?animation.bounds:page.bounds;
+ assert.equal(call.path,page.path);
+ assert.deepEqual(call.args.slice(0,4),[(cell%columns)*512+crop[0],Math.floor(cell/columns)*512+crop[1],crop[2],crop[3]]);
 }
 (async()=>{
  const h=harness(),{art,scope,requested}=h,config=art.entry(14);
- assert.equal(config.phaseCount,1);assert.equal(config.columns,2);assert.equal(config.rows,2);
- assert.deepEqual(Object.keys(config.animations).sort(),['beer','cocktail','disk-laser','idle','marlin','walk']);
- assert.deepEqual(Object.keys(config.projectileAnimations).sort(),['beer','blueMarlin','cocktail','diskLaser','heavyMarlin']);
+ assert.equal(config.phaseCount,2);assert.equal(config.columns,2);assert.equal(config.rows,2);
+ assert.deepEqual(Object.keys(config.animations).sort(),['beerThrow','cocktailThrow','diskLaser','idle','marlin','walk']);
+ assert.deepEqual(Object.keys(config.projectileAnimations).sort(),['beer','blueMarlin','cocktail','diskLaser','heavyMarlin','nacho','popcorn','pretzel','speakerMissile']);
  let pageCount=0;
- for(const animation of [...Object.values(config.animations),...Object.values(config.projectileAnimations)]){
-  assert.equal(animation.frameCount,16);assert.equal(animation.pages.length,4);
-  const sourceHashes=[];
+ for(const animation of [...config.phaseAnimations.flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations)]){
+  assert.equal(animation.frameCount,16);assert.equal(animation.pages.length,16/(animation.columns*animation.rows));
+  const sourceHashes=animation.frames.map(f=>f.nativeFrameSha256);
   for(const page of animation.pages){
-   assert.deepEqual(pngSize(page.path),[1024,1024]);assert.equal(page.width,1024);assert.equal(page.height,1024);assert.equal(page.columns,2);assert.equal(page.rows,2);
-   const metadata=JSON.parse(read(page.path.replace(/\.png$/,'.json')));assert.equal(metadata.frames.length,4);
-   sourceHashes.push(...metadata.frames.map(f=>f.sourceFrameSha256));pageCount++;
+   const size=animation.columns*512;
+   assert.deepEqual(pngSize(page.path),[size,size]);assert.equal(page.width,size);assert.equal(page.height,size);assert.equal(page.columns,animation.columns);assert.equal(page.rows,animation.rows);
+   if(animation.preservedFromMain){const metadata=JSON.parse(read(page.path.replace(/\.png$/,'.json')));assert.equal(metadata.frames.length,4);assert.equal(new Set(metadata.frames.map(f=>f.sourceFrameSha256)).size,4);}
+   pageCount++;
   }
   assert.equal(new Set(sourceHashes).size,16,'all native source frame hashes are distinct within an animation');
  }
- assert.equal(pageCount,44);
+ assert.equal(pageCount,76);
  assert.equal(art.stageReady(14),false);
  const loading=art.preloadStage(14);assert.equal(art.preloadStage(14),loading,'concurrent requests share decoding');
- assert.equal(requested.length,45,'44 own pages plus the shared pickup atlas, without duplicate canonical pages');
- assert(!requested.some(img=>/\/p2(?:[.-]|\.png)/.test(img.path)),'Phase1 never requests phantom Phase2 art');
+ assert.equal(requested.length,77,'76 own pages plus the shared pickup atlas, without duplicate canonical pages');
+ assert(requested.some(img=>img.path.includes('/p2/')),'both real phases are preloaded');
  requested.slice(0,-1).forEach(img=>img.resolve());await Promise.resolve();assert.equal(art.stageReady(14),false,'every page must finish before gameplay');
- requested.at(-1).resolve();await loading;assert.equal(art.stageReady(14),true);assert.equal(art.phaseImage(14,1),null);
+ requested.at(-1).resolve();await loading;assert.equal(art.stageReady(14),true);assert(art.phaseImage(14,1),'the second phase has approved idle art');
  const ctx=canvas(),bodyBox={x:900,y:180,w:360,h:420};
- for(const[name,animation]of Object.entries(config.animations)){
+ for(const phase of [0,1])for(const[name,animation]of Object.entries(config.phaseAnimations[phase])){
   const selected=new Set();
   for(let index=0;index<16;index++){
    const pose={animation:name,frame:index},before=JSON.stringify(pose);ctx.calls.length=0;
-   assert.equal(art.drawBoss(ctx,14,0,pose,bodyBox),true);assert.equal(ctx.calls.length,1);
+   assert.equal(art.drawBoss(ctx,14,phase,pose,bodyBox),true);assert.equal(ctx.calls.length,1);
    checkFrame(ctx.calls[0],animation,index);selected.add(sourceCell(ctx.calls[0]));assert.equal(JSON.stringify(pose),before);
+   const attachments=vm.runInContext('SPRITE_HITBOXES.stages[14]['+phase+'].provenance.projectileAttachments',scope)?.[name];
+   if(attachments&&index>=8&&index<=11)for(const [shape,port] of Object.entries(attachments.ports)){
+    const pixels=port.frames[index],expected=scope.sprotelProjectilePoint(phase,name,shape,index,art.legacyBox(14,phase,bodyBox));
+    assert.equal(ctx.calls[0].path,attachments.page.path,'attachment pins the actual release atlas');
+    closeRect(coreFromDraw(ctx.calls[0],[...pixels,0,0]),{...expected,w:0,h:0},'P'+(phase+1)+' '+name+' '+shape+' frame'+index+' attachment matches actual drawn pixels');
+   }
+
   }
   assert.equal(selected.size,16,name+' samples all sixteen body cells across four real pages');
  }
- const variants={beer:0,cocktail:1,blueMarlin:2,heavyMarlin:2,diskLaser:0};
- const sizes={beer:[42,54],cocktail:[38,48],blueMarlin:[100,38],heavyMarlin:[124,50],diskLaser:[120,40]};
- for(const[name,animation]of Object.entries(config.projectileAnimations)){
+ const variants={beer:0,cocktail:1,blueMarlin:2,heavyMarlin:2,diskLaser:0,pretzel:0,nacho:0,popcorn:0,speakerMissile:2};
+ const sizes={beer:[42,54],cocktail:[38,48],blueMarlin:[100,38],heavyMarlin:[124,50],diskLaser:[120,40],pretzel:[54,40],nacho:[42,38],popcorn:[40,40],speakerMissile:[96,56]};
+ for(const phase of [0,1])for(const[name,animation]of Object.entries(config.projectileAnimations)){
+  if(!phase&&!animation.preservedFromMain)continue;
   const selected=new Set(),[w,h]=sizes[name],box={x:-w/2,y:-h/2,w,h};
-  const active=scope.spriteHitboxProfile(14,0,'projectiles',name,variants[name]);
+  const active=scope.spriteHitboxProfile(14,phase,'projectiles',name,variants[name]);
   // Heavy fish is retained artwork rather than an enabled attack; its measured
   // core can still be projected through exactly the same renderer contract.
   const profile=active||{reference:animation.bounds,crop:animation.bounds,core:animation.core,visualBox:[w,h],kind:'contain',facing:'left'};
   assert.deepEqual(Array.from(profile.reference),Array.from(animation.bounds));assert.deepEqual(Array.from(profile.core),Array.from(animation.core));
   for(let index=0;index<16;index++){
-   const shot={shape:name,age:index*4,vx:-6,vy:0,weaponPhase:0,weaponVariant:variants[name]},before=JSON.stringify(shot);
-   ctx.calls.length=0;assert.equal(art.drawProjectile(ctx,14,shot,box,{phaseIndex:0,directionAngle:0}),true);
+   const shot={shape:name,age:index*4,vx:-6,vy:0,weaponPhase:phase,weaponVariant:variants[name]},before=JSON.stringify(shot);
+   ctx.calls.length=0;assert.equal(art.drawProjectile(ctx,14,shot,box,{phaseIndex:phase,directionAngle:0}),true);
    assert.equal(ctx.calls.length,1);checkFrame(ctx.calls[0],animation,index);selected.add(sourceCell(ctx.calls[0]));assert.equal(JSON.stringify(shot),before);
    for(const angle of [-Math.PI,-.3,0,.65]){
     const c=canvas(),center={x:340,y:275};c.translate(center.x,center.y);
-    assert.equal(art.drawProjectile(c,14,shot,box,{phaseIndex:0,directionAngle:angle}),true);
+    assert.equal(art.drawProjectile(c,14,shot,box,{phaseIndex:phase,directionAngle:angle}),true);
     const projected=scope.spriteProjectileCoreRect(profile,center,angle,[w,h]);
     closeRect(coreFromDraw(c.calls[0],profile.core),projected,name+' story angle '+angle);
    }
    for(const direction of [-1,1]){
     const c=canvas(),center={x:340,y:275};c.translate(center.x,center.y);c.scale(direction,1);
-    assert.equal(art.drawProjectile(c,14,shot,box,{phaseIndex:0}),true);
+    assert.equal(art.drawProjectile(c,14,shot,box,{phaseIndex:phase}),true);
     closeRect(coreFromDraw(c.calls[0],profile.core),scope.spriteProjectileCoreRect(profile,center,0,[w,h],{mirrorX:direction<0}),name+' modern facing '+direction);
    }
   }
@@ -112,14 +123,24 @@ function checkFrame(call,animation,index){
  }
  // Exercise actual modern pose selection over a complete cycle, proving each
  // attack reaches every native frame without changing world/simulation fields.
- const world={stage:{id:'14-sprotel-bitcoin',number:14},phaseIndex:0,phaseTick:0,tick:0,data:{},hazards:[],targets:[],player:{}};
- const samples=new Map();
- for(let tick=0;tick<720;tick++){
-  world.phaseTick=world.tick=tick;const before=JSON.stringify(world),pose=art.attackPose(world);ctx.calls.length=0;
-  assert.equal(art.drawMachine(ctx,world),true);assert.equal(JSON.stringify(world),before,'drawing does not mutate simulation state');
-  if(!samples.has(pose.animation))samples.set(pose.animation,new Set());samples.get(pose.animation).add(pose.frame);
+ for(const f of ['density-attacks.js','phase-powerups.js','runtime/contract.js','runtime/core/world.js','stages/14-sprotel-bitcoin/stage.js'])vm.runInContext(read(f),scope,{filename:f});
+ const stage=scope.Arcade.stages.get('14-sprotel-bitcoin');
+ for(const phase of [0,1]){
+  const world=new scope.Arcade.World(stage,{phase,practice:true,seed:37}),samples=new Map();
+  for(let tick=0;tick<(phase?2160:1440);tick++){
+   world.phaseTick=world.tick=tick;world.phase.update(world);
+   const before=JSON.stringify(world.data),pose=art.attackPose(world);ctx.calls.length=0;
+   assert(art.drawMachine(ctx,world));assert.equal(JSON.stringify(world.data),before,'drawing does not mutate simulation state');
+   if(!samples.has(pose.animation))samples.set(pose.animation,new Set());samples.get(pose.animation).add(pose.frame);
+   if(phase===1&&tick===124){
+    assert.equal(pose.animation,'beerStick');assert.equal(pose.frame,11);
+    const core=vm.runInContext('SPRITE_HITBOXES.stages[14][1].provenance.beerStickCorePixels',scope);
+    closeRect(coreFromDraw(ctx.calls[0],core),scope.sprotelBeerStickRect(1,art.machineBox(world)),'melee impact uses the drawn beer head');
+   }
+  }
+  const names=Object.keys(config.phaseAnimations[phase]).filter(name=>name!=='walk');
+  for(const name of names)assert.equal(samples.get(name)?.size,16,'P'+(phase+1)+' '+name+' timeline exposes sixteen native frames');
  }
- for(const name of ['idle','beer','cocktail','marlin','disk-laser'])assert.equal(samples.get(name).size,16,name+' timeline exposes sixteen native frames');
  // Run real legacy walk/pose/renderBoss functions without ART.sprites.sprotel.
  // Both a ready atlas and the ordinary fallback path must avoid the former crash.
  vm.runInContext(read('assets.js'),scope);
@@ -128,18 +149,18 @@ function checkFrame(call,animation,index){
  Object.assign(scope,{ctx,levelIndex:13,time:80,phaseShift:0,transition:50,FLOOR:604,densityShots:[],hazards:[],phaseTwoMoves:[],moves:{rush:{active:29},sprotelBeer:{active:40}},isGroundColumn:()=>false,isFlying:()=>false,isNaval:()=>false,hasMecha:()=>false,shadow(){},clamp:(x,a,b)=>Math.max(a,Math.min(b,x)),bossWeakY:b=>b.y-222,SimMath:Math,picture(file){const[w,h]=pngSize(file);return{path:file,naturalWidth:w,naturalHeight:h};}});
  for(const node of ast.body)if(node.type==='FunctionDeclaration'&&['walk','sprite','bossSheetBox','renderBoss'].includes(node.id.name))vm.runInContext(source.slice(node.start,node.end),scope);
  vm.runInContext('if(ART.sprites.sprotel)throw Error("fixture requires missing standalone Sprotel fighter art");',scope);
- for(const ready of [true,false])for(const scene of [{move:'sprotelBeer',age:145,tell:60,distance:108,moving:true},{move:'rush',age:50,tell:37,distance:-108,moving:true}]){
-  config.phases[0].ready=ready;scope.boss={id:'sprotel',x:1010,y:604,scale:4.4,hp:100,phase:1,flash:0,lanes:[],...scene};const before=JSON.stringify(scope.boss);ctx.calls.length=0;
+ for(const phase of [1,2])for(const ready of [true,false])for(const scene of [{move:'sprotelBeer',age:145,tell:60,distance:108,moving:true},{move:'rush',age:50,tell:37,distance:-108,moving:true}]){
+  config.phases[phase-1].ready=ready;scope.boss={id:'sprotel',x:1010,y:604,scale:4.4,hp:100,phase,flash:0,lanes:[],...scene};const before=JSON.stringify(scope.boss);ctx.calls.length=0;
   vm.runInContext('renderBoss()',scope);assert.equal(JSON.stringify(scope.boss),before);
   assert.equal(ctx.calls.length,1);assert.equal(ctx.calls[0].path.startsWith('art/generated/bosses/14-sprotel-bitcoin/'),ready,'real generated/fallback render path');
  }
- config.phases[0].ready=true;
+ config.phases.forEach(p=>p.ready=true);
  // A generic mounted-release flash has only a legacy row/column. It must
  // never replace Sprotel's authored paged animation and silently show idle.
  const originalRelease=art.releasePose,originalDraw=art.drawBoss,received=[];
  art.releasePose=()=>({row:2,column:3});
  art.drawBoss=function(context,id,phase,pose,...rest){received.push(plain(pose));return originalDraw(context,id,phase,pose,...rest);};
- for(const[move,animation]of [['sprotelBeer','beer'],['sprotelDrinks','cocktail'],['sprotelMarlin','marlin'],['sprotelDiskLaser','disk-laser']]){
+ for(const[move,animation]of [['sprotelBeer','beerThrow'],['sprotelDrinks','cocktailThrow'],['sprotelMarlin','marlin'],['sprotelDiskLaser','diskLaser']]){
   scope.moves[move]={active:40};scope.boss={id:'sprotel',x:1010,y:604,scale:4.4,hp:100,phase:1,flash:0,lanes:[],move,age:66,tell:60,distance:0,moving:false};
   vm.runInContext('renderBoss()',scope);const selected=received.at(-1);
   assert.equal(selected.animation,animation);assert.equal(selected.frame,8,'release retains authored native frame');
@@ -149,5 +170,5 @@ function checkFrame(call,animation,index){
  const bad=harness(),failure=bad.art.preloadStage(14);bad.requested[0].resolve(2048,2048);bad.requested.slice(1).forEach(img=>img.resolve());
  await assert.rejects(failure,/1024px/);assert.equal(bad.art.stageReady(14),false);
  const count=bad.requested.length,retry=bad.art.preloadStage(14);assert.equal(bad.requested.length,count+1);bad.requested.at(-1).resolve();await retry;assert.equal(bad.art.stageReady(14),true);
- console.log(JSON.stringify({status:'passed',kind:'sprotel-paged-animation-rendering',pages:44,nativeFrames:176,layout:'2x2',bodyAnimations:6,projectileAnimations:5,fullPoseTimelines:true,projectileCoreProjection:'story rotation and both modern facings',legacyFallbackWalk:true,decodeGateAndRetry:true,limitations:['Mock canvas checks real PNG dimensions, source-cell sampling and transforms; visual quality and human playtesting are separate.']},null,2));
+ console.log(JSON.stringify({status:'passed',kind:'sprotel-paged-animation-rendering',pages:76,nativeFrames:352,layout:'2x2 mecha; preserved 2x2 and new 4x4 projectiles',bodyAnimations:13,projectileAnimations:9,fullPoseTimelines:true,projectileCoreProjection:'story rotation and both modern facings',legacyFallbackWalk:true,measuredAttachmentsMatchDrawnFrames:true,decodeGateAndRetry:true,limitations:['Mock canvas checks real PNG dimensions, source-cell sampling and transforms; visual quality and human playtesting are separate.']},null,2));
 })().catch(e=>{console.error(e);process.exitCode=1;});

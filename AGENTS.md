@@ -20,6 +20,10 @@ Note added 2026-11-11: as of commit 9253a5f (owner sign-off on plan item D5) Red
 - Respect the existing encounter timing, critical-pose and hit-area approval gate before final animation generation. Honor approval already granted for a named scope without repeatedly asking for it.
 - Run checks appropriate to the change and report the integrated commit, results and limitations. Distinguish automated technical checks from human playtesting and final animation approval.
 
+## Sprotel Bitcoin addition (2026-11-18)
+
+The user authorized identity 14 after Last Light Bar, retaining that encounter's backgrounds, with two phases based on their supplied bartender-mecha references. For this named scope, the user explicitly authorized the built-in image generator and parallel animation agents instead of Higgsfield. Mecha animations use 2×2 pages; projectiles may use 4×4 sheets. Use sixteen distinct native frames per animation. Phase 1 artwork, collision geometry and walk animation accepted in a4d85ae remain pinned. The later user request aligns every projectile origin in both phases with its visible firing part and changes the speaker special to three smaller simultaneous missiles. Phase 2 adds beer-stick melee, cocktail cannon, snacks, blue marlin, disk laser and a sound-wave special with huge speaker missiles. These additions expand gameplay scope only for identity 14. See `docs/SPROTEL-BITCOIN-PHASE-2.md`.
+
 ## Art generation
 
 Follow `docs/higgsfield-workflow-guide.md`. This repo uses the **sprite sheet** workflow. For the current authorized production scope, follow its skip-approvals workflow, keep the spending limit at zero credits, and verify actual Unlimited eligibility in the website. A missing allowance does not authorize paid generation. Inspect pilot identity and frame quality before enabling any asset.

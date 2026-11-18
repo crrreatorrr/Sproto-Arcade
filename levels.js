@@ -65,7 +65,7 @@ const LEVELS = [
   {title:"Rooftop Breakaway",id:11,chase:true},
   {title:"Codebreak Ascent",id:12,codebreak:true,art:"art/codebreak/shaft.webp",foot:.84},
   {title:"Redkev's Marina",id:13,mechanics:1,art:"art/level-01.jpg",foot:.913},
-  {title:"Sprotel Bitcoin",id:14,mechanics:2,singlePhase:true,densityBarrage:false,art:"art/level-02.jpg",foot:.801}
+  {title:"Sprotel Bitcoin",id:14,mechanics:2,densityBarrage:false,art:"art/level-02.jpg",foot:.801}
 ];
 const NAVAL_WEAPONS = {
   light:{cooldown:120,launch:5,frames:18,x:64,lanes:[-22,-9,4],speed:22},

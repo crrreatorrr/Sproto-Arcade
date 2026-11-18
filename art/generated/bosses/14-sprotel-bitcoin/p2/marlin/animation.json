@@ -1,0 +1,831 @@
+{
+  "frameCount": 16,
+  "kind": "mecha",
+  "generator": "built-in image_gen",
+  "columns": 2,
+  "rows": 2,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/marlin/page-0.png",
+      "sha256": "116acd19b7b349be0f77e7a61bb5b9473a3e55a8296feba0c8ba2761be2bc2bb",
+      "version": "116acd19b7b349be",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        42,
+        74,
+        408,
+        420
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/marlin/page-1.png",
+      "sha256": "91e4f898f3848008c93d040d544c14c9f10546b2f0263c30d32c701cfbea2087",
+      "version": "91e4f898f3848008",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        39,
+        80,
+        416,
+        414
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/marlin/page-2.png",
+      "sha256": "99f05225800ae756c4f2827cefa8135ee8c442d296cb00c2c1d4251e04f6a366",
+      "version": "99f05225800ae756",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        53,
+        86,
+        383,
+        407
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/marlin/page-3.png",
+      "sha256": "b830578f7fcfb7e559625fd12aa52bbf81051ae64e063d03fba38697704381e5",
+      "version": "b830578f7fcfb7e5",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        85,
+        87,
+        363,
+        406
+      ]
+    }
+  ],
+  "bounds": [
+    39,
+    74,
+    416,
+    420
+  ],
+  "referenceBounds": [
+    26,
+    12,
+    460,
+    488
+  ],
+  "core": [
+    221,
+    167,
+    149,
+    80
+  ],
+  "facing": null,
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        91,
+        74,
+        345,
+        420
+      ],
+      "frameSha256": "14c60f11322a763bead573ba7ace598c5fb00752ebf856b74a6133bc3e634c18",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-0-source.png",
+      "sourceSha256": "4dc4884ea3d1914ef3a79ae389268c0444e821cedda1c6e24bf632f343e40beb",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "565dd4d376af3d53cc06ce3a098da2188dab8305e2f29f916c295a25b7a159d7",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0081896551724139,
+        "offset": [
+          174,
+          297
+        ],
+        "nativeDisk": [
+          335.25,
+          308.0
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        74,
+        82,
+        364,
+        412
+      ],
+      "frameSha256": "37bd2281567c12a75ed4d5a408b4410b9dc029924d8c547218b37480e45c081e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-0-source.png",
+      "sourceSha256": "4dc4884ea3d1914ef3a79ae389268c0444e821cedda1c6e24bf632f343e40beb",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "04158e7a0487b840965dc075246988f1decf2a812fe418d2bcea3a3568ec0f18",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0081896551724139,
+        "offset": [
+          174,
+          297
+        ],
+        "nativeDisk": [
+          335.25,
+          308.0
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        58,
+        89,
+        385,
+        403
+      ],
+      "frameSha256": "8addd2a320920c1e95c1bbedfc063a970f317ae19cfe049a00329943522b81ba",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-0-source.png",
+      "sourceSha256": "4dc4884ea3d1914ef3a79ae389268c0444e821cedda1c6e24bf632f343e40beb",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "ebdcd18eda907d440b06aae321b8d05ae32f87cc5c8f188d3ec096f6abc836b7",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0081896551724139,
+        "offset": [
+          174,
+          297
+        ],
+        "nativeDisk": [
+          335.25,
+          308.0
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        42,
+        99,
+        408,
+        393
+      ],
+      "frameSha256": "528f65881857eed91b66f635cdda47de70f68cb66e575f2e777669cdd5a27aab",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-0-source.png",
+      "sourceSha256": "4dc4884ea3d1914ef3a79ae389268c0444e821cedda1c6e24bf632f343e40beb",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "9b50dbfa94b086233fae2bef3d5a8d667a0e6719948c9014fdd3bcd55f19a7aa",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0081896551724139,
+        "offset": [
+          174,
+          297
+        ],
+        "nativeDisk": [
+          335.25,
+          308.0
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 4,
+      "page": 1,
+      "cell": 0,
+      "bounds": [
+        88,
+        80,
+        353,
+        414
+      ],
+      "frameSha256": "39aef1e981c666770e899b556808c1b69dca9138f5f381cb1ae97de0b12b493c",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-1-source.png",
+      "sourceSha256": "a3b71a6d4b54b4038f0f2e27652d714c77091dee514f4b827ca6b2a8f2a92f52",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "a5ca56408021198bd0bb3a44e6b881041571aea66661ac0256ce85e6503033c2",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0090595340811044,
+        "offset": [
+          172,
+          297
+        ],
+        "nativeDisk": [
+          336.75,
+          308.25
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 5,
+      "page": 1,
+      "cell": 1,
+      "bounds": [
+        67,
+        83,
+        376,
+        411
+      ],
+      "frameSha256": "4bb479c6d808ed3ab6b387fee22b21ce05d65b6bf61852ca06c3931d570e078a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-1-source.png",
+      "sourceSha256": "a3b71a6d4b54b4038f0f2e27652d714c77091dee514f4b827ca6b2a8f2a92f52",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "2583678bb7deba25d846c512b13d672ee9e9cc47dc71fe287727fe3aeac725e2",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0090595340811044,
+        "offset": [
+          172,
+          297
+        ],
+        "nativeDisk": [
+          336.75,
+          308.25
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 6,
+      "page": 1,
+      "cell": 2,
+      "bounds": [
+        57,
+        86,
+        394,
+        407
+      ],
+      "frameSha256": "53d758fc0ade69e08e6a276019aebec919d275faf62afc1447154e908061b56b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-1-source.png",
+      "sourceSha256": "a3b71a6d4b54b4038f0f2e27652d714c77091dee514f4b827ca6b2a8f2a92f52",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "3f324e646d3e6699ed381040b8e8e40956091af20082a86bb434583bd8a931a3",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0090595340811044,
+        "offset": [
+          172,
+          297
+        ],
+        "nativeDisk": [
+          336.75,
+          308.25
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 7,
+      "page": 1,
+      "cell": 3,
+      "bounds": [
+        39,
+        90,
+        416,
+        403
+      ],
+      "frameSha256": "f926a40b592bf0acbd296d5c304bb7b40830785c58dbfb9514d8c0cd3bf2c3c8",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-1-source.png",
+      "sourceSha256": "a3b71a6d4b54b4038f0f2e27652d714c77091dee514f4b827ca6b2a8f2a92f52",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "86d08880aef4976e00e98e3654c5bf87b1d9ce326ef439b13ef7e29dfaab0329",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0090595340811044,
+        "offset": [
+          172,
+          297
+        ],
+        "nativeDisk": [
+          336.75,
+          308.25
+        ],
+        "nativeFoot": 598.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 8,
+      "page": 2,
+      "cell": 0,
+      "bounds": [
+        80,
+        86,
+        356,
+        407
+      ],
+      "frameSha256": "cb692d14b3de8a22d4430f111c1449e4da6e8064094c19fca0d797c9b2a94c1c",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-2-source.png",
+      "sourceSha256": "82d605653c1e26c787d39b922d51a14fcd83e9d1c1e399d987a18ee41001a46d",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "332f2a374cc23e2bc506e5b14e4876164bb6dd61398752a2d914bed6d2430077",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9827731092436974,
+        "offset": [
+          181,
+          312
+        ],
+        "nativeDisk": [
+          336.5,
+          301.0
+        ],
+        "nativeFoot": 598.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 9,
+      "page": 2,
+      "cell": 1,
+      "bounds": [
+        60,
+        86,
+        376,
+        407
+      ],
+      "frameSha256": "c21d16ae91b7faa4d052e3368a6d87afb0b228226503bd99f1103a8bc4d9f20d",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-2-source.png",
+      "sourceSha256": "82d605653c1e26c787d39b922d51a14fcd83e9d1c1e399d987a18ee41001a46d",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "834074600f0aaf1fcfb346e6db5e93360f4c1005a4f6d524bc7a78a62eb138dd",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9827731092436974,
+        "offset": [
+          181,
+          312
+        ],
+        "nativeDisk": [
+          336.5,
+          301.0
+        ],
+        "nativeFoot": 598.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 10,
+      "page": 2,
+      "cell": 2,
+      "bounds": [
+        97,
+        100,
+        338,
+        391
+      ],
+      "frameSha256": "563cddb8a862bd69fcf0f9a17d6f1f86e1de9aa09892660b73a9a60b026eba9a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-2-source.png",
+      "sourceSha256": "82d605653c1e26c787d39b922d51a14fcd83e9d1c1e399d987a18ee41001a46d",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "92ca806faa984e1c3b27133f50f9bc47c1a68efc9daf23b49b8da21c4fbac0c5",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9827731092436974,
+        "offset": [
+          181,
+          312
+        ],
+        "nativeDisk": [
+          336.5,
+          301.0
+        ],
+        "nativeFoot": 598.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 11,
+      "page": 2,
+      "cell": 3,
+      "bounds": [
+        53,
+        86,
+        383,
+        407
+      ],
+      "frameSha256": "efeef2e95bc4444ccee68d9b366eacc9dfcee9113ca7a6a8cc3290653cbfba98",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-2-source.png",
+      "sourceSha256": "82d605653c1e26c787d39b922d51a14fcd83e9d1c1e399d987a18ee41001a46d",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "94c104e2971ddd25a004af452d1c923b677f186ba14dab3d51be718b3ed041f3",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9827731092436974,
+        "offset": [
+          181,
+          312
+        ],
+        "nativeDisk": [
+          336.5,
+          301.0
+        ],
+        "nativeFoot": 598.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 12,
+      "page": 3,
+      "cell": 0,
+      "bounds": [
+        85,
+        90,
+        363,
+        403
+      ],
+      "frameSha256": "5aa79c0b912def9ce6a38eb2f1dfbc4e2bfb478fe2328d30a653083bc903c9bd",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-3-source.png",
+      "sourceSha256": "a532c056a9641b7ff36a251d794554818033c7877a24d369a9a2c6267e094cff",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "5af60f27f334089f706be9adadc024f27950a8c928936269ec951d470edf05f1",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9953191489361702,
+        "offset": [
+          178,
+          308
+        ],
+        "nativeDisk": [
+          335.5,
+          300.75
+        ],
+        "nativeFoot": 594.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 13,
+      "page": 3,
+      "cell": 1,
+      "bounds": [
+        90,
+        87,
+        353,
+        406
+      ],
+      "frameSha256": "b2ffaf673efd983b457e5a63c6d26e9452bd10ae4354f594afac3ed145e9df43",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-3-source.png",
+      "sourceSha256": "a532c056a9641b7ff36a251d794554818033c7877a24d369a9a2c6267e094cff",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "a03af99247df7d771b4e873ba9611c6148aca9b026dbf33c0ee1302ec2a95e31",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9953191489361702,
+        "offset": [
+          178,
+          308
+        ],
+        "nativeDisk": [
+          335.5,
+          300.75
+        ],
+        "nativeFoot": 594.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 14,
+      "page": 3,
+      "cell": 2,
+      "bounds": [
+        96,
+        89,
+        347,
+        399
+      ],
+      "frameSha256": "fdcd355927eafbce5fe6cdac9ae56c449ce7d878a2fc283b9dfd97bad25a3c2f",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-3-source.png",
+      "sourceSha256": "a532c056a9641b7ff36a251d794554818033c7877a24d369a9a2c6267e094cff",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "3f002e8f316f3abfbec82d7c0c754a4195884161e7eeca68520dab2ff47efe23",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9953191489361702,
+        "offset": [
+          178,
+          308
+        ],
+        "nativeDisk": [
+          335.5,
+          300.75
+        ],
+        "nativeFoot": 594.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 15,
+      "page": 3,
+      "cell": 3,
+      "bounds": [
+        96,
+        89,
+        346,
+        403
+      ],
+      "frameSha256": "78643b308594bd707d34c146c26d76dba2a2a85c3a681310c94ef8035a7ea1c3",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/marlin/page-3-source.png",
+      "sourceSha256": "a532c056a9641b7ff36a251d794554818033c7877a24d369a9a2c6267e094cff",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "67aced5cd5240347b743586613e2d630b5a17e7e9a36130c794179c45a40d84e",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9953191489361702,
+        "offset": [
+          178,
+          308
+        ],
+        "nativeDisk": [
+          335.5,
+          300.75
+        ],
+        "nativeFoot": 594.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

@@ -26,12 +26,17 @@
     12:[['12-codebreak/warrant-drop'],['12-codebreak/summit-scanner','12-codebreak/upper-crossing'],['codebreak-warrants','codebreak-slow-missile']]
   };
   attackSources[13]=attackSources[1];
-  attackSources[14]=[['sprotel.beer'],['sprotel.cocktail'],['sprotel.marlin']];
+  attackSources[14]=[['sprotel.beer','sprotel.cocktail','sprotel.snacks'],['sprotel.marlin'],['sprotel.disk-laser','sprotel.sound-wave']];
   for(const [id,config]of Object.entries(manifest))config.attackSources=attackSources[id];
   // BEGIN SPROTEL ANIMATION MANIFEST
-  Object.assign(manifest[14],{"phaseCount":1,"columns":2,"rows":2,"registrationBounds":[15,60,482,440],"animations":{"idle":{"frameCount":16,"bounds":[59,60,394,440],"core":[193,115,213,175],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[68,61,383,438],"version":"053436caa893b963"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-idle-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[59,61,392,439],"version":"22a930976ae0a663"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-idle-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[66,60,386,439],"version":"0920010fec95a62b"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-idle-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[66,70,387,430],"version":"5b1a10e3600cfe30"}]},"walk":{"frameCount":16,"bounds":[40,60,432,440],"core":[212,99,214,128],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-walk-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[61,63,410,437],"version":"5d6e7ef1e6c3ea56"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-walk-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[53,60,419,440],"version":"3951ab550a9f7fd5"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-walk-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[46,62,422,438],"version":"30a011e4fa9ba40c"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-walk-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[40,63,431,437],"version":"29868845b41e364e"}]},"beer":{"frameCount":16,"bounds":[44,60,423,440],"core":[177,99,236,146],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[59,62,396,435],"version":"816801987ed849e8"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[49,60,418,437],"version":"3cb7bd73a43c0752"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[44,62,413,436],"version":"224ca1a4ccd0daeb"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[51,63,407,437],"version":"1abe441ce5756dea"}]},"cocktail":{"frameCount":16,"bounds":[15,60,482,440],"core":[299,95,145,225],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[64,60,433,438],"version":"fed57b68d33b3fde"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[15,60,482,438],"version":"13f900cb7a564429"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[19,60,476,438],"version":"5b46c8ee5badea07"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[53,62,444,438],"version":"3049253d854ea918"}]},"marlin":{"frameCount":16,"bounds":[33,60,445,440],"core":[235,95,192,206],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[66,62,410,438],"version":"26e8896e4949a17d"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[33,62,441,437],"version":"04d62c0ccc79ec3a"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[44,62,434,437],"version":"2a1acc5bc494713e"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[79,60,396,440],"version":"ba8490af0db1d5f8"}]},"disk-laser":{"frameCount":16,"bounds":[53,60,406,440],"core":[194,97,210,128],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[55,65,388,435],"version":"ea7d6cb67fb1ea6e"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[53,60,403,438],"version":"ae55b17815f76c19"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[56,60,403,438],"version":"cae40d62b63cb70b"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[55,65,398,435],"version":"d817765d5a1bb98d"}]}},"projectileAnimations":{"beer":{"frameCount":16,"bounds":[40,12,431,488],"core":[194,82,204,369],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-projectiles.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[55,42,416,458],"version":"e67ad8dc38cc288c"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[40,12,414,486],"version":"37996bb6c94ade78"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[42,14,421,478],"version":"94b954a62089744a"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[46,27,421,465],"version":"976089dee0ef5918"}]},"cocktail":{"frameCount":16,"bounds":[52,12,407,488],"core":[138,144,167,110],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[56,14,403,484],"version":"ebfe572f7d0c504f"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[56,12,403,486],"version":"c3d9d7f0b3c56f28"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[52,12,407,486],"version":"eeb9c308db56e3fe"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[52,14,407,486],"version":"ef0cefff635fa879"}]},"blueMarlin":{"frameCount":16,"bounds":[12,117,488,278],"core":[128,219,159,79],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,119,488,238],"version":"3850c5d45dbd5d2f"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,117,481,237],"version":"ccae3dddcee5f447"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,137,486,258],"version":"9e4cfec4ad696342"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,143,488,243],"version":"3383299411a9e98b"}]},"heavyMarlin":{"frameCount":16,"bounds":[12,97,488,318],"core":[159,192,127,128],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,99,486,274],"version":"5f448e7634530876"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,97,481,273],"version":"e3e7f2b49bb2b3b3"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,120,488,295],"version":"93459c7fbc832cca"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,120,486,282],"version":"66feddfba40680b8"}]},"diskLaser":{"frameCount":16,"bounds":[12,150,488,212],"core":[176,194,302,126],"pages":[{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page1.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,154,488,206],"version":"f0174e5b3a577495"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page2.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,150,488,210],"version":"c3cfc135c219805d"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page3.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,154,488,206],"version":"0f7f78d6be638851"},{"path":"art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page4.png","ready":true,"width":1024,"height":1024,"columns":2,"rows":2,"bounds":[12,154,488,208],"version":"cab9461eedcbcc8f"}]}}});
-  Object.assign(manifest[14].phases[0],manifest[14].animations.idle.pages[0]);
-  Object.assign(manifest[14].projectiles[0],manifest[14].projectileAnimations.beer.pages[0]);
+  const sprotel=root.ArcadeSprotelArt||{};
+  Object.assign(manifest[14],{phaseCount:2,columns:2,rows:2,paged:true,artComplete:sprotel.complete===true,
+    animations:sprotel.phaseAnimations?.[0]||{},phaseAnimations:sprotel.phaseAnimations||[{},{}],projectileAnimations:sprotel.projectileAnimations||{}});
+  manifest[14].phases=[0,1].map(phase=>{
+    const idle=manifest[14].phaseAnimations[phase]?.idle,first=idle?.pages?.[0];
+    return first?{...first,bounds:idle.referenceBounds||idle.bounds}:{path:`art/generated/bosses/14-sprotel-bitcoin/p${phase+1}/idle/page-0.png`,ready:false,width:1024,height:1024};
+  });
+  manifest[14].projectiles=[{ready:false},{ready:false}];
   // END SPROTEL ANIMATION MANIFEST
   Object.assign(manifest[13].phases[0],{"ready":true,"bounds":[3,221,505,288],"legacyOffset":[-5,-1],"legacyScale":[1.05,1],"modernBox":[943,290,327,310]});
   Object.assign(manifest[13].phases[1],{"ready":true,"bounds":[3,167,506,342],"legacyOffset":[0,-8],"legacyScale":[1,1],"modernBox":[930,290,340,310]});
@@ -501,12 +506,9 @@
   }
   function attackPose(w){
     if(Number.parseInt(w.stage.id,10)===14){
-      const cycle=w.phaseTick%720,local=cycle%180,attack=Math.floor(cycle/180);
-      const start=attack===3?10:60,animation=['beer','cocktail','marlin','disk-laser'][attack];
-      if(local<start||local>=175)return{row:0,column:0,animation:'idle',frame:Math.floor(w.phaseTick/6)%16};
-      const sample=local<100?Math.min(7,Math.floor((local-start)/(100-start)*8)):
-        local<125?8+Math.min(3,Math.floor((local-100)/25*4)):12+Math.min(3,Math.floor((local-125)/50*4));
-      return{row:attack+1,column:sample%2,animation,frame:sample};
+      const action=w.data.action||'idle';
+      if(action==='idle')return{row:0,column:0,animation:'idle',frame:Math.floor(w.phaseTick/6)%16};
+      return sprotelPose(action,w.data.actionAge||0,w.data.actionTell||60,w.data.actionActive||32,w.data.actionRest||48);
     }
     if(w.densityBarrage)return barragePose(w.hazards.filter(h=>h.density&&!h.removed),w.tick);
     const released=releasePose(w.player,w.phaseIndex,w.tick);
@@ -524,16 +526,17 @@
   function legacyVariant(b,kind='regular'){
     return spriteLegacyWeaponVariant(b.step,b.attackIndex,kind);
   }
+  function sprotelPose(animation,age,tell,active,rest=55){
+    const sample=age<tell?Math.min(7,Math.floor(age/Math.max(1,tell)*8)):
+      age<tell+active?8+Math.min(3,Math.floor((age-tell)/Math.max(1,active)*4)):
+      12+Math.min(3,Math.floor((age-tell-active)/Math.max(1,rest)*4));
+    return{row:1,column:sample%2,animation,frame:sample};
+  }
   function legacyPose(move,age,tell,active,tick,variant=0){
-    const action={sprotelBeer:'beer',sprotelDrinks:'cocktail',sprotelMarlin:'marlin',sprotelDiskLaser:'disk-laser'}[move];
-    if(action){
-      if(age>=tell+active+32)return{row:0,column:0,animation:'walk',frame:Math.floor(tick/4)%16};
-      const sample=age<tell?Math.min(7,Math.floor(age/Math.max(1,tell)*8)):
-        age<tell+active?8+Math.min(3,Math.floor((age-tell)/Math.max(1,active)*4)):
-        12+Math.min(3,Math.floor((age-tell-active)/32*4));
-      return{row:1+variant,column:sample%2,animation:action,frame:sample};
-    }
-    if(!move||age>=tell+active+10)return{row:0,column:Math.floor(tick/6)%4};
+    const action={sprotelBeer:'beerThrow',sprotelDrinks:'cocktailThrow',sprotelMarlin:'marlin',sprotelDiskLaser:'diskLaser',
+      sprotelBeerStick:'beerStick',sprotelCocktailCannon:'cocktailCannon',sprotelSnacks:'snacks',sprotelSoundWave:'soundWave'}[move];
+    if(action){if(age>=tell+active+32)return{animation:'walk',frame:Math.floor(tick/4)%16,row:0,column:0};return sprotelPose(action,age,tell,active,32);}
+    if(!move||age>=tell+active+10)return{row:0,column:Math.floor(tick/6)%4,animation:'idle',frame:Math.floor(tick/6)%16};
     const column=age<tell?Math.min(1,Math.floor(age/Math.max(1,tell/2))):age<tell+Math.min(12,active)?2:3;
     return{row:1+mod3(variant),column,variant:mod3(variant)};
   }
@@ -557,7 +560,7 @@
       }
       case 13:{const b=entry(13)?.phases[phase]?.modernBox;return Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[2]>0&&b[3]>0?{x:b[0],y:b[1],w:b[2],h:b[3]}:{x:930,y:290,w:340,h:310};}
       case 2:return phase?{x:911,y:380,w:300,h:220}:{x:950,y:300,w:300,h:300};
-      case 14:return{x:900,y:180,w:360,h:420};
+      case 14:return sprotelModernBox(phase,w.data.mechX??900);
       case 3:return{x:795,y:160,w:415,h:410};
       case 4:return phase?{x:3896+offset,y:290,w:390,h:310}:{x:3758+offset,y:400,w:390,h:220};
       case 5:{if(phase)return{x:920,y:160,w:340,h:440};const b=entry(5)?.phases[0]?.modernBox;return Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[2]>0&&b[3]>0?{x:b[0],y:b[1],w:b[2],h:b[3]}:{x:4650,y:260,w:400,h:340};}
@@ -578,7 +581,7 @@
     if(!img||!box)return false;
     if(root.ArcadeBossTransitions?.drawTrial(ctx,w,box))return true;
     const pose=attackPose(w);
-    if(Number.parseInt(w.stage.id,10)===14)return drawSprotelAnimation(ctx,config,pose,box);
+    if(Number.parseInt(w.stage.id,10)===14)return drawSprotelAnimation(ctx,config,w.phaseIndex,pose,box);
     const waterline=config===manifest[1]&&w.phase?.naval?{phase:w.phaseIndex,tick:w.tick}:null;
     const flight=config===manifest[7]?dragonFlight(w.player,w.phaseIndex,w.tick,box.y):null;
     const shown=frame(ctx,img,pose.row,pose.column,box,config,config.phases[w.phaseIndex].bounds,null,null,waterline,flight);
@@ -586,6 +589,7 @@
     return shown;
   }
   function legacyBox(id,phase,box){
+    if(Number.parseInt(id,10)===14)return sprotelLegacyBox(phase,box);
     const config=entry(id),asset=config?.phases[phase],offset=asset?.legacyOffset,scale=asset?.legacyScale;
     if(Array.isArray(scale)&&scale.length===2&&scale.every(n=>Number.isFinite(n)&&n>0))box={...box,x:box.x+box.w*(1-scale[0])/2,y:box.y+box.h*(1-scale[1]),w:box.w*scale[0],h:box.h*scale[1]};
     if(Array.isArray(offset)&&offset.length===2&&offset.every(Number.isFinite))box={...box,x:box.x+offset[0],y:box.y+offset[1]};
@@ -595,19 +599,19 @@
     const config=entry(id),img=phaseImage(id,phase);
     if(!img)return false;
     const registered=legacyBox(id,phase,box);
-    if(Number.parseInt(id,10)===14)return drawSprotelAnimation(ctx,config,pose,registered);
+    if(Number.parseInt(id,10)===14)return drawSprotelAnimation(ctx,config,phase,pose,registered);
     const flight=config===manifest[7]&&Number.isFinite(pose.flightTick)?dragonFlight(pose.flightOwner,phase,pose.flightTick,registered.y):null;
     const shown=frame(ctx,img,pose.row||0,pose.column||0,registered,config,config.phases[phase].bounds,null,null,
       config===manifest[1]&&waterline?{...waterline,phase}:null,flight);
     if(shown&&ctx.globalCompositeOperation!=='lighter')drawMountedRelease(ctx,img,pose,registered,config.phases[phase].bounds,flight,pose.flightOwner);
     return shown;
   }
-  function drawSprotelAnimation(ctx,config,pose,box){
-    const animation=config.animations?.[pose.animation||'idle'];
+  function drawSprotelAnimation(ctx,config,phase,pose,box){
+    const animation=config.phaseAnimations?.[phase]?.[pose.animation||'idle']||config.phaseAnimations?.[phase]?.idle;
     const sample=Math.max(0,Math.min(15,Math.floor(pose.frame??0)));
     const asset=animation?.pages?.[Math.floor(sample/4)],img=image(asset);
     if(!img)return false;
-    return frame(ctx,img,Math.floor((sample%4)/2),sample%2,box,{columns:2,rows:2},animation.bounds,config.registrationBounds);
+    return frame(ctx,img,Math.floor((sample%4)/2),sample%2,box,{columns:2,rows:2},animation.preservedFromMain?animation.bounds:asset.bounds,animation.referenceBounds||animation.bounds);
   }
   function projectileKind(id,shot,box){
     return spriteProjectileKind(shot,box,entry(id)?.projectileKinds?.[shot.source||shot.shape]);
@@ -703,6 +707,7 @@
     queue.push({...spec,tick,angle});
   }
   function releasePose(owner,phase,tick,fallback){
+    if(owner?.id==='sprotel')return undefined;
     const queue=launches.get(owner)||[];
     const latest=queue.findLast(event=>event.phase===phase&&event.pose!==false&&tick>=event.tick&&tick-event.tick<6);
     if(!latest)return fallback;
@@ -906,8 +911,6 @@
   }
   // Coordinates and dimensions come from the caller's existing projectile transform/bounds.
   // Visual substitutions never resize, replace or mutate the actual collision rectangle.
-  // Only the thirteen encounters with authored density barrages have strips.
-  // Sprotel's Phase 1 has its own beer, cocktail, fish and disk-laser pages.
   const missileAssets=Object.fromEntries(folders.slice(0,13).map((_,i)=>[i+1,{path:`art/generated/missiles/${String(i+1).padStart(2,'0')}/missile.png`,ready:false,columns:4,rows:1}]));
   for(const id of [1,2,3,4,5,6,7,8,9,10,11,12,13])missileAssets[id].ready=true;
   const pickupAsset={path:'art/generated/pickups/items.png',ready:true,columns:4,rows:4,rowBounds:[[51,51,411,410],[51,51,411,410],[10,20,492,472],[10,10,492,492]]};
@@ -957,10 +960,10 @@
     if(Number.parseInt(id,10)===14){
       const origin=shot.original||shot,name=origin.shape||origin.sprite||shot.sprite;
       const animation=config?.projectileAnimations?.[name];
-      const sample=Math.floor(selection.age/4)%16,asset=animation?.pages?.[Math.floor(sample/4)],picture=image(asset);
+      const sample=Math.floor(selection.age/4)%16,columns=animation?.columns||2,rows=animation?.rows||2,perPage=columns*rows,cell=sample%perPage,asset=animation?.pages?.[Math.floor(sample/perPage)],picture=image(asset);
       if(!picture)return false;
-      return frame(ctx,picture,Math.floor((sample%4)/2),sample%2,{...box,anchor:'center',flip:true},
-        {columns:2,rows:2},animation.bounds,animation.bounds);
+      return frame(ctx,picture,Math.floor(cell/columns),cell%columns,{...box,anchor:'center',flip:animation.facing==='left'},
+        {columns,rows},animation.preservedFromMain?animation.bounds:asset.bounds,animation.referenceBounds||animation.bounds);
     }
     const origin=shot.original||shot,{phase,row,column,age}=selection;
     const kind=projectileKind(id,shot,box),color=projectileColor(id,phase);
@@ -1020,12 +1023,12 @@
   const stageLoads=new Map();
   function stageAssets(id){
     const config=entry(id);if(!config)return[];
-    const animated=[...Object.values(config.animations||{}),...Object.values(config.projectileAnimations||{})].flatMap(a=>a.pages||[]);
+    const animated=[...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})].flatMap(a=>a.pages||[]);
     const assets=[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles,...animated,missileAssets[Number.parseInt(id,10)],pickupAsset].filter(asset=>asset?.ready);
     return [...new Map(assets.map(asset=>[asset.path,asset])).values()];
   }
   function decoded(img,asset){return !!img&&img.complete&&img.naturalWidth===(asset?.width||2048)&&img.naturalHeight===(asset?.height||(asset?.rows===1?512:2048));}
-  function stageReady(id){return stageAssets(id).every(asset=>decoded(images.get(asset.path),asset));}
+  function stageReady(id){if(Number.parseInt(id,10)===14&&!entry(id)?.artComplete)return false;return stageAssets(id).every(asset=>decoded(images.get(asset.path),asset));}
   function decodeStageAsset(asset){
     image(asset);
     const img=images.get(asset.path);
@@ -1033,10 +1036,11 @@
     const ready=typeof img.decode==='function'?img.decode():new Promise((resolve,reject)=>{
       img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(Error('Boss art could not load')),{once:true});
     });
-    return ready.then(()=>{if(!decoded(img,asset))throw Error(`Game art must be a complete ${asset.width||2048}px sprite sheet`);});
+    return ready.then(()=>{if(!decoded(img,asset))throw Error('Game art must be a complete '+(asset?.width||2048)+'px sprite sheet');});
   }
   function preloadStage(id){
     const assets=stageAssets(id),key=Number.parseInt(id,10);
+    if(key===14&&!entry(id)?.artComplete)return Promise.reject(Error('Sprotel animation pages are not complete'));
     if(stageReady(id))return Promise.resolve();
     if(stageLoads.has(key))return stageLoads.get(key);
     const pending=Promise.all(assets.map(asset=>decodeStageAsset(asset).catch(error=>{

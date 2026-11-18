@@ -1,0 +1,536 @@
+{
+  "schemaVersion": 1,
+  "coordinateSpace": "512px runtime cell; coordinates before draw-box projection",
+  "method": "Visual measurements on the actual generated release frames; attachment points are separate from collision geometry. Warning frames use the upcoming release frame8, recovery uses frame11.",
+  "phases": {
+    "0": {
+      "beerThrow": {
+        "referenceBounds": [
+          15,
+          60,
+          482,
+          440
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page3.png",
+          "sha256": "224ca1a4ccd0daebf234e7360dc705fd3aaad22ba2d585d77cc8e5184571d568",
+          "crop": [
+            44,
+            62,
+            413,
+            436
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "beer": {
+            "part": "Leading fingers of the right throwing hand across the cockpit",
+            "frames": {
+              "8": [
+                225,
+                271
+              ],
+              "9": [
+                248,
+                279
+              ],
+              "10": [
+                307,
+                292
+              ],
+              "11": [
+                335,
+                292
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          44,
+          60,
+          423,
+          440
+        ]
+      },
+      "cocktailThrow": {
+        "referenceBounds": [
+          15,
+          60,
+          482,
+          440
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page3.png",
+          "sha256": "5b46c8ee5badea07a01c2580eb349567217a43458b6cd85f09f949087a45bf7f",
+          "crop": [
+            19,
+            60,
+            476,
+            438
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "cocktail": {
+            "part": "Open tip of the extended silver cocktail shaker",
+            "frames": {
+              "8": [
+                43,
+                204
+              ],
+              "9": [
+                52,
+                194
+              ],
+              "10": [
+                70,
+                184
+              ],
+              "11": [
+                104,
+                183
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          15,
+          60,
+          482,
+          440
+        ]
+      },
+      "marlin": {
+        "referenceBounds": [
+          15,
+          60,
+          482,
+          440
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page3.png",
+          "sha256": "2a1acc5bc494713eb12c7e42b26824dd3208c228f8278ec98e8493c68cd3dfc9",
+          "crop": [
+            44,
+            62,
+            434,
+            437
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "blueMarlin": {
+            "part": "Center of the extended left marlin-launcher bore",
+            "frames": {
+              "8": [
+                65,
+                214
+              ],
+              "9": [
+                81,
+                205
+              ],
+              "10": [
+                106,
+                208
+              ],
+              "11": [
+                118,
+                203
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          33,
+          60,
+          445,
+          440
+        ]
+      },
+      "diskLaser": {
+        "referenceBounds": [
+          15,
+          60,
+          482,
+          440
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page3.png",
+          "sha256": "cae40d62b63cb70bc7f30de0095e7cef330a22d1873c9cbe1de14000c410dfc9",
+          "crop": [
+            56,
+            60,
+            403,
+            438
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "diskLaser": {
+            "part": "Luminous chest vinyl disk hub",
+            "frames": {
+              "8": [
+                249,
+                284
+              ],
+              "9": [
+                253,
+                286
+              ],
+              "10": [
+                252,
+                288
+              ],
+              "11": [
+                251,
+                286
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          53,
+          60,
+          406,
+          440
+        ]
+      }
+    },
+    "1": {
+      "cocktailCannon": {
+        "referenceBounds": [
+          26,
+          12,
+          460,
+          488
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p2/cocktailCannon/page-2.png",
+          "sha256": "e8318208355ef810bad75f5ffc67ce72db4a79470963d9bacbcd2eabf09baf19",
+          "crop": [
+            46,
+            80,
+            405,
+            414
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "cocktail": {
+            "part": "Upper-left blue cocktail cannon muzzle",
+            "frames": {
+              "8": [
+                78,
+                146
+              ],
+              "9": [
+                126,
+                144
+              ],
+              "10": [
+                137,
+                127
+              ],
+              "11": [
+                124,
+                123
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          46,
+          80,
+          405,
+          414
+        ]
+      },
+      "snacks": {
+        "referenceBounds": [
+          26,
+          12,
+          460,
+          488
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p2/snacks/page-2.png",
+          "sha256": "e52387081c6fded24778e812e8bf6eae0b40253ec8baf3604916d99d7399ec86",
+          "crop": [
+            67,
+            77,
+            378,
+            416
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "pretzel": {
+            "part": "Lower-left pretzel barrel mouth",
+            "frames": {
+              "8": [
+                143,
+                275
+              ],
+              "9": [
+                147,
+                277
+              ],
+              "10": [
+                155,
+                293
+              ],
+              "11": [
+                148,
+                277
+              ]
+            }
+          },
+          "nacho": {
+            "part": "Middle mouth of the upper-right nacho launcher",
+            "frames": {
+              "8": [
+                391,
+                178
+              ],
+              "9": [
+                391,
+                178
+              ],
+              "10": [
+                394,
+                201
+              ],
+              "11": [
+                391,
+                178
+              ]
+            }
+          },
+          "popcorn": {
+            "part": "Open popcorn hopper above the upper-right snack launcher",
+            "frames": {
+              "8": [
+                369,
+                136
+              ],
+              "9": [
+                369,
+                136
+              ],
+              "10": [
+                368,
+                151
+              ],
+              "11": [
+                371,
+                136
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          67,
+          77,
+          378,
+          416
+        ]
+      },
+      "marlin": {
+        "referenceBounds": [
+          26,
+          12,
+          460,
+          488
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p2/marlin/page-2.png",
+          "sha256": "99f05225800ae756c4f2827cefa8135ee8c442d296cb00c2c1d4251e04f6a366",
+          "crop": [
+            53,
+            86,
+            383,
+            407
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "blueMarlin": {
+            "part": "Upper-left blue marlin launcher muzzle",
+            "frames": {
+              "8": [
+                93,
+                151
+              ],
+              "9": [
+                94,
+                150
+              ],
+              "10": [
+                126,
+                194
+              ],
+              "11": [
+                94,
+                151
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          53,
+          86,
+          383,
+          407
+        ]
+      },
+      "diskLaser": {
+        "referenceBounds": [
+          26,
+          12,
+          460,
+          488
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p2/diskLaser/page-2.png",
+          "sha256": "c3b17d98a1dd7406f4fc810acc4dd7a71a20f5d7b42ea0d366ae772f17cf564b",
+          "crop": [
+            76,
+            49,
+            389,
+            445
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "diskLaser": {
+            "part": "Luminous chest vinyl disk hub",
+            "frames": {
+              "8": [
+                278,
+                285
+              ],
+              "9": [
+                274,
+                285
+              ],
+              "10": [
+                244,
+                282
+              ],
+              "11": [
+                273,
+                287
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          76,
+          49,
+          389,
+          445
+        ]
+      },
+      "soundWave": {
+        "referenceBounds": [
+          26,
+          12,
+          460,
+          488
+        ],
+        "page": {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p2/soundWave/page-2.png",
+          "sha256": "c060f03e05403b98063f77e4fd6cf21d094bf02341dcbb507110eebb04a15a05",
+          "crop": [
+            116,
+            138,
+            337,
+            355
+          ],
+          "firstFrame": 8,
+          "columns": 2
+        },
+        "ports": {
+          "speakerMissile.0": {
+            "part": "Lower left-facing speaker barrel mouth",
+            "frames": {
+              "8": [
+                270,
+                240
+              ],
+              "9": [
+                275,
+                239
+              ],
+              "10": [
+                281,
+                215
+              ],
+              "11": [
+                271,
+                233
+              ]
+            }
+          },
+          "speakerMissile.1": {
+            "part": "Middle left-facing speaker barrel mouth",
+            "frames": {
+              "8": [
+                288,
+                209
+              ],
+              "9": [
+                291,
+                210
+              ],
+              "10": [
+                305,
+                187
+              ],
+              "11": [
+                289,
+                202
+              ]
+            }
+          },
+          "speakerMissile.2": {
+            "part": "Upper left-facing speaker barrel mouth",
+            "frames": {
+              "8": [
+                307,
+                180
+              ],
+              "9": [
+                308,
+                179
+              ],
+              "10": [
+                326,
+                162
+              ],
+              "11": [
+                310,
+                174
+              ]
+            }
+          }
+        },
+        "renderCrop": [
+          116,
+          138,
+          337,
+          355
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,527 @@
+{
+  "frameCount": 16,
+  "kind": "projectile",
+  "generator": "built-in image_gen",
+  "columns": 4,
+  "rows": 4,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/projectiles/nacho/page-0.png",
+      "sha256": "6238084467d4f06990e41828934a3fc01ceca0e27eba38843eea82e6bf10a61f",
+      "version": "6238084467d4f069",
+      "width": 2048,
+      "height": 2048,
+      "columns": 4,
+      "rows": 4,
+      "ready": true,
+      "bounds": [
+        12,
+        56,
+        488,
+        399
+      ]
+    }
+  ],
+  "bounds": [
+    12,
+    56,
+    488,
+    399
+  ],
+  "referenceBounds": [
+    12,
+    56,
+    488,
+    399
+  ],
+  "core": [
+    153,
+    195,
+    186,
+    147
+  ],
+  "facing": "left",
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        12,
+        115,
+        479,
+        323
+      ],
+      "frameSha256": "a3d2d22b0971f0344cb65745a0be974f9d344cca6b76dd49b6ab6f720ddb3b9c",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "nativeFrameSha256": "6dd7412c0452496a9ce08d10277409a935d02ede77cb8bb4bcdf98ca635f0477",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        14,
+        106,
+        479,
+        332
+      ],
+      "frameSha256": "f8e14ba002ffd898b406de57e25c278505c765826b86e1b385246f1625ee0c18",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        0,
+        627,
+        314
+      ],
+      "nativeFrameSha256": "2db96816303bfd9706775ab07f7112190c67333cca38180bc63886d9e07fd972",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        18,
+        89,
+        476,
+        342
+      ],
+      "frameSha256": "08dd904faf82557406e5245d4a2188a62d5331bb9a282037387858dadf8f8e71",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        940,
+        314
+      ],
+      "nativeFrameSha256": "c29992cc70346e00517f136d29e38ba94602ba971130bc5f7d6dfdca3873f272",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        21,
+        69,
+        470,
+        354
+      ],
+      "frameSha256": "95a19ae3cc85f1c64ca468d29cd903943a6c7e45ebae404fd248aa94e84d7a3b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        0,
+        1254,
+        314
+      ],
+      "nativeFrameSha256": "b19d61b63002f033cef2e5f32b4f50e51da5f730e4bbe75315dc774395c3d4bb",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 4,
+      "page": 0,
+      "cell": 4,
+      "bounds": [
+        23,
+        56,
+        470,
+        354
+      ],
+      "frameSha256": "0ba9c2ac6d197088c68b5d3f2d2dd360933eee37207c1a520b050d3ab626922b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        314,
+        314,
+        627
+      ],
+      "nativeFrameSha256": "f0bba7bc3f775702fc7a284d5505df25bfd714c08602de15702456c80980916a",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 5,
+      "page": 0,
+      "cell": 5,
+      "bounds": [
+        16,
+        65,
+        475,
+        345
+      ],
+      "frameSha256": "a4399bd1a82f9f0c04a8bb68e8f3934ad2ad335e95e18080f93e7775aa61f315",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        314,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "94b56bff7e686fbb01c8752b598377c04ba3c1c6f798cf3f3b6856f4f5704cb0",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 6,
+      "page": 0,
+      "cell": 6,
+      "bounds": [
+        12,
+        75,
+        484,
+        347
+      ],
+      "frameSha256": "29f35e362506610e29374348756b2b6873d134d12a9c136d13ae0ee6be499955",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        314,
+        940,
+        627
+      ],
+      "nativeFrameSha256": "1803e4a465f702a3f6e46cacd542d3c7b060f7c0095e850e4dc8a631bb214149",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 7,
+      "page": 0,
+      "cell": 7,
+      "bounds": [
+        14,
+        95,
+        480,
+        328
+      ],
+      "frameSha256": "0bb5f75a891e50303cffaba461c8d7fce3f2f6f557e51420369c0e2d0ee77f65",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        314,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "5a77084608998dc6d2fb9f00e6f2049a69eec95e70a89680d6a4d00218c76034",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 8,
+      "page": 0,
+      "cell": 8,
+      "bounds": [
+        12,
+        106,
+        481,
+        325
+      ],
+      "frameSha256": "b8658f866593730df765f2482888d7d7f8143dd2549fec95488ff1d7d57ef591",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        314,
+        940
+      ],
+      "nativeFrameSha256": "099df5861f398bc6a44883d3781179dc48e1c20db2c7e799cf216b21a964d195",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 9,
+      "page": 0,
+      "cell": 9,
+      "bounds": [
+        12,
+        110,
+        479,
+        325
+      ],
+      "frameSha256": "0ba55693467314bafdcbe19b1381fcb696a24e4a1c23b4c5ee1451ac00294579",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        627,
+        627,
+        940
+      ],
+      "nativeFrameSha256": "0a91d9a45d860b1ab97132bf6806a1ae3fcced5523233bf8166a25973faa9d03",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 10,
+      "page": 0,
+      "cell": 10,
+      "bounds": [
+        14,
+        106,
+        477,
+        336
+      ],
+      "frameSha256": "3fe08ea39217f501dee6e7e44ee946f5b0fe41fa7ff498202acc177b8b405eb2",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "nativeFrameSha256": "0713cb141f23925f9f6949b11dacba3f0cb3e386dedbd696719d62fa75883a6f",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 11,
+      "page": 0,
+      "cell": 11,
+      "bounds": [
+        14,
+        112,
+        484,
+        336
+      ],
+      "frameSha256": "f5fb09761b353266edbd9a729d59f0c72c03d1fb6d3d972fdad9e296e0b06f60",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "nativeFrameSha256": "e5eebbc262a48bbbfc79a119931a6bf07d600cccca5232a74657d2fb5e6d03d9",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 12,
+      "page": 0,
+      "cell": 12,
+      "bounds": [
+        12,
+        115,
+        486,
+        340
+      ],
+      "frameSha256": "53d146b8ea4bd1308ce8bb17edb1a0c64048bad9ccb6951dcc63714220b682e7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        940,
+        314,
+        1254
+      ],
+      "nativeFrameSha256": "f90d66b47d510a197856297ac452cf9b213f6f8bc2eff215530b5cb2af3d169b",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 13,
+      "page": 0,
+      "cell": 13,
+      "bounds": [
+        12,
+        108,
+        486,
+        341
+      ],
+      "frameSha256": "59b77cb15beef39a40db63f0c3203516287f497a9bdb771b93d54c33c1ccb848",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        940,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "1bc92f6ef11e8f5f33a498b304ec95240114c49575f4103d8aaf26ee1fbf158f",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 14,
+      "page": 0,
+      "cell": 14,
+      "bounds": [
+        12,
+        112,
+        488,
+        330
+      ],
+      "frameSha256": "eb6b3515876c20035cfff6f1f6803a9635e618cf203fbc5ee740c2830db3a654",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "nativeFrameSha256": "26fde31404c5cdefb6cfffc82cde7bdedb9a16249325b6dc18b073b832481f94",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 15,
+      "page": 0,
+      "cell": 15,
+      "bounds": [
+        14,
+        119,
+        484,
+        323
+      ],
+      "frameSha256": "27f78c03dbde94ce472980dcc8e2124e36d2412528940e859c110ed7ce78d16e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/nacho/nacho-source.png",
+      "sourceSha256": "0994e5153dbdb901b024291a8e56b6ade370369a64cf1504fa8a5fac9d11fcb7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "70f5c7a9f31f81197e517501d922a627f7cfd98431d0da2ca0a301f9b5fa6a3f",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

@@ -1,0 +1,831 @@
+{
+  "frameCount": 16,
+  "kind": "mecha",
+  "generator": "built-in image_gen",
+  "columns": 2,
+  "rows": 2,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/diskLaser/page-0.png",
+      "sha256": "1253149e2306dc39f7e632002f909813d7ef3ec8084928c363e3e3d581254f75",
+      "version": "1253149e2306dc39",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        102,
+        55,
+        361,
+        438
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/diskLaser/page-1.png",
+      "sha256": "567ebd3920c5aac2f8cb264891e840d5312896f4ac04dbb6952152f472d24023",
+      "version": "567ebd3920c5aac2",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        93,
+        84,
+        364,
+        412
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/diskLaser/page-2.png",
+      "sha256": "c3b17d98a1dd7406f4fc810acc4dd7a71a20f5d7b42ea0d366ae772f17cf564b",
+      "version": "c3b17d98a1dd7406",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        76,
+        49,
+        389,
+        445
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/diskLaser/page-3.png",
+      "sha256": "85492fd9a1ffc414c8343ea608edd8c60c4a91a2e191159573f410570a1e0015",
+      "version": "85492fd9a1ffc414",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        110,
+        85,
+        334,
+        408
+      ]
+    }
+  ],
+  "bounds": [
+    76,
+    49,
+    389,
+    447
+  ],
+  "referenceBounds": [
+    26,
+    12,
+    460,
+    488
+  ],
+  "core": [
+    253,
+    133,
+    60,
+    222
+  ],
+  "facing": null,
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        116,
+        55,
+        338,
+        438
+      ],
+      "frameSha256": "89e8946cce2d63af5844cf9988e747b09e86d47b1d1ee35e212cef1922b0371e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-0-source.png",
+      "sourceSha256": "22ae922a51e54ef49b863e5a5af73fd13f628c2bf5a8dd697f53e840159679cc",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "ba61d80c1a8f64911d632ad73e37c887b663a92777158ec4ea36cd511d7985f8",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0838739573679332,
+        "offset": [
+          168,
+          270
+        ],
+        "nativeDisk": [
+          317.75,
+          311.25
+        ],
+        "nativeFoot": 581.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        116,
+        55,
+        341,
+        438
+      ],
+      "frameSha256": "284a656a6acf14ee5c225e2fac2f96f75367768b506e9ba0f5f7ce0d8a54672d",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-0-source.png",
+      "sourceSha256": "22ae922a51e54ef49b863e5a5af73fd13f628c2bf5a8dd697f53e840159679cc",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "825ac017a782d148d1ae00bdde1b04fad2df6e0c5d3e5ad4cb55b57fd2d9e63e",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0838739573679332,
+        "offset": [
+          168,
+          270
+        ],
+        "nativeDisk": [
+          317.75,
+          311.25
+        ],
+        "nativeFoot": 581.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        110,
+        55,
+        352,
+        438
+      ],
+      "frameSha256": "2bff585ee435b1dc10b16c430b78c35795da09adedd16ad411f87e85e2aa70aa",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-0-source.png",
+      "sourceSha256": "22ae922a51e54ef49b863e5a5af73fd13f628c2bf5a8dd697f53e840159679cc",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "da5f97a86f70a7081f938fd6e86e3b7a46863652d992b2057f2da92ed8de8601",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0838739573679332,
+        "offset": [
+          168,
+          270
+        ],
+        "nativeDisk": [
+          317.75,
+          311.25
+        ],
+        "nativeFoot": 581.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        102,
+        55,
+        361,
+        438
+      ],
+      "frameSha256": "c1734dd0d73fb129ac5f08d44d4ca08569bc7dd8ad9429f7b3d79ca457b17793",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-0-source.png",
+      "sourceSha256": "22ae922a51e54ef49b863e5a5af73fd13f628c2bf5a8dd697f53e840159679cc",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "49eeecd8d1c6cdb5bb74eea9103d97589df2938f263dc86ab54542bae617e469",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0838739573679332,
+        "offset": [
+          168,
+          270
+        ],
+        "nativeDisk": [
+          317.75,
+          311.25
+        ],
+        "nativeFoot": 581.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 4,
+      "page": 1,
+      "cell": 0,
+      "bounds": [
+        118,
+        84,
+        324,
+        411
+      ],
+      "frameSha256": "4a96a9bd6fe9274d69973e8df38be653248b5a9df9cd6b34d42ab51963efbd1d",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-1-source.png",
+      "sourceSha256": "6d5ef500999c96dfa27ef21f7f00053d4c20ae3fc8b115014f2eeaf64d444cf0",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "50cdd5d95e71d3417d9d997c9bd22d6cec19e75fe58cb16740e2f29ea12d903a",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.992071681169879,
+        "offset": [
+          197,
+          311
+        ],
+        "nativeDisk": [
+          317.875,
+          299.28843273177284
+        ],
+        "nativeFoot": 594.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "idle-calibrated feet/body registration (lit vinyl hub)",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 5,
+      "page": 1,
+      "cell": 1,
+      "bounds": [
+        115,
+        87,
+        335,
+        409
+      ],
+      "frameSha256": "16a2e7fb931a3459d413bbe39965d731a238f4c0de6c5aceeb468ce033f83069",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-1-source.png",
+      "sourceSha256": "6d5ef500999c96dfa27ef21f7f00053d4c20ae3fc8b115014f2eeaf64d444cf0",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "f6c692f75f9d2324f8e6a600edfadfaaae59de1d19739cc18fa6007bb72b6437",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.992071681169879,
+        "offset": [
+          197,
+          311
+        ],
+        "nativeDisk": [
+          317.875,
+          299.28843273177284
+        ],
+        "nativeFoot": 594.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "idle-calibrated feet/body registration (lit vinyl hub)",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 6,
+      "page": 1,
+      "cell": 2,
+      "bounds": [
+        101,
+        90,
+        351,
+        401
+      ],
+      "frameSha256": "271fe80ad4927c9d11778e872e7881ec131bed4c2ae5d92ed36d86118982fe38",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-1-source.png",
+      "sourceSha256": "6d5ef500999c96dfa27ef21f7f00053d4c20ae3fc8b115014f2eeaf64d444cf0",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "b7df60ac8956035cfe915e565e3c044edbdaa1a14491f002fbec1ac533945f3f",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.992071681169879,
+        "offset": [
+          197,
+          311
+        ],
+        "nativeDisk": [
+          317.875,
+          299.28843273177284
+        ],
+        "nativeFoot": 594.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "idle-calibrated feet/body registration (lit vinyl hub)",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 7,
+      "page": 1,
+      "cell": 3,
+      "bounds": [
+        93,
+        94,
+        364,
+        397
+      ],
+      "frameSha256": "4517915f91e29b3aaf715655e7c470aadc9a7507c44299896f82bfc61a8dfbb7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-1-source.png",
+      "sourceSha256": "6d5ef500999c96dfa27ef21f7f00053d4c20ae3fc8b115014f2eeaf64d444cf0",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "71072fde9470cc53807caa0ef8d40dfccdae180627eac3fefb6a21ae44d85e49",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.992071681169879,
+        "offset": [
+          197,
+          311
+        ],
+        "nativeDisk": [
+          317.875,
+          299.28843273177284
+        ],
+        "nativeFoot": 594.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "idle-calibrated feet/body registration (lit vinyl hub)",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 8,
+      "page": 2,
+      "cell": 0,
+      "bounds": [
+        95,
+        53,
+        362,
+        440
+      ],
+      "frameSha256": "e74807f5b965d67a88b459dcd130343effd1c35372a238b477dd926fdb9aee32",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-2-source.png",
+      "sourceSha256": "0e98c994d7767dd69aad854c532349656c75c459ca9ee2ecd97274b5aac0727a",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "65f7e60c9e86926beaf710fbcff3ffd2a3d11cca7a4df289797054477ec1d126",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0719523373052247,
+        "offset": [
+          169,
+          260
+        ],
+        "nativeDisk": [
+          320.0,
+          324.25
+        ],
+        "nativeFoot": 597.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 9,
+      "page": 2,
+      "cell": 1,
+      "bounds": [
+        87,
+        51,
+        376,
+        442
+      ],
+      "frameSha256": "5861cccb40013e863ec839a573ac1a27f63101118e1175df2e8ec7ea21fa9863",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-2-source.png",
+      "sourceSha256": "0e98c994d7767dd69aad854c532349656c75c459ca9ee2ecd97274b5aac0727a",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "43e73c94beb690ead97178427eb4d7e05611e13080349289f8179293f8813e0d",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0719523373052247,
+        "offset": [
+          169,
+          260
+        ],
+        "nativeDisk": [
+          320.0,
+          324.25
+        ],
+        "nativeFoot": 597.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 10,
+      "page": 2,
+      "cell": 2,
+      "bounds": [
+        76,
+        49,
+        389,
+        443
+      ],
+      "frameSha256": "3c651c048dc924c950a274445a53dcd884df438aebbf1e3d02e86e4148cbd9a2",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-2-source.png",
+      "sourceSha256": "0e98c994d7767dd69aad854c532349656c75c459ca9ee2ecd97274b5aac0727a",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "ee67c05ea78e9b5bd7f8fdc1b9adaa3a9ba13c4e41cb922a66715b70e9d7f12c",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0719523373052247,
+        "offset": [
+          169,
+          260
+        ],
+        "nativeDisk": [
+          320.0,
+          324.25
+        ],
+        "nativeFoot": 597.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 11,
+      "page": 2,
+      "cell": 3,
+      "bounds": [
+        96,
+        52,
+        363,
+        442
+      ],
+      "frameSha256": "571e556af226d88e2fd16ec1d9c77dcf4b54367f5b7b0261f1849436dee791f7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-2-source.png",
+      "sourceSha256": "0e98c994d7767dd69aad854c532349656c75c459ca9ee2ecd97274b5aac0727a",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "484a62c1de2250690eba9683c7d1fe5f44467d63f077cb26b8dd745a8a1fbdae",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0719523373052247,
+        "offset": [
+          169,
+          260
+        ],
+        "nativeDisk": [
+          320.0,
+          324.25
+        ],
+        "nativeFoot": 597.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 12,
+      "page": 3,
+      "cell": 0,
+      "bounds": [
+        118,
+        85,
+        326,
+        408
+      ],
+      "frameSha256": "603cd82553af2debaacc4da80ec3a0a40ceff13afae4ccd353c5101759a06a03",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-3-source.png",
+      "sourceSha256": "6a7c73d97f277471aa93038aa49964c72cc0a834cf33a399669f1f220cebe9f2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "29ca0a89cb36566a06d0d60466669b724d384ba7ee5bca7757659c4baacba977",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0151909722222223,
+        "offset": [
+          171,
+          315
+        ],
+        "nativeDisk": [
+          336.0,
+          288.0
+        ],
+        "nativeFoot": 576.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 13,
+      "page": 3,
+      "cell": 1,
+      "bounds": [
+        110,
+        90,
+        320,
+        403
+      ],
+      "frameSha256": "6530946841eab6fdf6c12b00fde86b381329a0193a3f7415ab5dc1a81ec45e8e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-3-source.png",
+      "sourceSha256": "6a7c73d97f277471aa93038aa49964c72cc0a834cf33a399669f1f220cebe9f2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "b4c5abb0839dc712f3e2714b033dc9ef8e6d3ad35e44b6432024b95e02a511db",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0151909722222223,
+        "offset": [
+          171,
+          315
+        ],
+        "nativeDisk": [
+          336.0,
+          288.0
+        ],
+        "nativeFoot": 576.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 14,
+      "page": 3,
+      "cell": 2,
+      "bounds": [
+        120,
+        93,
+        313,
+        400
+      ],
+      "frameSha256": "abb6f2ac88931d85e27100eb6de753a1587e80f7895f1d6ca731d813dba83a32",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-3-source.png",
+      "sourceSha256": "6a7c73d97f277471aa93038aa49964c72cc0a834cf33a399669f1f220cebe9f2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "b3df821a78c290ae9e630ca36a98d2715a422259a20131190df6601edb2ac948",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0151909722222223,
+        "offset": [
+          171,
+          315
+        ],
+        "nativeDisk": [
+          336.0,
+          288.0
+        ],
+        "nativeFoot": 576.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 15,
+      "page": 3,
+      "cell": 3,
+      "bounds": [
+        110,
+        93,
+        315,
+        400
+      ],
+      "frameSha256": "88738634ba6974a2de55c8a01d9056587f1ad1aca30bf994410eea01777960c1",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/diskLaser/page-3-source.png",
+      "sourceSha256": "6a7c73d97f277471aa93038aa49964c72cc0a834cf33a399669f1f220cebe9f2",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "19d7b1cd9eee1f56336e41185bb630407f4e0d62b98fca2c222dfd87ed1afe75",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0151909722222223,
+        "offset": [
+          171,
+          315
+        ],
+        "nativeDisk": [
+          336.0,
+          288.0
+        ],
+        "nativeFoot": 576.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

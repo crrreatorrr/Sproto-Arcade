@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "frame": 11,
+  "page": 2,
+  "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-2-source.png",
+  "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f",
+  "sourceRegionLTRB": [
+    38,
+    492,
+    140,
+    579
+  ],
+  "pageRegistration": {
+    "scale": 0.8189775910364145,
+    "offset": [
+      288,
+      405
+    ],
+    "nativeDisk": [
+      273.5,
+      247.0
+    ],
+    "nativeFoot": 604.0,
+    "targetDiskX": 512,
+    "targetFoot": 900,
+    "anchorMethod": "visible red vinyl hub",
+    "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+  },
+  "review": "Native low beer-stick impact; preserve visually unchanged body and feet registration because red-hub threshold candidates changed. The opaque beer head intersects a standing player while the sprite remains grounded."
+}
