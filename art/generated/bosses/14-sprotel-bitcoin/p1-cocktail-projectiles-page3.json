@@ -1,0 +1,197 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page3.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 8,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        54,
+        14,
+        459,
+        494
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-4x4/frame-08.png",
+      "sourceFrameSha256": "7c8de4b79eb10a1e76677f46f008c82d156b56d4182b2513f8ba70834731db89",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        58,
+        33,
+        279,
+        295
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/drinks/import-report-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-source-4x4.png",
+      "masterSourceSha256": "04b6f8d4296ee54a38b0ba883464b8f81c948b1570bb9bf72a0dd817860f007f",
+      "sourceCellXYXY": [
+        0,
+        627,
+        314,
+        940
+      ]
+    },
+    {
+      "index": 9,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        54,
+        14,
+        457,
+        496
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-4x4/frame-09.png",
+      "sourceFrameSha256": "f9d4097a4b4e6734e1f3e0c076926937e2306359a107efaab28c2555339ea671",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        58,
+        33,
+        278,
+        296
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/drinks/import-report-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-source-4x4.png",
+      "masterSourceSha256": "04b6f8d4296ee54a38b0ba883464b8f81c948b1570bb9bf72a0dd817860f007f",
+      "sourceCellXYXY": [
+        314,
+        627,
+        627,
+        940
+      ]
+    },
+    {
+      "index": 10,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        52,
+        12,
+        457,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-4x4/frame-10.png",
+      "sourceFrameSha256": "d3006c3cd41859f0ee8a8baecab2767c87c82aa83790d2106afaca90502f5ccc",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        57,
+        32,
+        278,
+        297
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/drinks/import-report-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-source-4x4.png",
+      "masterSourceSha256": "04b6f8d4296ee54a38b0ba883464b8f81c948b1570bb9bf72a0dd817860f007f",
+      "sourceCellXYXY": [
+        627,
+        627,
+        940,
+        940
+      ]
+    },
+    {
+      "index": 11,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        54,
+        12,
+        459,
+        498
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-4x4/frame-11.png",
+      "sourceFrameSha256": "c01581d7c68d5f2ece938837c9493517cbac8f474d443425a33fd235a4901ea4",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        58,
+        32,
+        279,
+        297
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/drinks/import-report-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/drinks/cocktail-source-4x4.png",
+      "masterSourceSha256": "04b6f8d4296ee54a38b0ba883464b8f81c948b1570bb9bf72a0dd817860f007f",
+      "sourceCellXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ]
+    }
+  ],
+  "bounds": [
+    52,
+    12,
+    407,
+    486
+  ],
+  "animationBounds": [
+    52,
+    12,
+    407,
+    488
+  ],
+  "core": [
+    138,
+    144,
+    167,
+    110
+  ],
+  "version": "eeb9c308db56e3fe",
+  "atlasSha256": "eeb9c308db56e3fea3a4b244431184e45bd4837eac8278dedb262161efc9e797",
+  "page": 3,
+  "frameStart": 8,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "projectile",
+  "animation": "cocktail",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      57,
+      32,
+      279,
+      298
+    ],
+    "uniformScale": 1.8345864661654134,
+    "destinationDimensions": [
+      407,
+      488
+    ],
+    "offsetXY": [
+      52,
+      12,
+      459,
+      500
+    ],
+    "baseline": null,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  }
+}

@@ -1,0 +1,1084 @@
+{
+  "generator": "built-in image_gen",
+  "layout": "4x4 row-major",
+  "method": "Native source cells with rounded fractional boundaries, conservative magenta cleanup including enclosed background holes, pad-only to314-square; no duplicated/synthesized frames",
+  "assets": {
+    "beer": {
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-source-4x4.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGB",
+      "sourceSha256": "f38ba8308ce71fb03761833906683003b2f0ee174ea3df6801107e5ab0bb73a4",
+      "frameSize": [
+        314,
+        314
+      ],
+      "distinctFrames": 16,
+      "alpha": "binary RGBA, zero hidden RGB",
+      "sourceUnionXYXY": [
+        40,
+        27,
+        269,
+        286
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "sourceCellXYXY": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            49,
+            44,
+            269,
+            286
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-00.png",
+          "sha256": "7a35bb38cfec9aabd59a5b9b73c34328add989df0f56b60bf6edfd2b1b3838a9"
+        },
+        {
+          "index": 1,
+          "sourceCellXYXY": [
+            314,
+            0,
+            627,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            48,
+            43,
+            265,
+            286
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-01.png",
+          "sha256": "9515b5c61dce348f46b396f894f8e7e12e830e62e4fc160854f24ce205643cd0"
+        },
+        {
+          "index": 2,
+          "sourceCellXYXY": [
+            627,
+            0,
+            940,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            48,
+            43,
+            262,
+            286
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-02.png",
+          "sha256": "4e47c4d97585ceeb3f9992d7fda4658fd056c11e228916841faab611d5547f1c"
+        },
+        {
+          "index": 3,
+          "sourceCellXYXY": [
+            940,
+            0,
+            1254,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            48,
+            43,
+            256,
+            286
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-03.png",
+          "sha256": "1a51e40ee50f10f8dd8839cc96315efc55d00ba7e7cb12414cbed01a7f72b422"
+        },
+        {
+          "index": 4,
+          "sourceCellXYXY": [
+            0,
+            314,
+            314,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            47,
+            42,
+            257,
+            285
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-04.png",
+          "sha256": "56518b4ad980246cbe38ea47f0f1ddbd9f42503054f4d7a718f5d8ad90a6a92b"
+        },
+        {
+          "index": 5,
+          "sourceCellXYXY": [
+            314,
+            314,
+            627,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            46,
+            38,
+            257,
+            284
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-05.png",
+          "sha256": "dd8fa888dc081edb773d4aaa3b0005f7d53172e30e917648db139f3b15f06246"
+        },
+        {
+          "index": 6,
+          "sourceCellXYXY": [
+            627,
+            314,
+            940,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            44,
+            33,
+            259,
+            282
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-06.png",
+          "sha256": "ec406c3549ef38a86c223603ebcd89e298aff57a2e393b1adcfa3d83da9c49ff"
+        },
+        {
+          "index": 7,
+          "sourceCellXYXY": [
+            940,
+            314,
+            1254,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            40,
+            27,
+            260,
+            279
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-07.png",
+          "sha256": "bc97abca5917aa7ca9283da8f29a34a89532a0d0a9930e234f05037185676d1a"
+        },
+        {
+          "index": 8,
+          "sourceCellXYXY": [
+            0,
+            627,
+            314,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            41,
+            28,
+            265,
+            281
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-08.png",
+          "sha256": "8a5c655ac19293f9bd315aa8ca1803e1230495c1990ddef06bc74fc2ada46960"
+        },
+        {
+          "index": 9,
+          "sourceCellXYXY": [
+            314,
+            627,
+            627,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            44,
+            28,
+            264,
+            282
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-09.png",
+          "sha256": "2b8d2db737e8b78d47b5f79b5cd0ab29a8f72531f702968325676b06788f1155"
+        },
+        {
+          "index": 10,
+          "sourceCellXYXY": [
+            627,
+            627,
+            940,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            46,
+            32,
+            260,
+            282
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-10.png",
+          "sha256": "78e7bc5b735aa72f55c7bf82d2373d4a2aea7ed65487298a7c19c541bd013b69"
+        },
+        {
+          "index": 11,
+          "sourceCellXYXY": [
+            940,
+            627,
+            1254,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            46,
+            36,
+            261,
+            281
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-11.png",
+          "sha256": "54ae55fb7147ff1c272d8e3a797889c609fe4c5136db0c12bd8986dd93cd91d6"
+        },
+        {
+          "index": 12,
+          "sourceCellXYXY": [
+            0,
+            940,
+            314,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            47,
+            39,
+            260,
+            282
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-12.png",
+          "sha256": "0568d8f12eaa7d3b9676ac0d338d024efac591d8b8a4a7a68e220a8d0fd0ac55"
+        },
+        {
+          "index": 13,
+          "sourceCellXYXY": [
+            314,
+            940,
+            627,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            47,
+            39,
+            261,
+            281
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-13.png",
+          "sha256": "c9f095bc20067ddb77721ea46d51cca026c19a4b6982927c448016586774f035"
+        },
+        {
+          "index": 14,
+          "sourceCellXYXY": [
+            627,
+            940,
+            940,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            45,
+            39,
+            267,
+            281
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-14.png",
+          "sha256": "676f5a6f3fea44e1e791289b1590b4b6efb40d5ed5d5143481a65eaa259b5aea"
+        },
+        {
+          "index": 15,
+          "sourceCellXYXY": [
+            940,
+            940,
+            1254,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            43,
+            35,
+            267,
+            281
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/beer-4x4/frame-15.png",
+          "sha256": "aba3d43b0b13fe4b16ee5322d97c87ead22fa6185542c3bf7289c7e58416cae2"
+        }
+      ]
+    },
+    "cocktail": {
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-source-4x4.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGB",
+      "sourceSha256": "04b6f8d4296ee54a38b0ba883464b8f81c948b1570bb9bf72a0dd817860f007f",
+      "frameSize": [
+        314,
+        314
+      ],
+      "distinctFrames": 16,
+      "alpha": "binary RGBA, zero hidden RGB",
+      "sourceUnionXYXY": [
+        57,
+        32,
+        279,
+        298
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "sourceCellXYXY": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            63,
+            34,
+            278,
+            296
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-00.png",
+          "sha256": "24a46522b55200f02f3235c040c7c461692e9e3066d51e576f6f15141986d8fc"
+        },
+        {
+          "index": 1,
+          "sourceCellXYXY": [
+            314,
+            0,
+            627,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            61,
+            33,
+            278,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-01.png",
+          "sha256": "6a1fba520faba30aeae7c2aa02a8e6c688af4d9885313c538c13daa52c4aa4a9"
+        },
+        {
+          "index": 2,
+          "sourceCellXYXY": [
+            627,
+            0,
+            940,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            60,
+            33,
+            278,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-02.png",
+          "sha256": "4b448a8fe9dd214cbf35fd787a00dac0c65878af92f356069a460a05db6f958a"
+        },
+        {
+          "index": 3,
+          "sourceCellXYXY": [
+            940,
+            0,
+            1254,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            59,
+            33,
+            279,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-03.png",
+          "sha256": "00144d930d7278416c3e24bb67301171a010762eb90584f685d5ddd908b005db"
+        },
+        {
+          "index": 4,
+          "sourceCellXYXY": [
+            0,
+            314,
+            314,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            60,
+            33,
+            279,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-04.png",
+          "sha256": "80a2e51fecbe88de41eb2fd3d4b736f4fc32918d112d418240e0af6d30a7833e"
+        },
+        {
+          "index": 5,
+          "sourceCellXYXY": [
+            314,
+            314,
+            627,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            59,
+            32,
+            278,
+            295
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-05.png",
+          "sha256": "b9b5bc8a992100d9e736538d49284c45c9ab34d8274d32fddafa226b1d50b48f"
+        },
+        {
+          "index": 6,
+          "sourceCellXYXY": [
+            627,
+            314,
+            940,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            60,
+            32,
+            278,
+            295
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-06.png",
+          "sha256": "af0180ef6a5b53448877fce597006232a78248ed58c0c7735ea576e9e44e3ebe"
+        },
+        {
+          "index": 7,
+          "sourceCellXYXY": [
+            940,
+            314,
+            1254,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            59,
+            32,
+            279,
+            295
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-07.png",
+          "sha256": "200e85529295a20eca1485810160c4c573c63adb0ee940269c2904655c53149a"
+        },
+        {
+          "index": 8,
+          "sourceCellXYXY": [
+            0,
+            627,
+            314,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            58,
+            33,
+            279,
+            295
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-08.png",
+          "sha256": "7c8de4b79eb10a1e76677f46f008c82d156b56d4182b2513f8ba70834731db89"
+        },
+        {
+          "index": 9,
+          "sourceCellXYXY": [
+            314,
+            627,
+            627,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            58,
+            33,
+            278,
+            296
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-09.png",
+          "sha256": "f9d4097a4b4e6734e1f3e0c076926937e2306359a107efaab28c2555339ea671"
+        },
+        {
+          "index": 10,
+          "sourceCellXYXY": [
+            627,
+            627,
+            940,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            57,
+            32,
+            278,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-10.png",
+          "sha256": "d3006c3cd41859f0ee8a8baecab2767c87c82aa83790d2106afaca90502f5ccc"
+        },
+        {
+          "index": 11,
+          "sourceCellXYXY": [
+            940,
+            627,
+            1254,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            58,
+            32,
+            279,
+            297
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-11.png",
+          "sha256": "c01581d7c68d5f2ece938837c9493517cbac8f474d443425a33fd235a4901ea4"
+        },
+        {
+          "index": 12,
+          "sourceCellXYXY": [
+            0,
+            940,
+            314,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            60,
+            33,
+            279,
+            298
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-12.png",
+          "sha256": "453bb2829d844089d1fc9096f3f5ebedd3b6971d5e8e05945dcd5b43f97c8b55"
+        },
+        {
+          "index": 13,
+          "sourceCellXYXY": [
+            314,
+            940,
+            627,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            58,
+            33,
+            278,
+            298
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-13.png",
+          "sha256": "7dc618f20a61b3944ed82cb58a1742b1e219c44cae6733935a5ac25336648f8d"
+        },
+        {
+          "index": 14,
+          "sourceCellXYXY": [
+            627,
+            940,
+            940,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            57,
+            33,
+            278,
+            298
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-14.png",
+          "sha256": "d9d5ebcffc07a959ffb82908c5733fd0b7ee0fd7ae3841bbdfaf665092ae7976"
+        },
+        {
+          "index": 15,
+          "sourceCellXYXY": [
+            940,
+            940,
+            1254,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            58,
+            33,
+            279,
+            298
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/cocktail-4x4/frame-15.png",
+          "sha256": "ed186d20274946b239c8178ee89ac88919528927f60149de6adb5d85b566f119"
+        }
+      ]
+    },
+    "disk-laser": {
+      "source": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-source-4x4.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGB",
+      "sourceSha256": "f4762cb7ddf8eb1f457f5515b786dfa26c632bd95e3cdcecef083ad957f7ffe2",
+      "frameSize": [
+        314,
+        314
+      ],
+      "distinctFrames": 16,
+      "alpha": "binary RGBA, zero hidden RGB",
+      "sourceUnionXYXY": [
+        24,
+        104,
+        289,
+        219
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "sourceCellXYXY": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-00.png",
+          "sha256": "1322f42ecb1da528461ff717e81c3f72e6a01a97efe127ed0051a5d15f256d45"
+        },
+        {
+          "index": 1,
+          "sourceCellXYXY": [
+            314,
+            0,
+            627,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            24,
+            106,
+            288,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-01.png",
+          "sha256": "e6aeafd17640cf37c4f95c658f6207e720797a9a9891c859d9ff955d9823ff89"
+        },
+        {
+          "index": 2,
+          "sourceCellXYXY": [
+            627,
+            0,
+            940,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-02.png",
+          "sha256": "8701aa7a1169a5af83ada1e1c24909384516d7aa821376f9b13dc2ef1e81fafc"
+        },
+        {
+          "index": 3,
+          "sourceCellXYXY": [
+            940,
+            0,
+            1254,
+            314
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-03.png",
+          "sha256": "24c68ac32a9e5009e1005a6bdf71dc9b53bc70ac47f2027b73fa2d33e2925882"
+        },
+        {
+          "index": 4,
+          "sourceCellXYXY": [
+            0,
+            314,
+            314,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            105,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-04.png",
+          "sha256": "3a80b715095c309459f150dca388e05a571f08be3e4fa616c558e669277833a5"
+        },
+        {
+          "index": 5,
+          "sourceCellXYXY": [
+            314,
+            314,
+            627,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            24,
+            104,
+            288,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-05.png",
+          "sha256": "4a48b73a2dc429bef2665f6e58a3a003a33d7f43ef07f194db6b8cc303c20fcf"
+        },
+        {
+          "index": 6,
+          "sourceCellXYXY": [
+            627,
+            314,
+            940,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            104,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-06.png",
+          "sha256": "940b7b4c32bc56930f7e9ea048707908272e6f2c480e0785e7f111df175dbb3c"
+        },
+        {
+          "index": 7,
+          "sourceCellXYXY": [
+            940,
+            314,
+            1254,
+            627
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            105,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-07.png",
+          "sha256": "73ed1a3933ad242b8db6456084b752265a7ebfb24d757f327aadfd233bb95bfa"
+        },
+        {
+          "index": 8,
+          "sourceCellXYXY": [
+            0,
+            627,
+            314,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-08.png",
+          "sha256": "3aacf89620677b7e564c494c3a3ba08366e106645515336bc9e46b43bd73a84d"
+        },
+        {
+          "index": 9,
+          "sourceCellXYXY": [
+            314,
+            627,
+            627,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            24,
+            106,
+            288,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-09.png",
+          "sha256": "a34d3c021e78b6fe6c970c8aa501c2a3af9512055a8dafe6e6f6371f76c96d3c"
+        },
+        {
+          "index": 10,
+          "sourceCellXYXY": [
+            627,
+            627,
+            940,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-10.png",
+          "sha256": "d92314b230e0b4bf00c121ba3e4bb65ef33e44377bdf35e5d35b514054476f29"
+        },
+        {
+          "index": 11,
+          "sourceCellXYXY": [
+            940,
+            627,
+            1254,
+            940
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            218
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-11.png",
+          "sha256": "51d600973a76d047f0cb281faf2b05c2b63b47e210c05ffdcb039066ab3a2024"
+        },
+        {
+          "index": 12,
+          "sourceCellXYXY": [
+            0,
+            940,
+            314,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            219
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-12.png",
+          "sha256": "c0919a38a640944d6e5bb73d468850b951efa2fc8dfd9f53ebfe4bdd3a1108f2"
+        },
+        {
+          "index": 13,
+          "sourceCellXYXY": [
+            314,
+            940,
+            627,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            24,
+            106,
+            288,
+            219
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-13.png",
+          "sha256": "60922f2d02d398003fb97ba1a62639b95e1add51370ee4776da12d377caa5c6d"
+        },
+        {
+          "index": 14,
+          "sourceCellXYXY": [
+            627,
+            940,
+            940,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            219
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-14.png",
+          "sha256": "e9adbd3df839a299877fda38cc9d45106885e2b8a3256029adef55c52d2da625"
+        },
+        {
+          "index": 15,
+          "sourceCellXYXY": [
+            940,
+            940,
+            1254,
+            1254
+          ],
+          "paddingOffset": [
+            0,
+            0
+          ],
+          "boundsXYXY": [
+            25,
+            106,
+            289,
+            219
+          ],
+          "path": "/Users/kenhiraoka/Documents/Codex/2026-11-17/for-sproto-arcade-add-this-as/work/sprotel-drinks/disk-laser-4x4/frame-15.png",
+          "sha256": "e7fca23134893bfa51e9a2dcb61f23a4cef1b77f5d0fa42ff062125dd9dad2aa"
+        }
+      ]
+    }
+  }
+}

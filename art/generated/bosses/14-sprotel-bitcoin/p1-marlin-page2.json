@@ -1,0 +1,227 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page2.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 4,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        93,
+        62,
+        474,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/marlin/frame-04.png",
+      "sourceFrameSha256": "328f96d92bf5fe00382e4990c9220f7361b02a495d2b0c0d7ad452abca69d349",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        118,
+        63,
+        595,
+        610
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/marlin/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin-page2-source-2x2.png",
+      "masterSourceSha256": "43894f6889848e148d12a2ebe8a226ec7e6922f5774a2cbab0c1cc4f0ec80742",
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 2,
+      "nativePageFrame": 0
+    },
+    {
+      "index": 5,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        61,
+        62,
+        474,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/marlin/frame-05.png",
+      "sourceFrameSha256": "fa7899485d3d1aba876f04d1552a16295f4b6345c5b51af1c0246a8ad21df7a2",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        78,
+        63,
+        595,
+        610
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/marlin/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin-page2-source-2x2.png",
+      "masterSourceSha256": "43894f6889848e148d12a2ebe8a226ec7e6922f5774a2cbab0c1cc4f0ec80742",
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 2,
+      "nativePageFrame": 1
+    },
+    {
+      "index": 6,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        51,
+        64,
+        474,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/marlin/frame-06.png",
+      "sourceFrameSha256": "c4d53f826f4f12e57cb22c96cf97f0a06cdfae49b4c54a3e2c02eeea05a2eaeb",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        66,
+        65,
+        595,
+        610
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/marlin/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin-page2-source-2x2.png",
+      "masterSourceSha256": "43894f6889848e148d12a2ebe8a226ec7e6922f5774a2cbab0c1cc4f0ec80742",
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 2,
+      "nativePageFrame": 2
+    },
+    {
+      "index": 7,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        33,
+        64,
+        474,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/marlin/frame-07.png",
+      "sourceFrameSha256": "c5dba1511179cf3ef1d770cf65d0a0621957e430a07623e953de4733aa34471a",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        43,
+        65,
+        595,
+        610
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/marlin/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin-page2-source-2x2.png",
+      "masterSourceSha256": "43894f6889848e148d12a2ebe8a226ec7e6922f5774a2cbab0c1cc4f0ec80742",
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 2,
+      "nativePageFrame": 3
+    }
+  ],
+  "bounds": [
+    33,
+    62,
+    441,
+    437
+  ],
+  "animationBounds": [
+    33,
+    60,
+    445,
+    440
+  ],
+  "core": [
+    235,
+    95,
+    192,
+    206
+  ],
+  "version": "04d62c0ccc79ec3a",
+  "atlasSha256": "04d62c0ccc79ec3a4d0527dd887a81ee459b794ed84c183afa7f1f525ab0058a",
+  "page": 2,
+  "frameStart": 4,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "body",
+  "animation": "marlin",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      43,
+      60,
+      600,
+      611
+    ],
+    "uniformScale": 0.7985480943738656,
+    "destinationDimensions": [
+      445,
+      440
+    ],
+    "offsetXY": [
+      33,
+      60,
+      478,
+      500
+    ],
+    "baseline": 500,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  },
+  "referenceBounds": [
+    15,
+    60,
+    482,
+    440
+  ]
+}

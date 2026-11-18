@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "phase": 1,
+  "pages": 44,
+  "frames": 176,
+  "pending": [],
+  "pageSize": [
+    1024,
+    1024
+  ],
+  "pageGrid": [
+    2,
+    2
+  ],
+  "bodyHeight": 440,
+  "allFramesNativeAndDistinct": true,
+  "allCellsHaveAtLeast12pxPadding": true,
+  "projectileCores": "each verified fully opaque in all sixteen corresponding packed frames",
+  "manifestSha256": "15287cdd97f2ae9d7e2bf1499e61fe92d8c580f2c8d04a2695264ae5df2b5e48"
+}

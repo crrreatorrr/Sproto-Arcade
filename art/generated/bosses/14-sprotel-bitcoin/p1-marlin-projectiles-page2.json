@@ -1,0 +1,197 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page2.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 4,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        14,
+        117,
+        488,
+        340
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/marlin/standard-4x4/frame-04.png",
+      "sourceFrameSha256": "f44441252f88fcaf05bc192d5dc46975388c6e55f1775304c092fd896605dd86",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        17,
+        78,
+        295,
+        209
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/marlin/manifest-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin/standard-source-4x4.png",
+      "masterSourceSha256": "6cc34d03593b53d5e21708b314878514161caf36285aa2da0ff52b5a8f51ce72",
+      "sourceCellXYXY": [
+        0,
+        314,
+        314,
+        627
+      ]
+    },
+    {
+      "index": 5,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        12,
+        122,
+        491,
+        340
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/marlin/standard-4x4/frame-05.png",
+      "sourceFrameSha256": "4b3e091086c57c3ac84b57d3634eff9a447944ba76869b002766547537d5d24f",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        16,
+        81,
+        297,
+        209
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/marlin/manifest-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin/standard-source-4x4.png",
+      "masterSourceSha256": "6cc34d03593b53d5e21708b314878514161caf36285aa2da0ff52b5a8f51ce72",
+      "sourceCellXYXY": [
+        314,
+        314,
+        627,
+        627
+      ]
+    },
+    {
+      "index": 6,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        12,
+        129,
+        491,
+        349
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/marlin/standard-4x4/frame-06.png",
+      "sourceFrameSha256": "3df3cbc5e617b7add229f62b6b7cfaa89abb1f1e45fa56242a87e012f3604a37",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        16,
+        85,
+        297,
+        214
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/marlin/manifest-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin/standard-source-4x4.png",
+      "masterSourceSha256": "6cc34d03593b53d5e21708b314878514161caf36285aa2da0ff52b5a8f51ce72",
+      "sourceCellXYXY": [
+        627,
+        314,
+        940,
+        627
+      ]
+    },
+    {
+      "index": 7,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        14,
+        132,
+        493,
+        354
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/marlin/standard-4x4/frame-07.png",
+      "sourceFrameSha256": "9e967056af4b130dac59576ad98ef9273307e4f3568edd41dfab80cb0ab07115",
+      "sourceFrameDimensions": [
+        314,
+        314
+      ],
+      "sourceFrameBoundsLTRB": [
+        17,
+        87,
+        298,
+        217
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/marlin/manifest-4x4.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/marlin/standard-source-4x4.png",
+      "masterSourceSha256": "6cc34d03593b53d5e21708b314878514161caf36285aa2da0ff52b5a8f51ce72",
+      "sourceCellXYXY": [
+        940,
+        314,
+        1254,
+        627
+      ]
+    }
+  ],
+  "bounds": [
+    12,
+    117,
+    481,
+    237
+  ],
+  "animationBounds": [
+    12,
+    117,
+    488,
+    278
+  ],
+  "core": [
+    128,
+    219,
+    159,
+    79
+  ],
+  "version": "ccae3dddcee5f447",
+  "atlasSha256": "ccae3dddcee5f4473176aead925f297ff436680d71d5cd2691a7922a5af181bf",
+  "page": 2,
+  "frameStart": 4,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "projectile",
+  "animation": "blueMarlin",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      16,
+      78,
+      302,
+      241
+    ],
+    "uniformScale": 1.7062937062937062,
+    "destinationDimensions": [
+      488,
+      278
+    ],
+    "offsetXY": [
+      12,
+      117,
+      500,
+      395
+    ],
+    "baseline": null,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  }
+}

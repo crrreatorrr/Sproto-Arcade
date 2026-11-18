@@ -1,0 +1,227 @@
+{
+  "path": "art/generated/bosses/14-sprotel-bitcoin/p1-idle-page3.png",
+  "ready": true,
+  "width": 1024,
+  "height": 1024,
+  "columns": 2,
+  "rows": 2,
+  "frameWidth": 512,
+  "frameHeight": 512,
+  "frames": [
+    {
+      "index": 8,
+      "pageFrame": 0,
+      "row": 0,
+      "column": 0,
+      "cellBounds": [
+        69,
+        60,
+        451,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/idle/frame-08.png",
+      "sourceFrameSha256": "7c80dfe303111f881f2a5302e3d23fda7957de6915099803b33e3e36c5f18df0",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        108,
+        62,
+        574,
+        598
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/idle/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/idle-page3-source-2x2.png",
+      "masterSourceSha256": "24944e6c73836df2658e6e8311ea86a2dfc7ef8f7595c6f3a063244f91a40449",
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 3,
+      "nativePageFrame": 0
+    },
+    {
+      "index": 9,
+      "pageFrame": 1,
+      "row": 0,
+      "column": 1,
+      "cellBounds": [
+        66,
+        73,
+        451,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/idle/frame-09.png",
+      "sourceFrameSha256": "774d2aaae610212fb41a1fc8e535f26b9f432c85e6d85970c2898a4265983299",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        105,
+        78,
+        575,
+        598
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/idle/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/idle-page3-source-2x2.png",
+      "masterSourceSha256": "24944e6c73836df2658e6e8311ea86a2dfc7ef8f7595c6f3a063244f91a40449",
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 3,
+      "nativePageFrame": 1
+    },
+    {
+      "index": 10,
+      "pageFrame": 2,
+      "row": 1,
+      "column": 0,
+      "cellBounds": [
+        72,
+        76,
+        452,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/idle/frame-10.png",
+      "sourceFrameSha256": "4b4f5ad524514c5907b60d26338066d0c7f909daf0946323adde24bea5180b1a",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        112,
+        82,
+        576,
+        598
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/idle/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/idle-page3-source-2x2.png",
+      "masterSourceSha256": "24944e6c73836df2658e6e8311ea86a2dfc7ef8f7595c6f3a063244f91a40449",
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 3,
+      "nativePageFrame": 2
+    },
+    {
+      "index": 11,
+      "pageFrame": 3,
+      "row": 1,
+      "column": 1,
+      "cellBounds": [
+        66,
+        78,
+        451,
+        499
+      ],
+      "sourceFrame": "art/reference/20261117-sprotel-bitcoin/body/idle/frame-11.png",
+      "sourceFrameSha256": "50d6265ce4b978de8e42bb7e1a227f33b9945472a773b6562808948d90ab9609",
+      "sourceFrameDimensions": [
+        704,
+        704
+      ],
+      "sourceFrameBoundsLTRB": [
+        105,
+        84,
+        575,
+        598
+      ],
+      "generatedSourceProof": "art/reference/20261117-sprotel-bitcoin/body/idle/manifest.json",
+      "generator": "built-in image_gen",
+      "masterSource": "art/reference/20261117-sprotel-bitcoin/idle-page3-source-2x2.png",
+      "masterSourceSha256": "24944e6c73836df2658e6e8311ea86a2dfc7ef8f7595c6f3a063244f91a40449",
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "pageRegistrationOffsetXY": [
+        0,
+        0
+      ],
+      "nativePage": 3,
+      "nativePageFrame": 3
+    }
+  ],
+  "bounds": [
+    66,
+    60,
+    386,
+    439
+  ],
+  "animationBounds": [
+    59,
+    60,
+    394,
+    440
+  ],
+  "core": [
+    193,
+    115,
+    213,
+    175
+  ],
+  "version": "0920010fec95a62b",
+  "atlasSha256": "0920010fec95a62ba20795b930548c4be789d1034a898865d486b300eaa494e1",
+  "page": 3,
+  "frameStart": 8,
+  "frameCount": 4,
+  "generator": "built-in image_gen",
+  "phase": 1,
+  "kind": "body",
+  "animation": "idle",
+  "sampling": "one-to-one native drawings; no duplication, interpolation or invented poses",
+  "transform": {
+    "sourceUnionCropLTRB": [
+      96,
+      62,
+      577,
+      599
+    ],
+    "uniformScale": 0.819366852886406,
+    "destinationDimensions": [
+      394,
+      440
+    ],
+    "offsetXY": [
+      59,
+      60,
+      453,
+      500
+    ],
+    "baseline": 500,
+    "registration": "one shared crop, scale and anchor for all sixteen native frames"
+  },
+  "referenceBounds": [
+    15,
+    60,
+    482,
+    440
+  ]
+}

@@ -4840,6 +4840,10 @@ const SPRITE_HITBOXES = {
   }
 };
 
+// BEGIN SPROTEL PHASE 1 GEOMETRY
+SPRITE_HITBOXES.stages[14]={"0":{"provenance":{"status":"source-hashed-sprotel-phase1-reviewed","bossSha256":"053436caa893b9639af626915557961d54f9e4af5dfa7e9bb8ce981d17de76a1","projectilesSha256":"e67ad8dc38cc288c6fab2007ac73b55e8ddca48236df56fec5174a34ee95c96c","bodyReferenceBounds":[15,60,482,440],"bodyHullPixels":[150,190,270,300],"contactHullPixels":[150,240,270,250],"logicalTargetPixels":[220,355,100,130],"diskPortPixels":[255,286],"projectileCoreStatus":"sixteen-native-frame-opaque-intersection"},"boss":{"damage":{"rect":[0.21428571428571427,0.5100321027287319,0.7244897959183674,0.4755216693418941]},"contact":{"rect":[0.2951219512195122,0.5512396694214876,0.5195121951219512,0.40702479338842973]}},"targets":{"sprotel-core":{"rect":[0.34545454545454546,-0.03333333333333333,0.6818181818181818,1.0777777777777777]}},"projectiles":{"beer@0":{"reference":[40,12,431,488],"crop":[40,12,431,488],"core":[194,82,204,369],"visualBox":[42,54],"kind":"contain","facing":"left"},"sprotel.beer@0":{"reference":[40,12,431,488],"crop":[40,12,431,488],"core":[194,82,204,369],"visualBox":[42,54],"kind":"contain","facing":"left"},"cocktail@1":{"reference":[52,12,407,488],"crop":[52,12,407,488],"core":[138,144,167,110],"visualBox":[38,48],"kind":"contain","facing":"left"},"sprotel.cocktail@1":{"reference":[52,12,407,488],"crop":[52,12,407,488],"core":[138,144,167,110],"visualBox":[38,48],"kind":"contain","facing":"left"},"blueMarlin@2":{"reference":[12,117,488,278],"crop":[12,117,488,278],"core":[128,219,159,79],"visualBox":[100,38],"kind":"contain","facing":"left"},"sprotel.marlin@2":{"reference":[12,117,488,278],"crop":[12,117,488,278],"core":[128,219,159,79],"visualBox":[100,38],"kind":"contain","facing":"left"},"diskLaser@0":{"reference":[12,150,488,212],"crop":[12,150,488,212],"core":[176,194,302,126],"visualBox":[120,40],"kind":"contain","facing":"left"},"laser@0":{"reference":[12,150,488,212],"crop":[12,150,488,212],"core":[176,194,302,126],"visualBox":[120,40],"kind":"contain","facing":"left"},"sprotel.disk-laser@0":{"reference":[12,150,488,212],"crop":[12,150,488,212],"core":[176,194,302,126],"visualBox":[120,40],"kind":"contain","facing":"left"}}}};
+// END SPROTEL PHASE 1 GEOMETRY
+
 function spriteHitboxFinite(value) { return typeof value === 'number' && isFinite(value); }
 
 // Shared renderer/simulation destination pixels relative to the visual box center.
@@ -4939,6 +4943,7 @@ function spriteWeaponCycle(stage, phase, source, eventId, bornTick) {
 }
 
 function spriteModernWeaponVariant(stage,phase,source,eventId,bornTick,missile) {
+  if(parseInt(stage,10)===14)return /cocktail/.test(source)?1:/merlin|marlin/.test(source)?2:0;
   if(source==='07-moonkeep/dragon-breath')return 0;
   return missile?2:spriteWeaponMod3(spriteWeaponCycle(stage,phase,source,eventId,bornTick));
 }

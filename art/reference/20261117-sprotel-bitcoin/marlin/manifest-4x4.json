@@ -1,0 +1,929 @@
+{
+  "generation": "built-in image_gen",
+  "grid": [
+    4,
+    4
+  ],
+  "frameOrder": "row-major",
+  "sampling": "one native source cell per frame; no duplication or motion interpolation",
+  "variants": {
+    "standard": {
+      "source": "standard-source-4x4.png",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceSha256": "6cc34d03593b53d5e21708b314878514161caf36285aa2da0ff52b5a8f51ce72",
+      "distinctFrames": 16,
+      "frames": [
+        {
+          "index": 0,
+          "path": "standard-4x4/frame-00.png",
+          "sourceCell": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            93,
+            302,
+            219
+          ],
+          "keyedBackgroundPixels": 83621,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "5f8703c020e785a9711721f22b32da8cfc73bc9b1d2ea3575a0536a6c5ff9ae7"
+        },
+        {
+          "index": 1,
+          "path": "standard-4x4/frame-01.png",
+          "sourceCell": [
+            314,
+            0,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            89,
+            297,
+            215
+          ],
+          "keyedBackgroundPixels": 83217,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "09effa78169c8a1dcf2e5848774ba6d56a6983f737adadb3788003d2b984dbe4"
+        },
+        {
+          "index": 2,
+          "path": "standard-4x4/frame-02.png",
+          "sourceCell": [
+            627,
+            0,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            86,
+            299,
+            212
+          ],
+          "keyedBackgroundPixels": 82954,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "92b442da7f86411dfd9750f2e0daddf9bd2c0ab0a5c189ebbbd867fac0c05f3f"
+        },
+        {
+          "index": 3,
+          "path": "standard-4x4/frame-03.png",
+          "sourceCell": [
+            940,
+            0,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            79,
+            297,
+            209
+          ],
+          "keyedBackgroundPixels": 82978,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "79488651507958a5320792b0a87ee8b3a2209da065d42c1aa9b3c1f030bd5b83"
+        },
+        {
+          "index": 4,
+          "path": "standard-4x4/frame-04.png",
+          "sourceCell": [
+            0,
+            314,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            78,
+            295,
+            209
+          ],
+          "keyedBackgroundPixels": 82321,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "f44441252f88fcaf05bc192d5dc46975388c6e55f1775304c092fd896605dd86"
+        },
+        {
+          "index": 5,
+          "path": "standard-4x4/frame-05.png",
+          "sourceCell": [
+            314,
+            314,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            81,
+            297,
+            209
+          ],
+          "keyedBackgroundPixels": 81975,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "4b3e091086c57c3ac84b57d3634eff9a447944ba76869b002766547537d5d24f"
+        },
+        {
+          "index": 6,
+          "path": "standard-4x4/frame-06.png",
+          "sourceCell": [
+            627,
+            314,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            85,
+            297,
+            214
+          ],
+          "keyedBackgroundPixels": 82378,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "3df3cbc5e617b7add229f62b6b7cfaa89abb1f1e45fa56242a87e012f3604a37"
+        },
+        {
+          "index": 7,
+          "path": "standard-4x4/frame-07.png",
+          "sourceCell": [
+            940,
+            314,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            87,
+            298,
+            217
+          ],
+          "keyedBackgroundPixels": 82594,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "9e967056af4b130dac59576ad98ef9273307e4f3568edd41dfab80cb0ab07115"
+        },
+        {
+          "index": 8,
+          "path": "standard-4x4/frame-08.png",
+          "sourceCell": [
+            0,
+            627,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            90,
+            301,
+            222
+          ],
+          "keyedBackgroundPixels": 82808,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "a742f6e38c73038f7410d040c0c178311cf07d462f3272cc5d1f80ed3a5f1cfb"
+        },
+        {
+          "index": 9,
+          "path": "standard-4x4/frame-09.png",
+          "sourceCell": [
+            314,
+            627,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            94,
+            301,
+            228
+          ],
+          "keyedBackgroundPixels": 82954,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "0850af21fde8b1fbc4830ccec9bef0c27c966797598456825d80fbe0f0faab3e"
+        },
+        {
+          "index": 10,
+          "path": "standard-4x4/frame-10.png",
+          "sourceCell": [
+            627,
+            627,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            97,
+            300,
+            236
+          ],
+          "keyedBackgroundPixels": 83114,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "2bddbbab764a09918b0c71f169f855f48c860eabe1cea1ba55aa380a41d2e4ee"
+        },
+        {
+          "index": 11,
+          "path": "standard-4x4/frame-11.png",
+          "sourceCell": [
+            940,
+            627,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            100,
+            297,
+            241
+          ],
+          "keyedBackgroundPixels": 83654,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "d25f1d64d9ffb125e05eaf89a75da09b113c8b7c1aaeedb5934f990e9bf3554b"
+        },
+        {
+          "index": 12,
+          "path": "standard-4x4/frame-12.png",
+          "sourceCell": [
+            0,
+            940,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            99,
+            302,
+            236
+          ],
+          "keyedBackgroundPixels": 83780,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "7f76a7c5a294f43f48b2830cbeb85a37e7617179f6cba045c066fa42828bc0a6"
+        },
+        {
+          "index": 13,
+          "path": "standard-4x4/frame-13.png",
+          "sourceCell": [
+            314,
+            940,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            95,
+            301,
+            231
+          ],
+          "keyedBackgroundPixels": 83367,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "691da45d8240a72f0e0454e964948a1fc8dbfa6f062f9cb7a2aeb3c65d619c93"
+        },
+        {
+          "index": 14,
+          "path": "standard-4x4/frame-14.png",
+          "sourceCell": [
+            627,
+            940,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            16,
+            93,
+            300,
+            222
+          ],
+          "keyedBackgroundPixels": 83332,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "91485db42eebe7c9c536d8d84a21ac4049ca6c663a1f358cc30e914d036052d2"
+        },
+        {
+          "index": 15,
+          "path": "standard-4x4/frame-15.png",
+          "sourceCell": [
+            940,
+            940,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            17,
+            95,
+            301,
+            219
+          ],
+          "keyedBackgroundPixels": 83767,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "bdf7094aa34c65005026bd3988e08e01012726305fe58f39155af40a055e3c95"
+        }
+      ]
+    },
+    "heavy": {
+      "source": "heavy-source-4x4.png",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceSha256": "568dcd27d543af6067c1a00d2fb682557ffe5bd672cf9c0c209836a1ead75aea",
+      "distinctFrames": 16,
+      "frames": [
+        {
+          "index": 0,
+          "path": "heavy-4x4/frame-00.png",
+          "sourceCell": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            71,
+            301,
+            223
+          ],
+          "keyedBackgroundPixels": 79024,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "8e8a95e5f9af9f5f68546e74324eb3ec60ba6aaac1c68e7e4922831917f940f1"
+        },
+        {
+          "index": 1,
+          "path": "heavy-4x4/frame-01.png",
+          "sourceCell": [
+            314,
+            0,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            67,
+            303,
+            223
+          ],
+          "keyedBackgroundPixels": 78259,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "cdd93b54aad44e3a5552ebd0c48169edbbef79daf255c9742325c107cb70dc59"
+        },
+        {
+          "index": 2,
+          "path": "heavy-4x4/frame-02.png",
+          "sourceCell": [
+            627,
+            0,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            64,
+            301,
+            222
+          ],
+          "keyedBackgroundPixels": 78132,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "efc031fb94331caed009b3f6163f751a1e31a52adfbfc72d37fba3f7f8a03663"
+        },
+        {
+          "index": 3,
+          "path": "heavy-4x4/frame-03.png",
+          "sourceCell": [
+            940,
+            0,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            59,
+            300,
+            222
+          ],
+          "keyedBackgroundPixels": 78539,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "0b1ba1002c6812a1da8bb8c2fe83d694154ecfbd5d44770b59d38e2fa662bee4"
+        },
+        {
+          "index": 4,
+          "path": "heavy-4x4/frame-04.png",
+          "sourceCell": [
+            0,
+            314,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            58,
+            299,
+            221
+          ],
+          "keyedBackgroundPixels": 77952,
+          "enclosedChromaPixelsKeyed": 1,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "7ef50209a8908dc1912484fdfe7bfc92341e1a054a06c844e8904f154e8935ce"
+        },
+        {
+          "index": 5,
+          "path": "heavy-4x4/frame-05.png",
+          "sourceCell": [
+            314,
+            314,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            63,
+            299,
+            219
+          ],
+          "keyedBackgroundPixels": 78307,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "7510600cb9fc2ce0b942523ea3bd2422c9f28ef0e8b48e9845264f475b74dccf"
+        },
+        {
+          "index": 6,
+          "path": "heavy-4x4/frame-06.png",
+          "sourceCell": [
+            627,
+            314,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            68,
+            296,
+            219
+          ],
+          "keyedBackgroundPixels": 79092,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "711def9452ae34305c083b96de4ab7b5a26b7a7503e1a29565506fabd0e9ef0c"
+        },
+        {
+          "index": 7,
+          "path": "heavy-4x4/frame-07.png",
+          "sourceCell": [
+            940,
+            314,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            71,
+            300,
+            219
+          ],
+          "keyedBackgroundPixels": 79324,
+          "enclosedChromaPixelsKeyed": 1,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "365e3eeb8c6b068468ba74528ccc9e21a98a2ade81e3cb8a685f5dfa7eeff707"
+        },
+        {
+          "index": 8,
+          "path": "heavy-4x4/frame-08.png",
+          "sourceCell": [
+            0,
+            627,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            72,
+            301,
+            222
+          ],
+          "keyedBackgroundPixels": 78770,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "b6c239b70b6f8db46fbe994d8da849a8daa94733676c6750416e797a9242c601"
+        },
+        {
+          "index": 9,
+          "path": "heavy-4x4/frame-09.png",
+          "sourceCell": [
+            314,
+            627,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            77,
+            304,
+            234
+          ],
+          "keyedBackgroundPixels": 78785,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "a1c5cdb58ada48deca573bd8eecce19d4dfd713f75f44f24a4445c1cae7570cd"
+        },
+        {
+          "index": 10,
+          "path": "heavy-4x4/frame-10.png",
+          "sourceCell": [
+            627,
+            627,
+            313,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            81,
+            301,
+            243
+          ],
+          "keyedBackgroundPixels": 79128,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "baa64c8004d1af32147c77dd5566140f911588e204af8867d5693da473fded87"
+        },
+        {
+          "index": 11,
+          "path": "heavy-4x4/frame-11.png",
+          "sourceCell": [
+            940,
+            627,
+            314,
+            313
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            88,
+            301,
+            248
+          ],
+          "keyedBackgroundPixels": 80232,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "0d010888ba1784eb9dbd56c2c46769f1af117093e282f33dc63e5ebd86026edd"
+        },
+        {
+          "index": 12,
+          "path": "heavy-4x4/frame-12.png",
+          "sourceCell": [
+            0,
+            940,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            82,
+            301,
+            240
+          ],
+          "keyedBackgroundPixels": 80012,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "6df3679e753ce93ae6b453e1092b2da2760876f1639d70d6db7aae7b1f088d39"
+        },
+        {
+          "index": 13,
+          "path": "heavy-4x4/frame-13.png",
+          "sourceCell": [
+            314,
+            940,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            12,
+            75,
+            303,
+            226
+          ],
+          "keyedBackgroundPixels": 79353,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "d8db213aa27254e3271ec3dc22984ea67381eb4c569d2fec44778691430a920f"
+        },
+        {
+          "index": 14,
+          "path": "heavy-4x4/frame-14.png",
+          "sourceCell": [
+            627,
+            940,
+            313,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            73,
+            300,
+            221
+          ],
+          "keyedBackgroundPixels": 79446,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "9e6e53ba688667cf05cd0f96f24fe31652d57f00d80ab710345eaf2840c08f0e"
+        },
+        {
+          "index": 15,
+          "path": "heavy-4x4/frame-15.png",
+          "sourceCell": [
+            940,
+            940,
+            314,
+            314
+          ],
+          "outputDimensions": [
+            314,
+            314
+          ],
+          "bounds": [
+            13,
+            72,
+            300,
+            222
+          ],
+          "keyedBackgroundPixels": 79682,
+          "enclosedChromaPixelsKeyed": 0,
+          "alphaValues": [
+            0,
+            255
+          ],
+          "residualMagentaPixels": 0,
+          "sha256": "245f96c440e20003c1246b944fa439df98c063a639c32fa990e5184dc9073394"
+        }
+      ]
+    }
+  }
+}

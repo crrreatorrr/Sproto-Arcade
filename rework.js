@@ -22,8 +22,8 @@ for(const [id,name] of pilots)$('pilot').add(new Option(name,id));
 function readRecords(){try{return JSON.parse(localStorage.getItem('arcade-v1-records')||'{}');}catch{return {};}}
 function recordKey(w){return w.stage.id+':'+(w.checkpointRetry?'checkpoint:phase1':w.practice?`practice:phase${w.options.phase}:sector${w.options.sector}`:'full');}
 function records(){const r=readRecords(),id=$('stage').value,o=$('entry').selectedOptions[0],phase=Number(o?.dataset.phase??o?.value)||0,sector=Number(o?.dataset.sector)||0;const f=r[id+':full'],p=r[id+`:practice:phase${phase}:sector${sector}`];$('records').textContent=`Best full run: ${f?(f/60).toFixed(1)+'s':'—'} · Best selected practice: ${p?(p/60).toFixed(1)+'s':'—'}`;}
-function refreshEntries(){const s=Arcade.stages.get($('stage').value);$('entry').replaceChildren(new Option('Full run · Phase 1','0'),new Option('Practice · Phase 2','1'));for(const sec of s?.practiceSectors||[]){const o=new Option('Practice · '+sec.label,'sector-'+sec.id);o.dataset.phase=sec.phase??0;o.dataset.sector=sec.id;$('entry').add(o);}records();}
-function startNow(){trialTransition?.reset();incomingWorld=null;const s=Arcade.stages.get($('stage').value);if(!s)return;pilot=$('pilot').value;world=new Arcade.World(s,{pickupAttempt:pickupAttempt++,seed:Number($('seed').value)||777,phase:Number($('entry').selectedOptions[0].dataset.phase??$('entry').value)||0,sector:Number($('entry').selectedOptions[0].dataset.sector)||0,practice:$('entry').value!=='0'});paused=false;held.clear();press.clear();acc=0;visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;$('next').hidden=true;records();tone();}
+function refreshEntries(){const s=Arcade.stages.get($('stage').value);$('entry').replaceChildren(new Option('Full run · Phase 1','0'),...(s?.phases.length>1?[new Option('Practice · Phase 2','1')]:[]));for(const sec of s?.practiceSectors||[]){const o=new Option('Practice · '+sec.label,'sector-'+sec.id);o.dataset.phase=sec.phase??0;o.dataset.sector=sec.id;$('entry').add(o);}records();}
+function startNow(){trialTransition?.reset();incomingWorld=null;const s=Arcade.stages.get($('stage').value);if(!s)return;pilot=$('pilot').value;world=new Arcade.World(s,{pickupAttempt:pickupAttempt++,seed:Number($('seed').value)||777,phase:Number($('entry').selectedOptions[0]?.dataset.phase??$('entry').value)||0,sector:Number($('entry').selectedOptions[0]?.dataset.sector)||0,practice:$('entry').value!=='0'});paused=false;held.clear();press.clear();acc=0;visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;$('next').hidden=true;records();tone();}
 let startRequest=0;const startLabel=$('start').textContent;
 function start(){
  const id=$('stage').value,selectedPilot=$('pilot').value,art=globalThis.ArcadeBossSheets,ticket=++startRequest;
@@ -96,6 +96,8 @@ function drawTrialsBackdrop(phaseTwo){
  const gradient=ctx.createLinearGradient(0,0,0,720);
  gradient.addColorStop(0,'#172d3e');gradient.addColorStop(1,world.stage.color||'#293e47');
  ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,720);
+ const scenery=img(world.stage.scenery);
+ if(scenery){const scale=1280/scenery.naturalWidth,height=scenery.naturalHeight*scale,foot=world.stage.sceneryFoot??.801;ctx.drawImage(scenery,0,600-height*foot,1280,height);}
  if(world.stage.phases[Number(phaseTwo)].naval)ArcadeSpeedboat.drawOcean(ctx,img,world.phaseElapsed*40,phaseTwo);
 }
 function render(){if(!world){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase,jet=w.stage.number===7;
@@ -190,7 +192,13 @@ function stepTrials(inputFrame){
  if(world.tick!==tick)globalThis.ArcadeBossSheets?.projectileHitsTrial?.(world);
 }
 function trialsFrame(now){const dt=Math.min(250,now-last||0);last=now;acc+=dt;let steps=0;const running=!!(world&&!paused);if(running){while(acc>=1000/60){const i=input();if(i.retry){trialTransition?.reset();incomingWorld=null;world.restart();visibleState='';soundTick=-1;render.lastCue='';$('curtain').hidden=true;held.clear();}else stepTrials(i);acc-=1000/60;steps++;}if(world.state!==visibleState){visibleState=world.state;if(world.state==='lost')overlay('Try the next opening',`Cause: ${world.failure||'Unknown hazard'}. Press R or retry. Phase ${world.phaseIndex+1} restarts with the standard kit.`,'Retry');if(world.state==='clear'){const key=recordKey(world),r=readRecords();r[key]=Math.min(r[key]||Infinity,world.tick);try{localStorage.setItem('arcade-v1-records',JSON.stringify(r));}catch{}records();overlay('Encounter cleared',`${world.stage.operator}'s machine is down. ${world.checkpointRetry?'Phase checkpoint result':world.practice?'Practice result':'Full-run result'} · ${(world.tick/60).toFixed(1)} seconds.`,'Play again');}}$('status').textContent=`${world.state.toUpperCase()} · Seed ${world.seed??$('seed').value} · Tick ${world.tick} · ${world.failure?'Last hit: '+world.failure:'Read the cue, then commit.'}`;}else{acc=0;press.clear();}render();return !running||steps>0;}
-$('status').textContent=`${stages.length} encounters registered · Offline classic scripts`;const query=new URLSearchParams(location.search);if(Arcade.stages.has(query.get('stage')))$('stage').value=query.get('stage');refreshEntries();if(query.get('phase')==='1')$('entry').value='1';records();requestAnimationFrame(loop);globalThis.ArcadeCrash?.markStarted();
+function applyEntryQuery(query){
+ const id=query.get('stage');
+ if(stages.some(s=>s.id===id))$('stage').value=id;
+ refreshEntries();
+ if(query.get('phase')==='1'&&Arcade.stages.get($('stage').value)?.phases.length>1)$('entry').value='1';
+}
+$('status').textContent=`${stages.length} encounters registered · Offline classic scripts`;applyEntryQuery(new URLSearchParams(location.search));records();requestAnimationFrame(loop);globalThis.ArcadeCrash?.markStarted();
 // Public read-only-in-spirit diagnostics for reproducible QA; no forced completion UI.
 // Main menu (menus.js): leave the run and show the first curtain with the setup again.
 const menuCurtain={result:$('result').textContent,message:$('message').textContent,button:$('resume').textContent};

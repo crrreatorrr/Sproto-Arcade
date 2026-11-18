@@ -26,8 +26,9 @@ errors, pending, records = [], [], []
 assert set(map(str, range(1, 13))).issubset(manifest), 'Original boss identities must remain present'
 for number, config in manifest.items():
     for group in ['phases', 'projectiles']:
-        assert len(config[group]) == 2
-        for phase, asset in enumerate(config[group], 1):
+        phase_count=config.get('phaseCount',2)
+        assert len(config[group]) >= phase_count
+        for phase, asset in enumerate(config[group][:phase_count], 1):
             label = f'{number} {config["folder"]} P{phase} {group}'
             if not asset.get('ready'):
                 pending.append(label)
@@ -37,12 +38,14 @@ for number, config in manifest.items():
                 errors.append(f'{label}: missing enabled file {path}')
                 continue
             image = Image.open(path)
-            if image.mode != 'RGBA' or image.size != (2048, 2048):
-                errors.append(f'{label}: expected RGBA 2048×2048, got {image.mode} {image.size}')
+            dimensions=(asset.get('width',2048),asset.get('height',2048))
+            columns,rows=config.get('columns',4),config.get('rows',4)
+            if image.mode != 'RGBA' or image.size != dimensions:
+                errors.append(f'{label}: expected RGBA {dimensions}, got {image.mode} {image.size}')
                 continue
             bounds = []
-            for row in range(4):
-                for col in range(4):
+            for row in range(rows):
+                for col in range(columns):
                     cell = image.crop((col*512, row*512, (col+1)*512, (row+1)*512))
                     box = cell.getchannel('A').getbbox()
                     if box is None:
@@ -57,15 +60,19 @@ for number, config in manifest.items():
                 actual = union(bounds)
                 if actual != asset.get('bounds'):
                     errors.append(f'{label}: manifest bounds {asset.get("bounds")} differ from actual {actual}')
-                rows = [union(bounds[r*4:r*4+4]) for r in range(4)]
-                if asset.get('rowBounds') is not None and rows != asset['rowBounds']:
-                    errors.append(f'{label}: projectile rowBounds differ from actual {rows}')
+                actual_rows = [union(bounds[r*columns:r*columns+columns]) for r in range(rows)]
+                if asset.get('rowBounds') is not None and actual_rows != asset['rowBounds']:
+                    errors.append(f'{label}: projectile rowBounds differ from actual {actual_rows}')
             if not path.with_suffix('.json').exists():
                 errors.append(f'{label}: missing conversion provenance JSON')
             records.append({'phase': phase, 'kind': group, 'folder': config['folder'],
                             'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
 presentation_count = 0
 for number, config in manifest.items():
+    if config.get('phaseCount')==1:
+        # Sprotel's native actions use paged 2x2 atlases, rather than an
+        # additional cosmetic copy of the older four-row phase-sheet format.
+        continue
     pins = versions.get(number)
     if not pins or len(pins) != 2:
         errors.append(f'{number}: expected two cosmetic sprite sheets')
@@ -99,8 +106,38 @@ for number, config in manifest.items():
                 if not changed or changed[0] < x or changed[1] < y or changed[2] > x+w or changed[3] > y+h:
                     errors.append(f'{path}: cell {cell} is unchanged or modifies pixels outside the draw crop')
         presentation_count += 1
+animation_pages=0
+for number,config in manifest.items():
+    for family in ['animations','projectileAnimations']:
+        for name,animation in config.get(family,{}).items():
+            hashes=[]
+            if len(animation.get('pages',[]))!=4:
+                errors.append(f'{number} {name}: expected four 2x2 pages for sixteen frames')
+            for page in animation.get('pages',[]):
+                path=root/page['path']; metadata=path.with_suffix('.json')
+                if not page.get('ready') or not path.exists() or not metadata.exists():
+                    errors.append(f'{number} {name}: missing/unready animation page {path}');continue
+                image=Image.open(path)
+                if image.mode!='RGBA' or image.size!=(1024,1024):
+                    errors.append(f'{path}: expected 1024x1024 RGBA 2x2 page');continue
+                data=json.loads(metadata.read_text())
+                if data.get('columns')!=2 or data.get('rows')!=2:
+                    errors.append(f'{path}: source metadata must describe a 2x2 page')
+                if hashlib.sha256(path.read_bytes()).hexdigest()[:16]!=page.get('version'):
+                    errors.append(f'{path}: content pin does not match pixels')
+                for cell in range(4):
+                    x,y=cell%2*512,cell//2*512
+                    frame=image.crop((x,y,x+512,y+512));alpha=frame.getchannel('A');box=alpha.getbbox()
+                    if not box or min(box[:2])<2 or max(box[2:])>510:
+                        errors.append(f'{path}: clipped/empty cell {cell}')
+                    if set(alpha.getdata())!={0,255}:errors.append(f'{path}: expected crisp binary alpha')
+                    hashes.append(hashlib.sha256(frame.tobytes()).hexdigest())
+                animation_pages+=1
+            if len(hashes)!=16 or len(set(hashes))!=16:
+                errors.append(f'{number} {name}: expected sixteen distinct native frames')
 if args.require_complete and pending:
     errors.extend(f'Pending: {label}' for label in pending)
-print(json.dumps({'approvedFiles': len(records), 'expectedFiles': len(manifest)*4,
+print(json.dumps({'approvedFiles': len(records), 'expectedFiles': sum(c.get('phaseCount',2)*2 for c in manifest.values()),
+                  'animationPages':animation_pages,
                   'presentationFiles': presentation_count, 'pending': pending, 'errors': errors, 'assets': records}, indent=2))
 raise SystemExit(1 if errors else 0)
