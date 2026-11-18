@@ -8,8 +8,61 @@ import argparse,hashlib,json,subprocess
 from pathlib import Path
 from PIL import Image
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--require-complete',action='store_true');args=parser.parse_args();root=Path(__file__).resolve().parents[1]
-data=json.loads(subprocess.check_output(['node','-e',"const fs=require('fs'),vm=require('vm');require('./boss-sheets.js');const c=vm.createContext({});vm.runInContext(fs.readFileSync('sprite-hitboxes.js','utf8'),c);console.log(JSON.stringify({manifest:ArcadeBossSheets.manifest,geometry:vm.runInContext('SPRITE_HITBOXES',c)}))"],cwd=root));errors=[];pending=[];records=[]
+data=json.loads(subprocess.check_output(['node','-e',"const fs=require('fs'),vm=require('vm');if(fs.existsSync('sprotel-art.js'))require('./sprotel-art.js');require('./boss-sheets.js');const c=vm.createContext({});vm.runInContext(fs.readFileSync('sprite-hitboxes.js','utf8'),c);console.log(JSON.stringify({manifest:ArcadeBossSheets.manifest,geometry:vm.runInContext('SPRITE_HITBOXES',c)}))"],cwd=root));errors=[];pending=[];records=[]
+
+def verify_paged(stage,entry):
+ aliases={'sprotel.beer':'beer','sprotel.cocktail':'cocktail','sprotel.cocktail-cannon':'cocktail','sprotel.marlin':'blueMarlin','sprotel.disk-laser':'diskLaser','laser':'diskLaser','sprotel.sound-wave':'speakerMissile'}
+ if not entry.get('artComplete'):pending.append(f'{stage}: animation set incomplete')
+ for phase in range(entry.get('phaseCount',2)):
+  label=f'{entry["folder"]} P{phase+1}'
+  geometry=data['geometry']['stages'].get(stage,{}).get(str(phase),{})
+  provenance=geometry.get('provenance',{})
+  animations=entry.get('phaseAnimations',[{},{}])[phase]
+  if not animations.get('idle') or not geometry.get('boss') or not geometry.get('targets'):
+   errors.append(f'{label}: missing idle/body/target geometry');continue
+  idle=animations['idle']['pages'][0]
+  idle_hashes=[hashlib.sha256((root/page['path']).read_bytes()).hexdigest() for page in animations['idle']['pages']]
+  if phase==0:
+   if provenance.get('bossSha256')!=idle_hashes[0]:errors.append(f'{label}: first idle hash differs from geometry')
+  elif provenance.get('idlePageSha256')!=idle_hashes:errors.append(f'{label}: idle page hashes differ from geometry')
+  for kind,group in [('boss',animations),('projectiles',entry.get('projectileAnimations',{}))]:
+   for name,animation in group.items():
+    pages=animation.get('pages',[])
+    if sum(p.get('columns',2)*p.get('rows',2) for p in pages)!=16:errors.append(f'{label} {name}: expected sixteen native cells')
+    for page in pages:
+     path=root/page['path']
+     if not page.get('ready') or not path.is_file():errors.append(f'{label} {name}: missing approved page');continue
+     digest=hashlib.sha256(path.read_bytes()).hexdigest()
+     if not digest.startswith(page.get('version','invalid')):errors.append(f'{label} {name}: stale page content pin')
+     if page.get('sha256') and page['sha256']!=digest:errors.append(f'{label} {name}: stale page hash')
+     with Image.open(path) as image:
+      columns,rows=page.get('columns',2),page.get('rows',2)
+      if image.mode!='RGBA' or image.size!=(columns*512,rows*512):errors.append(f'{label} {name}: invalid page dimensions')
+   records.append({'phase':phase+1,'stage':int(stage),'kind':kind,'animation':name})
+  for key,profile in geometry.get('projectiles',{}).items():
+   if 'reference' not in profile:continue
+   family=key.rsplit('@',1)[0];name=aliases.get(family,family)
+   if name.startswith('sprotel.snacks.'):name=name.rsplit('.',1)[1]
+   animation=entry.get('projectileAnimations',{}).get(name)
+   if not animation:errors.append(f'{label} {key}: missing projectile family');continue
+   core=profile.get('core',[])
+   if len(core)!=4 or min(core[2:])<=0 or min(core[:2])<0 or core[0]+core[2]>512 or core[1]+core[3]>512:
+    errors.append(f'{label} {key}: invalid native core');continue
+   if profile.get('reference')!=animation['bounds'] or profile.get('crop')!=animation['bounds']:errors.append(f'{label} {key}: stale animation crop')
+   if profile.get('kind')!='contain' or profile.get('facing')!=animation.get('facing','left'):errors.append(f'{label} {key}: transform differs from renderer')
+   x,y,w,h=core
+   for page in animation['pages']:
+    with Image.open(root/page['path']) as image:
+     columns,rows=page.get('columns',2),page.get('rows',2)
+     alpha=image.getchannel('A')
+     for cell in range(columns*rows):
+      cx,cy=cell%columns*512,cell//columns*512
+      if alpha.crop((cx+x,cy+y,cx+x+w,cy+y+h)).getextrema()!=(255,255):errors.append(f'{label} {key}: core leaves actual opaque pixels in {page["path"]} cell {cell}')
+
 for stage,entry in data['manifest'].items():
+ if entry.get('paged'):
+  verify_paged(stage,entry)
+  continue
  for phase in range(entry.get('phaseCount',2)):
   geometry=data['geometry']['stages'].get(stage,{}).get(str(phase),{});provenance=geometry.get('provenance',{});label=f'{entry["folder"]} P{phase+1}'
   for group,hashkey in [('phases','bossSha256'),('projectiles','projectilesSha256')]:

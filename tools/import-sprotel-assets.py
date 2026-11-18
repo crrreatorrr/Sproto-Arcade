@@ -1,321 +1,375 @@
 #!/usr/bin/env python3
-"""Pack Sprotel Phase 1 native animations into four 2x2 pages per family.
+"""Import real Sprotel animation drawings without inventing or duplicating frames.
 
-Only chroma cleanup, source registration, one shared per-animation transform,
-nearest-neighbour scaling and atlas packing occur here. No new poses, duplicate
-frames, interpolated motion or per-frame scaling are introduced.
+Mecha: four native 2x2 source pages per action (16 frames), four 1024px
+runtime pages. Projectiles: one native 4x4 sheet (16 frames), one 2048px atlas.
+Each phase shares one mecha transform; each projectile has one shared transform.
+Run --partial for an inventory/preview while generation finishes. A release
+import requires every declared source and --require-complete asset verification.
+Local generation sources take priority; checked-in reference sources and released
+Phase 1 snapshots let a fresh checkout reproduce the import without Git history.
 """
-from pathlib import Path
 import argparse
 import hashlib
 import json
+from pathlib import Path
 import shutil
 import statistics
+import subprocess
+import copy
 from PIL import Image, ImageChops, ImageFilter
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE=ROOT/'art/reference/20261117-sprotel-bitcoin'
+WORK=ROOT.parent
 OUT=ROOT/'art/generated/bosses/14-sprotel-bitcoin'
-TASK_SOURCE=ROOT.parent/'sprotel-boss'
-CELL=512
-PADDING=12
-BODY_ACTIONS=('idle','walk','beer','cocktail','marlin','disk-laser')
-PROJECTILES=(('beer','beer',SOURCE/'drinks/beer-4x4'),
-             ('cocktail','cocktail',SOURCE/'drinks/cocktail-4x4'),
-             ('blueMarlin','marlin',SOURCE/'marlin/standard-4x4'),
-             ('heavyMarlin','heavy-marlin',SOURCE/'marlin/heavy-4x4'),
-             ('diskLaser','disk-laser',SOURCE/'drinks/disk-laser-4x4'))
+REF=ROOT/'art/reference/20261117-sprotel-bitcoin'
+BOSS={
+  1:{'idle':WORK/'sprotel-p2-final/2x2/idle','beerStick':WORK/'sprotel-p2-final/2x2/beerStick',
+     'cocktailCannon':WORK/'sprotel-p2-final/2x2/cocktailCannon','snacks':WORK/'sprotel-p2-final/2x2/snacks',
+     'marlin':WORK/'sprotel-p2-final/2x2/marlinLaunch','diskLaser':WORK/'sprotel-boss-2x2/p2/diskLaser',
+     'soundWave':WORK/'sprotel-p2-final/2x2/soundWave'}
+}
+PROJECTILES={name:WORK/'sprotel-projectiles-final'/f'{name}-source.png' for name in ['speakerMissile','pretzel','nacho','popcorn']}
+BOXES={'beer':[42,54],'cocktail':[38,48],'blueMarlin':[100,38],'diskLaser':[120,40],
+       'speakerMissile':[96,56],'pretzel':[54,40],'nacho':[42,38],'popcorn':[40,40]}
 
-
-def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def relative(path):
-    return str(path.resolve().relative_to(ROOT))
-
-
-def chroma(pixel):
-    r,g,b=pixel[:3]
-    return min(r,b)>=170 and min(r,b)-g>=95 and abs(r-b)<=70
-
-
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def frame_sha(frame):return hashlib.sha256(frame.tobytes()).hexdigest()
+def union(boxes):
+    x=min(b[0] for b in boxes);y=min(b[1] for b in boxes)
+    return [x,y,max(b[2] for b in boxes),max(b[3] for b in boxes)]
+def xywh(box):return [box[0],box[1],box[2]-box[0],box[3]-box[1]]
 def key_frame(frame):
-    values=list(frame.getdata())
-    key=[chroma(p) for p in values]
-    field=Image.new('L',frame.size)
-    field.putdata([255 if p else 0 for p in key])
-    adjacent=list(field.filter(ImageFilter.MaxFilter(3)).getdata())
-    pixels=[]
-    for i,(r,g,b,a) in enumerate(values):
-        if key[i] or not a:
-            pixels.append((0,0,0,0));continue
+    data=list(frame.convert('RGBA').getdata())
+    key=[a==0 or min(r,b)>=170 and min(r,b)-g>=95 and abs(r-b)<=70 for r,g,b,a in data]
+    mask=Image.new('L',frame.size);mask.putdata([255 if k else 0 for k in key])
+    adjacent=list(mask.filter(ImageFilter.MaxFilter(3)).getdata());cleaned=[]
+    for i,(r,g,b,a) in enumerate(data):
+        if key[i]:cleaned.append((0,0,0,0));continue
         if adjacent[i] and min(r,b)-g>18 and min(r,b)>60:
             spill=min(r,b)-g;r,b=max(g,r-spill),max(g,b-spill)
-        pixels.append((r,g,b,a))
-    output=Image.new('RGBA',frame.size);output.putdata(pixels)
-    bounds=output.getchannel('A').getbbox()
+        cleaned.append((r,g,b,255))
+    result=Image.new('RGBA',frame.size);result.putdata(cleaned)
+    bounds=result.getchannel('A').getbbox();removed=0
+    if bounds and (min(bounds[:2])<2 or bounds[2]>frame.width-2 or bounds[3]>frame.height-2):
+        width,height=frame.size;data=list(result.getdata());visited=set()
+        border=[y*width+x for y in range(height) for x in range(width) if x<2 or y<2 or x>=width-2 or y>=height-2]
+        for start in border:
+            if start in visited or not data[start][3]:continue
+            stack=[start];visited.add(start);component=[]
+            while stack:
+                i=stack.pop();component.append(i)
+                if len(component)>40:raise ValueError(f'Connected source drawing clips edge: {bounds} in {frame.size}')
+                x,y=i%width,i//width
+                for nx,ny in [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]:
+                    n=ny*width+nx
+                    if 0<=nx<width and 0<=ny<height and n not in visited and data[n][3]:visited.add(n);stack.append(n)
+            for i in component:data[i]=(0,0,0,0)
+            removed+=len(component)
+        result.putdata(data);bounds=result.getchannel('A').getbbox()
     if not bounds or min(bounds[:2])<2 or bounds[2]>frame.width-2 or bounds[3]>frame.height-2:
-        raise ValueError(f'Source content is empty or clips a cell edge: {bounds} in {frame.size}')
-    return output
+        raise ValueError(f'Incomplete/clipped source drawing: {bounds} in {frame.size}')
+    result.info['tinyDisconnectedEdgePixelsRemoved']=removed
+    return result
 
-
-def import_native_pages(action):
-    paths=[TASK_SOURCE/f'{action}-page{i}-source-2x2.png' for i in range(1,5)]
-    # Once source pages have been copied, packing is fully reproducible in a clone.
-    if not all(p.exists() for p in paths):
-        paths=[SOURCE/p.name for p in paths]
-    if not all(p.exists() for p in paths):
-        return False
-    records=[];frames=[];page_baselines=[]
-    for page,path in enumerate(paths):
-        target=SOURCE/path.name
-        if path.resolve()!=target.resolve():shutil.copy2(path,target)
-        image=Image.open(target).convert('RGBA')
-        if image.width!=image.height:raise ValueError(f'{target}: source page must be square')
-        edges=[round(i*image.width/2) for i in range(3)]
-        group=[]
-        for i in range(4):
-            c,r=i%2,i//2;box=[edges[c],edges[r],edges[c+1],edges[r+1]]
-            frame=key_frame(image.crop(box))
-            # Quarter origin is retained. The temporary 704px canvas permits
-            # the explicitly reviewed idle page-four source registration fix.
-            padded=Image.new('RGBA',(704,704));padded.paste(frame,(32,32))
-            group.append(padded)
-            records.append({'index':page*4+i,'generator':'built-in image_gen',
-              'masterSource':relative(target),'masterSourceSha256':sha(target),
-              'masterSourceDimensions':list(image.size),'sourceCellXYXY':box,
-              'nativePage':page+1,'nativePageFrame':i,'sourcePaddingXY':[32,32]})
-        page_baselines.append(statistics.median(f.getchannel('A').getbbox()[3] for f in group))
-        frames.extend(group)
-    # Source page four was generated 8-10 pixels higher than the first three
-    # idle pages. Register the complete page uniformly; retain its internal bob.
-    registration=[0,0,0,0]
-    if action=='idle':registration[3]=round(statistics.median(page_baselines[:3])-page_baselines[3])
-    folder=SOURCE/'body'/action;folder.mkdir(parents=True,exist_ok=True)
-    for i,frame in enumerate(frames):
-        dy=registration[i//4]
-        if dy:
-            aligned=Image.new('RGBA',frame.size);aligned.paste(frame,(0,dy));frame=aligned
-        path=folder/f'frame-{i:02d}.png';frame.save(path,compress_level=9)
-        records[i].update({'path':relative(path),'sha256':sha(path),
-            'pageRegistrationOffsetXY':[0,dy], 'bounds':list(frame.getchannel('A').getbbox())})
-    manifest={'generator':'built-in image_gen','sourceLayout':[2,2],
-       'registration':'single reviewed translation for idle page four; no per-frame transform',
-       'pageSourceBaselines':page_baselines,'pageRegistrationYOffset':registration,
-       'frames':records,'distinctFrames':len({r['sha256'] for r in records})}
-    if manifest['distinctFrames']!=16:raise ValueError(f'{action}: source frames repeat')
-    (folder/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    for name in [f'{action}-prompts-2x2.json',f'{action}-pages-generation.json']:
-        if (TASK_SOURCE/name).exists():shutil.copy2(TASK_SOURCE/name,SOURCE/name)
-    for prompt in TASK_SOURCE.glob(f'{action}-page*-prompt-2x2.txt'):
-        shutil.copy2(prompt,SOURCE/prompt.name)
-    return True
-
-
-def source_proofs(folder,action,kind):
-    if kind=='body':
-        record_path=folder/'manifest.json'
-        data=json.loads(record_path.read_text())
-        rows=data['frames']
-        master=SOURCE/Path(data.get('source','')).name
-        for row in rows:
-            if 'masterSource' not in row and master.is_file():
-                row['masterSource']=relative(master);row['masterSourceSha256']=sha(master)
-        return rows,relative(record_path)
-    if action in ('marlin','heavy-marlin'):
-        record_path=SOURCE/'marlin/manifest-4x4.json'
-        data=json.loads(record_path.read_text())['variants']['standard' if action=='marlin' else 'heavy']
-        rows=data['frames'];master=SOURCE/'marlin'/data['source']
-        for row in rows:
-            x,y,w,h=row['sourceCell'];row['sourceCellXYXY']=[x,y,x+w,y+h]
-            row['masterSource']=relative(master);row['masterSourceSha256']=sha(master)
-        return rows,relative(record_path)
-    record_path=SOURCE/'drinks/import-report-4x4.json'
-    data=json.loads(record_path.read_text())['assets'][action]
-    rows=data['frames'];master=SOURCE/'drinks'/Path(data['source']).name
-    for row in rows:
-        row['masterSource']=relative(master);row['masterSourceSha256']=sha(master)
-    return rows,relative(record_path)
-
-
-def load_frames(folder,action,kind):
-    paths=[folder/f'frame-{i:02d}.png' for i in range(16)]
-    if not all(p.is_file() for p in paths):return None
-    frames=[Image.open(p).convert('RGBA') for p in paths]
-    if len({im.size for im in frames})!=1:raise ValueError(f'{action}: inconsistent native cell sizes')
-    proofs,proof_path=source_proofs(folder,action,kind)
-    records=[]
-    for i,(im,path,proof) in enumerate(zip(frames,paths,proofs)):
-        bounds=im.getchannel('A').getbbox()
-        if not bounds or min(bounds[:2])<2 or bounds[2]>im.width-2 or bounds[3]>im.height-2:
-            raise ValueError(f'{path}: incomplete/edge-touching native frame {bounds}')
-        alpha=set(im.getchannel('A').getdata())
-        if not alpha.issubset({0,255}):raise ValueError(f'{path}: nonbinary alpha')
-        record={'sourceFrame':relative(path),'sourceFrameSha256':sha(path),
-           'sourceFrameDimensions':list(im.size),'sourceFrameBoundsLTRB':list(bounds),
-           'generatedSourceProof':proof_path,'generator':'built-in image_gen'}
-        for key in ['masterSource','masterSourceSha256','sourceCellXYXY','nominalOriginXY',
-                    'pasteOffsetXY','pageRegistrationOffsetXY','nativePage','nativePageFrame']:
-            if key in proof:record[key]=proof[key]
-        records.append(record)
-    if len({r['sourceFrameSha256'] for r in records})!=16:
-        raise ValueError(f'{action}: not sixteen distinct native frames')
+def split(path,columns,reference):
+    original=Image.open(path).convert('RGBA');frames=[];records=[]
+    side=max((original.width+columns-1)//columns,(original.height+columns-1)//columns)
+    for row in range(columns):
+        for col in range(columns):
+            box=[round(col*original.width/columns),round(row*original.height/columns),
+                 round((col+1)*original.width/columns),round((row+1)*original.height/columns)]
+            native=original.crop(box)
+            try:clean=key_frame(native)
+            except ValueError as error:raise ValueError(f'{path} row{row} col{col}: {error}') from error
+            frame=Image.new('RGBA',(side,side));frame.paste(clean,(0,0))
+            frames.append(frame);records.append({'source':str(reference.relative_to(ROOT)),
+                'sourceSha256':sha(path),'sourceDimensions':list(original.size),'sourceGrid':[columns,columns],
+                'sourceCellXYXY':box,'nativeFrameSha256':frame_sha(native),'tinyDisconnectedEdgePixelsRemoved':clean.info.get('tinyDisconnectedEdgePixelsRemoved',0)})
     return frames,records
 
+def available_source(primary,canonical):
+    """Use local generation output when present, otherwise the archived source."""
+    return primary if primary.is_file() else canonical
 
-def union_ltrb(boxes):
-    return [min(b[0] for b in boxes),min(b[1] for b in boxes),
-            max(b[2] for b in boxes),max(b[3] for b in boxes)]
+def copy_source(source,destination):
+    # A fresh checkout can read directly from the canonical destination. This
+    # also covers prompt/manifest sidecars and symlinks or hard links to it.
+    if destination.exists() and source.samefile(destination):return
+    shutil.copy2(source,destination)
 
+def copy_sources(paths,folder):
+    folder.mkdir(parents=True,exist_ok=True)
+    for source in paths:copy_source(source,folder/source.name)
+    source_dirs={p.parent for p in paths}
+    for source_dir in source_dirs:
+        for p in source_dir.iterdir():
+            if p.suffix.lower() in ['.txt','.json','.md'] and ('prompt' in p.name or p.name=='manifest.json'):
+                copy_source(p,folder/p.name)
 
-def xywh(box):
-    return [box[0],box[1],box[2]-box[0],box[3]-box[1]]
-
-
-def largest_opaque_core(frames):
-    mask=frames[0].getchannel('A')
-    for im in frames[1:]:mask=ImageChops.darker(mask,im.getchannel('A'))
-    width,height=mask.size;data=mask.tobytes();hist=[0]*width
-    best=None;best_area=0;best_distance=float('inf')
-    for y in range(height):
-        for x in range(width):hist[x]=hist[x]+1 if data[y*width+x]==255 else 0
-        stack=[]
-        for x in range(width+1):
-            value=hist[x] if x<width else 0;start=x
-            while stack and stack[-1][1]>value:
-                left,tall=stack.pop();start=left
-                area=(x-left)*tall;distance=abs((left+x)/2-width/2)+abs(y+1-tall/2-height/2)
-                if area>best_area or area==best_area and distance<best_distance:
-                    best_area=area;best_distance=distance;best=[left,y+1-tall,x-left,tall]
-            if value and (not stack or stack[-1][1]<value):stack.append((start,value))
-    if not best or best_area==0:raise ValueError('Animation has no shared opaque core')
-    x,y,w,h=best
-    for im in frames:
-        if im.getchannel('A').crop((x,y,x+w,y+h)).getextrema()!=(255,255):
-            raise ValueError('Core is not opaque in every source frame')
-    return best
-
-
-def transform_frames(frames,body_height=None):
-    crop=union_ltrb([im.getchannel('A').getbbox() for im in frames])
-    width,height=crop[2]-crop[0],crop[3]-crop[1]
-    scale=body_height/height if body_height is not None else min(488/width,488/height)
-    draw_width=round(width*scale);draw_height=round(height*scale)
-    if draw_width>488 or draw_height>488:raise ValueError('Shared animation transform exceeds padding')
-    offset=[(CELL-draw_width)//2,CELL-PADDING-draw_height if body_height is not None else (CELL-draw_height)//2]
-    output=[]
+def transform(frames,source_union,center=False):
+    w=source_union[2]-source_union[0];h=source_union[3]-source_union[1]
+    scale=min(488/w,488/h);dw=round(w*scale);dh=round(h*scale)
+    ox=(512-dw)//2;oy=(512-dh)//2 if center else 500-dh
+    result=[]
     for frame in frames:
-        cell=Image.new('RGBA',(CELL,CELL))
-        cropped=frame.crop(crop).resize((draw_width,draw_height),Image.Resampling.NEAREST)
-        cell.paste(cropped,offset)
-        bounds=cell.getchannel('A').getbbox()
-        if min(bounds[:2])<PADDING or max(bounds[2:])>CELL-PADDING:
-            raise ValueError(f'Packed frame clips padding: {bounds}')
-        output.append(cell)
-    return output,{'sourceUnionCropLTRB':crop,'uniformScale':scale,
-         'destinationDimensions':[draw_width,draw_height],'offsetXY':offset,
-         'baseline':CELL-PADDING if body_height is not None else None,
-         'registration':'one shared crop, scale and anchor for all sixteen native frames'}
+        cell=Image.new('RGBA',(512,512));cell.paste(frame.crop(source_union).resize((dw,dh),Image.Resampling.NEAREST),(ox,oy));result.append(cell)
+    return result,{'sourceUnionXYXY':source_union,'destination':[ox,oy,dw,dh],'baseline':500 if not center else None,'sampling':'nearest-neighbor; one common transform across all animation frames'}
+
+def solid_core(frames,region=None):
+    """Largest rectangle whose every pixel is opaque in all sixteen native frames."""
+    intersection=frames[0].getchannel('A')
+    for frame in frames[1:]:intersection=ImageChops.darker(intersection,frame.getchannel('A'))
+    if region:
+        clipped=Image.new('L',intersection.size);clipped.paste(intersection.crop(region),(region[0],region[1]));intersection=clipped
+    pixels=list(intersection.getdata());width,height=intersection.size;heights=[0]*width;best=(0,[0,0,0,0])
+    for y in range(height):
+        for x in range(width):heights[x]=heights[x]+1 if pixels[y*width+x]==255 else 0
+        stack=[]
+        for x,h in enumerate(heights+[0]):
+            start=x
+            while stack and stack[-1][1]>h:
+                left,hh=stack.pop();area=(x-left)*hh
+                if area>best[0]:best=(area,[left,y-hh+1,x-left,hh])
+                start=left
+            if not stack or stack[-1][1]<h:stack.append((start,h))
+    if best[0]<16:raise ValueError('No stable opaque core across all 16 frames')
+    return best[1]
+
+def save_animation(frames,records,directory,columns,registration,kind):
+    if len(frames)!=16 or len({r['nativeFrameSha256'] for r in records})!=16:raise ValueError('Animation needs 16 distinct native source drawings')
+    directory.mkdir(parents=True,exist_ok=True)
+    frame_bounds=[f.getchannel('A').getbbox() for f in frames]
+    bounds=xywh(union(frame_bounds));core=solid_core(frames);pages=[];all_records=[]
+    frames_per_page=columns*columns
+    for page_index in range(16//frames_per_page):
+        page=Image.new('RGBA',(512*columns,512*columns));start=page_index*frames_per_page
+        for local in range(frames_per_page):
+            i=start+local;b=frame_bounds[i]
+            if min(b[:2])<2 or max(b[2:])>510:raise ValueError(f'Packed clipping in frame {i}: {b}')
+            page.paste(frames[i],((local%columns)*512,(local//columns)*512))
+            all_records.append({'index':i,'page':page_index,'cell':local,'bounds':xywh(b),'frameSha256':frame_sha(frames[i]),**records[i]})
+        path=directory/f'page-{page_index}.png';page.save(path,compress_level=9)
+        pages.append({'path':str(path.relative_to(ROOT)),'sha256':sha(path),'version':sha(path)[:16],
+                      'width':512*columns,'height':512*columns,'columns':columns,'rows':columns,'ready':True,
+                      'bounds':xywh(union(frame_bounds[start:start+frames_per_page]))})
+    metadata={'frameCount':16,'kind':kind,'generator':'built-in image_gen','columns':columns,'rows':columns,
+              'pages':pages,'bounds':bounds,'referenceBounds':registration,'core':core,'facing':'left' if kind=='projectile' else None,
+              'frames':all_records,'provenance':'Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion'}
+    (directory/'animation.json').write_text(json.dumps(metadata,indent=2)+'\n')
+    return metadata
+
+def rect_fraction(rect,base):return [(rect[0]-base[0])/base[2],(rect[1]-base[1])/base[3],rect[2]/base[2],rect[3]/base[3]]
+def project(reference,pixels,box):
+    rx,ry,rw,rh=reference;scale=min(box[2]/rw,box[3]/rh)
+    return [box[0]+box[2]/2+round((pixels[0]-rx-rw/2)*scale),
+            box[1]+box[3]/2+round(box[3]/2+(pixels[1]-ry-rh)*scale),round(pixels[2]*scale),round(pixels[3]*scale)]
 
 
-def name_for(action,kind,page):
-    if kind=='body' and action=='idle' and page==1:return 'p1.png'
-    if kind=='projectile' and action=='beer' and page==1:return 'p1-projectiles.png'
-    return f'p1-{action}-'+('projectiles-' if kind=='projectile' else '')+f'page{page}.png'
+def disk_center(frames):
+    centers=[]
+    for frame in frames:
+        width,height=frame.size;pixels=list(frame.getdata());visited=set();candidates=[]
+        def red(i):
+            r,g,b,a=pixels[i];return a and r>=160 and r-g>=70 and r-b>=60 and g<=110 and abs(g-b)<=40
+        for y in range(round(height*.42),round(height*.65)):
+            for x in range(round(width*.25),round(width*.75)):
+                start=y*width+x
+                if start in visited or not red(start):continue
+                stack=[start];visited.add(start);component=[]
+                while stack:
+                    i=stack.pop();component.append(i);cx,cy=i%width,i//width
+                    for nx,ny in [(cx-1,cy),(cx+1,cy),(cx,cy-1),(cx,cy+1)]:
+                        n=ny*width+nx
+                        if 0<=nx<width and 0<=ny<height and n not in visited and red(n):visited.add(n);stack.append(n)
+                xs=[i%width for i in component];ys=[i//width for i in component];w=max(xs)-min(xs)+1;h=max(ys)-min(ys)+1
+                if len(component)>=30 and .6<w/h<1.7:candidates.append((len(component),[(min(xs)+max(xs))/2,(min(ys)+max(ys))/2]))
+        if candidates:centers.append(max(candidates)[1])
+    return [statistics.median(p[0] for p in centers),statistics.median(p[1] for p in centers)] if centers else None
 
 
-def save_family(key,action,kind,data,body_height=None):
-    native,proofs=data;frames,transform=transform_frames(native,body_height)
-    union=xywh(union_ltrb([im.getchannel('A').getbbox() for im in frames]))
-    core=largest_opaque_core(frames)
-    entry={'frameCount':16,'framesPerSecond':10,'columns':2,'rows':2,
-       'frameWidth':CELL,'frameHeight':CELL,'bounds':union,'core':core,
-       'coreStatus':'largest rectangle fully opaque in the intersection of all sixteen native frames',
-       'facing':'left','transform':transform,'pages':[]}
-    for page in range(4):
-        atlas=Image.new('RGBA',(1024,1024));records=[]
-        for local in range(4):
-            index=page*4+local;frame=frames[index]
-            atlas.paste(frame,((local%2)*CELL,(local//2)*CELL))
-            records.append({'index':index,'pageFrame':local,'row':local//2,'column':local%2,
-                 'cellBounds':list(frame.getchannel('A').getbbox()),**proofs[index]})
-        filename=name_for(action,kind,page+1);path=OUT/filename;atlas.save(path,compress_level=9)
-        bounds=xywh(union_ltrb([r['cellBounds'] for r in records]))
-        version=sha(path)
-        page_metadata={'path':relative(path),'ready':True,'width':1024,'height':1024,
-            'columns':2,'rows':2,'frameWidth':512,'frameHeight':512,'frames':records,
-            'bounds':bounds,'animationBounds':union,'core':core,'version':version[:16],
-            'atlasSha256':version,'page':page+1,'frameStart':page*4,'frameCount':4,
-            'generator':'built-in image_gen','phase':1,'kind':kind,'animation':key,
-            'sampling':'one-to-one native drawings; no duplication, interpolation or invented poses',
-            'transform':transform}
-        path.with_suffix('.json').write_text(json.dumps(page_metadata,indent=2)+'\n')
-        entry['pages'].append({k:page_metadata[k] for k in ['path','ready','width','height',
-            'columns','rows','bounds','version','atlasSha256','page','frameStart','frameCount']})
-        PRODUCED.add(filename)
-    return entry
+def register_mecha_pages(actions,impact=None):
+    """Correct camera scale uniformly per source page, retaining its four drawings."""
+    anchors={}
+    for name,(frames,records) in actions.items():
+        anchors[name]=[]
+        for page in range(4):
+            group=frames[page*4:page*4+4];disk=disk_center(group)
+            boxes=[f.getchannel('A').getbbox() for f in group];foot=statistics.median(b[3] for b in boxes);top=statistics.median(b[1] for b in boxes)
+            feet=[]
+            for frame in group:
+                b=frame.getchannel('A').getbbox();band=frame.crop((0,max(0,b[3]-32),frame.width,b[3])).getchannel('A').getbbox();feet.append((band[0]+band[2])/2)
+            anchors[name].append({'disk':disk,'foot':foot,'top':top,'feetX':statistics.median(feet)})
+    valid=[a for a in (anchors.get('idle') or [a for group in anchors.values() for a in group]) if a['disk']]
+    if not valid:raise ValueError('A phase needs a visible idle vinyl disk for registration')
+    distance=statistics.median(a['foot']-a['disk'][1] for a in valid)
+    disk_feet=statistics.median(a['disk'][0]-a['feetX'] for a in valid)
+    fraction=statistics.median((a['disk'][1]-a['top'])/(a['foot']-a['top']) for a in valid)
+    registered={}
+    for name,(frames,records) in actions.items():
+        output=[]
+        for page,anchor in enumerate(anchors[name]):
+            method='visible red vinyl hub'
+            if anchor['disk'] is None:
+                # During laser peak the hub turns white/cyan; use the unchanged
+                # feet and body proportions measured from this phase's idle pages.
+                anchor['disk']=[anchor['feetX']+disk_feet,anchor['top']+(anchor['foot']-anchor['top'])*fraction];method='idle-calibrated feet/body registration (lit vinyl hub)'
+            scale=distance/(anchor['foot']-anchor['disk'][1])
+            ox=512-round(anchor['disk'][0]*scale);oy=900-round(anchor['foot']*scale)
+            if impact and name=='beerStick' and page==impact['page']:
+                if records[page*4]['sourceSha256']!=impact['sourceSha256']:
+                    raise ValueError('Beer-stick impact registration requires source re-review')
+                override=impact['pageRegistration'];scale=override['scale'];ox,oy=override['offset']
+                anchor['disk']=override['nativeDisk'];anchor['foot']=override['nativeFoot']
+                method='hash-pinned visual body/feet registration; red-hub threshold changed in revised impact artwork'
+            if not .6<=scale<=1.5:raise ValueError(f'{name} page{page}: camera registration needs manual review (scale {scale})')
+            group=frames[page*4:page*4+4]
+            for local,frame in enumerate(group):
+                canvas=Image.new('RGBA',(1024,1024));canvas.paste(frame.resize((round(frame.width*scale),round(frame.height*scale)),Image.Resampling.NEAREST),(ox,oy));output.append(canvas)
+                records[page*4+local]['pageRegistration']={'scale':scale,'offset':[ox,oy],'nativeDisk':anchor['disk'],'nativeFoot':anchor['foot'],'targetDiskX':512,'targetFoot':900,'anchorMethod':method,'method':'one uniform nearest-neighbor camera correction per source page; no pose invention'}
+        registered[name]=(output,records)
+    return registered,{'disk':[512,900-distance],'foot':900,'diskToFoot':distance}
 
+
+
+PRESERVED_COMMIT='a4d85ae'
+def preserved_phase_one():
+    """Read the released Phase 1 unchanged; adapt metadata, never its pixels."""
+    snapshot=REF/'preserved-main-a4d85ae'
+    manifest_path=snapshot/'animation-manifest.json'
+    if manifest_path.is_file():manifest_bytes=manifest_path.read_bytes()
+    else:
+        manifest_bytes=subprocess.check_output(['git','show',PRESERVED_COMMIT+':art/generated/bosses/14-sprotel-bitcoin/animation-manifest.json'],cwd=ROOT)
+        snapshot.mkdir(parents=True,exist_ok=True);manifest_path.write_bytes(manifest_bytes)
+    original=json.loads(manifest_bytes)
+    geometry_path=snapshot/'geometry.json'
+    if geometry_path.is_file():geometry=json.loads(geometry_path.read_text())
+    else:
+        script="const vm=require('vm'),cp=require('child_process');let c={};vm.runInNewContext(cp.execFileSync('git',['show','a4d85ae:sprite-hitboxes.js'],{encoding:'utf8'})+';globalThis.g=SPRITE_HITBOXES.stages[14][0]',c);process.stdout.write(JSON.stringify(c.g));"
+        geometry=json.loads(subprocess.check_output(['node','-e',script],cwd=ROOT))
+        snapshot.mkdir(parents=True,exist_ok=True);geometry_path.write_text(json.dumps(geometry,indent=2)+'\n')
+    def adapt(animation,kind):
+        result=copy.deepcopy(animation);result.update(kind=kind,preservedFromMain=PRESERVED_COMMIT,frames=[])
+        if kind=='mecha':result['referenceBounds']=original['bodyReferenceBounds']
+        else:result.setdefault('referenceBounds',result['bounds'])
+        for page_index,page in enumerate(result['pages']):
+            path=ROOT/page['path'];assert sha(path)==page['atlasSha256'],f'Changed released P1 atlas: {path}'
+            page['sha256']=page['atlasSha256']
+            sidecar=json.loads(path.with_suffix('.json').read_text())
+            with Image.open(path) as image:
+                for cell,record in enumerate(sidecar['frames']):
+                    frame=image.convert('RGBA').crop((cell%2*512,cell//2*512,(cell%2+1)*512,(cell//2+1)*512))
+                    native_path=ROOT/record['masterSource'];assert sha(native_path)==record['masterSourceSha256']
+                    with Image.open(native_path) as source:native=source.convert('RGBA').crop(record['sourceCellXYXY'])
+                    result['frames'].append({'index':page_index*4+cell,'page':page_index,'cell':cell,'bounds':xywh(frame.getchannel('A').getbbox()),'frameSha256':frame_sha(frame),
+                        'source':record['masterSource'],'sourceSha256':record['masterSourceSha256'],'sourceCellXYXY':record['sourceCellXYXY'],'nativeFrameSha256':frame_sha(native)})
+        return result
+    aliases={'beer':'beerThrow','cocktail':'cocktailThrow','disk-laser':'diskLaser'}
+    body={aliases.get(name,name):adapt(animation,'mecha') for name,animation in original['animations'].items()}
+    projectiles={name:adapt(animation,'projectile') for name,animation in original['projectileAnimations'].items()}
+    return body,projectiles,geometry
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--require-complete',action='store_true')
-    args=parser.parse_args()
-    SOURCE.mkdir(parents=True,exist_ok=True);OUT.mkdir(parents=True,exist_ok=True)
-    for action in ('idle','marlin'):import_native_pages(action)
-    bodies={action:load_frames(SOURCE/'body'/action,action,'body') for action in BODY_ACTIONS}
-    pending=[f'body/{action}' for action,data in bodies.items() if data is None]
-    available={action:data for action,data in bodies.items() if data is not None}
-    # Every full-body action receives the same alpha-union height, even when
-    # the source generator drew cocktail sprites smaller than the other sheets.
-    # This common height also reserves safe space for the widest firing pose.
-    ratios=[]
-    for frames,proofs in available.values():
-        b=union_ltrb([im.getchannel('A').getbbox() for im in frames])
-        ratios.append((b[3]-b[1])/(b[2]-b[0]))
-    body_height=min([440]+[int(488*r) for r in ratios])
-    manifest={'schemaVersion':1,'phase':1,'generator':'built-in image_gen',
-       'authorization':'User approved built-in image generation, parallel animation agents and Phase 1 only on 2026-11-17',
-       'layout':'four 2x2 pages per sixteen-frame animation',
-       'runtimePageDimensions':[1024,1024],'cellDimensions':[512,512],
-       'sharedBodyHeight':body_height,'animations':{},'projectileAnimations':{},'pending':pending}
-    for action,data in available.items():
-        manifest['animations'][action]=save_family(action,action,'body',data,body_height)
-    body_bounds=[e['bounds'] for e in manifest['animations'].values()]
-    body_reference=xywh(union_ltrb([[x,y,x+w,y+h] for x,y,w,h in body_bounds]))
-    manifest['bodyReferenceBounds']=body_reference
-    for entry in manifest['animations'].values():
-        entry['referenceBounds']=body_reference
-        for page in entry['pages']:
-            metadata_path=(ROOT/page['path']).with_suffix('.json')
-            metadata=json.loads(metadata_path.read_text())
-            metadata['referenceBounds']=body_reference
-            metadata_path.write_text(json.dumps(metadata,indent=2)+'\n')
-    for key,action,folder in PROJECTILES:
-        data=load_frames(folder,action,'projectile')
-        if data is None:pending.append(f'projectile/{action}');continue
-        manifest['projectileAnimations'][key]=save_family(key,action,'projectile',data)
-        manifest['projectileAnimations'][key]['referenceBounds']=manifest['projectileAnimations'][key]['bounds']
-    # Remove only stale Phase 1 runtime pages in this task's ID14 output folder.
-    # Reference sources, other boss IDs and all Phase 2 assets remain untouched.
-    for old in OUT.glob('p1*.png'):
-        if old.name not in PRODUCED:
-            old.unlink();old.with_suffix('.json').unlink(missing_ok=True)
-    manifest['pageCount']=len(PRODUCED)
-    manifest['frameCount']=sum(e['frameCount'] for group in ['animations','projectileAnimations'] for e in manifest[group].values())
-    manifest['complete']=not pending and len(PRODUCED)==44
-    manifest_path=OUT/'animation-manifest.json'
-    manifest_path.write_text(json.dumps(manifest,indent=2)+'\n')
-    qa={'status':'passed' if manifest['complete'] else 'pending','phase':1,
-        'pages':len(PRODUCED),'frames':manifest['frameCount'],'pending':pending,
-        'pageSize':[1024,1024],'pageGrid':[2,2],'bodyHeight':body_height,
-        'allFramesNativeAndDistinct':True,'allCellsHaveAtLeast12pxPadding':True,
-        'projectileCores':'each verified fully opaque in all sixteen corresponding packed frames',
-        'manifestSha256':sha(manifest_path)}
-    (OUT/'asset-qa.json').write_text(json.dumps(qa,indent=2)+'\n')
-    print(json.dumps(qa,indent=2))
-    if args.require_complete and not manifest['complete']:raise SystemExit(1)
+    parser=argparse.ArgumentParser();parser.add_argument('--partial',action='store_true');args=parser.parse_args()
+    missing=[];invalid=[];raw_phases=[{},{}];raw_projectiles={}
+    for phase,actions in BOSS.items():
+        for action,folder in actions.items():
+            dest=REF/'final2x2'/f'p{phase+1}'/action
+            paths=[available_source(folder/f'page-{p}-source.png',dest/f'page-{p}-source.png') for p in range(4)]
+            if not all(p.exists() for p in paths):missing.append(f'p{phase+1}/{action}');continue
+            copy_sources(paths,dest);frames=[];records=[]
+            try:
+                for path in paths:
+                    f,r=split(path,2,dest/path.name);frames.extend(f);records.extend(r)
+            except ValueError as error:
+                invalid.append(str(error));missing.append(f'p{phase+1}/{action} (invalid source)');continue
+            raw_phases[phase][action]=(frames,records)
+    for name,path in PROJECTILES.items():
+        dest=REF/'final-projectiles'/name
+        path=available_source(path,dest/f'{name}-source.png')
+        if not path.exists():missing.append('projectile/'+name);continue
+        copy_sources([path],dest)
+        try:raw_projectiles[name]=split(path,4,dest/path.name)
+        except ValueError as error:invalid.append(str(error));missing.append('projectile/'+name+' (invalid source)')
+    if missing and not args.partial:raise ValueError('Missing source animations: '+', '.join(missing))
+    manifest={'schemaVersion':1,'complete':not missing,'phaseCount':2,'phaseAnimations':[{},{}],'projectileAnimations':{},'missing':missing,'invalidSources':invalid}
+    body,projectiles,preserved=preserved_phase_one()
+    manifest['phaseAnimations'][0]=body;manifest['projectileAnimations']=projectiles
+    manifest['preservedPhaseOneCommit']=PRESERVED_COMMIT
+    geometry={'0':preserved}
+    impact=json.loads((REF/'beer-stick-impact.json').read_text())
+    for phase,actions in enumerate(raw_phases):
+        if not actions:continue
+        actions,phase_anchor=register_mecha_pages(actions,impact if phase==1 else None)
+        source_union=union([f.getchannel('A').getbbox() for frames,records in actions.values() for f in frames]);packed={};phase_bounds=[]
+        for action,(frames,records) in actions.items():
+            cells,registration=transform(frames,source_union);packed[action]=(cells,records,registration)
+            phase_bounds.extend(f.getchannel('A').getbbox() for f in cells)
+        reference=xywh(union(phase_bounds))
+        for action,(frames,records,registration) in packed.items():
+            metadata=save_animation(frames,records,OUT/f'p{phase+1}'/action,2,reference,'mecha')
+            metadata['registration']=registration;manifest['phaseAnimations'][phase][action]=metadata
+        if 'idle' in manifest['phaseAnimations'][phase]:
+            idle=manifest['phaseAnimations'][phase]['idle'];torso=idle['core'];lower=solid_core(packed['idle'][0],[85,360,427,500])
+            core=xywh(union([[torso[0],torso[1],torso[0]+torso[2],torso[1]+torso[3]],[lower[0],lower[1],lower[0]+lower[2],lower[1]+lower[3]]]))
+            modern_box=[830,100,440,500] if phase else [900,180,360,420]
+            legacy_box=[-224.2,-560.24,448.4,548.24] if phase else [-190,-510.4,380,498.4]
+            modern=project(reference,lower,modern_box);legacy=project(reference,core,legacy_box)
+            native_disk=phase_anchor['disk'];reg=packed['idle'][2];u=reg['sourceUnionXYXY'];dest=reg['destination']
+            disk=[dest[0]+(native_disk[0]-u[0])*dest[2]/(u[2]-u[0]),dest[1]+(native_disk[1]-u[1])*dest[3]/(u[3]-u[1])]
+            geometry[str(phase)]={'provenance':{'status':'generated-native-frames-solid-core','idlePageSha256':[p['sha256'] for p in idle['pages']], 'bodyCorePixels':core,'bodyOpaqueComponents':[torso,lower],'logicalTargetCorePixels':lower,'diskCenterPixels':disk,'diskCropPixels':manifest['phaseAnimations'][phase].get('diskLaser',idle)['pages'][2 if 'diskLaser' in manifest['phaseAnimations'][phase] else 0]['bounds'],'nativeDiskCenter':native_disk,'modernBox':modern_box,'legacyDrawScale':[1.18,1.1] if phase else [1,1],'referenceBounds':reference},
+                'targets':{'sprotel-core':{'rect':rect_fraction(modern,[1015,495,110,90])}},
+                'boss':{'damage':{'rect':rect_fraction(legacy,[-147,-510.4,294,498.4])},'contact':{'rect':rect_fraction(legacy,[-205,-484,410,484])}},'projectiles':{}}
+        if str(phase) in geometry and 'beerStick' in packed:
+            frames,records,reg=packed['beerStick'];page=records[11]['pageRegistration'];scale=page['scale'];ox,oy=page['offset'];u=reg['sourceUnionXYXY'];d=reg['destination']
+            native=impact['sourceRegionLTRB']
+            normalized=[ox+native[0]*scale,oy+native[1]*scale,ox+native[2]*scale,oy+native[3]*scale]
+            roi=[round(d[0]+(normalized[0]-u[0])*d[2]/(u[2]-u[0])),round(d[1]+(normalized[1]-u[1])*d[3]/(u[3]-u[1])),
+                 round(d[0]+(normalized[2]-u[0])*d[2]/(u[2]-u[0])),round(d[1]+(normalized[3]-u[1])*d[3]/(u[3]-u[1]))]
+            weapon=solid_core([frames[11]],roi)
+            geometry[str(phase)]['provenance'].update(beerStickCorePixels=weapon,beerStickFrame=11,beerStickCropPixels=manifest['phaseAnimations'][phase]['beerStick']['pages'][2]['bounds'],beerStickSourceRegion=native,beerStickImpactSourceSha256=impact['sourceSha256'])
+    # Phase 2 reuses the released Phase 1 ammunition; keys without variants cover its kit.
+    geometry['1']['projectiles']=copy.deepcopy(preserved['projectiles'])
+    for key,profile in preserved['projectiles'].items():
+        geometry['1']['projectiles'][key.split('@')[0]]=copy.deepcopy(profile)
+    geometry['1']['projectiles']['sprotel.cocktail-cannon']=copy.deepcopy(geometry['1']['projectiles']['cocktail'])
+    for name,(frames,records) in raw_projectiles.items():
+        source_union=union([f.getchannel('A').getbbox() for f in frames]);cells,registration=transform(frames,source_union,True)
+        reference=xywh(union([f.getchannel('A').getbbox() for f in cells]));metadata=save_animation(cells,records,OUT/'projectiles'/name,4,reference,'projectile');metadata['registration']=registration
+        manifest['projectileAnimations'][name]=metadata
+        profile={'reference':reference,'crop':reference,'core':metadata['core'],'visualBox':BOXES[name],'kind':'contain','facing':'left'}
+        source_keys={'beer':['beer','sprotel.beer'],'cocktail':['cocktail','sprotel.cocktail','sprotel.cocktail-cannon'],
+                     'blueMarlin':['blueMarlin','sprotel.marlin'],'diskLaser':['diskLaser','laser','sprotel.disk-laser'],
+                     'speakerMissile':['speakerMissile','sprotel.sound-wave'],'pretzel':['pretzel','sprotel.snacks.pretzel'],
+                     'nacho':['nacho','sprotel.snacks.nacho'],'popcorn':['popcorn','sprotel.snacks.popcorn']}[name]
+        for key in source_keys:geometry['1']['projectiles'][key]=profile
+    # Attachment measurements are authored against immutable runtime release pages.
+    # Keep them separate from collision geometry and fail if a future reimport changes those pixels.
+    attachments=json.loads((REF/'projectile-attachments.json').read_text())
+    if attachments.get('schemaVersion')!=1:raise ValueError('Unsupported projectile attachment schema')
+    for phase,actions in attachments['phases'].items():
+        for action,spec in actions.items():
+            animation=manifest['phaseAnimations'][int(phase)][action]
+            page=spec['page'];actual=animation['pages'][page['firstFrame']//4]
+            if page['path']!=actual['path'] or page['sha256']!=actual['sha256'] or page['crop']!=actual['bounds']:
+                raise ValueError(f'Attachment measurements require re-review: phase {phase}, {action}')
+            if spec['renderCrop']!=(animation['bounds'] if animation.get('preservedFromMain') else actual['bounds']):
+                raise ValueError(f'Attachment render crop changed: phase {phase}, {action}')
+            if spec['referenceBounds']!=animation['referenceBounds']:
+                raise ValueError(f'Attachment registration changed: phase {phase}, {action}')
+            for port in spec['ports'].values():
+                for frame,point in port['frames'].items():
+                    if not 8<=int(frame)<=11 or len(point)!=2 or not all(isinstance(v,(int,float)) and 0<=v<512 for v in point):
+                        raise ValueError(f'Invalid measured attachment: phase {phase}, {action}, frame {frame}')
+        geometry[phase]['provenance']['projectileAttachments']=copy.deepcopy(actions)
+    OUT.mkdir(parents=True,exist_ok=True);(OUT/'geometry.json').write_text(json.dumps(geometry,indent=2)+'\n');manifest['geometrySha256']=sha(OUT/'geometry.json')
+    (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    (ROOT/'sprotel-art.js').write_text('/* Generated by tools/import-sprotel-assets.py. Native generated pixels only. */\nglobalThis.ArcadeSprotelArt = '+json.dumps(manifest,separators=(',',':'))+';\n')
+    hitboxes=ROOT/'sprite-hitboxes.js';text=hitboxes.read_text();begin='// BEGIN SPROTEL PAGED GEOMETRY';end='// END SPROTEL PAGED GEOMETRY'
+    block=begin+'\nSPRITE_HITBOXES.stages[14] = '+json.dumps(geometry,separators=(',',':'))+';\n'+end
+    if begin in text:text=text[:text.index(begin)]+block+text[text.index(end)+len(end):]
+    else:text=text.replace('\nfunction spriteHitboxFinite', '\n'+block+'\n\nfunction spriteHitboxFinite')
+    hitboxes.write_text(text)
+    print(json.dumps({'complete':manifest['complete'],'bossAnimations':[list(x) for x in manifest['phaseAnimations']], 'projectiles':list(manifest['projectileAnimations']),'missing':missing,'invalidSources':invalid},indent=2))
 
-
-PRODUCED=set()
 if __name__=='__main__':main()

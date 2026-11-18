@@ -1,0 +1,527 @@
+{
+  "frameCount": 16,
+  "kind": "projectile",
+  "generator": "built-in image_gen",
+  "columns": 4,
+  "rows": 4,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/projectiles/speakerMissile/page-0.png",
+      "sha256": "e26d18143890b992c10f7b1c1fc22879adeb1a84d8c2a96d0ce057fc864e7a33",
+      "version": "e26d18143890b992",
+      "width": 2048,
+      "height": 2048,
+      "columns": 4,
+      "rows": 4,
+      "ready": true,
+      "bounds": [
+        12,
+        112,
+        488,
+        288
+      ]
+    }
+  ],
+  "bounds": [
+    12,
+    112,
+    488,
+    288
+  ],
+  "referenceBounds": [
+    12,
+    112,
+    488,
+    288
+  ],
+  "core": [
+    91,
+    159,
+    313,
+    197
+  ],
+  "facing": "left",
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        14,
+        112,
+        466,
+        288
+      ],
+      "frameSha256": "9ddd6b547b29863f3185ac668ef4356e78442d5713799ac55df0b1d2ccd54ee0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "nativeFrameSha256": "3ea1d39cdbcb35369f91699be557b3b6d2405c10d34bdff6350234762d48865e",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        12,
+        112,
+        471,
+        286
+      ],
+      "frameSha256": "ed372973dc97c220e86954cbd917a5d98fd06a145d2738f4cc01c4e058a24bf8",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        0,
+        627,
+        314
+      ],
+      "nativeFrameSha256": "e53f2457de5cd1dfc92549c88abe3025ae01550ba87c3546a30bc3394b9fae2c",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        12,
+        112,
+        473,
+        286
+      ],
+      "frameSha256": "eef2925c82a4628b6417ddbd626dede696c70b151a5e6c2522324d1a302a19e0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        940,
+        314
+      ],
+      "nativeFrameSha256": "5ae5fff3b03123952e9fa28eddc15bfe7a62d7b93976f39b52724b448385f71a",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        14,
+        112,
+        481,
+        288
+      ],
+      "frameSha256": "9d899b141ad44f235ee33fbf6ad6a73efc3b8677b3eff96ad4641d2ab3632be1",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        0,
+        1254,
+        314
+      ],
+      "nativeFrameSha256": "fbd29408e46c6f6c0989c2ec797ca77f0afecdd79170a9b1e967cc0829683cee",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 4,
+      "page": 0,
+      "cell": 4,
+      "bounds": [
+        14,
+        112,
+        486,
+        283
+      ],
+      "frameSha256": "95d658d918e01b8083bc9b5aa16b5b6a9e85f58278eee80205440e073705bef0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        314,
+        314,
+        627
+      ],
+      "nativeFrameSha256": "ab028049e2b2ea7efda22291299a75df8963f381d4005ee784cdf25155bb8021",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 5,
+      "page": 0,
+      "cell": 5,
+      "bounds": [
+        12,
+        112,
+        486,
+        283
+      ],
+      "frameSha256": "89eab97299926c13cfea20d5997b4390f7b74fa3a88460cc52b1b3b41ad5080b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        314,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "2dca9ecf32f4ce027f7f32a41e0f86faeb09b0872d2f161044c31778054780c0",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 6,
+      "page": 0,
+      "cell": 6,
+      "bounds": [
+        12,
+        112,
+        481,
+        283
+      ],
+      "frameSha256": "6573dc8cfd0a04375a4fd6c65ea4e3f227bfa58c570dcd7374935cc37bb59049",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        314,
+        940,
+        627
+      ],
+      "nativeFrameSha256": "e1436759847ae22f8ba3ed0d75506559d3c29c45cce6aa505ac4053101e71cff",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 7,
+      "page": 0,
+      "cell": 7,
+      "bounds": [
+        14,
+        112,
+        474,
+        283
+      ],
+      "frameSha256": "bc4885ab9b052efdce8ecca3ec0a1055dc3a2f29a1f23addc2d4c4ae7543ec2d",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        314,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "3feb20b141422ac1816a37a8167e80b9938d153266cb33a40f0027f71f8b1dd4",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 8,
+      "page": 0,
+      "cell": 8,
+      "bounds": [
+        14,
+        112,
+        469,
+        286
+      ],
+      "frameSha256": "4cce77833d69e759e69297405637a7449a2f4f298b370d70c43e36afad6b368a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        314,
+        940
+      ],
+      "nativeFrameSha256": "f1d800d3c0127677d0b2eaa4eacf1a491735bf309ae4a5762d36a6651759f37b",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 9,
+      "page": 0,
+      "cell": 9,
+      "bounds": [
+        12,
+        112,
+        471,
+        286
+      ],
+      "frameSha256": "b04a9aa075160d174a2d41929440a4092c32ce70e18da35780015ff7927b05be",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        627,
+        627,
+        940
+      ],
+      "nativeFrameSha256": "4b05d723de82aead1e1eb816541f5e7f5ae0f674bc689b19a36ef605404069cd",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 10,
+      "page": 0,
+      "cell": 10,
+      "bounds": [
+        12,
+        112,
+        473,
+        286
+      ],
+      "frameSha256": "7baf372b502be70fc20a62a7b001dae1b949401cee2c8e0e19c76d61e83bc8c5",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "nativeFrameSha256": "cda4f057fa16922802b71f2622986021e48caff041dd8aaf58aae76ba386d550",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 11,
+      "page": 0,
+      "cell": 11,
+      "bounds": [
+        14,
+        112,
+        479,
+        286
+      ],
+      "frameSha256": "6ab211126431440cc32397f7c376506cd999434765568959c97d9c405b081b5f",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "nativeFrameSha256": "1217fc85107d60b8296b7c56f7136daab9506377daba6b8ffba8e9ac2879348e",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 12,
+      "page": 0,
+      "cell": 12,
+      "bounds": [
+        14,
+        114,
+        486,
+        286
+      ],
+      "frameSha256": "e6a1aa0764824bfe4ef7be6a50bc5f801aa20da550a8ff4e141f5e94c6a28397",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        940,
+        314,
+        1254
+      ],
+      "nativeFrameSha256": "eb61ce6a2293b2be56426521a229aca5907d04f6731e69014e0883a5bad30686",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 13,
+      "page": 0,
+      "cell": 13,
+      "bounds": [
+        12,
+        114,
+        486,
+        286
+      ],
+      "frameSha256": "e62d371d92bf0f54b92a287c89fe326cb079b2f96831404059417f4b9e1db385",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        940,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "bcc9678f0369db00e77d256638ce29a4a0db2899a501329aa2f88f70272e7c87",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 14,
+      "page": 0,
+      "cell": 14,
+      "bounds": [
+        12,
+        114,
+        481,
+        286
+      ],
+      "frameSha256": "845b4e8e18f2780dac582e7824ca63fcd09a6209a9be9ee3d43bb18310fdd80b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "nativeFrameSha256": "40a8075446f7104f42140524b1d9a1ca0e3ed3b2aa4e4a03426c34e6e9f6b589",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 15,
+      "page": 0,
+      "cell": 15,
+      "bounds": [
+        14,
+        114,
+        474,
+        286
+      ],
+      "frameSha256": "effc301d35024d518d2bd3f48ce84f6c0ab4ece50f00a822c8781fe881d99016",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/speakerMissile/speakerMissile-source.png",
+      "sourceSha256": "78a65f5d31efe9838473bf1eaafb5956e6617c6d8f3571f5c0a05dc7461f58ec",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "cd201665d97fc7cabef8fa818a9a5d2d3aa9b465563dbfaa03cb1e3af07987f1",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

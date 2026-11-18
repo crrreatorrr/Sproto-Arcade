@@ -1,0 +1,1427 @@
+{
+  "schemaVersion": 1,
+  "phase": 1,
+  "generator": "built-in image_gen",
+  "authorization": "User approved built-in image generation, parallel animation agents and Phase 1 only on 2026-11-17",
+  "layout": "four 2x2 pages per sixteen-frame animation",
+  "runtimePageDimensions": [
+    1024,
+    1024
+  ],
+  "cellDimensions": [
+    512,
+    512
+  ],
+  "sharedBodyHeight": 440,
+  "animations": {
+    "idle": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        59,
+        60,
+        394,
+        440
+      ],
+      "core": [
+        193,
+        115,
+        213,
+        175
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          96,
+          62,
+          577,
+          599
+        ],
+        "uniformScale": 0.819366852886406,
+        "destinationDimensions": [
+          394,
+          440
+        ],
+        "offsetXY": [
+          59,
+          60,
+          453,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            68,
+            61,
+            383,
+            438
+          ],
+          "version": "053436caa893b963",
+          "atlasSha256": "053436caa893b9639af626915557961d54f9e4af5dfa7e9bb8ce981d17de76a1",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-idle-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            59,
+            61,
+            392,
+            439
+          ],
+          "version": "22a930976ae0a663",
+          "atlasSha256": "22a930976ae0a6632ce874d69cd8da44058920fe69e89568d62e77130e6f9553",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-idle-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            66,
+            60,
+            386,
+            439
+          ],
+          "version": "0920010fec95a62b",
+          "atlasSha256": "0920010fec95a62ba20795b930548c4be789d1034a898865d486b300eaa494e1",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-idle-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            66,
+            70,
+            387,
+            430
+          ],
+          "version": "5b1a10e3600cfe30",
+          "atlasSha256": "5b1a10e3600cfe305b9d37da21ceebffa9ddab6186cb241ccfe6f45840daecb9",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    },
+    "walk": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        40,
+        60,
+        432,
+        440
+      ],
+      "core": [
+        212,
+        99,
+        214,
+        128
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          36,
+          39,
+          324,
+          332
+        ],
+        "uniformScale": 1.5017064846416381,
+        "destinationDimensions": [
+          432,
+          440
+        ],
+        "offsetXY": [
+          40,
+          60,
+          472,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-walk-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            61,
+            63,
+            410,
+            437
+          ],
+          "version": "5d6e7ef1e6c3ea56",
+          "atlasSha256": "5d6e7ef1e6c3ea569e6e64ea18bc34969efa77e733a5b79fdb0a9c2a5ea52491",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-walk-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            53,
+            60,
+            419,
+            440
+          ],
+          "version": "3951ab550a9f7fd5",
+          "atlasSha256": "3951ab550a9f7fd5fac4f376ee00638c489eab4967cde7786cc7e6b787ffc04a",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-walk-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            46,
+            62,
+            422,
+            438
+          ],
+          "version": "30a011e4fa9ba40c",
+          "atlasSha256": "30a011e4fa9ba40c17cda29517e985acc91fa4b2e33c961c25deb56db0b70f32",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-walk-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            40,
+            63,
+            431,
+            437
+          ],
+          "version": "29868845b41e364e",
+          "atlasSha256": "29868845b41e364ee3734c751a0d04bd1ce3487ecebc671d93f854c97e9bcb14",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    },
+    "beer": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        44,
+        60,
+        423,
+        440
+      ],
+      "core": [
+        177,
+        99,
+        236,
+        146
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          46,
+          40,
+          328,
+          333
+        ],
+        "uniformScale": 1.5017064846416381,
+        "destinationDimensions": [
+          423,
+          440
+        ],
+        "offsetXY": [
+          44,
+          60,
+          467,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            59,
+            62,
+            396,
+            435
+          ],
+          "version": "816801987ed849e8",
+          "atlasSha256": "816801987ed849e8ba20d314259668de58b4d500598768c498a523c7e69712dc",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            49,
+            60,
+            418,
+            437
+          ],
+          "version": "3cb7bd73a43c0752",
+          "atlasSha256": "3cb7bd73a43c075245bddf4cdc43e1739a3dda07ca211ac286825f1708dd1206",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            44,
+            62,
+            413,
+            436
+          ],
+          "version": "224ca1a4ccd0daeb",
+          "atlasSha256": "224ca1a4ccd0daebf234e7360dc705fd3aaad22ba2d585d77cc8e5184571d568",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            51,
+            63,
+            407,
+            437
+          ],
+          "version": "1abe441ce5756dea",
+          "atlasSha256": "1abe441ce5756dea76b4267e721d0b479cc38d417386658cdad8a37e4ec41d85",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    },
+    "cocktail": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        15,
+        60,
+        482,
+        440
+      ],
+      "core": [
+        299,
+        95,
+        145,
+        225
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          44,
+          93,
+          307,
+          333
+        ],
+        "uniformScale": 1.8333333333333333,
+        "destinationDimensions": [
+          482,
+          440
+        ],
+        "offsetXY": [
+          15,
+          60,
+          497,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            64,
+            60,
+            433,
+            438
+          ],
+          "version": "fed57b68d33b3fde",
+          "atlasSha256": "fed57b68d33b3fde830681ef73199762f668b77ff56e576e6813c59b624fef0f",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            15,
+            60,
+            482,
+            438
+          ],
+          "version": "13f900cb7a564429",
+          "atlasSha256": "13f900cb7a564429e6085dfcabf19dd2a87a07ff08c732b9fcb5b48a32920613",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            19,
+            60,
+            476,
+            438
+          ],
+          "version": "5b46c8ee5badea07",
+          "atlasSha256": "5b46c8ee5badea07a01c2580eb349567217a43458b6cd85f09f949087a45bf7f",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            53,
+            62,
+            444,
+            438
+          ],
+          "version": "3049253d854ea918",
+          "atlasSha256": "3049253d854ea9180697f20fcbdceeef6b7eb6ce7ae1c872605b1fae2b0c4e53",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    },
+    "marlin": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        33,
+        60,
+        445,
+        440
+      ],
+      "core": [
+        235,
+        95,
+        192,
+        206
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          43,
+          60,
+          600,
+          611
+        ],
+        "uniformScale": 0.7985480943738656,
+        "destinationDimensions": [
+          445,
+          440
+        ],
+        "offsetXY": [
+          33,
+          60,
+          478,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            66,
+            62,
+            410,
+            438
+          ],
+          "version": "26e8896e4949a17d",
+          "atlasSha256": "26e8896e4949a17d2427fe0256bc63a3be122d76ca2a79b165b3799c1da22eb5",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            33,
+            62,
+            441,
+            437
+          ],
+          "version": "04d62c0ccc79ec3a",
+          "atlasSha256": "04d62c0ccc79ec3a4d0527dd887a81ee459b794ed84c183afa7f1f525ab0058a",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            44,
+            62,
+            434,
+            437
+          ],
+          "version": "2a1acc5bc494713e",
+          "atlasSha256": "2a1acc5bc494713eb12c7e42b26824dd3208c228f8278ec98e8493c68cd3dfc9",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            79,
+            60,
+            396,
+            440
+          ],
+          "version": "ba8490af0db1d5f8",
+          "atlasSha256": "ba8490af0db1d5f8f3ee6d5159ee08ddc98657e17fb2b9091b70709c91bbc9c2",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    },
+    "disk-laser": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        53,
+        60,
+        406,
+        440
+      ],
+      "core": [
+        194,
+        97,
+        210,
+        128
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          56,
+          50,
+          316,
+          332
+        ],
+        "uniformScale": 1.5602836879432624,
+        "destinationDimensions": [
+          406,
+          440
+        ],
+        "offsetXY": [
+          53,
+          60,
+          459,
+          500
+        ],
+        "baseline": 500,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            55,
+            65,
+            388,
+            435
+          ],
+          "version": "ea7d6cb67fb1ea6e",
+          "atlasSha256": "ea7d6cb67fb1ea6e1b0d4568df0f9438a12048df36e985e9b7908429dbe076ff",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            53,
+            60,
+            403,
+            438
+          ],
+          "version": "ae55b17815f76c19",
+          "atlasSha256": "ae55b17815f76c1936eb0ef74e6031625a76516249ac3df73a12d7156d3ec91b",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            56,
+            60,
+            403,
+            438
+          ],
+          "version": "cae40d62b63cb70b",
+          "atlasSha256": "cae40d62b63cb70bc7f30de0095e7cef330a22d1873c9cbe1de14000c410dfc9",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            55,
+            65,
+            398,
+            435
+          ],
+          "version": "d817765d5a1bb98d",
+          "atlasSha256": "d817765d5a1bb98db05d6249e07df756cabb073f36b35f35683267d6a4b4e9a7",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        15,
+        60,
+        482,
+        440
+      ]
+    }
+  },
+  "projectileAnimations": {
+    "beer": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        40,
+        12,
+        431,
+        488
+      ],
+      "core": [
+        194,
+        82,
+        204,
+        369
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          40,
+          27,
+          269,
+          286
+        ],
+        "uniformScale": 1.8841698841698842,
+        "destinationDimensions": [
+          431,
+          488
+        ],
+        "offsetXY": [
+          40,
+          12,
+          471,
+          500
+        ],
+        "baseline": null,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-projectiles.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            55,
+            42,
+            416,
+            458
+          ],
+          "version": "e67ad8dc38cc288c",
+          "atlasSha256": "e67ad8dc38cc288c6fab2007ac73b55e8ddca48236df56fec5174a34ee95c96c",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            40,
+            12,
+            414,
+            486
+          ],
+          "version": "37996bb6c94ade78",
+          "atlasSha256": "37996bb6c94ade7824aaa28cc337d8469468586acf43d7a7f3e1365393cbc5b7",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            42,
+            14,
+            421,
+            478
+          ],
+          "version": "94b954a62089744a",
+          "atlasSha256": "94b954a62089744a89ad69a0d6d8f11475e0ab41dea3740944e426b667a65a46",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-beer-projectiles-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            46,
+            27,
+            421,
+            465
+          ],
+          "version": "976089dee0ef5918",
+          "atlasSha256": "976089dee0ef5918f22ce3203bd1837ad5896cbf92ce408bd21b645985071113",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        40,
+        12,
+        431,
+        488
+      ]
+    },
+    "cocktail": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        52,
+        12,
+        407,
+        488
+      ],
+      "core": [
+        138,
+        144,
+        167,
+        110
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          57,
+          32,
+          279,
+          298
+        ],
+        "uniformScale": 1.8345864661654134,
+        "destinationDimensions": [
+          407,
+          488
+        ],
+        "offsetXY": [
+          52,
+          12,
+          459,
+          500
+        ],
+        "baseline": null,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            56,
+            14,
+            403,
+            484
+          ],
+          "version": "ebfe572f7d0c504f",
+          "atlasSha256": "ebfe572f7d0c504fd61f2c8a6f27e4955ac9ed816e957602ccbfc6ba9f8eef3e",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            56,
+            12,
+            403,
+            486
+          ],
+          "version": "c3d9d7f0b3c56f28",
+          "atlasSha256": "c3d9d7f0b3c56f28fa612a700d3bd211b2a189c956c0aa2c99676aafb41c9b6b",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            52,
+            12,
+            407,
+            486
+          ],
+          "version": "eeb9c308db56e3fe",
+          "atlasSha256": "eeb9c308db56e3fea3a4b244431184e45bd4837eac8278dedb262161efc9e797",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-cocktail-projectiles-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            52,
+            14,
+            407,
+            486
+          ],
+          "version": "ef0cefff635fa879",
+          "atlasSha256": "ef0cefff635fa87901bc27829da785696875d09089400b0877c47b2c5c2975fd",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        52,
+        12,
+        407,
+        488
+      ]
+    },
+    "blueMarlin": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        12,
+        117,
+        488,
+        278
+      ],
+      "core": [
+        128,
+        219,
+        159,
+        79
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          16,
+          78,
+          302,
+          241
+        ],
+        "uniformScale": 1.7062937062937062,
+        "destinationDimensions": [
+          488,
+          278
+        ],
+        "offsetXY": [
+          12,
+          117,
+          500,
+          395
+        ],
+        "baseline": null,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            119,
+            488,
+            238
+          ],
+          "version": "3850c5d45dbd5d2f",
+          "atlasSha256": "3850c5d45dbd5d2f00c846e3f3176c9f25b51d54b29be4d40d388f329e2a5201",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            117,
+            481,
+            237
+          ],
+          "version": "ccae3dddcee5f447",
+          "atlasSha256": "ccae3dddcee5f4473176aead925f297ff436680d71d5cd2691a7922a5af181bf",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            137,
+            486,
+            258
+          ],
+          "version": "9e4cfec4ad696342",
+          "atlasSha256": "9e4cfec4ad6963426bd7455e5abd644c6756c13259daa36fc283344d90152669",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-marlin-projectiles-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            143,
+            488,
+            243
+          ],
+          "version": "3383299411a9e98b",
+          "atlasSha256": "3383299411a9e98b5b82fff2f003bf84e2a1acfd28d7c6c856da0d5295f76c50",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        12,
+        117,
+        488,
+        278
+      ]
+    },
+    "heavyMarlin": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        12,
+        97,
+        488,
+        318
+      ],
+      "core": [
+        159,
+        192,
+        127,
+        128
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          12,
+          58,
+          304,
+          248
+        ],
+        "uniformScale": 1.6712328767123288,
+        "destinationDimensions": [
+          488,
+          318
+        ],
+        "offsetXY": [
+          12,
+          97,
+          500,
+          415
+        ],
+        "baseline": null,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            99,
+            486,
+            274
+          ],
+          "version": "5f448e7634530876",
+          "atlasSha256": "5f448e7634530876b720f6dc46a7739177beb0f4f0ea85751138b0c3049c73bd",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            97,
+            481,
+            273
+          ],
+          "version": "e3e7f2b49bb2b3b3",
+          "atlasSha256": "e3e7f2b49bb2b3b3ddd69380fee0dd3e7d32eb87f81448ae4aacd2d5c62510e5",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            120,
+            488,
+            295
+          ],
+          "version": "93459c7fbc832cca",
+          "atlasSha256": "93459c7fbc832cca773f62b3f5e3c8252c8b9b64d9f115c4a2d9527ca5602e94",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-heavy-marlin-projectiles-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            120,
+            486,
+            282
+          ],
+          "version": "66feddfba40680b8",
+          "atlasSha256": "66feddfba40680b8e323e1fcdd317604e66b23c7ca16888fa0c81705883afbe8",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        12,
+        97,
+        488,
+        318
+      ]
+    },
+    "diskLaser": {
+      "frameCount": 16,
+      "framesPerSecond": 10,
+      "columns": 2,
+      "rows": 2,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "bounds": [
+        12,
+        150,
+        488,
+        212
+      ],
+      "core": [
+        176,
+        194,
+        302,
+        126
+      ],
+      "coreStatus": "largest rectangle fully opaque in the intersection of all sixteen native frames",
+      "facing": "left",
+      "transform": {
+        "sourceUnionCropLTRB": [
+          24,
+          104,
+          289,
+          219
+        ],
+        "uniformScale": 1.8415094339622642,
+        "destinationDimensions": [
+          488,
+          212
+        ],
+        "offsetXY": [
+          12,
+          150,
+          500,
+          362
+        ],
+        "baseline": null,
+        "registration": "one shared crop, scale and anchor for all sixteen native frames"
+      },
+      "pages": [
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page1.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            154,
+            488,
+            206
+          ],
+          "version": "f0174e5b3a577495",
+          "atlasSha256": "f0174e5b3a5774956eaab6c5ec7a6b8b5602a588f135984012bb1af0739bc863",
+          "page": 1,
+          "frameStart": 0,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page2.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            150,
+            488,
+            210
+          ],
+          "version": "c3cfc135c219805d",
+          "atlasSha256": "c3cfc135c219805d3e724ad6396c3edff2693c7b4e965119ee189bda5d3a91ba",
+          "page": 2,
+          "frameStart": 4,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page3.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            154,
+            488,
+            206
+          ],
+          "version": "0f7f78d6be638851",
+          "atlasSha256": "0f7f78d6be6388511ff74ab41c384eea33c04ba2ff6bef2f56a7a6389be71675",
+          "page": 3,
+          "frameStart": 8,
+          "frameCount": 4
+        },
+        {
+          "path": "art/generated/bosses/14-sprotel-bitcoin/p1-disk-laser-projectiles-page4.png",
+          "ready": true,
+          "width": 1024,
+          "height": 1024,
+          "columns": 2,
+          "rows": 2,
+          "bounds": [
+            12,
+            154,
+            488,
+            208
+          ],
+          "version": "cab9461eedcbcc8f",
+          "atlasSha256": "cab9461eedcbcc8f38f2cadff702995867d5aed9c1db4145906396f2efff7367",
+          "page": 4,
+          "frameStart": 12,
+          "frameCount": 4
+        }
+      ],
+      "referenceBounds": [
+        12,
+        150,
+        488,
+        212
+      ]
+    }
+  },
+  "pending": [],
+  "bodyReferenceBounds": [
+    15,
+    60,
+    482,
+    440
+  ],
+  "pageCount": 44,
+  "frameCount": 176,
+  "complete": true
+}

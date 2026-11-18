@@ -96,8 +96,8 @@ function drawTrialsBackdrop(phaseTwo){
  const gradient=ctx.createLinearGradient(0,0,0,720);
  gradient.addColorStop(0,'#172d3e');gradient.addColorStop(1,world.stage.color||'#293e47');
  ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,720);
- const scenery=img(world.stage.scenery);
- if(scenery){const scale=1280/scenery.naturalWidth,height=scenery.naturalHeight*scale,foot=world.stage.sceneryFoot??.801;ctx.drawImage(scenery,0,600-height*foot,1280,height);}
+ const scenery=img(phaseTwo?(world.stage.phaseTwoScenery||world.stage.scenery):world.stage.scenery);
+ if(scenery){const scale=1280/scenery.naturalWidth,height=scenery.naturalHeight*scale,foot=phaseTwo?(world.stage.phaseTwoSceneryFoot??world.stage.sceneryFoot??.801):(world.stage.sceneryFoot??.801);ctx.drawImage(scenery,0,600-height*foot,1280,height);}
  if(world.stage.phases[Number(phaseTwo)].naval)ArcadeSpeedboat.drawOcean(ctx,img,world.phaseElapsed*40,phaseTwo);
 }
 function render(){if(!world){ctx.fillStyle='#122431';ctx.fillRect(0,0,1280,720);text('MACHINE TRIALS',640,350,48,'#ffcf7b','center');return;}const w=world,p=w.player,ph=w.phase,jet=w.stage.number===7;
@@ -125,8 +125,8 @@ for(const h of w.hazards){
  const style=h.sprite||(h.rule==='ordinary'&&moving&&h.w<=128&&h.h<=128?'bolt':null);
  ctx.save();ctx.globalAlpha=warning ? (h.missile ? 0.65 : 0.35) : 0.95;
  let themed=false;
- if(!/^carrier-debris-/.test(h.source||'')){ctx.save();ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,w.stage.id,h,{x:-h.w/2,y:-h.h/2,w:h.w,h:h.h},w);ctx.restore();}
- if(themed){/* The collision rectangle and warning overlay below remain authoritative. */}
+ if(!h.sprotelMelee&&!/^carrier-debris-/.test(h.source||'')){ctx.save();ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);themed=globalThis.ArcadeBossSheets?.drawProjectile(ctx,w.stage.id,h,{x:-h.w/2,y:-h.h/2,w:h.w,h:h.h},w);ctx.restore();}
+ if(themed||h.sprotelMelee){/* The collision rectangle and warning overlay below remain authoritative. */}
  else if(style&&h.rule==='ordinary'){
   const asset=Arcade.projectileAssets?.[style],picture=img(asset?.path||'art/gameplay/projectiles/'+style+'.svg');
   if(picture){if(asset?.pixelArt)ctx.imageSmoothingEnabled=false;ctx.translate(h.x+h.w/2,h.y+h.h/2);ctx.scale((h.vx||1)<0?-1:1,1);if(asset?.crop)ctx.drawImage(picture,...asset.crop,-h.w/2,-h.h/2,h.w,h.h);else ctx.drawImage(picture,-h.w/2,-h.h/2,h.w,h.h);}

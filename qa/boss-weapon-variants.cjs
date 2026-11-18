@@ -17,8 +17,7 @@ const ctx=new Proxy({
   drawImage(image,...args){drawn.push({path:image.src,row:Math.floor(args[1]/512)});}
 }, {get(o,k){return k in o?o[k]:(...args)=>{for(const a of args)if(typeof a==='number')assert.ok(Number.isFinite(a));};},set(o,k,v){o[k]=v;return true;}});
 const rows=[];
-// The original thirteen bosses use three firing rows. Sprotel's paged 2x2
-// native animations have their own real-asset sampling fixture.
+// Paged Sprotel actions/projectiles have their own16-frame audit in sprotel-paging.test.cjs.
 for(const stage of [...scope.Arcade.stages.values()].filter(s=>s.number!==14&&(typeof s.enabled==='function'?s.enabled():s.enabled!==false)))for(const phase of stage.phases.keys()){
   const w=new scope.Arcade.World(stage,{seed:177,phase,practice:true});
   w.player.hp=100000;

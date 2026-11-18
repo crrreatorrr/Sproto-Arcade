@@ -1,0 +1,527 @@
+{
+  "frameCount": 16,
+  "kind": "projectile",
+  "generator": "built-in image_gen",
+  "columns": 4,
+  "rows": 4,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/projectiles/popcorn/page-0.png",
+      "sha256": "bcd7c0dc1cf40b25fa8a39d7ed15c2ecd2a040741a76a9b579bd0134ca95617f",
+      "version": "bcd7c0dc1cf40b25",
+      "width": 2048,
+      "height": 2048,
+      "columns": 4,
+      "rows": 4,
+      "ready": true,
+      "bounds": [
+        12,
+        13,
+        488,
+        486
+      ]
+    }
+  ],
+  "bounds": [
+    12,
+    13,
+    488,
+    486
+  ],
+  "referenceBounds": [
+    12,
+    13,
+    488,
+    486
+  ],
+  "core": [
+    142,
+    126,
+    252,
+    285
+  ],
+  "facing": "left",
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        16,
+        26,
+        482,
+        455
+      ],
+      "frameSha256": "95fc4b3ae5b4732ff94690fbaadbe15c7716ce6dc7d19eaeedba4113a1ec6db1",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "nativeFrameSha256": "6bf64bcde6769c368bef58745f1a28fc506afe68b5e7523525f17d17a87974c3",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        16,
+        20,
+        480,
+        466
+      ],
+      "frameSha256": "cab4d1ce01a917a0983608f4cb2e0d8872e2f6b96cb4d9d7599bd08418dbfdf5",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        0,
+        627,
+        314
+      ],
+      "nativeFrameSha256": "6d3c61177e0d82a5b8fc93532d160ff7c05c31570d5a11c78c854f84e3c9ede0",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        23,
+        18,
+        472,
+        463
+      ],
+      "frameSha256": "be29a62c784ede300a3cdd4d3e3da0cc39cd9209f54fe7025863d47080ffc64a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        940,
+        314
+      ],
+      "nativeFrameSha256": "b15192a45f1e4f6450cec8c937d373d25462cb5465c0271d2d1467f317213c92",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        28,
+        18,
+        472,
+        455
+      ],
+      "frameSha256": "f7d4e97a68ca280a09f6073c3d8b60fe9ee87668c312eefadd27c2d72c6524b2",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        0,
+        1254,
+        314
+      ],
+      "nativeFrameSha256": "f3b40b50a95e5303e7efe31a7f543a9a6432d10d5d8755165a365abe9743288c",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 4,
+      "page": 0,
+      "cell": 4,
+      "bounds": [
+        23,
+        17,
+        472,
+        451
+      ],
+      "frameSha256": "1c7875b4bd4bd1b1ecb4d54e4922fb1023b032802162ef0134d7da37b5471b4a",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        314,
+        314,
+        627
+      ],
+      "nativeFrameSha256": "a1f5a7e66ec0df6448b8256a2062321fdeb68c9aa89ba382e213497afecf1e71",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 5,
+      "page": 0,
+      "cell": 5,
+      "bounds": [
+        27,
+        17,
+        462,
+        445
+      ],
+      "frameSha256": "a6724fe5453f30d248bb141f4b76e9f52a8c0d3e4eb60ffd8524b10d7df8e9c7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        314,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "49bf8b5adf0dfc9b04fb2535b8aae3c7b3a42289774d7aba857df12d187b4499",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 6,
+      "page": 0,
+      "cell": 6,
+      "bounds": [
+        16,
+        17,
+        479,
+        442
+      ],
+      "frameSha256": "680848aea205fa46e417331623238c9441314a1fe496d59f9136825e1ba20181",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        314,
+        940,
+        627
+      ],
+      "nativeFrameSha256": "aaa456ad98afa3e6a8e9f4e6b37f711eb5be48720cb47354077f03958f98d42a",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 7,
+      "page": 0,
+      "cell": 7,
+      "bounds": [
+        14,
+        13,
+        479,
+        460
+      ],
+      "frameSha256": "f39ea7f5e059372a402461426bfeb876419e98c2c3b81f162137485ae491ef1e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        314,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "0d967d7e6590a2672eb62a6984c695edb830e82859c50a192d58bb2f57050773",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 8,
+      "page": 0,
+      "cell": 8,
+      "bounds": [
+        14,
+        17,
+        482,
+        464
+      ],
+      "frameSha256": "7ea8cdee23e166b180d95abfa220f70e7412ed6bb8c824fac0b9add41200da1c",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        314,
+        940
+      ],
+      "nativeFrameSha256": "41c327f2eb4a8f3b13ebe19aefcf3eb8dbd615a4ae1ffc5b538b5ecfa404e4c1",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 9,
+      "page": 0,
+      "cell": 9,
+      "bounds": [
+        12,
+        22,
+        483,
+        466
+      ],
+      "frameSha256": "ba42e0dd687be695ccfdb9ac2836fe18c1ec98e485fbeb2693e9d638a065ce43",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        627,
+        627,
+        940
+      ],
+      "nativeFrameSha256": "1ec570c390f6cdb3206e84c27b840a64e51afd7f6dc89466397324545c89f920",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 10,
+      "page": 0,
+      "cell": 10,
+      "bounds": [
+        17,
+        22,
+        468,
+        464
+      ],
+      "frameSha256": "05e0448d319c3ce817cc6709218abcd0977127811e0f8e17eff52199fd4fc2ef",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "nativeFrameSha256": "b02e525607658db1dda14a0e1e3255666813a12b77aa57b8b257ccf4d25f6b6b",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 11,
+      "page": 0,
+      "cell": 11,
+      "bounds": [
+        28,
+        22,
+        465,
+        466
+      ],
+      "frameSha256": "86411063fbcdda69a65be3c737dd1d6d5eec3c96ed59d8190d2959fe4dc554a7",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "nativeFrameSha256": "6915512ac479831cd5442bca6082b04dc06c75373bccb7529caa131b5f4ecf7c",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 12,
+      "page": 0,
+      "cell": 12,
+      "bounds": [
+        19,
+        33,
+        477,
+        466
+      ],
+      "frameSha256": "c5f81ef5dc367584a6ecac9d9c320617123022872e0539ecc0a298ff4fadb549",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        0,
+        940,
+        314,
+        1254
+      ],
+      "nativeFrameSha256": "fdd5f10d80e0665c9aba3f1e9ea2b457b225de628218a1d2808b4cef58a2d0b6",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 13,
+      "page": 0,
+      "cell": 13,
+      "bounds": [
+        17,
+        28,
+        479,
+        464
+      ],
+      "frameSha256": "5f3d6cc8d8038f37463c6aeb506103927e83d39e4eca06f21b6b8b2a221479a5",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        314,
+        940,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "24f37c6a67bf2c10356545258ca8574e17bb3ee922c68b104b7d36a3a16381dd",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 14,
+      "page": 0,
+      "cell": 14,
+      "bounds": [
+        17,
+        28,
+        478,
+        455
+      ],
+      "frameSha256": "eb56f65e71ed95d6906556a3058e114af449c243f8b8d2ddbd4d143514ecc077",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "nativeFrameSha256": "a65c89a942c15c7d57bb0ab8012a36078fa765b9627f7f75a60ee1ebe9cb3a17",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    },
+    {
+      "index": 15,
+      "page": 0,
+      "cell": 15,
+      "bounds": [
+        19,
+        29,
+        481,
+        454
+      ],
+      "frameSha256": "852cbdb57b7e384ce0fc337e0bf56bb69dfaeba130dd2e9eb7020258cda40a4b",
+      "source": "art/reference/20261117-sprotel-bitcoin/final-projectiles/popcorn/popcorn-source.png",
+      "sourceSha256": "f30528cfeed7b695faf34005e39dfb8baed80b0e51924aeb18cd8cd7826fb669",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "sourceCellXYXY": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "1e0b42a4c1327e65f14192dc23eca0ffed1fc0e80e45852ccadfa966054e8def",
+      "tinyDisconnectedEdgePixelsRemoved": 0
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

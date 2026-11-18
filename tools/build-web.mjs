@@ -83,12 +83,13 @@ function staticFiles(){
   // Include every verified atlas even when its first attack occurs after the brief browser audit.
   const sheetScope={};
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sprite-presentations.js'),'utf8'),sheetScope);
+  if(fs.existsSync(path.join(root,'sprotel-art.js')))vm.runInNewContext(fs.readFileSync(path.join(root,'sprotel-art.js'),'utf8'),sheetScope);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sheets.js'),'utf8'),sheetScope);
   for(const asset of sheetScope.ArcadeBossSheets.presentationPaths())files.add(asset);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-transitions.js'),'utf8'),sheetScope);
   for(const asset of sheetScope.ArcadeBossTransitions.assetPaths())files.add(asset);
   for(const config of Object.values(sheetScope.ArcadeBossSheets.manifest)){
-    for(const animation of [...Object.values(config.animations||{}),...Object.values(config.projectileAnimations||{})]){
+    for(const animation of [...Object.values(config.animations||{}),...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})]){
       for(const asset of animation.pages||[])if(asset.ready)files.add(asset.path);
     }
     for(const asset of [...config.phases,...config.projectiles])if(asset.ready)files.add(asset.path);

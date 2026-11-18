@@ -128,7 +128,7 @@ const acts = [
   {id:'sprotosales',name:'Bot Sales',tag:'The Final Pitch',hp:365,color:'#efa7ff',moves:['fan', 'splitArc', 'crossfire', 'ricochet', 'drop'],staticMoves:['crescentArc', 'arenaHazard', 'slabGates']},
   null,null,
   {id:'redkev',name:'Redkev',tag:'The Red Breakwater',hp:263,color:'#ff3434',moves:['rush','slabs','quake','drop','bankShot'],staticMoves:['skimmer','gearPincer']},
-  {id:'sprotel',name:'Sprotel Bitcoin',tag:'Last Call',hp:290,color:'#19d9ed',moves:['sprotelBeer','sprotelDrinks','sprotelMarlin','sprotelDiskLaser'],staticMoves:[]}
+  {id:'sprotel',name:'Sprotel Bitcoin',tag:'Last Call',hp:290,color:'#19d9ed',moves:['sprotelBeer','sprotelDrinks','sprotelMarlin','sprotelDiskLaser'],staticMoves:['sprotelBeerStick','sprotelCocktailCannon','sprotelSnacks','sprotelMarlin','sprotelDiskLaser','sprotelSoundWave']}
 ];
 const phaseTwoMoves=['gearPincer','lanternShower','slabGates','crescentArc'];
 const MOONKEEP_ATTACKS={
@@ -145,6 +145,10 @@ const moves = {
   sprotelDrinks:{tell:65,active:38,rest:55},
   sprotelMarlin:{tell:80,active:32,rest:65},
   sprotelDiskLaser:{tell:90,active:40,rest:65},
+  sprotelBeerStick:{tell:90,active:32,rest:75},
+  sprotelCocktailCannon:{tell:75,active:44,rest:65},
+  sprotelSnacks:{tell:75,active:44,rest:65},
+  sprotelSoundWave:{tell:100,active:40,rest:80},
   quake:{tell:28,active:38,rest:31},
   slabs:{tell:34,active:57,rest:26},
   rush:{tell:37,active:29,rest:33},
@@ -202,6 +206,10 @@ const boxes = {
   cocktail:{w:38,h:48,color:'#44eaff'},
   blueMarlin:{w:100,h:38,color:'#16cfff'},
   diskLaser:{w:120,h:40,color:'#5dffff'},
+  pretzel:{w:54,h:40,color:'#df8a2d'},
+  nacho:{w:42,h:38,color:'#ffd44b'},
+  popcorn:{w:40,h:40,color:'#fff0ba'},
+  speakerMissile:{w:96,h:56,color:'#60edff'},
   spark:{color:'#ffde65',art:'player/higgsfield/spit'},
   greenLaser:{color:'#9aff8f',art:'player/higgsfield/saucer/laser'},
   redLaser:{color:'#ff6274',art:'player/higgsfield/saucer/red-laser'},
@@ -830,6 +838,10 @@ function clearLevel() {
 const MOVE_LABELS={
   sprotelBeer:'BEER TOSS · DODGE THE ARC',sprotelDrinks:'DRINKS ROUND · TWO GLASSES',
   sprotelMarlin:'BLUE MARLIN · LOW THEN HIGH',
+  sprotelBeerStick:'BEER STICK · JUMP, DASH OR BACK AWAY FROM THE MARK',
+  sprotelCocktailCannon:'COCKTAIL CANNON · LEAVE THE LOCKED LINE',
+  sprotelSnacks:'SNACK VOLLEY · PRETZELS, NACHOS AND POPCORN',
+  sprotelSoundWave:'SOUND WAVE SPECIAL · THREE SPEAKERS TOGETHER',
   sprotelDiskLaser:'DISK LASER CHARGING · LEAVE THE LOCKED LINE',
   quake:'SHOCKWAVE · JUMP IT',sweep:'DOUBLE SHOCKWAVE · JUMP IT',slabs:'VOLLEY · HIGH THEN LOW',rush:'CHARGE · BACK OFF',
   rain:'RAIN FROM ABOVE',ricochet:'BOUNCING VOLLEY',fan:'FAN SPREAD',drop:'LEAP SLAM · MOVE',crossfire:'CROSSFIRE · BOTH SIDES',
@@ -984,7 +996,7 @@ function hurt(contact = false, force = false) {
 function combatWeaponVariant() {
   const id=LEVELS[levelIndex].id,kind=id===11?'chase':id===12?'codebreak':'regular';
   if(id===7&&MOONKEEP_ATTACKS[boss.move])return MOONKEEP_ATTACKS[boss.move].variant;
-  if(id===14)return boss.move==='sprotelDrinks'?1:boss.move==='sprotelMarlin'?2:0;
+  if(id===14)return ['sprotelDrinks','sprotelCocktailCannon'].includes(boss.move)?1:['sprotelMarlin','sprotelSoundWave'].includes(boss.move)?2:0;
   return typeof spriteLegacyWeaponVariant==='function'?spriteLegacyWeaponVariant(boss.step,boss.attackIndex,kind):0;
 }
 function combatPhaseIndex() {
@@ -1183,9 +1195,9 @@ function ceilingSweepInProgress() {
 function startMove() {
   const b=boss;
   if(LEVELS[levelIndex].id===14){
-    const order=b.moves;
+    const order=b.phase===2?b.staticMoves:b.moves;
     b.section=healthSection(b);b.move=order[b.step++%order.length];b.age=0;
-    const warning=b.move==='sprotelDiskLaser'?90:60;
+    const warning=b.move==='sprotelSoundWave'?100:['sprotelDiskLaser','sprotelBeerStick'].includes(b.move)?90:60;
     b.tell=Math.max(moves[b.move].tell,Math.ceil(warning*bossAttackRate(b)));
     b.startX=b.x;b.aimX=player.x;b.aimY=player.y;b.lanes=[];
     return;
@@ -1267,16 +1279,39 @@ function launchMechaRocket(index, targetY) {
 function attackBoss(t) {
   const b=boss, x=b.x-146, hard=b.phase>=2;
   if(LEVELS[levelIndex].id===14){
-    // Drinks follow separate arcs; the long marlin crosses a low, then high lane.
-    if(b.move==='sprotelBeer'&&(t===0||t===24))fire(x,FLOOR-180,-8.2,-5.8,'beer',false,.22);
-    if(b.move==='sprotelDrinks'&&(t===0||t===18))fire(x,FLOOR-210,-7.5,t===0?-6.8:-3.8,'cocktail',false,.20);
+    // Every release uses the attachment in its currently drawn animation cell.
+    if(b.move==='sprotelBeer'&&(t===0||t===24)){
+      const p=sprotelShotPoint(b,'beerThrow','beer',t);fire(p.x,p.y,-8.2,-5.8,'beer',false,.22);
+    }
+    if(b.move==='sprotelDrinks'&&(t===0||t===18)){
+      const p=sprotelShotPoint(b,'cocktailThrow','cocktail',t);fire(p.x,p.y,-7.5,t===0?-6.8:-3.8,'cocktail',false,.20);
+    }
     if(b.move==='sprotelMarlin'&&(t===0||t===24)){
-      const y=t===0?FLOOR-72:FLOOR-205;
-      fire(x,y,-9,0,'blueMarlin',false);
+      const p=sprotelShotPoint(b,'marlin','blueMarlin',t),lane=FLOOR-(t===0?72:205),vy=(lane-p.y)*9/Math.max(240,p.x-220);
+      fire(p.x,p.y,-9,vy,'blueMarlin',false);
+    }
+    if(b.move==='sprotelBeerStick'&&t>=23&&t<31){
+      const r=sprotelBeerStickBox(b),top=player.y-playerHeight();
+      if(player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&top<r.y+r.h)hurt();
+    }
+    if(b.move==='sprotelCocktailCannon'&&[0,16,32].includes(t)){
+      const p=sprotelShotPoint(b,'cocktailCannon','cocktail',t),dx=b.aimX-p.x,dy=b.aimY-65-p.y,length=SimMath.hypot(dx,dy)||1;
+      fire(p.x,p.y,dx*9/length,dy*9/length,'cocktail',false);
+    }
+    if(b.move==='sprotelSnacks'&&[0,12,24].includes(t)){
+      const index=t/12,shape=['pretzel','nacho','popcorn'][index],p=sprotelShotPoint(b,'snacks',shape,t);
+      fire(p.x,p.y,-7.5,-2.8+index*2.8,shape,false,.075);
+    }
+    if(b.move==='sprotelSoundWave'&&t===0){
+      for(let lane=0;lane<3;lane++){
+        const p=sprotelShotPoint(b,'soundWave','speakerMissile.'+lane,t),targetY=b.aimY-65+(1-lane)*80;
+        const vy=(targetY-p.y)*3.6/Math.max(240,p.x-b.aimX);
+        fire(p.x,p.y,-3.6,vy,'speakerMissile',false);
+      }
     }
     if(b.move==='sprotelDiskLaser'&&[0,8,16,24].includes(t)){
-      const [mx,my]=sprotelDiskMuzzle(b),dx=b.aimX-mx,dy=b.aimY-65-my,length=SimMath.hypot(dx,dy)||1;
-      fire(mx,my,dx*12/length,dy*12/length,'diskLaser',false,0,0,true);
+      const p=sprotelShotPoint(b,'diskLaser','diskLaser',t),dx=b.aimX-p.x,dy=b.aimY-65-p.y,length=SimMath.hypot(dx,dy)||1;
+      fire(p.x,p.y,dx*12/length,dy*12/length,'diskLaser',false,0,0,true);
     }
     return;
   }
@@ -1507,12 +1542,22 @@ function attackBoss(t) {
 }
 
 // Artwork registration shared by the committed laser stream and its warning line.
-function sprotelDiskMuzzle(b){return[b.x-1,b.y-181];}
+// advanceBossMove increments age after firing; spawn from the frame drawn that step.
+function sprotelShotPoint(b,action,shape,t=0){
+  const active=moves[b.move]?.active||32,frame=8+Math.min(3,Math.floor((Math.max(0,t)+1)/active*4));
+  return sprotelProjectilePoint(b.phase-1,action,shape,frame,sprotelLegacyBox(b.phase-1,bossSheetBox(b)));
+}
+function sprotelDiskMuzzle(b){const p=sprotelShotPoint(b,'diskLaser','diskLaser',Math.max(0,b.age-b.tell));return[p.x,p.y];}
+function sprotelBeerStickBox(b){return sprotelBeerStickRect(b.phase-1,sprotelLegacyBox(b.phase-1,{x:b.x-190,y:b.y-116*b.scale,w:380,h:116*b.scale-12}));}
 
 function drawSprotelLaserWarning(){
   if(LEVELS[levelIndex].id!==14||!boss.hp)return;
-  if(boss.move!=='sprotelDiskLaser'||boss.age>=boss.tell)return;
-  const [x,y]=sprotelDiskMuzzle(boss),tx=boss.aimX,ty=boss.aimY-65;
+  if(boss.move==='sprotelBeerStick'&&boss.age<boss.tell){
+    const r=sprotelBeerStickBox(boss);ctx.save();ctx.fillStyle='#ffd24c28';ctx.fillRect(r.x,r.y,r.w,r.h);ctx.strokeStyle='#ffdb73';ctx.lineWidth=3;ctx.setLineDash([10,8]);ctx.strokeRect(r.x,r.y,r.w,r.h);ctx.restore();return;
+  }
+  if(!['sprotelDiskLaser','sprotelCocktailCannon'].includes(boss.move)||boss.age>=boss.tell)return;
+  const action=boss.move==='sprotelCocktailCannon'?'cocktailCannon':'diskLaser',shape=action==='cocktailCannon'?'cocktail':'diskLaser';
+  const {x,y}=sprotelShotPoint(boss,action,shape),tx=boss.aimX,ty=boss.aimY-65;
   ctx.save();ctx.strokeStyle='#79ffff';ctx.lineWidth=2;ctx.setLineDash([10,10]);
   ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tx,ty);ctx.stroke();ctx.setLineDash([]);
   ctx.beginPath();ctx.arc(tx,ty,20,0,Math.PI*2);ctx.stroke();ctx.restore();
@@ -1558,7 +1603,13 @@ function advanceBossMove(b) {
     return;
   }
   const m=moves[b.move], t=b.age-b.tell;
-  if (b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
+  if(LEVELS[levelIndex].id===14&&b.move==='sprotelBeerStick'){
+    const target=clamp(b.aimX+350,570,920);
+    const progress=clamp(b.age/b.tell,0,1),ease=progress*progress*(3-2*progress);
+    if(t<0)b.x=b.startX+(target-b.startX)*ease;
+    else if(t<m.active)b.x=target;
+    else b.x+=clamp(BOSS_HOME-b.x,-7,7);
+  } else if (b.phase===1 && (!isTravelMove(b.move) || t<0 || t>=m.active)) {
     const target=BOSS_HOME+SimMath.sin(authoredTime()*.035)*42;
     b.x+=clamp(target-b.x,-8,8);
   }
@@ -1744,7 +1795,7 @@ function updateBullets() {
 function hitBoss(shot,damage) {
   shot.dead=true;
   let floor=0;
-  if (boss.phase===2 && !isCodebreak()) {
+  if (boss.phase===2 && !isCodebreak() && LEVELS[levelIndex].id!==14) {
     // Keep both shield tests reachable, even if damage outpaces the recharge.
     if (!boss.pulses.has(2)) floor=Math.floor(boss.max/4)+1;
     else if (!boss.pulses.has(3)) floor=1;
@@ -2101,7 +2152,7 @@ function drawMecha(b) {
   const art=bossAttackImage('mecha/'+(launch?'fire':'hover'));
   const y=mechaY(b);
   ctx.save();
-  if (!b.hp && b.phase===2) ctx.globalAlpha=clamp((transition-12)/25,0,1);
+  if (!b.hp && (b.phase===2||LEVELS[levelIndex].singlePhase)) ctx.globalAlpha=clamp((transition-12)/25,0,1);
   ctx.translate(Math.round(b.x),Math.round(y));
   ctx.scale(-1,1);
   if (b.hp) drawFlightFlame('orange',-art.width/2+26,16,41,-.65);
@@ -2176,8 +2227,7 @@ function renderBoss() {
   const defaultPose=sheets?.legacyPose(b.move,b.age,b.tell,m?.active||0,time,variant)??{row:0,column:0};
   const sheetPose=id===14?defaultPose:(densityShots.length&&sheets?.barragePose(densityShots,time,true))||
     (b.hp&&sheets?.releasePose?.(b,b.phase-1,time,defaultPose))||defaultPose;
-  const flightPose=id===7?{...sheetPose,flightTick:time,flightOwner:b}:id===14?
-    {...sheetPose,animation:sheetPose.animation||'idle',frame:sheetPose.frame??Math.floor(time/2)%16}:sheetPose;
+  const flightPose=id===7?{...sheetPose,flightTick:time,flightOwner:b}:sheetPose;
   // The hit flash is a second additive pass over the same frame (sprite + 0.38 x sprite, the old
   // brightness(1.38) over opaque pixels; 0.34 for the fallback mecha). A canvas filter here ran on
   // close to half of all frames while the player's autofire was landing.
@@ -2702,8 +2752,8 @@ function renderLegacyScene() {
       else if (shot.vx<0 && (shot.shape==='boulder' || shot.shape==='prism' || shot.shape==='crescent'||shot.shape==='comet'||shot.shape==='hammer'||shot.shape==='torpedo'||shot.shape==='shard'||shot.shape==='trident'||shot.shape==='prismwedge')) ctx.scale(-1,1);
     };
     const sourceArt=bossShotArt[shot.laser?'laser':shot.shape];
-    const sprotelShot=LEVELS[levelIndex].id===14&&['beer','cocktail','blueMarlin','diskLaser'].includes(shot.shape);
-    const enemyArt=sprotelShot?['',boxes[shot.shape].w,boxes[shot.shape].h]:sourceArt||(shot.shape==='bioBubble'?['',58,58]:['',52,92]);
+    const sprotelShot=LEVELS[levelIndex].id===14&&['beer','cocktail','blueMarlin','diskLaser','pretzel','nacho','popcorn','speakerMissile'].includes(shot.shape);
+    const enemyArt=sprotelShot?['',boxes[shot.shape].w,boxes[shot.shape].h]:(sourceArt||(shot.shape==='bioBubble'?['',58,58]:['',52,92]));
     if (globalThis.ArcadeBossSheets?.drawProjectile(ctx,LEVELS[levelIndex].id,shot,{x:-enemyArt[1]/2,y:-enemyArt[2]/2,w:enemyArt[1],h:enemyArt[2]},{phaseIndex:boss.phase-1,tick:time,directionAngle:SimMath.atan2(shot.vy,shot.vx)})) {
       // Themed enemy art uses the original visual size; collision remains in boxes.
     } else {

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprotel Bitcoin · Animation review</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#071923;color:#edf8f7}*{box-sizing:border-box}body{margin:0;padding:20px}header{max-width:1280px;margin:0 auto 14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}h1{font-size:22px;margin:0;margin-right:auto}a{color:#60e3ee}label{display:grid;gap:5px;font-size:12px}select,button,input{font:inherit;padding:8px;background:#10303c;color:#f3fbf9;border:1px solid #37616b;border-radius:4px}button{cursor:pointer}main{max-width:1280px;margin:auto}canvas{display:block;width:100%;aspect-ratio:16/9;background:#142a32;border:1px solid #37616b}p{color:#b5ced3;font-size:13px;line-height:1.6}#status{min-height:22px}input[type=range]{width:200px}output{font-variant-numeric:tabular-nums}
+</style>
+<header><h1>Sprotel Bitcoin · Animation review</h1><label>Phase<select id="phase"><option value="0">1 · Last Call</option><option value="1">2 · Happy Hour Arsenal</option></select></label><label>Action<select id="action"></select></label><label>Projectile<select id="projectile"><option value="">None</option></select></label><label>Release points<input id="origins" type="checkbox" checked></label><button id="play">Pause</button><label>Frame <output id="number">1 / 16</output><input id="frame" type="range" min="0" max="15" value="0"></label></header>
+<main><canvas id="canvas" width="1280" height="720" aria-label="Sprotel Bitcoin animated sprite preview"></canvas><p id="status" role="status">Loading available animation pages…</p><p>Controlled art preview. The animation plays at eight frames per second. Mecha actions use four 2×2 pages; Phase 1 projectiles retain four 2×2 pages; new Phase 2 projectiles use one 4×4 sheet. <a href="index.html?stage=14-sprotel-bitcoin">Play Machine Trials</a> · <a href="legacy.html">Story campaign</a></p></main>
+<script src="sprite-hitboxes.js?v=e1726ce9cfe1"></script><script src="sprotel-art.js?v=d7ee25332dcf"></script><script src="boss-sheets.js?v=c4973b4ce433"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),art=ArcadeBossSheets.entry(14);
+const images=new Map();let playing=true,sample=0,last=0,acc=0;
+const picture=path=>{if(!images.has(path)){const i=new Image();i.src=path;images.set(path,i);}return images.get(path);};
+const shotSizes={beer:[42,54],cocktail:[38,48],blueMarlin:[100,38],heavyMarlin:[124,50],diskLaser:[120,40],speakerMissile:[96,56],pretzel:[54,40],nacho:[42,38],popcorn:[40,40]};
+function updateActions(){const before=$('action').value;$('action').replaceChildren(...Object.keys(art.phaseAnimations[Number($('phase').value)]||{}).map(name=>new Option(name.replace(/([a-z])([A-Z])/g,'$1 $2'),name)));if([...$('action').options].some(o=>o.value===before))$('action').value=before;sample=0;}
+for(const name of Object.keys(art.projectileAnimations))$('projectile').add(new Option(name,name));
+$('phase').onchange=updateActions;updateActions();$('action').onchange=()=>sample=0;
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play';};
+$('frame').oninput=()=>{playing=false;sample=Number($('frame').value);$('play').textContent='Play';};
+function render(now){const dt=last?Math.min(100,now-last):0;last=now;if(playing){acc+=dt;while(acc>=125){sample=(sample+1)%16;acc-=125;}}
+ const phase=Number($('phase').value),action=$('action').value,background=picture(phase?'art/phase-two/prism-vault.webp':'art/level-02.jpg');
+ ctx.fillStyle='#102b36';ctx.fillRect(0,0,1280,720);ctx.imageSmoothingEnabled=false;
+ if(background.complete&&background.naturalWidth){const height=background.naturalHeight*1280/background.naturalWidth;ctx.drawImage(background,0,600-height*(phase ? .758 : .801),1280,height);}
+ const box=ArcadeBossSheets.machineBox({stage:{id:'14-sprotel-bitcoin'},phaseIndex:phase,data:{mechX:900}});
+ const animation=art.phaseAnimations[phase]?.[action],page=animation?.pages?.[Math.floor(sample/4)];
+ let drawn=false;
+ if(page){const image=picture(page.path+'?v='+page.version);if(image.complete&&image.naturalWidth){const crop=animation.preservedFromMain?animation.bounds:page.bounds,d=spriteAtlasDestinationRect(animation.referenceBounds||animation.bounds,crop,box,false);if(d){ctx.save();ctx.translate(box.x+box.w/2,box.y+box.h/2);ctx.drawImage(image,(sample%2)*512+crop[0],Math.floor(sample%4/2)*512+crop[1],crop[2],crop[3],d.x,d.y,d.w,d.h);ctx.restore();drawn=true;}}}
+ if($('origins').checked&&sample>=8&&sample<=11){const ports=SPRITE_HITBOXES.stages[14]?.[phase]?.provenance?.projectileAttachments?.[action]?.ports||{};for(const name of Object.keys(ports)){const p=sprotelProjectilePoint(phase,action,name,sample,box);if(p){ctx.strokeStyle='#7cffff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x-7,p.y);ctx.lineTo(p.x+7,p.y);ctx.moveTo(p.x,p.y-7);ctx.lineTo(p.x,p.y+7);ctx.stroke();}}}
+ const shape=$('projectile').value;if(shape){const [w,h]=shotSizes[shape],centres=shape==='speakerMissile'?[[520,340],[520,420],[520,500]]:[[520,420]];for(const [x,y] of centres){ctx.save();ctx.translate(x,y);ArcadeBossSheets.drawProjectile(ctx,14,{shape,age:sample*4,vx:-4,vy:0},{x:-w/2,y:-h/2,w,h},{phaseIndex:phase,directionAngle:Math.PI});ctx.restore();}}
+ ctx.fillStyle='#112430d9';ctx.fillRect(20,20,620,72);ctx.fillStyle='#fff2cf';ctx.font='700 24px system-ui';ctx.fillText('SPROTEL BITCOIN · PHASE '+(phase+1),38,52);ctx.font='16px system-ui';ctx.fillText(action+' · frame '+(sample+1)+' / 16',38,77);
+ $('frame').value=sample;$('number').textContent=(sample+1)+' / 16';$('status').textContent=drawn?'Playing generated animation frames.':'Waiting for this animation page to finish loading.';requestAnimationFrame(render);
+}requestAnimationFrame(render);
+</script></html>

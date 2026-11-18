@@ -1,0 +1,831 @@
+{
+  "frameCount": 16,
+  "kind": "mecha",
+  "generator": "built-in image_gen",
+  "columns": 2,
+  "rows": 2,
+  "pages": [
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/beerStick/page-0.png",
+      "sha256": "88044185ed9d99b652e7607f186a72cc5ec46ef14f45232c71b04105417ea4e3",
+      "version": "88044185ed9d99b6",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        127,
+        137,
+        359,
+        356
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/beerStick/page-1.png",
+      "sha256": "f716b137ba317e134234b142e344a23b1b8216795bb1eeb461fd836d00132476",
+      "version": "f716b137ba317e13",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        79,
+        71,
+        373,
+        423
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/beerStick/page-2.png",
+      "sha256": "5b7d098e753df2858ea8b39c3f853a8e3573a137817377caf58a4237a8092ea2",
+      "version": "5b7d098e753df285",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        129,
+        147,
+        326,
+        345
+      ]
+    },
+    {
+      "path": "art/generated/bosses/14-sprotel-bitcoin/p2/beerStick/page-3.png",
+      "sha256": "1a52faf56710628f44d71fe48c10d752e3a9c17d9630b33fc6b6bb0c0ce3b3ee",
+      "version": "1a52faf56710628f",
+      "width": 1024,
+      "height": 1024,
+      "columns": 2,
+      "rows": 2,
+      "ready": true,
+      "bounds": [
+        98,
+        84,
+        326,
+        409
+      ]
+    }
+  ],
+  "bounds": [
+    79,
+    71,
+    407,
+    423
+  ],
+  "referenceBounds": [
+    26,
+    12,
+    460,
+    488
+  ],
+  "core": [
+    265,
+    213,
+    103,
+    46
+  ],
+  "facing": null,
+  "frames": [
+    {
+      "index": 0,
+      "page": 0,
+      "cell": 0,
+      "bounds": [
+        167,
+        137,
+        289,
+        355
+      ],
+      "frameSha256": "6db7dbfa2bf4d031ca9044d89e65ed1bf3efc7dc52fbdffa512531d14f4d14a4",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-0-source.png",
+      "sourceSha256": "159d0ad66f54c86f3466067a737914fa5b007a14e36b639471a36904bf295a38",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "93abaa65f1d3b4002934cd5d6b330c0060db46f70e65fb74fa0734159688d8b4",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8714605067064084,
+        "offset": [
+          291,
+          383
+        ],
+        "nativeDisk": [
+          253.75,
+          258.0
+        ],
+        "nativeFoot": 593.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 1,
+      "page": 0,
+      "cell": 1,
+      "bounds": [
+        156,
+        140,
+        315,
+        353
+      ],
+      "frameSha256": "3d62707945b8b3864f8be8ebc57bb3b81dca3aefc23856f72ce3c1ecbf06aae0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-0-source.png",
+      "sourceSha256": "159d0ad66f54c86f3466067a737914fa5b007a14e36b639471a36904bf295a38",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "3bc1eec57118456b201a11c7c87bf37ce0a6593a3c4e0fabeeed48829f292d97",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8714605067064084,
+        "offset": [
+          291,
+          383
+        ],
+        "nativeDisk": [
+          253.75,
+          258.0
+        ],
+        "nativeFoot": 593.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 2,
+      "page": 0,
+      "cell": 2,
+      "bounds": [
+        146,
+        143,
+        339,
+        350
+      ],
+      "frameSha256": "acd1347294f75a57c1e07092276e9581674cfa7a16bde21900ad792e533c5dd1",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-0-source.png",
+      "sourceSha256": "159d0ad66f54c86f3466067a737914fa5b007a14e36b639471a36904bf295a38",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "a37cc3e97e77cb190c3fc69c4013922051b2a0bccd40cdd6935e5776c2f98979",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8714605067064084,
+        "offset": [
+          291,
+          383
+        ],
+        "nativeDisk": [
+          253.75,
+          258.0
+        ],
+        "nativeFoot": 593.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 3,
+      "page": 0,
+      "cell": 3,
+      "bounds": [
+        127,
+        150,
+        359,
+        342
+      ],
+      "frameSha256": "7df631c4c85cc2dc0772fae6ee54584d78a202131d16ee4a00d26f6549103f10",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-0-source.png",
+      "sourceSha256": "159d0ad66f54c86f3466067a737914fa5b007a14e36b639471a36904bf295a38",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "c1ab4009e87c2c73bb28dd7bc6d1584424dcae6a39d3cb591b01511b6b436ff2",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8714605067064084,
+        "offset": [
+          291,
+          383
+        ],
+        "nativeDisk": [
+          253.75,
+          258.0
+        ],
+        "nativeFoot": 593.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 4,
+      "page": 1,
+      "cell": 0,
+      "bounds": [
+        89,
+        76,
+        347,
+        416
+      ],
+      "frameSha256": "001abf56323201251411ddade789cf32f3a6a99aacc6b2dedef9d2ac1f724d24",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-1-source.png",
+      "sourceSha256": "dc52ba9c1524f5925616515967d861b29e10fbb137ef44c469e09fba6f18b0a7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "2193b4eef024cb8be660ad928916ab4bd3d519f562b87cce96b5a6709680da81",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0055889939810834,
+        "offset": [
+          201,
+          297
+        ],
+        "nativeDisk": [
+          309.25,
+          308.75
+        ],
+        "nativeFoot": 599.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 5,
+      "page": 1,
+      "cell": 1,
+      "bounds": [
+        89,
+        76,
+        347,
+        417
+      ],
+      "frameSha256": "20b5d94c591625dd59f5bff30ac2e3d7e37c61db411d5611be9f14f7a37cb0de",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-1-source.png",
+      "sourceSha256": "dc52ba9c1524f5925616515967d861b29e10fbb137ef44c469e09fba6f18b0a7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "49e86187411a52c19041a964779cf7c1831b6f4d7c3ee32dac6f6562a8c1056f",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0055889939810834,
+        "offset": [
+          201,
+          297
+        ],
+        "nativeDisk": [
+          309.25,
+          308.75
+        ],
+        "nativeFoot": 599.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 6,
+      "page": 1,
+      "cell": 2,
+      "bounds": [
+        89,
+        76,
+        351,
+        418
+      ],
+      "frameSha256": "ac6d58e05d9d2e073971837180af54047dab9adaa0871cc3fe2f5f4eafb55290",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-1-source.png",
+      "sourceSha256": "dc52ba9c1524f5925616515967d861b29e10fbb137ef44c469e09fba6f18b0a7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "be90abc5096b477ef0825b64f9dfb12232450f2dd5e2a8ecca9ae32b4cc20016",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0055889939810834,
+        "offset": [
+          201,
+          297
+        ],
+        "nativeDisk": [
+          309.25,
+          308.75
+        ],
+        "nativeFoot": 599.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 7,
+      "page": 1,
+      "cell": 3,
+      "bounds": [
+        79,
+        71,
+        373,
+        423
+      ],
+      "frameSha256": "860f083b2386c645fa69a38fc00374259d11c8dfc11762bf04341bd14e048b87",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-1-source.png",
+      "sourceSha256": "dc52ba9c1524f5925616515967d861b29e10fbb137ef44c469e09fba6f18b0a7",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "bf14d81beb0e79dff752d1ea00a6db47313c19c4404b155512abf31bd182588e",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 1.0055889939810834,
+        "offset": [
+          201,
+          297
+        ],
+        "nativeDisk": [
+          309.25,
+          308.75
+        ],
+        "nativeFoot": 599.5,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 8,
+      "page": 2,
+      "cell": 0,
+      "bounds": [
+        174,
+        147,
+        262,
+        345
+      ],
+      "frameSha256": "3f788d03fec76585e1918207d91b55a43f3b71289ace6a60b0ed332d0abdf18e",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-2-source.png",
+      "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "eadf735a2d05576b5d7b26df0f80901348568422e4fc9add2e796f35240fb4b7",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8189775910364145,
+        "offset": [
+          288,
+          405
+        ],
+        "nativeDisk": [
+          273.5,
+          247.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "hash-pinned visual body/feet registration; red-hub threshold changed in revised impact artwork",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 9,
+      "page": 2,
+      "cell": 1,
+      "bounds": [
+        174,
+        155,
+        250,
+        337
+      ],
+      "frameSha256": "692ebf1c2106d057639f800e0f410b0397f4533ed2c2069aba1f1aecf9683050",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-2-source.png",
+      "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "285712daebc280b3fa6624acb8dae6af8ada4f3be15a176915ae0daa46f7e117",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8189775910364145,
+        "offset": [
+          288,
+          405
+        ],
+        "nativeDisk": [
+          273.5,
+          247.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "hash-pinned visual body/feet registration; red-hub threshold changed in revised impact artwork",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 10,
+      "page": 2,
+      "cell": 2,
+      "bounds": [
+        129,
+        155,
+        296,
+        337
+      ],
+      "frameSha256": "6e1912bfa9545fddadb2a54c51ad08bdc92d06600ec9738c5290c1e5fac78d29",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-2-source.png",
+      "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "071533fd2471e76954d8421384e9549b6a77a107d3732cb607cd65d46b996b01",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8189775910364145,
+        "offset": [
+          288,
+          405
+        ],
+        "nativeDisk": [
+          273.5,
+          247.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "hash-pinned visual body/feet registration; red-hub threshold changed in revised impact artwork",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 11,
+      "page": 2,
+      "cell": 3,
+      "bounds": [
+        134,
+        155,
+        321,
+        337
+      ],
+      "frameSha256": "78a3d72c12ba7f879eae9df99169449dc74e6f9acfb64309ff9a4817ffd9cf43",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-2-source.png",
+      "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "f0b3cb581266814612377a0a8acc22191c6c3164e25b6be5e047674ee8559d61",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.8189775910364145,
+        "offset": [
+          288,
+          405
+        ],
+        "nativeDisk": [
+          273.5,
+          247.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "hash-pinned visual body/feet registration; red-hub threshold changed in revised impact artwork",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 12,
+      "page": 3,
+      "cell": 0,
+      "bounds": [
+        98,
+        84,
+        322,
+        409
+      ],
+      "frameSha256": "c504a8fca7afe6c04ce97ef07487032bf9e0808ff2cee321225f0840af323228",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-3-source.png",
+      "sourceSha256": "12327a27da077bcd4cf9f6d7ca3f2e1cd9978055e97bcbcf5ad642dd19cb698f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "nativeFrameSha256": "a52eb380f8b14164c8f3573b85a2cb1cecc0908119d1e063490e3295c2ca4a60",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9713455149501661,
+        "offset": [
+          195,
+          313
+        ],
+        "nativeDisk": [
+          326.5,
+          303.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 13,
+      "page": 3,
+      "cell": 1,
+      "bounds": [
+        117,
+        85,
+        306,
+        408
+      ],
+      "frameSha256": "600d6b5e58e25f5076c4ad8a47085b493da48864c904609e884719771bb73ceb",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-3-source.png",
+      "sourceSha256": "12327a27da077bcd4cf9f6d7ca3f2e1cd9978055e97bcbcf5ad642dd19cb698f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "nativeFrameSha256": "979307cbf5622b4f730999d6ff771f163af2113be564bdacc0796429fe0acc5e",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9713455149501661,
+        "offset": [
+          195,
+          313
+        ],
+        "nativeDisk": [
+          326.5,
+          303.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 14,
+      "page": 3,
+      "cell": 2,
+      "bounds": [
+        117,
+        84,
+        307,
+        409
+      ],
+      "frameSha256": "b6d490a9e04816c042ff82202823a9bbb1fd90ee541733c2b00b93aef436a9d0",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-3-source.png",
+      "sourceSha256": "12327a27da077bcd4cf9f6d7ca3f2e1cd9978055e97bcbcf5ad642dd19cb698f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "nativeFrameSha256": "8535c3fe96f1b5feb789d2a7fa5013db63f25e7995958a55e0b1f75e8ca8898f",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9713455149501661,
+        "offset": [
+          195,
+          313
+        ],
+        "nativeDisk": [
+          326.5,
+          303.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    },
+    {
+      "index": 15,
+      "page": 3,
+      "cell": 3,
+      "bounds": [
+        117,
+        84,
+        303,
+        409
+      ],
+      "frameSha256": "66779af308049f4cc2489abc1876e82b7cffd8d73254b70e2e9574d83c49b2be",
+      "source": "art/reference/20261117-sprotel-bitcoin/final2x2/p2/beerStick/page-3-source.png",
+      "sourceSha256": "12327a27da077bcd4cf9f6d7ca3f2e1cd9978055e97bcbcf5ad642dd19cb698f",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceGrid": [
+        2,
+        2
+      ],
+      "sourceCellXYXY": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "nativeFrameSha256": "824a3f576d2ab388a9a27142d7d914efc40fbf7fdae576982b51923d4cdcee06",
+      "tinyDisconnectedEdgePixelsRemoved": 0,
+      "pageRegistration": {
+        "scale": 0.9713455149501661,
+        "offset": [
+          195,
+          313
+        ],
+        "nativeDisk": [
+          326.5,
+          303.0
+        ],
+        "nativeFoot": 604.0,
+        "targetDiskX": 512,
+        "targetFoot": 900,
+        "anchorMethod": "visible red vinyl hub",
+        "method": "one uniform nearest-neighbor camera correction per source page; no pose invention"
+      }
+    }
+  ],
+  "provenance": "Sixteen distinct generated native drawings; no frame duplication, interpolation or synthetic motion"
+}

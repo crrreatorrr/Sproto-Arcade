@@ -1,0 +1,20 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Edit target: the attached 1254x1254 opaque-magenta 2 by 2 sprite sheet. Preserve the exact FOUR-cell layout, exact image size, and the crisp colorful pixel-art style. Make ONE targeted action correction in ONLY the BOTTOM-RIGHT quadrant (animation frame 11). The blue Santa-hat pilot, jukebox torso, food tray, blue cocktail cannon, snack launcher, pretzel arm, legs and feet in this quadrant must keep their present positions, size, face and design. Keep the other THREE quadrants unchanged. In the bottom-right quadrant, the giant foamy beer-mug head at the end of the long segmented right-arm beer stick must move DOWN into a low finishing strike at ankle/shin level, just to the LEFT of the mech's left shin. This is a DOWNWARD beer-stick smash, not a waist-high sweep. Bottom-right cell coordinates are x=0..626,y=0..626 relative to that quadrant: place the foamy mug head entirely within x=15..145 and y=500..595, with its bottom just above the fixed feet baseline at y=600. Keep at least 10 pixels of magenta margin from every cell edge. The golden beer head should be large and clearly visible, side-on and approximately horizontal, with white foam and silver collars. Redraw the connected segmented metal arm/shaft into a plausible downward-left diagonal from the EXISTING right shoulder/hand area to this low mug head; the shaft must be continuous and attached. Remove the old waist-high mug/shaft silhouette, replacing freed pixels with exactly flat #FF00FF magenta. No second mug, no detached head, no impact effects, no shadows, no extra projectiles, no text or grid. Preserve every other weapon, full body scale, original foot positions and flat magenta background. Four distinct existing animation frames must remain; change only the final strike so a grounded player can be hit at ankle/shin height.",
+  "marginCorrectionPrompt": "Use case: precise-object-edit. Edit this same 1254x1254 FOUR-FRAME 2x2 sprite sheet. Keep the first three quadrants and the entire mech bodies, faces, feet and camera registration unchanged. The bottom-right quadrant's new LOW diagonal beer-stick strike is the correct pose, but its foamy mug head at the lower-left is crossing the LEFT boundary of that quadrant at full-image x=627. Correct ONLY that margin error: move the low mug head 35 pixels RIGHT and 10 pixels DOWN, reconnecting/shortening the adjacent metal shaft naturally while preserving the same downward-left swing. Its head should occupy bottom-right-cell-local x=25..165,y=495..595, and it must have at least 20 solid magenta pixels of empty gutter between its leftmost foam and quadrant boundary x=627. No foam, mug, shaft or other drawing can touch/cross any 627-pixel quadrant border. Keep the existing fixed foot baseline at cell y=600 and all body parts exactly where they are. Keep the mug head just above that foot baseline, left of the shin. Clear freed pixels with flat #FF00FF. Preserve exact canvas, 2x2 arrangement and all other content; no new impact effects or text.",
+  "original": "c1991198c24772ed1e02f182c793552232d996f9202e214e6ccd0e2b3ce2250c",
+  "nativeHeadROI": [
+    38,
+    492,
+    140,
+    579
+  ],
+  "nativeHeadOpaqueCore": [
+    48,
+    494,
+    92,
+    84
+  ],
+  "note": "Targeted frame11 low downward strike; camera registration must reuse prior page2 transform because red-hub segmentation thresholds drift despite fixed body/feet.",
+  "sourceSha256": "f96a7d38c9899f7d96943879612f566d3e008cbf8df03505a5d6c4979de5166f"
+}
