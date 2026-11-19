@@ -205,6 +205,7 @@
       state,
       onChange(cb) { listeners.add(cb); return () => listeners.delete(cb); },
       async create() {
+        if (hooks.level() == null) throw Object.assign(Error('Online co-op covers the boss levels: pick one in Start at.'), { code: 'bad_level' });
         const placed = await transport.rpc(RPC.CREATE, { level: hooks.level(), pilot: hooks.pilot() });
         await enter(placed.match_id ?? placed.matchId, { code: placed.code ?? '' });
       },
@@ -216,6 +217,7 @@
         await enter(placed.match_id ?? placed.matchId, { code: clean });
       },
       async quick() {
+        if (hooks.level() == null) throw Object.assign(Error('Online co-op covers the boss levels: pick one in Start at.'), { code: 'bad_level' });
         const placed = await transport.rpc(RPC.QUICK, { level: hooks.level(), pilot: hooks.pilot() });
         await enter(placed.match_id ?? placed.matchId);
       },

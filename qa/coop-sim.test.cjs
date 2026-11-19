@@ -104,6 +104,17 @@ function edit(sim,fn){
   pass('seat drop rescales to solo health, proportionally');
 }
 
+// 4b. A seat downed in mid-air falls and lands, so the partner can reach it.
+{
+  const sim=peer();sim.coop.start(2,['rivet','sproto763'],5);
+  for(let t=0;t<60;t++)sim.coop.step(0,0);
+  edit(sim,(st,obj)=>{const p=obj(st.get('players')[1]);p.set('hp',0);p.set('y',380);p.set('vy',0);p.set('grounded',false);st.set('bullets',[]);});
+  for(let t=0;t<120;t++)sim.coop.step(0,0);
+  const seat=sim.coop.state().seats[1];
+  assert.equal(seat.hp,0);assert.equal(seat.y,604,'the downed seat landed on the floor');
+  pass('a seat downed mid-air lands');
+}
+
 // 5. Duration parity of the 1.80x health: the same inputs (a solo golden's) drive one seat
 //    (partner dropped at tick 0, so solo health) and two seats (1.80x) moving in parallel. Seats are unkillable
 //    by a state edit, so the comparison measures damage output against health, not dodging.

@@ -482,7 +482,8 @@ function paintCoopHud(){
 function clearCoopLevel(){
   const ticks=time,online=coopConfig?.kind==='online';
   if(online)coopConfig.net.sendResult({status:'clear',level:LEVELS[levelIndex].id,tick:ticks,god:godUsed});
-  else window.ArcadeHub?.recordLocalClear(levelIndex);
+  const opened=online?[]:window.ArcadeHub?.recordLocalClear(levelIndex)??[];
+  if (opened.length) { paintSprotoLocks(); paintP2Choices(); }
   const hits=runStats.hits;
   const P=window.ArcadeProgress,par=storyPar(levelIndex),rank=P?.rankFor?.({ticks,hits,par,checkpoint:phaseCheckpointRun})??'B';
   const saved=!online&&!godUsed&&!phaseCheckpointRun?window.ArcadeHub?.recordCoopBest?.(levelIndex,{ticks,hits,rank}):null;
@@ -490,8 +491,9 @@ function clearCoopLevel(){
     (online?'\nRewards: waiting for the hub to settle the match…':'\nLocal 2P clears save progress but earn no Tickets.');
   const next=nextCampaignLevel(levelIndex);
   if (online) setOverlay('won','Co-op clear',LEVELS[levelIndex].title,line,'Main menu');
-  else if (next<0) setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again');
+  else if (next<0) { levelSelect.value=String(firstLevel); setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again'); }
   else setOverlay('clear','Level clear',LEVELS[levelIndex].title,line+'\nNext up: '+LEVELS[next].title,'Next level');
+  if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
   if(!online)paintLevelSelect();
 }
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
@@ -790,18 +792,29 @@ const storyPar=index=>(typeof STORY_PAR_TICKS!=='undefined'&&STORY_PAR_TICKS[LEV
 let runStats={hits:0,hp:MAX_HP,absorbed:null};
 const feedback={barrageAt:-Infinity,barrageLive:false,fromRight:true,pops:[],seen:new WeakSet()};
 function storyRunStart() {
-  runStats={hits:0,hp:player.hp,absorbed:phasePowerupsState?.items.absorbedAt??null};
+  runStats={hits:0,hp:player.hp,absorbed:phasePowerupsState?.items.absorbedAt??null,seats:players?players.map(p=>({hp:p.hp,absorbed:p.absorbedAt})):null};
   Object.assign(feedback,{barrageAt:-Infinity,barrageLive:false,pops:[]});
   barrageCue={key:'',floor:0,endedAt:-Infinity};
   if (audio?.state==='running') window.ArcadeAudio?.music.start(audio,LEVELS[levelIndex].id,boss?.phase===2?2:1);
 }
 // Every tick, from refreshHud: a hit is a lost heart or a broken pickup shield.
 function trackRun() {
+  if (players) {
+    // Co-op: a hit is a lost heart or a broken pickup shield on either seat.
+    runStats.seats??=players.map(p=>({hp:p.hp,absorbed:p.absorbedAt}));
+    players.forEach((p,i)=>{
+      const seen=runStats.seats[i];
+      if (p.hp<seen.hp) runStats.hits+=seen.hp-p.hp;
+      else if (p.absorbedAt!==null && p.absorbedAt!==seen.absorbed) runStats.hits++;
+      seen.hp=p.hp;seen.absorbed=p.absorbedAt;
+    });
+  } else {
   const absorbed=phasePowerupsState?.items.absorbedAt??null;
   if (player.hp<runStats.hp) runStats.hits+=runStats.hp-player.hp;
   else if (absorbed!==null && absorbed!==runStats.absorbed) runStats.hits++;
   runStats.hp=player.hp;
   runStats.absorbed=absorbed;
+  }
   if (boss?.phase===2) window.ArcadeAudio?.music.phase(2);
   ui.hearts.classList?.toggle('hit',player.inv>=58 && player.hp>0);
 }
@@ -1229,6 +1242,16 @@ function updateCoopPowerups(){
 
 function drawLegacyPhasePowerups(){
   if(!phasePowerupsState||!player)return;
+  if(players){
+    // Co-op: the items once, then each seat's own pickup shield and absorb flash.
+    const draw=globalThis.ArcadeBossSheets?.drawPhasePowerups,items=phasePowerupsState.items,tick=phasePowerupsState.tick;
+    draw?.(ctx,{...items,shieldUntil:0,absorbedAt:null},tick,null);
+    for(const p of players)if(p.connected!==false&&p.hp>0)withSeat(p,()=>{
+      const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
+      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,{x:p.x-diameter/2,y:p.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+    });
+    return;
+  }
   const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
   globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,{x:player.x-diameter/2,y:player.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
 }
@@ -2347,6 +2370,8 @@ function updateCoopStage(){
     return;
   }
   eachSeat(()=>movePlayer());
+  // A seat downed in the air falls and lands (no input), so a partner can reach it to revive.
+  if (!isFlying()) for (const p of players) if (p.hp<=0 && p.connected!==false) withSeat(p,()=>{inputFrame=NO_INPUT;moveGround(p,0);});
   if (transition) {
     eachSeat(()=>keepPlayerLeft());
     updateBullets();
@@ -3164,7 +3189,8 @@ function pause() {
 // pickup, shield and attack clocks all hold still.
 function feedbackPause(){
   const before=mode;
-  if (mode==='play') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
+  // Online co-op keeps running while the form is open: pausing one peer would stall both.
+  if (mode==='play' && coopConfig?.kind!=='online') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
   keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   return before;
 }
@@ -3293,7 +3319,7 @@ function syncCoopChoice(){
   coopConfig=choice==='local'?{kind:'local',pilots:[selectedSproto.id,p2Select.value||selectedSproto.id]}:null;
   // Seat 2's Sproto decodes while the title card is up (Start itself waits only for seat 1's).
   if(coopConfig)loadSproto(coopConfig.pilots[1]).catch(()=>{});
-  if(choice==='online')window.ArcadeCoopNet?.openLobby?.(document.getElementById('coop-lobby'),{level:()=>LEVELS[Number(levelSelect.value)].id,pilot:()=>selectedSproto.id,start:startOnlineCoop});
+  if(choice==='online')window.ArcadeCoopNet?.openLobby?.(document.getElementById('coop-lobby'),{level:()=>coopLevel(Number(levelSelect.value))?LEVELS[Number(levelSelect.value)].id:null,pilot:()=>selectedSproto.id,start:startOnlineCoop});
 }
 playersSelect?.addEventListener('change',()=>{paintP2Choices();syncCoopChoice();});
 p2Select?.addEventListener('change',syncCoopChoice);
@@ -3301,6 +3327,7 @@ paintP2Choices();
 // coop-net.js calls this on OP_START: load the level for both seats, then report ready. The run
 // starts at tick 0 on OP_GO, from the server-issued seed.
 function startOnlineCoop({levelIndex:index,pilots,seed,seat,net}){
+  if(!coopLevel(index))return Promise.reject(Error('not a co-op level'));
   coopConfig={kind:'online',pilots,seat,net};
   return Promise.all([loadFor(index,pilots[0]),loadSproto(pilots[1])]).then(()=>({go(){coachDone();begin(index,false,1,seed);}}));
 }
@@ -3318,6 +3345,8 @@ ui.start.addEventListener('click',()=>{
   if (coopConfig?.kind==='online' && (mode==='lost'||mode==='won'||mode==='clear')) { endOnlineCoop(); returnToTitle(); return; }
   if (mode==='title'||mode==='won') syncCoopChoice();
   if (coopConfig?.kind==='online' && mode!=='paused') return;
+  // Online 2P chosen but no match yet: the lobby starts the run, not this button.
+  if (playersSelect?.value==='online' && (mode==='title'||mode==='coach'||mode==='won')) { ui.description.textContent='Online 2P: create or join a room below; the match starts when both players are in.'; return; }
   if(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&
     (typeof globalThis.ArcadeBossSheets?.stageReady!=='function'||typeof globalThis.ArcadeBossSheets?.preloadStage!=='function')){location.reload();return;}
   if (mode==='loading') { loadInitialLevel();return; }
@@ -3443,6 +3472,7 @@ function stageAssets(index) {
     if (m===5) for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
     if (m===6) for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
     if (m===8) images.push(hatcheryFrame('specimen',i));
+    if (m===1) images.push(verseMotionFrame('crystal',i));
     if (m===9) for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
   }
   const single={0:'marina/turbine',3:'ranch-wheel',4:'transit-train',7:'crown-astrolabe',9:'verse/ship'}[m];

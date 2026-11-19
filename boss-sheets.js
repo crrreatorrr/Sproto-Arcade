@@ -1062,7 +1062,9 @@
       if(!asset.canonical)throw error;
       unavailableVisuals.add(asset.path);
       images.delete(asset.path);
-      return decodeStageAsset(asset.canonical);
+      // dist/ ships only the WebP copy, so the PNG fallback can be missing too. Then a retry tries
+      // the WebP again rather than the absent PNG.
+      return decodeStageAsset(asset.canonical).catch(fallbackError=>{unavailableVisuals.delete(asset.path);images.delete(asset.canonical.path);throw fallbackError;});
     })));
     const loading=pending.then(()=>{stageLoads.delete(key);},error=>{stageLoads.delete(key);for(const asset of stageAssets(id))if(!decoded(images.get(asset.path),asset))images.delete(asset.path);throw error;});
     stageLoads.set(key,loading);return loading;
