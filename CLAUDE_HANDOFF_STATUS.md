@@ -48,16 +48,25 @@ Updated at the end of every phase.
 | §2.3 online client `coop-net.js` + lobby | done a8e9b3d | To the shared protocol v1; tested against `qa/coop-mock-relay.cjs`. Not tested against the real hub match (metaverse-hub side). |
 | §2.4.2 `coopBest` | done 6fa021d | |
 | §2.4.3 server-side settlement | done (client side) a8e9b3d | Client sends OP_RESULT, shows OP_OUTCOME, never grants. Settlement is the hub's job; the mock relay models it for tests only. |
-| §2.4.4 story-14 golden and `story-par.js` | see below | |
+| §2.4.4 story-14 golden and `story-par.js` | done 02ee5e1 | Bot clear in 4726 ticks, par 5908. `fuzz.json` re-recorded (first 13 hashes unchanged); goja passes. |
 | §3.2 duration parity bots | partial | `qa/coop-sim.test.cjs` compares two unkillable seats at 1.80x with one seat at solo health on the same solo-golden inputs: 0.85-1.08x on 11 levels (10 of 11 within ±10%; Level 8 0.845). Closed-loop two-seat bots were not built: open-loop replays of the solo goldens lose once targeting alternates. Human playtests should confirm 1.80x. |
 | §3.3 edge cases and 10,000-tick two-peer parity | done c2a00e2 | `qa/coop-sim.test.cjs`, `qa/coop-net.test.cjs`. |
+
+## Phase 3 and review
+
+| Item | State | Notes |
+|---|---|---|
+| Review of the full diff (`/code-review`, medium) | done 8afb138 | Fixed: co-op hit count for rank/best, downed seat falling, per-seat shield drawing, arena 1 crystal frames, WebP retry when the PNG fallback is not shipped, Start with Online 2P chosen, non-co-op levels in the lobby, feedback form pausing online, unlock handling on Local 2P clears. Kept: levels 13/14 send Tickets (the brief asks for it; server acceptance is a follow-up). |
+| Online co-op safety | done 938b7e3 | God mode toggle ignored online (would desync); input sent in real 2-tick batches. |
+| Asset audit coverage | done ef1e005 | `?assetAudit` still loads fallback boss frames; lazy-load check counts WebP copies. |
+| Remaining skipped items | skipped | §1.2.6 fighter atlases, §1.3.1/§1.3.2 (reasons above), §2.1.1, chase/climb co-op. |
 
 ## Measurements
 
 | What | Before | After | How |
 |---|---|---|---|
-| `dist/` | 1446 files, 551.8 MB (117 MB `art/reference/`, 68.5 MB duplicate PNGs) | Phase 0: 1371 files, 361.4 MB. Phase 1: 1371 files, 342.1 MB | `node tools/build-web.mjs <dir>` summary |
-| Level 1 cold start (until Start reads "Start level") | 312 requests, 25.87 MB (274 PNG / 22.6 MB, 33 JS / 1.88 MB) | 219 requests, 13.26 MB (160 PNG / 4.19 MB, 25 WebP / 7.17 MB, 33 JS / 1.88 MB). The transition atlas and next-level prefetch (10 requests, 11.1 MB) now load after Start is enabled. | `node qa/cold-start-browser.mjs <dist>`; fresh Chromium profile, loopback server. A request counts if it was issued before Start was enabled. |
+| `dist/` | 1446 files, 551.8 MB (117 MB `art/reference/`, 68.5 MB duplicate PNGs) | Phase 0: 1371 files, 361.4 MB. Phase 1: 1371 files, 342.1 MB. Final: 1372 files, 342.2 MB | `node tools/build-web.mjs <dir>` summary |
+| Level 1 cold start (until Start reads "Start level") | 312 requests, 25.87 MB (274 PNG / 22.6 MB, 33 JS / 1.88 MB) | End of Phase 1: 219 requests, 13.26 MB. Final (with coop-net.js): 220 requests, 13.30 MB. Phase 1 detail: 219 requests, 13.26 MB (160 PNG / 4.19 MB, 25 WebP / 7.17 MB, 33 JS / 1.88 MB). The transition atlas and next-level prefetch (10 requests, 11.1 MB) now load after Start is enabled. | `node qa/cold-start-browser.mjs <dist>`; fresh Chromium profile, loopback server. A request counts if it was issued before Start was enabled. |
 | Handoff target <2.5 MB / <25 requests | not met | The rest is the Level 1 boss: both phase sheets and projectile atlases (Start waits for both phases, `stageReady`), plus 33 scripts. Deferring phase 2 art needs a phase-2 readiness gate, since the fallback sprites no longer load. | |
 
 ## Checks
@@ -68,6 +77,13 @@ Updated at the end of every phase.
 | `node qa/run-all.mjs .` (Phase 0) | passed after the script cache keys were refreshed (crash-guard fixture) |
 | `node qa/run-all.mjs .` (Phase 1) | passed, 73 commands |
 | `node tools/build-web.mjs <dir>` | passed (verify replay against the built dir, no missing files, no page errors) |
+| `node qa/run-all.mjs .` (final) | passed, 76 commands (adds coop-sim, coop-net, projectile presentations, build budget) |
+| `node tools/build-server-sim.mjs --check`, `node tools/check-server-bundle.mjs` | passed; taint check clean; sim version cb695a19130dc99a |
+| `cd tools/goja-verify && go run . ../..` | passed: 14 goldens and fuzz hashes in goja |
+| `node qa/build-budget.mjs . <dist>` | passed on the final build; fails on the pre-fix build |
+| `node qa/coop-browser.mjs` | passed: Local 2P in Chromium, two seats, P2 HUD, no page errors |
+| Browser QA in `qa/` | passed: story, story-hud, replay-golden, replay, menus, hub-link, feedback. Failing identically on `main` (aa0f6ba), so pre-existing: story-results ("2 of 13 cleared" expectation), ui (`ArcadeStory…state` null), gamepad ("stick up does not jump"), lazy-load (40 stage-effects paths from its baseline; 40 on main and on this branch after ef1e005). Not run: adapter, affected, art, baseline, filter-budget, guide, local-server, missile, pacing, playtest, refresh (Machine Trials / art evidence, unaffected by this work). |
+| Online against the real hub | not run: needs metaverse-hub's `sproto_arcade_coop`. Human playtests of co-op balance not done. |
 | Browser spot check | Level 1 title and gameplay screenshots from the built dist: portraits, boat, boss, missiles render; no page errors |
 
 ## Contract deviations
