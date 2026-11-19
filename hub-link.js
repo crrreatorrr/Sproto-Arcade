@@ -356,6 +356,18 @@
     return { best: out.best, improved: out.improved };
   }
 
+  /** Same as recordBest for a two-seat co-op clear, stored in coopBest apart from solo records. */
+  function recordCoopBest(level, result) {
+    const first = P.recordCoopBest(progress.get(), level, result, Date.now());
+    if (!first.improved) return { best: first.best, improved: false };
+    let out = first;
+    progress.update((save) => {
+      out = P.recordCoopBest(save, level, result, Date.now());
+      return out.save;
+    });
+    return { best: out.best, improved: out.improved };
+  }
+
   /**
    * Reports every first-boss win, including phase-2 retries, while connected to the hub.
    * Only full runs can earn Tickets. Progress reaches the cloud save through the progress store. `god` is true when god mode was on
@@ -401,6 +413,7 @@
     /** The progress store (hub SDK createProgressStore): owner(), sync(), flush() for checks. */
     progress,
     recordLocalClear,
+    recordCoopBest,
     recordBest,
     reportHubClear,
     isUnlocked: (id) => P.isUnlocked(id, state.save, state.relics, state.unlockAll),

@@ -56,3 +56,18 @@ assert.deepEqual(plain(P.load(null)), plain(P.empty()));
 console.log(JSON.stringify({ status: 'passed', kind: 'story-progress' }));
 
 assert.deepEqual(plain(P.recordClear(P.empty(),12,10).save.cleared),[12], 'new ID13 saves at appended index12 without renumbering prior clears');
+
+// Co-op records live in coopBest, apart from solo bests, and merge the same way.
+{
+  const solo = P.recordBest(P.empty(), 0, { ticks: 6000, hits: 0, rank: 'S' }, 5).save;
+  const coop = P.recordCoopBest(solo, 0, { ticks: 7000, hits: 3, rank: 'B' }, 6);
+  assert.equal(coop.improved, true);
+  assert.deepEqual(plain(coop.save.best[0]), { ticks: 6000, hits: 0, rank: 'S' }, 'a co-op clear never touches the solo best');
+  assert.deepEqual(plain(coop.save.coopBest[0]), { ticks: 7000, hits: 3, rank: 'B' });
+  assert.equal(P.recordCoopBest(coop.save, 0, { ticks: 9000, hits: 3, rank: 'B' }).improved, false);
+  const other = P.recordCoopBest(P.empty(), 0, { ticks: 6500, hits: 1, rank: 'A' }).save;
+  assert.deepEqual(plain(P.merge(coop.save, other).coopBest[0]), { ticks: 6500, hits: 1, rank: 'A' }, 'merge keeps the better co-op record');
+  assert.equal(P.same(coop.save, solo), false);
+  assert.equal(P.normalize({ coopBest: { 0: { ticks: -1, hits: 0, rank: 'S' } } }).coopBest, undefined, 'junk co-op entries are dropped');
+  console.log(JSON.stringify({ status: 'passed', kind: 'story-progress-coop-best' }));
+}
