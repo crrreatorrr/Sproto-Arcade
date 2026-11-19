@@ -914,10 +914,13 @@
   const missileAssets=Object.fromEntries(folders.slice(0,13).map((_,i)=>[i+1,{path:`art/generated/missiles/${String(i+1).padStart(2,'0')}/missile.png`,ready:false,columns:4,rows:1}]));
   for(const id of [1,2,3,4,5,6,7,8,9,10,11,12,13])missileAssets[id].ready=true;
   const pickupAsset={path:'art/generated/pickups/items.png',ready:true,columns:4,rows:4,rowBounds:[[51,51,411,410],[51,51,411,410],[10,20,492,472],[10,10,492,492]]};
+  // The game draws a half-size lossless WebP of the verified 2048px atlas (pickups are drawn at
+  // under 160px). rowBounds stay in the 2048px atlas's pixels; `scale` maps them onto this copy.
+  const pickupPresentation={path:'art/generated/pickups/items-presentation.webp',version:'17239951020f1c43',width:1024,height:1024,scale:.5,get ready(){return pickupAsset.ready;}};
   function drawPhasePowerups(ctx,state,tick,playerBox){
-    const img=image(pickupAsset);if(!img||!state||!pickupAsset.rowBounds)return false;
-    const col=Math.floor(tick/7)%4;
-    function cell(row,box){const [sx,sy,sw,sh]=pickupAsset.rowBounds[row],scale=Math.min(box.w/sw,box.h/sh),w=sw*scale,h=sh*scale;ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(img,col*512+sx,row*512+sy,sw,sh,box.x+(box.w-w)/2,box.y+(box.h-h)/2,w,h);ctx.restore();}
+    const img=image(pickupPresentation);if(!img||!state||!pickupAsset.rowBounds)return false;
+    const col=Math.floor(tick/7)%4,k=pickupPresentation.scale;
+    function cell(row,box){const [sx,sy,sw,sh]=pickupAsset.rowBounds[row],scale=Math.min(box.w/sw,box.h/sh),w=sw*scale,h=sh*scale;ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(img,(col*512+sx)*k,(row*512+sy)*k,sw*k,sh*k,box.x+(box.w-w)/2,box.y+(box.h-h)/2,w,h);ctx.restore();}
     for(const p of state.pickups||[]){if(p.expiresAt-tick<=60&&Math.floor(tick/6)%2)continue;cell(p.kind==='life'?0:1,p);}
     if(state.shieldUntil>tick&&playerBox){cell(2,playerBox);ctx.save();ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillStyle='#d3fffa';ctx.shadowColor='#071620';ctx.shadowBlur=3;ctx.fillText('SHIELD '+Math.ceil((state.shieldUntil-tick)/60)+'s',playerBox.x+playerBox.w/2,playerBox.y-5);ctx.restore();}
     if(state.absorbedAt!=null&&tick-state.absorbedAt<28&&playerBox)cell(3,playerBox);
@@ -1024,7 +1027,7 @@
   function stageAssets(id){
     const config=entry(id);if(!config)return[];
     const animated=[...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})].flatMap(a=>a.pages||[]);
-    const assets=[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles,...animated,missileAssets[Number.parseInt(id,10)],pickupAsset].filter(asset=>asset?.ready);
+    const assets=[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles,...animated,missileAssets[Number.parseInt(id,10)],pickupPresentation].filter(asset=>asset?.ready);
     return [...new Map(assets.map(asset=>[asset.path,asset])).values()];
   }
   function decoded(img,asset){return !!img&&img.complete&&img.naturalWidth===(asset?.width||2048)&&img.naturalHeight===(asset?.height||(asset?.rows===1?512:2048));}
@@ -1053,5 +1056,5 @@
     stageLoads.set(key,loading);return loading;
   }
   function loadEverything(){return Promise.all(Object.keys(manifest).map(preloadStage));}
-  root.ArcadeBossSheets={manifest,presentationPaths,missileAssets,pickupAsset,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,releasePose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,addProjectileHit,recordProjectileLaunch,projectileHitsTrial,drawProjectileHits,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
+  root.ArcadeBossSheets={manifest,presentationPaths,missileAssets,pickupAsset,pickupPresentation,entry,phaseImage,attackPose,barragePose,weaponVariant,eventCycle,legacyVariant,legacyPose,releasePose,bindShot,shotBinding,projectileSelection,machineBox,drawMachine,legacyBox,drawBoss,drawWaterline,marinaWaterlineDepth,projectileKind,projectilePresentation,drawProjectile,drawDensityMissile,drawPhasePowerups,addProjectileHit,recordProjectileLaunch,projectileHitsTrial,drawProjectileHits,outlineStats,outlineCacheSize:()=>outlineCache.size,outlineCacheBytes:()=>outlineBytes,stageReady,preloadStage,loadEverything};
 })(globalThis);

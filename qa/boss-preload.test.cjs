@@ -2,7 +2,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const created=[];
 class Image{
- constructor(){this.complete=false;this.naturalWidth=this.naturalHeight=0;this.promise=new Promise((resolve,reject)=>{this.resolve=(width=2048,height=2048)=>{this.complete=true;this.naturalWidth=width;this.naturalHeight=height;resolve();};this.reject=()=>{this.complete=true;reject(Error('network'));};});created.push(this);}
+ constructor(){this.complete=false;this.naturalWidth=this.naturalHeight=0;this.promise=new Promise((resolve,reject)=>{this.resolve=(width=/items-presentation\.webp/.test(this.src)?1024:2048,height=width)=>{this.complete=true;this.naturalWidth=width;this.naturalHeight=height;resolve();};this.reject=()=>{this.complete=true;reject(Error('network'));};});created.push(this);}
  decode(){return this.promise;}
 }
 const scope=vm.createContext({Image,console,pickupAttempt:0});
@@ -27,7 +27,7 @@ const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.pro
  const fixed=art.preloadStage(3);created.at(-1).resolve();await fixed;assert.equal(art.stageReady(3),true);
  // Bonus art participates in the same start gate, with a shared item atlas and
  // a stage-specific 2048x512 missile strip rather than a square boss atlas.
- art.pickupAsset.ready=true;before=created.length;const items=art.preloadStage(1);assert.equal(created.length-before,1);assert.equal(art.stageReady(1),false);created.at(-1).resolve();await items;
+ art.pickupAsset.ready=true;before=created.length;const items=art.preloadStage(1);assert.equal(created.length-before,1);assert.equal(art.stageReady(1),false);assert.match(created.at(-1).src,/items-presentation\.webp\?v=/,'the game decodes the half-size pickup WebP');created.at(-1).resolve();await items;
  before=created.length;await art.preloadStage(2);assert.equal(created.length,before,'shared pickup art decodes once across encounters');
  art.missileAssets[1].ready=true;const wrongStrip=art.preloadStage(1);created.at(-1).resolve();await assert.rejects(wrongStrip,/2048/);assert.equal(art.stageReady(1),false);
  const strip=art.preloadStage(1);created.at(-1).resolve(2048,512);await strip;assert.equal(art.stageReady(1),true);

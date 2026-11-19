@@ -108,6 +108,8 @@ function staticFiles(){
       const clean=ref.replace(/^\.\//,'');
       // Authoring provenance strings (sprotel-art.js "source" fields) name archived reference art.
       if(ARCHIVED.test(clean))continue;
+      // A PNG with a -presentation.webp beside it is the verified source; the game draws the WebP.
+      if(/\.png$/.test(clean)&&fs.existsSync(path.join(root,clean.replace(/\.png$/,'-presentation.webp'))))continue;
       if(fs.existsSync(path.join(root,clean))&&fs.statSync(path.join(root,clean)).isFile())files.add(clean);
     }
   }
