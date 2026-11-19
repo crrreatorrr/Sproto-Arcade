@@ -13,7 +13,7 @@ const root=path.resolve(__dirname,'../..');
   const {loadSourceSim}=await import(path.join(root,'tools/build-server-sim.mjs'));
   const sim=loadSourceSim({dev:true}),dev=sim._dev,rows=[];
   const files=fs.readdirSync(path.join(root,'qa/golden')).filter(f=>/^story-\d\d\.json$/.test(f)).sort();
-  assert.equal(files.length,13);
+  assert.equal(files.length,14);
   let spawns=0,hearts=0;
   for(const file of files){
     const gold=JSON.parse(fs.readFileSync(path.join(root,'qa/golden',file),'utf8')),log=gold.log,label=file+' ('+gold.title+')';
@@ -43,7 +43,11 @@ const root=path.resolve(__dirname,'../..');
     }
     assert.ok(dev.cleared()>=0,label+' clears');
     const one=phases[1],two=phases[2];
-    if(boss){
+    // Sprotel Bitcoin (level 14) has no density barrages (levels.js densityBarrage:false).
+    if(gold.level===14){
+      assert.equal(one.barrages.length+two.barrages.length,0,label+': no density barrage');
+      assert.ok(one.spawns.length>0,label+': phase 1 still has items');
+    }else if(boss){
       assert.equal(one.barrages.length,2,label+': phase 1 has two barrages');
       const [first,second]=one.barrages;
       assert.ok(second.length>=250&&second.length<=420,label+': the second barrage lasts 250 to 420 ticks ('+second.length+')');
@@ -64,5 +68,5 @@ const root=path.resolve(__dirname,'../..');
     console.log('| Level | Clear ticks (s) | Phase 1 (s) | Phase 2 (s) | P1 barrages start+length | P2 barrage | P1 items | P2 items | Bot hits (in barrage) |\n|---|---|---|---|---|---|---|---|---|');
     for(const r of rows)console.log(`| ${r.level} ${r.title} | ${r.clear} (${Math.round(r.clear/60)}) | ${r.phase1} (${Math.round(r.phase1/60)}) | ${r.phase2} (${Math.round(r.phase2/60)}) | ${r.p1Barrages} | ${r.p2Barrages||'n/a'} | ${r.p1Items||'none'} | ${r.p2Items||'none'} | ${r.hits} (${r.barrageHits}) |`);
   }
-  console.log(`PASS 13 golden clears: ${spawns} pickups (${hearts} hearts), none during a barrage, no heart at full health; two phase-1 barrages per boss fight with a short second one`);
+  console.log(`PASS ${files.length} golden clears: ${spawns} pickups (${hearts} hearts), none during a barrage, no heart at full health; two phase-1 barrages per boss fight with a short second one`);
 })().catch(error=>{console.error(error);process.exit(1);});
