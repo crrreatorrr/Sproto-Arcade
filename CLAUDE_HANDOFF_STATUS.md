@@ -57,6 +57,7 @@ Updated at the end of every phase.
 | Item | State | Notes |
 |---|---|---|
 | Review of the full diff (`/code-review`, medium) | done 8afb138 | Fixed: co-op hit count for rank/best, downed seat falling, per-seat shield drawing, arena 1 crystal frames, WebP retry when the PNG fallback is not shipped, Start with Online 2P chosen, non-co-op levels in the lobby, feedback form pausing online, unlock handling on Local 2P clears. Kept: levels 13/14 send Tickets (the brief asks for it; server acceptance is a follow-up). |
+| Independent subagent review (fresh context, no conclusions given) | done (next commit) | Solo parity confirmed: main's own bundle reproduces all 14 goldens and the fuzz hashes. Fixed: co-op snapshot dropped Sets in the ES5 bundle (`[...set]` → `Array.from`), now tested; god mode left on from solo desynced online (reset at match start, I/Z blocked); co-op pickup shield outlived its phase; menu exit left the page stuck in online mode; full-run restart not blocked online; taps lost while waiting on the partner; desync restore did not sync the overlay; OP_CANCEL unhandled and no RESULT abort on leaving. |
 | Online co-op unavailable fallback | done 5d29b9a | Until the hub's `sproto_arcade_coop` exists (or with no hub session) the lobby reads "Online co-op unavailable…" and points to Local 2P; Start with Online 2P chosen starts nothing. Tested in `qa/coop-net.test.cjs` and `qa/coop-browser.mjs`. |
 | Online co-op safety | done 938b7e3 | God mode toggle ignored online (would desync); input sent in real 2-tick batches. |
 | Asset audit coverage | done ef1e005 | `?assetAudit` still loads fallback boss frames; lazy-load check counts WebP copies. |
@@ -79,7 +80,7 @@ Updated at the end of every phase.
 | `node qa/run-all.mjs .` (Phase 1) | passed, 73 commands |
 | `node tools/build-web.mjs <dir>` | passed (verify replay against the built dir, no missing files, no page errors) |
 | `node qa/run-all.mjs .` (final) | passed, 75 commands (adds coop-sim, coop-net, projectile presentations, build budget) |
-| `node tools/build-server-sim.mjs --check`, `node tools/check-server-bundle.mjs` | passed; taint check clean; sim version cb695a19130dc99a |
+| `node tools/build-server-sim.mjs --check`, `node tools/check-server-bundle.mjs` | passed; taint check clean; sim version 9249bbf1047466f3 |
 | `cd tools/goja-verify && go run . ../..` | passed: 14 goldens and fuzz hashes in goja |
 | `node qa/build-budget.mjs . <dist>` | passed on the final build; fails on the pre-fix build |
 | `node qa/coop-browser.mjs` | passed: Local 2P in Chromium, two seats, P2 HUD, no page errors |
@@ -95,7 +96,7 @@ None. Backward-compatible additions: `arcade.coop_join` may answer `{error}` in 
 
 - metaverse-hub: accept `arcade_clear` Tickets for levels 13 and 14 — **verified by the orchestrating session**: the hub's `arcade_clear` earn rule (`server/modules/src/games/sproto_arcade.ts`) is a flat 20 Tickets with no level restriction.
 - metaverse-hub: build `sproto_arcade_coop` and the three RPCs to protocol v1 (docs/COOP.md). Settlement uses the server's own AFK count and the same `arcade_clear` / `breakwater_coin` ledger rows and idempotency keys as the solo path, scoped per match and account.
-- metaverse-hub: re-vendor `dist/arcade-sim.server.js` (built by `node tools/build-server-sim.mjs`; `--check` verifies it). Sim version 3bc257947b2e427e → cb695a19130dc99a (co-op sim and `ArcadeSim.coop`); file sha256 `c06e40c5d4b2a6bc7b0ac23f5ecc3419f24ce2ea829b0f12b8cc71f004e9c67b`, 1.2 MB. Solo replays verify as before; logs stamped with the old version need the new bundle.
+- metaverse-hub: re-vendor `dist/arcade-sim.server.js` (built by `node tools/build-server-sim.mjs`; `--check` verifies it). Sim version 3bc257947b2e427e → 9249bbf1047466f3 (co-op sim and `ArcadeSim.coop`); file sha256 `2be4bbaaa683c5f5c60b19922ab94edd15f0cd9a258076a3071db448beb81b64`, 1.2 MB. Solo replays verify as before; logs stamped with the old version need the new bundle.
 - hub-sdk: `coop-net.js` uses `HubSDK.realtimeFromSdk(sdk).connect/rpc/joinMatch` and `match.send/onMessage/leave` from the vendored SDK as it is; no re-vendor was needed.
 
 ## Proposed repo-hygiene deletions (owner decides)

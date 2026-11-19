@@ -274,6 +274,7 @@
       snapshot: () => root.ArcadeStoryCoop?.snapshot?.(),
       restore: (s) => root.ArcadeStoryCoop?.restore?.(s),
       outcome: (o) => root.ArcadeStoryCoop?.showOutcome?.(describeOutcome(o)),
+      cancel: (c) => root.ArcadeStoryCoop?.cancel?.(c?.reason),
     };
     function paint(s) {
       const badge = s.rtt == null ? '' : ' · RTT ' + Math.round(s.rtt) + ' ms' + (s.rtt > RTT_WARN_MS ? ' (laggy)' : '');

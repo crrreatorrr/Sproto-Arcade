@@ -45,6 +45,16 @@ const pass=name=>report.checks.push(name);
   report.snapshotBytes=snap.length;pass('snapshot restore keeps lockstep ('+snap.length+' bytes)');
 }
 
+// 2b. Sets survive a snapshot in the ES5 bundle (boss.pulses after a shield pulse).
+{
+  const a=peer(),c=peer();a.coop.start(1,['rivet','sproto763'],77);c.coop.start(1,['rivet','sproto763'],78);
+  edit(a,(st,obj)=>{obj(st.get('boss')).set('pulses',{$s:[2,3]});});
+  const snap=a.coop.snapshot();
+  assert.match(snap,/"pulses",\{"\$s":\[2,3\]\}/,'the snapshot keeps the pulse set');
+  c.coop.restore(snap);assert.equal(c.coop.hash(),a.coop.hash(),'a restored peer with pulses hashes the same');
+  pass('snapshot keeps Sets (boss.pulses) in the bundle');
+}
+
 // 3. Health scaling, pickup timing and level coverage.
 {
   const sim=peer();

@@ -983,7 +983,7 @@ function encodeSimValue(v){
   if(typeof v==='number')return Number.isFinite(v)&&!(v===0&&1/v<0)?v:{$n:v!==v?'NaN':v===0?'-0':v>0?'Infinity':'-Infinity'};
   if(v===null||typeof v!=='object')return v;
   if(Array.isArray(v))return v.map(encodeSimValue);
-  if(v instanceof Set)return {$s:[...v].map(encodeSimValue)};
+  if(v instanceof Set)return {$s:Array.from(v).map(encodeSimValue)}; // not [...v]: the ES5 bundle spreads a Set to []
   return {$o:Object.keys(v).map(k=>[k,encodeSimValue(v[k])])};
 }
 function decodeSimValue(v){
@@ -1219,6 +1219,8 @@ function updateCoopPowerups(){
     const seed=phasePowerupsState.seed;
     phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};
     addCoopShieldPlan(phasePowerupsState.items);
+    // The phase's tick restarts at 0, so a pickup shield ends with its phase, as in solo.
+    for(const p of players){p.shieldUntil=0;p.absorbedAt=null;}
   }
   const tick=++phasePowerupsState.tick,flying=isFlying(),bounds={x:80,y:200,w:650,h:350};
   phasePowerupsState.camera=camera;
@@ -3217,6 +3219,7 @@ function retryCurrentPhase(){
 const TITLE_DESCRIPTION=ui.description.textContent;
 function returnToTitle(){
   if (mode==='loading' || mode==='title') return;
+  if (coopConfig?.kind==='online') endOnlineCoop();
   keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   pendingStart++;
   replayRecorder=null;phaseCheckpointRun=false;
@@ -3252,7 +3255,7 @@ window.addEventListener('keydown',e=>{
     return;
   }
   if (!e.repeat) lastNine=-Infinity;
-  if (e.code==='KeyI' && godMode) {
+  if (e.code==='KeyI' && godMode && coopConfig?.kind!=='online') {
     if (!e.repeat && !e.metaKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
       godDamageBoost=!godDamageBoost;
@@ -3260,7 +3263,7 @@ window.addEventListener('keydown',e=>{
     }
     return;
   }
-  if (e.code==='KeyZ' && godMode) {
+  if (e.code==='KeyZ' && godMode && coopConfig?.kind!=='online') {
     if (!e.repeat && !e.metaKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
       godFire=!godFire;
@@ -3299,7 +3302,7 @@ if (window.ArcadeAudio && document.getElementById('audio-controls')) {
     mute.setAttribute('aria-pressed',String(muted));
   });
 }
-document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost') restartFullRun(); });
+document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost' && coopConfig?.kind!=='online') restartFullRun(); });
 // ---- Players choice on the title card: Solo, Local 2P (second Sproto picked here) or Online 2P
 // (coop-net.js runs the lobby). Browser only.
 const playersSelect=document.getElementById('players-select'),p2Select=document.getElementById('p2-sproto');
@@ -3328,15 +3331,25 @@ paintP2Choices();
 // starts at tick 0 on OP_GO, from the server-issued seed.
 function startOnlineCoop({levelIndex:index,pilots,seed,seat,net}){
   if(!coopLevel(index))return Promise.reject(Error('not a co-op level'));
+  // Both peers must run the same rules: god mode from an earlier solo run is switched off.
+  godMode=false;godFire=true;godDamageBoost=false;
   coopConfig={kind:'online',pilots,seat,net};
   return Promise.all([loadFor(index,pilots[0]),loadSproto(pilots[1])]).then(()=>({go(){coachDone();begin(index,false,1,seed);}}));
 }
 function endOnlineCoop(){
+  // Leaving mid-match tells the hub (RESULT abort) before the socket closes.
+  if (coopConfig?.kind==='online' && players && mode==='play') coopConfig.net.sendResult({status:'abort',level:LEVELS[levelIndex].id,tick:time,god:false});
   coopConfig?.net?.close?.();
   coopConfig=null;
   syncCoopChoice();
 }
-window.ArcadeStoryCoop={startOnlineCoop,endOnlineCoop,snapshot:()=>players?serializeSimState():null,restore:(text)=>{if(players)restoreSimState(text);},state:()=>players?{tick:time,mode,seats:players.map(p=>({hp:p.hp,connected:p.connected!==false}))}:null,
+window.ArcadeStoryCoop={startOnlineCoop,endOnlineCoop,snapshot:()=>players?serializeSimState():null,restore:(text)=>{
+    if(!players)return;
+    restoreSimState(text);
+    // Desync recovery can change the mode: show the overlay that goes with it.
+    if(mode==='play')setOverlay('play','','','','');else if(mode==='lost')coopKnockout();
+  },
+  cancel:(reason)=>{if(coopConfig?.kind!=='online')return;setOverlay('won','Match cancelled',LEVELS[levelIndex]?.title??'','The hub ended the match'+(reason?' ('+reason+')':'')+'. No rewards.','Main menu');},state:()=>players?{tick:time,mode,seats:players.map(p=>({hp:p.hp,connected:p.connected!==false}))}:null,
   dropSeat:(slot)=>{if(players)dropSeat(slot);},showOutcome:(text)=>{if(ui.description)ui.description.textContent+='\n'+text;}};
 
 ui.start.addEventListener('click',()=>{
@@ -3394,6 +3407,8 @@ function storyFrame(now) {
           // The server dropped a seat for good: from this agreed tick boss health follows one seat.
           if (seatFrames.dropSeat!==undefined) dropSeat(seatFrames.dropSeat);
           update();
+          // Taps made while waiting on the partner go into the next frame before they are cleared.
+          net.sample(time+1,readSeatFrame(-1));
           net.afterTick(time,()=>ArcadeReplay.hashState(simState()),mode);
         }
       } else if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
