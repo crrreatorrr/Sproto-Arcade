@@ -3551,7 +3551,10 @@ if (new URLSearchParams(location.search).has('assetAudit')) {
   // Also every scrolling panel: drawBackground() requests panels past the first three only as the
   // camera reaches them, so tools/build-web.mjs needs them listed here to ship them.
   const allPanels=()=>LEVELS.flatMap((_,i)=>loopPanels(i)).map(([file])=>picture('art/'+file));
-  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...LEVELS.map((_,i)=>loadBossArt(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
+  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...LEVELS.map((_,i)=>loadBossArt(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode()),
+    // The fallback boss frames load in play only without the boss sheet renderer; the audit (and so
+    // tools/build-web.mjs) still covers them.
+    ...acts.filter(Boolean).filter(a=>ART.sprites[a.id]).flatMap(a=>spriteFrames(a.id)).map(img=>img.decode().catch(()=>{}))])};
 }
 
 let initialLoad=null;
