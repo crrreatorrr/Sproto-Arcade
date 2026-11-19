@@ -57,12 +57,13 @@
       /** Records this peer's input for tick `tick + INPUT_DELAY` (once per tick) and sends batches. */
       sample(tick, input) {
         if (closed) return;
-        const mask = maskOf(input);
+        const mask = maskOf(input), before = nextLocal;
         while (nextLocal <= tick + INPUT_DELAY) {
           masks[seat].set(nextLocal, mask);
           nextLocal++;
         }
-        flush();
+        // Batches of SEND_EVERY ticks; while waiting on the partner, send whatever is pending.
+        flush(nextLocal === before);
       },
       /** OP_INPUT from the server: the other seat's frames (the server stamps `seat`). */
       receive(payload) {
@@ -93,7 +94,6 @@
         if (closed) return;
         if (tick % HASH_EVERY === 0) send(OP.HASH, { tick, hash: hash() });
         if ((mode === 'lost') && lastResult !== 'wipe') { lastResult = 'wipe'; this.sendResult({ status: 'wipe', level: opts.level, tick, god: false }); }
-        flush(true);
       },
       sendResult(result) { if (!closed) send(OP.RESULT, result); },
       /** OP_DESYNC: seat 0 answers with its state; the server ends the match after the third. */

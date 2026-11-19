@@ -3210,6 +3210,8 @@ function returnToTitle(){
 window.addEventListener('keydown',e=>{
   if(e.code==='KeyR'&&mode==='lost'&&!e.repeat){e.preventDefault();retryCurrentPhase();return;}
   if (e.code==='Digit9' || e.code==='Numpad9') {
+    // Online co-op is lockstep: god mode on one peer would desync the match.
+    if (coopConfig?.kind==='online') return;
     if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
     if (mode==='play') e.preventDefault();
     if (e.timeStamp-lastNine<=750) {
