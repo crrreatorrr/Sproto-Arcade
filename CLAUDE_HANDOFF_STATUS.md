@@ -31,6 +31,27 @@ Updated at the end of every phase.
 | §1.3.2 bundle the classic scripts | skipped | Concatenating 33 classic scripts is not behaviour-neutral: `const`/`let` read with `typeof` across files hit the TDZ, function declarations hoist across file boundaries, four scripts read `document.currentScript.dataset.profile`, and `runtime/crash-guard.js` relies on a failing script not stopping the others. Needs its own review. |
 | §1.3.3 Git LFS for `art/reference/`, `art/rework/` | skipped | Owner decision (history rewrite / storage), listed below. |
 
+## Phase 2: co-op
+
+| Item | State | Notes |
+|---|---|---|
+| §2.1.1 sim event queue for presentation calls | skipped | Not needed for co-op: the server build already stubs `sound`/`announce`/`refreshHud`/`setOverlay`/`clearLevel` (server-entry.js), and lockstep peers run the same browser code. A refactor of every presentation call would only add golden risk. |
+| §2.1.2 `player` → `players[]` with 1P bit-for-bit | done c2a00e2 | `players` is null in solo; with two seats `player` is the current seat (swapped per seat). All `qa/golden` story replays, the disabled-collision archive and the fuzz hashes pass unchanged. Per-player `slot`, `reviveProgress`, `sweepHit`, `shieldUntil`, `absorbedAt`, `connected`. Spawns: ground seat 2 at x−70; flight/naval at x−50, y+100 (seat 1 keeps the solo spawn, so the handoff's (260,290) was not applied). `tetherTimer`, `activeInputTicks` not added (chase/climb stay solo; AFK is the server's count). |
+| §2.1.2 visuals and HUD | done a8e9b3d | P1/P2 badges, faded downed seat with a revive ring, P2 hearts strip. The 2 px rim outline was not added (per-frame outline cost); missile/bomb/shield status for P2 not mirrored. |
+| §2.1.3 downed, revive, phase-2 auto-revive | done c2a00e2 | 56 px / 90 ticks / 2 hearts / 90 ticks invulnerable, `SimMath.hypot`. |
+| §2.1.3 chase and climb fall tether | skipped | Co-op covers the boss levels only; chase (11) and climb (12) play solo even with Local 2P chosen. |
+| §2.1.4 round-robin targeting | done c2a00e2 | Chosen once per move start (`boss.targetCounter`, `boss.targetSlot`), so one move's aims all read one seat; no distance tie-breaks. Chase/climb aims untouched (solo). |
+| §2.1.4 ceilingSweep, shieldPulse, density, powerups | done c2a00e2 | Per-seat `sweepHit`; pulse gated on every standing seat and hits each; barrage opening alternates seats by cycle; one heart + two shields, per-seat shield. |
+| §2.2 boss HP 1.80x and `powerupSpan` `baseMax` fix | done c2a00e2 | Levels 1-10, 13, 14. Codebreak 1.85x: constant defined, not applied (climb is solo). |
+| §2.2 `rescaleBossForSeats` / downed never rescales | done c2a00e2 | Only `dropSeat` (online SEAT_DROP) rescales; tested. |
+| §2.3 Local 2P | done a8e9b3d | Keyboard split plus direct controller read (see docs/COOP.md). |
+| §2.3 online client `coop-net.js` + lobby | done a8e9b3d | To the shared protocol v1; tested against `qa/coop-mock-relay.cjs`. Not tested against the real hub match (metaverse-hub side). |
+| §2.4.2 `coopBest` | done 6fa021d | |
+| §2.4.3 server-side settlement | done (client side) a8e9b3d | Client sends OP_RESULT, shows OP_OUTCOME, never grants. Settlement is the hub's job; the mock relay models it for tests only. |
+| §2.4.4 story-14 golden and `story-par.js` | see below | |
+| §3.2 duration parity bots | partial | `qa/coop-sim.test.cjs` compares two unkillable seats at 1.80x with one seat at solo health on the same solo-golden inputs: 0.85-1.08x on 11 levels (10 of 11 within ±10%; Level 8 0.845). Closed-loop two-seat bots were not built: open-loop replays of the solo goldens lose once targeting alternates. Human playtests should confirm 1.80x. |
+| §3.3 edge cases and 10,000-tick two-peer parity | done c2a00e2 | `qa/coop-sim.test.cjs`, `qa/coop-net.test.cjs`. |
+
 ## Measurements
 
 | What | Before | After | How |
@@ -49,9 +70,16 @@ Updated at the end of every phase.
 | `node tools/build-web.mjs <dir>` | passed (verify replay against the built dir, no missing files, no page errors) |
 | Browser spot check | Level 1 title and gameplay screenshots from the built dist: portraits, boat, boss, missiles render; no page errors |
 
+## Contract deviations
+
+None. Backward-compatible additions: `arcade.coop_join` may answer `{error}` in the body or as an RPC error (the client handles both); `OP_READY` carries `{}`.
+
 ## Cross-repo follow-ups
 
 - metaverse-hub: the server must accept `arcade_clear` Tickets for levels 13 and 14 (indexes 12 and 13). If it refuses with a rule code (`bad_*`, `amount_over_rule`, …) the client drops the row, as before. This session cannot read metaverse-hub (not in this session's GitHub scope), so the server side is unverified.
+- metaverse-hub: build `sproto_arcade_coop` and the three RPCs to protocol v1 (docs/COOP.md). Settlement uses the server's own AFK count and the same `arcade_clear` / `breakwater_coin` ledger rows and idempotency keys as the solo path, scoped per match and account.
+- metaverse-hub: re-pin `dist/arcade-sim.server.js`. Its sim version changed from 3bc257947b2e427e to the version in `runtime/story/sim-version.js` (co-op sim and the `ArcadeSim.coop` API). Solo replays verify the same way; logs stamped with the old version need the new bundle on the server.
+- hub-sdk: `coop-net.js` uses `HubSDK.realtimeFromSdk(sdk).connect/rpc/joinMatch` and `match.send/onMessage/leave` from the vendored SDK as it is; no re-vendor was needed.
 
 ## Proposed repo-hygiene deletions (owner decides)
 
