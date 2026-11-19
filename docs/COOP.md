@@ -1,8 +1,9 @@
 # Two-seat co-op (story mode)
 
-Status: implemented on `claude/happy-pasteur-0dhfzp` from `CLAUDE_HANDOFF_OPTIMIZATION.md` §2. Automated checks only:
-balance, readability and the online feel need human playtests, and the online match depends on the hub's
-`sproto_arcade_coop` module (metaverse-hub), which this repo does not contain.
+Status: implemented from `CLAUDE_HANDOFF_OPTIMIZATION.md` §2. Automated checks only: balance, readability and the
+online feel need human playtests. The hub's `sproto_arcade_coop` match is live on metaverse-hub `main` (`a3d94f9e`,
+`server/modules/src/games/arcade_coop.ts`, registered in `main.ts`); its RPC names, opcodes and payloads were
+checked against the tables below. No live two-browser match against a running hub has been played from this repo.
 
 ## Modes
 
@@ -87,6 +88,18 @@ Client details:
 
 Contract deviations: none. Additions that stay backward compatible: `coop_join` may also answer `{error}` in the
 body instead of an RPC error (the client accepts both), and `OP_READY` carries `{}`.
+
+Hub rules the client follows (from `arcade_coop.ts`):
+
+- RPC failures come back in the body as `{error, message}`; the SDK's `rpc` throws them as `HubSdkError` with that
+  code. `not_found`, `full` and `bad_level` are the player's to fix; `rate_limited` and `busy` show the hub's text.
+- `level` is the 1-based stage id (1-14) everywhere, and START's `levelIndex` is `level - 1`.
+- OP_HELLO with a `level` other than the room's is cancelled (`level_mismatch`), and one with another `v` is
+  cancelled (`version_mismatch`). A player joining by code therefore leaves `level` out and takes the room's level
+  from START; create and quick match send it.
+- OP_RESULT without `god: false` counts as god mode and pays no one. The page always sends the flag.
+- The realtime socket uses `HubSDK.realtimeFromSdk` with the SDK's `serverUrl` (`ArcadeHub.serverUrl`, '' is
+  same-origin `/ws`).
 
 ## Simulation API for tests and the hub
 

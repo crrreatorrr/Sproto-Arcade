@@ -52,9 +52,10 @@ function page({ storage = memoryStorage(), hub = server(), visit = null, hash, g
       },
       getSession: () => (visit ? { token: 't', playerId: visit } : null),
       async loadSave() { return hub.saves.get(visit) ?? { data: null, updatedAt: 0 }; },
-      async writeSave(data) {
+      async writeSave(data, opts) {
         const copy = plain(data);
         hub.writes.push([visit, copy]);
+        (hub.keepalive ||= []).push(Boolean(opts?.keepalive));
         hub.saves.set(visit, { data: copy, updatedAt: Date.now() });
         return hub.saves.get(visit);
       },
@@ -240,6 +241,36 @@ const stored = (storage, key) => JSON.parse(storage.getItem(key) ?? 'null');
     assert.deepEqual(plain(tab2.hub.state.save.cleared), [10]);
     assert.equal(tab2.hub.isUnlocked('sproto1668'), true);
     await tab1.hub.progress.flush();
+  }
+
+  // SDK 0.9.0: leaving for the hub (or closing the tab) sends unsynced account progress as one
+  // keepalive save.put, and pagehide after exit() does not send it again. Device play sends nothing.
+  {
+    const hub = server();
+    const p = page({ hub, visit: 'p1' });
+    await p.hub.ready;
+    const before = hub.writes.length;
+    p.hub.recordLocalClear(2);
+    p.hub.exit();
+    assert.equal(hub.writes.length, before + 1, 'exit sends the unsynced clear at once');
+    assert.equal(hub.keepalive.at(-1), true, 'as a keepalive write');
+    assert.deepEqual(plain(hub.writes.at(-1)[1].cleared), [2]);
+    p.fire('pagehide', {});
+    assert.equal(hub.writes.length, before + 1, 'pagehide after exit sends nothing more');
+    const closing = page({ hub, visit: 'p2' });
+    await closing.hub.ready;
+    closing.hub.recordLocalClear(5);
+    closing.fire('pagehide', {});
+    assert.equal(hub.keepalive.at(-1), true, 'closing the tab also sends a keepalive write');
+    assert.equal(hub.writes.at(-1)[0], 'p2');
+    assert.deepEqual(plain(hub.writes.at(-1)[1].cleared), [5]);
+    const offline = page({ hub });
+    await offline.hub.ready;
+    const count = hub.writes.length;
+    offline.hub.recordLocalClear(3);
+    offline.fire('pagehide', {});
+    assert.equal(hub.writes.length, count, 'device progress never leaves on pagehide');
+    await p.hub.progress.flush(); await closing.hub.progress.flush();
   }
 
   await settle();

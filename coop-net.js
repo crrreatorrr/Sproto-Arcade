@@ -121,13 +121,15 @@
   }
 
   /**
-   * Hub transport: the hub SDK's realtime socket (HubSDK.realtimeFromSdk) on the page's hub session.
+   * Hub transport: the hub SDK's realtime socket (HubSDK.realtimeFromSdk) on the page's hub session,
+   * at the same Nakama origin as hub-link.js's SDK ('' is same-origin /ws). RPC errors the hub
+   * answers in the body ({error, message}) are thrown by the SDK as HubSdkError with that code.
    * Returns null without a session (offline play).
    */
   function hubTransport() {
-    const H = root.HubSDK, sdk = root.ArcadeHub?.sdk;
+    const H = root.HubSDK, hub = root.ArcadeHub, sdk = hub?.sdk;
     if (!H?.realtimeFromSdk || !sdk) return null;
-    const rt = H.realtimeFromSdk(sdk, { game: GAME_ID });
+    const rt = H.realtimeFromSdk(sdk, { serverUrl: hub.serverUrl ?? '' });
     if (!rt) return null;
     return {
       async rpc(id, body) { await rt.connect(); return rt.rpc(id, body); },
@@ -193,10 +195,13 @@
         case OP.CANCEL: update({ phase: 'cancelled', message: 'Match cancelled: ' + (data?.reason ?? 'unknown') }); hooks.cancel?.(data); break;
       }
     }
-    async function enter(matchId, extra = {}) {
+    // HELLO names the level only for a room this player chose the level of (create, quick). A
+    // player joining by code takes the room's level from START: the hub cancels a HELLO whose
+    // level differs from the room's (level_mismatch), and the joiner's title-card pick may differ.
+    async function enter(matchId, extra = {}, { ownLevel = true } = {}) {
       match = await transport.join(matchId);
       match.onMessage(onMessage);
-      send(OP.HELLO, { v: V, pilot: hooks.pilot(), level: hooks.level() });
+      send(OP.HELLO, ownLevel ? { v: V, pilot: hooks.pilot(), level: hooks.level() } : { v: V, pilot: hooks.pilot() });
       update({ phase: 'lobby', ...extra });
       pingTimer = timers.setInterval?.(() => send(OP.PING, { c: now() }), 2000) ?? null;
       send(OP.PING, { c: now() });
@@ -219,7 +224,7 @@
           if (answer) placed = { error: answer }; else throw e;
         }
         if (placed?.error) throw Object.assign(Error(placed.error === 'full' ? 'That room is full.' : 'No room with that code.'), { code: placed.error });
-        await enter(placed.match_id ?? placed.matchId, { code: clean });
+        await enter(placed.match_id ?? placed.matchId, { code: clean }, { ownLevel: false });
       },
       async quick() {
         if (hooks.level() == null) throw Object.assign(Error('Online co-op covers the boss levels: pick one in Start at.'), { code: 'bad_level' });
@@ -300,9 +305,12 @@
     buttons[3].onclick = () => { session?.close(); session = null; paint({ phase: 'idle', code: '', seats: [], message: '' }); };
   }
   const PLAYER_ERRORS = new Set(['bad_code', 'not_found', 'full', 'bad_level']);
+  // Hub answers that are temporary: show the hub's own text ("Too many rooms. Try again in a minute.").
+  const RETRY_ERRORS = new Set(['rate_limited', 'busy']);
   function unavailableMessage(e) {
     if (PLAYER_ERRORS.has(e?.code)) return e.message;
-    return 'Online co-op unavailable: the hub does not offer co-op matches yet. Local 2P works on this device.';
+    if (RETRY_ERRORS.has(e?.code) && e.message) return e.message;
+    return 'Online co-op unavailable: the hub could not open a co-op match right now. Local 2P works on this device.';
   }
   function describeOutcome(o) {
     if (!o) return '';
