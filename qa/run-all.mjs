@@ -27,6 +27,7 @@ commands.push({file:path.join(root,'qa/verify-density-assets.test.py'),relative:
 commands.push({file:path.join(root,'tools/test-redkev-geometry.py'),relative:'tools/test-redkev-geometry.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'tools/test-boss-replacement.py'),relative:'tools/test-boss-replacement.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'qa/prepare-redkev-atlas.test.py'),relative:'qa/prepare-redkev-atlas.test.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'tools/make-projectile-presentations.py'),relative:'tools/make-projectile-presentations.py --check',args:['--check'],executable:'python3'});
 commands.push({file:path.join(root,'qa/redkev-anchors.test.py'),relative:'qa/redkev-anchors.test.py',args:[],executable:'python3'});
 // Story replay goldens for the hub's server verifier (bundle always; source simulation after npm ci).
 if(fs.existsSync(path.join(qaDir,'server-sim-goldens.mjs')))commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs',args:[root]});

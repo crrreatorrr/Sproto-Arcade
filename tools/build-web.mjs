@@ -96,9 +96,9 @@ function staticFiles(){
     for(const animation of [...Object.values(config.animations||{}),...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})]){
       for(const asset of animation.pages||[])if(asset.ready)files.add(asset.path);
     }
-    // A canonical phase PNG is only a fallback for its -presentation.webp, which the game draws.
+    // A canonical phase or projectile PNG is only a fallback for its -presentation.webp, which the game draws.
     for(const asset of config.phases)if(asset.ready&&!presentation.has(asset.path.replace(/\.png$/,'-presentation.webp')))files.add(asset.path);
-    for(const asset of config.projectiles)if(asset.ready)files.add(asset.path);
+    for(const asset of config.projectiles)if(asset.ready&&!presentation.has(asset.path.replace(/\.png$/,'-presentation.webp')))files.add(asset.path);
   }
   for(const page of PAGES){
     for(const [,src] of fs.readFileSync(path.join(root,page),'utf8').matchAll(/<script[^>]*\bsrc="([^"]+)"/g))files.add(src.split('?')[0]);

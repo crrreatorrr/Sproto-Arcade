@@ -55,11 +55,12 @@ const approve=id=>{const c=art.manifest[id];for(const a of [...c.phases,...c.pro
  const cosmetic=vm.createContext({Image});
  for(const file of ['sprite-hitboxes.js','boss-sprite-presentations.js','boss-sheets.js'])vm.runInContext(fs.readFileSync(file,'utf8'),cosmetic,{filename:file});
  const display=cosmetic.ArcadeBossSheets;
- assert.equal(display.presentationPaths().length,26);
+ assert.equal(display.presentationPaths().length,52,'26 phase sheets and 26 lossless projectile copies');
  const cosmeticStart=created.length,load=display.preloadStage(1),requested=created.slice(cosmeticStart);
  assert.match(requested[0].src,/p1-presentation\.webp\?v=[a-f0-9]{12}$/);
  assert.match(requested[1].src,/p2-presentation\.webp\?v=[a-f0-9]{12}$/);
  assert.ok(!requested.some(i=>/\/p[12]\.png/.test(i.src)),'the accepted sources do not load twice');
+ assert.ok(requested.some(i=>/p1-projectiles-presentation\.webp\?v=[a-f0-9]{12}$/.test(i.src))&&!requested.some(i=>/projectiles\.png/.test(i.src)),'projectiles load from their lossless WebP copies');
  requested.slice(1).forEach(i=>i.src.includes('/missiles/')?i.resolve(2048,512):i.resolve());
  requested[0].reject();
  await new Promise(setImmediate);

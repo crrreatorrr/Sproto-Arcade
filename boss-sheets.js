@@ -105,10 +105,22 @@
       return {path:canonical.path.replace(/\.png$/,'-presentation.webp'),version,ready:true,canonical};
     })
   ]));
+  // Lossless WebP copies of the reviewed projectile atlases (tools/make-projectile-presentations.py):
+  // byte-identical RGBA, ~30% smaller. Readiness and geometry stay on the canonical PNG entry.
+  const visualProjectiles=Object.fromEntries(Object.entries(root.ArcadeBossProjectileVersions||{}).map(([id,versions])=>[
+    id,versions.map((version,phase)=>{
+      const canonical=manifest[id]?.projectiles[phase];
+      return version&&canonical?.path?{path:canonical.path.replace(/\.png$/,'-presentation.webp'),version,get ready(){return canonical.ready;},canonical}:null;
+    })
+  ]));
   const unavailableVisuals=new Set();
-  function presentationPaths(){return Object.values(visualPhases).flatMap(phases=>phases.map(asset=>asset.path));}
+  function presentationPaths(){return [...Object.values(visualPhases),...Object.values(visualProjectiles)].flatMap(phases=>phases.filter(Boolean).map(asset=>asset.path));}
   function presentationPhase(id,phase){
     const key=Number.parseInt(id,10),canonical=manifest[key]?.phases[phase],visual=visualPhases[key]?.[phase];
+    return canonical?.ready&&visual&&!unavailableVisuals.has(visual.path)?visual:canonical;
+  }
+  function presentationProjectile(id,phase){
+    const key=Number.parseInt(id,10),canonical=manifest[key]?.projectiles[phase],visual=visualProjectiles[key]?.[phase];
     return canonical?.ready&&visual&&!unavailableVisuals.has(visual.path)?visual:canonical;
   }
   const mod3=n=>((Math.floor(Number(n)||0)%3)+3)%3;
@@ -951,7 +963,7 @@
   }
   function drawProjectile(ctx,id,shot,box,context){
     if(shot.density)return drawDensityMissile(ctx,{...shot,stage:id},box,shot.age||context?.phaseTick||0);
-    const selection=projectileSelection(id,shot,context),config=entry(id),asset=config?.projectiles[selection.phase],img=image(asset);
+    const selection=projectileSelection(id,shot,context),config=entry(id),asset=config?.projectiles[selection.phase],img=image(presentationProjectile(id,selection.phase));
     // Explicit local +X direction is used by legacy callers; modern callers
     // retain their existing velocity mirror. Never combine both conventions.
     if(Number.isFinite(context?.directionAngle)&&!context.directionApplied){
@@ -1027,7 +1039,7 @@
   function stageAssets(id){
     const config=entry(id);if(!config)return[];
     const animated=[...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})].flatMap(a=>a.pages||[]);
-    const assets=[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles,...animated,missileAssets[Number.parseInt(id,10)],pickupPresentation].filter(asset=>asset?.ready);
+    const assets=[presentationPhase(id,0),presentationPhase(id,1),...config.projectiles.map((_,phase)=>presentationProjectile(id,phase)),...animated,missileAssets[Number.parseInt(id,10)],pickupPresentation].filter(asset=>asset?.ready);
     return [...new Map(assets.map(asset=>[asset.path,asset])).values()];
   }
   function decoded(img,asset){return !!img&&img.complete&&img.naturalWidth===(asset?.width||2048)&&img.naturalHeight===(asset?.height||(asset?.rows===1?512:2048));}
