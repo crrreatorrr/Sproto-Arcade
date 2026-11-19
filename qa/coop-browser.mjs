@@ -22,6 +22,12 @@ try{
   page.on('pageerror',e=>errors.push(String(e)));
   await page.goto('http://127.0.0.1:'+server.address().port+'/legacy.html');
   await page.waitForFunction(()=>{const b=document.getElementById('start');return b&&!b.disabled&&/Start level/.test(b.textContent);},null,{timeout:120000});
+  // Without a hub session (and before the hub's co-op match exists) Online 2P says it is unavailable.
+  await page.selectOption('#players-select','online');
+  const lobby=await page.textContent('#coop-lobby');
+  if(!/Online co-op unavailable/.test(lobby))throw Error('Online 2P panel lacks the unavailable message: '+lobby);
+  await page.click('#start');await page.waitForTimeout(300);
+  if(await page.evaluate(()=>window.ArcadeStoryCoop.state()!==null))throw Error('Start began a run with Online 2P chosen and no match');
   await page.selectOption('#players-select','local');
   if(!await page.isVisible('#p2-sproto'))throw Error('P2 Sproto picker hidden after choosing Local 2P');
   await page.click('#start');await page.waitForTimeout(500);

@@ -212,7 +212,12 @@
       async join(code) {
         const clean = cleanCode(code);
         if (clean.length !== 5) throw Object.assign(Error('A room code is 5 characters.'), { code: 'bad_code' });
-        const placed = await transport.rpc(RPC.JOIN, { code: clean });
+        let placed;
+        try { placed = await transport.rpc(RPC.JOIN, { code: clean }); } catch (e) {
+          // The hub may answer not_found/full as an RPC error instead of in the body.
+          const answer = [e?.code, e?.message].find((v) => v === 'not_found' || v === 'full');
+          if (answer) placed = { error: answer }; else throw e;
+        }
         if (placed?.error) throw Object.assign(Error(placed.error === 'full' ? 'That room is full.' : 'No room with that code.'), { code: placed.error });
         await enter(placed.match_id ?? placed.matchId, { code: clean });
       },
@@ -253,7 +258,7 @@
     const transport = root.ArcadeCoopNet.transport?.() ?? hubTransport();
     const el = (tag, attrs = {}, text = '') => { const n = root.document.createElement(tag); Object.assign(n, attrs); if (text) n.textContent = text; return n; };
     if (!transport) {
-      panel.append(el('p', {}, 'Online co-op needs a hub session: open Sproto Arcade from the hub to play online.'));
+      panel.append(el('p', {}, 'Online co-op unavailable: it needs a hub session. Open Sproto Arcade from the hub to play online; Local 2P works here.'));
       return;
     }
     const status = el('p', { role: 'status' }), seats = el('p'), code = el('input', { maxLength: 5, placeholder: 'CODE', ariaLabel: 'Room code', size: 6 });
@@ -285,11 +290,18 @@
       });
       return session;
     }
-    const run = (fn) => fn().catch((e) => { status.textContent = e?.message || 'Could not reach the hub.'; });
+    // Room-code and level errors are the player's to fix; anything else (the hub has no co-op match
+    // or RPC yet, or cannot be reached) means online co-op is not available right now.
+    const run = (fn) => fn().catch((e) => { session?.close(); status.textContent = unavailableMessage(e); });
     buttons[0].onclick = () => run(() => fresh().create());
     buttons[1].onclick = () => run(() => fresh().join(code.value));
     buttons[2].onclick = () => run(async () => { const s = fresh(); await s.quick(); s.state.quick = true; });
     buttons[3].onclick = () => { session?.close(); session = null; paint({ phase: 'idle', code: '', seats: [], message: '' }); };
+  }
+  const PLAYER_ERRORS = new Set(['bad_code', 'not_found', 'full', 'bad_level']);
+  function unavailableMessage(e) {
+    if (PLAYER_ERRORS.has(e?.code)) return e.message;
+    return 'Online co-op unavailable: the hub does not offer co-op matches yet. Local 2P works on this device.';
   }
   function describeOutcome(o) {
     if (!o) return '';
@@ -300,7 +312,7 @@
   }
 
   const ArcadeCoopNet = { V, MATCH, GAME_ID, OP, RPC, CODE_ALPHABET, INPUT_DELAY, SEND_EVERY, HASH_EVERY, JITTER_TICKS, RTT_WARN_MS, RTT_BLOCK_QUICK_MS,
-    cleanCode, createLockstep, createSession, hubTransport, openLobby, describeOutcome, transport: null };
+    cleanCode, createLockstep, createSession, hubTransport, openLobby, describeOutcome, unavailableMessage, transport: null };
   root.ArcadeCoopNet = ArcadeCoopNet;
   if (typeof module !== 'undefined' && module.exports) module.exports = ArcadeCoopNet;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

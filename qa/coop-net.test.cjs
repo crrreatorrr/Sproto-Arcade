@@ -66,6 +66,15 @@ async function setup(opts={},inputs=goldenInput){
     await assert.rejects(c.session.join('ZZZZZ'),/No room/);
     assert.equal(Net.cleanCode(' ab-c1d2e9 '),'ABCD2','codes keep only the 31-character alphabet (no 1 or I/L/O/0)');
     pass('room code validation and not_found');
+    // Before the hub has the co-op match: every RPC fails, and the lobby says co-op is unavailable.
+    const missing={rpc:async()=>{throw Object.assign(Error('RPC function not found'),{code:'rpc_not_found'});},join:async()=>{throw Error('no match');}};
+    const dead=Net.createSession({transport:missing,hooks:{level:()=>1,pilot:()=>'rivet'},timers:noTimers});
+    const failure=await dead.create().catch(e=>e);
+    assert.match(Net.unavailableMessage(failure),/^Online co-op unavailable/,'a hub without the co-op match degrades to a clear message');
+    assert.equal(Net.unavailableMessage(Object.assign(Error('No room with that code.'),{code:'not_found'})),'No room with that code.');
+    const asError={rpc:async()=>{throw Object.assign(Error('not_found'),{code:'not_found'});},join:async()=>{throw Error('unused');}};
+    await assert.rejects(Net.createSession({transport:asError,hooks:{level:()=>1,pilot:()=>'rivet'},timers:noTimers}).join('ABCDE'),/No room/,'not_found as an RPC error reads as a missing room');
+    pass('online co-op unavailable until the hub match exists');
   }
   // Lockstep through the relay with latency: same hashes, no desync, input delay honoured.
   const {relay,a,b}=await setup();
