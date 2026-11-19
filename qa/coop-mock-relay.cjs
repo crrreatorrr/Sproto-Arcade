@@ -43,7 +43,9 @@ function createRelay({latency=2,graceSteps=900,seed=0x2545f491,ledger=[]}={}){
     const seat=seatOf(m,conn);if(seat<0||m.ended)return;
     switch(op){
       case OP.HELLO:
-        if(data?.v!==1){deliver(conn,OP.CANCEL,{reason:'version'});return;}
+        if(data?.v!==1){deliver(conn,OP.CANCEL,{reason:'version_mismatch'});return;}
+        // As the hub (arcade_coop.ts onHello): a HELLO may leave level out, but a different one cancels.
+        if(data.level!==undefined&&data.level!==m.level){deliver(conn,OP.CANCEL,{reason:'level_mismatch'});return;}
         m.seats[seat].pilot=data.pilot;m.seats[seat].hello=true;lobby(m);
         if(!m.started&&m.seats.every(s=>s&&s.hello)){
           m.started=true;const shared=rand();

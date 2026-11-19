@@ -100,6 +100,13 @@
   root.addEventListener?.('storage', (e) => {
     if (progress.watches(e.key)) progress.refresh();
   });
+  // Closing the tab or leaving for another page: the account's unsynced progress goes out as one
+  // keepalive save.put (SDK 0.9.0). Device-only progress returns false and sends nothing.
+  // exit() already sent it when the page leaves for the hub.
+  let exitFlushed = false;
+  root.addEventListener?.('pagehide', () => {
+    if (!exitFlushed) progress.flushKeepalive?.();
+  });
   const state = {
     status: 'offline', // offline | connecting | online | error
     relics: [],
@@ -162,6 +169,7 @@
       release() {},
       attach: async () => {},
       flush: async () => {},
+      flushKeepalive: () => false,
     };
   }
 
@@ -425,9 +433,14 @@
       return () => listeners.delete(fn);
     },
     exit() {
-      if (sdk && connected()) sdk.exit('return');
+      if (!sdk || !connected()) return;
+      // SDK 0.9.0: send unsynced account progress as a keepalive save.put, so it outlives the page.
+      exitFlushed = progress.flushKeepalive?.() === true;
+      sdk.exit('return');
     },
     hubUrl: config.hubUrl,
+    /** Nakama origin of the SDK ('' = same origin), for the co-op realtime socket (coop-net.js). */
+    serverUrl: config.serverUrl,
     hubUrlFor,
     serverKeyFor,
     ready: connect(),

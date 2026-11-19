@@ -75,6 +75,29 @@ async function setup(opts={},inputs=goldenInput){
     const asError={rpc:async()=>{throw Object.assign(Error('not_found'),{code:'not_found'});},join:async()=>{throw Error('unused');}};
     await assert.rejects(Net.createSession({transport:asError,hooks:{level:()=>1,pilot:()=>'rivet'},timers:noTimers}).join('ABCDE'),/No room/,'not_found as an RPC error reads as a missing room');
     pass('online co-op unavailable until the hub match exists');
+    assert.equal(Net.unavailableMessage(Object.assign(Error('Too many rooms. Try again in a minute.'),{code:'rate_limited'})),'Too many rooms. Try again in a minute.','a hub rate limit shows the hub text');
+    pass('rate_limited shows the hub message');
+  }
+  // Joining by code takes the room's level: HELLO leaves level out, so a joiner whose title card
+  // is on another level is not cancelled with level_mismatch (the hub's onHello rule).
+  {
+    const relay=createRelay();const host=client(relay,'hana',()=>0,1);
+    await host.session.create();
+    const hellos=[];let startedAt=null,cancelled=null;
+    const base=relay.transport('ivan');
+    const transport={rpc:base.rpc,async join(id){const m=await base.join(id);return {...m,send:(op,p)=>{if(op===Net.OP.HELLO)hellos.push(p);m.send(op,p);}};}};
+    const joiner=Net.createSession({transport,timers:noTimers,now:()=>relay.clock,hooks:{level:()=>3,pilot:()=>'rivet',maskOf:f=>f.mask,frameOf:frameOfMask,
+      start:({levelIndex})=>{startedAt=levelIndex;return new Promise(()=>{});},cancel:c=>{cancelled=c;}}});
+    await joiner.join(host.session.state.code);
+    await run(relay,[host],10);
+    assert.deepEqual(hellos,[{v:1,pilot:'rivet'}],'a code join says hello without a level');
+    assert.equal(cancelled,null,'no level_mismatch');assert.equal(startedAt,0,'the joiner loads the room level (level 1)');
+    const room=relay.transport('kim');const {match_id}=await room.rpc('arcade.coop_create',{level:1,pilot:'rivet'});
+    // A HELLO naming another level is cancelled, as on the hub.
+    const raw=await relay.transport('lee').join(match_id);let got=null;raw.onMessage((op,d)=>{if(op===Net.OP.CANCEL)got=d;});raw.send(Net.OP.HELLO,{v:1,pilot:'rivet',level:3});
+    for(let i=0;i<10;i++){relay.step();await null;}
+    assert.deepEqual(got,{reason:'level_mismatch'},'the mock relay cancels a mismatched HELLO like the hub');
+    pass('code join takes the room level; a mismatched HELLO is cancelled');
   }
   // Lockstep through the relay with latency: same hashes, no desync, input delay honoured.
   const {relay,a,b}=await setup();
