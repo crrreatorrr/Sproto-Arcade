@@ -55,6 +55,15 @@
       }
       if (Object.keys(best).length) out.best = best;
     }
+    // Optional: best two-seat co-op result per level index, kept apart from solo records.
+    if (raw.coopBest && typeof raw.coopBest === 'object' && !Array.isArray(raw.coopBest)) {
+      const coopBest = {};
+      for (let level = 0; level < LEVEL_COUNT; level++) {
+        const entry = cleanBest(raw.coopBest[level]);
+        if (entry) coopBest[level] = entry;
+      }
+      if (Object.keys(coopBest).length) out.coopBest = coopBest;
+    }
     return out;
   }
 
@@ -106,27 +115,42 @@
     return { save: normalize(next), best: entry, improved: true };
   }
 
+  /** Records a two-seat co-op result in coopBest if it beats the stored one (same rules as recordBest). */
+  function recordCoopBest(save, level, result, now = 0) {
+    const next = normalize(save), entry = cleanBest(result);
+    if (!entry || !Number.isInteger(level) || level < 0 || level >= LEVEL_COUNT) return { save: next, best: next.coopBest?.[level] ?? null, improved: false };
+    const current = next.coopBest?.[level] ?? null;
+    if (!betterBest(entry, current)) return { save: next, best: current, improved: false };
+    next.coopBest = { ...(next.coopBest || {}), [level]: entry };
+    next.updatedAt = Math.max(next.updatedAt, now);
+    return { save: normalize(next), best: entry, improved: true };
+  }
+  function mergeBest(x, y, key) {
+    const out = {};
+    for (let level = 0; level < LEVEL_COUNT; level++) {
+      const p = x[key]?.[level], q = y[key]?.[level];
+      if (p || q) out[level] = betterBest(q, p) ? q : p;
+    }
+    return out;
+  }
   function merge(a, b) {
     const x = normalize(a), y = normalize(b);
     // Per level, keep the better result: rank first, then time.
-    const best = {};
-    for (let level = 0; level < LEVEL_COUNT; level++) {
-      const p = x.best?.[level], q = y.best?.[level];
-      if (p || q) best[level] = betterBest(q, p) ? q : p;
-    }
     return normalize({
       v: 1,
       cleared: [...x.cleared, ...y.cleared],
       unlocked: [...x.unlocked, ...y.unlocked],
       updatedAt: Math.max(x.updatedAt, y.updatedAt),
-      best,
+      best: mergeBest(x, y, 'best'),
+      coopBest: mergeBest(x, y, 'coopBest'),
     });
   }
 
   function same(a, b) {
     const x = normalize(a), y = normalize(b);
     return x.cleared.join() === y.cleared.join() && x.unlocked.join() === y.unlocked.join() &&
-      JSON.stringify(x.best || {}) === JSON.stringify(y.best || {});
+      JSON.stringify(x.best || {}) === JSON.stringify(y.best || {}) &&
+      JSON.stringify(x.coopBest || {}) === JSON.stringify(y.coopBest || {});
   }
 
   /** Records a clear and any Sproto it opens. Returns the new save and the ids newly unlocked. */
@@ -191,5 +215,5 @@
    */
   const MODEL = { empty, normalize, merge };
 
-  root.ArcadeProgress = { STORAGE_KEY, legacyPlayerKey, MODEL, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, recordBest, rankFor, betterBest, RANKS, isUnlocked, lockReason, load, store };
+  root.ArcadeProgress = { STORAGE_KEY, legacyPlayerKey, MODEL, LEVEL_COUNT, UNLOCKS, empty, normalize, merge, same, recordClear, recordBest, recordCoopBest, rankFor, betterBest, RANKS, isUnlocked, lockReason, load, store };
 })(typeof window !== 'undefined' ? window : globalThis);

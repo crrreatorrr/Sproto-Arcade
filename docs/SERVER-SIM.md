@@ -270,7 +270,7 @@ and all stored fuzz hashes.
 
 ## Tests
 
-Current production goldens cover 13 levels, one legal-input bot clear each, with no god mode or damage-free requirement. The historical forced-disabled lane checks 11 original clears: the original Moonkeep7 grounded clear remains archived and is deliberately excluded after its authorized flight replacement. Redkev13 belongs to the current production lane. Each production golden is checked:
+Current production goldens cover 14 levels, one legal-input bot clear each, with no god mode or damage-free requirement. The historical forced-disabled lane checks 11 original clears: the original Moonkeep7 grounded clear remains archived and is deliberately excluded after its authorized flight replacement. Redkev13 belongs to the current production lane. Each production golden is checked:
 
 - as a `boss` report and as a `clear` report;
 - with a correct claimed hash and with a wrong one;

@@ -90,7 +90,7 @@ const hubCalls=c=>c[0]!=='loadSave';
     assert.equal(hub.state.lastReplay.claimed.kind,'clear');
     assert.deepEqual(plain(calls.find(c=>c[0]==='writeSave')[1].cleared),[0]);
   }
-  // God-mode full clear of level index 1: no Tickets, cloud save only. Redkev (index 12): save only.
+  // God-mode full clear of level index 1: no Tickets, cloud save only. Redkev (index 12) and Sprotel Bitcoin (index 13) earn Tickets like the rest.
   {
     const {hub,calls}=page({online:true});
     await hub.ready;await settle();
@@ -103,8 +103,17 @@ const hubCalls=c=>c[0]!=='loadSave';
     hub.recordLocalClear(12);hub.reportHubClear(12,false,{schema:1});
     for(let i=0;i<5;i++)await settle();
     await hub.progress.flush();
-    assert.deepEqual(calls.slice(before).filter(hubCalls).map(c=>c[0]),['writeSave'],'Redkev (index 12) is save-only on the hub');
+    assert.deepEqual(calls.slice(before).filter(hubCalls).map(c=>c[0]),['earnTickets','writeSave'],'Redkev (index 12) earns arcade_clear Tickets');
     assert.ok(hub.state.save.cleared.includes(12),'Redkev clear saved locally at index 12');
+    before=calls.length;
+    hub.recordLocalClear(13);hub.reportHubClear(13,false,{schema:1});
+    for(let i=0;i<5;i++)await settle();
+    await hub.progress.flush();
+    assert.deepEqual(calls.slice(before).filter(hubCalls).map(c=>c[0]),['earnTickets','writeSave'],'Sprotel Bitcoin (index 13) earns arcade_clear Tickets');
+    before=calls.length;
+    hub.reportHubClear(14,false,{schema:1});
+    for(let i=0;i<5;i++)await settle();
+    assert.deepEqual(calls.slice(before).filter(hubCalls).map(c=>c[0]).filter(n=>n==='earnTickets'),[],'an index past the campaign earns nothing');
   }
   // Offline (file://, no SDK): both halves are safe; the local clear still records.
   {
@@ -118,5 +127,5 @@ const hubCalls=c=>c[0]!=='loadSave';
     assert.equal(hub.progress.owner().kind,'device','without the SDK bundle progress stays on this device');
     assert.deepEqual(calls,[],'offline sends nothing');
   }
-  console.log('PASS local saves on every clear, Relic on first-boss checkpoint wins, Tickets on eligible full runs, Redkev save-only');
+  console.log('PASS local saves on every clear, Relic on first-boss checkpoint wins, Tickets on eligible full runs, levels 13 and 14 earn Tickets');
 })().catch(e=>{console.error(e);process.exitCode=1;});

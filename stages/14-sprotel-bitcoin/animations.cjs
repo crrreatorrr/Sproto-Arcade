@@ -3,8 +3,18 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),acorn=require('acorn');
 const root=path.resolve(__dirname,'../..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const plain=v=>JSON.parse(JSON.stringify(v));
+// Shared presentation copies (the pickup atlas) are WebP; their size comes from the RIFF header.
+function webpSize(b,file){
+ const kind=b.subarray(12,16).toString('latin1');
+ if(kind==='VP8L')return[1+(b.readUInt32LE(21)&0x3fff),1+((b.readUInt32LE(21)>>>14)&0x3fff)];
+ if(kind==='VP8X')return[1+b.readUIntLE(24,3),1+b.readUIntLE(27,3)];
+ if(kind==='VP8 ')return[b.readUInt16LE(26)&0x3fff,b.readUInt16LE(28)&0x3fff];
+ throw Error(file+' is not a recognised WebP');
+}
 function pngSize(file){
- const full=path.join(root,file.split('?')[0]),fd=fs.openSync(full,'r'),b=Buffer.alloc(26);
+ const full=path.join(root,file.split('?')[0]);
+ if(/\.webp$/.test(full)){const fd=fs.openSync(full,'r'),b=Buffer.alloc(30);try{fs.readSync(fd,b,0,30,0);}finally{fs.closeSync(fd);}assert.equal(b.subarray(0,4).toString('latin1'),'RIFF',file+' is a WebP');return webpSize(b,file);}
+ const fd=fs.openSync(full,'r'),b=Buffer.alloc(26);
  try{assert.equal(fs.readSync(fd,b,0,b.length,0),b.length);}finally{fs.closeSync(fd);}
  assert.equal(b.subarray(0,8).toString('hex'),'89504e470d0a1a0a',file+' is a PNG');
  assert.equal(b[24],8);assert.equal(b[25],6,file+' has real RGBA pixels');

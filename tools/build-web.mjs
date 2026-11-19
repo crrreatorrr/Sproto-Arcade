@@ -15,12 +15,15 @@ import http from 'node:http';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
+import {budgetViolations} from '../qa/build-budget.mjs';
 const require=createRequire(import.meta.url);
 const {chromium}=require('playwright');
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const out=path.resolve(process.argv[2]||path.join(root,'dist'));
 const PAGES=['index.html','legacy.html'];
 const EXTRA=['favicon.ico'];
+// Archived authoring and reference art stays in the repo (AGENTS.md) but never ships in dist/.
+const ARCHIVED=/^art\/reference\//;
 const TYPES={'.html':'text/html','.js':'text/javascript','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json'};
 
 function serve(dir){
@@ -85,14 +88,17 @@ function staticFiles(){
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sprite-presentations.js'),'utf8'),sheetScope);
   if(fs.existsSync(path.join(root,'sprotel-art.js')))vm.runInNewContext(fs.readFileSync(path.join(root,'sprotel-art.js'),'utf8'),sheetScope);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-sheets.js'),'utf8'),sheetScope);
-  for(const asset of sheetScope.ArcadeBossSheets.presentationPaths())files.add(asset);
+  const presentation=new Set(sheetScope.ArcadeBossSheets.presentationPaths().filter(asset=>fs.existsSync(path.join(root,asset))));
+  for(const asset of presentation)files.add(asset);
   vm.runInNewContext(fs.readFileSync(path.join(root,'boss-transitions.js'),'utf8'),sheetScope);
   for(const asset of sheetScope.ArcadeBossTransitions.assetPaths())files.add(asset);
   for(const config of Object.values(sheetScope.ArcadeBossSheets.manifest)){
     for(const animation of [...Object.values(config.animations||{}),...(config.phaseAnimations||[]).flatMap(phase=>Object.values(phase)),...Object.values(config.projectileAnimations||{})]){
       for(const asset of animation.pages||[])if(asset.ready)files.add(asset.path);
     }
-    for(const asset of [...config.phases,...config.projectiles])if(asset.ready)files.add(asset.path);
+    // A canonical phase or projectile PNG is only a fallback for its -presentation.webp, which the game draws.
+    for(const asset of config.phases)if(asset.ready&&!presentation.has(asset.path.replace(/\.png$/,'-presentation.webp')))files.add(asset.path);
+    for(const asset of config.projectiles)if(asset.ready&&!presentation.has(asset.path.replace(/\.png$/,'-presentation.webp')))files.add(asset.path);
   }
   for(const page of PAGES){
     for(const [,src] of fs.readFileSync(path.join(root,page),'utf8').matchAll(/<script[^>]*\bsrc="([^"]+)"/g))files.add(src.split('?')[0]);
@@ -100,6 +106,10 @@ function staticFiles(){
   for(const file of [...files].filter(f=>/\.(js|html)$/.test(f))){
     for(const [,ref] of fs.readFileSync(path.join(root,file),'utf8').matchAll(literal)){
       const clean=ref.replace(/^\.\//,'');
+      // Authoring provenance strings (sprotel-art.js "source" fields) name archived reference art.
+      if(ARCHIVED.test(clean))continue;
+      // A PNG with a -presentation.webp beside it is the verified source; the game draws the WebP.
+      if(/\.png$/.test(clean)&&fs.existsSync(path.join(root,clean.replace(/\.png$/,'-presentation.webp'))))continue;
       if(fs.existsSync(path.join(root,clean))&&fs.statSync(path.join(root,clean)).isFile())files.add(clean);
     }
   }
@@ -111,6 +121,8 @@ const source=await serve(root);
 let seen;
 try{seen=await exercise(source.origin);}finally{source.server.close();}
 if(seen.missing.size)throw Error('Source checkout is missing files the game requests:\n'+[...seen.missing].join('\n'));
+const archivedRequests=[...seen.used].filter(p=>ARCHIVED.test(p));
+if(archivedRequests.length)throw Error('The game requests archived reference art, which dist/ never ships:\n'+archivedRequests.join('\n'));
 for(const p of seen.used)if(fs.existsSync(path.join(root,p))&&fs.statSync(path.join(root,p)).isFile())files.add(p);
 
 // dist/arcade-sim.server.js is committed (the hub's server-side replay verifier, built by
@@ -137,6 +149,8 @@ let verify;
 try{verify=await exercise(built.origin);}finally{built.server.close();}
 if(verify.missing.size)throw Error('dist/ is missing files the game requests:\n'+[...verify.missing].join('\n'));
 if(verify.errors.length)throw Error('Page errors against dist/:\n'+verify.errors.join('\n'));
+const budget=budgetViolations(out);
+if(budget.length)throw Error('dist/ breaks the build budget (qa/build-budget.mjs):\n'+budget.join('\n'));
 const summary={status:'passed',kind:'web-build',out:path.relative(root,out)||'.',files:files.size,megabytes:+(bytes/1e6).toFixed(1),requestedInVerify:verify.used.size};
 fs.writeFileSync(path.join(out,'build-manifest.json'),JSON.stringify({...summary,list:[...files].sort()},null,1));
 console.log(JSON.stringify(summary,null,2));

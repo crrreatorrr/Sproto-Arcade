@@ -70,7 +70,8 @@ try{
     const audit=await openPage(browser,origin,'?assetAudit=1');
     await audit.page.evaluate(()=>window.__arcadeAssets.loadEverything());
     const union=new Set(await audit.page.evaluate(()=>[...window.__imagePaths]));
-    const missing=baseline.paths.filter(p=>!union.has(p));
+    // A PNG the game now draws from a WebP copy (portraits) counts as covered by that copy.
+    const missing=baseline.paths.filter(p=>!union.has(p)&&!union.has(p.replace(/\.png$/,'.webp'))&&!union.has(p.replace(/\.png$/,'-presentation.webp')));
     const extra=[...union].filter(p=>!baseline.paths.includes(p)).sort();
     if(audit.stats.failed.length)throw Error('Audit load failures '+JSON.stringify(audit.stats.failed.slice(0,10)));
     await audit.page.close();

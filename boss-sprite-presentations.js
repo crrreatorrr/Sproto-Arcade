@@ -14,3 +14,21 @@ globalThis.ArcadeBossSpriteVersions = {
   12:["73d6f51fa1d4","8d9e60d3ee55"],
   13:["c805ea3fac09","6deb1dc4f6e7"],
 };
+// BEGIN PROJECTILE PRESENTATIONS
+// Lossless copies of the reviewed projectile atlases (tools/make-projectile-presentations.py).
+globalThis.ArcadeBossProjectileVersions = {
+  1:["4756e2b17c26", "97404ece975c"],
+  2:["6f1a75819a52", "c5d29aaff0ee"],
+  3:["e55eee4f114f", "3376c58732ef"],
+  4:["f3e24878a54e", "d131ac665b2e"],
+  5:["33b611b487dd", "33b611b487dd"],
+  6:["716d8b7bd3e8", "6ce0189c5820"],
+  7:["de5c0ebb3418", "2a941c976283"],
+  8:["43ca681b0d21", "ec48661ea04f"],
+  9:["e2ba46cb6c1a", "4a9118a8e07d"],
+  10:["bc3a302b7e58", "644c47b75179"],
+  11:["939fff01be0d", "e90ad20c2ab8"],
+  12:["65d95fec733e", "d5db4fdbcd61"],
+  13:["b1e70d8109a9", "d734f09ac7e5"],
+};
+// END PROJECTILE PRESENTATIONS

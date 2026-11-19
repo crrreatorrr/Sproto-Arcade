@@ -94,8 +94,10 @@ for (const fighter of playable) {
   button.dataset.fighter=fighter.id;
   button.setAttribute('aria-pressed',String(fighter===selectedSproto));
   const img=document.createElement('img');
-  img.src=`art/portraits/${fighter.portrait??fighter.id}.png`;
+  // 200px WebP copies of art/portraits/*.png (shown at 70px or less).
+  img.src=`art/portraits/${fighter.portrait??fighter.id}.webp`;
   img.alt='';
+  img.decoding='async';
   const label=document.createElement('span');
   label.textContent=fighter.name;
   button.append(img,label);
@@ -310,22 +312,190 @@ function readKeyboardFrame() {
   };
 }
 let inputFrame=NO_INPUT;
+// ---- Two-seat co-op (docs/COOP.md). `players` is null in a solo run, so the solo simulation, its
+// state hash and the replay goldens are exactly what they were. With two seats `player` is the
+// "current seat": per-seat work (movement, firing, contact, damage) runs once per seat with
+// `player` and `inputFrame` swapped in, and the boss aims at boss.targetSlot, chosen round-robin
+// among standing seats each time a move starts.
+let players=null, seatFrames=null;
+const COOP_BOSS_HP_MULT=1.80, COOP_CODEBREAK_HP_MULT=1.85;
+const COOP_REVIVE_RANGE=56, COOP_REVIVE_TICKS=90, COOP_REVIVE_HP=2, COOP_REVIVE_INV=90;
+// Spawn offset of seat 1 from seat 0: behind on the ground, behind and lower in the air or on water.
+const COOP_SEAT_OFFSET={ground:[-70,0],flight:[-50,100]};
+const seatStanding=p=>p.hp>0&&p.connected!==false;
+const standingSeats=()=>players?players.filter(seatStanding):player.hp>0?[player]:[];
+const connectedSeats=()=>players?players.filter(p=>p.connected!==false).length:1;
+// Co-op covers the boss levels. The rooftop chase and the Codebreak climb stay solo (docs/COOP.md).
+const coopLevel=index=>Boolean(LEVELS[index])&&!LEVELS[index].chase&&!LEVELS[index].codebreak;
+function withSeat(p,fn){
+  const keepPlayer=player,keepInput=inputFrame;
+  player=p;inputFrame=seatFrames?.[p.slot]??NO_INPUT;
+  try{return fn(p);}finally{player=keepPlayer;inputFrame=keepInput;}
+}
+// Runs fn for the solo player (always, as before), or for each standing seat in seat order.
+function eachSeat(fn){
+  if(!players)return fn(player);
+  for(const p of players)if(seatStanding(p))withSeat(p,fn);
+}
+function coopSeats(pilots){
+  const flying=isFlying(),[dx,dy]=COOP_SEAT_OFFSET[flying?'flight':'ground'];
+  return pilots.map((pilot,slot)=>{
+    const p=slot===0?player:{...player,id:pilot,x:player.x+dx,y:player.y+dy};
+    return Object.assign(p,{slot,reviveProgress:0,sweepHit:false,shieldUntil:0,absorbedAt:null,connected:true});
+  });
+}
+function coopRetarget(b){
+  const standing=players.filter(seatStanding);
+  const pick=standing.length?standing[(b.targetCounter++)%standing.length]:players[0];
+  b.targetSlot=pick.slot;
+  player=pick;
+}
+const coopHealthMult=()=>connectedSeats()<=1?1:LEVELS[levelIndex].codebreak?COOP_CODEBREAK_HP_MULT:COOP_BOSS_HP_MULT;
+// Phase 2 keeps both shield tests reachable: hitBoss never takes it below this floor.
+function currentShieldPulseFloor(b){
+  if(b.phase!==2||isCodebreak()||LEVELS[levelIndex].id===14)return 1;
+  if(!b.pulses.has(2))return Math.floor(b.max/4)+1;
+  return 1;
+}
+// When a seat drops for good (online grace expired), at one agreed tick, boss health follows the
+// seats still connected. A downed seat never rescales: only a disconnected one.
+function rescaleBossForSeats(b,seats){
+  if(!b||!b.baseMax)return;
+  const prevMax=b.max,mult=seats<=1?1:LEVELS[levelIndex].codebreak?COOP_CODEBREAK_HP_MULT:COOP_BOSS_HP_MULT;
+  b.max=Math.round(b.baseMax*mult);
+  if(b.hp>0)b.hp=Math.max(currentShieldPulseFloor(b),Math.min(b.max,Math.ceil(b.hp*b.max/prevMax)));
+  if(b.phaseTwoBase)b.phaseTwoHealth=Math.round(b.phaseTwoBase*mult);
+}
+function dropSeat(slot){
+  const p=players?.[slot];
+  if(!p||p.connected===false)return;
+  p.connected=false;p.hp=0;p.reviveProgress=0;
+  rescaleBossForSeats(boss,connectedSeats());
+  if(!standingSeats().length)coopKnockout();
+}
+function coopKnockout(){
+  setOverlay('lost','Knockout','Down for the count!',boss.name+' wins this round.','Rematch boss');
+}
+// A downed seat stands back up after its partner stays within reach for 1.5 s.
+function updateRevives(){
+  for(const p of players){
+    if(p.hp>0||p.connected===false)continue;
+    const near=players.some(q=>q!==p&&seatStanding(q)&&SimMath.hypot(q.x-p.x,q.y-p.y)<=COOP_REVIVE_RANGE);
+    p.reviveProgress=near?p.reviveProgress+1:0;
+    if(p.reviveProgress>=COOP_REVIVE_TICKS)reviveSeat(p);
+  }
+}
+function reviveSeat(p){
+  p.hp=COOP_REVIVE_HP;p.inv=COOP_REVIVE_INV;p.reviveProgress=0;
+  sound(520,880,.12,.04);
+}
 let replayRecorder=null,phaseCheckpointRun=false,phasePowerupsState=null,runAttempt=0;
 // Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
 function seededRandom(seed) {
   let state=seed>>>0;
-  return ()=>{
+  const next=()=>{
     state=(state+0x6d2b79f5)>>>0;
     let t=Math.imul(state^state>>>15,1|state);
     t=(t+Math.imul(t^t>>>7,61|t))^t;
     return ((t^t>>>14)>>>0)/4294967296;
   };
+  // Co-op desync recovery copies the whole simulation, this stream's position included.
+  next.position=()=>state;
+  next.seek=value=>{state=value>>>0;};
+  return next;
 }
 let cosmeticRandom=seededRandom(1);
 let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infinity;
 // True when god mode was on at any point in the current level. Such clears earn no Tickets.
 let godUsed=false;
-const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
+// The last eight codes are Local 2P seat 2's keys (SEAT_KEYS below).
+const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape','Numpad0','Numpad1','Numpad2','Numpad4','Numpad5','KeyM','Comma','Period']);
+// ---- Co-op in the browser (docs/COOP.md). Browser only; the server build keeps none of this.
+// coopConfig: null for solo, {kind:'local',pilots:[id,id]} for Local 2P, or
+// {kind:'online',pilots,seat,net} for an online match driven by coop-net.js.
+let coopConfig=null;
+// Local 2P keyboard: seat 1 on WASD, seat 2 on the arrows. Synthetic key events (gamepad.js turns
+// the first pad into arrow/Space/Shift keys) are ignored here; pads are read directly instead.
+const SEAT_KEYS=[
+  {left:['KeyA'],right:['KeyD'],up:['KeyW'],down:['KeyS'],jump:['Space','KeyW'],dash:['ShiftLeft'],shield:['KeyX'],missile:['KeyC'],bomb:['KeyV']},
+  {left:['ArrowLeft'],right:['ArrowRight'],up:['ArrowUp'],down:['ArrowDown'],jump:['ArrowUp','Numpad0'],dash:['ShiftRight','Numpad1'],shield:['KeyM','Numpad2'],missile:['Comma','Numpad4'],bomb:['Period','Numpad5']}
+];
+const trustedKeys=new Set(),trustedPressed=new Set();
+const padHeld=[new Set(),new Set()];
+// Standard-mapping pad, as gamepad.js maps it: A jump, B/RT dash, X/LT shield, Y special C, RB special V.
+function padState(index){
+  const pad=navigator.getGamepads?.()[index];
+  if(!pad||!pad.connected)return null;
+  const b=i=>Boolean(pad.buttons[i]?.pressed),ax=pad.axes[0]??0,ay=pad.axes[1]??0;
+  return {left:b(14)||ax<-.5,right:b(15)||ax>.5,up:b(12)||ay<-.5,down:b(13)||ay>.5,jump:b(0)||b(12),dash:b(1)||b(7),shield:b(2)||b(6),missile:b(3),bomb:b(5)};
+}
+// One seat's frame. seat -1 is the online local player, who uses the solo keyboard and pad mapping.
+function readSeatFrame(seat){
+  if(seat<0)return readKeyboardFrame();
+  const k=SEAT_KEYS[seat],held=c=>c.some(code=>trustedKeys.has(code)),tap=c=>c.some(code=>trustedPressed.has(code));
+  const pads=[0,1,2,3].map(padState).filter(Boolean);
+  // One pad plays seat 2 (seat 1 has the keyboard's left side); two pads play seats 1 and 2.
+  const pad=pads.length>=2?pads[seat]:seat===1?pads[0]:null;
+  const was=padHeld[seat],now=new Set(pad?Object.keys(pad).filter(key=>pad[key]):[]);
+  const padTap=key=>now.has(key)&&!was.has(key);
+  padHeld[seat]=now;
+  return {
+    left:held(k.left)||now.has('left'),right:held(k.right)||now.has('right'),up:held(k.up)||now.has('up'),down:held(k.down)||now.has('down'),
+    jump:tap(k.jump)||padTap('jump'),jumpHeld:held(k.jump)||now.has('jump'),dash:tap(k.dash)||padTap('dash'),
+    shield:tap(k.shield)||padTap('shield'),missile:tap(k.missile)||padTap('missile'),bomb:tap(k.bomb)||padTap('bomb')
+  };
+}
+function setCoop(config){coopConfig=config;}
+// Draws every seat: a downed seat fades and shows its revive ring; each seat wears a P1/P2 badge.
+function drawCoopSeats(drawOne){
+  for(const p of players){
+    if(p.connected===false)continue;
+    withSeat(p,()=>{
+      ctx.save();
+      if(p.hp<=0)ctx.globalAlpha=.45;
+      drawOne();
+      ctx.restore();
+      const flying=isFlying(),top=flying?p.y-70:p.y-playerHeight()-34,color=p.slot===0?'#7ff7ff':'#ff8cf0';
+      ctx.save();
+      ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.fillStyle=color;ctx.strokeStyle='#120c1d';ctx.lineWidth=4;
+      ctx.strokeText('P'+(p.slot+1),p.x,top);ctx.fillText('P'+(p.slot+1),p.x,top);
+      if(p.hp<=0){
+        ctx.strokeStyle=color;ctx.lineWidth=4;ctx.globalAlpha=.85;
+        ctx.beginPath();ctx.arc(p.x,flying?p.y:p.y-playerHeight()/2,COOP_REVIVE_RANGE,-Math.PI/2,-Math.PI/2+2*Math.PI*p.reviveProgress/COOP_REVIVE_TICKS);ctx.stroke();
+        ctx.globalAlpha=1;ctx.fillStyle=color;ctx.fillText('DOWN · STAND CLOSE TO REVIVE',p.x,top-18);
+      }
+      ctx.restore();
+    });
+  }
+}
+function paintCoopHud(){
+  const box=document.getElementById('coop-p2');
+  if(!box)return;
+  box.hidden=!players;
+  if(!players)return;
+  const p=players[1],hearts=document.getElementById('hearts-p2');
+  const text=p.connected===false?'DISCONNECTED':p.hp>0?'♥'.repeat(p.hp)+'♡'.repeat(Math.max(0,MAX_HP-p.hp)):'DOWN';
+  if(hearts.textContent!==text)hearts.textContent=text;
+}
+// A co-op clear: local progress for Local 2P (never Tickets: there is no solo replay to verify),
+// and for online the result goes to the hub match, which alone settles rewards (OP_OUTCOME).
+function clearCoopLevel(){
+  const ticks=time,online=coopConfig?.kind==='online';
+  if(online)coopConfig.net.sendResult({status:'clear',level:LEVELS[levelIndex].id,tick:ticks,god:godUsed});
+  const opened=online?[]:window.ArcadeHub?.recordLocalClear(levelIndex)??[];
+  if (opened.length) { paintSprotoLocks(); paintP2Choices(); }
+  const hits=runStats.hits;
+  const P=window.ArcadeProgress,par=storyPar(levelIndex),rank=P?.rankFor?.({ticks,hits,par,checkpoint:phaseCheckpointRun})??'B';
+  const saved=!online&&!godUsed&&!phaseCheckpointRun?window.ArcadeHub?.recordCoopBest?.(levelIndex,{ticks,hits,rank}):null;
+  const line='Co-op time '+fmtTicks(ticks)+'  ·  Rank '+rank+(saved?.improved?'  ·  New co-op best!':saved?.best?'  ·  Co-op best: '+saved.best.rank+' in '+fmtTicks(saved.best.ticks):'')+
+    (online?'\nRewards: waiting for the hub to settle the match…':'\nLocal 2P clears save progress but earn no Tickets.');
+  const next=nextCampaignLevel(levelIndex);
+  if (online) setOverlay('won','Co-op clear',LEVELS[levelIndex].title,line,'Main menu');
+  else if (next<0) { levelSelect.value=String(firstLevel); setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again'); }
+  else setOverlay('clear','Level clear',LEVELS[levelIndex].title,line+'\nNext up: '+LEVELS[next].title,'Next level');
+  if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
+  if(!online)paintLevelSelect();
+}
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
 let densityShots=[],densityPausedTicks=0,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1,densityLastEnd=0;
 const tileCache=new Map();
@@ -595,17 +765,19 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
   hud.hidden = false;
   setOverlay('play','','','','');
   const seed=(seedOverride??window.crypto?.getRandomValues(new Uint32Array(1))[0]??(0x5eed+index+runAttempt++))>>>0;
-  resetRun(index,selectedSproto.id,shieldWait,seed);
+  const coop=coopConfig&&coopLevel(index)?{pilots:coopConfig.pilots}:null;
+  resetRun(index,coop?coop.pilots[0]:selectedSproto.id,shieldWait,seed,coop);
   phaseCheckpointRun=checkpointPhase===2&&!LEVELS[index].singlePhase;
   if(phaseCheckpointRun){
     if(isCodebreak())startCodebreakArena();
     else if(!isChase()){
-      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;boss.step=0;startMove();
+      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;if(players)coopEnterPhaseTwo();boss.step=0;startMove();
       announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
     }
   }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
-  replayRecorder=phaseCheckpointRun?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  // Co-op runs keep no solo replay log: the hub settles online co-op from the match itself.
+  replayRecorder=phaseCheckpointRun||players?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
   if(typeof storyRunStart==='function')storyRunStart();
   refreshHud();
   prefetchLevel(index);
@@ -620,18 +792,29 @@ const storyPar=index=>(typeof STORY_PAR_TICKS!=='undefined'&&STORY_PAR_TICKS[LEV
 let runStats={hits:0,hp:MAX_HP,absorbed:null};
 const feedback={barrageAt:-Infinity,barrageLive:false,fromRight:true,pops:[],seen:new WeakSet()};
 function storyRunStart() {
-  runStats={hits:0,hp:player.hp,absorbed:phasePowerupsState?.items.absorbedAt??null};
+  runStats={hits:0,hp:player.hp,absorbed:phasePowerupsState?.items.absorbedAt??null,seats:players?players.map(p=>({hp:p.hp,absorbed:p.absorbedAt})):null};
   Object.assign(feedback,{barrageAt:-Infinity,barrageLive:false,pops:[]});
   barrageCue={key:'',floor:0,endedAt:-Infinity};
   if (audio?.state==='running') window.ArcadeAudio?.music.start(audio,LEVELS[levelIndex].id,boss?.phase===2?2:1);
 }
 // Every tick, from refreshHud: a hit is a lost heart or a broken pickup shield.
 function trackRun() {
+  if (players) {
+    // Co-op: a hit is a lost heart or a broken pickup shield on either seat.
+    runStats.seats??=players.map(p=>({hp:p.hp,absorbed:p.absorbedAt}));
+    players.forEach((p,i)=>{
+      const seen=runStats.seats[i];
+      if (p.hp<seen.hp) runStats.hits+=seen.hp-p.hp;
+      else if (p.absorbedAt!==null && p.absorbedAt!==seen.absorbed) runStats.hits++;
+      seen.hp=p.hp;seen.absorbed=p.absorbedAt;
+    });
+  } else {
   const absorbed=phasePowerupsState?.items.absorbedAt??null;
   if (player.hp<runStats.hp) runStats.hits+=runStats.hp-player.hp;
   else if (absorbed!==null && absorbed!==runStats.absorbed) runStats.hits++;
   runStats.hp=player.hp;
   runStats.absorbed=absorbed;
+  }
   if (boss?.phase===2) window.ArcadeAudio?.music.phase(2);
   ui.hearts.classList?.toggle('hit',player.inv>=58 && player.hp>0);
 }
@@ -751,8 +934,9 @@ function drawFeedback() {
 }
 
 // The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
-function resetRun(index, pilot, shieldWait, seed) {
+function resetRun(index, pilot, shieldWait, seed, coop = null) {
   levelIndex = index;
+  players=null;seatFrames=null;
   cosmeticRandom=seededRandom(seed);
   inputFrame=NO_INPUT;
   densityShots=[];densityPausedTicks=0;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;densityLastEnd=0;
@@ -764,12 +948,14 @@ function resetRun(index, pilot, shieldWait, seed) {
   vaultBeam = null;
   player = {id:pilot,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
+  if (coop && coopLevel(index)) players=coopSeats(coop.pilots);
   mode = 'play';
   if (isCodebreak()) startCodebreak();
   else if (isChase()) startChase();
   else startBoss();
   // After the encounter exists: the item plan is spread over the phase's expected length.
   phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0,span:powerupSpan(0)})}:null;
+  if (players && phasePowerupsState) addCoopShieldPlan(phasePowerupsState.items);
 }
 
 // Expected length of a phase attempt in ticks, for spreading the two pickups over it
@@ -778,14 +964,49 @@ function resetRun(index, pilot, shieldWait, seed) {
 function powerupSpan(phase) {
   if (isChase()) return 7200;
   if (isCodebreak()) return phase?1800:5000;
-  return phase?1400:Math.round(boss.max*6.2);
+  // baseMax is the solo health of a co-op boss, so two seats keep the solo pickup timing.
+  return phase?1400:Math.round((boss.baseMax??boss.max)*6.2);
 }
 
 // Everything the simulation carries between ticks; the replay end-state hash covers all of it.
 function simState() {
   return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,...(phasePowerupsState?{phasePowerupsState}:{}),
     ...(ArcadeDensityAttacks.enabled?{densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle,densityLastEnd}:{}),
-    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
+    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[],...(players?{players}:{})};
+}
+
+// Co-op snapshot (OP_SNAPSHOT): everything simState() holds plus the cosmetic stream's position, as
+// JSON that keeps what plain JSON loses (Sets, undefined, NaN, Infinity, -0) so the restored state
+// hashes the same. In co-op `player` is one of `players`, so it is restored by seat, not copied.
+function encodeSimValue(v){
+  if(v===undefined)return {$u:1};
+  if(typeof v==='number')return Number.isFinite(v)&&!(v===0&&1/v<0)?v:{$n:v!==v?'NaN':v===0?'-0':v>0?'Infinity':'-Infinity'};
+  if(v===null||typeof v!=='object')return v;
+  if(Array.isArray(v))return v.map(encodeSimValue);
+  if(v instanceof Set)return {$s:Array.from(v).map(encodeSimValue)}; // not [...v]: the ES5 bundle spreads a Set to []
+  return {$o:Object.keys(v).map(k=>[k,encodeSimValue(v[k])])};
+}
+function decodeSimValue(v){
+  if(v===null||typeof v!=='object')return v;
+  if(Array.isArray(v))return v.map(decodeSimValue);
+  if(v.$u)return undefined;
+  if(v.$n!==undefined)return v.$n==='-0'?-0:Number(v.$n);
+  if(v.$s)return new Set(v.$s.map(decodeSimValue));
+  const out={};for(const [k,item] of v.$o)out[k]=decodeSimValue(item);return out;
+}
+function serializeSimState(){
+  const state=simState();
+  return JSON.stringify(encodeSimValue({...state,player:players?null:state.player,cosmetic:cosmeticRandom.position()}));
+}
+function restoreSimState(text){
+  const s=decodeSimValue(JSON.parse(text));
+  ({mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,boss,bullets,hazards,sparks,impacts}=s);
+  phasePowerupsState=s.phasePowerupsState??null;
+  if('densityShots' in s)({densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle,densityLastEnd}=s);
+  if(isCodebreak())codeShots=s.codeShots;
+  players=s.players??null;
+  player=players?players[boss?.targetSlot]??players[0]:s.player;
+  cosmeticRandom.seek(s.cosmetic);
 }
 
 // Phase split (plan item D1, owner sign-off 2026-11-11): phase 1 is twice the boss's listed
@@ -800,6 +1021,14 @@ function startBoss() {
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
   player.inv=35;
+  if (players) {
+    for (const p of players) { p.hp=MAX_HP; p.inv=35; }
+    // Two seats: 1.80x health (docs/COOP.md). baseMax keeps the solo health for pickup timing.
+    const mult=coopHealthMult();
+    Object.assign(boss,{baseMax:boss.max,phaseTwoBase:boss.phaseTwoHealth,targetCounter:0,targetSlot:0});
+    boss.hp=boss.max=Math.round(boss.baseMax*mult);
+    boss.phaseTwoHealth=Math.round(boss.phaseTwoBase*mult);
+  }
   bullets=[];
   hazards=[];
   sparks=[];
@@ -812,6 +1041,7 @@ function startBoss() {
 const STORY_BOSS_IDS=LEVELS.map(l=>l.id===11?'goldie':l.id===12?'bitcoin_sheriff':acts[l.id-1].id);
 
 function clearLevel() {
+  if (players) return clearCoopLevel();
   // Replay log of this run, claiming the clear at this tick with this end state.
   const claim={stage:LEVELS[levelIndex].id,bossId:STORY_BOSS_IDS[levelIndex],ticks:time,endHash:window.ArcadeReplay?.hashState(simState())};
   const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
@@ -900,6 +1130,9 @@ function setCue(message) {
 }
 
 function refreshHud() {
+  // Co-op: the main HUD shows seat 1, the P2 strip shows seat 2.
+  if (players && player!==players[0]) { withSeat(players[0],refreshHud); return; }
+  paintCoopHud();
   trackRun();
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
@@ -956,6 +1189,7 @@ function puff(x,y,color,count=9) {
 }
 
 function updatePhasePowerups(){
+  if(players)return updateCoopPowerups();
   if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!player.hp)return;
   const phase=boss?.phase===2?1:0;
   if(phasePowerupsState.phase!==phase){const seed=phasePowerupsState.seed;phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};}
@@ -971,15 +1205,69 @@ function updatePhasePowerups(){
   for(const e of events)if(e.type==='collect'&&e.kind==='life'&&player.hp<MAX_HP)player.hp++;
 }
 
+// Two seats get one heart and two shields per phase attempt. The second shield's plan derives from
+// the first two (no extra random numbers), between them in time and mirrored in place.
+function addCoopShieldPlan(items){
+  const [a,b]=items.plans,shield=items.plans.find(plan=>plan.kind==='shield');
+  items.plans.push({id:'shield2',kind:'shield',at:Math.round((a.at+b.at)/2),u:1-shield.u,v:1-shield.v,spawned:false,done:false});
+}
+function updateCoopPowerups(){
+  const standing=standingSeats();
+  if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!standing.length)return;
+  const phase=boss?.phase===2?1:0;
+  if(phasePowerupsState.phase!==phase){
+    const seed=phasePowerupsState.seed;
+    phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};
+    addCoopShieldPlan(phasePowerupsState.items);
+    // The phase's tick restarts at 0, so a pickup shield ends with its phase, as in solo.
+    for(const p of players){p.shieldUntil=0;p.absorbedAt=null;}
+  }
+  const tick=++phasePowerupsState.tick,flying=isFlying(),bounds={x:80,y:200,w:650,h:350};
+  phasePowerupsState.camera=camera;
+  const lead=standing[0];
+  const surfaces=flying?null:[{x:80,y:FLOOR,w:650}].filter(p=>Math.abs(p.y-lead.y)<=150);
+  ArcadePhasePowerups.step(phasePowerupsState.items,{tick,ready:!densityShots.length&&standing.every(p=>!p.inv),hold:{life:standing.every(p=>p.hp>=MAX_HP)},player:null,bounds,surfaces});
+  // Collection is per seat: the seat that touches an item gets it.
+  const items=phasePowerupsState.items;
+  items.pickups=items.pickups.filter(item=>{
+    const p=standing.find(seat=>withSeat(seat,()=>{
+      const h=flying?62:playerHeight(),box={x:seat.x-18,y:seat.y-(flying?31:h),w:36,h};
+      return box.x<item.x+item.w&&box.x+box.w>item.x&&box.y<item.y+item.h&&box.y+box.h>item.y;
+    }));
+    if(!p)return true;
+    items.plans.find(plan=>plan.id===item.id).done=true;
+    if(item.kind==='shield')p.shieldUntil=tick+ArcadePhasePowerups.SHIELD_TTL;
+    else if(p.hp<MAX_HP)p.hp++;
+    return false;
+  });
+}
+
 function drawLegacyPhasePowerups(){
   if(!phasePowerupsState||!player)return;
+  if(players){
+    // Co-op: the items once, then each seat's own pickup shield and absorb flash.
+    const draw=globalThis.ArcadeBossSheets?.drawPhasePowerups,items=phasePowerupsState.items,tick=phasePowerupsState.tick;
+    draw?.(ctx,{...items,shieldUntil:0,absorbedAt:null},tick,null);
+    for(const p of players)if(p.connected!==false&&p.hp>0)withSeat(p,()=>{
+      const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
+      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,{x:p.x-diameter/2,y:p.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+    });
+    return;
+  }
   const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
   globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,{x:player.x-diameter/2,y:player.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
 }
 
 function hurt(contact = false, force = false) {
   if (player.shield || !player.hp || (!force && (player.inv || (!contact && player.dash)))) return;
-  if(phasePowerupsState&&ArcadePhasePowerups.absorb(phasePowerupsState.items,phasePowerupsState.tick,{mandatory:force})){player.inv=71;return;}
+  if (players) {
+    // Each seat carries its own pickup shield (same rule as ArcadePhasePowerups.absorb).
+    const tick=phasePowerupsState?.tick??0;
+    if (player.shieldUntil>tick) {
+      player.shieldUntil=0;player.absorbedAt=tick;
+      if (!force) { player.inv=71; return; }
+    }
+  } else if(phasePowerupsState&&ArcadePhasePowerups.absorb(phasePowerupsState.items,phasePowerupsState.tick,{mandatory:force})){player.inv=71;return;}
   player.inv=71;
   if (godMode) {
     godHits++;
@@ -989,7 +1277,8 @@ function hurt(contact = false, force = false) {
   shake=12;
   puff(player.x,player.y-58,'#fff0cc',15);
   sound(135,47,.21,.11);
-  if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', isChase()?'Retry chase':'Rematch boss');
+  if (!player.hp && players) { player.reviveProgress=0; if (!standingSeats().length) coopKnockout(); }
+  else if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', isChase()?'Retry chase':'Rematch boss');
 }
 
 // Numeric simulation-only geometry; render/image readiness never influences contact.
@@ -1194,6 +1483,7 @@ function ceilingSweepInProgress() {
 
 function startMove() {
   const b=boss;
+  if (players) coopRetarget(b);
   if(LEVELS[levelIndex].id===14){
     const order=b.phase===2?b.staticMoves:b.moves;
     b.section=healthSection(b);b.move=order[b.step++%order.length];b.age=0;
@@ -1227,7 +1517,9 @@ function startMove() {
   }
   if (!flight) order.splice(1,0,'ceilingSweep');
   if (flight && b.phase===2) order.splice(2,0,'arenaHazard');
-  const pulse=b.phase===2 && section>=2 && !b.pulses.has(section) && player.shieldWait<=shieldPulseWindup()-30;
+  // With two seats the pulse waits until every standing seat's shield can answer it.
+  const shieldReady=players?standingSeats().every(p=>p.shieldWait<=shieldPulseWindup()-30):player.shieldWait<=shieldPulseWindup()-30;
+  const pulse=b.phase===2 && section>=2 && !b.pulses.has(section) && shieldReady;
   b.move=pulse?'shieldPulse':order[b.step++%order.length];
   if (mechanicsIndex(levelIndex)===0 && b.move==='arenaHazard') b.laserCycle++;
   b.age=0;
@@ -1238,6 +1530,7 @@ function startMove() {
     b.tell=Math.ceil(b.tell*rate);
     b.sweepDescent=Math.ceil(SWEEP_DESCENT_FRAMES*rate);
     b.sweepHit=false;
+    if (players) for (const p of players) p.sweepHit=false;
     bullets=bullets.filter(shot=>shot.own);
     hazards=[];
     vaultBeam=null;
@@ -1291,8 +1584,9 @@ function attackBoss(t) {
       fire(p.x,p.y,-9,vy,'blueMarlin',false);
     }
     if(b.move==='sprotelBeerStick'&&t>=23&&t<31){
-      const r=sprotelBeerStickBox(b),top=player.y-playerHeight();
-      if(player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&top<r.y+r.h)hurt();
+      const r=sprotelBeerStickBox(b);
+      eachSeat(()=>{const top=player.y-playerHeight();
+      if(player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&top<r.y+r.h)hurt();});
     }
     if(b.move==='sprotelCocktailCannon'&&[0,16,32].includes(t)){
       const p=sprotelShotPoint(b,'cocktailCannon','cocktail',t),dx=b.aimX-p.x,dy=b.aimY-65-p.y,length=SimMath.hypot(dx,dy)||1;
@@ -1365,6 +1659,13 @@ function attackBoss(t) {
       break;
     case 'ceilingSweep': {
       if (t===0) sound(300,62,.36,.1);
+      if (players) {
+        eachSeat(p=>{
+          const inSweep=isNaval()?p.y-31<SWEEP_EDGE:!p.crouch||p.y-playerHeight()<SWEEP_EDGE;
+          if (!p.sweepHit && !p.shield && inSweep) { p.sweepHit=true; hurt(true,true); }
+        });
+        break;
+      }
       const inSweep=isNaval()?player.y-31<SWEEP_EDGE:!player.crouch||player.y-playerHeight()<SWEEP_EDGE;
       if (!b.sweepHit && !player.shield && inSweep) {
         b.sweepHit=true;
@@ -1376,7 +1677,7 @@ function attackBoss(t) {
       if (t===0) {
         b.pulses.add(b.section);
         shake=20;
-        hurt(true,true);
+        eachSeat(()=>hurt(true,true));
         sound(230,44,.46,.14);
       }
       break;
@@ -1641,9 +1942,11 @@ function updateVaultBeam() {
   const {y,age}=vaultBeam;
   const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
   const halfWidth=naval?SAUCER_HALF_WIDTH:18;
+  eachSeat(()=>{
   const top=player.y-(naval?31:playerHeight()),bottom=player.y+(naval?31:0);
   if (age<32 && player.x+halfWidth>=r.x && player.x-halfWidth<=r.x+r.w &&
       bottom>r.y && top<r.y+r.h) hurt();
+  });
 }
 
 function startStageShift() {
@@ -1669,9 +1972,15 @@ function advanceStageShift() {
   boss.phase=2;
   boss.section=0;
   boss.hp=boss.max=boss.phaseTwoHealth;
+  if (players) coopEnterPhaseTwo();
   boss.step=0;
   startMove();
   announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+}
+// Phase 2 of a co-op fight: solo health base for pickups, and every downed (connected) seat stands up.
+function coopEnterPhaseTwo(){
+  boss.baseMax=boss.phaseTwoBase;
+  for(const p of players)if(p.hp<=0&&p.connected!==false)reviveSeat(p);
 }
 
 function keepPlayerLeft(contact=true) {
@@ -1758,6 +2067,21 @@ function updateBullets() {
       shot.dead=true;
       continue;
     }
+    if (!shot.own && players) {
+      // Two seats: the shot hits the first standing seat it touches.
+      for (const seat of players) {
+        if (shot.dead || !seatStanding(seat)) continue;
+        withSeat(seat,()=>{
+          const flying=isFlying(), top=flying?seat.y-31:seat.y-playerHeight(), bottom=flying?seat.y+31:seat.y+3;
+          if (enemyShotContact(shot,flying?(HISTORICAL_SAUCER_HITBOX?58:SAUCER_HALF_WIDTH):18,top,bottom) && !seat.dash) {
+            shot.dead=true;
+            hurt();
+          }
+        });
+      }
+      if (mode!=='play') break;
+      continue;
+    }
     if (!shot.own) {
       const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
       if (enemyShotContact(shot,flying?(HISTORICAL_SAUCER_HITBOX?58:SAUCER_HALF_WIDTH):18,top,bottom) && !p.dash) {
@@ -1820,9 +2144,11 @@ function updateHazards() {
   for (const h of hazards) {
     h.age+=h.blast?1:ENEMY_ATTACK_RATE;
     const r=combatHitbox({x:h.x-h.w/2,y:FLOOR-floorHeight(h),w:h.w,h:floorHeight(h)},'projectiles','floor-column',h);
+    eachSeat(()=>{
     if (!h.blast && mode==='play' && (combatHitboxProfile('projectiles','floor-column',h)?
       player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&player.y-playerHeight()<r.y+r.h:
       Math.abs(player.x-h.x)<h.w/2+18&&player.y>FLOOR-floorHeight(h))) hurt();
+    });
   }
   hazards=hazards.filter(h=>h.age<(h.blast?13:35));
 }
@@ -1969,7 +2295,9 @@ function updateLegacyDensity(){
     if(cycle>1 || (cycle===1 && (isChase() || isCodebreak() || boss.phase!==1 || healthSection(boss)<2 ||
        densityPhaseClock<densityLastEnd+DENSITY_SECOND_GAP)))return false;
     if(densityPhaseClock<ArcadeDensityAttacks.START ||
-       (!isFlying()&&!player.grounded) || !barrageRecovery())return false;
+       (!isFlying()&&!standingSeats().every(p=>p.grounded)) || !barrageRecovery())return false;
+    // Two seats: the safe opening follows one standing seat, alternating by cycle.
+    if(players){const standing=standingSeats();player=standing[cycle%standing.length]||players[0];}
     const vertical=isCodebreakClimb(),flying=isFlying(),scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
     const plan=ArcadeDensityAttacks.plan({
       stage,phase,tick:densityPhaseClock,enabled:true,lastCycle:densityLastCycle,cycle,
@@ -1990,27 +2318,32 @@ function updateLegacyDensity(){
     ui.notice.hidden=true;
   }
   densityPausedTicks++;
+  eachSeat(()=>{
   movePlayer(false);
   if(isCodebreak()&&!isCodebreakClimb())player.x=Math.min(player.x,boss.x-200*CODE_MECHA_SCALE);
   else if(!isChase()&&!isCodebreak())keepPlayerLeft(false);
   if((isChase()||isCodebreakClimb())&&player.y>H+60)barrageFall();
+  });
   const halfWidth=isFlying()&&!HISTORICAL_SAUCER_HITBOX?SAUCER_HALF_WIDTH:18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
-  const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
   for(const shot of densityShots){
     if(mode!=='play')break;
     if(shot.age>=shot.delay){
       shot.x+=shot.vx;
       shot.y+=shot.vy;
       const core=ArcadeDensityAttacks.damageRect(shot);
+      eachSeat(()=>{
+      if(shot.dead)return;
+      const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
       if(player.x+halfWidth>core.x&&player.x-halfWidth<core.x+core.w&&bottom>core.y&&top<core.y+core.h){
         shot.dead=true;
         hurt();
       }
+      });
     }
     shot.age++;
   }
   densityShots=mode==='play'?densityShots.filter(s=>!s.dead&&s.age<s.delay+s.active):[];
-  if(player.dash)player.dash--;
+  eachSeat(()=>{if(player.dash)player.dash--;});
   sparks=sparks.filter(s=>--s.life>0);
   impacts=impacts.filter(impact=>++impact.age<impact.duration);
   if(shake)shake--;
@@ -2020,8 +2353,56 @@ function updateLegacyDensity(){
 
 function update(){
   time++;
+  if(players)return updateCoop();
   if(!updateLegacyDensity())updateLegacyStage();
   updatePhasePowerups();
+}
+// One co-op tick: shared work aims at the boss's current target seat; per-seat work runs per seat.
+function updateCoop(){
+  player=players[boss.targetSlot]??players[0];
+  if(!updateLegacyDensity())updateCoopStage();
+  updatePhasePowerups();
+  if(mode==='play'&&!phaseShift)updateRevives();
+  player=players[boss.targetSlot]??players[0];
+}
+function updateCoopStage(){
+  if (phaseShift) {
+    advanceStageShift();
+    refreshHud();
+    return;
+  }
+  eachSeat(()=>movePlayer());
+  // A seat downed in the air falls and lands (no input), so a partner can reach it to revive.
+  if (!isFlying()) for (const p of players) if (p.hp<=0 && p.connected!==false) withSeat(p,()=>{inputFrame=NO_INPUT;moveGround(p,0);});
+  if (transition) {
+    eachSeat(()=>keepPlayerLeft());
+    updateBullets();
+    if (--transition===0) clearLevel();
+  } else {
+    const previousX=boss.x;
+    player=players[boss.targetSlot]??players[0];
+    updateBoss();
+    boss.moving=Math.abs(boss.x-previousX)>.5;
+    boss.distance+=boss.x-previousX;
+    eachSeat(()=>keepPlayerLeft());
+    player=players[boss.targetSlot]??players[0];
+    if (mode==='play') updateBullets();
+  }
+  updateHazards();
+  updateVaultBeam();
+  eachSeat(p=>{if (p.dash) p.dash--;});
+  for (const s of sparks) {
+    s.x+=s.vx;
+    s.y+=s.vy;
+    s.vy+=.13;
+    s.life--;
+  }
+  sparks=sparks.filter(s=>s.life>0);
+  impacts=impacts.filter(impact=>++impact.age<impact.duration);
+  if (boss.phase===1 && !phaseShift) camera+=SCROLL_STEP;
+  if (banner && --banner===0) ui.notice.hidden=true;
+  if (shake) shake--;
+  refreshHud();
 }
 function updateLegacyStage() {
   if (isCodebreak()) return updateCodebreak();
@@ -2259,6 +2640,8 @@ function updateVerseGemLaser(t) {
   }
   if (t===VERSE_GEM_FIRE) sound(890,185,.26,.09);
   if (t<VERSE_GEM_FIRE || t>=VERSE_GEM_END || boss.gemLaserHit || boss.gemAim===null) return;
+  eachSeat(()=>{
+  if (boss.gemLaserHit) return;
   const dx=player.x-x,dy=player.y-playerHeight()/2-y;
   const ux=SimMath.cos(boss.gemAim),uy=SimMath.sin(boss.gemAim);
   const across=Math.abs(dx*uy-dy*ux);
@@ -2267,6 +2650,7 @@ function updateVerseGemLaser(t) {
     boss.gemLaserHit=true;
     hurt();
   }
+  });
 }
 
 function drawVerseGemLaser() {
@@ -2730,6 +3114,7 @@ function renderLegacyScene() {
   ctx.imageSmoothingEnabled=false;
   renderBoss();
   drawSprotelLaserWarning();
+  const drawOne=()=>{
   if (isNaval()) {
     if(!player.inv||time%8<5)ArcadeSpeedboat.drawBoat(ctx,picture,player,time,
       phaseShift||densityShots.length?Infinity:MISSILE_COOLDOWN-player.missileWait,
@@ -2738,6 +3123,8 @@ function renderLegacyScene() {
   } else if (LEVELS[levelIndex].id===7) drawMoonkeepJet();
   else if (isFlying()) drawSaucer();
   else drawGroundPlayer();
+  };
+  if (players) drawCoopSeats(drawOne); else drawOne();
   for (const shot of bullets) {
     if (shot.own) {
       drawStoryPlayerShot(shot);
@@ -2792,6 +3179,8 @@ function renderLegacyScene() {
 }
 
 function pause() {
+  // Online co-op is lockstep: one peer pausing would stall both, so there is no pause.
+  if (coopConfig?.kind==='online') return;
   if (mode==='play') setOverlay('paused','Intermission','Paused','Take a breather.\n'+coachText(),'Resume');
   else if (mode==='paused') setOverlay('play','','','','');
 }
@@ -2802,23 +3191,25 @@ function pause() {
 // pickup, shield and attack clocks all hold still.
 function feedbackPause(){
   const before=mode;
-  if (mode==='play') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
-  keys.clear();pressed.clear();lastNine=-Infinity;
+  // Online co-op keeps running while the form is open: pausing one peer would stall both.
+  if (mode==='play' && coopConfig?.kind!=='online') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
+  keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   return before;
 }
 function feedbackResume(before){
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   if (before==='play' && mode==='paused' && overlay.hidden) { mode='play'; window.ArcadeAudio?.music.duck(false); }
 }
 
 // The other choice after a phase-2 knockout: the whole level again, which is the run that pays.
 function restartFullRun(){
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   whenReady(levelIndex,()=>begin(levelIndex,false,1));
 }
 function retryCurrentPhase(){
+  if (coopConfig?.kind==='online') return;
   const checkpoint=(!isChase()&&boss?.phase===2)?2:1;
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   whenReady(levelIndex,()=>begin(levelIndex,false,checkpoint));
 }
 
@@ -2828,10 +3219,11 @@ function retryCurrentPhase(){
 const TITLE_DESCRIPTION=ui.description.textContent;
 function returnToTitle(){
   if (mode==='loading' || mode==='title') return;
-  keys.clear();pressed.clear();lastNine=-Infinity;
+  if (coopConfig?.kind==='online') endOnlineCoop();
+  keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   pendingStart++;
   replayRecorder=null;phaseCheckpointRun=false;
-  player=undefined;boss=undefined;
+  player=undefined;boss=undefined;players=null;seatFrames=null;
   gameScreen.classList.remove('stage-blackout');
   hud.hidden=true;ui.boss.hidden=true;ui.notice.hidden=true;setCue('');
   window.ArcadeAudio?.music.stop?.();
@@ -2847,6 +3239,8 @@ function returnToTitle(){
 window.addEventListener('keydown',e=>{
   if(e.code==='KeyR'&&mode==='lost'&&!e.repeat){e.preventDefault();retryCurrentPhase();return;}
   if (e.code==='Digit9' || e.code==='Numpad9') {
+    // Online co-op is lockstep: god mode on one peer would desync the match.
+    if (coopConfig?.kind==='online') return;
     if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
     if (mode==='play') e.preventDefault();
     if (e.timeStamp-lastNine<=750) {
@@ -2861,7 +3255,7 @@ window.addEventListener('keydown',e=>{
     return;
   }
   if (!e.repeat) lastNine=-Infinity;
-  if (e.code==='KeyI' && godMode) {
+  if (e.code==='KeyI' && godMode && coopConfig?.kind!=='online') {
     if (!e.repeat && !e.metaKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
       godDamageBoost=!godDamageBoost;
@@ -2869,7 +3263,7 @@ window.addEventListener('keydown',e=>{
     }
     return;
   }
-  if (e.code==='KeyZ' && godMode) {
+  if (e.code==='KeyZ' && godMode && coopConfig?.kind!=='online') {
     if (!e.repeat && !e.metaKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
       godFire=!godFire;
@@ -2882,14 +3276,17 @@ window.addEventListener('keydown',e=>{
   if (mode==='play' || e.code==='Escape') e.preventDefault();
   if (!e.repeat) {
     pressed.add(e.code);
+    if (e.isTrusted) trustedPressed.add(e.code);
     if (e.code==='Escape') pause();
   }
   keys.add(e.code);
+  if (e.isTrusted) trustedKeys.add(e.code);
 });
-window.addEventListener('keyup',e=>keys.delete(e.code));
+window.addEventListener('keyup',e=>{keys.delete(e.code);trustedKeys.delete(e.code);});
 window.addEventListener('blur',()=>{
   keys.clear();
-  pressed.clear();
+  pressed.clear();trustedPressed.clear();
+  trustedKeys.clear();trustedPressed.clear();
   lastNine=-Infinity;
   if (mode==='play') pause();
 });
@@ -2905,10 +3302,64 @@ if (window.ArcadeAudio && document.getElementById('audio-controls')) {
     mute.setAttribute('aria-pressed',String(muted));
   });
 }
-document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost') restartFullRun(); });
+document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost' && coopConfig?.kind!=='online') restartFullRun(); });
+// ---- Players choice on the title card: Solo, Local 2P (second Sproto picked here) or Online 2P
+// (coop-net.js runs the lobby). Browser only.
+const playersSelect=document.getElementById('players-select'),p2Select=document.getElementById('p2-sproto');
+function paintP2Choices(){
+  if(!p2Select)return;
+  const keep=p2Select.value;
+  p2Select.replaceChildren(...playable.filter(p=>sprotoUnlocked(p.id)).map(p=>new Option(p.name,p.id)));
+  if([...p2Select.options].some(o=>o.value===keep))p2Select.value=keep;
+  else if(p2Select.options.length>1)p2Select.selectedIndex=1;
+}
+function syncCoopChoice(){
+  const choice=playersSelect?.value??'solo';
+  document.getElementById('p2-pick').hidden=choice!=='local';
+  document.getElementById('coop-note').hidden=choice!=='local';
+  document.getElementById('coop-lobby').hidden=choice!=='online';
+  if(coopConfig?.kind==='online')return;
+  coopConfig=choice==='local'?{kind:'local',pilots:[selectedSproto.id,p2Select.value||selectedSproto.id]}:null;
+  // Seat 2's Sproto decodes while the title card is up (Start itself waits only for seat 1's).
+  if(coopConfig)loadSproto(coopConfig.pilots[1]).catch(()=>{});
+  if(choice==='online')window.ArcadeCoopNet?.openLobby?.(document.getElementById('coop-lobby'),{level:()=>coopLevel(Number(levelSelect.value))?LEVELS[Number(levelSelect.value)].id:null,pilot:()=>selectedSproto.id,start:startOnlineCoop});
+}
+playersSelect?.addEventListener('change',()=>{paintP2Choices();syncCoopChoice();});
+p2Select?.addEventListener('change',syncCoopChoice);
+paintP2Choices();
+// coop-net.js calls this on OP_START: load the level for both seats, then report ready. The run
+// starts at tick 0 on OP_GO, from the server-issued seed.
+function startOnlineCoop({levelIndex:index,pilots,seed,seat,net}){
+  if(!coopLevel(index))return Promise.reject(Error('not a co-op level'));
+  // Both peers must run the same rules: god mode from an earlier solo run is switched off.
+  godMode=false;godFire=true;godDamageBoost=false;
+  coopConfig={kind:'online',pilots,seat,net};
+  return Promise.all([loadFor(index,pilots[0]),loadSproto(pilots[1])]).then(()=>({go(){coachDone();begin(index,false,1,seed);}}));
+}
+function endOnlineCoop(){
+  // Leaving mid-match tells the hub (RESULT abort) before the socket closes.
+  if (coopConfig?.kind==='online' && players && mode==='play') coopConfig.net.sendResult({status:'abort',level:LEVELS[levelIndex].id,tick:time,god:false});
+  coopConfig?.net?.close?.();
+  coopConfig=null;
+  syncCoopChoice();
+}
+window.ArcadeStoryCoop={startOnlineCoop,endOnlineCoop,snapshot:()=>players?serializeSimState():null,restore:(text)=>{
+    if(!players)return;
+    restoreSimState(text);
+    // Desync recovery can change the mode: show the overlay that goes with it.
+    if(mode==='play')setOverlay('play','','','','');else if(mode==='lost')coopKnockout();
+  },
+  cancel:(reason)=>{if(coopConfig?.kind!=='online')return;setOverlay('won','Match cancelled',LEVELS[levelIndex]?.title??'','The hub ended the match'+(reason?' ('+reason+')':'')+'. No rewards.','Main menu');},state:()=>players?{tick:time,mode,seats:players.map(p=>({hp:p.hp,connected:p.connected!==false}))}:null,
+  dropSeat:(slot)=>{if(players)dropSeat(slot);},showOutcome:(text)=>{if(ui.description)ui.description.textContent+='\n'+text;}};
+
 ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
+  if (coopConfig?.kind==='online' && (mode==='lost'||mode==='won'||mode==='clear')) { endOnlineCoop(); returnToTitle(); return; }
+  if (mode==='title'||mode==='won') syncCoopChoice();
+  if (coopConfig?.kind==='online' && mode!=='paused') return;
+  // Online 2P chosen but no match yet: the lobby starts the run, not this button.
+  if (playersSelect?.value==='online' && (mode==='title'||mode==='coach'||mode==='won')) { ui.description.textContent='Online 2P: create or join a room below; the match starts when both players are in.'; return; }
   if(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&
     (typeof globalThis.ArcadeBossSheets?.stageReady!=='function'||typeof globalThis.ArcadeBossSheets?.preloadStage!=='function')){location.reload();return;}
   if (mode==='loading') { loadInitialLevel();return; }
@@ -2946,18 +3397,33 @@ function storyFrame(now) {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
       const transitionSteps=phaseShift?STAGE_SHIFT_END-phaseShift:isCodebreak()&&boss.shift?80-boss.shift:0;
-      if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
-        inputFrame=readKeyboardFrame();
+      if (players && coopConfig?.kind==='online') {
+        // Lockstep: a tick runs only once both seats' frames for it are here (coop-net.js).
+        const net=coopConfig.net;
+        net.sample(time+1,readSeatFrame(-1));
+        if (!net.ready(time+1)) { carry=Math.min(carry,1000/60); break; }
+        if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
+          seatFrames=net.take(time+1);inputFrame=seatFrames[0];
+          // The server dropped a seat for good: from this agreed tick boss health follows one seat.
+          if (seatFrames.dropSeat!==undefined) dropSeat(seatFrames.dropSeat);
+          update();
+          // Taps made while waiting on the partner go into the next frame before they are cleared.
+          net.sample(time+1,readSeatFrame(-1));
+          net.afterTick(time,()=>ArcadeReplay.hashState(simState()),mode);
+        }
+      } else if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
+        if (players) { seatFrames=[readSeatFrame(0),readSeatFrame(1)]; inputFrame=seatFrames[0]; }
+        else inputFrame=readKeyboardFrame();
         replayRecorder?.push(inputFrame);
         update();
       }
-      pressed.clear();
+      pressed.clear();trustedPressed.clear();
       carry-=1000/60;
       steps++;
     }
   } else {
     carry=0;
-    pressed.clear();
+    pressed.clear();trustedPressed.clear();
   }
   if (player) render();
   return steps>0 || mode!=='play';
@@ -2985,39 +3451,55 @@ function coreAssets() {
   const images=[];
   for (let i=0;i<4;i++) {
     if (i<2) images.push(attackFrame('boss/higgsfield/transition',i));
-    for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
-    for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
-    for (const kind of ['specimen','bubble']) images.push(hatcheryFrame(kind,i));
-    for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
-    images.push(marinaWaterFrame(i));
-    for (let level=0;level<3;level++) images.push(backdropFrame(level,i));
+    // The hatchery bubble doubles as a boss shot, so it stays shared.
+    images.push(hatcheryFrame('bubble',i));
     images.push(attackFrame('boss/higgsfield/shield-pulse',i));
   }
   for (const key of ['spark','greenLaser','redLaser','missile','bomb']) images.push(attackArt(boxes[key].art));
   for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/barn-fire',i));
   for (const [name] of Object.values(bossShotArt)) images.push(bossAttackImage(name));
   images.push(bossAttackImage('ground-eruption'));
-  for (const part of ['hover','fire']) images.push(bossAttackImage('mecha/'+part));
   for (const piece of ['cannon','cannon-fire','beam','tip']) images.push(attackArt('boss/higgsfield/vault-laser/'+piece));
   for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/vault-laser/warning',i));
-  images.push(attackArt('player/higgsfield/explosion'),picture('art/backdrop-motion/ranch-wheel.png'),picture('art/backdrop-motion/crown-astrolabe.png'),picture('art/backdrop-motion/verse/ship.png'),picture('art/backdrop-motion/marina/turbine.png'),picture('art/backdrop-motion/transit-train.png'));
+  images.push(attackArt('player/higgsfield/explosion'));
   images.push(attackArt('boss/higgsfield/ceiling-sweep/blast'));
-  for (let i=0;i<4;i++) {
-    images.push(attackFrame('player/higgsfield/shield',i));
-    images.push(attackFrame('player/higgsfield/saucer-shield',i));
-  }
-  for (let i=0;i<16;i++) images.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
-  for (const part of ['cockpit-rear','cockpit-front','muzzle']) images.push(attackArt('player/higgsfield/saucer/'+part));
-  for (const color of ['green','orange']) {
-    for (let i=0;i<2;i++) images.push(attackFrame('flight-flames/'+color,i));
-  }
+  for (let i=0;i<4;i++) images.push(attackFrame('player/higgsfield/shield',i));
+  images.push(attackArt('player/higgsfield/saucer/muzzle'));
   for (const {art} of Object.values(playerImpacts)) images.push(attackArt(`player/higgsfield/${art}`));
   for (const width of [65,84]) {
     const folder=`hazards/${width}px`;
     for (let i=0; i<3; i++) images.push(attackFrame(`${folder}/warning`,i));
     for (let i=0; i<4; i++) images.push(attackFrame(`${folder}/retract`,i));
   }
-  images.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
+  return images;
+}
+
+// Art only one kind of stage draws: arena motion (drawArenaMotion, drawPhaseTwoAtmosphere pick it
+// by mechanics index), the flying saucer and Mudline mecha, and Goldie's jetpack in the chase.
+// These used to sit in coreAssets, so every Start waited for all of them.
+function stageAssets(index) {
+  const images=[], m=mechanicsIndex(index), level=LEVELS[index], base=LEVELS[m];
+  const flies=Boolean(level.naval||level.flight||base?.naval||base?.flight);
+  for (let i=0;i<4;i++) {
+    if (m<3) images.push(backdropFrame(m,i));
+    if (m===0) images.push(marinaWaterFrame(i));
+    if (m===4) for (const color of ['amber','cyan']) if (Object.hasOwn(BUNKER_LIGHTS,color)) images.push(bunkerLightFrame(color,i));
+    if (m===5) for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
+    if (m===6) for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
+    if (m===8) images.push(hatcheryFrame('specimen',i));
+    if (m===1) images.push(verseMotionFrame('crystal',i));
+    if (m===9) for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
+  }
+  const single={0:'marina/turbine',3:'ranch-wheel',4:'transit-train',7:'crown-astrolabe',9:'verse/ship'}[m];
+  if (single) images.push(picture('art/backdrop-motion/'+single+'.png'));
+  if (flies) {
+    for (let i=0;i<4;i++) images.push(attackFrame('player/higgsfield/saucer-shield',i));
+    for (let i=0;i<16;i++) images.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
+    for (const part of ['cockpit-rear','cockpit-front']) images.push(attackArt('player/higgsfield/saucer/'+part));
+    for (const color of ['green','orange']) for (let i=0;i<2;i++) images.push(attackFrame('flight-flames/'+color,i));
+    for (const part of ['hover','fire']) images.push(bossAttackImage('mecha/'+part));
+  }
+  if (level.chase) images.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
   return images;
 }
 
@@ -3025,7 +3507,12 @@ function levelAssets(index) {
   const level=LEVELS[index];
   const images=level.naval?ArcadeSpeedboat.assets.map(picture):[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
   if (!level.naval&&STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
-  if (acts[index]) images.push(...spriteFrames(ART.sprites[acts[index].id]?acts[index].id:acts[mechanicsIndex(index)].id));
+  // The fallback boss frames are drawn only when ArcadeBossSheets cannot draw the stage, and
+  // Start already waits for the sheets (bossArtReady), so they load only without the renderer.
+  const sheets=globalThis.ArcadeBossSheets;
+  const sheetsDrawBoss=typeof sheets?.preloadStage==='function'&&Boolean(sheets.entry?.(level.id)?.phases?.every(phase=>phase.ready));
+  if (acts[index]&&!sheetsDrawBoss) images.push(...spriteFrames(ART.sprites[acts[index].id]?acts[index].id:acts[mechanicsIndex(index)].id));
+  images.push(...stageAssets(index));
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;
@@ -3050,10 +3537,14 @@ const loadLevel=index=>loadGroup('level:'+index,()=>levelAssets(index));
 const loadSproto=id=>loadGroup('sproto:'+id,()=>spriteFrames(id));
 const bossArtReady=index=>{const art=globalThis.ArcadeBossSheets;return typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function'?art.stageReady(LEVELS[index].id):!(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled);};
 const loadBossArt=index=>{const art=globalThis.ArcadeBossSheets;if(typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function')return art.preloadStage(LEVELS[index].id);return typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled?Promise.reject(Error('Boss art renderer could not load. Reload the game.')):Promise.resolve();};
-const transitionReady=index=>LEVELS[index].chase||globalThis.ArcadeBossTransitions?.settled(LEVELS[index].id)!==false;
 const loadTransition=index=>LEVELS[index].chase?null:globalThis.ArcadeBossTransitions?.preload(LEVELS[index].id);
-const isReady=(index,id=selectedSproto.id)=>transitionReady(index) && readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
-const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index),loadTransition(index)]);
+// The phase-transition clip plays 50 s or more into a fight and its atlas decodes to ~46 MB, so
+// Start no longer waits for it: prefetchTransition() fetches it in the background once the level
+// is ready. Without it, the transition clock plays the same simulation ticks with the sheet blend.
+// The timeout lets Start enable first, so the clip never competes with the boot's own requests.
+const prefetchTransition=index=>{const run=()=>{const pending=loadTransition(index);if(pending)pending.catch(()=>{});};if(typeof setTimeout==='function')setTimeout(run,0);else run();};
+const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
+const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index)]).then(result=>{prefetchTransition(index);return result;});
 function prefetchLevel(index) {
   if (index<LEVELS.length) Promise.all([loadLevel(index),loadBossArt(index)]).catch(()=>{});
 }
@@ -3061,7 +3552,7 @@ function prefetchLevel(index) {
 // Runs start once the level and Sproto groups are decoded; the button reads Loading… meanwhile.
 let pendingStart=0;
 function whenReady(index,start) {
-  if (isReady(index)) return start();
+  if (isReady(index)) { prefetchTransition(index); return start(); }
   const ticket=++pendingStart, label=ui.start.textContent;
   ui.start.disabled=true;
   ui.start.textContent='Loading…';
@@ -3105,7 +3596,10 @@ if (new URLSearchParams(location.search).has('assetAudit')) {
   // Also every scrolling panel: drawBackground() requests panels past the first three only as the
   // camera reaches them, so tools/build-web.mjs needs them listed here to ship them.
   const allPanels=()=>LEVELS.flatMap((_,i)=>loopPanels(i)).map(([file])=>picture('art/'+file));
-  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...LEVELS.map((_,i)=>loadBossArt(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode())])};
+  window.__arcadeAssets={loadEverything:()=>Promise.all([loadCore(),...LEVELS.map((_,i)=>loadLevel(i)),...LEVELS.map((_,i)=>loadBossArt(i)),...playable.map(p=>loadSproto(p.id)),...allPanels().map(img=>img.decode()),
+    // The fallback boss frames load in play only without the boss sheet renderer; the audit (and so
+    // tools/build-web.mjs) still covers them.
+    ...acts.filter(Boolean).filter(a=>ART.sprites[a.id]).flatMap(a=>spriteFrames(a.id)).map(img=>img.decode().catch(()=>{}))])};
 }
 
 let initialLoad=null;

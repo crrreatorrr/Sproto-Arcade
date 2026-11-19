@@ -10,8 +10,8 @@ const root=path.resolve(__dirname,'../..');
   vm.runInContext(fs.readFileSync(path.join(root,'story-par.js'),'utf8')+';globalThis.PAR=STORY_PAR_TICKS;',scope);
   vm.runInContext(fs.readFileSync(path.join(root,'story-progress.js'),'utf8'),scope);
   const P=scope.ArcadeProgress,par=scope.PAR,plain=v=>JSON.parse(JSON.stringify(v));
-  assert.equal(Object.keys(par).length,13,'a par for every story level');
-  for(let level=1;level<=13;level++){
+  assert.equal(Object.keys(par).length,14,'a par for every story level');
+  for(let level=1;level<=14;level++){
     const gold=JSON.parse(fs.readFileSync(path.join(root,'qa/golden',`story-${String(LEVEL_FILE(level)).padStart(2,'0')}.json`),'utf8'));
     assert.equal(par[gold.level],Math.round(gold.expect.ticks*PAR_FACTOR));
     assert.equal(P.rankFor({ticks:gold.expect.ticks,hits:0,par:par[gold.level]}),'S','a hitless run at the bot\'s pace is an S');
@@ -52,5 +52,5 @@ const root=path.resolve(__dirname,'../..');
   assert.deepEqual(plain(P.normalize({best:{0:{ticks:1.5,hits:0,rank:'S'},1:{ticks:5,hits:0,rank:'Z'},2:'x',99:{ticks:5,hits:0,rank:'S'}}})),{v:1,cleared:[],unlocked:[],updatedAt:0},'junk bests are dropped');
   const memory=new Map(),storage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)};
   P.store(storage,merged);assert.deepEqual(plain(P.load(storage)),plain(merged),'bests survive a storage round trip');
-  console.log('PASS story-par.js matches the 13 goldens; S/A/B/C rank rules; best-time record, merge, old-save and junk handling');
+  console.log('PASS story-par.js matches the 14 goldens; S/A/B/C rank rules; best-time record, merge, old-save and junk handling');
 })().catch(error=>{console.error(error);process.exit(1);});

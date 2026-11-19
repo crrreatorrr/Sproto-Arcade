@@ -20,13 +20,14 @@ const commands=tests.map(file=>{
  }
  return {file,relative,args};
 });
-for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs','sprotel-paging.test.cjs','boss-transitions.test.cjs','projectile-visibility.test.cjs','density-attacks.test.cjs','density-modern.test.cjs','density-rotation.test.cjs','redkev-render.test.cjs','marina-turbines.test.cjs','gamepad-mapping.test.cjs','hub-server-key.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
+for(const file of ['static-checks.mjs','shared-rules.mjs','missile-art.mjs','boss-sheets.test.cjs','boss-weapon-variants.cjs','boss-preload.test.cjs','sprotel-paging.test.cjs','boss-transitions.test.cjs','projectile-visibility.test.cjs','density-attacks.test.cjs','density-modern.test.cjs','density-rotation.test.cjs','redkev-render.test.cjs','marina-turbines.test.cjs','gamepad-mapping.test.cjs','hub-server-key.test.cjs','build-budget.mjs','coop-sim.test.cjs','coop-net.test.cjs'])commands.push({file:path.join(qaDir,file),relative:'qa/'+file,args:[root]});
 commands.push({file:path.join(qaDir,'prepare-density-assets.test.py'),relative:'qa/prepare-density-assets.test.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'tools/verify-density-assets.py'),relative:'tools/verify-density-assets.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'qa/verify-density-assets.test.py'),relative:'qa/verify-density-assets.test.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'tools/test-redkev-geometry.py'),relative:'tools/test-redkev-geometry.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'tools/test-boss-replacement.py'),relative:'tools/test-boss-replacement.py',args:[],executable:'python3'});
 commands.push({file:path.join(root,'qa/prepare-redkev-atlas.test.py'),relative:'qa/prepare-redkev-atlas.test.py',args:[],executable:'python3'});
+commands.push({file:path.join(root,'tools/make-projectile-presentations.py'),relative:'tools/make-projectile-presentations.py --check',args:['--check'],executable:'python3'});
 commands.push({file:path.join(root,'qa/redkev-anchors.test.py'),relative:'qa/redkev-anchors.test.py',args:[],executable:'python3'});
 // Story replay goldens for the hub's server verifier (bundle always; source simulation after npm ci).
 if(fs.existsSync(path.join(qaDir,'server-sim-goldens.mjs')))commands.push({file:path.join(qaDir,'server-sim-goldens.mjs'),relative:'qa/server-sim-goldens.mjs',args:[root]});
