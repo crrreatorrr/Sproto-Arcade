@@ -77,7 +77,7 @@ Updated at the end of every phase.
 | `node qa/run-all.mjs .` (Phase 0) | passed after the script cache keys were refreshed (crash-guard fixture) |
 | `node qa/run-all.mjs .` (Phase 1) | passed, 73 commands |
 | `node tools/build-web.mjs <dir>` | passed (verify replay against the built dir, no missing files, no page errors) |
-| `node qa/run-all.mjs .` (final) | passed, 76 commands (adds coop-sim, coop-net, projectile presentations, build budget) |
+| `node qa/run-all.mjs .` (final) | passed, 75 commands (adds coop-sim, coop-net, projectile presentations, build budget) |
 | `node tools/build-server-sim.mjs --check`, `node tools/check-server-bundle.mjs` | passed; taint check clean; sim version cb695a19130dc99a |
 | `cd tools/goja-verify && go run . ../..` | passed: 14 goldens and fuzz hashes in goja |
 | `node qa/build-budget.mjs . <dist>` | passed on the final build; fails on the pre-fix build |
