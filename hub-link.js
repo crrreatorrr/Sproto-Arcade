@@ -19,6 +19,8 @@
   const FIRST_BOSS = { level: 0, boss: 'bront' };
   const CLEAR_REASON = 'arcade_clear';
   const TICKETS_PER_CLEAR = 20;
+  // Campaign levels that earn Tickets: indexes 0-13 (levels 1-14).
+  const LEVEL_COUNT = 14;
   // A replay log larger than this is not attached (docs/SERVER-SIM.md).
   const MAX_REPLAY_BYTES = 32768;
   // Per-player outbox, so a shared browser never sends one account's queued writes as another.
@@ -365,8 +367,9 @@
     state.lastReplay = claimed(replay, 'clear');
     // Only clears made during a hub session are sent. Offline clears still count for local progress.
     if (connected()) {
-      // ID13 is locally playable; the external hub still accepts the original12.
-      if (level >= 12) {
+      // Level indexes 0-13 (levels 1-14, Redkev and Sprotel Bitcoin included) earn the same
+      // arcade_clear Tickets. Anything outside the campaign stays save-only.
+      if (!Number.isInteger(level) || level < 0 || level >= LEVEL_COUNT) {
         emit();
         return;
       }
