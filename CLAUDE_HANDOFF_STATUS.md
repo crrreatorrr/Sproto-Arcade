@@ -57,6 +57,7 @@ Updated at the end of every phase.
 | Item | State | Notes |
 |---|---|---|
 | Review of the full diff (`/code-review`, medium) | done 8afb138 | Fixed: co-op hit count for rank/best, downed seat falling, per-seat shield drawing, arena 1 crystal frames, WebP retry when the PNG fallback is not shipped, Start with Online 2P chosen, non-co-op levels in the lobby, feedback form pausing online, unlock handling on Local 2P clears. Kept: levels 13/14 send Tickets (the brief asks for it; server acceptance is a follow-up). |
+| Online co-op unavailable fallback | done 5d29b9a | Until the hub's `sproto_arcade_coop` exists (or with no hub session) the lobby reads "Online co-op unavailable…" and points to Local 2P; Start with Online 2P chosen starts nothing. Tested in `qa/coop-net.test.cjs` and `qa/coop-browser.mjs`. |
 | Online co-op safety | done 938b7e3 | God mode toggle ignored online (would desync); input sent in real 2-tick batches. |
 | Asset audit coverage | done ef1e005 | `?assetAudit` still loads fallback boss frames; lazy-load check counts WebP copies. |
 | Remaining skipped items | skipped | §1.2.6 fighter atlases, §1.3.1/§1.3.2 (reasons above), §2.1.1, chase/climb co-op. |
@@ -92,9 +93,9 @@ None. Backward-compatible additions: `arcade.coop_join` may answer `{error}` in 
 
 ## Cross-repo follow-ups
 
-- metaverse-hub: the server must accept `arcade_clear` Tickets for levels 13 and 14 (indexes 12 and 13). If it refuses with a rule code (`bad_*`, `amount_over_rule`, …) the client drops the row, as before. This session cannot read metaverse-hub (not in this session's GitHub scope), so the server side is unverified.
+- metaverse-hub: accept `arcade_clear` Tickets for levels 13 and 14 — **verified by the orchestrating session**: the hub's `arcade_clear` earn rule (`server/modules/src/games/sproto_arcade.ts`) is a flat 20 Tickets with no level restriction.
 - metaverse-hub: build `sproto_arcade_coop` and the three RPCs to protocol v1 (docs/COOP.md). Settlement uses the server's own AFK count and the same `arcade_clear` / `breakwater_coin` ledger rows and idempotency keys as the solo path, scoped per match and account.
-- metaverse-hub: re-pin `dist/arcade-sim.server.js`. Its sim version changed from 3bc257947b2e427e to the version in `runtime/story/sim-version.js` (co-op sim and the `ArcadeSim.coop` API). Solo replays verify the same way; logs stamped with the old version need the new bundle on the server.
+- metaverse-hub: re-vendor `dist/arcade-sim.server.js` (built by `node tools/build-server-sim.mjs`; `--check` verifies it). Sim version 3bc257947b2e427e → cb695a19130dc99a (co-op sim and `ArcadeSim.coop`); file sha256 `c06e40c5d4b2a6bc7b0ac23f5ecc3419f24ce2ea829b0f12b8cc71f004e9c67b`, 1.2 MB. Solo replays verify as before; logs stamped with the old version need the new bundle.
 - hub-sdk: `coop-net.js` uses `HubSDK.realtimeFromSdk(sdk).connect/rpc/joinMatch` and `match.send/onMessage/leave` from the vendored SDK as it is; no re-vendor was needed.
 
 ## Proposed repo-hygiene deletions (owner decides)
