@@ -312,16 +312,97 @@ function readKeyboardFrame() {
   };
 }
 let inputFrame=NO_INPUT;
+// ---- Two-seat co-op (docs/COOP.md). `players` is null in a solo run, so the solo simulation, its
+// state hash and the replay goldens are exactly what they were. With two seats `player` is the
+// "current seat": per-seat work (movement, firing, contact, damage) runs once per seat with
+// `player` and `inputFrame` swapped in, and the boss aims at boss.targetSlot, chosen round-robin
+// among standing seats each time a move starts.
+let players=null, seatFrames=null;
+const COOP_BOSS_HP_MULT=1.80, COOP_CODEBREAK_HP_MULT=1.85;
+const COOP_REVIVE_RANGE=56, COOP_REVIVE_TICKS=90, COOP_REVIVE_HP=2, COOP_REVIVE_INV=90;
+// Spawn offset of seat 1 from seat 0: behind on the ground, behind and lower in the air or on water.
+const COOP_SEAT_OFFSET={ground:[-70,0],flight:[-50,100]};
+const seatStanding=p=>p.hp>0&&p.connected!==false;
+const standingSeats=()=>players?players.filter(seatStanding):player.hp>0?[player]:[];
+const connectedSeats=()=>players?players.filter(p=>p.connected!==false).length:1;
+// Co-op covers the boss levels. The rooftop chase and the Codebreak climb stay solo (docs/COOP.md).
+const coopLevel=index=>Boolean(LEVELS[index])&&!LEVELS[index].chase&&!LEVELS[index].codebreak;
+function withSeat(p,fn){
+  const keepPlayer=player,keepInput=inputFrame;
+  player=p;inputFrame=seatFrames?.[p.slot]??NO_INPUT;
+  try{return fn(p);}finally{player=keepPlayer;inputFrame=keepInput;}
+}
+// Runs fn for the solo player (always, as before), or for each standing seat in seat order.
+function eachSeat(fn){
+  if(!players)return fn(player);
+  for(const p of players)if(seatStanding(p))withSeat(p,fn);
+}
+function coopSeats(pilots){
+  const flying=isFlying(),[dx,dy]=COOP_SEAT_OFFSET[flying?'flight':'ground'];
+  return pilots.map((pilot,slot)=>{
+    const p=slot===0?player:{...player,id:pilot,x:player.x+dx,y:player.y+dy};
+    return Object.assign(p,{slot,reviveProgress:0,sweepHit:false,shieldUntil:0,absorbedAt:null,connected:true});
+  });
+}
+function coopRetarget(b){
+  const standing=players.filter(seatStanding);
+  const pick=standing.length?standing[(b.targetCounter++)%standing.length]:players[0];
+  b.targetSlot=pick.slot;
+  player=pick;
+}
+const coopHealthMult=()=>connectedSeats()<=1?1:LEVELS[levelIndex].codebreak?COOP_CODEBREAK_HP_MULT:COOP_BOSS_HP_MULT;
+// Phase 2 keeps both shield tests reachable: hitBoss never takes it below this floor.
+function currentShieldPulseFloor(b){
+  if(b.phase!==2||isCodebreak()||LEVELS[levelIndex].id===14)return 1;
+  if(!b.pulses.has(2))return Math.floor(b.max/4)+1;
+  return 1;
+}
+// When a seat drops for good (online grace expired), at one agreed tick, boss health follows the
+// seats still connected. A downed seat never rescales: only a disconnected one.
+function rescaleBossForSeats(b,seats){
+  if(!b||!b.baseMax)return;
+  const prevMax=b.max,mult=seats<=1?1:LEVELS[levelIndex].codebreak?COOP_CODEBREAK_HP_MULT:COOP_BOSS_HP_MULT;
+  b.max=Math.round(b.baseMax*mult);
+  if(b.hp>0)b.hp=Math.max(currentShieldPulseFloor(b),Math.min(b.max,Math.ceil(b.hp*b.max/prevMax)));
+  if(b.phaseTwoBase)b.phaseTwoHealth=Math.round(b.phaseTwoBase*mult);
+}
+function dropSeat(slot){
+  const p=players?.[slot];
+  if(!p||p.connected===false)return;
+  p.connected=false;p.hp=0;p.reviveProgress=0;
+  rescaleBossForSeats(boss,connectedSeats());
+  if(!standingSeats().length)coopKnockout();
+}
+function coopKnockout(){
+  setOverlay('lost','Knockout','Down for the count!',boss.name+' wins this round.','Rematch boss');
+}
+// A downed seat stands back up after its partner stays within reach for 1.5 s.
+function updateRevives(){
+  for(const p of players){
+    if(p.hp>0||p.connected===false)continue;
+    const near=players.some(q=>q!==p&&seatStanding(q)&&SimMath.hypot(q.x-p.x,q.y-p.y)<=COOP_REVIVE_RANGE);
+    p.reviveProgress=near?p.reviveProgress+1:0;
+    if(p.reviveProgress>=COOP_REVIVE_TICKS)reviveSeat(p);
+  }
+}
+function reviveSeat(p){
+  p.hp=COOP_REVIVE_HP;p.inv=COOP_REVIVE_INV;p.reviveProgress=0;
+  sound(520,880,.12,.04);
+}
 let replayRecorder=null,phaseCheckpointRun=false,phasePowerupsState=null,runAttempt=0;
 // Seeded stream for cosmetic randomness inside the simulation (reset by begin()).
 function seededRandom(seed) {
   let state=seed>>>0;
-  return ()=>{
+  const next=()=>{
     state=(state+0x6d2b79f5)>>>0;
     let t=Math.imul(state^state>>>15,1|state);
     t=(t+Math.imul(t^t>>>7,61|t))^t;
     return ((t^t>>>14)>>>0)/4294967296;
   };
+  // Co-op desync recovery copies the whole simulation, this stream's position included.
+  next.position=()=>state;
+  next.seek=value=>{state=value>>>0;};
+  return next;
 }
 let cosmeticRandom=seededRandom(1);
 let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infinity;
@@ -753,8 +834,9 @@ function drawFeedback() {
 }
 
 // The simulation part of begin(): no DOM. dist/arcade-sim.server.js replays runs through this.
-function resetRun(index, pilot, shieldWait, seed) {
+function resetRun(index, pilot, shieldWait, seed, coop = null) {
   levelIndex = index;
+  players=null;seatFrames=null;
   cosmeticRandom=seededRandom(seed);
   inputFrame=NO_INPUT;
   densityShots=[];densityPausedTicks=0;densityPhaseClock=0;densityPhaseKey='';densityLastCycle=-1;densityLastEnd=0;
@@ -766,12 +848,14 @@ function resetRun(index, pilot, shieldWait, seed) {
   vaultBeam = null;
   player = {id:pilot,x:isChase()?220:260,y:isChase()?CHASE_START_Y:isCodebreak()?528:isFlying()?340:FLOOR,vx:0,vy:0,hp:MAX_HP,inv:0,
     grounded:true,crouch:false,dash:0,dashWait:0,airDash:true,shot:0,distance:0,jumpBuffer:0,airJump:true,missileWait:0,bombWait:0,shield:0,shieldWait};
+  if (coop && coopLevel(index)) players=coopSeats(coop.pilots);
   mode = 'play';
   if (isCodebreak()) startCodebreak();
   else if (isChase()) startChase();
   else startBoss();
   // After the encounter exists: the item plan is spread over the phase's expected length.
   phasePowerupsState=typeof ArcadePhasePowerups!=='undefined'&&ArcadePhasePowerups.assetsReady?{seed,phase:0,tick:0,items:ArcadePhasePowerups.create({seed,phase:0,span:powerupSpan(0)})}:null;
+  if (players && phasePowerupsState) addCoopShieldPlan(phasePowerupsState.items);
 }
 
 // Expected length of a phase attempt in ticks, for spreading the two pickups over it
@@ -780,14 +864,49 @@ function resetRun(index, pilot, shieldWait, seed) {
 function powerupSpan(phase) {
   if (isChase()) return 7200;
   if (isCodebreak()) return phase?1800:5000;
-  return phase?1400:Math.round(boss.max*6.2);
+  // baseMax is the solo health of a co-op boss, so two seats keep the solo pickup timing.
+  return phase?1400:Math.round((boss.baseMax??boss.max)*6.2);
 }
 
 // Everything the simulation carries between ticks; the replay end-state hash covers all of it.
 function simState() {
   return {mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,player,boss,...(phasePowerupsState?{phasePowerupsState}:{}),
     ...(ArcadeDensityAttacks.enabled?{densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle,densityLastEnd}:{}),
-    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[]};
+    bullets,hazards,sparks,impacts,codeShots:isCodebreak()?codeShots:[],...(players?{players}:{})};
+}
+
+// Co-op snapshot (OP_SNAPSHOT): everything simState() holds plus the cosmetic stream's position, as
+// JSON that keeps what plain JSON loses (Sets, undefined, NaN, Infinity, -0) so the restored state
+// hashes the same. In co-op `player` is one of `players`, so it is restored by seat, not copied.
+function encodeSimValue(v){
+  if(v===undefined)return {$u:1};
+  if(typeof v==='number')return Number.isFinite(v)&&!(v===0&&1/v<0)?v:{$n:v!==v?'NaN':v===0?'-0':v>0?'Infinity':'-Infinity'};
+  if(v===null||typeof v!=='object')return v;
+  if(Array.isArray(v))return v.map(encodeSimValue);
+  if(v instanceof Set)return {$s:[...v].map(encodeSimValue)};
+  return {$o:Object.keys(v).map(k=>[k,encodeSimValue(v[k])])};
+}
+function decodeSimValue(v){
+  if(v===null||typeof v!=='object')return v;
+  if(Array.isArray(v))return v.map(decodeSimValue);
+  if(v.$u)return undefined;
+  if(v.$n!==undefined)return v.$n==='-0'?-0:Number(v.$n);
+  if(v.$s)return new Set(v.$s.map(decodeSimValue));
+  const out={};for(const [k,item] of v.$o)out[k]=decodeSimValue(item);return out;
+}
+function serializeSimState(){
+  const state=simState();
+  return JSON.stringify(encodeSimValue({...state,player:players?null:state.player,cosmetic:cosmeticRandom.position()}));
+}
+function restoreSimState(text){
+  const s=decodeSimValue(JSON.parse(text));
+  ({mode,time,levelIndex,camera,shake,banner,transition,phaseShift,vaultBeam,boss,bullets,hazards,sparks,impacts}=s);
+  phasePowerupsState=s.phasePowerupsState??null;
+  if('densityShots' in s)({densityShots,densityPausedTicks,densityPhaseClock,densityPhaseKey,densityLastCycle,densityLastEnd}=s);
+  if(isCodebreak())codeShots=s.codeShots;
+  players=s.players??null;
+  player=players?players[boss?.targetSlot]??players[0]:s.player;
+  cosmeticRandom.seek(s.cosmetic);
 }
 
 // Phase split (plan item D1, owner sign-off 2026-11-11): phase 1 is twice the boss's listed
@@ -802,6 +921,14 @@ function startBoss() {
     phase:1,section:0,step:0,age:0,tell:0,laserCycle:-1,rocketClock:0,rocketIndex:0,rocketFlash:0,pulses:new Set(),move:null,flash:0,lanes:[],startX:BOSS_HOME,distance:0,moving:false};
   player.hp=MAX_HP;
   player.inv=35;
+  if (players) {
+    for (const p of players) { p.hp=MAX_HP; p.inv=35; }
+    // Two seats: 1.80x health (docs/COOP.md). baseMax keeps the solo health for pickup timing.
+    const mult=coopHealthMult();
+    Object.assign(boss,{baseMax:boss.max,phaseTwoBase:boss.phaseTwoHealth,targetCounter:0,targetSlot:0});
+    boss.hp=boss.max=Math.round(boss.baseMax*mult);
+    boss.phaseTwoHealth=Math.round(boss.phaseTwoBase*mult);
+  }
   bullets=[];
   hazards=[];
   sparks=[];
@@ -958,6 +1085,7 @@ function puff(x,y,color,count=9) {
 }
 
 function updatePhasePowerups(){
+  if(players)return updateCoopPowerups();
   if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!player.hp)return;
   const phase=boss?.phase===2?1:0;
   if(phasePowerupsState.phase!==phase){const seed=phasePowerupsState.seed;phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};}
@@ -973,6 +1101,41 @@ function updatePhasePowerups(){
   for(const e of events)if(e.type==='collect'&&e.kind==='life'&&player.hp<MAX_HP)player.hp++;
 }
 
+// Two seats get one heart and two shields per phase attempt. The second shield's plan derives from
+// the first two (no extra random numbers), between them in time and mirrored in place.
+function addCoopShieldPlan(items){
+  const [a,b]=items.plans,shield=items.plans.find(plan=>plan.kind==='shield');
+  items.plans.push({id:'shield2',kind:'shield',at:Math.round((a.at+b.at)/2),u:1-shield.u,v:1-shield.v,spawned:false,done:false});
+}
+function updateCoopPowerups(){
+  const standing=standingSeats();
+  if(!phasePowerupsState||mode!=='play'||phaseShift||transition||!standing.length)return;
+  const phase=boss?.phase===2?1:0;
+  if(phasePowerupsState.phase!==phase){
+    const seed=phasePowerupsState.seed;
+    phasePowerupsState={seed,phase,tick:0,items:ArcadePhasePowerups.create({seed,phase,span:powerupSpan(phase)})};
+    addCoopShieldPlan(phasePowerupsState.items);
+  }
+  const tick=++phasePowerupsState.tick,flying=isFlying(),bounds={x:80,y:200,w:650,h:350};
+  phasePowerupsState.camera=camera;
+  const lead=standing[0];
+  const surfaces=flying?null:[{x:80,y:FLOOR,w:650}].filter(p=>Math.abs(p.y-lead.y)<=150);
+  ArcadePhasePowerups.step(phasePowerupsState.items,{tick,ready:!densityShots.length&&standing.every(p=>!p.inv),hold:{life:standing.every(p=>p.hp>=MAX_HP)},player:null,bounds,surfaces});
+  // Collection is per seat: the seat that touches an item gets it.
+  const items=phasePowerupsState.items;
+  items.pickups=items.pickups.filter(item=>{
+    const p=standing.find(seat=>withSeat(seat,()=>{
+      const h=flying?62:playerHeight(),box={x:seat.x-18,y:seat.y-(flying?31:h),w:36,h};
+      return box.x<item.x+item.w&&box.x+box.w>item.x&&box.y<item.y+item.h&&box.y+box.h>item.y;
+    }));
+    if(!p)return true;
+    items.plans.find(plan=>plan.id===item.id).done=true;
+    if(item.kind==='shield')p.shieldUntil=tick+ArcadePhasePowerups.SHIELD_TTL;
+    else if(p.hp<MAX_HP)p.hp++;
+    return false;
+  });
+}
+
 function drawLegacyPhasePowerups(){
   if(!phasePowerupsState||!player)return;
   const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
@@ -981,7 +1144,14 @@ function drawLegacyPhasePowerups(){
 
 function hurt(contact = false, force = false) {
   if (player.shield || !player.hp || (!force && (player.inv || (!contact && player.dash)))) return;
-  if(phasePowerupsState&&ArcadePhasePowerups.absorb(phasePowerupsState.items,phasePowerupsState.tick,{mandatory:force})){player.inv=71;return;}
+  if (players) {
+    // Each seat carries its own pickup shield (same rule as ArcadePhasePowerups.absorb).
+    const tick=phasePowerupsState?.tick??0;
+    if (player.shieldUntil>tick) {
+      player.shieldUntil=0;player.absorbedAt=tick;
+      if (!force) { player.inv=71; return; }
+    }
+  } else if(phasePowerupsState&&ArcadePhasePowerups.absorb(phasePowerupsState.items,phasePowerupsState.tick,{mandatory:force})){player.inv=71;return;}
   player.inv=71;
   if (godMode) {
     godHits++;
@@ -991,7 +1161,8 @@ function hurt(contact = false, force = false) {
   shake=12;
   puff(player.x,player.y-58,'#fff0cc',15);
   sound(135,47,.21,.11);
-  if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', isChase()?'Retry chase':'Rematch boss');
+  if (!player.hp && players) { player.reviveProgress=0; if (!standingSeats().length) coopKnockout(); }
+  else if (!player.hp) setOverlay('lost','Knockout','Down for the count!',boss.name + ' wins this round.', isChase()?'Retry chase':'Rematch boss');
 }
 
 // Numeric simulation-only geometry; render/image readiness never influences contact.
@@ -1196,6 +1367,7 @@ function ceilingSweepInProgress() {
 
 function startMove() {
   const b=boss;
+  if (players) coopRetarget(b);
   if(LEVELS[levelIndex].id===14){
     const order=b.phase===2?b.staticMoves:b.moves;
     b.section=healthSection(b);b.move=order[b.step++%order.length];b.age=0;
@@ -1229,7 +1401,9 @@ function startMove() {
   }
   if (!flight) order.splice(1,0,'ceilingSweep');
   if (flight && b.phase===2) order.splice(2,0,'arenaHazard');
-  const pulse=b.phase===2 && section>=2 && !b.pulses.has(section) && player.shieldWait<=shieldPulseWindup()-30;
+  // With two seats the pulse waits until every standing seat's shield can answer it.
+  const shieldReady=players?standingSeats().every(p=>p.shieldWait<=shieldPulseWindup()-30):player.shieldWait<=shieldPulseWindup()-30;
+  const pulse=b.phase===2 && section>=2 && !b.pulses.has(section) && shieldReady;
   b.move=pulse?'shieldPulse':order[b.step++%order.length];
   if (mechanicsIndex(levelIndex)===0 && b.move==='arenaHazard') b.laserCycle++;
   b.age=0;
@@ -1240,6 +1414,7 @@ function startMove() {
     b.tell=Math.ceil(b.tell*rate);
     b.sweepDescent=Math.ceil(SWEEP_DESCENT_FRAMES*rate);
     b.sweepHit=false;
+    if (players) for (const p of players) p.sweepHit=false;
     bullets=bullets.filter(shot=>shot.own);
     hazards=[];
     vaultBeam=null;
@@ -1293,8 +1468,9 @@ function attackBoss(t) {
       fire(p.x,p.y,-9,vy,'blueMarlin',false);
     }
     if(b.move==='sprotelBeerStick'&&t>=23&&t<31){
-      const r=sprotelBeerStickBox(b),top=player.y-playerHeight();
-      if(player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&top<r.y+r.h)hurt();
+      const r=sprotelBeerStickBox(b);
+      eachSeat(()=>{const top=player.y-playerHeight();
+      if(player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&top<r.y+r.h)hurt();});
     }
     if(b.move==='sprotelCocktailCannon'&&[0,16,32].includes(t)){
       const p=sprotelShotPoint(b,'cocktailCannon','cocktail',t),dx=b.aimX-p.x,dy=b.aimY-65-p.y,length=SimMath.hypot(dx,dy)||1;
@@ -1367,6 +1543,13 @@ function attackBoss(t) {
       break;
     case 'ceilingSweep': {
       if (t===0) sound(300,62,.36,.1);
+      if (players) {
+        eachSeat(p=>{
+          const inSweep=isNaval()?p.y-31<SWEEP_EDGE:!p.crouch||p.y-playerHeight()<SWEEP_EDGE;
+          if (!p.sweepHit && !p.shield && inSweep) { p.sweepHit=true; hurt(true,true); }
+        });
+        break;
+      }
       const inSweep=isNaval()?player.y-31<SWEEP_EDGE:!player.crouch||player.y-playerHeight()<SWEEP_EDGE;
       if (!b.sweepHit && !player.shield && inSweep) {
         b.sweepHit=true;
@@ -1378,7 +1561,7 @@ function attackBoss(t) {
       if (t===0) {
         b.pulses.add(b.section);
         shake=20;
-        hurt(true,true);
+        eachSeat(()=>hurt(true,true));
         sound(230,44,.46,.14);
       }
       break;
@@ -1643,9 +1826,11 @@ function updateVaultBeam() {
   const {y,age}=vaultBeam;
   const front=vaultBeamFront(vaultBeam),r=combatHitbox({x:front,y:y-14,w:VAULT_MUZZLE-front,h:28},'beams','vault',vaultBeam);
   const halfWidth=naval?SAUCER_HALF_WIDTH:18;
+  eachSeat(()=>{
   const top=player.y-(naval?31:playerHeight()),bottom=player.y+(naval?31:0);
   if (age<32 && player.x+halfWidth>=r.x && player.x-halfWidth<=r.x+r.w &&
       bottom>r.y && top<r.y+r.h) hurt();
+  });
 }
 
 function startStageShift() {
@@ -1671,9 +1856,15 @@ function advanceStageShift() {
   boss.phase=2;
   boss.section=0;
   boss.hp=boss.max=boss.phaseTwoHealth;
+  if (players) coopEnterPhaseTwo();
   boss.step=0;
   startMove();
   announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+}
+// Phase 2 of a co-op fight: solo health base for pickups, and every downed (connected) seat stands up.
+function coopEnterPhaseTwo(){
+  boss.baseMax=boss.phaseTwoBase;
+  for(const p of players)if(p.hp<=0&&p.connected!==false)reviveSeat(p);
 }
 
 function keepPlayerLeft(contact=true) {
@@ -1760,6 +1951,21 @@ function updateBullets() {
       shot.dead=true;
       continue;
     }
+    if (!shot.own && players) {
+      // Two seats: the shot hits the first standing seat it touches.
+      for (const seat of players) {
+        if (shot.dead || !seatStanding(seat)) continue;
+        withSeat(seat,()=>{
+          const flying=isFlying(), top=flying?seat.y-31:seat.y-playerHeight(), bottom=flying?seat.y+31:seat.y+3;
+          if (enemyShotContact(shot,flying?(HISTORICAL_SAUCER_HITBOX?58:SAUCER_HALF_WIDTH):18,top,bottom) && !seat.dash) {
+            shot.dead=true;
+            hurt();
+          }
+        });
+      }
+      if (mode!=='play') break;
+      continue;
+    }
     if (!shot.own) {
       const flying=isFlying(), top=flying?p.y-31:p.y-playerHeight(), bottom=flying?p.y+31:p.y+3;
       if (enemyShotContact(shot,flying?(HISTORICAL_SAUCER_HITBOX?58:SAUCER_HALF_WIDTH):18,top,bottom) && !p.dash) {
@@ -1822,9 +2028,11 @@ function updateHazards() {
   for (const h of hazards) {
     h.age+=h.blast?1:ENEMY_ATTACK_RATE;
     const r=combatHitbox({x:h.x-h.w/2,y:FLOOR-floorHeight(h),w:h.w,h:floorHeight(h)},'projectiles','floor-column',h);
+    eachSeat(()=>{
     if (!h.blast && mode==='play' && (combatHitboxProfile('projectiles','floor-column',h)?
       player.x+18>r.x&&player.x-18<r.x+r.w&&player.y>r.y&&player.y-playerHeight()<r.y+r.h:
       Math.abs(player.x-h.x)<h.w/2+18&&player.y>FLOOR-floorHeight(h))) hurt();
+    });
   }
   hazards=hazards.filter(h=>h.age<(h.blast?13:35));
 }
@@ -1971,7 +2179,9 @@ function updateLegacyDensity(){
     if(cycle>1 || (cycle===1 && (isChase() || isCodebreak() || boss.phase!==1 || healthSection(boss)<2 ||
        densityPhaseClock<densityLastEnd+DENSITY_SECOND_GAP)))return false;
     if(densityPhaseClock<ArcadeDensityAttacks.START ||
-       (!isFlying()&&!player.grounded) || !barrageRecovery())return false;
+       (!isFlying()&&!standingSeats().every(p=>p.grounded)) || !barrageRecovery())return false;
+    // Two seats: the safe opening follows one standing seat, alternating by cycle.
+    if(players){const standing=standingSeats();player=standing[cycle%standing.length]||players[0];}
     const vertical=isCodebreakClimb(),flying=isFlying(),scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
     const plan=ArcadeDensityAttacks.plan({
       stage,phase,tick:densityPhaseClock,enabled:true,lastCycle:densityLastCycle,cycle,
@@ -1992,27 +2202,32 @@ function updateLegacyDensity(){
     ui.notice.hidden=true;
   }
   densityPausedTicks++;
+  eachSeat(()=>{
   movePlayer(false);
   if(isCodebreak()&&!isCodebreakClimb())player.x=Math.min(player.x,boss.x-200*CODE_MECHA_SCALE);
   else if(!isChase()&&!isCodebreak())keepPlayerLeft(false);
   if((isChase()||isCodebreakClimb())&&player.y>H+60)barrageFall();
+  });
   const halfWidth=isFlying()&&!HISTORICAL_SAUCER_HITBOX?SAUCER_HALF_WIDTH:18*(isCodebreak()?CODE_CHARACTER_SCALE:1);
-  const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
   for(const shot of densityShots){
     if(mode!=='play')break;
     if(shot.age>=shot.delay){
       shot.x+=shot.vx;
       shot.y+=shot.vy;
       const core=ArcadeDensityAttacks.damageRect(shot);
+      eachSeat(()=>{
+      if(shot.dead)return;
+      const top=player.y-(isFlying()?31:playerHeight()),bottom=player.y+(isFlying()?31:0);
       if(player.x+halfWidth>core.x&&player.x-halfWidth<core.x+core.w&&bottom>core.y&&top<core.y+core.h){
         shot.dead=true;
         hurt();
       }
+      });
     }
     shot.age++;
   }
   densityShots=mode==='play'?densityShots.filter(s=>!s.dead&&s.age<s.delay+s.active):[];
-  if(player.dash)player.dash--;
+  eachSeat(()=>{if(player.dash)player.dash--;});
   sparks=sparks.filter(s=>--s.life>0);
   impacts=impacts.filter(impact=>++impact.age<impact.duration);
   if(shake)shake--;
@@ -2022,8 +2237,54 @@ function updateLegacyDensity(){
 
 function update(){
   time++;
+  if(players)return updateCoop();
   if(!updateLegacyDensity())updateLegacyStage();
   updatePhasePowerups();
+}
+// One co-op tick: shared work aims at the boss's current target seat; per-seat work runs per seat.
+function updateCoop(){
+  player=players[boss.targetSlot]??players[0];
+  if(!updateLegacyDensity())updateCoopStage();
+  updatePhasePowerups();
+  if(mode==='play'&&!phaseShift)updateRevives();
+  player=players[boss.targetSlot]??players[0];
+}
+function updateCoopStage(){
+  if (phaseShift) {
+    advanceStageShift();
+    refreshHud();
+    return;
+  }
+  eachSeat(()=>movePlayer());
+  if (transition) {
+    eachSeat(()=>keepPlayerLeft());
+    updateBullets();
+    if (--transition===0) clearLevel();
+  } else {
+    const previousX=boss.x;
+    player=players[boss.targetSlot]??players[0];
+    updateBoss();
+    boss.moving=Math.abs(boss.x-previousX)>.5;
+    boss.distance+=boss.x-previousX;
+    eachSeat(()=>keepPlayerLeft());
+    player=players[boss.targetSlot]??players[0];
+    if (mode==='play') updateBullets();
+  }
+  updateHazards();
+  updateVaultBeam();
+  eachSeat(p=>{if (p.dash) p.dash--;});
+  for (const s of sparks) {
+    s.x+=s.vx;
+    s.y+=s.vy;
+    s.vy+=.13;
+    s.life--;
+  }
+  sparks=sparks.filter(s=>s.life>0);
+  impacts=impacts.filter(impact=>++impact.age<impact.duration);
+  if (boss.phase===1 && !phaseShift) camera+=SCROLL_STEP;
+  if (banner && --banner===0) ui.notice.hidden=true;
+  if (shake) shake--;
+  refreshHud();
 }
 function updateLegacyStage() {
   if (isCodebreak()) return updateCodebreak();
@@ -2261,6 +2522,8 @@ function updateVerseGemLaser(t) {
   }
   if (t===VERSE_GEM_FIRE) sound(890,185,.26,.09);
   if (t<VERSE_GEM_FIRE || t>=VERSE_GEM_END || boss.gemLaserHit || boss.gemAim===null) return;
+  eachSeat(()=>{
+  if (boss.gemLaserHit) return;
   const dx=player.x-x,dy=player.y-playerHeight()/2-y;
   const ux=SimMath.cos(boss.gemAim),uy=SimMath.sin(boss.gemAim);
   const across=Math.abs(dx*uy-dy*ux);
@@ -2269,6 +2532,7 @@ function updateVerseGemLaser(t) {
     boss.gemLaserHit=true;
     hurt();
   }
+  });
 }
 
 function drawVerseGemLaser() {

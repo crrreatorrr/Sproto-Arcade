@@ -83,7 +83,7 @@ functions(code,'updateCodeShots','startCodebreakArena');functions(code,'updateCo
 functions(code,'updateCodeAttack','codeBeamLanes');
 vm.runInContext(`var LEVELS=[{id:1}],levelIndex=0,boss={phase:1,hp:10,max:10,gemAim:0},player={x:140,y:530,dash:0,shield:0,inv:0},boxes={orb:{w:40,h:40}},hits=0,damaged=0;
 var SimMath=Math,SAUCER_HALF_WIDTH=44,VAULT_MUZZLE=400,VAULT_BEAM_LIFE=40,VAULT_SWEEP_DISTANCE=28,vaultBeam={age:0,y:500},VERSE_GEM=[0,0],VERSE_GEM_CHARGE=0,VERSE_GEM_FIRE=0,VERSE_GEM_END=100;
-var naval=false;function isNaval(){return naval;}
+var naval=false;function isNaval(){return naval;}var players=null;function eachSeat(fn){return fn(player);}
 var CODE_CHARACTER_SCALE=.56,W=1280,H=720,codeShots=[],bullets=[],impacts=[],CODE_PLAYER_WEAPONS={greenLaser:{speed:0,tracking:0,damage:2}},playerImpacts={greenLaser:{}},CODE_AIR_ATTACKS=[[0]],CODE_ARENA_ATTACK_COUNT=7;
 function playerHeight(){return 52;}function hurt(){hits++;}function sound(){}function hitBoss(shot,damage){damaged+=damage;shot.dead=true;}function codeTargetY(){return 500;}function isChase(){return false;}var PLAYER_SHOT_RATE=1,ENEMY_ATTACK_RATE=1;
 SPRITE_HITBOXES.enabled=true;SPRITE_HITBOXES.stages={'1':{'0':{projectiles:{orb:{rect:[.25,.25,.5,.5]}},beams:{vault:{rect:[0,.5,1,.5]},'verse-gem':{halfWidth:2}}}},'12':{'0':{projectiles:{'code:0':{rect:[.25,.25,.5,.5]}},boss:{damage:{radius:40}},beams:{'codebreak.horizontal':{rect:[0,.75,1,.25]}}},'1':{boss:{damage:{radius:20}}}}};`,legacy);

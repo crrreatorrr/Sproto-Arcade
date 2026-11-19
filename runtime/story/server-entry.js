@@ -89,8 +89,44 @@ function verifyClear(log) {
   }
 }
 
+// ---- Two-seat co-op lockstep (docs/COOP.md). Both peers run this same simulation from the
+// server-issued seed and feed it both seats' input frames each tick; OP_HASH compares hashState
+// every 60 ticks. The hub does not replay co-op runs: it settles from the agreed result.
+var coopFrames = [];
+function coopFrame(mask) { return coopFrames[mask] || (coopFrames[mask] = ArcadeReplay.frameOf(mask)); }
+var coop = {
+  /** Fresh two-seat run of `level` (a stage id). Returns false for a level co-op does not cover. */
+  start: function (level, pilots, seed) {
+    var info = levelInfo(level);
+    if (!info || !coopLevel(info.index) || !Array.isArray(pilots) || pilots.length !== 2) return false;
+    for (var i = 0; i < 2; i++) if (PILOTS.indexOf(pilots[i]) < 0) return false;
+    codeShots = [];
+    clearedAt = -1;
+    clearedHash = '';
+    resetRun(info.index, pilots[0], 0, seed >>> 0, { pilots: pilots.slice() });
+    return true;
+  },
+  /** One tick with seat 0's and seat 1's input masks. Returns the mode after it. */
+  step: function (mask0, mask1) {
+    if (mode !== 'play') return mode;
+    seatFrames = [coopFrame(mask0), coopFrame(mask1)];
+    inputFrame = seatFrames[0];
+    update();
+    return mode;
+  },
+  dropSeat: function (slot) { dropSeat(slot); },
+  hash: function () { return ArcadeReplay.hashState(simState()); },
+  snapshot: function () { return serializeSimState(); },
+  restore: function (text) { restoreSimState(text); },
+  state: function () {
+    return { mode: mode, tick: time, clearedAt: clearedAt, bossHp: boss ? boss.hp : 0, bossMax: boss ? boss.max : 0, phase: boss ? boss.phase : 0,
+      seats: players ? players.map(function (p) { return { hp: p.hp, x: p.x, y: p.y, connected: p.connected !== false }; }) : [] };
+  }
+};
+
 var api = {
   ARCADE_SIM_VERSION: SIM_VERSION,
+  coop: coop,
   verifyClear: verifyClear,
   chunkLog: ArcadeReplay.chunkLog,
   joinChunks: ArcadeReplay.joinChunks,
