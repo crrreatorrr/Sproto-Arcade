@@ -94,8 +94,10 @@ for (const fighter of playable) {
   button.dataset.fighter=fighter.id;
   button.setAttribute('aria-pressed',String(fighter===selectedSproto));
   const img=document.createElement('img');
-  img.src=`art/portraits/${fighter.portrait??fighter.id}.png`;
+  // 200px WebP copies of art/portraits/*.png (shown at 70px or less).
+  img.src=`art/portraits/${fighter.portrait??fighter.id}.webp`;
   img.alt='';
+  img.decoding='async';
   const label=document.createElement('span');
   label.textContent=fighter.name;
   button.append(img,label);
@@ -2985,39 +2987,54 @@ function coreAssets() {
   const images=[];
   for (let i=0;i<4;i++) {
     if (i<2) images.push(attackFrame('boss/higgsfield/transition',i));
-    for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
-    for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
-    for (const kind of ['specimen','bubble']) images.push(hatcheryFrame(kind,i));
-    for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
-    images.push(marinaWaterFrame(i));
-    for (let level=0;level<3;level++) images.push(backdropFrame(level,i));
+    // The hatchery bubble doubles as a boss shot, so it stays shared.
+    images.push(hatcheryFrame('bubble',i));
     images.push(attackFrame('boss/higgsfield/shield-pulse',i));
   }
   for (const key of ['spark','greenLaser','redLaser','missile','bomb']) images.push(attackArt(boxes[key].art));
   for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/barn-fire',i));
   for (const [name] of Object.values(bossShotArt)) images.push(bossAttackImage(name));
   images.push(bossAttackImage('ground-eruption'));
-  for (const part of ['hover','fire']) images.push(bossAttackImage('mecha/'+part));
   for (const piece of ['cannon','cannon-fire','beam','tip']) images.push(attackArt('boss/higgsfield/vault-laser/'+piece));
   for (let i=0;i<4;i++) images.push(attackFrame('boss/higgsfield/vault-laser/warning',i));
-  images.push(attackArt('player/higgsfield/explosion'),picture('art/backdrop-motion/ranch-wheel.png'),picture('art/backdrop-motion/crown-astrolabe.png'),picture('art/backdrop-motion/verse/ship.png'),picture('art/backdrop-motion/marina/turbine.png'),picture('art/backdrop-motion/transit-train.png'));
+  images.push(attackArt('player/higgsfield/explosion'));
   images.push(attackArt('boss/higgsfield/ceiling-sweep/blast'));
-  for (let i=0;i<4;i++) {
-    images.push(attackFrame('player/higgsfield/shield',i));
-    images.push(attackFrame('player/higgsfield/saucer-shield',i));
-  }
-  for (let i=0;i<16;i++) images.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
-  for (const part of ['cockpit-rear','cockpit-front','muzzle']) images.push(attackArt('player/higgsfield/saucer/'+part));
-  for (const color of ['green','orange']) {
-    for (let i=0;i<2;i++) images.push(attackFrame('flight-flames/'+color,i));
-  }
+  for (let i=0;i<4;i++) images.push(attackFrame('player/higgsfield/shield',i));
+  images.push(attackArt('player/higgsfield/saucer/muzzle'));
   for (const {art} of Object.values(playerImpacts)) images.push(attackArt(`player/higgsfield/${art}`));
   for (const width of [65,84]) {
     const folder=`hazards/${width}px`;
     for (let i=0; i<3; i++) images.push(attackFrame(`${folder}/warning`,i));
     for (let i=0; i<4; i++) images.push(attackFrame(`${folder}/retract`,i));
   }
-  images.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
+  return images;
+}
+
+// Art only one kind of stage draws: arena motion (drawArenaMotion, drawPhaseTwoAtmosphere pick it
+// by mechanics index), the flying saucer and Mudline mecha, and Goldie's jetpack in the chase.
+// These used to sit in coreAssets, so every Start waited for all of them.
+function stageAssets(index) {
+  const images=[], m=mechanicsIndex(index), level=LEVELS[index], base=LEVELS[m];
+  const flies=Boolean(level.naval||level.flight||base?.naval||base?.flight);
+  for (let i=0;i<4;i++) {
+    if (m<3) images.push(backdropFrame(m,i));
+    if (m===0) images.push(marinaWaterFrame(i));
+    if (m===4) for (const color of ['amber','cyan']) if (Object.hasOwn(BUNKER_LIGHTS,color)) images.push(bunkerLightFrame(color,i));
+    if (m===5) for (const color of Object.keys(BUNKER_LIGHTS)) images.push(bunkerLightFrame(color,i));
+    if (m===6) for (const kind of ['lava','candle','smoke']) images.push(forgeMotionFrame(kind,i));
+    if (m===8) images.push(hatcheryFrame('specimen',i));
+    if (m===9) for (const kind of ['crystal','portal']) images.push(verseMotionFrame(kind,i));
+  }
+  const single={0:'marina/turbine',3:'ranch-wheel',4:'transit-train',7:'crown-astrolabe',9:'verse/ship'}[m];
+  if (single) images.push(picture('art/backdrop-motion/'+single+'.png'));
+  if (flies) {
+    for (let i=0;i<4;i++) images.push(attackFrame('player/higgsfield/saucer-shield',i));
+    for (let i=0;i<16;i++) images.push(attackFrame('player/higgsfield/saucer/ball-spin',i));
+    for (const part of ['cockpit-rear','cockpit-front']) images.push(attackArt('player/higgsfield/saucer/'+part));
+    for (const color of ['green','orange']) for (let i=0;i<2;i++) images.push(attackFrame('flight-flames/'+color,i));
+    for (const part of ['hover','fire']) images.push(bossAttackImage('mecha/'+part));
+  }
+  if (level.chase) images.push(goldieArt('poses/03'),goldieArt('thrusters/02'));
   return images;
 }
 
@@ -3025,7 +3042,12 @@ function levelAssets(index) {
   const level=LEVELS[index];
   const images=level.naval?ArcadeSpeedboat.assets.map(picture):[loopPanels(index)[0],...(GENERATED_LOOPS[mechanicsIndex(index)]?.panels.slice(1,3)??[])].map(([file])=>picture('art/'+file));
   if (!level.naval&&STATIC_ARENAS[mechanicsIndex(index)]) images.push(picture('art/'+STATIC_ARENAS[mechanicsIndex(index)][0]));
-  if (acts[index]) images.push(...spriteFrames(ART.sprites[acts[index].id]?acts[index].id:acts[mechanicsIndex(index)].id));
+  // The fallback boss frames are drawn only when ArcadeBossSheets cannot draw the stage, and
+  // Start already waits for the sheets (bossArtReady), so they load only without the renderer.
+  const sheets=globalThis.ArcadeBossSheets;
+  const sheetsDrawBoss=typeof sheets?.preloadStage==='function'&&Boolean(sheets.entry?.(level.id)?.phases?.every(phase=>phase.ready));
+  if (acts[index]&&!sheetsDrawBoss) images.push(...spriteFrames(ART.sprites[acts[index].id]?acts[index].id:acts[mechanicsIndex(index)].id));
+  images.push(...stageAssets(index));
   if (level.chase) for (let i=0;i<CHASE_BUILDING_ROOFS.length;i++) images.push(chaseBuildingImage(i));
   if (level.codebreak) images.push(...codebreakImages());
   return images;
@@ -3050,10 +3072,14 @@ const loadLevel=index=>loadGroup('level:'+index,()=>levelAssets(index));
 const loadSproto=id=>loadGroup('sproto:'+id,()=>spriteFrames(id));
 const bossArtReady=index=>{const art=globalThis.ArcadeBossSheets;return typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function'?art.stageReady(LEVELS[index].id):!(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled);};
 const loadBossArt=index=>{const art=globalThis.ArcadeBossSheets;if(typeof art?.stageReady==='function'&&typeof art?.preloadStage==='function')return art.preloadStage(LEVELS[index].id);return typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled?Promise.reject(Error('Boss art renderer could not load. Reload the game.')):Promise.resolve();};
-const transitionReady=index=>LEVELS[index].chase||globalThis.ArcadeBossTransitions?.settled(LEVELS[index].id)!==false;
 const loadTransition=index=>LEVELS[index].chase?null:globalThis.ArcadeBossTransitions?.preload(LEVELS[index].id);
-const isReady=(index,id=selectedSproto.id)=>transitionReady(index) && readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
-const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index),loadTransition(index)]);
+// The phase-transition clip plays 50 s or more into a fight and its atlas decodes to ~46 MB, so
+// Start no longer waits for it: prefetchTransition() fetches it in the background once the level
+// is ready. Without it, the transition clock plays the same simulation ticks with the sheet blend.
+// The timeout lets Start enable first, so the clip never competes with the boot's own requests.
+const prefetchTransition=index=>{const run=()=>{const pending=loadTransition(index);if(pending)pending.catch(()=>{});};if(typeof setTimeout==='function')setTimeout(run,0);else run();};
+const isReady=(index,id=selectedSproto.id)=>readyGroups.has('core') && readyGroups.has('level:'+index) && readyGroups.has('sproto:'+id) && bossArtReady(index);
+const loadFor=(index,id=selectedSproto.id)=>Promise.all([loadCore(),loadLevel(index),loadSproto(id),loadBossArt(index)]).then(result=>{prefetchTransition(index);return result;});
 function prefetchLevel(index) {
   if (index<LEVELS.length) Promise.all([loadLevel(index),loadBossArt(index)]).catch(()=>{});
 }
@@ -3061,7 +3087,7 @@ function prefetchLevel(index) {
 // Runs start once the level and Sproto groups are decoded; the button reads Loading… meanwhile.
 let pendingStart=0;
 function whenReady(index,start) {
-  if (isReady(index)) return start();
+  if (isReady(index)) { prefetchTransition(index); return start(); }
   const ticket=++pendingStart, label=ui.start.textContent;
   ui.start.disabled=true;
   ui.start.textContent='Loading…';
