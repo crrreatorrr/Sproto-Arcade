@@ -408,7 +408,92 @@ let cosmeticRandom=seededRandom(1);
 let godMode=false, godFire=true, godDamageBoost=false, godHits=0, lastNine=-Infinity;
 // True when god mode was on at any point in the current level. Such clears earn no Tickets.
 let godUsed=false;
-const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape']);
+// The last eight codes are Local 2P seat 2's keys (SEAT_KEYS below).
+const controls = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','KeyS','Space','KeyX','KeyC','KeyV','ShiftLeft','ShiftRight','Escape','Numpad0','Numpad1','Numpad2','Numpad4','Numpad5','KeyM','Comma','Period']);
+// ---- Co-op in the browser (docs/COOP.md). Browser only; the server build keeps none of this.
+// coopConfig: null for solo, {kind:'local',pilots:[id,id]} for Local 2P, or
+// {kind:'online',pilots,seat,net} for an online match driven by coop-net.js.
+let coopConfig=null;
+// Local 2P keyboard: seat 1 on WASD, seat 2 on the arrows. Synthetic key events (gamepad.js turns
+// the first pad into arrow/Space/Shift keys) are ignored here; pads are read directly instead.
+const SEAT_KEYS=[
+  {left:['KeyA'],right:['KeyD'],up:['KeyW'],down:['KeyS'],jump:['Space','KeyW'],dash:['ShiftLeft'],shield:['KeyX'],missile:['KeyC'],bomb:['KeyV']},
+  {left:['ArrowLeft'],right:['ArrowRight'],up:['ArrowUp'],down:['ArrowDown'],jump:['ArrowUp','Numpad0'],dash:['ShiftRight','Numpad1'],shield:['KeyM','Numpad2'],missile:['Comma','Numpad4'],bomb:['Period','Numpad5']}
+];
+const trustedKeys=new Set(),trustedPressed=new Set();
+const padHeld=[new Set(),new Set()];
+// Standard-mapping pad, as gamepad.js maps it: A jump, B/RT dash, X/LT shield, Y special C, RB special V.
+function padState(index){
+  const pad=navigator.getGamepads?.()[index];
+  if(!pad||!pad.connected)return null;
+  const b=i=>Boolean(pad.buttons[i]?.pressed),ax=pad.axes[0]??0,ay=pad.axes[1]??0;
+  return {left:b(14)||ax<-.5,right:b(15)||ax>.5,up:b(12)||ay<-.5,down:b(13)||ay>.5,jump:b(0)||b(12),dash:b(1)||b(7),shield:b(2)||b(6),missile:b(3),bomb:b(5)};
+}
+// One seat's frame. seat -1 is the online local player, who uses the solo keyboard and pad mapping.
+function readSeatFrame(seat){
+  if(seat<0)return readKeyboardFrame();
+  const k=SEAT_KEYS[seat],held=c=>c.some(code=>trustedKeys.has(code)),tap=c=>c.some(code=>trustedPressed.has(code));
+  const pads=[0,1,2,3].map(padState).filter(Boolean);
+  // One pad plays seat 2 (seat 1 has the keyboard's left side); two pads play seats 1 and 2.
+  const pad=pads.length>=2?pads[seat]:seat===1?pads[0]:null;
+  const was=padHeld[seat],now=new Set(pad?Object.keys(pad).filter(key=>pad[key]):[]);
+  const padTap=key=>now.has(key)&&!was.has(key);
+  padHeld[seat]=now;
+  return {
+    left:held(k.left)||now.has('left'),right:held(k.right)||now.has('right'),up:held(k.up)||now.has('up'),down:held(k.down)||now.has('down'),
+    jump:tap(k.jump)||padTap('jump'),jumpHeld:held(k.jump)||now.has('jump'),dash:tap(k.dash)||padTap('dash'),
+    shield:tap(k.shield)||padTap('shield'),missile:tap(k.missile)||padTap('missile'),bomb:tap(k.bomb)||padTap('bomb')
+  };
+}
+function setCoop(config){coopConfig=config;}
+// Draws every seat: a downed seat fades and shows its revive ring; each seat wears a P1/P2 badge.
+function drawCoopSeats(drawOne){
+  for(const p of players){
+    if(p.connected===false)continue;
+    withSeat(p,()=>{
+      ctx.save();
+      if(p.hp<=0)ctx.globalAlpha=.45;
+      drawOne();
+      ctx.restore();
+      const flying=isFlying(),top=flying?p.y-70:p.y-playerHeight()-34,color=p.slot===0?'#7ff7ff':'#ff8cf0';
+      ctx.save();
+      ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.fillStyle=color;ctx.strokeStyle='#120c1d';ctx.lineWidth=4;
+      ctx.strokeText('P'+(p.slot+1),p.x,top);ctx.fillText('P'+(p.slot+1),p.x,top);
+      if(p.hp<=0){
+        ctx.strokeStyle=color;ctx.lineWidth=4;ctx.globalAlpha=.85;
+        ctx.beginPath();ctx.arc(p.x,flying?p.y:p.y-playerHeight()/2,COOP_REVIVE_RANGE,-Math.PI/2,-Math.PI/2+2*Math.PI*p.reviveProgress/COOP_REVIVE_TICKS);ctx.stroke();
+        ctx.globalAlpha=1;ctx.fillStyle=color;ctx.fillText('DOWN · STAND CLOSE TO REVIVE',p.x,top-18);
+      }
+      ctx.restore();
+    });
+  }
+}
+function paintCoopHud(){
+  const box=document.getElementById('coop-p2');
+  if(!box)return;
+  box.hidden=!players;
+  if(!players)return;
+  const p=players[1],hearts=document.getElementById('hearts-p2');
+  const text=p.connected===false?'DISCONNECTED':p.hp>0?'♥'.repeat(p.hp)+'♡'.repeat(Math.max(0,MAX_HP-p.hp)):'DOWN';
+  if(hearts.textContent!==text)hearts.textContent=text;
+}
+// A co-op clear: local progress for Local 2P (never Tickets: there is no solo replay to verify),
+// and for online the result goes to the hub match, which alone settles rewards (OP_OUTCOME).
+function clearCoopLevel(){
+  const ticks=time,online=coopConfig?.kind==='online';
+  if(online)coopConfig.net.sendResult({status:'clear',level:LEVELS[levelIndex].id,tick:ticks,god:godUsed});
+  else window.ArcadeHub?.recordLocalClear(levelIndex);
+  const hits=runStats.hits;
+  const P=window.ArcadeProgress,par=storyPar(levelIndex),rank=P?.rankFor?.({ticks,hits,par,checkpoint:phaseCheckpointRun})??'B';
+  const saved=!online&&!godUsed&&!phaseCheckpointRun?window.ArcadeHub?.recordCoopBest?.(levelIndex,{ticks,hits,rank}):null;
+  const line='Co-op time '+fmtTicks(ticks)+'  ·  Rank '+rank+(saved?.improved?'  ·  New co-op best!':saved?.best?'  ·  Co-op best: '+saved.best.rank+' in '+fmtTicks(saved.best.ticks):'')+
+    (online?'\nRewards: waiting for the hub to settle the match…':'\nLocal 2P clears save progress but earn no Tickets.');
+  const next=nextCampaignLevel(levelIndex);
+  if (online) setOverlay('won','Co-op clear',LEVELS[levelIndex].title,line,'Main menu');
+  else if (next<0) setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again');
+  else setOverlay('clear','Level clear',LEVELS[levelIndex].title,line+'\nNext up: '+LEVELS[next].title,'Next level');
+  if(!online)paintLevelSelect();
+}
 let mode = 'loading', player, boss, bullets, sparks, impacts, hazards, camera, time, banner, audio, transition, shake, levelIndex, phaseShift, vaultBeam;
 let densityShots=[],densityPausedTicks=0,densityPhaseClock=0,densityPhaseKey='',densityLastCycle=-1,densityLastEnd=0;
 const tileCache=new Map();
@@ -678,17 +763,19 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
   hud.hidden = false;
   setOverlay('play','','','','');
   const seed=(seedOverride??window.crypto?.getRandomValues(new Uint32Array(1))[0]??(0x5eed+index+runAttempt++))>>>0;
-  resetRun(index,selectedSproto.id,shieldWait,seed);
+  const coop=coopConfig&&coopLevel(index)?{pilots:coopConfig.pilots}:null;
+  resetRun(index,coop?coop.pilots[0]:selectedSproto.id,shieldWait,seed,coop);
   phaseCheckpointRun=checkpointPhase===2&&!LEVELS[index].singlePhase;
   if(phaseCheckpointRun){
     if(isCodebreak())startCodebreakArena();
     else if(!isChase()){
-      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;boss.step=0;startMove();
+      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;if(players)coopEnterPhaseTwo();boss.step=0;startMove();
       announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
     }
   }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
-  replayRecorder=phaseCheckpointRun?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
+  // Co-op runs keep no solo replay log: the hub settles online co-op from the match itself.
+  replayRecorder=phaseCheckpointRun||players?null:window.ArcadeReplay?.recorder({simVersion:window.ARCADE_SIM_VERSION,seed,level:LEVELS[index].id,pilot:selectedSproto.id,shieldWait})??null;
   if(typeof storyRunStart==='function')storyRunStart();
   refreshHud();
   prefetchLevel(index);
@@ -941,6 +1028,7 @@ function startBoss() {
 const STORY_BOSS_IDS=LEVELS.map(l=>l.id===11?'goldie':l.id===12?'bitcoin_sheriff':acts[l.id-1].id);
 
 function clearLevel() {
+  if (players) return clearCoopLevel();
   // Replay log of this run, claiming the clear at this tick with this end state.
   const claim={stage:LEVELS[levelIndex].id,bossId:STORY_BOSS_IDS[levelIndex],ticks:time,endHash:window.ArcadeReplay?.hashState(simState())};
   const replay=replayRecorder?.finish({godMode:godUsed,claimed:claim})??null;
@@ -1029,6 +1117,9 @@ function setCue(message) {
 }
 
 function refreshHud() {
+  // Co-op: the main HUD shows seat 1, the P2 strip shows seat 2.
+  if (players && player!==players[0]) { withSeat(players[0],refreshHud); return; }
+  paintCoopHud();
   trackRun();
   ui['god-mode'].hidden=!godMode;
   ui['god-mode'].textContent='GOD MODE · HITS '+godHits+' · Z FIRE '+(godFire?'ON':'OFF')+' · I '+(godDamageBoost?'20×':'6×')+' DMG';
@@ -2996,6 +3087,7 @@ function renderLegacyScene() {
   ctx.imageSmoothingEnabled=false;
   renderBoss();
   drawSprotelLaserWarning();
+  const drawOne=()=>{
   if (isNaval()) {
     if(!player.inv||time%8<5)ArcadeSpeedboat.drawBoat(ctx,picture,player,time,
       phaseShift||densityShots.length?Infinity:MISSILE_COOLDOWN-player.missileWait,
@@ -3004,6 +3096,8 @@ function renderLegacyScene() {
   } else if (LEVELS[levelIndex].id===7) drawMoonkeepJet();
   else if (isFlying()) drawSaucer();
   else drawGroundPlayer();
+  };
+  if (players) drawCoopSeats(drawOne); else drawOne();
   for (const shot of bullets) {
     if (shot.own) {
       drawStoryPlayerShot(shot);
@@ -3058,6 +3152,8 @@ function renderLegacyScene() {
 }
 
 function pause() {
+  // Online co-op is lockstep: one peer pausing would stall both, so there is no pause.
+  if (coopConfig?.kind==='online') return;
   if (mode==='play') setOverlay('paused','Intermission','Paused','Take a breather.\n'+coachText(),'Resume');
   else if (mode==='paused') setOverlay('play','','','','');
 }
@@ -3069,22 +3165,23 @@ function pause() {
 function feedbackPause(){
   const before=mode;
   if (mode==='play') { mode='paused'; window.ArcadeAudio?.music.duck(true); }
-  keys.clear();pressed.clear();lastNine=-Infinity;
+  keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   return before;
 }
 function feedbackResume(before){
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   if (before==='play' && mode==='paused' && overlay.hidden) { mode='play'; window.ArcadeAudio?.music.duck(false); }
 }
 
 // The other choice after a phase-2 knockout: the whole level again, which is the run that pays.
 function restartFullRun(){
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   whenReady(levelIndex,()=>begin(levelIndex,false,1));
 }
 function retryCurrentPhase(){
+  if (coopConfig?.kind==='online') return;
   const checkpoint=(!isChase()&&boss?.phase===2)?2:1;
-  keys.clear();pressed.clear();
+  keys.clear();pressed.clear();trustedPressed.clear();
   whenReady(levelIndex,()=>begin(levelIndex,false,checkpoint));
 }
 
@@ -3094,10 +3191,10 @@ function retryCurrentPhase(){
 const TITLE_DESCRIPTION=ui.description.textContent;
 function returnToTitle(){
   if (mode==='loading' || mode==='title') return;
-  keys.clear();pressed.clear();lastNine=-Infinity;
+  keys.clear();pressed.clear();trustedPressed.clear();lastNine=-Infinity;
   pendingStart++;
   replayRecorder=null;phaseCheckpointRun=false;
-  player=undefined;boss=undefined;
+  player=undefined;boss=undefined;players=null;seatFrames=null;
   gameScreen.classList.remove('stage-blackout');
   hud.hidden=true;ui.boss.hidden=true;ui.notice.hidden=true;setCue('');
   window.ArcadeAudio?.music.stop?.();
@@ -3148,14 +3245,17 @@ window.addEventListener('keydown',e=>{
   if (mode==='play' || e.code==='Escape') e.preventDefault();
   if (!e.repeat) {
     pressed.add(e.code);
+    if (e.isTrusted) trustedPressed.add(e.code);
     if (e.code==='Escape') pause();
   }
   keys.add(e.code);
+  if (e.isTrusted) trustedKeys.add(e.code);
 });
-window.addEventListener('keyup',e=>keys.delete(e.code));
+window.addEventListener('keyup',e=>{keys.delete(e.code);trustedKeys.delete(e.code);});
 window.addEventListener('blur',()=>{
   keys.clear();
-  pressed.clear();
+  pressed.clear();trustedPressed.clear();
+  trustedKeys.clear();trustedPressed.clear();
   lastNine=-Infinity;
   if (mode==='play') pause();
 });
@@ -3172,9 +3272,50 @@ if (window.ArcadeAudio && document.getElementById('audio-controls')) {
   });
 }
 document.getElementById('restart-full')?.addEventListener('click',()=>{ if (mode==='lost') restartFullRun(); });
+// ---- Players choice on the title card: Solo, Local 2P (second Sproto picked here) or Online 2P
+// (coop-net.js runs the lobby). Browser only.
+const playersSelect=document.getElementById('players-select'),p2Select=document.getElementById('p2-sproto');
+function paintP2Choices(){
+  if(!p2Select)return;
+  const keep=p2Select.value;
+  p2Select.replaceChildren(...playable.filter(p=>sprotoUnlocked(p.id)).map(p=>new Option(p.name,p.id)));
+  if([...p2Select.options].some(o=>o.value===keep))p2Select.value=keep;
+  else if(p2Select.options.length>1)p2Select.selectedIndex=1;
+}
+function syncCoopChoice(){
+  const choice=playersSelect?.value??'solo';
+  document.getElementById('p2-pick').hidden=choice!=='local';
+  document.getElementById('coop-note').hidden=choice!=='local';
+  document.getElementById('coop-lobby').hidden=choice!=='online';
+  if(coopConfig?.kind==='online')return;
+  coopConfig=choice==='local'?{kind:'local',pilots:[selectedSproto.id,p2Select.value||selectedSproto.id]}:null;
+  // Seat 2's Sproto decodes while the title card is up (Start itself waits only for seat 1's).
+  if(coopConfig)loadSproto(coopConfig.pilots[1]).catch(()=>{});
+  if(choice==='online')window.ArcadeCoopNet?.openLobby?.(document.getElementById('coop-lobby'),{level:()=>LEVELS[Number(levelSelect.value)].id,pilot:()=>selectedSproto.id,start:startOnlineCoop});
+}
+playersSelect?.addEventListener('change',()=>{paintP2Choices();syncCoopChoice();});
+p2Select?.addEventListener('change',syncCoopChoice);
+paintP2Choices();
+// coop-net.js calls this on OP_START: load the level for both seats, then report ready. The run
+// starts at tick 0 on OP_GO, from the server-issued seed.
+function startOnlineCoop({levelIndex:index,pilots,seed,seat,net}){
+  coopConfig={kind:'online',pilots,seat,net};
+  return Promise.all([loadFor(index,pilots[0]),loadSproto(pilots[1])]).then(()=>({go(){coachDone();begin(index,false,1,seed);}}));
+}
+function endOnlineCoop(){
+  coopConfig?.net?.close?.();
+  coopConfig=null;
+  syncCoopChoice();
+}
+window.ArcadeStoryCoop={startOnlineCoop,endOnlineCoop,snapshot:()=>players?serializeSimState():null,restore:(text)=>{if(players)restoreSimState(text);},state:()=>players?{tick:time,mode,seats:players.map(p=>({hp:p.hp,connected:p.connected!==false}))}:null,
+  dropSeat:(slot)=>{if(players)dropSeat(slot);},showOutcome:(text)=>{if(ui.description)ui.description.textContent+='\n'+text;}};
+
 ui.start.addEventListener('click',()=>{
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
+  if (coopConfig?.kind==='online' && (mode==='lost'||mode==='won'||mode==='clear')) { endOnlineCoop(); returnToTitle(); return; }
+  if (mode==='title'||mode==='won') syncCoopChoice();
+  if (coopConfig?.kind==='online' && mode!=='paused') return;
   if(typeof SPRITE_HITBOXES!=='undefined'&&SPRITE_HITBOXES.enabled&&
     (typeof globalThis.ArcadeBossSheets?.stageReady!=='function'||typeof globalThis.ArcadeBossSheets?.preloadStage!=='function')){location.reload();return;}
   if (mode==='loading') { loadInitialLevel();return; }
@@ -3212,18 +3353,31 @@ function storyFrame(now) {
     carry+=dt;
     while (mode==='play' && carry>=1000/60) {
       const transitionSteps=phaseShift?STAGE_SHIFT_END-phaseShift:isCodebreak()&&boss.shift?80-boss.shift:0;
-      if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
-        inputFrame=readKeyboardFrame();
+      if (players && coopConfig?.kind==='online') {
+        // Lockstep: a tick runs only once both seats' frames for it are here (coop-net.js).
+        const net=coopConfig.net;
+        net.sample(time+1,readSeatFrame(-1));
+        if (!net.ready(time+1)) { carry=Math.min(carry,1000/60); break; }
+        if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
+          seatFrames=net.take(time+1);inputFrame=seatFrames[0];
+          // The server dropped a seat for good: from this agreed tick boss health follows one seat.
+          if (seatFrames.dropSeat!==undefined) dropSeat(seatFrames.dropSeat);
+          update();
+          net.afterTick(time,()=>ArcadeReplay.hashState(simState()),mode);
+        }
+      } else if (storyTransition?.step(boss,LEVELS[levelIndex].id,transitionSteps)!==false) {
+        if (players) { seatFrames=[readSeatFrame(0),readSeatFrame(1)]; inputFrame=seatFrames[0]; }
+        else inputFrame=readKeyboardFrame();
         replayRecorder?.push(inputFrame);
         update();
       }
-      pressed.clear();
+      pressed.clear();trustedPressed.clear();
       carry-=1000/60;
       steps++;
     }
   } else {
     carry=0;
-    pressed.clear();
+    pressed.clear();trustedPressed.clear();
   }
   if (player) render();
   return steps>0 || mode!=='play';

@@ -42,7 +42,7 @@ function harness(file,names,globals){
 function story(throwsOn){
  let steps=0;
  const h=harness('game.js',['loop','storyFrame'],{
-  mode:'play',player:{},storyTransition:null,phaseShift:0,isCodebreak:()=>false,replayRecorder:null,inputFrame:null,pressed:new Set(),last:1000,carry:0,
+  mode:'play',player:{},players:null,coopConfig:null,storyTransition:null,phaseShift:0,isCodebreak:()=>false,replayRecorder:null,inputFrame:null,pressed:new Set(),trustedPressed:new Set(),last:1000,carry:0,
   readKeyboardFrame:()=>({}),render:()=>{},
   update:()=>{steps++;if(throwsOn(steps))throw new Error('boom from a story step');},
  });
