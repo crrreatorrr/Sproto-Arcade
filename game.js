@@ -1242,6 +1242,56 @@ function updateCoopPowerups(){
   });
 }
 
+// Draw-only. A pilot's art is anchored at the feet, and the anchor is often not under the middle of
+// the picture (sproto3152 stands 33px right of it; a crouch or a dash moves it again). Shields ring
+// the art being drawn. Each pair is twice (opaque-pixel centre minus anchor), in source pixels:
+// p by pose number, c for the last two cast frames. A swinging arm or staff moves a frame's middle
+// by up to 16px a step, which made the ring shake, so the idle pair (i) and the walk cycle (w)
+// each get one pair for the whole animation: the midpoint of the range their frames cover.
+// runtime/fixtures/shield-centre.test.js checks every pair against the PNGs and assets.js.
+const PILOT_ART_CENTRES={
+  rivet:{i:[14,-129],w:[14,-130],p:{6:[-33,-119],8:[14,-142],9:[-2,-134],10:[4,-103]},c:[[15,-129],[16,-129]]},
+  sproto3106:{i:[1,-128],w:[15,-128],p:{6:[-48,-119],8:[17,-124],9:[0,-135],10:[-31,-88]}},
+  sproto3152:{i:[55,-128],w:[51,-129],p:{6:[30,-115],8:[56,-131],9:[53,-141],10:[52,-113]}},
+  morelight:{i:[6,-129],w:[17,-126],p:{6:[-37,-111],8:[17,-145],9:[8,-131],10:[1,-113]}},
+  sproto763:{i:[8,-128],w:[7,-129],p:{6:[-53,-109],8:[-1,-121],9:[-3,-131],10:[-7,-95]}},
+  sproto831:{i:[14,-128],w:[14,-128],p:{6:[-42,-120],8:[14,-131],9:[15,-139],10:[-5,-106]}},
+  sproto943:{i:[1,-128],w:[18,-127],p:{6:[-61,-111],8:[-1,-124],9:[-1,-142],10:[-28,-96]}},
+  sproto1477:{i:[17,-128],w:[23,-130],p:{6:[-52,-119],8:[24,-125],9:[5,-138],10:[-16,-99]}},
+  sproto1668:{i:[31,-128],w:[28,-127],p:{6:[-26,-111],8:[32,-126],9:[-4,-136],10:[-8,-106]}},
+  sproto1815:{i:[35,-128],w:[7,-124],p:{6:[32,-107],8:[34,-124],9:[36,-138],10:[49,-105]}},
+  sproto2101:{i:[6,-128],w:[3,-128],p:{6:[-52,-118],8:[3,-117],9:[-17,-133],10:[-18,-95]}},
+  sproto2177:{i:[12,-128],w:[14,-128],p:{6:[-53,-112],8:[8,-120],9:[-6,-134],10:[-24,-96]}},
+  sproto2569:{i:[-6,-126],w:[-5,-127],p:{6:[-67,-117],8:[-7,-126],9:[6,-136],10:[-30,-101]}},
+  sproto2884:{i:[11,-128],w:[9,-128],p:{6:[-49,-110],8:[2,-116],9:[-9,-133],10:[-20,-91]}}
+};
+const GROUND_SPRITE_SCALE=1.20;
+// The frame drawGroundPlayer draws for seat p, its draw scale and its PILOT_ART_CENTRES pair.
+function groundPose(p){
+  const art=ART.sprites[p.id],centres=PILOT_ART_CENTRES[p.id];
+  const scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+  const walking=p.walking && p.grounded && !p.dash && !p.crouch;
+  const size=GROUND_SPRITE_SCALE*scale*(walking?(art.walkScale??1):1);
+  const pick=(frame,centre)=>({frame,size,scale,centre});
+  if (p.dash) return pick(art.poses[6],centres?.p[6]);
+  if (p.crouch) return pick(art.poses[10],centres?.p[10]);
+  if (!p.grounded) { const k=p.vy<0?8:9; return pick(art.poses[k],centres?.p[k]); }
+  if (walking) return pick(walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length),centres?.w);
+  if (p.id==='rivet' && p.shot<3) { const k=p.shot<2?0:1; return pick(art.cast.at(k-2),centres?.c[k]); }
+  return pick(art.poses[time%46<23?0:1],centres?.i);
+}
+// The middle of the drawn art on screen. An unlisted frame falls back to the standing middle.
+function groundArtCentre(p,pose=groundPose(p)){
+  const [x,y]=pose.centre??[0,-128];
+  return {x:p.x+x/2*pose.size,y:p.y+y/2*pose.size};
+}
+// Where the pickup shield goes for the current `player` seat (playerHeight reads it).
+function pickupShieldBox(p){
+  if(isFlying())return{x:p.x-115,y:p.y-115,w:230,h:230};
+  const diameter=playerHeight()+32,centre=groundArtCentre(p);
+  return{x:centre.x-diameter/2,y:centre.y-diameter/2,w:diameter,h:diameter};
+}
+
 function drawLegacyPhasePowerups(){
   if(!phasePowerupsState||!player)return;
   if(players){
@@ -1249,13 +1299,11 @@ function drawLegacyPhasePowerups(){
     const draw=globalThis.ArcadeBossSheets?.drawPhasePowerups,items=phasePowerupsState.items,tick=phasePowerupsState.tick;
     draw?.(ctx,{...items,shieldUntil:0,absorbedAt:null},tick,null);
     for(const p of players)if(p.connected!==false&&p.hp>0)withSeat(p,()=>{
-      const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
-      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,{x:p.x-diameter/2,y:p.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,pickupShieldBox(p));
     });
     return;
   }
-  const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
-  globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,{x:player.x-diameter/2,y:player.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+  globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,pickupShieldBox(player));
 }
 
 function hurt(contact = false, force = false) {
@@ -2920,17 +2968,11 @@ function drawSaucerRedArm(p) {
 }
 
 function drawGroundPlayer() {
-  const p=player, art=ART.sprites[p.id];
-  const platforming=isChase() || isCodebreakClimb();
-  const scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+  const p=player, platforming=isChase() || isCodebreakClimb();
+  const pose=groundPose(p), scale=pose.scale;
   if (!platforming || p.grounded) shadow(p.x,platforming?p.y:FLOOR,36*scale);
-  const walking=p.walking && p.grounded && !p.dash && !p.crouch;
-  const pose=p.dash?art.poses[6]:p.crouch?art.poses[10]:
-    !p.grounded?art.poses[p.vy<0?8:9]:
-    walking?walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length):
-    p.id==='rivet' && p.shot<3?art.cast.at(p.shot<2?-2:-1):art.poses[time%46<23?0:1];
-  if (!p.inv || time%8<5) sprite(p.id,pose,p.x,p.y,1,1.20*scale*(walking?(art.walkScale??1):1));
-  if (p.shield) drawPlayerShield('shield',p.x,p.y-77*scale,scale);
+  if (!p.inv || time%8<5) sprite(p.id,pose.frame,p.x,p.y,1,pose.size);
+  if (p.shield) { const centre=groundArtCentre(p,pose); drawPlayerShield('shield',centre.x,centre.y,scale); }
 }
 
 function drawPlayerShield(folder,x,y,scale=1) {
