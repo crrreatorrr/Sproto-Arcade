@@ -1242,6 +1242,23 @@ function updateCoopPowerups(){
   });
 }
 
+// Draw-only. A pilot's art is anchored at the feet, and for some pilots the feet anchor is not under
+// the middle of the picture (sproto3152 stands 33px right of it). Each value is the idle pose's
+// opaque-pixel centre minus its anchor, in source pixels: runtime/sprite-bounds.js and assets.js,
+// checked by runtime/fixtures/shield-centre.test.js. Shields ring the drawn pilot, not the anchor.
+const PILOT_ART_CENTRE_X={rivet:7.5,sproto3106:1,sproto3152:27.5,morelight:3.5,sproto763:3.5,sproto831:5,sproto943:.5,sproto1477:5.5,sproto1668:15,sproto1815:17.5,sproto2101:1.5,sproto2177:5.5,sproto2569:-3,sproto2884:5};
+const GROUND_SPRITE_SCALE=1.20;
+// The middle of the standing pilot as drawn by drawGroundPlayer: 128 source rows at 1.20, feet at p.y.
+const groundArtCentre=(p,scale=1)=>({x:p.x+(PILOT_ART_CENTRE_X[p.id]??0)*GROUND_SPRITE_SCALE*scale,y:p.y-77*scale});
+// Where the pickup shield goes for the current `player` seat (playerHeight reads it).
+function pickupShieldBox(p){
+  if(isFlying())return{x:p.x-115,y:p.y-115,w:230,h:230};
+  const height=playerHeight(),diameter=height+32,scale=isCodebreak()?CODE_CHARACTER_SCALE:1;
+  // Crouching keeps the old, lower ring around the 72px crouch box; only its sideways centre moves.
+  const centre=groundArtCentre(p,scale),y=p.crouch?p.y-(height+16):centre.y-diameter/2;
+  return{x:centre.x-diameter/2,y,w:diameter,h:diameter};
+}
+
 function drawLegacyPhasePowerups(){
   if(!phasePowerupsState||!player)return;
   if(players){
@@ -1249,13 +1266,11 @@ function drawLegacyPhasePowerups(){
     const draw=globalThis.ArcadeBossSheets?.drawPhasePowerups,items=phasePowerupsState.items,tick=phasePowerupsState.tick;
     draw?.(ctx,{...items,shieldUntil:0,absorbedAt:null},tick,null);
     for(const p of players)if(p.connected!==false&&p.hp>0)withSeat(p,()=>{
-      const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
-      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,{x:p.x-diameter/2,y:p.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+      draw?.(ctx,{pickups:[],shieldUntil:p.shieldUntil,absorbedAt:p.absorbedAt},tick,pickupShieldBox(p));
     });
     return;
   }
-  const flying=isFlying(),height=playerHeight(),diameter=flying?230:height+32;
-  globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,{x:player.x-diameter/2,y:player.y-(flying?diameter/2:height+16),w:diameter,h:diameter});
+  globalThis.ArcadeBossSheets?.drawPhasePowerups?.(ctx,phasePowerupsState.items,phasePowerupsState.tick,pickupShieldBox(player));
 }
 
 function hurt(contact = false, force = false) {
@@ -2929,8 +2944,8 @@ function drawGroundPlayer() {
     !p.grounded?art.poses[p.vy<0?8:9]:
     walking?walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length):
     p.id==='rivet' && p.shot<3?art.cast.at(p.shot<2?-2:-1):art.poses[time%46<23?0:1];
-  if (!p.inv || time%8<5) sprite(p.id,pose,p.x,p.y,1,1.20*scale*(walking?(art.walkScale??1):1));
-  if (p.shield) drawPlayerShield('shield',p.x,p.y-77*scale,scale);
+  if (!p.inv || time%8<5) sprite(p.id,pose,p.x,p.y,1,GROUND_SPRITE_SCALE*scale*(walking?(art.walkScale??1):1));
+  if (p.shield) { const centre=groundArtCentre(p,scale); drawPlayerShield('shield',centre.x,centre.y,scale); }
 }
 
 function drawPlayerShield(folder,x,y,scale=1) {
