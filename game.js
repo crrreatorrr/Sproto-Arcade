@@ -1244,24 +1244,26 @@ function updateCoopPowerups(){
 
 // Draw-only. A pilot's art is anchored at the feet, and the anchor is often not under the middle of
 // the picture (sproto3152 stands 33px right of it; a crouch or a dash moves it again). Shields ring
-// the frame being drawn. Each pair is twice (opaque-pixel centre minus anchor) of one frame, in
-// source pixels: p by pose number, w by walk frame, c for the last two cast frames.
+// the art being drawn. Each pair is twice (opaque-pixel centre minus anchor), in source pixels:
+// p by pose number, c for the last two cast frames. A swinging arm or staff moves a frame's middle
+// by up to 16px a step, which made the ring shake, so the idle pair (i) and the walk cycle (w)
+// each get one pair for the whole animation: the midpoint of the range their frames cover.
 // runtime/fixtures/shield-centre.test.js checks every pair against the PNGs and assets.js.
 const PILOT_ART_CENTRES={
-  rivet:{p:{0:[15,-129],1:[12,-129],6:[-33,-119],8:[14,-142],9:[-2,-134],10:[4,-103]},w:[[16,-129],[16,-130],[15,-131],[12,-131],[12,-129],[12,-129],[15,-130],[16,-130]],c:[[15,-129],[16,-129]]},
-  sproto3106:{p:{0:[2,-128],1:[0,-128],6:[-48,-119],8:[17,-124],9:[0,-135],10:[-31,-88]},w:[[5,-128],[12,-129],[19,-129],[26,-129],[4,-127],[8,-128],[18,-130],[26,-130]]},
-  sproto3152:{p:{0:[55,-128],1:[55,-128],6:[30,-115],8:[56,-131],9:[53,-141],10:[52,-113]},w:[[50,-128],[51,-127],[50,-130],[53,-128],[50,-130],[50,-129],[51,-132],[49,-131]]},
-  morelight:{p:{0:[7,-129],1:[5,-130],6:[-37,-111],8:[17,-145],9:[8,-131],10:[1,-113]},w:[[12,-127],[22,-127],[15,-126],[22,-127]]},
-  sproto763:{p:{0:[7,-128],1:[8,-128],6:[-53,-109],8:[-1,-121],9:[-3,-131],10:[-7,-95]},w:[[7,-128],[7,-129],[7,-129],[15,-131],[-1,-129],[3,-129],[5,-129],[6,-129]]},
-  sproto831:{p:{0:[10,-128],1:[18,-128],6:[-42,-120],8:[14,-131],9:[15,-139],10:[-5,-106]},w:[[11,-128],[15,-128],[14,-129],[16,-128],[11,-129],[14,-129],[15,-129],[14,-129]]},
-  sproto943:{p:{0:[1,-128],1:[1,-128],6:[-61,-111],8:[-1,-124],9:[-1,-142],10:[-28,-96]},w:[[13,-128],[6,-127],[16,-127],[30,-127],[11,-126],[11,-126],[15,-126],[21,-128]]},
-  sproto1477:{p:{0:[11,-128],1:[22,-128],6:[-52,-119],8:[24,-125],9:[5,-138],10:[-16,-99]},w:[[19,-128],[20,-129],[24,-131],[27,-128],[18,-129],[22,-130],[24,-132],[26,-130]]},
-  sproto1668:{p:{0:[30,-128],1:[31,-128],6:[-26,-111],8:[32,-126],9:[-4,-136],10:[-8,-106]},w:[[17,-128],[20,-127],[28,-127],[33,-128],[21,-128],[24,-128],[26,-128],[38,-128]]},
-  sproto1815:{p:{0:[35,-128],1:[35,-128],6:[32,-107],8:[34,-124],9:[36,-138],10:[49,-105]},w:[[2,-128],[10,-126],[15,-120],[-5,-126],[-2,-127],[19,-127],[1,-128],[-1,-127]]},
-  sproto2101:{p:{0:[3,-128],1:[9,-128],6:[-52,-118],8:[3,-117],9:[-17,-133],10:[-18,-95]},w:[[-3,-128],[2,-128],[2,-129],[-3,-128],[-1,-127],[4,-128],[8,-128],[5,-129]]},
-  sproto2177:{p:{0:[11,-128],1:[13,-128],6:[-53,-112],8:[8,-120],9:[-6,-134],10:[-24,-96]},w:[[9,-128],[8,-129],[11,-129],[17,-129],[12,-127],[8,-128],[10,-128],[19,-128]]},
-  sproto2569:{p:{0:[-6,-128],1:[-7,-124],6:[-67,-117],8:[-7,-126],9:[6,-136],10:[-30,-101]},w:[[-4,-128],[-4,-128],[-7,-128],[-2,-128],[-6,-127],[-7,-127],[-7,-127],[-8,-127]]},
-  sproto2884:{p:{0:[10,-128],1:[11,-128],6:[-49,-110],8:[2,-116],9:[-9,-133],10:[-20,-91]},w:[[5,-128],[5,-128],[11,-128],[8,-128],[5,-128],[7,-128],[13,-128],[7,-128]]}
+  rivet:{i:[14,-129],w:[14,-130],p:{6:[-33,-119],8:[14,-142],9:[-2,-134],10:[4,-103]},c:[[15,-129],[16,-129]]},
+  sproto3106:{i:[1,-128],w:[15,-128],p:{6:[-48,-119],8:[17,-124],9:[0,-135],10:[-31,-88]}},
+  sproto3152:{i:[55,-128],w:[51,-129],p:{6:[30,-115],8:[56,-131],9:[53,-141],10:[52,-113]}},
+  morelight:{i:[6,-129],w:[17,-126],p:{6:[-37,-111],8:[17,-145],9:[8,-131],10:[1,-113]}},
+  sproto763:{i:[8,-128],w:[7,-129],p:{6:[-53,-109],8:[-1,-121],9:[-3,-131],10:[-7,-95]}},
+  sproto831:{i:[14,-128],w:[14,-128],p:{6:[-42,-120],8:[14,-131],9:[15,-139],10:[-5,-106]}},
+  sproto943:{i:[1,-128],w:[18,-127],p:{6:[-61,-111],8:[-1,-124],9:[-1,-142],10:[-28,-96]}},
+  sproto1477:{i:[17,-128],w:[23,-130],p:{6:[-52,-119],8:[24,-125],9:[5,-138],10:[-16,-99]}},
+  sproto1668:{i:[31,-128],w:[28,-127],p:{6:[-26,-111],8:[32,-126],9:[-4,-136],10:[-8,-106]}},
+  sproto1815:{i:[35,-128],w:[7,-124],p:{6:[32,-107],8:[34,-124],9:[36,-138],10:[49,-105]}},
+  sproto2101:{i:[6,-128],w:[3,-128],p:{6:[-52,-118],8:[3,-117],9:[-17,-133],10:[-18,-95]}},
+  sproto2177:{i:[12,-128],w:[14,-128],p:{6:[-53,-112],8:[8,-120],9:[-6,-134],10:[-24,-96]}},
+  sproto2569:{i:[-6,-126],w:[-5,-127],p:{6:[-67,-117],8:[-7,-126],9:[6,-136],10:[-30,-101]}},
+  sproto2884:{i:[11,-128],w:[9,-128],p:{6:[-49,-110],8:[2,-116],9:[-9,-133],10:[-20,-91]}}
 };
 const GROUND_SPRITE_SCALE=1.20;
 // The frame drawGroundPlayer draws for seat p, its draw scale and its PILOT_ART_CENTRES pair.
@@ -1274,15 +1276,11 @@ function groundPose(p){
   if (p.dash) return pick(art.poses[6],centres?.p[6]);
   if (p.crouch) return pick(art.poses[10],centres?.p[10]);
   if (!p.grounded) { const k=p.vy<0?8:9; return pick(art.poses[k],centres?.p[k]); }
-  if (walking) {
-    const loop=art.walk.length||4,step=Math.floor(p.distance/(PLAYER_WALK_CYCLE_DISTANCE/art.walk.length));
-    return pick(walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length),centres?.w[((step%loop)+loop)%loop]);
-  }
+  if (walking) return pick(walk(p.id,p.distance,PLAYER_WALK_CYCLE_DISTANCE/art.walk.length),centres?.w);
   if (p.id==='rivet' && p.shot<3) { const k=p.shot<2?0:1; return pick(art.cast.at(k-2),centres?.c[k]); }
-  const k=time%46<23?0:1;
-  return pick(art.poses[k],centres?.p[k]);
+  return pick(art.poses[time%46<23?0:1],centres?.i);
 }
-// The middle of the drawn frame on screen. An unlisted frame falls back to the standing middle.
+// The middle of the drawn art on screen. An unlisted frame falls back to the standing middle.
 function groundArtCentre(p,pose=groundPose(p)){
   const [x,y]=pose.centre??[0,-128];
   return {x:p.x+x/2*pose.size,y:p.y+y/2*pose.size};
