@@ -1,61 +1,110 @@
 /* ARCADE-0003: the X-button shield and the pickup shield ring the pilot the player sees.
- * Ground pilots are drawn from a feet anchor that is not always under the middle of the art
- * (sproto3152's idle art is centred 33px right of it), so both shields take their centre from
- * PILOT_ART_CENTRE_X in game.js. This checks that table against the art data and both draw sites. */
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
+ * Ground pilots are drawn from a feet anchor that is often not under the middle of the art
+ * (sproto3152's idle art is centred 33px right of it, and a crouch, dash or walk frame moves it
+ * again), so both shields take their centre from the frame being drawn: PILOT_ART_CENTRES in
+ * game.js. This decodes every drawn frame's PNG and checks, for all pilots and all poses, that the
+ * real groundPose / groundArtCentre / pickupShieldBox from game.js land on the middle of the art. */
+const fs=require('node:fs'),vm=require('node:vm'),zlib=require('node:zlib'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const game=read('game.js');
+
+// Opaque-pixel bounds [left,top,width,height] of an 8-bit RGBA, non-interlaced PNG.
+function alphaBounds(file){
+  const png=fs.readFileSync(path.join(root,file));let at=8,width,height;const data=[];
+  while(at<png.length){
+    const size=png.readUInt32BE(at),type=png.toString('latin1',at+4,at+8),body=png.subarray(at+8,at+8+size);at+=12+size;
+    if(type==='IHDR'){width=body.readUInt32BE(0);height=body.readUInt32BE(4);assert.deepEqual([body[8],body[9],body[12]],[8,6,0],file+' is 8-bit RGBA, not interlaced');}
+    else if(type==='IDAT')data.push(body);
+  }
+  const raw=zlib.inflateSync(Buffer.concat(data)),stride=width*4,rows=Buffer.alloc(stride*height);
+  for(let y=0;y<height;y++){
+    const filter=raw[y*(stride+1)],from=y*(stride+1)+1,to=y*stride;
+    for(let x=0;x<stride;x++){
+      const a=x>=4?rows[to+x-4]:0,b=y?rows[to+x-stride]:0,c=x>=4&&y?rows[to+x-stride-4]:0,p=a+b-c;
+      const predict=filter===0?0:filter===1?a:filter===2?b:filter===3?(a+b)>>1:Math.abs(p-a)<=Math.abs(p-b)&&Math.abs(p-a)<=Math.abs(p-c)?a:Math.abs(p-b)<=Math.abs(p-c)?b:c;
+      rows[to+x]=(raw[from+x]+predict)&255;
+    }
+  }
+  let left=width,top=height,right=-1,bottom=-1;
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(rows[(y*width+x)*4+3]){if(x<left)left=x;if(x>right)right=x;if(y<top)top=y;if(y>bottom)bottom=y;}
+  return[left,top,right-left+1,bottom-top+1];
+}
 
 const Arcade={};vm.runInNewContext(read('runtime/sprite-bounds.js'),{Arcade});
 const ART=vm.runInNewContext(read('assets.js')+';ART');
 const playable=[...game.match(/const playable = \[([\s\S]*?)\n\];/)[1].matchAll(/\{id:'([^']+)'/g)].map(m=>m[1]);
 assert.ok(playable.length>=14&&playable.includes('sproto3152'),'reads the playable pilots from game.js');
+// The decoder agrees with the committed bounds wherever both exist.
+for(const file of ['fighters/poses/sproto3152/00.png','fighters/poses/rivet/10-crouchLanding.png'])assert.equal(String(alphaBounds(file)),String(Arcade.spriteBounds[file]));
 
 // The real declarations from game.js, run with stand-in mode switches.
 const take=pattern=>{const m=game.match(pattern);assert.ok(m,'game.js still has '+pattern);return m[0];};
 const source=[
-  take(/^const PILOT_ART_CENTRE_X=\{[^\n]*\};$/m),
+  take(/^const PILOT_ART_CENTRES=\{[\s\S]*?\n\};$/m),
   take(/^const GROUND_SPRITE_SCALE=[^\n]*;$/m),
-  take(/^const groundArtCentre=[^\n]*;$/m),
+  take(/^function groundPose\(p\)\{[\s\S]*?\n\}$/m),
+  take(/^function groundArtCentre\(p,pose=groundPose\(p\)\)\{[\s\S]*?\n\}$/m),
   take(/^function pickupShieldBox\(p\)\{[\s\S]*?\n\}$/m),
-  take(/^const playerHeight=[^\n]*;$/m)
+  take(/^function walk\(id, distance, frameDistance=12\) \{[\s\S]*?\n\}$/m),
+  take(/^const playerHeight=[^\n]*;$/m),
+  take(/^const PLAYER_WALK_CYCLE_DISTANCE = \d+;$/m)
 ].join('\n');
-const world={flying:false,codebreak:false,player:null};
-const api=vm.runInNewContext(source+'\n({PILOT_ART_CENTRE_X,GROUND_SPRITE_SCALE,groundArtCentre,pickupShieldBox})',
-  {isFlying:()=>world.flying,isCodebreak:()=>world.codebreak,CODE_CHARACTER_SCALE:.56,get player(){return world.player;}});
+const world={flying:false,codebreak:false,player:null,time:0};
+const api=vm.runInNewContext(source+'\n({PILOT_ART_CENTRES,groundPose,groundArtCentre,pickupShieldBox,cycle:PLAYER_WALK_CYCLE_DISTANCE})',
+  {ART,isFlying:()=>world.flying,isCodebreak:()=>world.codebreak,CODE_CHARACTER_SCALE:.56,get player(){return world.player;},get time(){return world.time;}});
+assert.equal(String(Object.keys(api.PILOT_ART_CENTRES).sort()),String([...playable].sort()),'one entry per playable pilot');
 
-assert.deepEqual(Object.keys(api.PILOT_ART_CENTRE_X).sort(),[...playable].sort(),'one entry per playable pilot');
+const stand={x:517.2,y:604,vy:0,grounded:true,crouch:false,dash:0,walking:false,distance:0,shot:9};
+const near=(a,b)=>Math.abs(a-b)<1e-9;
+let frames=0,worstBefore=0;
 for(const id of playable){
-  const [file,anchorX,anchorY]=ART.sprites[id].poses[0],[left,top,width,height]=Arcade.spriteBounds[file];
-  assert.equal(api.PILOT_ART_CENTRE_X[id],left+width/2-anchorX,id+': table matches the idle art');
-  // The pilot as drawn at x 517.2, y 604 (the report's position): sprite() puts the anchor there.
-  const p={id,x:517.2,y:604,crouch:false},k=api.GROUND_SPRITE_SCALE;world.player=p;
-  const art={left:p.x+(left-anchorX)*k,right:p.x+(left+width-anchorX)*k,top:p.y+(top-anchorY)*k,bottom:p.y+(top+height-anchorY)*k};
-  const centre=api.groundArtCentre(p),box=api.pickupShieldBox(p);
-  assert.ok(Math.abs(centre.x-(art.left+art.right)/2)<1e-9,id+': shield is centred sideways on the drawn pilot');
-  assert.ok(Math.abs(centre.y-(art.top+art.bottom)/2)<=1,id+': shield is centred vertically on the drawn pilot');
-  assert.ok(Math.abs(box.x+box.w/2-centre.x)<1e-9&&Math.abs(box.y+box.h/2-centre.y)<1e-9,id+': pickup shield shares that centre');
-  assert.equal(box.w,142);assert.equal(box.h,142);
+  const art=ART.sprites[id];
+  // Every state drawGroundPlayer can draw: [label, player fields, time, the frame origin/main drew].
+  const states=[
+    ['idle',{},0,art.poses[0]],['breathe',{},30,art.poses[1]],
+    ['dash',{dash:5},0,art.poses[6]],['dash while crouched',{dash:5,crouch:true},0,art.poses[6]],
+    ['crouch',{crouch:true},0,art.poses[10]],['crouch while walking',{crouch:true,walking:true},0,art.poses[10]],
+    ['rise',{grounded:false,vy:-4},0,art.poses[8]],['fall',{grounded:false,vy:3},0,art.poses[9]],
+    ...art.walk.flatMap((frame,i)=>[
+      ['walk '+i,{walking:true,distance:(i+.5)*api.cycle/art.walk.length},0,frame],
+      ['walk back '+i,{walking:true,distance:(i+.5-art.walk.length)*api.cycle/art.walk.length},0,frame]])
+  ];
+  if(id==='rivet')states.push(['cast',{shot:1},0,art.cast.at(-2)],['cast end',{shot:2},0,art.cast.at(-1)]);
+  for(const codebreak of [false,true])for(const [label,fields,time,frame] of states){
+    const p={...stand,id,...fields},name=id+' '+label+(codebreak?' (codebreak)':'');
+    Object.assign(world,{player:p,time,codebreak});
+    const pose=api.groundPose(p),walking=p.walking&&!p.crouch&&!p.dash&&p.grounded,k=codebreak?.56:1;
+    assert.equal(pose.frame,frame,name+': draws the same frame as before');
+    assert.ok(near(pose.size,1.2*k*(walking?art.walkScale??1:1)),name+': draws at the same size as before');
+    assert.equal(pose.scale,k);
+    // sprite() puts the frame's anchor on (p.x,p.y) and scales about it.
+    const [file,anchorX,anchorY]=frame,[left,top,width,height]=alphaBounds(file);
+    const artX=p.x+(left+width/2-anchorX)*pose.size,artY=p.y+(top+height/2-anchorY)*pose.size;
+    const centre=api.groundArtCentre(p,pose),box=api.pickupShieldBox(p);
+    assert.ok(near(centre.x,artX)&&near(centre.y,artY),name+': shield is centred on the drawn frame');
+    assert.ok(near(box.x+box.w/2,artX)&&near(box.y+box.h/2,artY),name+': pickup shield shares that centre');
+    const diameter=(p.crouch?72:110)*k+32;
+    assert.ok(near(box.w,diameter)&&near(box.h,diameter),name+': pickup ring keeps its size');
+    frames++;worstBefore=Math.max(worstBefore,Math.abs(artX-p.x));
+  }
 }
-// The reported pilot: both rings used to sit on x 517.2, 33px left of the art.
-world.player={id:'sproto3152',x:517.2,y:604,crouch:false};
-assert.ok(Math.abs(api.groundArtCentre(world.player).x-550.2)<1e-9);
+assert.ok(worstBefore>30,'the old centre (player.x) was more than 30px off for some frame');
+// The reported pilot standing at the reported position: the rings used to sit on x 517.2.
+Object.assign(world,{player:{...stand,id:'sproto3152'},time:0,codebreak:false});
+assert.ok(near(api.groundArtCentre(world.player).x,550.2));
+// A pilot without a table entry keeps the old centre.
+world.player={...stand,id:'sproto3152'};
+const saved=api.PILOT_ART_CENTRES.sproto3152;delete api.PILOT_ART_CENTRES.sproto3152;
+assert.deepEqual({...api.groundArtCentre(world.player)},{x:517.2,y:604-64*1.2});
+api.PILOT_ART_CENTRES.sproto3152=saved;
 
 // Flight is unchanged: the saucer, speedboat and jet shields stay on the craft.
 world.flying=true;
 assert.deepEqual({...api.pickupShieldBox(world.player)},{x:517.2-115,y:604-115,w:230,h:230});
 world.flying=false;
-// Crouching keeps the ring's old height around the crouch box and only moves sideways.
-world.player={id:'sproto3152',x:517.2,y:604,crouch:true};
-assert.deepEqual({...api.pickupShieldBox(world.player)},{x:550.2-52,y:604-88,w:104,h:104});
-// Codebreak draws the pilot at .56, so the offset shrinks with it.
-world.codebreak=true;world.player={id:'sproto3152',x:100,y:300,crouch:false};
-assert.ok(Math.abs(api.groundArtCentre(world.player,.56).x-(100+27.5*1.2*.56))<1e-9);
-world.codebreak=false;
-
-// Both draw sites use the shared centre, and the flying shields still use the craft position.
-assert.match(game,/if \(p\.shield\) \{ const centre=groundArtCentre\(p,scale\); drawPlayerShield\('shield',centre\.x,centre\.y,scale\); \}/);
+assert.match(game,/if \(p\.shield\) \{ const centre=groundArtCentre\(p,pose\); drawPlayerShield\('shield',centre\.x,centre\.y,scale\); \}/);
+assert.match(game,/sprite\(p\.id,pose\.frame,p\.x,p\.y,1,pose\.size\)/);
 assert.equal(game.match(/pickupShieldBox\((?:p|player)\)\)/g)?.length,2,'solo and co-op pickup shields');
 assert.equal(game.match(/drawPlayerShield\('saucer-shield',(?:p|player)\.x,(?:p|player)\.y,1\.4\)/g)?.length,3);
-console.log('shield centre: '+playable.length+' pilots');
+console.log('shield centre: '+playable.length+' pilots, '+frames+' drawn states');
