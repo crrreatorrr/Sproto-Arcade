@@ -6,7 +6,7 @@ const PLAYER_SHOT_RATE = .75;
 const GROUND_WARNING_FRAMES = 30;
 const MIN_TELL_FRAMES = 24;
 const SCROLL_STEP = 6.86;
-const CHASE_START_Y=552, CHASE_SCROLL=5.4;
+const CHASE_START_Y=552, CHASE_SCROLL=5.4, CHASE_START_GRACE=30;
 const CHASE_ROOF_DROP=24, CHASE_GAP_REDUCTION=16;
 const GOLDIE_SCALE=.49, GOLDIE_START_X=90, GOLDIE_MAX_X=104;
 const GOLDIE_CATCH_REACH=85*GOLDIE_SCALE;
@@ -51,7 +51,16 @@ const STAGE_BLAST=54, STAGE_BLACKOUT=82, STAGE_SHIFT_END=96;
 const VERSE_GEM_CHARGE=22, VERSE_GEM_FIRE=46, VERSE_GEM_END=64;
 const VAULT_MUZZLE=W-110, VAULT_BEAM_LIFE=40, VAULT_WARNING_FRAMES=75, VAULT_SWEEP_DISTANCE=28;
 const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
-const firstLevel = Math.max(0,LEVELS.findIndex(level=>level.id===requestedLevel&&(level.id!==13||REDKEV_READY)));
+const requestedIndex = LEVELS.findIndex(level=>level.id===requestedLevel&&(level.id!==13||REDKEV_READY));
+// "Start at" opens on the first campaign level the save has not cleared: level 1 for a new save or
+// a finished campaign. A ?level= link wins. replayLevel is where "Play again" starts after the
+// campaign is cleared.
+function firstUnclearedLevel() {
+  const cleared=window.ArcadeHub?.state?.save?.cleared??[];
+  return campaignLevelIndices().find(index=>!cleared.includes(index))??0;
+}
+const replayLevel = Math.max(0,requestedIndex);
+const firstLevel = requestedIndex>=0?requestedIndex:firstUnclearedLevel();
 const canvas = document.querySelector('canvas');
 const TITLE_PAGE = document.title;
 const ctx = canvas.getContext('2d', { alpha: false });
@@ -195,6 +204,10 @@ const HISTORICAL_PHASE_SPLIT=false;
 const HISTORICAL_TELLS=false;
 const HISTORICAL_SAUCER_HITBOX=false;
 const HISTORICAL_MARINA_GROUND=false;
+// 2026-11-24: phase 2 used to start with the hearts that were left and attack under its banner,
+// and the chase had no start grace.
+const HISTORICAL_PHASE_TWO_ENTRY=false;
+const HISTORICAL_CHASE_START=false;
 // One saucer hitbox for ordinary shots and barrage missiles (plan item D7, owner sign-off
 // 2026-11-11). They used to test 58 and 18 px either side of the saucer's centre.
 const SAUCER_HALF_WIDTH=44;
@@ -491,7 +504,7 @@ function clearCoopLevel(){
     (online?'\nRewards: waiting for the hub to settle the match…':'\nLocal 2P clears save progress but earn no Tickets.');
   const next=nextCampaignLevel(levelIndex);
   if (online) setOverlay('won','Co-op clear',LEVELS[levelIndex].title,line,'Main menu');
-  else if (next<0) { levelSelect.value=String(firstLevel); setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again'); }
+  else if (next<0) { levelSelect.value=String(replayLevel); setOverlay('won','Campaign clear','That’s all, Sprotos!',line,'Play again'); }
   else setOverlay('clear','Level clear',LEVELS[levelIndex].title,line+'\nNext up: '+LEVELS[next].title,'Next level');
   if (opened.length) ui.description.textContent+='  ·  New Sproto: '+opened.map(id=>playable.find(p=>p.id===id)?.name??id).join(', ');
   if(!online)paintLevelSelect();
@@ -735,6 +748,8 @@ function setOverlay(next, label, title, description, button) {
   if (audioControls) audioControls.hidden=next!=='paused';
   overlay.dataset.mode = next;
   overlay.hidden = next === 'play';
+  // A phase that ends inside its banner's 1.5 s must not leave the banner showing behind the result.
+  if (next==='lost'||next==='clear'||next==='won') ui.notice.hidden=true;
   levelSelect.parentElement.hidden = next!=='title' && next!=='won';
   sprotoSelect.hidden=levelSelect.parentElement.hidden;
   ui.eyebrow.textContent = label;
@@ -778,8 +793,7 @@ function begin(index = firstLevel, carryShield = false, checkpointPhase = 1, see
   if(phaseCheckpointRun){
     if(isCodebreak())startCodebreakArena();
     else if(!isChase()){
-      boss.phase=2;boss.section=0;boss.hp=boss.max=boss.phaseTwoHealth;if(players)coopEnterPhaseTwo();boss.step=0;startMove();
-      announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+      enterPhaseTwo();
     }
   }
   // Replay log for the hub (runtime/story/replay.js): every tick's input frame from here on.
@@ -1061,7 +1075,7 @@ function clearLevel() {
   window.ArcadeHub?.reportHubClear(levelIndex,godUsed,replay,{checkpoint:phaseCheckpointRun});
   if (opened.length) paintSprotoLocks();
   if (nextCampaignLevel(levelIndex)<0) {
-    levelSelect.value=String(firstLevel);
+    levelSelect.value=String(replayLevel);
     setOverlay('won','Campaign clear','That’s all, Sproto!',isChase()?'You escaped across the rooftops.':'The last giant is down.','Play again');
   } else {
     setOverlay('clear','Level clear',LEVELS[levelIndex].title,'Next up: '+LEVELS[nextCampaignLevel(levelIndex)].title,'Next level');
@@ -1945,10 +1959,18 @@ function updateBoss() {
   } else if (isFlying()) {
     b.y=FLOOR-28-SimMath.sin(tick*.032)*26;
   }
+  // Phase 2's opening grace (enterPhaseTwo): no rockets while the banner is up, and the first
+  // attack starts once its tell will outlast the banner.
+  const calm=b.calm>0;
+  if (calm) b.calm--;
+  if (b.hold>0) {
+    if (--b.hold===0) startMove();
+    return;
+  }
   const rate=bossAttackRate(b);
   const ticks=Math.floor(tick*rate)-Math.floor((tick-1)*rate);
   for (let i=0;i<ticks;i++) advanceBossMove(b);
-  if (hasMecha(b) && b.move!=='shieldPulse' && b.move!=='arenaHazard' && ++b.rocketClock%22===0 && b.rocketFlash<8) {
+  if (hasMecha(b) && !calm && b.move!=='shieldPulse' && b.move!=='arenaHazard' && ++b.rocketClock%22===0 && b.rocketFlash<8) {
     launchMechaRocket(b.rocketIndex++,player.y);
   }
 }
@@ -2024,13 +2046,36 @@ function advanceStageShift() {
   if (phaseShift<STAGE_SHIFT_END) return;
   gameScreen.classList.remove('stage-blackout');
   phaseShift=0;
+  enterPhaseTwo();
+}
+// Phase 2 starts the same way after the stage shift and after a phase-2 retry (begin()): full
+// hearts, the arena banner, and an opening grace. The first attack is held back just long enough
+// to strike after the banner has gone, and the walker's side rockets wait for the banner too.
+const PHASE_TWO_BANNER=85;
+function enterPhaseTwo() {
   boss.phase=2;
   boss.section=0;
   boss.hp=boss.max=boss.phaseTwoHealth;
+  if (!HISTORICAL_PHASE_TWO_ENTRY) refillHearts();
   if (players) coopEnterPhaseTwo();
   boss.step=0;
-  startMove();
-  announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],85);
+  if (HISTORICAL_PHASE_TWO_ENTRY) startMove();
+  else {
+    boss.calm=PHASE_TWO_BANNER+1;
+    // Find how long the first attack's tell runs, then put the boss back and wait before starting it.
+    const saved={...boss},seat=player;
+    startMove();
+    const hold=Math.max(0,boss.calm-Math.ceil(boss.tell/bossAttackRate(boss)));
+    if (hold) { boss=saved;player=seat;boss.move=null;boss.hold=hold; }
+  }
+  announce(isNaval()?'Storm Waters':PHASE_TWO_NAMES[mechanicsIndex(levelIndex)],PHASE_TWO_BANNER);
+}
+// Entering phase 2 restores full hearts, as a phase-2 retry does, so being knocked out on purpose
+// is never the better play. In co-op every standing seat is refilled; a downed seat is stood up
+// with its revive health, as before.
+function refillHearts() {
+  if (players) { for (const p of players) if (p.hp>0) p.hp=Math.max(p.hp,MAX_HP); }
+  else player.hp=Math.max(player.hp,MAX_HP);
 }
 // Phase 2 of a co-op fight: solo health base for pickups, and every downed (connected) seat stands up.
 function coopEnterPhaseTwo(){
@@ -2252,7 +2297,9 @@ function updateChase() {
   if (p.dashWait) p.dashWait--;
   if (p.inv) p.inv--;
   updateShield(p, true);
-  const dx=Number(inputFrame.right)-Number(inputFrame.left);
+  // Start grace: Goldie is four ticks of running left away when the chase opens, so a held left
+  // counts as no input for the first half second.
+  const dx=Number(inputFrame.right)-(authoredTime()<=CHASE_START_GRACE&&!HISTORICAL_CHASE_START?0:Number(inputFrame.left));
   moveGround(p,dx || CHASE_SCROLL/8.2);
   camera+=CHASE_SCROLL;
   p.x-=CHASE_SCROLL;
@@ -3657,6 +3704,18 @@ if (new URLSearchParams(location.search).has('assetAudit')) {
     ...acts.filter(Boolean).filter(a=>ART.sprites[a.id]).flatMap(a=>spriteFrames(a.id)).map(img=>img.decode().catch(()=>{}))])};
 }
 
+// Saved progress can arrive after the page opens (a hub account's cloud save). While the title
+// screen is still untouched, "Start at" follows it to the first uncleared level.
+let startChosen=requestedIndex>=0,adoptingStart=false;
+function adoptSavedStart() {
+  if (startChosen || mode!=='title') return;
+  const index=firstUnclearedLevel();
+  if (index===Number(levelSelect.value)) return;
+  levelSelect.value=String(index);
+  adoptingStart=true;
+  levelSelect.dispatchEvent(new Event('change'));
+  adoptingStart=false;
+}
 let initialLoad=null;
 function loadInitialLevel(){
  if(initialLoad)return initialLoad;
@@ -3670,6 +3729,7 @@ function loadInitialLevel(){
   ui.title.textContent=LEVELS[firstLevel].title;
   mode='title';
   levelSelect.addEventListener('change',()=>{
+    if (!adoptingStart) startChosen=true;
     levelIndex=Number(levelSelect.value);
     showLevelControls();
     camera=0;
@@ -3680,6 +3740,7 @@ function loadInitialLevel(){
   sprotoSelect.addEventListener('click',()=>refreshTitleReadiness());
   ui.start.disabled=false;
   ui.start.textContent='Start level';
+  adoptSavedStart();
   requestAnimationFrame(loop);
   if(nextCampaignLevel(firstLevel)>=0)prefetchLevel(nextCampaignLevel(firstLevel));
 }).catch(()=>{
@@ -3689,7 +3750,7 @@ function loadInitialLevel(){
  return initialLoad;
 }
 // Rank and best time beside each level, repainted whenever the save changes (hub sign-in, a clear).
-if (window.ArcadeHub?.onChange) window.ArcadeHub.onChange(paintLevelSelect); else paintLevelSelect();
+if (window.ArcadeHub?.onChange) window.ArcadeHub.onChange(()=>{ paintLevelSelect();adoptSavedStart(); }); else paintLevelSelect();
 loadInitialLevel();
 // Startup reached the loop (it starts once the first level's art is in): an earlier uncaught error is not a boot failure.
 globalThis.ArcadeCrash?.markStarted();

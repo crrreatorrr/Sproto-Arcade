@@ -611,7 +611,7 @@ const SPRITE_HITBOXES = {
       "1": {
         provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"d0dbeeed256686f16ac21b8f8ca1d31ff4847f7e2ba93561b2a245ea9ca0fe2b","bodyCorePixels":[215,55,240,325],"logicalTargetCorePixels":[215,55,240,325],"projectilesSha256":"df2aeef9bc046007bf80e73af7c1e0d5dfe3786e2e659bdd06a04aad6b33810f","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[46,245,173,43],[266,251,28,55],[195,348,128,34],[209,173,157,160]],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1]},
         targets: {"light-iris":{"rect":[0.029747706422017472,-0.8237704918032788,1.0844036697247708,1.3319672131147542]}},
-        boss: {"damage":{"rect":[0.3784559695437808,0.22200796647633073,0.7114772514510391,0.5679033563139751]},"contact":{"rect":[0.4128440366972477,0.1740677076276927,0.5101812486014768,0.5847996545183579]}},
+        boss: {"damage":{"rect":[0.3784559695437808,0.22200796647633073,0.7114772514510391,0.5975]},"contact":{"rect":[0.4128440366972477,0.1740677076276927,0.5101812486014768,0.5847996545183579]}},
         projectiles: {
           "boulder@0": {"reference":[12,30,488,470],"crop":[13,167,464,208],"core":[46,245,173,43],"visualBox":[50,42],"kind":"contain","facing":"left"},
           "boulder@1": {"reference":[12,30,488,470],"crop":[78,108,347,308],"core":[266,251,28,55],"visualBox":[50,42],"kind":"contain","facing":"left"},
@@ -2199,7 +2199,7 @@ const SPRITE_HITBOXES = {
       "1": {
         provenance: {"status":"source-hashed-solid-core-reviewed-active","bossSha256":"d3c5a21fedb2b9a8daa16cd25adaf2b51ca245b1d222d2cdba644ab6e9068402","bodyCorePixels":[170,145,230,195],"logicalTargetCorePixels":[310,330,50,160],"legacyDrawOffset":[0,0],"legacyDrawScale":[1,1],"projectilesSha256":"2f3589c01a4321f3388b2289133c91758c873a22ef2eb57952c68974fcb2bf99","projectileCoreStatus":"four-frame-shared-opaque-core-overlay-reviewed-active","projectileCorePixels":[[194,321,95,61],[223,302,66,67],[205,275,61,126],[186,289,171,92]]},
         targets: {"circuit-core":{"rect":[0.4008492569002124,0.14809985096870315,0.2760084925690021,0.8017883755588674]}},
-        boss: {"damage":{"rect":[0.2653711165995061,0.4245207615188274,0.6311654173346621,0.3158878904297029]},"contact":{"rect":[0.3317539226347678,0.3826056767375694,0.4525917870643675,0.32528620783091716]}},
+        boss: {"damage":{"rect":[0.2653711165995061,0.4245207615188274,0.6311654173346621,0.4712]},"contact":{"rect":[0.3317539226347678,0.3826056767375694,0.4525917870643675,0.32528620783091716]}},
         projectiles: {
           "boulder@0": {"reference":[12,144,488,356],"crop":[12,262,488,175],"core":[194,321,95,61],"visualBox":[50,42],"kind":"contain","facing":"left"},
           "boulder@1": {"reference":[12,144,488,356],"crop":[119,215,262,233],"core":[223,302,66,67],"visualBox":[50,42],"kind":"contain","facing":"left"},

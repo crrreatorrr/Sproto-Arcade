@@ -468,3 +468,36 @@ Against section 9's targets:
 5. D7 in Moonkeep and Mudline barrages: the saucer is now 88 px wide against missiles, where it was 36.
 6. The cue line under load: one line at a time, mandatory mechanics first. Check that attack names do not hide the exposed cue for too long.
 7. The synthesised audio at normal volume, on speakers and headphones.
+
+## 12. QA follow-up fixes (2026-11-24)
+
+A QA pass on the campaign left eight confirmed problems; the owner asked for all of them to be fixed, including the ones that change the simulation. They went in as one version bump, `9249bbf1047466f3` to `947909cee9b92309` (`docs/SERVER-SIM.md`, re-pin log). No person has played the result. Every figure below is from the lookahead bot, a fuzzer or headless Chromium.
+
+| Problem | Change | Where |
+|---|---|---|
+| Standing auto-fire did no damage in phase 2 of Last Light Bar and Circuit Gate: the damage boxes ended at y 487 and 463, standing shots fly at y 495 | The drawn bosses reach that line (the pod's lower thrusters end near y 502, the walker's legs run to the floor), so the boxes now end at y 502 and y 540. Crouched shots (y 530) also land on the walker's legs and still pass under the pod. Contact boxes are unchanged. No on-screen cue was needed | `sprite-hitboxes.js`, stages 2 and 6, phase key 1 |
+| The heart and the shield could appear on one tick (8 of 191 fuzz spawns) | One item per tick, earlier plan first, none within 150 ticks of the last (`SPAWN_GAP`) | `phase-powerups.js` `step()` |
+| "Start at" always opened on level 1 | It opens on the first campaign level the save has not cleared; level 1 for a new save or a finished campaign. `?level=` still wins. A hub account's save that arrives while the title is untouched moves it | `game.js` `firstUnclearedLevel`, `adoptSavedStart` |
+| Phase 2 kept the hearts that were left while a phase-2 retry gave five | Reaching phase 2 restores full hearts (a rule change the owner asked for). Co-op: every standing seat; a downed seat still stands up with two | `game.js` `enterPhaseTwo`, `refillHearts`; `codebreak.js` `startCodebreakArena` |
+| Phase 2 attacked 32 to 74 ticks in, under the 85-tick arena banner | The boss waits before starting its first attack, so the attack lands on tick 86 or 87; the tell keeps its length and aims when it starts. Sprotel Bitcoin (tick 97) is unchanged. The Mudline walker's rockets wait for the banner; the Sheriff's first arena volley leaves at tick 106 (banner 105) | `game.js` `enterPhaseTwo`, `updateBoss` (boss state `hold`, `calm`); `codebreak.js` |
+| Holding left for four ticks at the start of the chase ended it | A held left counts as no input for the first 30 ticks | `game.js` `updateChase`, `CHASE_START_GRACE` |
+| `qa/ui-browser.mjs` and `qa/lazy-load-browser.mjs` failed on main | Both were stale checks. The first read the World before the stage's art had loaded and expected a retry to leave phase 2; the second still listed the 40 stage-shift blast frames that nothing has drawn since the crossfade. `qa/browser-cdp.mjs` could also read Chrome's port file while it was empty | the three files |
+| God-mode HUD line ran into the boss bar; a phase banner could show behind a result screen | The line sits under the hearts; the banner is hidden when a result or knockout screen opens | `legacy.html`, `game.js` `setOverlay` |
+
+Left alone, as design questions nobody asked to change: the ceiling-sweep tell, Sprotel Bitcoin's slot and difficulty, the ending sequence, chase checkpoints.
+
+The old phase-2 entry and chase start remain behind `HISTORICAL_PHASE_TWO_ENTRY` and `HISTORICAL_CHASE_START` (false in production), so the archived replays in `qa/golden-disabled` still run. Goldens 2 to 10, 12 and 13 are new bot runs under the new rules; 1, 11 and 14 are their previous inputs, which still clear, restamped. `runtime/fixtures/phase-two-entry.test.js` holds the four simulation rules; `runtime/fixtures/phase-powerups.test.js` holds the stagger.
+
+### Measured afterwards
+
+| Check | Result |
+|---|---|
+| Lookahead bot, all 14 levels, both phases, 6-tick decisions with a 36-tick look (seed 1001) | 14 of 14 cleared, as before. 5 hits in total (3 of them in the chase) |
+| Same bot, 12-tick decisions with a 24-tick look (seed 2002) | 13 of 14 cleared. Codebreak's climb is lost at tick 1,207, the same tick as before the change: this coarser bot cannot make the climb |
+| Browser fuzzer, random legal inputs with knockouts and retries, 12,000 ticks per phase per level | 201 pickup spawns, none on a shared tick, smallest gap 150 ticks; no enemy attack live under a phase-2 banner; every retry starts at five hearts with a full-health boss; no page errors |
+| Idle standing player in god mode, all 12 boss levels in the page | all clear, Last Light Bar and Circuit Gate included (they did not before) |
+| Standing auto-fire at normal damage, first 10 s of phase 2 | 53 damage on Last Light Bar, 47 on Circuit Gate (0 before) |
+| First phase-2 attack, ticks after phase 2 starts | 86 or 87 on eleven bosses, 97 on Sprotel Bitcoin (unarmed strike; its first projectile is at 134), 106 in the Codebreak arena |
+| Earliest "Goldie caught you" in the fuzzer run | tick 33 (it was tick 4) |
+
+Clear times moved a little with the opening wait and the refill: the new goldens run 4,726 to 9,211 ticks, and the pars in `story-par.js` were rebuilt from them.

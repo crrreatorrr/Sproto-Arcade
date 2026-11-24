@@ -3,6 +3,9 @@ const ArcadePhasePowerups=(()=>{'use strict';
 // Enabled only after the custom Higgsfield pickup/shield assets are accepted.
 const assetsReady=true;
 const PICKUP_TTL=240,SHIELD_TTL=600;
+// Two items never appear together: after one appears, the next waits at least this long (the
+// shortest gap the original plan allowed between its two items).
+const SPAWN_GAP=150;
 function random(seed){let s=seed>>>0;return()=>{s=(s+0x6d2b79f5)>>>0;let t=Math.imul(s^(s>>>15),1|s);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
 // `span` is the phase's expected length in ticks. With it the two items are spread over the
 // phase (18-40% and 58-82% of the span); without it they keep the original early windows
@@ -25,15 +28,22 @@ function absorb(state,tick,{mandatory=false}={}){
 function overlap(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;}
 // `ready:false` holds every due item back (a barrage is live, or the player was just hit).
 // `hold:{life:true}` holds one kind back: a heart waits until the player is hurt, and never
-// appears if that never happens. A held item spawns on the first tick it is allowed.
+// appears if that never happens. A held item spawns on the first tick it is allowed, unless the
+// other item appeared less than SPAWN_GAP ticks before.
 function step(state,{tick,ready=false,hold=null,player=null,bounds={x:80,y:240,w:700,h:350},surfaces=null}={}){
  const events=[];
- if(ready)for(const plan of state.plans)if(!plan.spawned&&tick>=plan.at&&!hold?.[plan.kind]&&(!surfaces||surfaces.length)){
-  plan.spawned=true;
-  const size=32,surface=surfaces?.[Math.min(surfaces.length-1,Math.floor(plan.v*surfaces.length))];
-  const x=surface?surface.x+plan.u*Math.max(0,surface.w-size):bounds.x+plan.u*Math.max(0,bounds.w-size),y=surface?surface.y-size:bounds.y+plan.v*Math.max(0,bounds.h-size);
-  state.pickups.push({id:plan.id,kind:plan.kind,x,y,w:size,h:size,spawnedAt:tick,expiresAt:tick+PICKUP_TTL});
-  events.push({type:'spawn',kind:plan.kind});
+ // One item per tick, earliest plan first, and none within SPAWN_GAP ticks of the last one: an
+ // item that was held back and comes due with the other is staggered behind it.
+ if(ready&&(state.lastSpawn==null||tick-state.lastSpawn>=SPAWN_GAP)&&(!surfaces||surfaces.length)){
+  let plan=null;
+  for(const q of state.plans)if(!q.spawned&&tick>=q.at&&!hold?.[q.kind]&&(!plan||q.at<plan.at))plan=q;
+  if(plan){
+   plan.spawned=true;state.lastSpawn=tick;
+   const size=32,surface=surfaces?.[Math.min(surfaces.length-1,Math.floor(plan.v*surfaces.length))];
+   const x=surface?surface.x+plan.u*Math.max(0,surface.w-size):bounds.x+plan.u*Math.max(0,bounds.w-size),y=surface?surface.y-size:bounds.y+plan.v*Math.max(0,bounds.h-size);
+   state.pickups.push({id:plan.id,kind:plan.kind,x,y,w:size,h:size,spawnedAt:tick,expiresAt:tick+PICKUP_TTL});
+   events.push({type:'spawn',kind:plan.kind});
+  }
  }
  state.pickups=state.pickups.filter(p=>{
   if(tick>=p.expiresAt){state.plans.find(q=>q.id===p.id).done=true;events.push({type:'expire',kind:p.kind});return false;}
@@ -47,7 +57,7 @@ function step(state,{tick,ready=false,hold=null,player=null,bounds={x:80,y:240,w
  return events;
 }
 function visible(pickup,tick){return pickup.expiresAt-tick>60||Math.floor(tick/6)%2===0;}
-return{create,step,absorb,activeShield,visible,PICKUP_TTL,SHIELD_TTL,assetsReady};
+return{create,step,absorb,activeShield,visible,PICKUP_TTL,SHIELD_TTL,SPAWN_GAP,assetsReady};
 })();
 if(typeof globalThis!=='undefined')globalThis.ArcadePhasePowerups=ArcadePhasePowerups;
 if(typeof module!=='undefined'&&module.exports)module.exports=ArcadePhasePowerups;

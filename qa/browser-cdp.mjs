@@ -11,9 +11,11 @@ export async function openBrowser(url,{initScripts=[]}={}){
  let socket,seq=0;const pending=new Map(),events=[];
  try{
   const file=path.join(profile,'DevToolsActivePort');
-  for(let i=0;i<100&&!fs.existsSync(file);i++)await wait(100);
-  if(!fs.existsSync(file))throw Error('Chrome did not open a debugging port');
-  const port=fs.readFileSync(file,'utf8').split('\n')[0];
+  // Chrome creates the file before it writes the port, so wait for the port itself.
+  const readPort=()=>fs.existsSync(file)?fs.readFileSync(file,'utf8').split('\n')[0].trim():'';
+  for(let i=0;i<100&&!readPort();i++)await wait(100);
+  const port=readPort();
+  if(!port)throw Error('Chrome did not open a debugging port');
   const tabs=await (await fetch('http://127.0.0.1:'+port+'/json/list')).json();
   socket=new WebSocket(tabs.find(x=>x.type==='page').webSocketDebuggerUrl);
   await new Promise((resolve,reject)=>{socket.addEventListener('open',resolve,{once:true});socket.addEventListener('error',reject,{once:true});});
