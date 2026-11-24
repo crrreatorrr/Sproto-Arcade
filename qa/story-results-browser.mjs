@@ -12,7 +12,7 @@ const oldSave={v:1,cleared:[0,12],unlocked:[],updatedAt:5};
 try{
  const {page,errors}=await openStory(browser,1,{start:false,init:`try{if(!localStorage.getItem('sproto-arcade-story-v1'))localStorage.setItem('sproto-arcade-story-v1',${JSON.stringify(JSON.stringify(oldSave))});}catch{}`});
  const title=await page.evaluate(()=>({audio:typeof audio,count:document.getElementById('cleared-count').textContent,options:[...levelSelect.options].map(o=>o.textContent),controls:document.getElementById('audio-controls').hidden}));
- check('a save from before ranks loads, and the title counts cleared levels',()=>{assert.equal(title.count,'2 of 13 cleared');assert.match(title.options[0],/^01 · Tidebreak Marina  —  cleared$/);assert.match(title.options[2],/^03 · Last Light Bar$/);});
+ check('a save from before ranks loads, and the title counts cleared levels',()=>{assert.equal(title.count,'2 of 14 cleared');assert.match(title.options[0],/^01 · Tidebreak Marina  —  cleared$/);assert.match(title.options[2],/^03 · Last Light Bar$/);});
  check('no audio context before the first click',()=>{assert.equal(title.audio,'undefined');assert.ok(title.controls);});
  await page.click('#start');await page.waitForFunction(()=>mode==='play',null,{timeout:60000});
  const started=await page.evaluate(()=>({state:audio&&audio.state,playing:ArcadeAudio.music.playing,form:ArcadeAudio.music.form,ducked:ArcadeAudio.music.ducked,voices:ArcadeAudio.voices.length,tracks:ArcadeAudio.tracks.length}));
@@ -30,7 +30,7 @@ try{
  const aBest={0:{ticks:aTicks,hits:1,rank:'A'}};
  r=await stage(`godMode=false;begin(0,false,1,777);time=${aTicks};runStats.hits=1;player.hp=4;runStats.hp=4;clearLevel();`);
  check('a full clear shows time, hits, hearts and rank, and writes a best',()=>{assert.equal(r.mode,'clear');assert.ok(r.text.startsWith(`Time ${aTime} (par ${parTime})  ·  Hits 1  ·  Hearts 4/5\nRank A  ·  New best!\nNext up: `));assert.deepEqual(r.best,aBest);});
- check('level select shows the rank and best time',()=>{assert.equal(r.option,`01 · Tidebreak Marina  —  A  ${aTime}`);assert.equal(r.count,'2 of 13 cleared');});
+ check('level select shows the rank and best time',()=>{assert.equal(r.option,`01 · Tidebreak Marina  —  A  ${aTime}`);assert.equal(r.count,'2 of 14 cleared');});
  r=await stage(`begin(0,false,1,777);time=${bTicks};runStats.hits=4;clearLevel();`);
  check('a faster run with a worse rank leaves the best',()=>{assert.ok(r.text.startsWith(`Time ${bTime} `));assert.ok(r.text.includes(`\nRank B  ·  Best: A in ${aTime}\n`));assert.deepEqual(r.best,aBest);});
  r=await stage("begin(0,false,2,777);time=1500;clearLevel();");

@@ -50,8 +50,8 @@ async function open(url,ready){
   return {page,errors};
 }
 try{
-  { // Story mode (legacy.html), the page the hub opens.
-    const {page,errors}=await open('/legacy.html?unlockAll=1',()=>{const s=document.getElementById('start');return s&&!s.disabled&&s.textContent!=='Loading…';});
+  { // Story mode (legacy.html), the page the hub opens. Level 2 is on foot; level 1 is the speedboat, which flies.
+    const {page,errors}=await open('/legacy.html?unlockAll=1&level=2',()=>{const s=document.getElementById('start');return s&&!s.disabled&&s.textContent!=='Loading…';});
     // Keyboard menus before any pad: arrows/WASD move focus, Enter presses the focused button.
     await page.evaluate(()=>document.activeElement?.blur());
     await page.keyboard.press('ArrowDown');
@@ -121,6 +121,24 @@ try{
     assert.equal(await page.evaluate(()=>mode),'paused','replug with A held does not resume');
     assert.deepEqual(errors,[]);
     results.story='passed';
+    await page.close();
+  }
+  { // A jump press that lands on a fresh knockout or level-clear screen does not skip it.
+    const {page,errors}=await open('/legacy.html?unlockAll=1&level=13',()=>{const s=document.getElementById('start');return s&&!s.disabled&&s.textContent!=='Loading…';});
+    await press(page,[]);
+    await tap(page,'A');
+    await page.waitForFunction(()=>mode==='play',null,{timeout:180000});
+    for(const [screen,force] of [['lost',()=>{player.inv=0;player.hp=1;hurt(false,true);}],['clear',()=>{setOverlay('clear','Level clear','','','Next level');}]]){
+      await page.evaluate(force);
+      for(let i=0;i<8;i++)await tap(page,'A');
+      await page.keyboard.press('Space');
+      assert.equal(await page.evaluate(()=>mode),screen,'mashing A or Space right after the '+screen+' screen opens leaves it up');
+      await page.waitForTimeout(1200);
+      await tap(page,'A');
+      await page.waitForFunction(()=>mode==='play',null,{timeout:180000});
+    }
+    assert.deepEqual(errors,[]);
+    results.resultScreens='passed';
     await page.close();
   }
   { // Return to hub is reachable from the pause menu when a hub session is live.

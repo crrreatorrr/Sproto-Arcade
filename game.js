@@ -716,8 +716,15 @@ function coachText() {
   ].join('\n');
 }
 
+// A knockout, level-clear or campaign-clear screen focuses its main button while the jump key
+// (Space, or A on a controller) may still be going down from play. For this long after such a
+// screen opens, key and controller presses of that button are ignored, so the screen is not
+// skipped by a jump. Mouse clicks and R (retry) are unaffected. Browser only.
+const RESULT_SCREEN_GRACE_MS=700,RESULT_SCREEN_REPEAT_MS=350;
+let resultScreenGuard=0;
 function setOverlay(next, label, title, description, button) {
   if (next==='lost') description=failReport(description);
+  if (next==='lost'||next==='clear'||next==='won') resultScreenGuard=(globalThis.performance?.now?.()??0)+RESULT_SCREEN_GRACE_MS;
   mode = next;
   window.ArcadeAudio?.music.duck(next!=='play');
   // Phase-2 knockout: Retry is the checkpoint, so offer the full run beside it.
@@ -3394,7 +3401,13 @@ window.ArcadeStoryCoop={startOnlineCoop,endOnlineCoop,snapshot:()=>players?seria
   cancel:(reason)=>{if(coopConfig?.kind!=='online')return;setOverlay('won','Match cancelled',LEVELS[levelIndex]?.title??'','The hub ended the match'+(reason?' ('+reason+')':'')+'. No rewards.','Main menu');},state:()=>players?{tick:time,mode,seats:players.map(p=>({hp:p.hp,connected:p.connected!==false}))}:null,
   dropSeat:(slot)=>{if(players)dropSeat(slot);},showOutcome:(text)=>{if(ui.description)ui.description.textContent+='\n'+text;}};
 
-ui.start.addEventListener('click',()=>{
+ui.start.addEventListener('click',e=>{
+  // detail is 0 for a click made by Space, Enter or a controller button, and 1 or more for the mouse.
+  // An ignored press also holds the button back a little longer, so mashing jump never gets through.
+  if (e.detail===0 && (mode==='lost'||mode==='clear'||mode==='won') && performance.now()<resultScreenGuard) {
+    resultScreenGuard=Math.max(resultScreenGuard,performance.now()+RESULT_SCREEN_REPEAT_MS);
+    return;
+  }
   if (!audio && window.AudioContext) audio=new AudioContext();
   audio?.resume().catch(()=>{});
   if (coopConfig?.kind==='online' && (mode==='lost'||mode==='won'||mode==='clear')) { endOnlineCoop(); returnToTitle(); return; }
