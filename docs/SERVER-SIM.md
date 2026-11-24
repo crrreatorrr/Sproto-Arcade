@@ -255,13 +255,15 @@ machine and far longer on a shared one; one process per level runs them side by 
 | before 2026-11-11 | `e992c779ac0f8b62` | Baseline of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md` |
 | 2026-11-11 | `a288552328745110` | Plan items B1 to B3: pickups spread over the phase, held during barrages and (hearts) at full health; a second, shorter barrage in a boss's phase 1 (new state `densityLastEnd`); wider opening shifts in flight barrages. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 are their previous inputs, which still clear, restamped. |
 | 2026-11-11 | `d3360290cc771a31` | Owner sign-off items D1, D3, D7 and the Redkev half of D5: phase 1 = 2 x boss health and phase 2 = boss health; a 24-frame floor on ordinary tells; one 44 px saucer half-width; Redkev's own move order, signatures and cadence. Each is its own commit. The old rules for D1, D3 and D7 remain behind `HISTORICAL_*` constants (false in production) for the archived replay lane. Goldens 1 to 10 and 13 are new bot runs; 11 and 12 restamped again. |
+| 2026-11-19 | `9249bbf1047466f3` | The version in the tree before the 2026-11-24 change, last built with the co-op simulation and `ArcadeSim.coop` (docs/COOP.md). Listed here after the fact; the versions between `d3360290cc771a31` and this one were not logged. |
+| 2026-11-24 | `947909cee9b92309` | QA follow-up, one bump (owner request): full hearts on reaching phase 2 (`enterPhaseTwo`, `refillHearts`, the Codebreak arena); the phase-2 opening grace (new boss state `calm` and `hold`); the heart and shield pickups never within 150 ticks of each other (`phase-powerups.js`, new item state `lastSpawn`); the chase's 30-tick start grace; the phase-2 damage boxes of Last Light Bar and Circuit Gate reach the standing shot line (`sprite-hitboxes.js`). Goldens 2 to 10, 12 and 13 are new bot runs; 1, 11 and 14 are their previous inputs, which still clear, restamped. The old phase-2 entry and chase start remain behind `HISTORICAL_PHASE_TWO_ENTRY` and `HISTORICAL_CHASE_START` (false in production) for the archived replay lane. `qa/golden/fuzz.json` and `story-par.js` were rewritten. |
 
 Moonkeep (level 7) now uses user-authorized UFO flight and vertical dragon patrols.
 Its production clear is earned again with the flight controller. Historical
 `qa/golden-disabled` files remain unchanged: `--collision-disabled` explicitly disables sprite hitboxes,
 density barrages, and phase powerups before replaying those historical rules, and sets every
-`HISTORICAL_*` constant in `game.js` to true (the 1065 phase-one health, tells without a floor
-and the two saucer hitbox widths those runs were recorded under). It
+`HISTORICAL_*` constant in `game.js` to true (the 1065 phase-one health, tells without a floor,
+the two saucer hitbox widths, and the phase-2 entry and chase start those runs were recorded under). It
 excludes level 7's old grounded clear and its two stored fuzz hashes, while
 retaining exact checks for the other eleven levels. The original fixture order
 and RNG stream are preserved. All 24 fuzz runs still check determinism and

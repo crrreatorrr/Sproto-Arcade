@@ -2,7 +2,7 @@
  "level": 14,
  "title": "Sprotel Bitcoin",
  "bossId": "sprotel",
- "source": "tools/story-bot.mjs",
+ "source": "tools/refresh-story-goldens.mjs; existing story-bot inputs fully replayed on current simulation",
  "expect": {
   "ok": true,
   "kind": "boss",
@@ -10,11 +10,11 @@
   "bossId": "sprotel",
   "godMode": false,
   "ticks": 4726,
-  "endHash": "7cf9f09c170bd93d"
+  "endHash": "5ccee108faeace41"
  },
  "log": {
   "schema": 1,
-  "simVersion": "8639c0e463330d0b",
+  "simVersion": "947909cee9b92309",
   "seed": 24314,
   "rules": {
    "mode": "story",
@@ -30,7 +30,8 @@
    "kind": "boss",
    "stage": 14,
    "bossId": "sprotel",
-   "ticks": 4726
+   "ticks": 4726,
+   "endHash": "5ccee108faeace41"
   },
   "godMode": false
  }

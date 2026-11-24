@@ -29,6 +29,8 @@ Browser checks for these (Playwright's Chromium, not part of `qa/run-all.mjs`): 
 
 Rule changes of 2026-11-11 (each needed the owner's sign-off; details and the bot figures are in section 11 of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md`): a boss's phase 1 is twice its listed health and phase 2 its listed health; no ordinary tell lasts under 24 frames; the saucer has one hitbox width; Redkev has his own move order and signatures. A boss's phase 1 also has a second, shorter missile barrage, and pickups are spread over the phase.
 
+Rule changes of 2026-11-24 (owner request; details in `docs/PHASE-POWERUPS.md` and section 12 of `docs/GAMEPLAY-IMPROVEMENT-PLAN.md`): reaching phase 2 restores full hearts, as a phase-2 retry does; the first phase-2 attack lands after the arena banner has gone; the heart and the shield pickup never appear within 2.5 s of each other; the Rooftop chase ignores a held left for its first half second; standing fire reaches the phase-2 bosses of Last Light Bar and Circuit Gate (their damage boxes now cover the lower thrusters and the legs). The title screen's "Start at" opens on the first level the save has not cleared.
+
 ## Controls
 
 In Tidebreak Marina, steer an open-cockpit speedboat with any playable Sproto. C fires three horizontal torpedoes and V launches a bouncing water mine. Five ocean settings scroll past in Phase 1, and the storm arena marks Phase 2.

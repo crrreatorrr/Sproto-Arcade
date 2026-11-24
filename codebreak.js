@@ -20,7 +20,7 @@ const CODE_AIR_ATTACKS=[
   [7,0,2,5,1,3,6],
   [8,0,2,5,1,3,6]
 ];
-const CODE_ARENA_ATTACK_COUNT=7;
+const CODE_ARENA_ATTACK_COUNT=7, CODE_ARENA_BANNER=105;
 const CODE_CHARACTER_SCALE=.56;
 const CODE_MECHA_SCALE=.84;
 const CODE_BEAM_WARNING=48, CODE_BEAM_DURATION=24, CODE_SWEEP_DURATION=94;
@@ -201,9 +201,14 @@ function startCodebreakArena() {
   boss.x=1052;
   boss.y=FLOOR;
   boss.attackIndex=boss.age=0;
+  // The Sheriff's first volley leaves 42 ticks after his attack clock starts: hold the clock so it
+  // leaves just after the banner has gone.
+  if (!HISTORICAL_PHASE_TWO_ENTRY) boss.calm=CODE_ARENA_BANNER+1-42;
   Object.assign(player,{x:260,y:FLOOR,vy:0,grounded:true,airJump:true,airDash:true,dash:0,inv:70});
+  // Full hearts for the arena, as a phase-2 retry gives (enterPhaseTwo in game.js).
+  if (!HISTORICAL_PHASE_TWO_ENTRY) refillHearts();
   showLevelControls();
-  announce('BITCOIN SHERIFF · SIEGE MODE',105);
+  announce('BITCOIN SHERIFF · SIEGE MODE',CODE_ARENA_BANNER);
 }
 
 const CODE_PLAYER_WEAPONS={
@@ -285,7 +290,8 @@ function updateCodebreak() {
   } else {
     movePlayer();
     p.x=Math.min(p.x,b.x-200*CODE_MECHA_SCALE);
-    updateCodeAttack();
+    if (b.calm>0) b.calm--;
+    else updateCodeAttack();
     updateCodeShots();
     if (mode==='play') updateCodePlayerShots();
     if (!b.hp && mode==='play') {
