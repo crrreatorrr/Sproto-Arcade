@@ -71,7 +71,15 @@ try{
     await audit.page.evaluate(()=>window.__arcadeAssets.loadEverything());
     const union=new Set(await audit.page.evaluate(()=>[...window.__imagePaths]));
     // A PNG the game now draws from a WebP copy (portraits) counts as covered by that copy.
-    const missing=baseline.paths.filter(p=>!union.has(p)&&!union.has(p.replace(/\.png$/,'.webp'))&&!union.has(p.replace(/\.png$/,'-presentation.webp')));
+    // Art the old preload fetched that the game no longer draws, so no lazy group should carry it:
+    // the stage-shift blast frames, retired when phase changes became a background crossfade
+    // (commit dc54c09 removed drawStageShift and stageEffectFrame). A retired path that is still
+    // requested is a leftover and fails the check.
+    const RETIRED=[/^art\/attacks\/boss\/higgsfield\/stage-effects\//];
+    const retired=baseline.paths.filter(p=>RETIRED.some(r=>r.test(p)));
+    const stillLoaded=retired.filter(p=>union.has(p));
+    if(stillLoaded.length)throw Error('Retired art is still requested: '+stillLoaded.slice(0,10).join(', '));
+    const missing=baseline.paths.filter(p=>!retired.includes(p)&&!union.has(p)&&!union.has(p.replace(/\.png$/,'.webp'))&&!union.has(p.replace(/\.png$/,'-presentation.webp')));
     const extra=[...union].filter(p=>!baseline.paths.includes(p)).sort();
     if(audit.stats.failed.length)throw Error('Audit load failures '+JSON.stringify(audit.stats.failed.slice(0,10)));
     await audit.page.close();
@@ -97,7 +105,7 @@ try{
     if(missing.length)throw Error('Lazy groups miss '+missing.length+' old preload paths: '+missing.slice(0,10).join(', '));
     console.log(JSON.stringify({status:'passed',kind:'story-lazy-load-browser',
       before:{requests:baseline.requests,megabytes:baseline.megabytes,readyMs:baseline.readyMs},
-      after:coldStats,baselinePaths:baseline.paths.length,unionPaths:union.size,missing:0,extra,played,
+      after:coldStats,baselinePaths:baseline.paths.length,retiredPaths:retired.length,unionPaths:union.size,missing:0,extra,played,
       limitations:['Local HTTP timings; a remote host adds latency per request, which the smaller first load reduces further.']},null,2));
   }
 }finally{await browser.close();server.close();}
